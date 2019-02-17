@@ -66,12 +66,12 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local b = (string.byte(spriteData, i + spriteOffset) + (offset / 20)) * 3
+            local bt = (string.byte(spriteData, i + spriteOffset) + (offset / 20)) * 3
 
-            if b and b >= 1 then
-                local r,g,b = string.byte(paletteData, b),
-                              string.byte(paletteData, b+1),
-                              string.byte(paletteData, b+2)
+            if bt and bt >= 1 then
+                local r,g,b = string.byte(paletteData, bt),
+                              string.byte(paletteData, bt+1),
+                              string.byte(paletteData, bt+2)
                 love.graphics.setColor(r/255,g/255,b/255)
                 love.graphics.points(x+100, y+100)
             end
