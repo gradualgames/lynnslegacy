@@ -45,18 +45,13 @@ function love.draw()
     love.graphics.rectangle("line",50,50,100,100)
     love.graphics.points(110,110)
 
-    --The following code attempts to plot each color from
-    --ll.pal on the screen as a pixel. It does not work, everything
-    --comes up black.
-    --[
-    print("****")
     local i = 1
     for y=1,16 do
         for x = 1,16 do
-            local r,g,b = string.byte(paletteData, i),
+            local b,g,r = string.byte(paletteData, i),
                           string.byte(paletteData, i+1),
                           string.byte(paletteData, i+2)
-            print("red: "..r.." green: "..g.." blue: " ..b)
+            --print("red: "..r.." green: "..g.." blue: " ..b)
             love.graphics.setColor(r/255,g/255,b/255)
             love.graphics.points(x*2+200, y*2+100)
             i = i + 3
@@ -66,10 +61,10 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local bt = (string.byte(spriteData, i + spriteOffset) + (offset / 20)) * 3
+            local bt = (string.byte(spriteData, i + spriteOffset) + (offset / 16)) * 3
 
             if bt and bt >= 1 then
-                local r,g,b = string.byte(paletteData, bt),
+                local b,g,r = string.byte(paletteData, bt),
                               string.byte(paletteData, bt+1),
                               string.byte(paletteData, bt+2)
                 love.graphics.setColor(r/255,g/255,b/255)
@@ -79,6 +74,9 @@ function love.draw()
             i = i + 1
         end
     end
+
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print(offset / 16, 100, 50)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
