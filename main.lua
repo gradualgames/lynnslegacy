@@ -8,7 +8,9 @@ function love.load()
     canvasWidth,canvasHeight = canvas:getDimensions()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
-    paletteData, size = love.filesystem.read("ll.pal", 768)
+    paletteData = love.filesystem.read("ll.pal")
+
+    spriteData = love.filesystem.read("lynn24.spr")
 end
 
 function love.update(dt)
@@ -36,8 +38,25 @@ function love.draw()
                           string.byte(paletteData, i+2)
             print("red: "..r.." green: "..g.." blue: " ..b)
             love.graphics.setColor(r/255,g/255,b/255)
-            love.graphics.points(x*2+100, y*2+100)
+            love.graphics.points(x*2+200, y*2+100)
             i = i + 3
+        end
+    end
+
+    i = 1
+    for y=1,128 do
+        for x = 1,16 do
+            local b = string.byte(spriteData, i)
+            
+            if b and b >= 1 then
+                local r,g,b = string.byte(paletteData, b),
+                              string.byte(paletteData, b+1),
+                              string.byte(paletteData, b+2)
+                love.graphics.setColor(r/255,g/255,b/255)
+                love.graphics.points(x+100, y+100)
+            end
+            
+            i = i + 1
         end
     end
 
