@@ -1,5 +1,5 @@
 function love.load()
-    love.window.setMode(0, 0, {fullscreen = true})
+    --love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
 
     canvas = love.graphics.newCanvas(320,240)
@@ -12,7 +12,7 @@ function love.load()
 
     spriteData = love.filesystem.read("lynn24.spr")
 
-    offset = 1
+    offset = 0
 end
 
 function love.update(dt)
@@ -57,7 +57,7 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local b = string.byte(spriteData, i) + (offset / 10)
+            local b = (string.byte(spriteData, i) + (offset / 20)) * 3
 
             if b and b >= 1 then
                 local r,g,b = string.byte(paletteData, b),
