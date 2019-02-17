@@ -13,6 +13,7 @@ function love.load()
     spriteData = love.filesystem.read("lynn24.spr")
 
     offset = 0
+    spriteOffset = 0
 end
 
 function love.update(dt)
@@ -23,6 +24,14 @@ function love.update(dt)
 
     if love.keyboard.isDown("down") then
         offset = offset - 1
+    end
+
+    if love.keyboard.isDown("right") then
+        spriteOffset = spriteOffset + 16
+    end
+
+    if love.keyboard.isDown("left") then
+        spriteOffset = spriteOffset - 16
     end
 
 end
@@ -57,7 +66,7 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local b = (string.byte(spriteData, i) + (offset / 20)) * 3
+            local b = (string.byte(spriteData, i + spriteOffset) + (offset / 20)) * 3
 
             if b and b >= 1 then
                 local r,g,b = string.byte(paletteData, b),
