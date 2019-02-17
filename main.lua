@@ -11,9 +11,20 @@ function love.load()
     paletteData = love.filesystem.read("ll.pal")
 
     spriteData = love.filesystem.read("lynn24.spr")
+
+    offset = 1
 end
 
 function love.update(dt)
+
+    if love.keyboard.isDown("up") then
+        offset = offset + 1
+    end
+
+    if love.keyboard.isDown("down") then
+        offset = offset - 1
+    end
+
 end
 
 function love.draw()
@@ -46,8 +57,8 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local b = string.byte(spriteData, i)
-            
+            local b = string.byte(spriteData, i) + (offset / 10)
+
             if b and b >= 1 then
                 local r,g,b = string.byte(paletteData, b),
                               string.byte(paletteData, b+1),
@@ -55,11 +66,12 @@ function love.draw()
                 love.graphics.setColor(r/255,g/255,b/255)
                 love.graphics.points(x+100, y+100)
             end
-            
+
             i = i + 1
         end
     end
 
+    love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
 
     love.graphics.push() -- Push transformation state, The translate and scale will affect everything bellow until love.graphics.pop()
