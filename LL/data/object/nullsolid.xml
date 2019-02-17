@@ -1,0 +1,80 @@
+
+<nullsolid>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+    <rate> .19 </rate>
+    <dir_frames> 0 </dir_frames>
+
+  </sprite>
+
+  <uni_directional> 1 </uni_directional>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> 1 </invincible>
+  <impassable> 1 </impassable>
+  <action_sequence> 1 </action_sequence>
+  <walk_speed> .012 </walk_speed>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 3
+  <fp>
+
+    <func> set_happen </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> set_camera </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 5
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> logosta_console </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</nullsolid>
+

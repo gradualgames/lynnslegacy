@@ -1,0 +1,187 @@
+<moth>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\moth_die.spr </filename>
+    <rate> .18 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  //<impassable> 1 </impassable>
+  //<walk_length> 40 </walk_length>
+  //<walk_speed> .059 </walk_speed>
+  <walk_speed> .01 </walk_speed>
+  <uni_directional> 1 </uni_directional>
+  <strength> 0 </strength>
+  <invincible> -1 </invincible>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  //<action_sequence> 1 </action_sequence>
+  <hp> 1 </hp>
+  <flash_length> 80 </flash_length>
+  <flash_time> .02 </flash_time>
+
+  
+  // 0
+  <fp>
+
+    <func> return_idle </func>     
+
+  </fp>
+
+  // 1
+  <fp>
+
+    <func> do_nothing </func>     
+    <func> return_trig </func>     
+
+  </fp>
+  
+  // 2
+  <fp>
+
+    <func> active_anim_1 </func>     
+    <func> make_visible </func>     
+    <func> return_trig </func>     
+
+  </fp>
+  
+  // 3
+  <fp>
+
+    <func> make_visible </func>     
+    <func> return_trig </func>     
+
+  </fp>
+
+  // 4 '' appear
+  <fp>
+
+    <func> active_animate </func>     
+    <func> active_anim_0 </func>     
+    <func> return_trig </func>     
+
+  </fp>
+
+  // 5 '' disapp
+  <fp>
+
+    <func> active_anim_2 </func>     
+    <func> active_animate </func>     
+    <func> make_invisible </func>     
+    <func> return_trig </func>     
+
+  </fp>
+
+
+  // 6
+  <fp>
+
+    <func> push_lynn_back </func>     
+    <func> return_trig </func>     
+
+  </fp>
+
+
+  // 7
+  <fp>
+
+    <func> set_happen </func>     
+    <func> return_trig </func>     
+
+  </fp>
+
+  // 8
+  <fp>
+
+    <func> fade_down_to_color </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 9
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 10
+  <fp>
+
+    <func> move_backwards </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 11
+  <fp>
+
+    <func> move_normal </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 12
+  <fp>
+
+    <func> active_anim_3 </func>     
+    <func> idle_animate </func>     
+    <func> return_trig </func>     
+
+  </fp>
+  
+  // 13
+  <fp>
+
+    <func> flicker </func>
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 14
+  <fp>
+
+    <func> set_camera </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 15
+  <fp>
+
+    <func> active_anim_0 </func>
+    <func> active_anim_4 </func>
+    <func> active_anim_0 </func>
+    <func> active_anim_4 </func>
+    <func> active_anim_0 </func>
+    <func> active_anim_4 </func>
+    <func> active_anim_0 </func>
+    <func> active_anim_4 </func>
+    <func> active_anim_0 </func>
+    <func> active_anim_4 </func>
+    <func> active_anim_0 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 16
+  <fp>
+
+    <func> flicker </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+</moth>
+
+

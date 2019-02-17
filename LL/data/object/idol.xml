@@ -1,0 +1,44 @@
+
+<idol>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\nerme_idol.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 8 </y_off>
+    
+  </sprite>
+
+  <hp> 1 </hp>
+  <action_sequence> 1 </action_sequence>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> -1 </invincible>
+  <uni_directional> 1 </uni_directional>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> inc_sel_seq </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</idol>
+

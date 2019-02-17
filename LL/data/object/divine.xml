@@ -1,0 +1,72 @@
+
+<divine>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss6.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+
+  <direction> 0 </direction>
+  <impassable> -1 </impassable>
+  <hp> 30 </hp>
+  <real_y> 80 </real_y>
+  <real_x> 240 </real_x>
+  <uni_directional> 1 </uni_directional>
+  <jump_count> 20000 </jump_count>
+
+  <fly_speed> .009 </fly_speed>
+  <fly_length> 30 </fly_length>
+  
+  <isboss> -1 </isboss>
+  
+  <expl_delay> .17 </expl_delay>
+  <explosions> 10 </explosions>
+
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> divine_fireball </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> set_happen </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+
+</divine>
+

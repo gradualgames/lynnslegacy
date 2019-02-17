@@ -1,0 +1,90 @@
+
+<charger>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\charger_calm.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\charger_mad.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+
+  <hp> 1 </hp>
+  <invincible> -1 </invincible>
+  <real_x> 96 </real_x>
+  <real_y> 96 </real_y>
+  <walk_speed> .0005 </walk_speed>
+
+  <expl_delay> .17 </expl_delay>
+  <explosions> 6 </explosions>
+  <expl_y_size> 32 </expl_y_size>
+  <expl_x_size> 128 </expl_x_size>
+  <expl_y_off> 48 </expl_y_off>
+  <expl_x_off> 0 </expl_x_off>
+  <jump_count> 20000 </jump_count>
+  
+  <strength> 1 </strength>
+  
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+  
+
+  <vision_field> 96 </vision_field>
+  <froggy> 1 </froggy>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+    <proc_id> reset_state </proc_id>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+    <proc_id> jump_state </proc_id>
+    <func> charger_charge </func>
+    <func> second_pause </func>
+    <func> cool_down </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+</charger>
+

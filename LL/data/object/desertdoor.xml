@@ -1,0 +1,56 @@
+
+<desertdoor>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\desertdoor.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <mace_weak> 1 </mace_weak>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <fly_length> 0 </fly_length>
+  <fly_speed> 0 </fly_speed>
+  <flash_time> 0 </flash_time>
+  <flash_length> 0 </flash_length>
+  <walk_speed> .027 </walk_speed>
+  <impassable> 1 </impassable>
+  <uni_directional> 1 </uni_directional>
+  <placed> -1 </placed>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> do_nothing </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> play_seq </func>
+    <func> active_animate </func>
+    <func> cripple </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</desertdoor>
+

@@ -1,0 +1,2 @@
+the red knight outfit is much slower than the normal suit, and you can't attack with it. (can use powders/items though)
+however, when wearing it, your hp slowly regenerates. (around 1 hp every 3 seconds)

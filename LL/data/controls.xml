@@ -1,0 +1,16 @@
+
+<key_map>
+
+  <action> 57 </action>
+  <attack> 29 </attack>
+  <item> 56 </item>
+  <move_up> 17 </move_up>
+  <move_right> 32 </move_right>
+  <move_down> 31 </move_down>
+  <move_left> 30 </move_left>
+  <item_down> 83 </item_down>
+  <item_up> 79 </item_up>
+  <menu> 1 </menu>
+
+</key_map>
+

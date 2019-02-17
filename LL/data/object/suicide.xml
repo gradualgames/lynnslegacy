@@ -1,0 +1,42 @@
+
+<suicide>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\suicide_guard.spr </filename>
+    <rate> .18 </rate>
+    <x_off> 32 </x_off>
+    <y_off> 24 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  <impassable> 1 </impassable>
+  <strength> 0 </strength>
+  <invincible> -1 </invincible>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <action_sequence> 1 </action_sequence>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> return_idle </func>     
+
+  </fp>
+
+
+  <fp>
+
+    <func> active_animate </func>
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+
+</suicide>
+

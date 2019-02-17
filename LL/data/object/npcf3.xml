@@ -1,0 +1,77 @@
+
+<npcf3>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\npcf3.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  <impassable> 1 </impassable>
+  <walk_length> 40 </walk_length>
+  <walk_speed> .019 </walk_speed>
+  <strength> 0 </strength>
+  <invincible> -1 </invincible>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <action_sequence> 1 </action_sequence>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> after_moenia_townspeople </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+    <proc_id> jump_state </proc_id>
+    <func> infinity </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> make_face </func>
+    <func> return_jump_npc </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> return_reset_npc </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 5
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</npcf3>
+

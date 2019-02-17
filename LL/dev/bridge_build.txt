@@ -1,0 +1,40 @@
+Setting up bridges:
+
+First, set up a button.
+
+Add one sequence.
+
+Add one entity.
+Set it to "give orders to" the number of the button.
+(Will say - Enemy[x] above it, so you can see)
+
+Add one command.
+
+Add one block.
+
+Set "Func" to 2.
+Set chap to an "open event number"
+
+(NOTE: follow dungeon numbering conventions;
+moenia = 100 - 199, gelidus = 200 - 299, ignia = 300 - 399, etc...)
+
+Now, go to "Spawn..." for the button, Click "Conditional" to make it say yes.
+
+Change # of kills to 1
+
+Index: "open event number"
+State: 1
+
+
+
+Now, the bridge is easy, just place it where you want
+
+Modify "Spawn..."
+
+# of waits = 1
+
+Index: "open event number"
+State: 1
+
+(NOTE: This must be done for ALL bridge "tiles")
+

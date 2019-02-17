@@ -1,0 +1,92 @@
+
+<ghut>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\goblindoor_dead.spr </filename>
+    <y_off> -8 </y_off>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+
+  <walk_length> 40 </walk_length>
+  <walk_speed> .059 </walk_speed>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <fly_speed> 0 </fly_speed>
+  <fly_length> 0 </fly_length>
+  <strength> 1 </strength>
+  <spawn_y> 16 </spawn_y>
+  <spawns_id> data\object\roamer.xml </spawns_id>
+  <mace_weak> 1 </mace_weak>
+  <hp> 8 </hp>
+  <maxhp> 8 </maxhp>
+  <impassable> 1 </impassable>
+  <invincible> 1 </invincible>
+  <direction> 0 </direction>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> make_enemy </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_2 </func>
+    <func> active_animate </func>
+    <func> cripple </func>
+    <func> active_anim_1 </func>
+    <func> kill_all_temps </func>
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+
+  <fp>
+
+    <func> infinity </func>
+
+  </fp>
+
+
+</ghut>
+

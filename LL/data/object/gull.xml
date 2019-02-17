@@ -1,0 +1,132 @@
+
+<gull>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\gull.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 6 </dir_frames>
+
+  </sprite>
+  
+  <snd>
+    <index> sound_sea </index>
+    <channel> channel_sea </channel>
+    
+  </snd>
+    
+  <snd>
+    <index> sound_crateting </index>
+    <channel> fsound_free </channel>
+    <vol> 50 </vol>
+    
+  </snd>
+    
+  <snd>
+    <index> sound_bassdrop </index>
+    <channel> fsound_free </channel>
+    
+  </snd>
+    
+  <snd>
+    <index> sound_gulls2 </index>
+    <channel> fsound_free </channel>
+    <vol> 25 </vol>
+    
+  </snd>
+    
+  
+  
+  <uni_directional> 1 </uni_directional>
+  <low_frame> .03 </low_frame>
+  <high_frame> .08 </high_frame>
+  <hp> 1 </hp>
+  <no_cam> 1 </no_cam>
+  <fade_time> .06 </fade_time>
+  <jump_time> 8 </jump_time>
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+  <unstoppable_by_screen> 1 </unstoppable_by_screen>
+  <walk_speed> .03 </walk_speed>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> gen_frame </func>
+    <func> move_up </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> move_upright </func>
+    <func> timed_jump </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 3
+  <fp>
+
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> fade_to_white </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 4
+  <fp>
+
+    <func> flash </func>
+    <func> flash_down </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 5
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> stop_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 7
+  <fp>
+
+    <func> flash </func>
+    <func> flash_down_gray </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+
+</gull>
+

@@ -1,0 +1,37 @@
+
+<batdoor>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <uni_directional> 1 </uni_directional>
+  <impassable> 1 </impassable>
+  <invincible> 1 </invincible>
+  <maxhp> 8 </maxhp>
+  <hp> 8 </hp>
+  <spawns_id> data\object\bat.xml </spawns_id>
+  <spawn_y> 16 </spawn_y>
+  <fly_length> 0 </fly_length>
+  <fly_speed> 0 </fly_speed>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <walk_speed> .059 </walk_speed>
+  <walk_length> 40 </walk_length>
+
+  <fp>
+
+    <func> second_pause </func>
+    <func> make_enemy </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</batdoor>
+

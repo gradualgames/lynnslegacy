@@ -1,0 +1,103 @@
+<boss5_down>
+
+  <sprite>
+
+    <filename>data\pictures\char\boss5_down.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <filename>data\pictures\char\boss5_down_flash.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <filename>data\pictures\char\boss5_down_dead.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\mole_beam.spr </filename>
+    <rate> .080 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+
+  <proj_style> PROJECTILE_BEAM </proj_style>
+  <proj_dur> 80 </proj_dur>
+  <proj_size> 2 </proj_size>
+  <proj_str> 1 </proj_str>
+
+  <hp>4</hp> 
+  <placed>-1</placed> 
+  <real_x>112</real_x> 
+  <real_y>96</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <impassable>1</impassable> 
+  <fireworks> 1 </fireworks>
+
+  <expl_delay> .17 </expl_delay>
+  <explosions> 10 </explosions>
+
+  <fp>
+
+    <func> half_second_pause </func>
+    <func> cond_jump </func>
+    <func> trigger_projectile </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> q_second_pause </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_2 </func>
+    <func> explode </func>
+    <func> infinity </func>
+
+  </fp>
+
+  <fp>
+    <func> idle_animate </func>
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> active_anim_2 </func>
+    <func> make_visible </func>
+    <func> infinity </func>
+
+  </fp>
+
+</boss5_down>

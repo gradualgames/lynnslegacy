@@ -1,0 +1,27 @@
+Bugs and other annoying little things >.>
+
+[X] Suggestion: When Lynn comes through the portal and the static disappears, maybe there should be a white flash as it disappears.
+
+[X] "Lynn: Your problem is taken care of.Now get out of my sight... There's somewhere I need to be."
+    ...lacking a space at "...taken care of.Now get..."
+
+[X] Suggestion: Maybe when Richard 'locks himself in his house' there should be a bardoor/keydoor covering the entrance to his house. (the house in the lower right corner)
+
+[X] One of the townswomen doesn't say anything... Not a huge problem, but for consistency maybe she should have a line. Even just "..." :p
+
+[X] When you exit a house at the same location as an NPC, the game freezes.
+
+[X] "Blonde Lady: To the north theres a huge gate. It leads to the Valley Swarm. That place was blocked off ages ago due to an infestation. Now noone's allowed near it. Not like anyone would actually want to..."
+    ..."To the north theres" should be "To the north there's". "noone's" should be "no one's"
+
+In the first conversation with moth, before Gelidus:
+
+"Lynn: You mean... That seed i found...?"
+..."i" should be "I".
+
+"Moth: No. This apparition is for the benefit of others only.Please... enter the portal. I believe you will find another of my pieces within."
+...Missing space at "...of others only.Please..."
+
+Moth should appear and disappear with a transition animation-- I forgot to make it and get it to you, I'll send it along with this file.
+
+Game randomly freezes up (no pun intended) in Gelidus. I think it's after playing for a certain amount of time, not sure. Maybe a memory problem? I dunno (also: can't just exit like previous freezes, I have to ctrl+alt+del it)

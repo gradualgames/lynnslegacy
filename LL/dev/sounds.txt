@@ -1,0 +1,27 @@
+alarm_loop.ogg - looping 'frenzied alarm' sound for the core
+
+beam_charge.ogg - looping sound for the steel strider's energy charging anim, stops when the statue crushes it
+
+coreclunk.ogg - sound for when the core 'lands' (hits the floor)
+
+ferus_beepsound.ogg - ferus's 'mechanical beeping sound'
+
+ferus_camera.ogg - the clicking sound for when the creature takes pictures of Llnn in the holographics chamber
+
+ferus_step.ogg - 'telltale mechanical sound' that the creature/ferus makes when it walks. (would be nice to have it make this sound during the boss fight as it walks too, but not necessary)
+
+garbled.ogg - the garbled sound that ferus makes before it dies
+
+gunfire.ogg - firing sound for turrets
+
+limboloop.ogg - looping ambience for the intro screen to limbo. (the screen where forceface appears and the text describing limbo, right after the old sarrael seq)
+
+mothdie.ogg - moth's death sound
+
+pod_open.ogg - podguy's pod opening sound
+
+rumble.ogg - sound for the statue shaking the screen/crushing the steel strider. could also be used for when the core turns to corebroke
+
+single_alarm.ogg - alarm sound for when the red lights come on
+
+turret.ogg - sound for turrets popping up

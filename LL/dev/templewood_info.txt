@@ -1,0 +1,31 @@
+templewood bridgebox sequence:
+
+before the player has the bridgebox, if the small swamp 'chasm' in templewood is approached (16/6 room 0) and used, the following happens: "Lynn: I can't cross this patch of swamp. I'll find a way over later..."
+
+if the player has the bridgebox:
+"Lynn: Hmm... I wonder if these materials I found will work."
+fade out. On the black screen, text prints:
+"Not bad..."
+fade up. There is a bridge across the swamp. (the sprite should be commited now, in /char)
+
+~~~
+
+templewood portal sequence:
+
+ent 0 = lynn
+ent 1 = moth
+ent 2 = portalw
+
+
+fade to white
+cam on portal
+fade to color
+lynn approaches
+moth appears
+
+~dialogue~
+
+moth disappears
+
+
+the portal is at 68/6. there is static around it, and some small patches throughout the screen to lead the player to it from the room's entrance. when the player gets close (passes through the small gap at around 69/11), the pre-nerme cutscene begins.

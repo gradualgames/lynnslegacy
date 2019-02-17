@@ -1,0 +1,28 @@
+
+<gold>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\gold.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 100 </hp>
+  <placed> -1 </placed>
+  <invincible> 1 </invincible>
+  <strength> 0 </strength>
+  <dropped> 2 </dropped>
+  <n_gold> 1 </n_gold>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+</gold>
+

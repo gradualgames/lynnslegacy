@@ -1,0 +1,48 @@
+
+<gbutton>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\button2_up.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\button2_down.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <placed> -1 </placed>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <touch_sequence> 1 </touch_sequence>
+  <fade_time> .10 </fade_time>
+  <dead_sound> sound_switch </dead_sound>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> active_anim_0 </func>
+    <func> off_happen </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> set_happen </func>
+
+  </fp>
+
+
+</gbutton>
+

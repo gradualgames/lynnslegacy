@@ -1,0 +1,32 @@
+
+<sign>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\sign2.spr </filename>
+    <y_off> 8 </y_off>
+
+  </sprite>
+
+
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 8 </real_y>
+  <invincible> -1 </invincible>
+  <impassable> -1 </impassable>
+  <strength> 0 </strength>
+  <action_sequence> 1 </action_sequence>
+  <fade_time> .01 </fade_time>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+</sign>
+

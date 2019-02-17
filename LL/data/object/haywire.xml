@@ -1,0 +1,130 @@
+
+<haywire>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\haywire_walk.spr </filename>
+    <rate> .0 </rate>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\haywire_shoot.spr </filename>
+    <madrate> .12 </madrate>
+    <dir_frames> 2 </dir_frames>
+
+    <sound>
+
+      <frame> 0 </frame>
+      <uni_sound> -1 </uni_sound>
+      <index> sound_gunfire </index>
+      <vol> 35 </vol>
+       
+    </sound> 
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .00 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .13 </rate>
+
+  </sprite>
+
+
+  <proj_style> PROJECTILE_ORB </proj_style>
+  <proj_size> 1 </proj_size>
+  <proj_invis> 1 </proj_invis>
+  <proj_dur> 60 </proj_dur>
+  
+  <impassable> 1 </impassable>
+  
+  <walk_length> 40 </walk_length>
+  <walk_speed> .005 </walk_speed>
+  <hp> 1 </hp>
+  <strength> 2 </strength>
+  <vision_field> 96 </vision_field>
+  <shifty> 1 </shifty>
+  <must_align> 1 </must_align>
+  <froggy> 1 </froggy>
+  <lose_time> 0 </lose_time>
+  <jump_time> 3 </jump_time>
+  <real_y> 32 </real_y>
+  <real_x> 32 </real_x>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> timed_jump_2 </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> timed_jump_2 </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> timed_jump_2 </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> timed_jump_2 </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> make_align </func>
+    <func> make_face </func>
+    <func> directional_animate </func>
+    <func> trigger_projectile </func>
+    <func> return_jump_1 </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> active_anim_0 </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</haywire>
+

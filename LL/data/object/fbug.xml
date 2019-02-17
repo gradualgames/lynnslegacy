@@ -1,0 +1,83 @@
+
+<fbug>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\firebug.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .008 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_DIAGONAL </proj_style>
+  <proj_dur> 60 </proj_dur>
+  <proj_size> 1 </proj_size>
+  <proj_str> 1 </proj_str>
+
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <strength> 1 </strength>
+  <hp> 2 </hp>
+  <fly_length> 10 </fly_length>
+
+  <walk_speed> .019 </walk_speed>
+  <walk_length> 20 </walk_length>
+  <d_health> 80 </d_health>
+  <dead_sound> sound_explosion </dead_sound>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_dead </func>
+    <func> dead_animate </func>
+    <func> cripple </func>
+    <func> drop </func>
+    <func> active_anim_0 </func>
+    <func> trigger_projectile </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</fbug>
+

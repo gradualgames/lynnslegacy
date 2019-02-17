@@ -1,0 +1,56 @@
+<steelpower>
+
+  <sprite>
+
+    <filename>data\pictures\char\strider_charge.spr</filename> 
+    <dir_frames> 8 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <filename>data\pictures\char\strider_pulsate.spr</filename> 
+    <dir_frames> 8 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <hp>1</hp> 
+  //<placed>1</placed> 
+  <real_x>32</real_x> 
+  <real_y>32</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <impassable>1</impassable> 
+
+  <fp>
+
+    <func> active_animate </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> do_nothing </func>
+
+  </fp>
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</steelpower>

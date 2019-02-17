@@ -1,0 +1,25 @@
+<icecloud>
+  <sprite>
+    <filename>data\pictures\char\icepoof.spr</filename> 
+    <dir_frames> 4 </dir_frames>
+    <rate>.05</rate> 
+  </sprite>
+
+  <low_frame> .03 </low_frame>
+  <high_frame> .07 </high_frame>
+
+  <hp>1</hp> 
+  <real_x>32</real_x> 
+  <real_y>32</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+
+  <fp>
+
+    <func> gen_frame </func>
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+
+</icecloud>

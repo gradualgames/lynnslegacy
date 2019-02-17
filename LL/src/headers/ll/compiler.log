@@ -1,0 +1,38 @@
+Usage: fbc [options] inputlist
+
+inputlist:     xxx.a = library, xxx.o = object, xxx.bas = source
+               xxx.rc = resource script, xxx.res = compiled resource
+
+options:
+-a <name>      Add an object file to linker's list
+-arch <type>   Set target architecture (default: 486)
+-b <name>      Add a source file to compilation
+-c             Compile only, do not link
+-d <name=val>  Add a preprocessor's define
+-dll           Same as -dylib
+-dylib         Create a DLL, including the import library
+-e             Add error checking
+-ex            Add error checking with RESUME support
+-exx           Same as above plus array bounds and null-pointer checking
+-export        Export symbols for dynamic linkage
+-g             Add debug info
+-i <name>      Add a path to search for include files
+-include <name> Include a header file on each source compiled
+-l <name>      Add a library file to linker's list
+-lib           Create a static library
+-m <name>      Main file w/o ext, the entry point (def: 1st .bas on list)
+-map <name>    Save the linking map to file name
+-mt            Link with thread-safe runtime library
+-nodeflibs     Do not include the default libraries
+-noerrline     Do not show source line where error occured
+-o <name>      Set output name (in the same number as source files)
+-p <name>      Add a path to search for libraries
+-profile       Enable function profiling
+-r             Do not delete the asm file(s)
+-s <name>      Set subsystem (gui, console)
+-t <value>     Set stack size in kbytes (default: 1M)
+-target <name> Cross-compile to: cygwin dos linux xbox
+-v             Be verbose
+-version       Show compiler version
+-x <name>      Set executable/library name
+-w <value>     Set min warning level

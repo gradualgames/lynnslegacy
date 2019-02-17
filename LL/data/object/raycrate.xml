@@ -1,0 +1,136 @@
+
+<raycrate>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\ray_crate.spr </filename>
+    <rate> .34 </rate>
+    <dir_frames> 4 </dir_frames>
+    <sound>
+      <frame> 2 </frame>
+      <index> sound_rayflap2 </index>
+      
+    </sound> 
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\raycrateburn.spr </filename>
+    <rate> .34 </rate>
+    <dir_frames> 8 </dir_frames>
+    <sound>
+      <frame> 2 </frame>
+      <index> sound_rayflap2 </index>
+      
+    </sound> 
+    <sound>
+      <frame> 6 </frame>
+      <index> sound_rayflap2 </index>
+      
+    </sound> 
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\raycrateburn2.spr </filename>
+    <rate> .34 </rate>
+    <dir_frames> 4 </dir_frames>
+    <sound>
+      <frame> 2 </frame>
+      <index> sound_rayflap2 </index>
+      
+    </sound> 
+
+  </sprite>
+
+  <walk_speed> .045 </walk_speed>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+  <unstoppable_by_screen> 1 </unstoppable_by_screen>
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  //<proj_style> 69 </proj_style>
+  <jump_time> 38 </jump_time>
+  <no_cam> 1 </no_cam>
+  <real_y> 88 </real_y>
+  <real_x> 80 </real_x>
+  <high_frame> .28 </high_frame>
+  <low_frame> .13 </low_frame>
+  <expl_delay> .02 </expl_delay>
+  <explosions> 40 </explosions>
+  <uni_directional> 1 </uni_directional>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> gen_frame </func>
+    <func> move_up </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> explode </func>
+    <func> move_up </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> active_anim_2 </func>
+    <func> move_up </func>
+    <func> gen_frame </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> active_anim_3 </func>
+    <func> move_up </func>
+    <func> gen_frame </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 5
+  <fp>
+
+    <func> idle_animate </func>
+    <func> jump_2_back </func>
+    <func> do_nothing </func>
+    
+  </fp>
+
+
+</raycrate>
+

@@ -1,0 +1,30 @@
+
+<sonic_bubble>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\sonic_bubble.spr </filename>
+    <rate> .04 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <uni_directional> 1 </uni_directional>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <walk_speed> .044 </walk_speed>
+  <walk_length> 25 </walk_length>
+  <direction> 0 </direction>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> cell_bounce </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</sonic_bubble>
+

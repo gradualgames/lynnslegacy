@@ -1,0 +1,35 @@
+Lynn stands at 24/18 (tile), with one archaeologist a few tiles to the left of her (by the blue pod), and a few more of them to the right walking around.
+
+“So this is the island, huh? …Strange. I didn’t think it would look so… surreal…”
+
+The archaeologist on the left walks up to her.
+
+“Well, this is uncharted land. You never know what you’ll find, but personally, I don’t think it’s…”
+
+Lynn turns away.
+
+“Yeah, yeah. Spare me your crazy theories. Where’s this item I’m supposed to escort back?”
+
+“You will see it soon.”
+
+Lynn turns back to the archaeologist and walks up to him.
+“What else do you hope to find here, anyway? You’ve found what you came for.”
+
+“We don’t know what else there is to find here… There could be more caverns, more artifacts. We can’t risk leaving them behind if more exist.”
+Lynn walks away, to stand by the shoreline.
+“Just remember that you’re paying me by the hour for my services.”
+
+Fade up to white again, then down to a different part* of the same island. Several archaeologists are gathered around a crate. Lynn stands nearby, again.
+One of the archaeologists approaches the crate.
+Lynn walks up to the crate, and the archaeologist steps aside.
+
+“Is this what you want me to escort back? I assume it will be carried on a separate Wyvern Ray?”
+
+“Of course.”
+
+“Good—Then let’s go. I don’t like this place…”
+
+*On the 'different part' of the island in this same sequence, the crate is 8px down and right of the tile 30/11. (in the middle of the 'metal' looking patch of ground) Lynn stands a couple tiles below it, and some archaeologists are on either side.
+
+final island sequence:
+Moth2 stands at 30/28. Lynn stands at 32/28.

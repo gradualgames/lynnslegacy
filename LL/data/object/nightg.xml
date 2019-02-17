@@ -1,0 +1,87 @@
+
+<nightg>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\nightg.spr </filename>
+    <rate> .03 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <maxhp> 4 </maxhp>
+  <hp> 4 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 8 </real_y>
+  <fire_weak> 1 </fire_weak>
+  <ice_weak> 1 </ice_weak>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+  <walk_speed> .029 </walk_speed>
+  <walk_length> 60 </walk_length>
+  <strength> 1 </strength>
+  <d_health> 50 </d_health>
+  <d_silver> 50 </d_silver>
+  <n_silver> 1 </n_silver>
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <block_macro> fire_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <block_macro> ice_block </block_macro>
+
+  </fp>
+
+
+
+
+</nightg>
+

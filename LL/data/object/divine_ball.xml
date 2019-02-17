@@ -1,0 +1,73 @@
+<divine_ball>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\fireball_big.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .003 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <hp> 1 </hp>
+  <real_x> 32 </real_x>
+  <real_y> 32 </real_y>
+  <invincible> -1 </invincible>
+  <invisible> 1 </invisible>
+  <strength> 1 </strength>
+  <vision_field> 32 </vision_field>
+  <uni_directional> 1 </uni_directional>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 75 </fly_length>
+
+  <walk_length> 50 </walk_length>
+  <walk_speed> .011 </walk_speed>
+  
+  <placed> 1 </placed>
+
+  <proj_style> PROJECTILE_SCHIZO </proj_style>
+  <proj_dur> 100 </proj_dur>
+  <proj_str> 2 </proj_str>
+  
+  
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+  
+  // '' fly at
+  <fp>
+
+    <func> make_visible </func>
+    <func> walk </func>
+    <func> trigger_projectile </func>
+    <func> make_invisible </func>
+    <func> divine_ball_return </func>
+
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> cripple </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+
+</divine_ball>

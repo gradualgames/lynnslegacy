@@ -1,0 +1,168 @@
+## '' change to the location of your FreeBASIC compiler #####################################
+
+
+    FBC := fbc
+
+###########################################################################################
+
+
+
+
+## '' flags  
+
+#################################################################################
+
+
+llflags += -d ll_main=-1
+
+
+ifdef full
+    ll_audio = 1
+
+endif
+
+ifdef fulldebug
+    debug = 1
+    exx_err = 1
+    
+    -d LL_OBJECTLOADPROGRESS=-1
+    -d LL_LOGMAPLOADPROGRESS=-1
+    -d LL_LOGROOMCHANGE=-1
+    -d LL_LOGRoomEnemySetup=-1
+
+endif
+
+ifdef err
+    llflags += -e
+
+
+endif
+
+ifdef ex_err
+    llflags += -ex
+
+
+endif
+
+ifdef exx_err
+    llflags += -exx
+
+
+endif
+
+ifdef debug
+    llflags += -g
+
+
+endif
+
+ifdef trace
+    llflags += -d __trace__=-1
+
+
+endif
+
+ifdef profile
+    llflags += -profile
+
+
+endif
+    
+ifdef ll_audio
+    llflags += -d ll_audio=-1
+
+
+endif
+    
+ifndef console
+    llflags += -s gui
+
+
+endif
+    
+ifdef catch_err
+    errtrap += > trap_error.txt
+
+
+endif
+    
+
+###########################################################################################
+
+
+
+
+## '' headers...
+###########################################################################################
+
+    
+    utility_headers += ../headers/utility.bi 
+    utility_headers += ../generic/fb_Global.bi 
+
+    all_headers += $(utility_headers)
+
+
+###########################################################################################
+
+
+
+
+## set up targets
+###########################################################################################
+
+    target_exe := ../../CollisionBoxes.exe
+    target_src := collisiontool.bas
+
+    objpath = obj
+    com_srcpath := ../com
+
+    com_sources += utility.bas
+    com_sources += engine--images.bas
+    com_sources += lists.bas
+    com_sources += gfx.bas
+    
+    unique_sources += fb_Global.bas
+    unique_sources += tControl.bas
+
+
+    unique_objects := $(patsubst %.bas,$(objpath)/%.o,$(unique_sources)) 
+
+    com_objects := $(patsubst %.bas,$(objpath)/%.o,$(com_sources)) 
+    
+    ll_objects = $(unique_objects) $(com_objects)
+
+###########################################################################################
+
+
+
+
+## compile
+###########################################################################################
+
+
+$(objpath)/%.o : $(com_srcpath)/%.bas $(all_headers)
+	$(FBC) $(llflags) -c $< -o $@ $(errtrap)
+    
+$(objpath)/%.o : %.bas $(all_headers)
+	$(FBC) $(llflags) -c $< -o $@ $(errtrap)
+
+    
+$(target_exe): $(target_src) $(ll_objects) 
+	$(FBC) $(errtrap) $(llflags) $(target_src) $(ll_objects) -x $(target_exe) 
+
+
+###########################################################################################
+
+
+
+
+
+
+
+
+###########################################################################################
+
+.PHONY : clean
+clean:
+	rm -f $(ll_objects)
+	rm -f ../../$(target_exe)     

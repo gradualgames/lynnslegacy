@@ -1,0 +1,15 @@
+in the town portal sequence, after lynn hears the "Lynn... Enter...", we gain control of her. (ditch the "wha... I..." line) We can enter the portal to go straight to interport, or walk around town-- But if we try any exit (houses, left/right exits, north exit), we get the following dialog:
+
+"Lynn: I probably shouldn't leave those people to mess with that portal by themselves."
+
+If you feel like it, you can give the npcs dialogue when the player talks to them. Anything within context should work, though generally they're mesmerized by the portal/static and shouldn't be TOO talkative. (even just "..." would work for most/all of them)
+
+In the sequence leading up to Lynn entering the portal, there's a line that seems a bit awkward:
+
+"You're lucky this friggin stick is all I have"
+
+Perhaps 'friggin' should be changed to 'useless' or 'damn' or something. It just seems out of place as it is.
+
+(also, during the post-grult sequence, the line "May I ask who the hell you are?" should probably be replced with "Are you gonna tell me who you are?")
+
+When Lynn is given gold (eg. by the farmer by the goblin house, or by Eldqyd), it should say "Received [x amount]!".

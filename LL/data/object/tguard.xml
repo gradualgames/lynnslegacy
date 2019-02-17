@@ -1,0 +1,65 @@
+
+<tguard>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\tinguard.spr </filename>
+    <rate> .03 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 13 </fly_length>
+  <walk_length> 40 </walk_length>
+  <walk_speed> .059 </walk_speed>
+  <hp> 3 </hp>
+  <strength> 1 </strength>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <d_health> 80 </d_health>
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> randomize_path </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</tguard>
+

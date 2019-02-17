@@ -1,0 +1,23 @@
+
+The blue chest with the adrenaline booster is at 19/16 in l_lab, room 0. When we get it:
+
+"Found the Adrenaline Booster!"
+
+"Use this to do double the damage you do, but lose three health as a side effect. The Adrenaline Meter will also be disabled for the duration."
+
+When used, the screen flashes white and the adrenaline meter disappears. When the adrenaline ends, the meter reappears.
+
+
+
+
+
+
+The blue chest with the healing symbol in it is at 26/16 (intentionally difficult to spot) in room 3 of valley.map. When we get it:
+
+"Found the Healing Symbol!"
+
+"Use this item to regenerate one health point at the cost of one gold."
+
+When used, heal.spr (same size as Lynn) is displayed over lynn and a healing sound is played-- I'll make and send the sound soon
+
+-----

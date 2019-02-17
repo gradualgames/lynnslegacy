@@ -1,0 +1,50 @@
+
+<seedfloat>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\seedfloat.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <placed> -1 </placed>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <touch_sequence> 1 </touch_sequence>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <fade_time> .1 </fade_time>
+  <impassable> 1 </impassable>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> fade_to_white </func>
+    <func> fade_to_black </func>
+    <func> return_trig </func>
+
+  </fp>
+       
+  // 2
+  <fp>
+
+    <func> flicker </func>
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</seedfloat>
+

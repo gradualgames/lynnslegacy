@@ -1,0 +1,97 @@
+
+<ibug>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\icebug.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\icechunk.spr </filename>
+    <rate> .008 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_DIAGONAL </proj_style>
+  <proj_dur> 60 </proj_dur>
+  <proj_size> 1 </proj_size>
+  <proj_str> 1 </proj_str>
+
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <strength> 1 </strength>
+  <hp> 1 </hp>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+  <walk_speed> .013 </walk_speed>
+  <walk_length> 20 </walk_length>
+  <d_health> 50 </d_health>
+  <dead_sound> sound_explosion </dead_sound>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    
+    <func> make_dead </func>
+    <func> active_anim_dead </func>
+    <func> dead_animate </func>
+    <func> cripple </func>
+    <func> drop </func>
+    <func> active_anim_0 </func>
+    <func> trigger_projectile </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</ibug>
+

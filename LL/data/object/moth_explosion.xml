@@ -1,0 +1,41 @@
+<moth_explosion>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <strength> 0 </strength>
+  <invincible> -1 </invincible>
+  <uni_directional> 1 </uni_directional>
+
+  <real_y> 64 </real_y>
+  <real_x> 64 </real_x>
+
+  <placed> 1 </placed>
+
+  <hp> 1 </hp>
+
+  
+  // 0
+  <fp>
+
+    <func> return_idle </func>     
+
+  </fp>
+
+  // 1
+  <fp>
+
+    <func> explode_lynn </func>     
+    <func> return_trig </func>     
+
+  </fp>
+  
+
+
+</moth_explosion>
+

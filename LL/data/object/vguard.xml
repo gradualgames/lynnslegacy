@@ -1,0 +1,100 @@
+
+<vguard>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\vguard.spr </filename>
+    <rate> .04 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <walk_length> 25 </walk_length>
+  <walk_speed> .019 </walk_speed>
+  <spawns_id> data\object\roamer.xml   </spawns_id>
+  <hp> 3 </hp>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 13 </fly_length>
+  <strength> 1 </strength>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_dead </func>
+    <func> dead_animate </func>
+    <func> cripple </func>
+    <func> drop </func>
+    <func> active_anim_0 </func>
+    <func> q_second_pause </func>
+    <func> make_enemy </func>
+    <func> make_enemy </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</vguard>
+

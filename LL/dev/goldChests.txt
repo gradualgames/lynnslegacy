@@ -1,0 +1,37 @@
+make an enemy, "chest"
+
+add one sequence
+
+add two entities.
+
+entity 0 = -1 ( will say main char )
+
+entity 1 = index number( if its enemy 4, then 4 )
+
+
+3 commands
+
+command 0
+  slave: 1
+  func: 2
+  chap: num_of_gold
+
+command 1
+  slave: txt
+  text: Found num_of_gold gold pieces!
+
+command 2
+  func: 59
+  chap: unique_number. Start at 2000. LOG YOUR ENTRIES IN EVENTLOG.TXT :P
+
+
+
+click on spawn...
+
+click conditional till it's yes
+
+
+click # of kills, enter 1
+
+click index, enter the number you chose for unique_number
+click state, until it's 1

@@ -1,0 +1,35 @@
+
+<consign>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\constr.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <action_sequence> 1 </action_sequence>
+  <real_x> 64 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> -1 </invincible>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> inc_sel_seq </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</consign>
+

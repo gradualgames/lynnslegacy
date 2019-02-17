@@ -1,0 +1,168 @@
+
+<menu>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\title.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\begin.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\begin_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\continue.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\continue_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\quit.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\quit_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file1.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file1_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file2.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file2_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file3.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file3_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file4.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file4_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+  <no_cam> 1 </no_cam>
+  <walk_speed> 1 </walk_speed>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> do_menu </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> do_menu_continue </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</menu>
+

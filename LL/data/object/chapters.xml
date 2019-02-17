@@ -1,0 +1,89 @@
+<chapters>
+
+  // 0
+  <sprite>
+
+    <filename> data\pictures\2.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  // 1
+  <sprite>
+
+    <filename> data\pictures\3.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  // 2
+  <sprite>
+
+    <filename> data\pictures\4.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  // 3
+  <sprite>
+
+    <filename> data\pictures\5.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>144</real_x> 
+  <real_y>112</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <impassable>1</impassable> 
+  
+  <fade_time> .053 </fade_time>
+  
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <func> set_anim </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 2
+  <fp>
+
+    <func> fade_to_black </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 3
+  <fp>
+
+    <func> fade_up_to_color </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> color_off </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</chapters>

@@ -1,0 +1,81 @@
+
+<squirrel>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\squirrelnew.spr </filename>
+    <rate> .06 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <snd>
+    <index> sound_crickets </index>
+    
+  </snd>
+
+  <uni_directional> 1 </uni_directional>
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  <walk_speed> .027 </walk_speed>
+  <fade_time> .10 </fade_time>
+  <vol_fade_time> .2 </vol_fade_time>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> fade_up_to_color </func>
+    <func> home </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> set_vol_fade </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> destroy </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</squirrel>
+

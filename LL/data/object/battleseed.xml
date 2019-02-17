@@ -1,0 +1,124 @@
+<battleseed>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\seed.spr </filename>
+    <rate> .18 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\seed_cracked.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\seedzap.spr </filename>
+    <rate> .28 </rate>
+
+  </sprite>
+
+  <snd>
+
+    <index> sound_crateting </index>
+    <vol> 70 </vol>
+    
+  </snd>
+
+  
+  //<strength> 30 </strength>
+  //<invincible> -1 </invincible>
+  <impassable> -1 </impassable>
+  <real_y> 64 </real_y>
+  <real_x> 64 </real_x>
+  <hp> 45 </hp>
+  <dead_sound> none </dead_sound>
+  <isboss> 1 </isboss>
+  
+  // 0
+  <fp>
+
+    <func> return_idle </func>     
+
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flash </func>
+    <func> seed_random_loc </func>     
+    <func> flash_down </func>
+    <func> do_nothing </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    // disappear
+    <func> make_dead </func>     
+    <func> q_second_pause </func>     
+    <func> play_seq </func>     
+    <func> infinity </func>     
+    <func> flash </func>     
+    <func> play_sound </func>     
+    <func> active_anim_1 </func>     
+    <func> flash_down </func>     
+    <func> kill_song </func>     
+    <func> cripple </func>     
+    //<func> return_trig </func>     
+
+  </fp>
+
+  // 3
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> active_anim_1 </func>     
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 5
+  <fp>
+
+    <func> set_camera </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> do_nothing </func>
+    <func> active_anim_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 7
+  <fp>
+
+    <func> active_animate </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</battleseed>
+
+

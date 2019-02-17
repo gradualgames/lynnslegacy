@@ -1,0 +1,62 @@
+
+<button>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\button.spr </filename>
+    <rate> .08 </rate>
+    <x_off> 4 </x_off>
+    <y_off> 4 </y_off>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\button_down.spr </filename>
+    <x_off> 4 </x_off>
+    <y_off> 4 </y_off>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 8 </real_x>
+  <real_y> 8 </real_y>
+  <placed> -1 </placed>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <touch_sequence> 1 </touch_sequence>
+  <fade_time> .10 </fade_time>
+  <dead_sound> sound_switch </dead_sound>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> fade_up_to_color </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> set_happen </func>
+    <func> play_dead_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</button>
+

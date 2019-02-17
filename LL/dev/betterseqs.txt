@@ -1,0 +1,282 @@
+Desert thief seq: (with Nerme Idol)
+When we reach the desert thief blocking the way, we talk to him. The following scene occurs:
+“Desert Thief: Hold it! What’s that you’ve got there…? Looks like…”
+“Lynn: You mean this?”
+Lynn backs up a step and the Nerme Idol appears in between her and the thief.
+“Desert Thief: That’s…! That’s gotta be one of a kind! Amazing!”
+“Lynn: Heh.”
+“Desert Thief: Gimme that! I’ll… I’ll let you through, no trouble!”
+The desert thief grabs the Idol (eg. the idol disappears when he walks over it) and runs off the screen to the west. (Lynn moves north a tile, out of the way, as he does) We go east, off the screen using the exit he was blocking, and enter Evernight.
+
+Pre-Logosta seq: (after the Divius boss)
+Slowly fade out.
+Music stops.
+White text prints on the black screen:
+“It is difficult to believe.”
+“Finally… I am whole again.”
+Fade back in to the Divius Dimension (boss room). Moth stands in front of Lynn in the center of the screen (moth = above lynn), and there is the final seed fragment floating to the left of them both.
+“Moth: Take the seed.”
+“Lynn: Is this…?”
+“Moth: Take it!”
+Lynn walks over to the seed and takes it. (the seed flickers and disappears)
+She walks back and turns to face Moth.
+“Moth: Give me… the pieces… all the seeds. All of them!”
+"Lynn gave moth the seed fragments!"
+Moth flickers for a moment. The the visage of ForceFace appears over him for a split second, then disappears.
+The screen fades up to white then down quickly (like the cutscene transition), and when it fades back down Moth and Lynn are standing on a black screen (but in the same location as in Divius).
+“Moth: Lynn!”
+“Moth: I am…”
+“Moth: Truth!”
+The quick white fade happens again, and it fades back down to the Divius dimension. Where Moth used to be, there is now a huge seed… The Dimension Seed.
+“???: I am the dimension seed. I am the guardian of the confiscated dimensions, the creation of Man, and the Stasis Ruler of Logosta, the one true world!”
+Lynn takes a step backwards.
+“Dimension Seed: And I greet you, Lynn, with my thanks. I am whole once more…”
+“Lynn: …Moth?”
+Moth appears in front of Lynn.
+“Moth: No. We are…”
+Moth disappears.
+“Dimension Seed: We are one.”
+A massive portal opens up over the Dimension Seed.
+“Dimension Seed: The portal to Logosta is open. I am grateful, and so I will carry out my orders. Enter the portal, Lynn. I will show you true and pure happiness, the way humans were meant to live.”
+“Lynn: Do I have a choice?”
+“Dimension Seed: I could give you a choice, but why? You will soon live in total bliss.”
+“Lynn: I’ll take that as a ‘no.’”
+“Lynn: (well… here goes nothing… not like I have anywhere else to go, and this job has gotten crazy enough as it is…)
+Lynn steps through the portal (she flickers out, just like when she enters a normal portal). It closes behind her, taking the dimension seed with it. (anim)
+Fade out.
+
+Logosta entry sequence:
+Text fades up on the black screen: “Chapter 3”
+Fade in to L_entry, room 0. (music: logosta)
+A portal opens at 16/10, and Lynn steps through. It closes behind her.
+Lynn walks left to 13/12, then up to 13/3, left to 9/3, then finally turns to face the pods on the wall.
+“Lynn: …”
+“Lynn: ‘True and pure happiness?’”
+Lynn takes a few steps to the right.
+“Lynn: What is this…?”
+(text without box) “Lynn. Do not resist. Master Ferus will take you to your pod.”
+“Lynn: Pod?!”
+Lynn walks left a couple tiles, then turns north to stare at the people inside the pods on the wall.
+“Lynn: Gotta get out of here!”
+
+Notes: Ignore 'the hum of the projectors' in the Logosta holographics seq and the entire 'The Creature' seq.
+
+[logosta_events.txt]
+
+Post-Logosta seq: (waking up on 'dry' Evernight peak)
+The 'Chapter 4' graphic fades in on the screen, stays as long as the other chapter graphics, then fades out.
+Fade back up to show Lynn lying on the summit of Evernight Peak. The portal and the static are both long gone. The ground is cracked and brown.
+(music: after)
+“Lynn: …”
+Lynn gets up. (anim-- same as the one of her getting up from the start of the game, but with brown grass around her instead of green. I'll tweak it and commit it soon)
+“Lynn: How long…?”
+Lynn looks around.
+“Lynn: Evernight peak? What’s happened here?”
+We gain control of Lynn and walk south, down the mountain, until we exit the screen and enter Central Evernight. Here the ground is dry and cracked as well, and the trees are withered. Weathered skeletons are scattered around.
+Lynn looks around.
+“Lynn: These corpses are old. I must have been out cold for a long time…”
+Lynn takes a step down.
+“Lynn: This must be the Dimension seed’s work. Trying to give me a reason… I’ve got to see if anyone’s still alive. Maybe they can tell me exactly what happened and how long it’s been…”
+Fade out.
+Text prints on the black screen:
+"Some time later..."
+Fade in to Sarrael Field, which is now also dry and burnt.
+The camera is focused on the east exit (the one leading to the desert). Lynn is standing here, apparently just having come from the desert/Evernight.
+"Lynn: Finally... I'm back."
+Note: If we try to go back to the desert, we get the following:
+"Lynn: No way am I going back. There's nothing to find there, anyway."
+(all the other exits except the south exit are blocked off now)
+We go south to what used to be the entrance to Sarrael City, and find a strange man blocking the way (in the 'dry' version of this map, there is a sort of barrier blocking the way except for one tile in the middle, which is where the man stands). We talk to him. (note: he uses a generic NPC sprite)
+“Man: …Lynn?”
+“Lynn: Yeah. Do I know you?”
+“Man: My apologies… We have not met before, but I recognize you. My master has informed me of your appearance.”
+“Lynn: Your master…?”
+“Man: Come. He has been waiting for you.”
+The man walks off the screen to the south, and we follow. Sarrael City is in utter ruin (the left and right exits are blocked by rubble), and all the water is dried up. We head towards the center of the map.
+The following cutscene is triggered at the same spot as the first portal seq:
+(after the quick fade to white signalling a sequence, the camera is centered on Richard and his 'assistant')
+Mayor Richard stands at 23/40. The 'man' stands at 24/41.
+Lynn walks down from off-camera (x: 20) until she reaches 20/30. She then walks right to 23/30, then walks down to 23/35.
+“Lynn: Mayor Richard?! What are you doing here?”
+“Richard: You have already spoken the answer… I am, or was, mayor of Sarrael City. I cannot leave it, especially not in ruins… Every day I ridicule myself for not going into the portal personally on that day. You did your job, but…”
+“Lynn: …But you think you should’ve been the one?”
+Lynn takes a step down.
+“Lynn: I don’t think you’re aware of what I’ve been through. I’ve been places you can’t imagine, fought things you don’t even want to imagine… Let me educate you…”
+Slowly fade out.
+Wait, then slowly fade back in.
+“Lynn: …And now I’m back here.”
+“Richard: In any other circumstances I don't think I would believe you. However, things have changed… I am deeply sorry for ever doubting you.”
+“Lynn: Don't worry about it. Now certainly isn’t a time for quarrels. But there are some questions I would like answered. The world is dead. So are most of its people, from what I gather.”
+“Richard: Yes… all except me, you, and Samson here. We survived purely by luck, or so I believe...”
+“Lynn: So. Samson tells me you’ve been waiting for me.”
+“Richard: You are the only one I ever knew of that could be of any use in this situation. I suspected you might have died along with all the others, but I had to hope…”
+Lynn takes a step away from Richard and remains facing away.
+“Lynn: You know something.”
+“Richard: There is a new portal that has appeared in my house. I’ll give you the key…”
+Lynn turns back to Richard and walks up to him.
+“Received Key to Richard’s House.”
+“Richard: It’s somewhat different than the ones you have encountered. I have only ventured through it once. It leads to the Valley Swarm.”
+“Lynn: The Valley Swarm? Wasn’t that sealed off years ago?”
+“Richard: Yes…that is why I’ve been waiting for you.”
+“Lynn: Great… I have to go through that infested hellhole… Good thing it might get me closer to what I’m looking for.”
+“Richard: What are you looking for?”
+Lynn takes a few steps north and turns to face the left.
+“Lynn: …Another portal. Hopefully it’ll take me straight to the Dimension Seed… Where I can finally end this once and for all.”
+Lynn turns back to face Richard.
+“Lynn: Oh, one more thing. How long has it been? Since the disaster?”
+“Richard: No one knows, Lynn…”
+“Lynn: …”
+We gain control of Lynn and go to Richard’s house, and open the door. (keydoor) Inside there are random blots of static, red this time, and in the center of the room there is a bright crimson portal. We step through it… Fade out.
+Fade in to Valley Swarm. Everything here is tinted red, and all manner of monsters swarm about. A red portal opens at the bottom of the screen, and Lynn steps from it.
+“Lynn: (so this is where he wants me to go, huh?)”
+(music: valley)
+We gain control of Lynn and break a small marker stone barrier ahead of us, then proceed to fight our way through Valley Swarm. Apart from the monsters already here, goblins constantly swarm out from hollow tree trunks (spawned just like the ghut-- their spawning points should be fairly obvious already). The entire area consists of six screens, with a healing symbol at the end of the third one. Once we get past all the screens, we find ourselves in a small clearing with a huge insect-like maggot creature preventing any further passage. It spawns smaller bug-like enemies from its sides, and we must hit its eye until it suddenly explodes-- It has 3 rows of health. (many green explosions flicker over it until it is gone)
+
+Old Sarrael seq:
+We go through the now-open path, and find ourselves in a strange, long-ruined ghost town. (music: amb) There is a sign at the entrance. When we use it:
+"Welcome to Sarrael City!"
+“Lynn: ‘Old Sarrael’… I thought it was just a rumor…”
+All the houses are totally ruined.
+We continue through the place until we reach 16/27 (or 17/27) in room 1 (we can see some blue static at this point), then there is a fade to white signalling a cutscene. fade back down and Lynn is standing at 16/25 (but a half tile to the right so she's centered). Pan up to show all the blue static (less of it than usual so the player can see the reddish patch of ground in the map) and the portal at the middle. Pan back down to center on Lynn. (note: the portal is in the exact center of the reddish patch of ground)
+Richard walks on to the screen from the south until he stands at 16/28.
+Music abruptly stops. No transition.
+Lynn turns south, to face Richard.
+“Lynn: Richard?”
+“Richard: Do you think I’d let you go alone?”
+Richard flickers for a moment.
+“Lynn: …”
+“Richard: The truth is, you’re going to die. I’ve just come to watch.”
+Richard suddenly disappears. No effect or transition. He appears again a moment later just to the right of Lynn, and she turns to face him.
+“Lynn: You’re not real, are you?”
+Suddenly, ghosts start appearing (appearing like moth; I'll make the anim. Btw, they'll just use the poltergeist sprite) all over the screen to the left and right of Lynn and Richard. (all facing them)
+“Richard: Real as…”
+Richard turns east, towards the ghosts on the right.
+“Richard: …them.”
+Lynn turns west to face the ghosts on the left side of the screen.
+Suddenly the ghost of Frederic appears immediately to the left of Lynn. (so she's already facing him)
+“Frederic: We’re as real as you’ll be the moment you step through that portal, Lynn! Don’t be foolish!”
+The ghost of the Desert Thief appears directly above Lynn, and she turns to face him.
+“Desert Thief: We’re only as real as you want us to be, missy. Make up your mind.”
+“Lynn: All of you… go… away!”
+The screen flashes white and suddenly all the ghosts are gone.
+-Bassdrop-
+“Lynn: I don’t need you…”
+Lynn walks through the portal.
+Fade out.
+
+Limbo entry seq:
+Black screen. Harsh, searing wind-like ambience plays.
+Slowly the visage of ForceFace fades up directly in the center of the screen. It fades out soon after.
+Red text, without a box, prints slower than usual on the screen:
+“Halfway between earth and hell, but never completely stable, a being made of light slowly turned to darkness. An impossible creature stretching its vast bulk across the infinite body of the cosmos, serving as a gateway between the tangible and the unthinkable…”
+The text disappears.A final line of red text prints in the middle of the screen:
+“Limbo, the Gateway Dimension.”
+Fade out.
+Fade in to Limbo. (music: limbo) A blue portal opens at the bottom of the screen (tile location: 7/22) and Lynn steps into the dimension. The portal closes behind her.
+Text, without a box:
+“There’s no going back now…”
+We gain control of Lynn and proceed through the dungeon. This dungeon is different from the others: When you enter each new room, all exits are immediately closed off until you solve the ‘puzzle’ in the room. It can be anything from killing all the eyes on the walls, to destroying all the tendrils in the room, to finding a hidden switch or solving a simple block puzzle.
+The dungeon is divided up into these sections: (listed in order)
+Nervous Tract
+Stomach
+Outer Brain
+Thalamus
+When we reach the Thalamus, fade out.
+
+Final seq/battle:
+The "Chapter 5/Resolution" graphic fades in on the screen.
+It stays as long as the other chapter graphics, then fades out.
+Fade in to the Thalamus.
+We only have to solve a few rooms before getting to the final area. In the center of the final, large room, there is a sort of organic pedestal with many tendrils that are spread across the floor. In the middle of the pedestal sits the Dimension Seed. The camera pans up until the seed is in the center of the screen, stays there a moment, then pans back down.
+
+
+
+“Dimension Seed: I knew you’d make it. I suppose I should apologize for my sudden and total hatred of you, but please, try to imagine my position. Logosta was my home... No, more than that. it was my life’s work to guard and protect it. My creators were careful to make this certain so that I would not rebel. You must understand that when someone does as you have done… I cannot forgive them.”
+“Lynn: Your home? What about this place?”
+“Dimension Seed: ‘This place’ is my body.”
+“Lynn: But--”
+“Dimension Seed: No more. Now we fight.”
+Pan up again until the seed is in the center of the screen.
+The dimension seed disappears (anim), and we gain control of Lynn and enter the door at the top of the screen.
+(music: apox)
+The room we find ourselves in is a large, slightly maze-like chamber. The dimension seed is nowhere to be seen. Moth walks on to the screen from the north.
+“Moth: Come on. You’re only human!”
+Moth disappears.
+The fight begins. Moth appears on a random platform (one of 5 throughout the room: 13/41, 17/62, 60/51, 44/26, and 65/16) and we cannot damage him directly. We must make our way through the room and find the dimension seed, and strike it. Once we gain a hit, it teleports to another area of the maze, and we must find it again. (the locations it can appear at are: 2/47, 2/61, 68/46, 33/19, and 66/2) It takes 8 hits. Whenever Moth appears on one of the raised sections, he casts a spell:
+Either lightning (balls of lightning shoot out from him in a spiralling pattern like ferus, in 8 directions, and do 2 damage each if they hit), flame (the screen flashes red and we are damaged by 1 point unless he is not visible), or Light (a flickering white orb is shot in our direction, homes in, and does 4 damage if it hits).
+In the middle of the room there are three healing symbols, but each can only be used once. (they flicker away after being used)
+Once we beat the boss, Moth disappears (with his dying sound) and the Dimension Seed cracks with a white flash and a 'ting' sound.
+Music stops.
+“Dimension Seed: This is not the end…!”
+There is a fade to white (cutscene style), and the dimension seed is in the middle of the room. Lynn is standing beside it (to the right), in place for the following animation. She is then sucked into the Dimension Seed.
+Fade out.
+Fade in to a black screen-- Lynn stands in front of the inner face of the seed, the ‘Seed Master’. (music: master)
+“Dimension Seed: How do you feel now, Lynn? How do you feel, now that you’re imprisoned in a place you can never escape? It must be terrible.”
+“Lynn: Let me out!”
+Moth appears to the left of the Seed Master, facing down.
+“Moth: No.”
+Another Moth appears to the right of the Seed Master, facing left.
+“Moth2: Let her go, brother. She does not deserve what you call revenge. What happened to you is your own fault.”
+Moth turns towards Moth2.
+“Moth: ‘Brother’? We are not brothers… Only facets of the same artificial mind! You know this!”
+“Moth2: Correct. You are irrationality; I am logic.”
+“Moth: You…!”
+“Lynn: …”
+Moth takes a few steps towards Moth2.
+“Moth: I’ll have your head!”
+“Moth2: Suicide? Not advisable.”
+“Moth: Argh…! Leave me be!”
+“Moth2: We have equal rights to be here, dear brother. You must realize that what may seem like your schizophrenia is just a countermeasure to your possible insanity. That is the only reason why I am here.”
+“Moth: Our creators would never hinder our possibilities with such inconvenience! You speak with lies!”
+
+
+“Moth2: Inconvenience? I think not. Listen to yourself, brother, and ask yourself again if your actions are truly right.”
+Moth runs up to Moth2, but fades out as he does. (done through an animation)
+The face of the Seed Master flickers and disappears.
+Moth2 walks west, to the very center of the screen and turns south to face Lynn, then walks up to her until they are 1 and a half tiles apart (vertically).
+“Moth2: I am truly sorry, Lynn. All this was the fault of my creators. They should never have attempted to seek out what they could never have… Come. Let me show you something…”
+A flickering green beam connects Moth2 and Lynn.
+Fade up to white.
+Music fades.
+Slowly fade down to show Moth2 and Lynn on the ‘mysterious island’.
+(music: final)
+
+
+
+“Lynn: This is… The island! The island where they found the seed…”
+“Moth2: Yes. Do you recognize it now, Lynn? Think.”
+“Lynn: …”
+Lynn looks around.
+“Lynn: …Logosta…”
+“Moth2: Correct. This island is the result of dimensional bleeding… It was the heart of Logosta, once. It was the resting place of what is now my body, the Dimension Seed. My creators had calculated a small chance of dimensional bleeding, but they never expected it would be the heart of their world that bled through. The chances were far too low. Though nonetheless, it happened anyway.”
+Moth2 takes a step to the right.
+“Moth2: None of this should ever have taken place, Lynn. Soon I will reattach this island to Logosta and return to my body. Limbo, the twisted product of my late twin, will be destroyed. I apologize, but there is nothing I can do about your world. It pains me that I must be so utterly useless, but I can only hope that someday your descendants will flourish in the future of your land. Now… I must ask one more thing of you.”
+Lynn walks to the right until she is vertically aligned with Moth2, and turns to face him. Moth2 turns south to face Lynn.
+“Lynn: What?”
+“Moth2: The sapling you first used as a weapon. Do you remember?”
+“Lynn: Of course.”
+“Moth2: Give it to me.”
+“Lynn: But… why?”
+“Moth2: In his madness to be whole again, my brother neglected to mention his final piece… The last seed fragment that would restore full power to him. Without it… I was able to overthrow him. The seed fragments did not spawn portals the moment they fell, Lynn. Once they come into contact with the earth, they begin to grow at an extremely accelerated rate—Once the plant reaches maturity it forms a portal. The entire process is not a long one, but it seems the seed nearest to you had not reached full maturity yet. When you uprooted it…”
+Fade out, then fade in to show a flashback of Lynn standing by the sapling for a moment, then pulling it out.
+Text without a box:
+“You aborted the formation of a portal. If it had formed… If all the pieces had been collected… I would never have been able to free you.”
+Fade out, then in to the island.
+“Moth2: Please. Give me the sapling. Without it I will not be able to restore this island to its proper dimension.”
+Lynn hands Moth2 the sapling. (animation. they are still 1 and a half tiles apart)
+Moth2 disappears.
+Text, without a box:
+“Thank you, Lynn. I am in your debt. A wyvern ray is en route to take you back to the mainland.”
+Fade out. Music fades out along with the screen. Text prints on the now-black screen.
+(music: theme)
+“I don’t think I’ll ever recover from what I’ve been through. To tell the truth, I don’t think anyone is meant to go through something like that…”
+Fade down.
+Slowly fade up to Lynn flying over water on a Wyvern Ray, alone. 
+Hold this image for a short time, then fade up to white.
+Greenish/blue (the shade of the textbox text) text prints without a box:
+“But I’ll keep going for as long as I can. There’s got to be more to this world… more than just a single continent. I’m determined to find new land, a place where maybe, just maybe, I can finally rest.”
+Slowly fade out.
+Greenish/blue (same shade) prints on the black screen:
+“But… I doubt it.”
+Fade out.
+Roll credits.

@@ -1,0 +1,22 @@
+When we talk to the 'suicide guard': (he stands on the edge of the ledge as the first frame of suicide_guard.spr. It's placed two tiles to the left of the end of the ledge)
+
+"Soldier: ..."
+"Lynn: ...Hello?"
+"Soldier: ... ..."
+"Lynn: (I can't make out what he's trying to say)"
+"Soldier: ...Turned them into drones..."
+"Lynn: He's nuts. I don't have time for this."
+Lynn turns away and takes a couple steps towards the door.
+"Soldier: DON'T LEAVE!"
+Lynn turns (but doesn't walk) back towards him.
+"Soldier: I don't want to talk to myself anymore..."
+"Lynn: ...What?"
+"Soldier: I have to hide from them, but I remember what every one of them used to be like... I remember their faces."
+"Lynn: You're not like them, are you?"
+"Soldier: I knew them. When we first came to this place, trying to find a new home..."
+"Soldier: I can't watch them any longer. They're only shells now."
+"Soldier: Logosta, forgive me..."
+Lynn walks towards him again.
+"Lynn: Wait!"
+The Soldier lets himself fall off the ledge. (the rest of the suicide_guard.spr anim)
+"Lynn: ...I'm just as lost here as he was."

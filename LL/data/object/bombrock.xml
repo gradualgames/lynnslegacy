@@ -1,0 +1,57 @@
+
+<bombrock>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\bombrock.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <frame> 0 </frame>
+  <mace_weak> 1 </mace_weak>
+  <fire_weak> 1 </fire_weak>
+  <strength> 0 </strength>
+  <invincible> -1 </invincible>
+  <fly_length> 0 </fly_length>
+  <fly_speed> 0 </fly_speed>
+  <flash_time> 0 </flash_time>
+  <flash_length> 0 </flash_length>
+  <walk_speed> .027 </walk_speed>
+  <impassable> 1 </impassable>
+  <uni_directional> 1 </uni_directional>
+  <dead_sound> none </dead_sound>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_animate </func>
+    <func> cripple </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</bombrock>
+

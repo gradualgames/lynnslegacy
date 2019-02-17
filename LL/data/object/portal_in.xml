@@ -1,0 +1,71 @@
+
+<portal_in>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\portal_in.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\portal_out.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <snd>
+    <index> sound_portal </index>
+    
+  </snd>
+
+  <hp> 1 </hp>
+  <real_x> 48 </real_x>
+  <real_y> 48 </real_y>
+  <placed> -9 </placed>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <sounds> 1 </sounds>
+
+  // 0
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+  // 1
+  <fp>
+
+    <func> active_animate </func>
+    <func> active_anim_1 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  
+  // 2
+  <fp>
+
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  
+  // 3
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+</portal_in>
+

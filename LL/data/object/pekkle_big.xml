@@ -1,0 +1,42 @@
+<pekkle_big>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\big_pekkle.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <walk_length> 40 </walk_length>
+  <walk_speed> .059 </walk_speed>
+  <hp> 1 </hp>
+  <real_y> 24 </real_y>
+  <real_x> 24 </real_x>
+  <fly_speed> 0 </fly_speed>
+  <fly_length> 0 </fly_length>
+  <strength> 0 </strength>
+  <spawn_y> 12 </spawn_y>
+  <spawn_y> 24 </spawn_y>
+  <spawns_id> data\object\pekkle_blue.xml </spawns_id>
+  <invincible> 1 </invincible>
+  <impassable> 1 </impassable>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> make_enemy </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+
+</pekkle_big>
+

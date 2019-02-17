@@ -1,0 +1,15 @@
+notes:
+added missing bardoors in room(s) 41, 54
+
+room 116 is where the Divius Star is acquired. I think this is either in the script or in a txt, but if not (or if the script has problems) I'll make a txt.
+
+switch in room 9 opens bars in room 11
+switch in room 10 opens bars in room 3
+switch in room 24 opens bars in room 41
+switch in room 34 opens bars in room 29
+switch in room 37 opens the south bars in room 38
+switch in room 39 opens the south bars in the same room
+switch in room 51 opens the west bars in room 53
+switch in room 52 opens the bars in room 54
+switch in room 57 opens the bars in room 55
+switch in room 79 opens the bars in room 78

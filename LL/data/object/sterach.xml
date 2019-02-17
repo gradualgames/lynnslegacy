@@ -1,0 +1,185 @@
+<sterach>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss4_appear.spr </filename>
+    <x_off> 8 </x_off>
+    <y_off> 16 </y_off>
+    <rate> .23 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss4.spr </filename>
+    <dir_frames> 1 </dir_frames>
+    <x_off> 8 </x_off>
+    <y_off> 16 </y_off>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss4_vanish.spr </filename>
+    <x_off> 8 </x_off>
+    <y_off> 16 </y_off>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\sterach_arms.spr </filename>
+    <x_off> 8 </x_off>
+    <y_off> 16 </y_off>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+
+
+  <hp> 20 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> -1 </invincible>
+  <invisible> 1 </invisible>
+  <strength> 1 </strength>
+  <impassable> 0 </impassable>
+  <vision_field> 32 </vision_field>
+  <uni_directional> 1 </uni_directional>
+  <jump_count> 15000 </jump_count>
+  <fly_speed> .01 </fly_speed>
+  <fly_length> 35 </fly_length>
+  
+  <isboss> -1 </isboss>
+  
+  <expl_delay> .17 </expl_delay>
+  <explosions> 30 </explosions>
+  
+  // 0 '' point
+  <fp>
+
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+    <func> q_second_pause </func>
+    <func> cond_jump </func>
+    <func> make_invisible </func>
+
+    
+    <func> sword_jump </func>
+    <func> q_second_pause </func>
+    <func> make_visible </func>
+    <func> make_vulnerable </func>
+    <func> active_animate </func>
+    
+    
+    <func> infinity </func>
+
+  </fp>
+  
+  // 1
+  <fp>
+    // '' he's catching the sword
+
+    <func> q_second_pause </func>
+    <func> flash </func>
+    <func> flash_down </func>
+    <func> active_anim_2 </func>
+    <func> active_animate </func>
+    
+    <func> make_invisible </func>
+    <func> make_invincible </func>
+
+    <func> active_anim_0 </func>
+    
+    <func> return_idle </func>
+
+  </fp>
+
+  // 2
+  <fp>
+
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+  
+  // 3
+  <fp>
+
+    <func> fade_to_black </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 4
+  <fp>
+
+    <func> set_happen </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+
+  // 5
+  <fp>
+
+    <func> infinity </func>
+
+  </fp>
+  
+
+</sterach>

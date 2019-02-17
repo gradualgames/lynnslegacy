@@ -1,0 +1,11 @@
+Key Door #0 - Room[4], Index[0]   [330]
+Key Door #0 - Room[5], Index[3]   [330]
+
+Key Door #2 - Room[19], Index[0]  [331]
+Key Door #2 - Room[18], Index[13] [331]
+
+Key Door #3 - Room[27], Index[21] [332]
+Key Door #3 - Room[28], Index[8]  [332]
+
+Key Door #1 - Room[6], Index[1]   [333]
+Key Door #1 - Room[7], Index[0]   [333]

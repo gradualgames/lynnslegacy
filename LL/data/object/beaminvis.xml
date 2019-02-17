@@ -1,0 +1,42 @@
+
+<beaminvis>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+    <dir_frames> 0 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\mole_beam.spr </filename>
+    <rate> .080 </rate>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_BEAM </proj_style>
+  <proj_dur> 30 </proj_dur>
+  <proj_size> 2 </proj_size>
+  <proj_str> 1 </proj_str>
+
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <invincible> -1 </invincible>
+  <hp> 1 </hp>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> half_second_pause </func>
+    <func> trigger_projectile </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</beaminvis>
+

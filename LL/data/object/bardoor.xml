@@ -1,0 +1,43 @@
+
+<bardoor>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\bar_door.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 32 </real_x>
+  <real_y> 32 </real_y>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <touch_sequence> 1 </touch_sequence>
+  <fade_time> .10 </fade_time>
+  <impassable> 1 </impassable>
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> if_all_dead </func>
+    <func> set_happen </func>
+    <func> make_dead </func>
+    <func> cripple </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> off_happen </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</bardoor>
+

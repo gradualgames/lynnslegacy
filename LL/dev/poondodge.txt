@@ -1,0 +1,48 @@
+positions of the outfits on the floor:
+cat suit: 8/12
+ninja suit: 10/12
+lynnity: 12/12
+swimsuit: 9/14
+red knight: 11/14
+
+when we enter the house, poondodge speaks: (this scene only plays once)
+"Man: Welcome! My name's Poondodge."
+"Lynn: ...Poondodge?"
+"Poondodge: Yup! I'm a tailor. Feel free to look around."
+"Poondodge: Just examine whatever item you want to know more about!"
+
+text for when we examine each outfit:
+
+cat suit:
+"Poondodge: This is one of my favorites. It'll get you where you wanna go, and fast!"
+
+ninja suit: (incomplete)
+"Poondodge: I haven't finished this one yet... It's made of a special kind of silk, and I'm fresh out."
+
+ninja suit: (complete)
+"Poondodge: In combat, you have to be quick. This outfit should give you a helping hand in that area... I'll give it to you for free since you helped me out."
+
+lynnity:
+"Poondodge: You'll feel great wearing this one. It really gets the adrenaline flowing!"
+
+swimsuit:
+"Poondodge: Um... I don't care much for this one. It was requested by a friend of mine, actually. It doesn't have much use as far as I can tell."
+
+red knight:
+"Poondodge: This one's too heavy to move very fast in, let alone swing your weapon... But just a few minutes in this suit will leave you feeling great."
+
+when we examine the ninja suit once we have the evernight silk:
+"Poondodge: Hey, is that Evernight Silk? Great! I can finally finish this outfit!"
+fade out, then in. the outfit on the floor is now completed.
+
+when we examine an outfit, after the description, there is a "Buy this outfit for __ gold? yes/no" dialog. the prices of the outfits are as follows:
+
+cat suit: 10 gold
+
+ninja suit: free after giving poondoge the silk
+
+lynnity: 35 gold
+
+swimsuit: 5 gold
+
+red knight: 50 gold

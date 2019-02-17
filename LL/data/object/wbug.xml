@@ -1,0 +1,66 @@
+
+<wbug>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\watbug_walk.spr </filename>
+    <rate> .04 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\watbug_spill.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <walk_speed> .015 </walk_speed>
+  <walk_length> 25 </walk_length>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</wbug>
+

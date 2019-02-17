@@ -1,0 +1,46 @@
+
+<worker>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\hardhat.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  <invincible> -1 </invincible>
+  <impassable> 1 </impassable>
+  <maxhp> 2 </maxhp>
+  <hp> 2 </hp>
+  <action_sequence> -1 </action_sequence>
+  <strength> 0 </strength>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <walk_speed> .059 </walk_speed>
+  <walk_length> 40 </walk_length>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> make_face </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</worker>
+

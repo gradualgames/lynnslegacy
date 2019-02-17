@@ -1,0 +1,84 @@
+
+<launcher>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\launcher.spr </filename>
+    <rate> .100 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .008 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <x_off> -8 </x_off>
+    <y_off> -8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_8WAY </proj_style>
+  <proj_dur> 200 </proj_dur>
+  <proj_str> 2 </proj_str>
+
+  <impassable> 1 </impassable>
+  <strength> 0 </strength>
+  <hp> 4 </hp>
+  <uni_directional> 1 </uni_directional>
+  <real_x> 32 </real_x>
+  <real_y> 32 </real_y>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+  <walk_speed> .153 </walk_speed>
+  <walk_length> 56 </walk_length>
+
+  <fp>
+
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> trigger_projectile </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> copter_path </func>
+    <func> walk </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+    
+  </fp>
+
+
+</launcher>
+

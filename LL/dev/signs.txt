@@ -1,0 +1,36 @@
+sign at 39/14 in room 2 of forest_fall.map:
+"Eldqud's Lab"
+
+sign at 24/18 in room 2 of forest_fall.map:
+"South - New Sarrael City"
+"North - Sarrael Woods"
+"East - Sarrael Drylands"
+"West - Templewood
+
+sign at 26/5 in room 4 of forest_fall.map:
+"Welcome to New Sarrael City!"
+
+sign at 23/18 in room 12 of forest_fall.map:
+"East - Poondodge's Tailoring Service"
+
+sign at 35/63 in room 0 of cityruin.map:
+"Welcome to Sarrael City!"
+"Lynn: Old Sarrael... I thought it was just a rumor."
+
+sign at 13/65 in room 1 of evernight.map:
+"Welcome to Evernight. BANDITS KEEP OUT"
+
+sign at 34/43 in room 1 of evernight.map:
+"MISSING: Large roll of black Evernight Silk, believed to have been stolen. Please return to Romme the goblin if found!"
+
+sign at 42/14 in room 1 of evernight.map:
+"Storage"
+
+sign at 39/14 in room 2 of forest_dry.map:
+"Lynn: I can't make it out... It's too worn."
+
+sign at 24/18 in room 2 of forest_fall.map:
+"Lynn: This sign's taken far too much damage to be legible anymore."
+
+in room 4 of ruins.map, there is a gravestone. if possible, it reads like a sign-- it says:
+"R.I.P Ruth Marion Bowring"

@@ -1,0 +1,80 @@
+cougar_floor.spr - the floor sprite of the cougar suit.
+
+lynnity_floor.spr - the floor sprite of the lynnity suit.
+
+ninja1_floor.spr - the 'unfinished' floor sprite of the ninja suit.
+
+ninja2_floor.spr - the normal (completed) floor sprite of the ninja suit
+
+--------------------------------------
+
+materials2.spr - bridge materials in 2nd state
+
+materials3.spr - bridge materials in 3rd state
+
+--------------------------------------
+
+heal.spr - the animation for the healing symbol being used
+
+--------------------------------------
+
+pod_empty.spr - empty podguy's pod for after he gets out
+
+--------------------------------------
+
+pod_die.spr - Death animation for full-sized (ie. not parallax) pod
+
+static_blue.spr - Blue static for Old Sarrael seq
+
+static_red.spr - Red static for mayor's house/valley swarm
+
+pod_bg.spr - parallax pod background
+
+pod_bg2.spr - bloody parallax pod background
+
+--------------------------------------
+
+seed_cracked.spr - The cracked dimension seed sprite for the seq just after the final boss
+
+seedmaster.spr - The Seed Master sprite for the 'inside the dimension seed' seq
+
+--------------------------------------
+
+ferusdoor_close.spr/ferusdoor_open.spr - bar opening/closing anim for Ferus/Core fight
+
+ghostappear_left.spr/ghostappear_right/spr - ghost appearing (facing left/right respectively) animation for the old sarrael city sequence
+
+green_explosion.spr - green explosion animation for the valley swarm boss (insect/grub thing) death
+
+healthmonger.spr - health salesman sprite
+
+lynnsplat_dry.spr - lynn's getting up animation for when she wakes up on the 'dead' evernight peak
+
+moth_die.spr - moth's death animation in the 'inside the dimension seed' sequence after the final boss. (fading out to black as he walks right)
+
+moth_lightball.spr - moth's ball of light attack
+
+moth_lightning.spr - moth's lightning attack
+
+sapling_give.spr - animation of lynn giving moth2 the sapling. same space between them as memorybeam.spr
+
+seed_disappear.spr - the dimension seed's disappearing animation for when it's attached to the cables in the thalamus sequence
+
+suicide_guard.spr - the guard in arx falling off the ledge
+
+valleyboss.spr - the valley swarm insect boss. the smaller insects ('spawns') spawn from the bits on the lower left and lower right corners of the boss. the boss's sprite should be at the very top of the screen, blocking the way (it fits perfectly in between the trees at the top)
+
+podguy_die.spr - the pod guy's death animation
+
+podguy_open.spr - the pod guy's pod opening animation
+
+podguy_walk.spr - the pod guy's walking animation. only one direction, down
+
+seedzap.spr - lynn being sucked into the dimension seed
+
+parapod.spr - the parallax pod background (tile) for the post-ferus/core sequence
+
+parapod_fog.spr - the parallax pod's fogging up animation
+
+parapod_die.spr - the parallax pod's 'dying' animation (blood dripping down, pod receding)
+

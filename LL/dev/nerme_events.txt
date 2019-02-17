@@ -1,0 +1,11 @@
+in room 1, there's a switch in the lower-right corner that makes the chest on the other side of the room appear. (it's just there for reference atm) (560)
+
+in room 5, there's a switch that opens the bars on a door in room 30 (the topmost door on the right wall of room 30) (561)
+
+in room 15, there's a switch that opens the bars on a door in room 30 (the topmost door on the left wall of room 30) (562)
+
+in room 32, there's a switch that opens the bars on a door in room 30 (the bottom door on the left wall of room 30) (563)
+
+in room 33, there's a switch that opens the bars on a door in room 30 (the middle door on the left wall of room 30) (564)
+
+note: the nerme mouths still need to be done, ai-wise

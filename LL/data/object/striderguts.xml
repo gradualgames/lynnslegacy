@@ -1,0 +1,18 @@
+  <striderguts>
+  <sprite>
+  <filename>data\pictures\char\striderguts.spr</filename> 
+<dir_frames> 2 </dir_frames>
+  <rate>.05</rate> 
+  </sprite>
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>96</real_x>
+<real_y>64</real_y> 
+  <uni_directional>1</uni_directional> 
+<invincible>1</invincible> 
+<impassable>1</impassable>
+<fp>
+  <func> idle_animate </func>
+  <func> return_idle </func>
+</fp>
+  </striderguts>

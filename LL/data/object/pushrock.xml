@@ -1,0 +1,28 @@
+
+<pushrock>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\pushrock.spr </filename>
+
+  </sprite>
+
+  <invincible> 1 </invincible>
+  <strength> 0 </strength>
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <pushable> 1 </pushable>
+  <walk_speed> .027 </walk_speed>
+  <impassable> 1 </impassable>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+</pushrock>
+

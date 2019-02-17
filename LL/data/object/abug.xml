@@ -1,0 +1,87 @@
+
+<abug>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\abug.spr </filename>
+    <rate> .25 </rate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .007 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <proj_style> PROJECTILE_SCHIZO </proj_style>
+  <proj_dur> 250 </proj_dur>
+  <proj_str> 3 </proj_str>
+  
+
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+
+  <strength> 1 </strength>
+  <hp> 2 </hp>
+  <walk_length> 56 </walk_length>
+  <walk_speed> .004 </walk_speed>
+  <jump_time> 6 </jump_time>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> timed_jump </func>
+    <func> cond_jump </func>
+    <func> copter_path </func>
+    <func> walk </func>
+    <func> idle_animate </func>
+    <func> q_second_pause </func>
+    <func> idle_animate </func>
+    <func> q_second_pause </func>
+    <func> cond_trigger_projectile </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</abug>
+

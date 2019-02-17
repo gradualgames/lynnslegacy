@@ -1,0 +1,69 @@
+
+<chest>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\chest.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\chest_open.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <action_sequence> 1 </action_sequence>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <frame> 0 </frame>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <dead_sound> sound_smallchest </dead_sound>
+  <impassable> 1 </impassable>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> give_key </func>
+    <func> set_happen </func>
+    <func> play_dead_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> give_gold_amount </func>
+    <func> play_dead_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> set_happen </func>
+    <func> play_dead_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</chest>
+

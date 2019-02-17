@@ -1,0 +1,154 @@
+
+<eguard>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\elguard_walk.spr </filename>
+    <rate> .04 </rate>
+    <madrate> .03 </madrate>
+    <x_off> 16 </x_off>
+    <y_off> 16 </y_off>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\elguard_stab.spr </filename>
+    <madrate> .13 </madrate>
+    <rate> .13 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 16 </y_off>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+    
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <n_gold> 3 </n_gold>
+  <d_gold> 80 </d_gold>
+  <d_health> 80 </d_health>
+  <walk_length> 60 </walk_length>
+  <mad_walk_speed> .023 </mad_walk_speed>
+  <walk_speed> .047 </walk_speed>
+  <vision_field> 64 </vision_field>
+  <thrust> 1 </thrust>
+  <froggy> 1 </froggy>
+  <diag_chase> 1 </diag_chase>
+  <lose_time> 3 </lose_time>
+  <jump_time> 2 </jump_time>
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 13 </fly_length>
+  <ice_weak> 1 </ice_weak>
+  <fire_weak> 1 </fire_weak>
+  <strength> 1 </strength>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <hp> 7 </hp>
+  <maxhp> 7 </maxhp>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> chase </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> active_anim_0 </func>
+    //<func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> thrust_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> directional_animate_x </func>
+    <func> second_pause </func>
+    <func> active_anim_0 </func>
+    <func> second_pause </func>
+    <func> return_jump </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_2 </func>
+    <func> idle_animate </func>
+    <func> drop </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <func> do_flyback </func>
+    <func> second_pause </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> active_anim_0 </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+</eguard>
+

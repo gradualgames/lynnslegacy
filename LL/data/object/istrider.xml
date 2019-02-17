@@ -1,0 +1,68 @@
+
+<istrider>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\istrider.spr </filename>
+    <rate> .06 </rate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <x_off> -24 </x_off>
+    <y_off> -8 </y_off>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <uni_directional> 1 </uni_directional>
+  <real_x> 64 </real_x>
+  <real_y> 32 </real_y>
+  <strength> 1 </strength>
+  <hp> 2 </hp>
+  <walk_speed> .025 </walk_speed>
+  <walk_length> 320 </walk_length>
+
+  <fp>
+
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> copter_path </func>
+    <func> walk </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_dead </func>
+    <func> dead_animate </func>
+    <func> cripple </func>
+    <func> drop </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</istrider>
+

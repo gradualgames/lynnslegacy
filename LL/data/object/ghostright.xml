@@ -1,0 +1,40 @@
+<ghostright>
+
+  <sprite>
+    <filename>data\pictures\char\ghostappear_left.spr</filename> 
+    <rate>.15</rate> 
+    <y_off> 8 </y_off> 
+  </sprite>
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>16</real_x> 
+  <real_y>16</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <impassable>1</impassable> 
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+  
+  // 1
+  <fp>
+
+    <func> active_animate </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 2
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</ghostright>

@@ -1,0 +1,93 @@
+
+<bshape>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\shapeless.spr </filename>
+    <rate> .36 </rate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <uni_directional> 1 </uni_directional>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <hp> 15 </hp>
+  <maxhp> 15 </maxhp>
+  <fire_weak> 1 </fire_weak>
+  <ice_weak> 1 </ice_weak>
+  <strength> 1 </strength>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+  <d_health> 90 </d_health>
+  <d_gold> 50 </d_gold>
+  <n_gold> 5 </n_gold>
+  <d_silver> 90 </d_silver>
+  <n_silver> 10 </n_silver>
+  <walk_speed> .08 </walk_speed>
+  <walk_length> 40 </walk_length>
+
+  <fp>
+
+    <func> copter_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_1 </func>
+    <func> dead_animate </func>
+    <func> cripple </func>
+    <func> drop </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <func> do_flyback </func>
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</bshape>
+

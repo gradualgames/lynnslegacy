@@ -1,0 +1,77 @@
+
+<biglarva>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\valleyboss.spr </filename>
+    <rate> .23 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\green_explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+
+  <direction> 0 </direction>
+  <hp> 45 </hp>
+  <real_x> 48 </real_x>
+  <real_y> 80 </real_y>
+  <uni_directional> 1 </uni_directional>
+  <jump_count> 20000 </jump_count>
+  <impassable> 1 </impassable>
+  <isboss> -1 </isboss>
+  
+  <expl_delay> .17 </expl_delay>
+  <explosions> 10 </explosions>
+  
+  <spawns_id> data\object\spawn.xml </spawns_id>
+  <spawn_x> 16 </spawn_x>
+  <spawn_y> 80 </spawn_y>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> make_enemy </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> set_happen </func>
+    <func> infinity </func>
+
+  </fp>
+  
+  // 3
+  <fp>
+
+    <func> infinity </func>
+
+  </fp>
+
+
+</biglarva>
+

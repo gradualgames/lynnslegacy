@@ -1,0 +1,116 @@
+<boss5_crystal>
+
+  <sprite>
+
+    <filename>data\pictures\char\boss5_crystal.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <filename>data\pictures\char\boss5_crystalred.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <filename>data\pictures\char\boss5_crystalboom.spr</filename> 
+    <x_off> 16 </x_off>
+    <y_off> 16 </y_off>
+    <dir_frames> 5 </dir_frames>
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .008 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+  
+  
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+  
+
+  <proj_style> PROJECTILE_8WAY </proj_style>
+  <proj_dur> 60 </proj_dur>
+  <proj_size> 1 </proj_size>
+  <proj_str> 1 </proj_str>
+
+
+  <expl_delay> .17 </expl_delay>
+  <explosions> 10 </explosions>
+  <fireworks>1</fireworks> 
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>16</real_x> 
+  <real_y>16</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <impassable>1</impassable> 
+
+
+  <fp>
+
+    <func> active_anim_0 </func>
+    <func> check_for_dead_faces </func> 
+    <func> infinity </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> infinity </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_anim_0 </func>
+    <func> trigger_projectile </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> explode </func>
+    <func> second_pause </func>
+    <func> flash </func>
+    <func> flash_down </func>
+    <func> active_anim_2 </func>
+    <func> active_animate </func>
+    <func> make_dead </func>
+    <func> cripple </func>
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> infinity </func>
+
+  </fp>
+
+
+</boss5_crystal>

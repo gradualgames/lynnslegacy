@@ -1,0 +1,83 @@
+
+<pekkle_grey>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\grey_pekkle.spr </filename>
+    <rate> .23 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\grey_pekkle_out.spr </filename>
+    <rate> .23 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <strength> 1 </strength>
+  <hp> 15 </hp>
+
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+
+  <walk_speed> .07 </walk_speed>
+  <walk_length> 25 </walk_length>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <d_health> 80 </d_health>
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> active_anim_1 </func>
+    <func> half_second_pause </func>
+    <func> active_anim_0 </func>
+    <func> do_nothing </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+
+
+  </fp>
+
+
+</pekkle_grey>
+

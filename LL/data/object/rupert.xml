@@ -1,0 +1,75 @@
+
+<rupert>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\torch.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\torchlit.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <action_sequence> 1 </action_sequence>
+  <torch> 1 </torch>
+  <placed> -1 </placed>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <fire_weak> 1 </fire_weak>
+  <ice_weak> 1 </ice_weak>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <jump_time> 12 </jump_time>
+  <fly_length> 0 </fly_length>
+  <fly_speed> 0 </fly_speed>
+  <flash_time> 0 </flash_time>
+  <flash_length> 0 </flash_length>
+  <walk_speed> .027 </walk_speed>
+  <impassable> 1 </impassable>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> color_up </func>
+    <func> active_anim_1 </func>
+    <func> idle_animate </func>
+    <func> timed_jump </func>
+    <func> color_down </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> idle_animate </func>
+    <func> return_jump </func>
+    <func> inc_sel_seq </func>
+    <func> return_trig </func>
+    <func> set_func </func>
+    <func> release_seq </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</rupert>
+

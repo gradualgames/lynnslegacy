@@ -1,0 +1,44 @@
+
+<keydoor>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\key_door.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 1 </dir_frames>
+    <x_off> 16 </x_off>
+    <y_off> 16 </y_off>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 32 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <key_door> -1 </key_door>
+  <touch_sequence> 1 </touch_sequence>
+  <fade_time> .10 </fade_time>
+  <impassable> 1 </impassable>
+  <dead_sound> sound_doorsmall </dead_sound>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> check_key </func>
+    <func> set_happen </func>
+    <func> play_dead_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</keydoor>
+

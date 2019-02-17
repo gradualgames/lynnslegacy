@@ -1,0 +1,237 @@
+<steelstrider>
+
+  
+  <sprite>
+    <filename>data\pictures\char\steelstrider.spr</filename> 
+    <dir_frames> 2 </dir_frames>
+    <rate>1</rate> 
+    
+    <concurrent>
+    
+      <frame> 1 </frame>
+      <x> 0 </x>
+      <y> 70 </y>
+      <id> data\object\icecloud.xml </id>
+    
+    </concurrent>
+    
+    <concurrent>
+    
+      <frame> 1 </frame>
+      <x> 55 </x>
+      <y> 127 </y>
+      <id> data\object\icecloud.xml </id>
+    
+    </concurrent>
+    
+    <concurrent>
+    
+      <frame> 1 </frame>
+      <x> 203 </x>
+      <y> 127 </y>
+      <id> data\object\icecloud.xml </id>
+    
+    </concurrent>
+    
+    <concurrent>
+    
+      <frame> 1 </frame>
+      <x> 255 </x>
+      <y> 70 </y>
+      <id> data\object\icecloud.xml </id>
+    
+    </concurrent>
+    
+    
+  </sprite>
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\mole_beam.spr </filename>
+    <rate> .080 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\boss2_dead.spr </filename>
+    <rate> .080 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+  <snd>
+
+    <index> sound_beamcharge </index>
+    <vol> 30 </vol>
+    
+  </snd>
+
+
+  <hp> 30 </hp>
+  <strength> 1 </strength>
+  <walk_speed> .13 </walk_speed>
+  <real_x>256</real_x> 
+  <real_y>128</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+
+  <fly_speed> .009 </fly_speed>
+  <fly_length> 30 </fly_length>
+  <placed> -1 </placed>
+  <jump_count> 20000 </jump_count>
+
+  <expl_delay> .03 </expl_delay>
+  <explosions> 20 </explosions>
+  <expl_y_size> 128 </expl_y_size>
+  <expl_x_size> 256 </expl_x_size>
+  
+  <isboss> -1 </isboss>
+
+  <proj_style> PROJECTILE_BEAM </proj_style>
+  <proj_str> 3 </proj_str>
+  <proj_size> 2 </proj_size>
+  <proj_dur> 30 </proj_dur>
+  <proj_over> 1 </proj_over>
+
+  <fp>
+    <func> dyssius_patience </func>
+    <func> infinity </func>
+    <func> dyssius_slide </func>
+    <func> dyssius_after_slide </func>
+    <func> dyssius_idle_gate </func>
+    <func> second_pause </func>
+    <func> dyssius_patience </func>
+    //<func> do_dyssius_proj </func>
+    //<func> dyssius_patience </func>
+    <func> return_idle </func>
+  </fp>
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> dyssius_flyback </func>
+    <func> do_nothing </func>
+
+  </fp>
+
+  // 2
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    //<func> dyssius_eye_explode </func>
+    //<func> explode </func>
+    //<func> do_nothing </func>
+    //<func> counted_jump_2 </func>
+
+    <func> flash </func>
+    //<func> second_pause </func>
+    //<func> active_anim_dead </func>
+
+    <func> play_seq </func>
+    <func> infinity </func>
+
+    <func> flash_down </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+
+
+    <func> dyssius_full_explode </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+
+    <func> cripple </func>
+    <func> set_happen </func>
+
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+  // 3
+  <fp>
+
+    <func> fade_to_black </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 4
+  <fp>
+
+    <func> set_happen </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+
+  // 5
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> active_anim_0 </func>
+    <func> flash_down </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+  // 7
+  <fp>
+
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+  // 8
+  <fp>
+
+    <func> cripple </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+  // 9
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+  // 10
+  <fp>
+
+    <func> stop_sound </func>
+    <func> return_trig </func>
+    
+  </fp>
+
+
+
+
+</steelstrider>

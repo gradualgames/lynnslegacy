@@ -1,0 +1,108 @@
+
+<frederic>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\frederic.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  <maxhp> 5 </maxhp>
+  <hp> 5 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <heal_me> 1 </heal_me>
+  <strength> 0 </strength>
+  <jump_count> 10000 </jump_count>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+  <walk_speed> .059 </walk_speed>
+  <walk_length> 40 </walk_length>
+//  <impassable> 1 </impassable>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+
+  <fp>
+    
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> full_heal </func>
+    <func> do_flyback </func>
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  
+  // 5
+  <fp>
+
+    <func> second_pause </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> move_backwards </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 7
+  <fp>
+
+    <func> move_normal </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 8
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+
+</frederic>
+

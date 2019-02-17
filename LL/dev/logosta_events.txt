@@ -1,0 +1,229 @@
+In L_entry.map, room 0, there is a book beside the dead guy (below the save point), that gives this message when read:
+
+"Lynn: There's just one word scribbled here... 'FerUs686'" (same 'wrong' capitalization)
+
+In L_entry.map, room 2, at 43/17, there is a short cutscene-- there's the quick white fade up/down, and then it scrolls up to show the terminal (computer tile). Lynn walks up to it and the first 'terminal' sequence happens:
+
+"Lynn: Hmm... There's words here."
+                    GRAMMAR PLAX.
+
+There is a cheesy 'computery' bleep sound. (also plays when reading other entries)
+
+“Entry: Sixth sector of year 6768, Precision 47. Everyone is now connected to Hive… Everyone, that is, except me. Tonight I live my last few hours as a fully conscious human being, and then I will reach the next stage…
+There is a chance some of the more rebellious citizens still exist. But I shall worry not; Ferus will take care of them with ease and connect them to Hive along with the rest of us. The dimension seed should do its job well also… The slight instabilities in its structure are nothing to fear, for the most they could cause is a small incident of dimensional bleeding; and given the size of our world, a tiny piece being catapulted into another dimension would hardly put a dent in any plans of ours.
+This is, of course, my last entry… And as such, I would like to say goodbye to anyone who may stumble upon this terminal in the future… though that is extremely unlikely, if not impossible. However, in the case of such an occurrence, I have left the password to my encrypted entries in plain view, should anyone have the courage to search… My other entries should prove extremely useful in understanding what has come to pass.
+But now, the time approaches… I say farewell to any who should read this, and I do so anonymously. My name is not important… What I have finally achieved is much more so.”
+
+"Lynn: Hmm. I should look for these other 'entires.'"
+
+Since the first terminal reading is forced, the player knows to check other terminals they find.
+
+In L_lab, room 0, there is a row of four terminals (computers) on a table/desk/...thing. Using any of them prompts the following dialog:
+
+"Lynn: There's nothing on these screens. They're black... They must be broken?"
+
+In L_lab, room 5, there is a terminal. We use it to get this text:
+
+"Lynn: Another one... Hopefully there's more info here."
+
+“Entry: Third sector of year 6767, Precision 52. The dimension of Divius has been confiscated. I had maintained confidence that it would succeed up until this point; though looking back I should have known it would fail. Divius marks the seventh dimension that has been confiscated thus far… Why have all our attempts at paradise failed? Every time, there is some small factor that brings the entire structure down… Perhaps we are going about this all wrong. Perhaps it is not a heavenly dimension we should be creating; perhaps we should pursue simpler means… Yes. I shall propose this idea to the committee on Morrow’s Precision.”
+
+In L_lab, room 11, there is a terminal. We use it to get this text:
+
+“Entry: Fourth sector of year 6767, Precision 24. For ease of reference, I have listed here all the worlds that have been confiscated to the dimension seed and their reason for banishment:
+Arkalarius – Reason: Failure to sustain life within its atmosphere.
+Moenia – Reason: Captured by rival species within the dimension.
+Gelidus – Reason: Failure to sustain long-term life due to low temperature.
+Ignia – Reason: Captured by unidentified spiritual beings. Unknown origin.
+Arx – Reason: Native denizens destroyed by maniacal and spiritually imbued tyrant. Deemed extremely dangerous.
+Nerme – Reason: Hostile takeover by native vegetation.
+Divius – Reason: Hostile takeover by ruling deity/god. Thought to be logically impossible, but deemed extremely dangerous due to its actual occurrence.
+…I have brought my previously mentioned proposition before the committee, and it has been met with extreme interest. Work has already begun on a prototype ‘pod’ system.”
+
+L_research room 2: 'Holographics' sequence.
+
+L_research room 4: A terminal. Using it prompts this text:
+
+"Lynn: Another one..."
+
+“Entry: Third sector of year 6765, Precision 48. This entire section is soon to be sealed off… the Holographics Lab and everything in it, including the mighty projection chamber. It is sad, but it must be done. The projections were beginning to steal our workers’ time… They would spend hours, sometimes days, staring at the hollow images that were so alien to them, whittling their lives away. The project has been deemed inappropriate for use, and cancelled without further argument. The old Dimensional Manipulation project has been revived, and the attempt to create the perfect paradise dimension has been reinstated. Work has begun on a new dimension called Divius. However, nothing pains me more than the fact that we have come so far as to yearn for another reality to call our own… after we have long ago consumed ours in a cold blanket of steel and technological dreams.”
+
+L_research room 6: A terminal. Using it prompts this text:
+
+“All systems green”
+“Neural inhibitors green”
+“All patients green”
+“Patient neural activity: Minimal”
+“Lynn: I wonder what they’re thinking right now…”
+
+L_research room 7: There are two terminals here. The left one has a blue screen and is active, and the right has a black screen and is not. Using the left one gives us this text:
+
+“This entry is password protected. Please enter the password.” (We must enter the password—It is ‘FerUs686’. If input is not possible in a dialog box, fade the screen to black and have a dos prompt-like cursor with PASS>_ displayed. Either works)
+“Entry: First sector of year 6768, Precision 2. I have finally completed the plans for the ‘pod’ system— Now renamed Hive. The concept is quite simple, really, and I am quite frankly rather surprised it has not been thought of before… It is merely a simple neural connection that inhibits all mental activity above the base level: blocking out everything except the user’s ideal reality and/or thoughts. The user would not be capable of performing any mental tasks other than knowing they are happy—not even the reason why they are happy. It seems cruel, as the user would essentially become nothing more than a vegetable with an extremely vague mental aura, but I have assured the committee that once one is in such a position, one worries not about such things. Nearly our entire population has agreed to the plan, and those who do not will be… suppressed. It is for their own good, and once they are connected to Hive they will know our motives. None shall be harmed unless they first attempt to harm us in resistance.”
+
+Using the right one gives us this:
+
+"Lynn: This one must be broken too. I should try the other one over there..." Lynn turns to face left.
+
+L_research room 11: Terminal. Text:
+
+“This entry is password protected. Please enter the password.” (We must enter the password—It is ‘Ferus686’)
+“Entry: Third sector of year 6768, Precision 61. It works! The first few citizens have been connected to Hive. The effect is exactly as anticipated… nothing but pure happiness! This is truly a revelation… As predicted, a group of citizens has risen who oppose the concept of Hive. However, they pose little to no threat to us, and will soon be connected. It is such a simple process, one which I only wish I had thought of earlier…!
+The committee has proposed an automated system of ‘guardians’ to make sure everything runs smoothly when everyone is connected. Construction has already begun, and who have they appointed as leader of the guardians? Why, the only logical choice—Our own masterpiece of dimensional construction, the Dimension Seed itself! It is knowledgeable beyond human comprehension, yet in the unlikely event of failure, a second-in-command is also being constructed. It shall be called Ferus, and it will always be aware and performing tasks in the background. Its physical body will travel through our world at will, doing whatever is needed, while its mind will remain fixed deep within the Vault. All this is truly the next step for our race… Perhaps now our endless search for paradise will come to an end. And what an end!”
+“Lynn: …Live how you want, hook yourselves up to this crazy system if you feel the need to, but don’t drag me into this…”
+
+In L_restricted, room 1 (music: holy), there is a huge statue of the god that the people of Logosta worshipped. When we get close to the statue, the following scene occurs:
+“Lynn: A temple…?”
+Lynn walks up to the statue.
+“Lynn: This must be the god they followed. Strange… It looks like the floor around it is… weakened.”
+There is a switch 'click' sound.
+"Lynn: Hmm? I must've triggered something."
+We gain control of Lynn, exit the temple, and continue with the dungeon. The bars in room 0 are now gone.
+
+L_restricted, room 2... The 'Steel Strider' miniboss fight. As soon as we enter the room, this text occurs:
+
+“Lynn: This room must be directly below the temple…”
+
+Pan up/right to the middle of the room to center on the Steel Strider.
+
+"Lynn: That looks familliar."
+
+The Steel Strider awakens. (there is an alarm blast, then the boss music plays) It fights just like Dyssius, except it takes twice as many hits to kill. (however, it does not shoot lasers) Once we have defeated it, it skids back to the very center of the room, damaged. (or, the screen fades up to white then down, cutscene-style, and the strider and Lynn are in position.) A large glowing orb of energy begins to charge on its front (an electrical humming noise plays and loops), and as it gets bigger, the screen occasionally flickers white with the 'ting' sound.
+“Lynn: …!”
+Just then, the music stops as the screen shakes with a rumbling sound. (the charging energy ball stops animating on its last frame) There is a pause, then the screen shakes extremely violently (rumbling sound) as the statue from the temple above comes crashing down on top of the Steel Strider (explosions! ;p), ruining its would-be attack and saving Lynn.
+“Lynn: Hmm…”
+Lynn walks over to the statue.
+“Lynn: Thanks.”
+We gain control of Lynn and continue with the dungeon.
+
+L_restricted room 3: Resistance camp. We can break our way through rubble, etc (aka crates...) until we come to an area with a terminal and a book lying next to it.
+
+Using the terminal gives us this:
+
+"Lynn: It won't do anything. Probably has something to do with that broken pipe... I don't think I'll be able to fix that. I'm lost enough here as it is."
+
+Using the book gives us this text:
+
+“Rise, brothers and sisters, for in desperation our time has come! We shall oppose the masses and their mind-stealing machinery with pride and dignity, and they shall know our cause! We shall not be slaves to their system of false happiness—no, we shall live our own lives and guide them as such. When our revolution comes, we shall take back our freedom and our right… Our right to live! What we lack in numbers we shall compensate for with zeal and knowledge of the truth! The tyranny shall not know what it is like to be mindless until they themselves experience it… When we connect them to the system and laugh at their primal thoughts of crudely happy times. I speak to you all when I say: Fight! Fight the tyranny, fight the system, and fight for your true intelligence! No false reality shall we have!”
+“Lynn: Wow. These guys were worse than those who they would oppose…”
+
+Ferus boss sequence:
+When we enter the boss chamber, the door closes behind us. Lynn takes two steps forward. Music fades. There is a massive door at the top of the screen, currently closed with huge bars. (the 'ferusdoor' sprites/anims) There is a pause, then we hear the telltale mechanical sounds of the small creature approaching. They stop for a moment... Then the bars on the door open. Ferus walks onto the screen from the door, still looking like the (tiny) strange cross between a fox and a ferret. It stops in the center of the room, and the screen flickers white a few times rapidly with a garbled mechanical sound. The screen fades up to white, and as it fades back down, Ferus is in its true form, a huge bio-mechanical beast.
+“Lynn: Holographics…!”
+There is a strange mechanical beeping noise.
+“Ferus: Translation error”
+“Lynn: What…?”
+“Ferus: I will lead you to your pod. Please comply.”
+Lynn backs up a step.
+“Ferus: My orders are for your own good. Follow me and find happiness.”
+“Lynn: …No!”
+“Ferus: I will lead you to your pod. Please comply.”
+Lynn walks forward several steps, but not quite up to Ferus.
+“Lynn: I said--”
+“Ferus: I will lead you to your pod. Please comply.”
+Lynn walks right up to Ferus and swings the Divius Star at it.
+Lynn takes a step back as Ferus advances.
+“Ferus: My orders are for your own good. Follow me and find happiness.”
+“Lynn: Stop! I won’t be a part of your system!”
+There is a strange mechanical beeping noise.
+“Ferus: Translation error”
+“Ferus: Follow me and find happiness.”
+Ferus advances once more, and Lynn continues to back up.
+“Ferus: Follow me and find happiness.”
+“Lynn: I won’t!”
+Ferus advances a final time.
+“Ferus: Follow me and find--”
+Lynn, cornered, swings at Ferus again, this time executing a Rage attack (white flash). An explosion goes off over Ferus. It backs up slightly.
+“Ferus: Hostility detected.”
+“Lynn: Damn right… Back off. You’re too stupid to know the consequences of the mindless actions they built into you. You don’t even know what happiness is.”
+There is a strange mechanical beeping noise, again.
+“Ferus: Translation error”
+"Lynn: ..."
+“Ferus: Countermeasures.”
+The boss fight begins. (boss music: boss)
+Once the boss is beaten, a few explosions flicker over it. There is a garbled mechanical sound.
+“Lynn: Ha! How’s that, eh?”
+“Ferus: Translation error”
+The boss violently explodes.
+There is a frenzied, wailing alarm, then a massive electronic complex lowers itself into view from the ceiling. It lands with a solid ‘clunk’ sound, and the alarm shuts off.
+“FERUS CORE ACTIVE”
+“Lynn: Oh… no…”
+The second stage of the boss fight begins. (boss music: core)
+Once it is beaten, a few explosions flicker over it, and the alarm starts up once more.
+“CRITICAL”
+The core begins to retract back into the ceiling.
+“HEAT-INDUCED SYSTEM MELD”
+As it continues to retract, the core is consumed by flame and violent explosions. (if possible, it rocks from side to side) Suddenly it all comes apart, as some scrap and pieces fall to the floor below.
+Then… The lights flicker and shut off. (ie. the screen flickers black a couple times, then stays black)
+Music stops.
+There is a single alarm blast, then red emergency lights flicker on. (ie. the screen flickers a few times to show a completely red-tinted logosta. After a few more flickers the screen stays... sort of a reverse of the lights going off, except now logosta is palette-tinted red) The huge door in the back of the room (the one that Ferus entered through) opens. We go through it, and find ourselves in a large room. (music: amb) Ahead, there is a lone terminal flanked by two pods, and below us there is a tiled parallax background of a seemingly endless amount of pods. We use the terminal.
+“Lynn: What’s this…?”
+(cheesy beepy sound)
+“Ferus system status: … … …Unable to retrieve status. Lighting systems: Terminated. Emergency lighting systems active. Main power systems: Terminated. Emergency power to key consoles active. Pod life support systems: Terminated.”
+On the pods ahead of us, and in the parallax background below us, the glass windows of the pods all fade to whitish gray as they fog up. There is a hiss as a pod on the wall (the left one) opens.
+Lynn walks left, then turns to face it.
+“Lynn: Oh god…”
+Pause…
+The inhabitant of the pod slowly stumbles out. He is thin: seemingly starved. His head is shaven and he wears no clothes.
+“Man: What… Why.”
+Lynn backs up three steps.
+“Man: I can’t… I’m not… Bring it back. Give me back my happiness.”
+Lynn backs up a step, and the man advances a step.
+“Man: I’m not… I’m not happy… anymore… Help…”
+The man advances two steps then turns back towards his empty pod (ie. turns right, then up. Him facing up = first frame of his death anim, it should hold for a second or two), and finally collapses on the ground and bleeds. (death anim)
+“Lynn: What have I…”
+There is an alarm blast, and Lynn goes back to the console.
+“Pod occupants’ status: Perishing. Hive status: Terminated. Failed. Commencing execution program.”
+“Lynn: Execution?!”
+Below Lynn all the pod windows slowly become red as blood drips down from the top behind them. All the pods recede until they are no longer visible.
+“Pod occupants’ status: Forcefully terminated due to hive failure. All pods sent to the biological waste facility for recycling.”
+Lynn turns away from the console.
+“Lynn: What happened…”
+Lynn's dying animation plays. (hands to the air, kneeling... she stays at the last frame)
+“Lynn: I killed them all…”
+Slowly fade out to black.
+Text, without a box:
+“But was it… right?”
+“Did they deserve to even live in such conditions?”
+“Was I doing them a favor…?”
+Lynn fades up on the black screen, still sitting in the same pose.
+“How can I ever fight again…?”
+Moth fades in to the south of Lynn.
+Lynn gets up, and takes a step towards him.
+“Lynn: What are you… doing…”
+“Moth: You will fight.”
+”Lynn: What?”
+“Moth: You will fight, or…”
+Fade out.
+Fade in to show a strange, organic-looking chamber with the dimension seed in the center, connected to the walls with giant fleshy cables. (this is the Thalamus in Limbo)
+Text, without a box:
+“…All hell will break loose. When a god wishes revenge, cities die. Worlds crumble. Universes are extinguished. When a god wishes revenge upon a single person… That person feels the pain of a crumbling world, they feel the pain of an entire universe being destroyed, and most of all, that pain never ends.”
+Fade out.
+“Lynn… Totus vos teneo est sicco impetro vos. Fight now or die for all eternity.”
+Fade in to Logosta. Lynn is in the last frame of her 'dying' animations, by the console again. She gets up.
+Lynn begins to walk out the door, but she stops by the corpse of the man who came from the pod. She turns to face it-- There is now a book on the ground beside him.
+“Lynn: …He dropped a book…”
+“The book reads: ‘Entry: …I am not sure of the exact date. Sometime in 6768. I now wait in my pod, writing. Waiting for the gasses to take effect. This may merely be paranoia, but… Studying the Dimension Seed’s recent behavior, I begin to suspect we may have given it too much power during construction. I think… I think it has been creating dimensions without authorization. Its intent may be good, but I can never be certain. With it in charge of Hive… I must convince myself that my worries are foolish. Even if we created it essentially as a dimensional trash receptacle for our failed attempts, we never limited its capability… or its thirst for creation. And our studies have shown that it never forgets its enemies or shows them mercy. It loves Logosta as its true home, and I can only imagine what it would do to someone or something that angered it. Well… I can feel the gasses taking effect. Soon I shall have no need to worry about all this…’”
+“Lynn: Wait, there’s more. This looks much more recent… I can just barely make it out…”
+(music abruptly stops)
+“‘sudden hunger and desperation cant see at all can barely… … …greenhair voice as it is in front of me and I door opens and’”
+Lynn backs up a step.
+“Lynn: No… It can’t be…”
+Lynn turns towards the door and starts to run towards it.
+“Lynn: I’ve got to find a way out of here!”
+Moth appears in front of Lynn. (boss music starts to play)
+“Moth: That can be arranged. We have business to discuss, you and I! I want… I want revenge!”
+Another Moth appears behind Lynn, and Lynn turns to face it.
+“Moth2: Leave her! You’ve done enough as it is, brother.”
+Lynn turns towards the first Moth.
+“Moth: Leave her? I will give her what she deserves. Nothing good can come of her continued existence! I offered her eternal happiness and this is how she responds? She destroyed our home, dear brother! Would you simply let her go?”
+Lynn turns towards the second Moth.
+“Moth2: Show some mercy for once! At least let her go back to her world. You can still reach her there.”
+“Moth: Very well. Lynn, I trust you will remember this. There is nowhere you can hide! I will open a portal somewhere in your world. Find it. Then we shall have our confrontation…”
+The second Moth disappears. Lynn turns towards the first.
+“Moth: …And mark my words… You will have a reason to find me!”
+Slowly fade up to white as Moth disappears.
+Music fades out.
+Text, without a box:
+“I will wait until the end of time, if I must. And something tells me you will be waiting a rather long time, yourself.”
+Slowly fade out.

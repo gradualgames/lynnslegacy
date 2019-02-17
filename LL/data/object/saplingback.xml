@@ -1,0 +1,56 @@
+
+<sapling>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\saplinggrab3.spr </filename>
+    <rate> .08 </rate>
+    <y_off> 16 </y_off>
+    <dir_frames> 16 </dir_frames>
+
+    <sound>
+      <frame> 10 </frame>
+      <index> sound_treepull </index>
+      
+    </sound> 
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 8 </real_y>
+  <invincible> -1 </invincible>
+  <impassable> -1 </impassable>
+  <strength> 0 </strength>
+  <action_sequence> 1 </action_sequence>
+  <fade_time> .01 </fade_time>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+
+  <fp>
+
+    <func> active_animate </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> set_happen </func>
+    <func> give_weapon </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</sapling>
+

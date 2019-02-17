@@ -1,0 +1,61 @@
+
+<sludge>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\sludge.spr </filename>
+    <rate> .05 </rate>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <x_off> -8 </x_off>
+    <y_off> -8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <real_x> 32 </real_x>
+  <real_y> 32 </real_y>
+  <walk_speed> .086 </walk_speed>
+  <walk_length> 40 </walk_length>
+
+  <strength> 1 </strength>
+  <hp> 4 </hp>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+
+</sludge>
+

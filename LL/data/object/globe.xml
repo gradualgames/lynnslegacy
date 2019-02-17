@@ -1,0 +1,86 @@
+
+<globe>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\caveglobe.spr </filename>
+    <rate> .36 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+    <anim_id> dead_anim </anim_id>
+
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <x_off> -8 </x_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <uni_directional> 1 </uni_directional>
+  <real_x> 32 </real_x>
+  <real_y> 24 </real_y>
+  <hp> 15 </hp>
+  <maxhp> 15 </maxhp>
+  <fire_weak> 1 </fire_weak>
+  <ice_weak> 1 </ice_weak>
+  <strength> 1 </strength>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+  <d_health> 90 </d_health>
+  <d_gold> 50 </d_gold>
+  <n_gold> 5 </n_gold>
+  <d_silver> 90 </d_silver>
+  <n_silver> 10 </n_silver>
+  <walk_speed> .08 </walk_speed>
+  <walk_length> 40 </walk_length>
+
+  <fp>
+
+    <func> copter_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <block_macro> fire_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <block_macro> ice_block </block_macro>
+
+  </fp>
+
+
+</globe>
+

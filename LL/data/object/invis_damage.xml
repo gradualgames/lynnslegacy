@@ -1,0 +1,27 @@
+
+<invis_damage>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <invincible> 1 </invincible>
+  <strength> 1 </strength>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+</invis_damage>
+

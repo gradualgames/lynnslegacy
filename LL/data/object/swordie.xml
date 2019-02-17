@@ -1,0 +1,85 @@
+<swordie>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss4_sword.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\sterach_swordflash.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 32 </real_x>
+  <real_y> 32 </real_y>
+  <invincible> -1 </invincible>
+  <strength> 2 </strength>
+  <impassable> 0 </impassable>
+  <vision_field> 32 </vision_field>
+  <uni_directional> 1 </uni_directional>
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 75 </fly_length>
+  <placed> 1 </placed>
+  <jump_count> 20000 </jump_count>
+  
+  <expl_delay> .07 </expl_delay>
+  <explosions> 50 </explosions>
+
+    
+  // '' point
+  <fp>
+
+    <func> sword_angle </func>
+    <func> return_idle </func>
+
+  </fp>
+  
+  // '' fly at
+  <fp>
+
+    <func> sword_glow </func>
+    <func> q_second_pause </func>
+    <func> sword_glow </func>
+
+    <func> sword_fly </func>
+    
+    <func> second_pause </func>
+    <func> sterach_call </func>
+    <func> sword_return </func>
+
+    <func> infinity </func>
+
+  </fp>
+
+
+  <fp>
+
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+</swordie>

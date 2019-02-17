@@ -1,0 +1,67 @@
+
+<walllaser>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\lasergun.spr </filename>
+    <dir_frames> 1 </dir_frames>
+    <x_off> 13 </x_off>
+    <y_off> 13 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\mole_beam.spr </filename>
+    <rate> .080 </rate>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_BEAM </proj_style>
+
+  <proj_dur> 20 </proj_dur>
+  <proj_size> 2 </proj_size>
+  <proj_str> 2 </proj_str>
+
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <hp> 3 </hp>
+  <maxhp> 3 </maxhp>
+  <invincible> -1 </invincible>
+  <froggy> 1 </froggy>
+  <vision_field> 640 </vision_field>
+  <lose_time> 1 </lose_time>
+
+  <side_vision> 16 </side_vision>
+
+  <must_align> 1 </must_align>
+  
+  
+  <fp>
+    
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+    
+    <proc_id> reset_state </proc_id>
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+    
+    <proc_id> jump_state </proc_id>
+    <func> trigger_projectile </func>
+    <func> second_pause </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+</walllaser>
+

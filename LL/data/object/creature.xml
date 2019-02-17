@@ -1,0 +1,94 @@
+
+<creature>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\creature.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 8 </dir_frames>
+
+    <sound>
+
+      <frame> 4 </frame>
+      <uni_sound> -1 </uni_sound>
+      <index> sound_ferusstep </index>
+      
+    </sound> 
+
+  </sprite>
+
+  <snd>
+
+    <index> sound_camera </index>
+    <vol> 30 </vol>
+    
+  </snd>
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  <walk_speed> .015 </walk_speed>
+  <fade_time> .10 </fade_time>
+  <vol_fade_time> .2 </vol_fade_time>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+  // 1
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 2
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 3
+  <fp>
+
+    <func> make_visible </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 4
+  <fp>
+
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 5
+  <fp>
+
+    <func> set_camera </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+</creature>
+

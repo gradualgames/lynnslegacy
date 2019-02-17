@@ -1,0 +1,9 @@
+l_research room 2:
+
+(music: cryspool) We ‘use’ the metal tree (at 35/19) in the middle of the room, and the screen fades up to white/back down, cutscene style. When it fades back down Lynn stands in the same position (right in front of the tree) in room 2 of l_holo. (grass, green tree, etc)
+“Lynn: This isn’t real…”
+Lynn turns to the left, then down, then right.
+“Lynn: Who would create something so intricate, so beautiful, but so… False?”
+A small creature, somewhere between a ferret and a small fox, enters the screen from the north. (x: 33) It makes strange mechanical noise as it walks. It goes right up to Lynn (walks down until it's aligned with her, then walks right until it's one tile away from her-- Lynn turns to face it at this point), and there are clicking noises as the screen flashes white several times as it takes pictures of Lynn. It then bounds off the screen to the left. Lynn turns to watch it go.
+“Lynn: This isn’t natural.”
+Cutscene fade. When it fades back down, we're back in l_research room 2, right in front of the tree.

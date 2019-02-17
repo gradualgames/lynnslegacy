@@ -1,0 +1,7 @@
+<replacer>
+
+  <source> gmg( mouse ). </source>
+  <target> fb_Global.mouse. </target>
+
+</replacer>
+

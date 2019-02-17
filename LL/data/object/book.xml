@@ -1,0 +1,31 @@
+
+<book>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\book.spr </filename>
+
+  </sprite>
+
+
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <impassable> -1 </impassable>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <action_sequence> 1 </action_sequence>
+  <fade_time> .01 </fade_time>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+</book>
+

@@ -1,0 +1,122 @@
+
+<blackg>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blackg.spr </filename>
+    <rate> .02 </rate>
+    <madrate> .01 </madrate>
+    <dir_frames> 8 </dir_frames>
+    <y_off> 8 </y_off>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\black_fork.spr </filename>
+    <rate> .02 </rate>
+    <madrate> .01 </madrate>
+    <dir_frames> 4 </dir_frames>
+    <x_off> 16 </x_off>
+    <y_off> 24 </y_off>
+
+  </sprite>
+
+
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <froggy> 1 </froggy>
+  <lose_time> 3 </lose_time>
+  <vision_field> 48 </vision_field>
+  <walk_speed> .039 </walk_speed>
+  <mad_walk_speed> .02 </mad_walk_speed>
+  <walk_length> 40 </walk_length>
+  <strength> 1 </strength>
+  <hp> 8 </hp>
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+
+  <d_health> 70 </d_health>
+  <d_silver> 50 </d_silver>
+  <n_silver> 7 </n_silver>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> cond_jump </func>
+    <func> return_idle </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_2 </func>
+    <func> chase </func>
+    <func> return_jump_back </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <block_macro> fire_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <block_macro> ice_block </block_macro>
+
+  </fp>
+
+
+</blackg>
+

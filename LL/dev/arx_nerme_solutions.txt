@@ -1,0 +1,14 @@
+in nerme, room 17, there are bars on the lower exit (leading to room 16 and the fkey). They can only be removed by opening the blue chest elsewhere that contains the nerme idol. (room 27)
+When we open the chest that has the idol, the following happens:
+"Received the Nerme Idol!"
+"Lynn: ...Damn. This looks like it'll fetch a good price."
+there is the switch 'click' sound.
+"Lynn: Hmm. Sounds like I triggered something..."
+the bars are now open.
+
+in arx, there is a gap before the boss room that we must cross with the bridge box.
+When we go up to it before we have it:
+"Lynn: I can't cross this gap without some kind of help."
+When we go up to it after we have it:
+"Lynn: Hmm. Maybe I can use those old materials..."
+fade out. there is the building sound (yet to be done, I know :-"), then it fades up and there is a bridge across the gap.

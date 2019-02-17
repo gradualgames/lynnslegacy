@@ -1,0 +1,124 @@
+
+<floorgun>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\floorgun_rise.spr </filename>
+    <rate> .05 </rate>
+    <dir_frames> 10 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\floorgun_shoot.spr </filename>
+    <rate> .12 </rate>
+    <dir_frames> 2 </dir_frames>
+
+    <sound>
+
+      <frame> 0 </frame>
+      <index> sound_gunfire </index>
+      <vol> 15 </vol>
+      
+    </sound> 
+    <sound>
+
+      <frame> 2 </frame>
+      <index> sound_gunfire </index>
+      <vol> 15 </vol>
+      
+    </sound> 
+    <sound>
+
+      <frame> 4 </frame>
+      <index> sound_gunfire </index>
+      <vol> 15 </vol>
+      
+    </sound> 
+    <sound>
+
+      <frame> 6 </frame>
+      <index> sound_gunfire </index>
+      <vol> 15 </vol>
+      
+    </sound> 
+    <sound>
+
+      <frame> 8 </frame>
+      <index> sound_gunfire </index>
+      <vol> 15 </vol>
+      
+    </sound> 
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\orb.spr </filename>
+    <rate> .000001 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_CROSS </proj_style>
+  <proj_dur> 90 </proj_dur>
+  <proj_invis> 1 </proj_invis>
+  <proj_str> 1 </proj_str>
+  
+  <high_frame> .12 </high_frame>
+  <low_frame> .08 </low_frame>
+  
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <uni_directional> 1 </uni_directional>
+  <placed> -1 </placed>
+  <hp> 2 </hp>
+  <invincible> 1 </invincible>
+  //<isboss> -1 </isboss>
+  
+  <fp>
+
+    <func> check_trigger </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_0 </func>
+    <func> idle_animate </func>
+    <func> active_anim_1 </func>
+    <func> gen_frame </func>
+    <func> idle_animate </func>
+    <func> trigger_projectile </func>
+    <func> back_3 </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+
+
+</floorgun>
+

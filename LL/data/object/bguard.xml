@@ -1,0 +1,79 @@
+
+<bguard>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\brguard_walk.spr </filename>
+    <rate> .03 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 16 </y_off>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\brguard_stab.spr </filename>
+    <rate> .03 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 16 </y_off>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 19 </fly_length>
+  <walk_length> 40 </walk_length>
+  <walk_speed> .059 </walk_speed>
+  <hp> 4 </hp>
+  <strength> 1 </strength>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <d_health> 80 </d_health>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> active_anim_1 </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> active_anim_0 </func>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</bguard>
+

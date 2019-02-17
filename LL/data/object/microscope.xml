@@ -1,0 +1,30 @@
+
+<microscope>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <impassable> 1 </impassable>
+  <walk_length> 40 </walk_length>
+  <walk_speed> .059 </walk_speed>
+  <strength> 0 </strength>
+  <invincible> -1 </invincible>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <action_sequence> 1 </action_sequence>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> return_idle </func>     
+
+  </fp>
+
+
+</microscope>
+

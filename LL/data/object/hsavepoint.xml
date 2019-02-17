@@ -1,0 +1,185 @@
+
+<hsavepoint>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\hsave_g.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\hsave_gr.spr </filename>
+    <rate> .08 </rate>
+    <madrate> .08 </madrate>
+    <sound>
+      <frame> 7 </frame>
+      <index> sound_crateting </index>
+      <vol> 15 </vol>
+      
+    </sound> 
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\hsave_r.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\hsave_rg.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\blank.spr </filename>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file1.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file1_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file2.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file2_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file3.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file3_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file4.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\file4_highlight.spr </filename>
+    <rate> .19 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <placed> -1 </placed>
+  <touch_sequence> -1 </touch_sequence>
+  <walk_speed> 1 </walk_speed>
+  <lose_time> 0 </lose_time>
+  <froggy> 1 </froggy>
+  <vision_field> 32 </vision_field>
+  <uni_directional> 1 </uni_directional>
+
+  // '' 1 Shl 16 Or 1000 = 65536 + 1000 = 66536
+  <happen_trig> 66536 </happen_trig>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> active_animate </func>
+    <func> active_anim_2 </func>
+    <func> heal_lynn </func>
+    <func> poll_action </func>
+    <func> do_menu_save </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> active_anim_3 </func>
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> set_happen </func>
+    <func> eat_lynn_action </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</hsavepoint>
+

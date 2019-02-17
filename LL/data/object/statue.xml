@@ -1,0 +1,105 @@
+
+<statue>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\statue_idle.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\statue_green.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <snd>
+
+    <index> sound_rumble </index>
+    
+  </snd>
+
+  <snd>
+
+    <index> sound_switch </index>
+    
+  </snd>
+
+
+  <proj_style> PROJECTILE_ORB </proj_style>
+  <proj_str> 2 </proj_str>
+  <proj_dur> 60 </proj_dur>
+  <proj_size> 1 </proj_size>
+  <proj_over> 1 </proj_over>
+
+  <direction> 2 </direction>
+  <vision_field> 64 </vision_field>
+  <froggy> 1 </froggy>
+  <lose_time> 0 </lose_time>
+  <invincible> -1 </invincible>
+  <impassable> -1 </impassable>
+  <hp> 1 </hp>
+  <real_y> 48 </real_y>
+  <real_x> 48 </real_x>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> trigger_projectile </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+  
+  // 3
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 4
+  <fp>
+
+    <func> stop_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</statue>
+

@@ -1,0 +1,90 @@
+<godstat>
+
+  <sprite>
+
+    <filename>data\pictures\char\godstat.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <rate>.05</rate>
+    <y_off> 68 </y_off> 
+
+  </sprite>
+
+  <hp>1</hp> 
+  //<placed>-1</placed> 
+  <real_x>256</real_x> 
+  <real_y>60</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  //<impassable>1</impassable>
+
+  <snd>
+
+    <index> sound_rumble </index>
+    <vol> 30 </vol>
+    
+  </snd>
+
+  <snd>
+
+    <index> sound_switch </index>
+    <vol> 80 </vol>
+    
+  </snd>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+  
+  // 1
+  <fp>
+
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 2
+  <fp>
+
+    <func> make_visible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 3
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 5
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> stop_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</godstat>

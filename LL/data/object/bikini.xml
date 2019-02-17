@@ -1,0 +1,34 @@
+<bikini>
+
+  <sprite>
+    <filename>data\pictures\char\outfits\swimsuit\swimsuit_floor.spr</filename> 
+    <dir_frames> 8 </dir_frames>
+    <rate>.05</rate> 
+  </sprite>
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>16</real_x> 
+  <real_y>16</real_y> 
+  <uni_directional>1</uni_directional> 
+  <impassable>1</impassable> 
+  <invincible>1</invincible> 
+  <action_sequence>1</action_sequence> 
+
+  <fp>
+
+    <func> outfit_branch </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  // 1
+  <fp>
+
+    <func> translate_result </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</bikini>

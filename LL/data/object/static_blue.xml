@@ -1,0 +1,39 @@
+
+<static_red>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\static_blue.spr </filename>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+  <snd>
+    <index> sound_greystatic </index>
+    
+  </snd>
+
+
+  <uni_directional> 1 </uni_directional>
+  <direction> 0 </direction>
+  <placed> -10 </placed>
+  <maxhp> 1 </maxhp>
+  <hp> 1 </hp>
+  <low_frame> .03 </low_frame>
+  <high_frame> .08 </high_frame>
+  <invincible> 1 </invincible>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+
+  <fp>
+
+    <func> gen_frame </func>
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</static_red>
+

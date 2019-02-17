@@ -1,0 +1,42 @@
+<angerfireball>
+
+  // 0
+  <sprite>
+
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .080 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+  
+  <proj_style> PROJECTILE_FIREBALL </proj_style>
+  <proj_dur> 1800 </proj_dur>
+
+  <hp> 1 </hp>
+  <strength> 1 </strength>
+  <walk_speed> .03 </walk_speed>
+  <real_x>16</real_x> 
+  <real_y>16</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <fly_speed> .009 </fly_speed>
+  <fly_length> 128 </fly_length>
+  <radius> 32 </radius>
+
+                        
+  <fp>
+  
+    <func> anger_fireball_circle </func>
+    <func> return_idle </func>
+  
+  </fp>
+
+  <fp>
+    // '' track in on lynn, weak tracking, as in grult fireball.
+    <func> anger_shoot </func>
+    <func> return_idle </func>
+    
+      
+  </fp>
+
+</angerfireball>

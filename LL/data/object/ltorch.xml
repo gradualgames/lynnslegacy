@@ -1,0 +1,55 @@
+
+<ltorch>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\torchlit.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\badtorch.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\goodtorch.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\lowtorch.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <hp> 1 </hp>
+  <placed> -1 </placed>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <impassable> 1 </impassable>
+  <vision_field> 32 </vision_field>
+  <uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+</ltorch>
+

@@ -1,0 +1,29 @@
+
+<slime>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\slime.spr </filename>
+    <rate> .000 </rate>
+    <madrate> .03 </madrate>
+    <dir_frames> 8 </dir_frames>
+    <y_off> 8 </y_off>
+
+  </sprite>
+
+  <invincible> 1 </invincible>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <hp> 12 </hp>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+
+</slime>
+

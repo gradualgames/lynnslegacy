@@ -1,0 +1,48 @@
+
+<gshape>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\shapeless.spr </filename>
+    <rate> .36 </rate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <uni_directional> 1 </uni_directional>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <hp> 1 </hp>
+  <strength> -3 </strength>
+  <walk_speed> .08 </walk_speed>
+  <walk_length> 40 </walk_length>
+  <invincible> 1 </invincible>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+  
+
+  <fp>
+
+    <func> copter_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  /*
+              <fp>
+            
+                <proc_id> death_state </proc_id>
+                <func> make_dead </func>
+                <func> active_anim_1 </func>
+                <func> dead_animate </func>
+                <func> cripple </func>
+                <func> active_anim_0 </func>
+                <func> return_idle </func>
+            
+              </fp>
+  */
+
+</gshape>
+

@@ -1,0 +1,310 @@
+
+<core>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8_flash.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8_left1.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8_left2.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8_right1.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8_right2.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss8_corebroke.spr </filename>
+    <rate> .1 </rate>
+    <x_off> 16 </x_off>
+    <y_off> 164 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .005 </rate>
+
+  </sprite>
+
+  <snd>
+
+    <index> sound_coreclunk </index>
+    
+  </snd>
+
+  <snd>
+
+    <index> sound_rumble </index>
+    
+  </snd>
+
+
+  <expl_delay> .003 </expl_delay>
+  <explosions> 50 </explosions>
+
+  <uni_directional> 1 </uni_directional>
+  
+  <strength> 0 </strength>
+  <hp> 24 </hp>
+  <real_x> 144 </real_x>
+  <real_y> 186 </real_y>
+
+  <isboss> -1 </isboss>
+  
+  <walk_speed> .1 </walk_speed>
+  <mad_walk_speed> .1 </mad_walk_speed>
+  <walk_length> 56 </walk_length>
+  
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+  
+  <invincible> 1 </invincible>
+
+  <jump_count> 20000 </jump_count>
+  
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc> return_idle </proc>
+    
+  </fp>
+
+
+  // 3
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+  // 4
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> make_invincible </func>
+    <func> active_anim_1 </func>
+    <func> half_second_pause </func>
+    <func> active_anim_0 </func>
+    <func> half_second_pause </func>
+    <func> active_anim_1 </func>
+    <func> half_second_pause </func>
+    <func> active_anim_0 </func>
+    <func> make_vulnerable </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> fade_music_out </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> make_visible </func>
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+
+  // 7
+  <fp>
+
+    <func> explode </func>
+    <func> flicker </func>
+    <func> cripple </func>
+    <func> counted_jump_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+  // 8
+  <fp>
+
+    <func> flash </func>
+    <func> flash_down </func>
+    <func> active_anim_6 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+  // 9
+  <fp>
+
+    <func> set_camera </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 10
+  <fp>
+
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> make_visible </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 11
+  <fp>
+
+    <func> set_explosions </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 12
+  <fp>
+
+    <func> active_anim_2 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 13
+  <fp>
+
+    <func> active_anim_3 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 14
+  <fp>
+
+    <func> active_anim_4 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 15
+  <fp>
+
+    <func> active_anim_5 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 16
+  <fp>
+
+    <func> active_anim_0 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 17
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 18
+  <fp>
+
+    <func> stop_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+
+
+
+</core>
+

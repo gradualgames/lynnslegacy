@@ -1,0 +1,28 @@
+<logosta_tree2>
+
+  <sprite>
+
+    <filename>data\pictures\char\holotree2.spr</filename> 
+    <dir_frames> 1 </dir_frames>
+    <x_off>16</x_off> 
+    <y_off>16</y_off> 
+    <rate>.05</rate> 
+
+  </sprite>
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>48</real_x> 
+  <real_y>56</real_y> 
+  <uni_directional>1</uni_directional> 
+  <invincible>1</invincible> 
+  <impassable>1</impassable>
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+
+</logosta_tree2>

@@ -1,0 +1,9 @@
+l_lab:
+
+switch in room 7 opens the bars connecting room 10 and 11
+
+switch in room 8 opens the bars connecting room 6 and 9
+
+l_research:
+
+switch in room 1 opens the bars connecting room 0 and 2

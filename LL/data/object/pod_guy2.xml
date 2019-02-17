@@ -1,0 +1,59 @@
+<pod_guy2>
+
+  <sprite>
+    <filename>data\pictures\char\podguy_walk.spr</filename> 
+    <dir_frames> 8 </dir_frames>
+    <y_off> 8 </y_off>
+    <rate>.45</rate> 
+  </sprite>
+
+  <sprite>
+    <filename>data\pictures\char\podguy_die.spr</filename> 
+    <dir_frames> 8 </dir_frames>
+    <y_off> 8 </y_off>
+    <rate>.35</rate> 
+  </sprite>
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>16</real_x> 
+  <real_y>16</real_y> 
+  <uni_directional>1</uni_directional> 
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+  <fp>
+
+    <func> home </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  <fp>
+
+    <func> active_animate </func>
+    <func> return_trig </func>
+
+  </fp>
+
+</pod_guy2>

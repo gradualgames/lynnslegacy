@@ -1,0 +1,109 @@
+
+<rcopter>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\rcopter_rise.spr </filename>
+    <madrate> .130 </madrate>
+    <rate> .280 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\rcopter_fly.spr </filename>
+    <rate> .001 </rate>
+    <madrate> .001 </madrate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+
+
+  <sprite>
+
+    <filename> data\pictures\char\rcopter_settle.spr </filename>
+    <rate> .280 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <x_off> -8 </x_off>
+    <y_off> -4 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <mad_walk_speed> .019 </mad_walk_speed>
+  <vision_field> 48 </vision_field>
+  <diag_chase> 1 </diag_chase>
+  <lose_time> 4 </lose_time>
+  <froggy> 1 </froggy>
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 13 </fly_length>
+  <real_y> 16 </real_y>
+  <real_x> 32 </real_x>
+  <uni_directional> 1 </uni_directional>
+  <strength> 1 </strength>
+  <hp> 6 </hp>
+  <strength> 1 </strength>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_animate </func>
+    <func> active_anim_1 </func>
+    <func> chase </func>
+    <func> jump_2_back </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> active_anim_2 </func>
+    <func> second_pause </func>
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</rcopter>
+

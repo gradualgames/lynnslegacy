@@ -1,0 +1,116 @@
+
+<bush>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\bush.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\bushburn.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\bushice.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <dead_sound> sound_bush </dead_sound>
+  <hit_sound> none </hit_sound>
+  <impassable> 1 </impassable>
+  <walk_speed> .027 </walk_speed>
+  <touch_sequence> 1 </touch_sequence>
+  <flash_length> 0 </flash_length>
+  <flash_time> 0 </flash_time>
+  <fly_speed> 0 </fly_speed>
+  <fly_length> 0 </fly_length>
+  <ice_weak> 1 </ice_weak>
+  <fire_weak> 1 </fire_weak>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <hp> 1 </hp>
+  <maxhp> 1 </maxhp>
+  <strength> 0 </strength>
+  <uni_directional> 1 </uni_directional>
+  
+  // '' 1 shl 16 or 4 = 65536 + 4 = 65540
+  <happen_trig> 65540 </happen_trig> 
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_animate </func>
+    <func> cripple </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> make_dead </func>
+    <func> active_animate </func>
+    <func> cripple </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <func> active_anim_2 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> thaw_state </proc_id>
+    <func> active_anim_0 </func>
+    <func> melt </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> set_happen </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</bush>
+

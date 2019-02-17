@@ -1,0 +1,181 @@
+
+<grult>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss1_fly.spr </filename>
+    <rate> .055 </rate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss1_fall.spr </filename>
+    <rate> .09 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss1_vulnerable.spr </filename>
+    <rate> .09 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\boss1_rise.spr </filename>
+    <rate> .09 </rate>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\fireball.spr </filename>
+    <rate> .36 </rate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> expl_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .1 </rate>
+
+  </sprite>
+
+  <hit_sound> sound_boss_hit </hit_sound>
+  <hit_sound_vol> 50 </hit_sound_vol>
+  
+  
+  <proj_style> PROJECTILE_FIREBALL </proj_style>
+  
+  <proj_str> 1 </proj_str>
+  <proj_dur> 256 </proj_dur>
+
+  <fly_speed> .009 </fly_speed>
+  <fly_length> 30 </fly_length>
+  <walk_length> 40 </walk_length>
+  <walk_speed> .009 </walk_speed>
+  <radius> 60 </radius>
+  <jump_count> 20000 </jump_count>
+  <fade_time> .3 </fade_time>
+
+  <expl_delay> .17 </expl_delay>
+  <explosions> 30 </explosions>
+  <expl_y_size> 32 </expl_y_size>
+  <expl_x_size> 128 </expl_x_size>
+  <expl_y_off> 48 </expl_y_off>
+  <expl_x_off> 0 </expl_x_off>
+  
+  <isboss> -1 </isboss>
+  <light_sensitive> 1 </light_sensitive>
+  <real_y> 48 </real_y>
+  <real_x> 128 </real_x>
+  <uni_directional> 1 </uni_directional>
+  <elite> 1 </elite>
+  <strength> 1 </strength>
+  <invincible> 1 </invincible>
+  <hp> 15 </hp>
+  <maxhp> 15 </maxhp>
+  
+  // 0
+  <fp>
+
+    <func> do_circle </func>
+    <func> return_idle </func>
+
+  </fp>
+
+  
+  // 1
+  <fp>
+
+    <proc_id> stun_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> active_animate </func>
+    <func> active_anim_2 </func>
+    <func> idle_animate </func>
+    <func> counted_jump </func>
+
+  </fp>
+
+
+  // 2
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> active_anim_3 </func>
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  // 3
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> do_nothing </func>
+
+  </fp>
+
+
+  // 4
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> explode </func>
+    <func> flicker </func>
+    <func> counted_jump_2 </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+
+
+  // 5
+  <fp>
+
+    <func> fade_to_black </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  // 6
+  <fp>
+
+    <proc_id> proj_state </proc_id>
+    <func> grult_fireball </func>
+    <func> do_nothing </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  // 7
+  <fp>
+
+    <func> set_happen </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</grult>
+

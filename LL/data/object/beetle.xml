@@ -1,0 +1,98 @@
+
+<beetle>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\beetle.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\bugsplat.spr </filename>
+    <rate> .08 </rate>
+    <x_off> 8 </x_off>
+    <y_off> 8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <walk_length> 20 </walk_length>
+  <walk_speed> .019 </walk_speed>
+  <hp> 1 </hp>
+  <placed> -1 </placed>
+  <strength> 1 </strength>
+  <real_y> 8 </real_y>
+  <real_x> 8 </real_x>
+  
+  <dead_sound> sound_sploosh </dead_sound>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> cond_jump </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> fire_state </proc_id>
+    <block_macro> fire_block </block_macro>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> ice_state </proc_id>
+    <block_macro> ice_block </block_macro>
+
+  </fp>
+
+
+</beetle>
+

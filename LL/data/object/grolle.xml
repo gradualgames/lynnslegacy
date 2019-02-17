@@ -1,0 +1,100 @@
+
+<grolle>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\grolle_dormant.spr </filename>
+    <rate> .000 </rate>
+    <madrate> .03 </madrate>
+    <dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\grolle_fly.spr </filename>
+    <rate> .03 </rate>
+    <madrate> .06 </madrate>
+    <dir_frames> 2 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <x_off> -24 </x_off>
+    <y_off> -8 </y_off>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <current_anim> 0 </current_anim>
+  <uni_directional> 1 </uni_directional>
+  <real_x> 64 </real_x>
+  <real_y> 32 </real_y>
+
+  <diag_chase> 1 </diag_chase>
+
+  <unstoppable_by_tile> 1 </unstoppable_by_tile>
+  <unstoppable_by_object> 1 </unstoppable_by_object>
+
+  <froggy> 1 </froggy>
+  <vision_field> 64 </vision_field>
+  <hp> 5 </hp>
+  <mad_walk_speed> .0166 </mad_walk_speed>
+  <strength> 2 </strength>
+
+  <fly_length> 13 </fly_length>
+  <fly_speed> .004 </fly_speed>
+
+
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> active_anim_1 </func>
+    <func> chase </func>
+    <func> return_jump_back </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> return_jump_back </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</grolle>
+

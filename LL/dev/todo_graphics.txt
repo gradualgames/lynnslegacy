@@ -1,0 +1,10 @@
+Sprites to be done:
+Nerme Idol map sprite
+Huge portal for pre-Logosta seq
+Green explosion for Valley Swarm mini-boss
+Maggot mini-boss for Valley Swarm
+Portal opening and closing anim for Logosta entry seq
+Appearing anim for ghosts in Old Sarrael seq
+Dimension Seed disappearing anim
+Moth running/disappearing anim
+Lynn giving Moth the sapling/final seed piece anim

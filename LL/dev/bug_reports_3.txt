@@ -1,0 +1,30 @@
+[X] In the room in Moenia with the silver and gold doors, the bats all spawn in the upper left corner of the screen instead of on the door.
+
+[X] "Lynn: Your problem is taken care of.Now get out of my sight..."
+    Missing a space.
+
+[X] "Lynn: You mean... That seed i found..?"
+    Missing capital "I"
+
+[X] In a fully lit room, if you light a torch the room gets dark when it goes out.
+
+Layer 2 tiles print over the save dialog.
+
+
+
+[X] "Lynn: Damn if only he wasn't so cryptic I might know what the hell was going on here for a change."
+    There should be an ellipses after "Damn"
+
+
+GELIDUS-RELATED:
+[X] "moth: You would discrimiate against me for what I am?"
+    Missing caps on Moth's name.
+
+[X] Moth has no transitions for appearing/disappearing in any sequence except the forest one before Ignia.
+
+[X] "Lynn: You knew that would pique my curiosity, not ease it... didn't you? How did you know about that job?"
+    I think Lynn should take a step back before this piece of dialog, perhaps pause before she does.
+
+[X] "Lynn: People who don't trust me mightwithhold my pay."
+    Missing a space between 'might' and 'withhold'
+

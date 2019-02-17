@@ -1,0 +1,84 @@
+
+<portalw>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\portal1.spr </filename>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\explosion.spr </filename>
+    <anim_id> expl_anim </anim_id>
+    <rate> .08 </rate>
+
+  </sprite>
+
+  <snd>
+    <index> sound_portal </index>
+    <channel> fsound_free </channel>
+    
+  </snd>
+
+  <hp> 1 </hp>
+  <real_x> 48 </real_x>
+  <real_y> 48 </real_y>
+  <placed> -9 </placed>
+  <invincible> -1 </invincible>
+  <strength> 0 </strength>
+  <sounds> 1 </sounds>
+
+  <fireworks> 1 </fireworks>
+
+  <expl_delay> .07 </expl_delay>
+  <explosions> 4 </explosions>
+  <expl_y_size> 32 </expl_y_size>
+  <expl_x_size> 32 </expl_x_size>
+
+
+  <fp>
+
+    <func> idle_animate </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> play_sound </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  
+  // 2
+  <fp>
+
+    <func> explode </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <func> set_happen </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 4
+  <fp>
+
+    <func> set_camera </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</portalw>
+

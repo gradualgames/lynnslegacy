@@ -1,0 +1,116 @@
+
+<slimeman>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\slimeman.spr </filename>
+    <rate> .000 </rate>
+    <madrate> .03 </madrate>
+    <dir_frames> 8 </dir_frames>
+    <y_off> 8 </y_off>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\slime_appear.spr </filename>
+    <rate> .08 </rate>
+    //<madrate> .06 </madrate>
+    <y_off> 8 </y_off>
+
+  </sprite>
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <diag_chase> 1 </diag_chase>
+  <mad_walk_speed> .06 </mad_walk_speed>
+  <strength> 1 </strength>
+  <hp> 12 </hp>
+
+  <fp>
+
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> chase </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <func> make_dead </func>
+    <func> active_anim_dead </func>
+    <func> dead_animate </func>
+    <func> cripple </func>
+    <func> active_anim_0 </func>
+    <func> play_seq </func>
+    <func> infinity </func>
+
+  </fp>
+  
+  // 4
+  <fp>
+
+    <func> make_invisible </func>
+    <func> return_trig </func>
+
+  </fp>
+  
+  // 5
+  <fp>
+
+    <func> active_anim_1 </func>
+    <func> make_visible </func>
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 6
+  <fp>
+
+    <func> do_nothing </func>
+    <func> return_trig </func>
+
+  </fp>
+
+  // 7
+  <fp>
+
+    <func> return_reset_npc </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+</slimeman>
+

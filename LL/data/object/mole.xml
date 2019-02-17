@@ -1,0 +1,113 @@
+
+<mole>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\mole_rise.spr </filename>
+    <rate> .080 </rate>
+    //<dir_frames> 0 </dir_frames>
+
+  </sprite>
+
+  <sprite>
+
+    <filename> data\pictures\char\mole_shoot.spr </filename>
+    <rate> .100 </rate>
+    <madrate> .000 </madrate>
+    <dir_frames> 4 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\mole_settle.spr </filename>
+    <rate> .080 </rate>
+    //<dir_frames> 10 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\mole_beam.spr </filename>
+    <rate> .080 </rate>
+    //<dir_frames> 1 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+    <anim_id> dead_anim </anim_id>
+    
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .080 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_BEAM </proj_style>
+  <proj_str> 2 </proj_str>
+  <proj_size> 2 </proj_size>
+  <proj_dur> 20 </proj_dur>
+
+  <strength> 1 </strength>
+  <maxhp> 3 </maxhp>
+  <hp> 3 </hp>
+  <real_x> 16 </real_x>
+  <real_y> 16 </real_y>
+  <jump_time> 1 </jump_time>
+  <d_health> 50 </d_health>
+  //<uni_directional> 1 </uni_directional>
+
+  <fp>
+
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> active_animate </func>
+    <func> active_anim_1 </func>
+    <func> make_face </func>
+    <func> timed_jump </func>
+    <func> directional_animate_x </func>
+    <func> trigger_projectile </func>
+    <func> second_pause </func>
+    <func> return_reset </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> up_face </func>
+    <func> active_anim_2 </func>
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> return_trig </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</mole>
+

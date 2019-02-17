@@ -1,0 +1,89 @@
+
+<kambot>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\kambot.spr </filename>
+    <rate> .04 </rate>
+    <madrate> .03 </madrate>
+
+  </sprite>
+
+
+  <sprite>
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\explosion.spr </filename>
+    <rate> .13 </rate>
+
+  </sprite>
+
+  <walk_length> 60 </walk_length>
+  <mad_walk_speed> .018 </mad_walk_speed>
+  <walk_speed> .025 </walk_speed>
+  <vision_field> 64 </vision_field>
+  <froggy> 1 </froggy>
+  <thrust> 1 </thrust>
+  <diag_thrust> 1 </diag_thrust>
+  <diag_chase> 1 </diag_chase>
+  <invincible> 1 </invincible>
+  <lose_time> 3 </lose_time>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <jump_time> 2 </jump_time>
+  <uni_directional> 1 </uni_directional>
+  <hp> 1 </hp>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> chase </func>
+    <func> return_jump </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> second_pause </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> thrust_state </proc_id>
+
+    <func> make_dead        </func>
+    <func> active_anim_dead </func>
+    <func> idle_animate     </func>
+    <func> cripple          </func>
+    <func> active_anim_0    </func>
+    <func> infinity         </func>
+
+
+
+  </fp>
+
+
+
+</kambot>
+

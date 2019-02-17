@@ -1,0 +1,6 @@
+FreeBASIC Compiler - Version 0.16 for win32 (target:win32)
+Copyright (C) 2004-2005 Andre Victor T. Vicentini (av1ctor@yahoo.com.br)
+
+compiling:    D:\prg\LL\src\did_dir\did_dir.bas -o D:\prg\LL\src\did_dir\did_dir.asm
+assembling:   C:\FREEBASIC\bin\win32\as.exe --strip-local-absolute "D:\prg\LL\src\did_dir\did_dir.asm" -o "D:\prg\LL\src\did_dir\did_dir.o" 
+linking:      -T "C:\FREEBASIC\bin\win32\i386pe.x" -subsystem console -s --stack 1048576,1048576 -L "C:\FREEBASIC\lib\win32" -L "./" "C:\FREEBASIC\lib\win32\crt2.o" "C:\FREEBASIC\lib\win32\crtbegin.o" "D:\prg\LL\src\did_dir\did_dir.o" -o "D:\prg\LL\src\did_dir\did_dir.exe" -( -lfb -lgcc -lmingw32 -lmoldname -lmsvcrt -lkernel32 -llists -luser32 -) "C:\FREEBASIC\lib\win32/crtend.o"

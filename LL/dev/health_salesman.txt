@@ -1,0 +1,29 @@
+The health salesman (healthmonger.spr) wanders around with normal NPC ai. Upon talking to him, the following occurs:
+
+"Salesman: Traveller! Looks like you would do well to be in a bit better shape... I've got just the thing."
+
+"Your current health is [current health]."
+
+"Upgrate to [1 more than current health] for 100 gold?"
+
+(note: the price goes up by 5 gold each time. So the first time it's 100, after that it's 105, then 110, etc etc)
+
+At the bottom of the "Upgrate to [1 more than current health] for 100 gold?" text box (one box after it if there isn't room), there are two options; Yes and No, lined up horizontally. Both are the normal text color, but when they're highlighted they're white.
+
+Upon choosing yes:
+
+"Salesman: Heh, heh... Thank you."
+
+"Your health has increased by one point!"
+
+Upon choosing no:
+
+"Salesman: Too bad. You know where to find me..."
+
+Once we have maximum health and talk to him:
+
+"Salesman: I can't help you anymore, so stop hangin' around! It's bad for business."
+
+If we try to buy but don't have the cash:
+
+"Salesman: Looks like you're a little short on gold. Come back when you can afford what I've got."

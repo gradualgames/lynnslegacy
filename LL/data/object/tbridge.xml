@@ -1,0 +1,22 @@
+<tbridge>
+  <sprite>
+    <filename>data\pictures\char\tbridge.spr</filename> 
+  </sprite>
+
+  <hp>1</hp> 
+  <placed>-1</placed> 
+  <real_x>16</real_x> 
+  <real_y>48</real_y> 
+  <uni_directional>1</uni_directional> 
+
+  <invisible>1</invisible> 
+  <invincible>1</invincible> 
+  
+  <fp>
+
+    <func> templewood_bridge </func>
+    <func> return_idle </func>
+
+  </fp>
+
+</tbridge>

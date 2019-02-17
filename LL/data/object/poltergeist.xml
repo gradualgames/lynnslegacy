@@ -1,0 +1,108 @@
+
+<poltergeist>
+
+
+  <sprite>
+
+    <filename> data\pictures\char\polterg.spr </filename>
+    <rate> .03 </rate>
+    <y_off> 8 </y_off>
+    <dir_frames> 8 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> proj_anim </anim_id>
+    <filename> data\pictures\char\orb.spr </filename>
+    <rate> .03 </rate>
+    <dir_frames> 10 </dir_frames>
+
+  </sprite>
+
+
+  <sprite>
+
+    <anim_id> dead_anim </anim_id>
+    <filename> data\pictures\char\enemydie.spr </filename>
+    <rate> .08 </rate>
+    <dir_frames> 5 </dir_frames>
+
+  </sprite>
+
+  <proj_style> PROJECTILE_ORB </proj_style>
+  <proj_str> 2 </proj_str>
+  <proj_size> 1 </proj_size>
+  <proj_dur> 60 </proj_dur>
+
+  <n_gold> 2 </n_gold>
+  <d_gold> 20 </d_gold>
+
+  <walk_length> 40 </walk_length>
+  <mad_walk_speed> .035 </mad_walk_speed>
+  <walk_speed> .035 </walk_speed>
+  <vision_field> 48 </vision_field>
+  <froggy> 1 </froggy>
+  <must_align> 1 </must_align>
+  <side_vision> 48 </side_vision>
+  <lose_time> 1 </lose_time>
+  <jump_time> 1 </jump_time>
+  <fly_speed> .004 </fly_speed>
+  <fly_length> 13 </fly_length>
+  <hp> 4 </hp>
+  <maxhp> 4 </maxhp>
+  <real_y> 16 </real_y>
+  <real_x> 16 </real_x>
+  <strength> 1 </strength>
+
+  <fp>
+
+    <func> randomize_path </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> randomize_path </func>
+    <func> walk </func>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> jump_state </proc_id>
+    <func> make_face </func>
+    <func> make_align </func>
+    <func> timed_jump_2 </func>
+    <func> trigger_projectile </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> reset_state </proc_id>
+    <func> return_idle </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> hit_state </proc_id>
+    <func> do_flyback </func>
+    <func> flicker </func>
+
+  </fp>
+
+
+  <fp>
+
+    <proc_id> death_state </proc_id>
+    <block_macro> dead_drop_block </block_macro>
+
+  </fp>
+
+
+</poltergeist>
+
