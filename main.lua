@@ -15,6 +15,7 @@ function love.load()
     spriteOffset = 0
 
     source = love.audio.newSource("fsun.it", "stream")
+    source:setLooping(true)
     source:play()
 end
 
