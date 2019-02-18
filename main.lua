@@ -13,6 +13,9 @@ function love.load()
     spriteData = love.filesystem.read("lynn24.spr")
 
     spriteOffset = 0
+
+    source = love.audio.newSource("fsun.it", "stream")
+    source:play()
 end
 
 function love.update(dt)
