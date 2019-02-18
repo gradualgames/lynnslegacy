@@ -12,19 +12,10 @@ function love.load()
 
     spriteData = love.filesystem.read("lynn24.spr")
 
-    offset = 0
     spriteOffset = 0
 end
 
 function love.update(dt)
-
-    if love.keyboard.isDown("up") then
-        offset = offset + 1
-    end
-
-    if love.keyboard.isDown("down") then
-        offset = offset - 1
-    end
 
     if love.keyboard.isDown("right") then
         spriteOffset = spriteOffset + 16
@@ -51,7 +42,6 @@ function love.draw()
             local b,g,r = string.byte(paletteData, i),
                           string.byte(paletteData, i+1),
                           string.byte(paletteData, i+2)
-            --print("red: "..r.." green: "..g.." blue: " ..b)
             love.graphics.setColor(r/255,g/255,b/255)
             love.graphics.points(x*2+200, y*2+100)
             i = i + 3
@@ -61,12 +51,12 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local bt = (string.byte(spriteData, i + spriteOffset) + (offset / 16)) * 3
+            local bt = (string.byte(spriteData, i + spriteOffset)) * 3
 
             if bt and bt >= 1 then
-                local b,g,r = string.byte(paletteData, bt),
-                              string.byte(paletteData, bt+1),
-                              string.byte(paletteData, bt+2)
+                local b,g,r = string.byte(paletteData, bt+1),
+                              string.byte(paletteData, bt+2),
+                              string.byte(paletteData, bt+3)
                 love.graphics.setColor(r/255,g/255,b/255)
                 love.graphics.points(x+100, y+100)
             end
@@ -74,9 +64,6 @@ function love.draw()
             i = i + 1
         end
     end
-
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.print(offset / 16, 100, 50)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
