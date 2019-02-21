@@ -8,5 +8,5 @@ vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
 
     vec2 paletteTextureCoords = vec2(paletteIndex, 0);
     vec3 outputPixelColor = texture2D(u_paletteTexture, paletteTextureCoords).rgb;
-    return vec4(outputPixelColor,1.0);
+    return vec4(outputPixelColor,1.0) * color;
 }
