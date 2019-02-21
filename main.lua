@@ -13,11 +13,13 @@ function love.load()
 
     paletteCanvas = love.graphics.newCanvas(256,1)
     love.graphics.setCanvas(paletteCanvas)
+    palette = {}
     local i = 1
     for x = 1,256 do
         local b,g,r = string.byte(paletteData, i),
                       string.byte(paletteData, i+1),
                       string.byte(paletteData, i+2)
+        table.insert(palette,{r/255,g/255,b/255})
         love.graphics.setColor(r/255,g/255,b/255)
         love.graphics.points(x, 1)
         i = i + 3
@@ -46,6 +48,18 @@ function love.update(dt)
 end
 
 function love.draw()
+    --just hacking in fiddling with palette values to prove we can simulate
+    --palette fading DOS STYLE!!!
+    love.graphics.setCanvas(paletteCanvas)
+    for x = 1,256 do
+        r,g,b = palette[x][1],palette[x][2],palette[x][3]
+        palette[x][1] = r/1.1
+        palette[x][2] = g/1.1
+        palette[x][3] = b/1.1
+        love.graphics.setColor(r,g,b)
+        love.graphics.points(x, 1)
+    end
+
     love.graphics.setShader(shader)
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
