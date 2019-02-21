@@ -40,7 +40,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.setShader(shader)
+    --love.graphics.setShader(shader)
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
@@ -50,16 +50,26 @@ function love.draw()
     love.graphics.points(1,1)
 
     local i = 1
-    for y=1,16 do
-        for x = 1,16 do
-            local b,g,r = string.byte(paletteData, i),
-                          string.byte(paletteData, i+1),
-                          string.byte(paletteData, i+2)
-            love.graphics.setColor(r/255,g/255,b/255)
-            love.graphics.points(x*2+200, y*2+100)
-            i = i + 3
-        end
+    for x = 1,256 do
+        local b,g,r = string.byte(paletteData, i),
+                      string.byte(paletteData, i+1),
+                      string.byte(paletteData, i+2)
+        love.graphics.setColor(r/255,g/255,b/255)
+        love.graphics.points(x, 1)
+        i = i + 3
     end
+
+    -- local i = 1
+    -- for y=1,16 do
+        -- for x = 1,16 do
+            -- local b,g,r = string.byte(paletteData, i),
+                          -- string.byte(paletteData, i+1),
+                          -- string.byte(paletteData, i+2)
+            -- love.graphics.setColor(r/255,g/255,b/255)
+            -- love.graphics.points(x*2+200, y*2+100)
+            -- i = i + 3
+        -- end
+    -- end
 
     i = 1
     for y=1,128 do
