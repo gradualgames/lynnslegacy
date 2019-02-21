@@ -13,10 +13,21 @@ function love.load()
 
     paletteCanvas = love.graphics.newCanvas(256,1)
     love.graphics.setCanvas(paletteCanvas)
-    for x=1,255 do
-        love.graphics.setColor(1,0,0,1)
-        love.graphics.points(x,1)
+    -- for x=1,255 do
+        -- love.graphics.setColor(1,0,0,1)
+        -- love.graphics.points(x,1)
+    -- end
+    local i = 1
+    for x = 1,256 do
+        local b,g,r = string.byte(paletteData, i),
+                      string.byte(paletteData, i+1),
+                      string.byte(paletteData, i+2)
+        love.graphics.setColor(r/255,g/255,b/255)
+        --love.graphics.setColor(1,1,0,1)
+        love.graphics.points(x, 1)
+        i = i + 3
     end
+
     love.graphics.setCanvas()
 
     shader = love.graphics.newShader("palette_shader.fs")
@@ -44,20 +55,22 @@ function love.draw()
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
+    love.graphics.draw(paletteCanvas, 0,0)
+    
     -- Render stuff in the game here
-    love.graphics.setLineStyle("rough")
-    love.graphics.rectangle("line",50,50,100,100)
-    love.graphics.points(1,1)
+    --love.graphics.setLineStyle("rough")
+    --love.graphics.rectangle("line",50,50,100,100)
+    --love.graphics.points(1,1)
 
-    local i = 1
-    for x = 1,256 do
-        local b,g,r = string.byte(paletteData, i),
-                      string.byte(paletteData, i+1),
-                      string.byte(paletteData, i+2)
-        love.graphics.setColor(r/255,g/255,b/255)
-        love.graphics.points(x, 1)
-        i = i + 3
-    end
+    -- local i = 1
+    -- for x = 1,256 do
+        -- local b,g,r = string.byte(paletteData, i),
+                      -- string.byte(paletteData, i+1),
+                      -- string.byte(paletteData, i+2)
+        -- love.graphics.setColor(r/255,g/255,b/255)
+        -- love.graphics.points(x, 1)
+        -- i = i + 3
+    -- end
 
     -- local i = 1
     -- for y=1,16 do
@@ -74,15 +87,18 @@ function love.draw()
     i = 1
     for y=1,128 do
         for x = 1,16 do
-            local bt = (string.byte(spriteData, i + spriteOffset)) * 3
+            local bt = string.byte(spriteData, i + spriteOffset)
+            love.graphics.setColor(bt/255,0,0)
+            love.graphics.points(x+100,y+100)
+            -- local bt = (string.byte(spriteData, i + spriteOffset)) * 3
 
-            if bt and bt >= 1 then
-                local b,g,r = string.byte(paletteData, bt+1),
-                              string.byte(paletteData, bt+2),
-                              string.byte(paletteData, bt+3)
-                love.graphics.setColor(r/255,g/255,b/255)
-                love.graphics.points(x+100, y+100)
-            end
+            -- if bt and bt >= 1 then
+                -- local b,g,r = string.byte(paletteData, bt+1),
+                              -- string.byte(paletteData, bt+2),
+                              -- string.byte(paletteData, bt+3)
+                -- love.graphics.setColor(r/255,g/255,b/255)
+                -- love.graphics.points(x+100, y+100)
+            -- end
 
             i = i + 1
         end
