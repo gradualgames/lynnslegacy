@@ -48,14 +48,14 @@ function love.update(dt)
 end
 
 function love.draw()
-    --just hacking in fiddling with palette values to prove we can simulate
-    --palette fading DOS STYLE!!!
+
+    --Imitating fade to white from Lynn's Legacy
     love.graphics.setCanvas(paletteCanvas)
     for x = 1,256 do
         r,g,b = palette[x][1],palette[x][2],palette[x][3]
-        palette[x][1] = r/1.1
-        palette[x][2] = g/1.1
-        palette[x][3] = b/1.1
+        palette[x][1] = math.min(palette[x][1] + .01, 1)
+        palette[x][2] = math.min(palette[x][2] + .01, 1)
+        palette[x][3] = math.min(palette[x][3] + .01, 1)
         love.graphics.setColor(r,g,b)
         love.graphics.points(x, 1)
     end
