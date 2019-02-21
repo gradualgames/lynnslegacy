@@ -1,7 +1,6 @@
 function love.load()
     --love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
-
     canvas = love.graphics.newCanvas(320,240)
 
     screenWidth,screenHeight = love.graphics.getDimensions()
@@ -9,14 +8,23 @@ function love.load()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
     paletteData = love.filesystem.read("ll.pal")
-
     spriteData = love.filesystem.read("lynn24.spr")
-
     spriteOffset = 0
 
-    source = love.audio.newSource("fsun.it", "stream")
-    source:setLooping(true)
-    source:play()
+    paletteCanvas = love.graphics.newCanvas(256,1)
+    love.graphics.setCanvas(paletteCanvas)
+    for x=1,255 do
+        love.graphics.setColor(1,0,0,1)
+        love.graphics.points(x,1)
+    end
+    love.graphics.setCanvas()
+
+    shader = love.graphics.newShader("palette_shader.fs")
+    shader:send("u_paletteTexture", paletteCanvas)
+
+    -- source = love.audio.newSource("fsun.it", "stream")
+    -- source:setLooping(true)
+    -- source:play()
 end
 
 function love.update(dt)
@@ -32,13 +40,14 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setShader(shader)
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
     -- Render stuff in the game here
     love.graphics.setLineStyle("rough")
     love.graphics.rectangle("line",50,50,100,100)
-    love.graphics.points(110,110)
+    love.graphics.points(1,1)
 
     local i = 1
     for y=1,16 do
@@ -77,6 +86,7 @@ function love.draw()
     love.graphics.scale(scale,scale) -- Scale
     love.graphics.draw(canvas) -- Draw the canvas
     love.graphics.pop() -- pop transformation state
+    love.graphics.setShader()
 end
 
 function love.keypressed(key, scancode, isrepeat)
