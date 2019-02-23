@@ -1,3 +1,11 @@
+function bytes_to_int(b1, b2, b3, b4)
+    return b1 + b2*256 + b3*65536 + b4*16777216
+end
+
+function bytes_to_short_int(b1, b2)
+    return b1 + b2*256
+end
+
 function love.load()
     --love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -50,29 +58,48 @@ end
 function love.draw()
 
     --Imitating fade to red from Lynn's Legacy
-    love.graphics.setCanvas(paletteCanvas)
-    for x = 1,256 do
-        r,g,b = palette[x][1],palette[x][2],palette[x][3]
-        palette[x][1] = math.min(palette[x][1] + .01, 1)
-        palette[x][2] = math.max(palette[x][2] - .04, 0)
-        palette[x][3] = math.max(palette[x][3] - .04, 0)
-        love.graphics.setColor(r,g,b)
-        love.graphics.points(x, 1)
-    end
+    -- love.graphics.setCanvas(paletteCanvas)
+    -- for x = 1,256 do
+        -- r,g,b = palette[x][1],palette[x][2],palette[x][3]
+        -- palette[x][1] = math.min(palette[x][1] + .01, 1)
+        -- palette[x][2] = math.max(palette[x][2] - .04, 0)
+        -- palette[x][3] = math.max(palette[x][3] - .04, 0)
+        -- love.graphics.setColor(r,g,b)
+        -- love.graphics.points(x, 1)
+    -- end
 
     love.graphics.setShader(shader)
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
-    i = 1
-    for y=1,128 do
-        for x = 1,16 do
-            local bt = string.byte(spriteData, i + spriteOffset)
+    local width=spriteData:byte(1,4)
+    local height=spriteData:byte(5,8)
+    local arraySize=spriteData:byte(9,12)
+    local frames=spriteData:byte(13,16)
+
+    local putwidth = bytes_to_short_int(spriteData:byte(17),spriteData:byte(18))/8
+    local putheight = bytes_to_short_int(spriteData:byte(19),spriteData:byte(20))
+    print("putwidth: "..putwidth.." putheight: "..putheight)
+
+    local i=21
+    for y=1,24 do
+        for x=1,16 do
+            local bt=spriteData:byte(i)
             love.graphics.setColor(bt/255,0,0)
             love.graphics.points(x+100,y+100)
-            i = i + 1
+            i=i+1
         end
     end
+
+    -- i = 1
+    -- for y=1,128 do
+        -- for x = 1,16 do
+            -- local bt = string.byte(spriteData, i + spriteOffset)
+            -- love.graphics.setColor(bt/255,0,0)
+            -- love.graphics.points(x+100,y+100)
+            -- i = i + 1
+        -- end
+    -- end
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
