@@ -45,6 +45,8 @@ function loadSpriteSheet(fileName)
 end
 
 function love.load()
+    baseDir = "LL/data"
+
     --love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     canvas = love.graphics.newCanvas(320,240)
@@ -53,7 +55,7 @@ function love.load()
     canvasWidth,canvasHeight = canvas:getDimensions()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
-    paletteData = love.filesystem.read("ll.pal")
+    paletteData = love.filesystem.read(baseDir.."/palette/ll.pal")
 
     paletteCanvas = love.graphics.newCanvas(256,1)
     love.graphics.setCanvas(paletteCanvas)
@@ -73,7 +75,10 @@ function love.load()
     shader = love.graphics.newShader("palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
 
-    lynnImageData = loadSpriteSheet("lynn24.spr")
+    tileImageData = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
+    tileImage = love.graphics.newImage(tileImageData)
+
+    lynnImageData = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
     lynnImage = love.graphics.newImage(lynnImageData)
 
     ssx = 64
@@ -112,6 +117,7 @@ function love.draw()
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
+    love.graphics.draw(tileImage, 0, 0)
     love.graphics.draw(lynnImage, ssx, ssy)
 
     love.graphics.setColor(1, 1, 1)
