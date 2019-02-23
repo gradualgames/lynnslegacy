@@ -6,6 +6,46 @@ function bytesToShort(b1, b2)
     return b1 + b2*256
 end
 
+function loadSpriteSheet(fileName)
+
+    --Load binary data of the .spr file all at once.
+    local fileData = love.filesystem.read(fileName)
+
+    --Load the 16 byte header of the .spr file.
+    local width = bytesToInt(fileData:byte(1, 4))
+    local height = bytesToInt(fileData:byte(5, 8))
+    local arraySize = bytesToInt(fileData:byte(9, 12))
+    local frames = bytesToInt(fileData:byte(13, 16))
+    local fileDataIndex = 17
+
+    --Create an image that can contain everything in the file.
+    print(width)
+    print(height)
+    local imageData = love.image.newImageData(width * frames+16, height + 16)
+    local imageX, imageY = 0, 0
+
+    for frameIndex = 1, frames do
+
+        --Get the header for the current frame.
+        local frameWidth = bytesToShort(fileData:byte(fileDataIndex, fileDataIndex + 1))/8
+        local frameHeight = bytesToShort(fileData:byte(fileDataIndex + 2, fileDataIndex + 3))
+        fileDataIndex = fileDataIndex + 4
+
+        --Copy the image data pixel by pixel, converting to our monochrome red format.
+        for y=1,height do
+            for x=1,width do
+                local bt = fileData:byte(fileDataIndex)
+                imageData:setPixel(imageX+x,imageY+y, bt/255, 0, 0, 1)
+                fileDataIndex = fileDataIndex + 1
+            end
+        end
+        imageX = imageX + width
+    end
+
+    return imageData
+
+end
+
 function love.load()
     --love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -32,11 +72,16 @@ function love.load()
         love.graphics.points(x, 1)
         i = i + 3
     end
-
     love.graphics.setCanvas()
 
     shader = love.graphics.newShader("palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
+
+    lynnImageData = loadSpriteSheet("lynn24.spr")
+    lynnImage = love.graphics.newImage(lynnImageData)
+
+    ssx = 64
+    ssy = 120
 
     -- source = love.audio.newSource("fsun.it", "stream")
     -- source:setLooping(true)
@@ -46,11 +91,11 @@ end
 function love.update(dt)
 
     if love.keyboard.isDown("right") then
-        spriteOffset = spriteOffset + 16
+        ssx = ssx + 1
     end
 
     if love.keyboard.isDown("left") then
-        spriteOffset = spriteOffset - 16
+        ssx = ssx - 1
     end
 
 end
@@ -68,45 +113,18 @@ function love.draw()
         -- love.graphics.points(x, 1)
     -- end
 
-    love.graphics.setShader(shader)
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
-    local width=spriteData:byte(1,4)
-    local height=spriteData:byte(5,8)
-    local arraySize=spriteData:byte(9,12)
-    local frames=spriteData:byte(13,16)
-
-    local putwidth = bytesToShort(spriteData:byte(17),spriteData:byte(18))/8
-    local putheight = bytesToShort(spriteData:byte(19),spriteData:byte(20))
-    print("putwidth: "..putwidth.." putheight: "..putheight)
-
-    local i=21
-    for y=1,24 do
-        for x=1,16 do
-            local bt=spriteData:byte(i)
-            love.graphics.setColor(bt/255,0,0)
-            love.graphics.points(x+100,y+100)
-            i=i+1
-        end
-    end
-
-    -- i = 1
-    -- for y=1,128 do
-        -- for x = 1,16 do
-            -- local bt = string.byte(spriteData, i + spriteOffset)
-            -- love.graphics.setColor(bt/255,0,0)
-            -- love.graphics.points(x+100,y+100)
-            -- i = i + 1
-        -- end
-    -- end
+    love.graphics.draw(lynnImage, ssx, ssy)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
-
+    love.graphics.setShader(shader)
     love.graphics.push() -- Push transformation state, The translate and scale will affect everything bellow until love.graphics.pop()
     love.graphics.translate( math.floor((screenWidth - canvasWidth * scale)/2) , math.floor((screenHeight - canvasHeight * scale)/2)) -- Move to the appropiate top left corner
     love.graphics.scale(scale,scale) -- Scale
+
     love.graphics.draw(canvas) -- Draw the canvas
     love.graphics.pop() -- pop transformation state
     love.graphics.setShader()
