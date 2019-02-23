@@ -19,8 +19,6 @@ function loadSpriteSheet(fileName)
     local fileDataIndex = 17
 
     --Create an image that can contain everything in the file.
-    print(width)
-    print(height)
     local imageData = love.image.newImageData(width * frames+16, height + 16)
     local imageX, imageY = 0, 0
 
@@ -56,8 +54,6 @@ function love.load()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
     paletteData = love.filesystem.read("ll.pal")
-    spriteData = love.filesystem.read("lynn24.spr")
-    spriteOffset = 0
 
     paletteCanvas = love.graphics.newCanvas(256,1)
     love.graphics.setCanvas(paletteCanvas)
