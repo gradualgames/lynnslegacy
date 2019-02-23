@@ -1,8 +1,8 @@
-function bytes_to_int(b1, b2, b3, b4)
+function bytesToInt(b1, b2, b3, b4)
     return b1 + b2*256 + b3*65536 + b4*16777216
 end
 
-function bytes_to_short_int(b1, b2)
+function bytesToShort(b1, b2)
     return b1 + b2*256
 end
 
@@ -77,8 +77,8 @@ function love.draw()
     local arraySize=spriteData:byte(9,12)
     local frames=spriteData:byte(13,16)
 
-    local putwidth = bytes_to_short_int(spriteData:byte(17),spriteData:byte(18))/8
-    local putheight = bytes_to_short_int(spriteData:byte(19),spriteData:byte(20))
+    local putwidth = bytesToShort(spriteData:byte(17),spriteData:byte(18))/8
+    local putheight = bytesToShort(spriteData:byte(19),spriteData:byte(20))
     print("putwidth: "..putwidth.." putheight: "..putheight)
 
     local i=21
