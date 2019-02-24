@@ -40,7 +40,18 @@ function loadSpriteSheet(fileName)
         imageX = imageX + width
     end
 
-    return imageData
+    local image = love.graphics.newImage(imageData)
+    local spriteBatch = love.graphics.newSpriteBatch(image, frames)
+
+    local quadX, quadY = 0, 0
+
+    for i = 1, frames do
+        local quad = love.graphics.newQuad(quadX, quadY, width, height, width * frames, height)
+        spriteBatch:add(quad, quadX, quadY)
+        quadX = quadX + width
+    end
+
+    return spriteBatch
 
 end
 
@@ -75,11 +86,9 @@ function love.load()
     shader = love.graphics.newShader("palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
 
-    tileImageData = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
-    tileImage = love.graphics.newImage(tileImageData)
+    tileSpriteBatch = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
 
-    lynnImageData = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
-    lynnImage = love.graphics.newImage(lynnImageData)
+    lynnSpriteBatch = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
 
     ssx = 64
     ssy = 120
@@ -117,8 +126,8 @@ function love.draw()
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
-    love.graphics.draw(tileImage, 0, 0)
-    love.graphics.draw(lynnImage, ssx, ssy)
+    love.graphics.draw(tileSpriteBatch)
+    love.graphics.draw(lynnSpriteBatch, ssx, ssy)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
