@@ -1,0 +1,7 @@
+<load_data>
+
+  <map> island3.map </map>
+  <entry> 0 </entry>
+
+</load_data>
+
