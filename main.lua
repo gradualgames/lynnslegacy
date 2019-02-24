@@ -19,19 +19,19 @@ function loadSpriteSheet(fileName)
     local fileDataIndex = 17
 
     --Create an image that can contain everything in the file.
-    local imageData = love.image.newImageData(width * frames+16, height + 16)
+    local imageData = love.image.newImageData(width * frames, height)
     local imageX, imageY = 0, 0
 
     for frameIndex = 1, frames do
 
         --Get the header for the current frame.
-        local frameWidth = bytesToShort(fileData:byte(fileDataIndex, fileDataIndex + 1))/8
+        local frameWidth = bytesToShort(fileData:byte(fileDataIndex, fileDataIndex + 1)) / 8
         local frameHeight = bytesToShort(fileData:byte(fileDataIndex + 2, fileDataIndex + 3))
         fileDataIndex = fileDataIndex + 4
 
         --Copy the image data pixel by pixel, converting to our monochrome red format.
-        for y=1,height do
-            for x=1,width do
+        for y=0,height-1 do
+            for x=0,width-1 do
                 local bt = fileData:byte(fileDataIndex)
                 imageData:setPixel(imageX+x,imageY+y, bt/255, 0, 0, 1)
                 fileDataIndex = fileDataIndex + 1
