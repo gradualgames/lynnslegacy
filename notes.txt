@@ -4,13 +4,46 @@ least at first.
 
 ***********************************************************************
 
+This is the location of the map data structure.
+
+    headers/ll/map_structures.bi:Type map_type
+
+
+This is the location of the room data structure.
+
+    LL/src/headers/ll/map_structures.bi:Type room_type
+
+
 This is a candidate for the function which loads .map files.
 
     src\com\ll_build.bas:434       Function load_mapV
 
+    This function first loads the map's own file name as a String.
+    FreeBASIC Strings appear to be formatted as a short little endian
+    integer length followed by the characters of the string.
+
+    Then, it loads two four byte integers, also little endian, denoting
+    the number of entries, and the number of rooms.
+
+    Then, it loads the tileset filename.
+
+    Next, it is looping over all rooms. They all share the same tilset.
+
+        Load the room's top left x coordinate.
+        Load the room's top left y coordinate.
+        Load the room's parallax. TODO: Not sure what this is or does.
+        If parallax is nonzero, load the parallax image.
+        Load the room's dark. TODO: Not sure what this is or does. Palette darken?
+        Load the room's teleports count.
+        Load the room's song. TODO: Is this an index into a global table of songs?
+        Load the room's song_changes. TODO: Not sure what this is or does.
+        Load the room's changes_to. TODO: Not sure what this is or does.
+        Load the room's reserved. 17 byte structure. TODO: Not sure what this is or does.
+
 This function wraps the above function:
 
     src\com\ll_build.bas:1203 Function LLSystem_LoadMap
+
 
 This function is for drawing a room (a sub object of maps?):
 
