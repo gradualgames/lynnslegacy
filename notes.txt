@@ -14,6 +14,11 @@ This is the location of the room data structure.
     LL/src/headers/ll/map_structures.bi:Type room_type
 
 
+This is the location of the char_type structure.
+
+    LL/src/headers/ll/object_structures.bi:226:Type char_type
+
+
 This is a candidate for the function which loads .map files.
 
     src\com\ll_build.bas:434       Function load_mapV
@@ -39,6 +44,80 @@ This is a candidate for the function which loads .map files.
         Load the room's song_changes. TODO: Not sure what this is or does.
         Load the room's changes_to. TODO: Not sure what this is or does.
         Load the room's reserved. 17 byte structure. TODO: Not sure what this is or does.
+
+            Next, loop over all teleports. Each teleport matches the teleport structure layout.
+
+                Type teleport_type
+
+                  x As Integer
+                  y As Integer
+                  w As Integer
+                  h As Integer
+                  to_room As Integer
+                  to_map As String
+
+                  dx As Integer
+                  dy As Integer
+                  dd As Integer
+
+                  to_song As Integer
+
+                  reserved( 19 ) As Integer
+
+
+                End Type
+
+        Load the room's seq_here. Integer. TODO: Not sure what this is or does.
+
+        Load the room's enemies. Integer.
+
+            Next, loop over all enemies.
+
+                Load .x_origin Integer.
+                Load .y_origin Integer.
+                Load .id String.
+                Load .direction Integer.
+                Load .seq_here Integer.
+                Load .spawn_h ushort.
+                Load .is_h_set ushort.
+                Load .chap Integer.
+                Load .spawn_d Integer.
+                Load .is_d_set Integer.
+                Load .reserved_5 Integer.
+                Call load_seqV with the open file. TODO: Must analyze this function.
+                Load .spawn_cond Integer.
+                If spawn_cond nonzero, then
+
+                    Allocate a LLObject_ConditionalSpawn object.
+                    Load spawn_info.wait_n Integer.
+
+                    For loop_spawns = 0 to spawn_info.wait_n - 1
+
+                        Load spawn_info.wait_spawn[loop_spawns].code_index uShort.
+                        Load spawn_info.wait_spawn[loop_spawns].code_state Integer.
+
+                    Load spawn_info.kill_n Integer.
+
+                    For loop_spawns = 0 to spawn_info.kill_n - 1
+
+                        Load spawn_info.kill_spawn[loop_spawns].code_index uShort.
+                        Load spawn_info.kill_spawn[loop_spawns].code_state Integer.
+
+                    Load spawn_info.active_n Integer.
+
+                    For loop_spawns = 0 to spawn_info.active_n - 1
+
+                        Load spawn_info.active_spawn[loop_spawns].code_index uShort.
+                        Load spawn_info.active_spawn[loop_spawns].code_state Integer.
+
+                EndIf
+
+                .coords.x = .x_origin
+                .coords.y = .y_origin
+
+                .ori_dir = .direction
+
+            End Next
 
 This function wraps the above function:
 
