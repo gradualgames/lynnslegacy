@@ -119,6 +119,32 @@ This is a candidate for the function which loads .map files.
 
             End Next
 
+        Then, it allocates .layout as 3 * len(integer ptr), which I think would be 12 bytes. Why?
+        Looks like an array of 3 elements. Each one is a room_elem?
+
+        Then, what on earth is this?
+
+              Dim As Integer room_elem = ( _
+                                           .x * ( .y + 1 ) + 1 _ '' y + 1 means extra row of padding.
+                                         )                       '' doesnt matter why! it's necessary to avoid
+
+        I believe it is calculating the number of room elements, which I believe are just
+        integers in a big grid, probably indices into the current tile set.
+        The formula is room.x * (room.y + 1) + 1 ? But what are those underscores?
+        I discovered by running that line in FreeBASIC itself that the underscores are
+        line continuations. The same line can be written as:
+
+        Dim As Integer room_elem = (.x * ( .y + 1 ) + 1)
+
+        Haha. What an ugly way to write this code!!!
+
+        Then, allocate a buffer with room_elem elements.
+
+        Then, for get_n_cpy = 0 to 2,
+            
+            .layout[get_n_cpy] is a new buffer
+
+
 This function wraps the above function:
 
     src\com\ll_build.bas:1203 Function LLSystem_LoadMap
