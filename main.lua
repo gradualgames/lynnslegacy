@@ -50,14 +50,40 @@ function readByte(vFile)
     return bt
 end
 
---Reads a string from a virtual file.
+--Reads a string from a virtual file, advancing the offset
+--by the length of the string (the header of this string) + 2.
 function readString(vFile)
     local length = readShort(vFile)
+    print("length: "..length)
+    return readStringL(vFile, length)
+end
+
+--Reads a string from a virtual file, where we
+--already know the length of string to read.
+function readStringL(vFile, length)
     local offset = vFile.offset
     local s = vFile.data:sub(offset, offset + length - 1)
     vFile.offset = vFile.offset + length
     return s
 end
+
+--Repeats a given read function count times with the
+--passed vFile. Returns a table of the values returned
+--from readF.
+function readC(readF, vFile, count)
+    local field = {}
+    for c = 1, count do
+        local value = readF(vFile)
+        table.insert(field, value)
+    end
+    return field
+end
+
+-- function readArray(readF, vFile)
+    -- local length = readShort(vFile)
+    -- print("langth: "..length)
+    -- return readC(readF, vFile, length)
+-- end
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
@@ -153,8 +179,86 @@ function loadMap(fileName)
 
     if mapVFile then
 
-        local mapName = readString(mapVFile)
-        print(mapName)
+        map.fileName = readString(mapVFile)
+        print("map.fileName: "..map.fileName)
+        map.numEntries = readInt(mapVFile)
+        print("map.numEntries: "..map.numEntries)
+        map.numRooms = readInt(mapVFile)
+        print("map.numRooms: "..map.numRooms)
+        map.tileSetFileName = readString(mapVFile)
+        print("map.tileSetFileName: "..map.tileSetFileName)
+
+        map.rooms = {}
+
+        for roomIndex = 1, 1 do --map.numRooms do
+
+            local room = {}
+
+            room.x = readInt(mapVFile)
+            print("room.x: "..room.x)
+            room.y = readInt(mapVFile)
+            print("room.y: "..room.y)
+            room.parallax = readInt(mapVFile)
+            print("room.parallax: "..room.parallax)
+            --TODO if parallax is nonzero, load parallax image.
+            room.dark = readInt(mapVFile)
+            print("room.dark: "..room.dark)
+            room.numTeleports = readInt(mapVFile)
+            print("room.numTeleports: "..room.numTeleports)
+            room.song = readInt(mapVFile)
+            print("room.song: "..room.song)
+            room.songChanges = readInt(mapVFile)
+            print("room.songChanges: "..room.songChanges)
+            room.changeTo = readInt(mapVFile)
+            print("room.changeTo: "..room.changeTo)
+            room.reserved = readC(readInt, mapVFile, 17)
+            mapVFile.offset = mapVFile.offset + 4
+            print("#room.reserved: "..#room.reserved)
+
+            room.teleports = {}
+
+            for teleportIndex = 1, room.numTeleports do
+
+                local teleport = {}
+
+                teleport.x = readInt(mapVFile)
+                print("teleport.x: "..teleport.x)
+                teleport.y = readInt(mapVFile)
+                print("teleport.y: "..teleport.y)
+                teleport.w = readInt(mapVFile)
+                print("teleport.w: "..teleport.w)
+                teleport.h = readInt(mapVFile)
+                print("teleport.h: "..teleport.h)
+                teleport.toRoom = readInt(mapVFile)
+                print("teleport.toRoom: "..teleport.toRoom)
+
+                print("offset is: "..mapVFile.offset)
+
+                teleport.toMap = readString(mapVFile)
+                print("teleport.toMap: "..teleport.toMap)
+
+                print("offset is: "..mapVFile.offset)
+
+                teleport.dx = readInt(mapVFile)
+                print("teleport.dx: "..teleport.dx)
+                teleport.dy = readInt(mapVFile)
+                print("teleport.dy: "..teleport.dy)
+                teleport.dd = readInt(mapVFile)
+                print("teleport.dd: "..teleport.dd)
+                teleport.toSong = readInt(mapVFile)
+                print("teleport.toSong: "..teleport.toSong)
+                teleport.reserved = readC(readInt, mapVFile, 19)
+                mapVFile.offset = mapVFile.offset + 4
+                print("#teleport.reserved: "..#teleport.reserved)
+
+                table.insert(room.teleports, teleport)
+            end
+
+            room.seq_here = readInt(mapVFile)
+
+            room.numEnemies = readInt(mapVFile)
+
+        end
 
     end
 
