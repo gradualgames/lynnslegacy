@@ -211,8 +211,7 @@ function loadMap(fileName)
             print("room.songChanges: "..room.songChanges)
             room.changeTo = readInt(mapVFile)
             print("room.changeTo: "..room.changeTo)
-            room.reserved = readC(readInt, mapVFile, 17)
-            mapVFile.offset = mapVFile.offset + 4
+            room.reserved = readC(readInt, mapVFile, 18)
             print("#room.reserved: "..#room.reserved)
 
             room.teleports = {}
@@ -247,8 +246,7 @@ function loadMap(fileName)
                 print("teleport.dd: "..teleport.dd)
                 teleport.toSong = readInt(mapVFile)
                 print("teleport.toSong: "..teleport.toSong)
-                teleport.reserved = readC(readInt, mapVFile, 19)
-                mapVFile.offset = mapVFile.offset + 4
+                teleport.reserved = readC(readInt, mapVFile, 20)
                 print("#teleport.reserved: "..#teleport.reserved)
 
                 table.insert(room.teleports, teleport)
