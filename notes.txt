@@ -153,13 +153,29 @@ This is a candidate for the function which loads .map files.
             Next, we read the current layer of this room into quickbuf. Reading the VFile_Get
             and VF_Array source code (line numbers in this notes file), this amounts to a
             memcpy from the open file into the buffer.
-            
-            Next, for all room elements, 
+
+            Next, for all room elements,
                 .layout[get_n_cpy][elem] = quickbuf(elem)
-                
+
             Why this isn't also a memcpy I'm not certain. Hmm, I think it is because the quickbuf
             which we read from the file is composed of uShort, but the actual elements of the current
             room layer are 4 byte Integers, so we can't do a memcpy here.
+    Next Room
+
+    Then, loop over all map entries...
+
+        Load .x Integer.
+        Load .y Integer.
+        Load .room Integer.
+        Load direction Byte.
+        Load .seq_hereI Integer.
+        Load .reserved (20 Integers so 80 bytes)
+
+        Then call load_seqV to load .seq. TODO: Not sure what this is, but guessing we can leave this as
+        a placeholder for later while we just try to load an entire map file.
+
+    TODO: The next two loops are postprocessing, dealing with sequence ids. I don't know what sequences
+    are, still. But I suspect we can deal with them later.
 
 This function wraps the above function:
 
