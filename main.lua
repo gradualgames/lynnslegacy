@@ -6,52 +6,95 @@ function bytesToShort(b1, b2)
     return b1 + b2*256
 end
 
+--Loads an entire file into a string and initializes an offset
+--into that string starting at the beginning of the file. The
+--data and this offset are returned as a two element table called
+--a virtual file.
+function loadVFile(fileName)
+    local fileData = love.filesystem.read(fileName)
+    if fileData then
+        local vFile = {
+            data = fileData,
+            offset = 1
+        }
+        return vFile
+    else
+        return nil
+    end
+end
+
+--Reads a 4 byte integer from a virtual file, advancing the offset
+--in the vFile by 4.
+function readInt(vFile)
+    local offset = vFile.offset
+    local int = bytesToInt(vFile.data:byte(offset, offset + 3))
+    vFile.offset = vFile.offset + 4
+    return int
+end
+
+--Reads a 2 byte integer from a virtual file, advancing the offset
+--in the vFile by 2.
+function readShort(vFile)
+    local offset = vFile.offset
+    local short = bytesToShort(vFile.data:byte(offset, offset + 1))
+    vFile.offset = vFile.offset + 2
+    return short
+end
+
+--Reads a byte from a virtual file, advancing the offset in the
+--vFile by 1.
+function readByte(vFile)
+    local offset = vFile.offset
+    local bt = vFile.data:byte(offset)
+    vFile.offset = vFile.offset + 1
+    return bt
+end
+
 function loadSpriteSheet(fileName)
 
     --Load binary data of the .spr file all at once.
-    local fileData = love.filesystem.read(fileName)
+    local vFile = loadVFile(fileName)
+    if vFile then
 
-    --Load the 16 byte header of the .spr file.
-    local width = bytesToInt(fileData:byte(1, 4))
-    local height = bytesToInt(fileData:byte(5, 8))
-    local arraySize = bytesToInt(fileData:byte(9, 12))
-    local frames = bytesToInt(fileData:byte(13, 16))
-    local fileDataIndex = 17
+        --Load the 16 byte header of the .spr file.
+        local width = readInt(vFile)
+        local height = readInt(vFile)
+        local arraySize = readInt(vFile)
+        local frames = readInt(vFile)
 
-    --Create an image that can contain everything in the file.
-    local imageData = love.image.newImageData(width * frames, height)
-    local imageX, imageY = 0, 0
+        --Create an image that can contain everything in the file.
+        local imageData = love.image.newImageData(width * frames, height)
+        local imageX, imageY = 0, 0
 
-    for frameIndex = 1, frames do
+        for frameIndex = 1, frames do
 
-        --Get the header for the current frame.
-        local frameWidth = bytesToShort(fileData:byte(fileDataIndex, fileDataIndex + 1)) / 8
-        local frameHeight = bytesToShort(fileData:byte(fileDataIndex + 2, fileDataIndex + 3))
-        fileDataIndex = fileDataIndex + 4
+            --Get the header for the current frame.
+            local frameWidth = readShort(vFile) / 8
+            local frameHeight = readShort(vFile)
 
-        --Copy the image data pixel by pixel, converting to our monochrome red format.
-        for y=0,height-1 do
-            for x=0,width-1 do
-                local bt = fileData:byte(fileDataIndex)
-                imageData:setPixel(imageX+x,imageY+y, bt/255, 0, 0, 1)
-                fileDataIndex = fileDataIndex + 1
+            --Copy the image data pixel by pixel, converting to our monochrome red format.
+            for y=0,height-1 do
+                for x=0,width-1 do
+                    local bt = readByte(vFile)
+                    imageData:setPixel(imageX+x,imageY+y, bt/255, 0, 0, 1)
+                end
             end
+            imageX = imageX + width
         end
-        imageX = imageX + width
+
+        local image = love.graphics.newImage(imageData)
+        local spriteBatch = love.graphics.newSpriteBatch(image, frames)
+
+        local quadX, quadY = 0, 0
+
+        for i = 1, frames do
+            local quad = love.graphics.newQuad(quadX, quadY, width, height, width * frames, height)
+            spriteBatch:add(quad, quadX, quadY)
+            quadX = quadX + width
+        end
+
+        return spriteBatch
     end
-
-    local image = love.graphics.newImage(imageData)
-    local spriteBatch = love.graphics.newSpriteBatch(image, frames)
-
-    local quadX, quadY = 0, 0
-
-    for i = 1, frames do
-        local quad = love.graphics.newQuad(quadX, quadY, width, height, width * frames, height)
-        spriteBatch:add(quad, quadX, quadY)
-        quadX = quadX + width
-    end
-
-    return spriteBatch
 
 end
 
