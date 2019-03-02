@@ -50,6 +50,37 @@ function readByte(vFile)
     return bt
 end
 
+--Loads a palette file and returns a table with all of the rgb triplets
+--of the file as tables. Each r,g,b component is transformed into the
+--proper float 0 to 1 range that Love2D expects. If there is a problem
+--loading the file, nil is returned. The palette file stores rgb triplets
+--as b,g,r (backwards), and this is taken care of by this function.
+function loadPalette(fileName)
+
+    paletteVFile = loadVFile(fileName)
+
+    if paletteVFile then
+        palette = {}
+        for x = 1,256 do
+            local b,g,r = readByte(paletteVFile),
+                          readByte(paletteVFile),
+                          readByte(paletteVFile)
+            table.insert(palette,{r/255,g/255,b/255})
+        end
+        return palette
+    else
+        return nil
+    end
+
+end
+
+--Loads a .spr spritesheet file. These are stored in FreeBASIC/QBasic
+--GET/PUT format. It starts with a 16 byte header stating the width and height
+--of the sprites, arraySize (unused?), and number of frames. Following this
+--is each frame, each of which have a 4 byte header consisting of two unsigned
+--short integers, the first being 8 times the width and the second being the height.
+--Following this is one byte per pixel of the frame, being an index into a 256
+--color palette.
 function loadSpriteSheet(fileName)
 
     --Load binary data of the .spr file all at once.
@@ -98,6 +129,22 @@ function loadSpriteSheet(fileName)
 
 end
 
+--Creates a palette canvas from a 256 color palette. The 256 color palette
+--is expected to be a table of 3 entry tables, where each 3 entry table is an
+--rgb triplet expected to express each component as a floating point number
+--between 0 and 1 inclusive.
+function createPaletteCanvas(palette)
+    local paletteCanvas = love.graphics.newCanvas(256,1)
+    love.graphics.setCanvas(paletteCanvas)
+    for x = 1,256 do
+        local r,g,b = palette[x][1],palette[x][2],palette[x][3]
+        love.graphics.setColor(r,g,b)
+        love.graphics.points(x, 1)
+    end
+    love.graphics.setCanvas()
+    return paletteCanvas
+end
+
 function love.load()
     baseDir = "LL/data"
 
@@ -109,22 +156,8 @@ function love.load()
     canvasWidth,canvasHeight = canvas:getDimensions()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
-    paletteData = love.filesystem.read(baseDir.."/palette/ll.pal")
-
-    paletteCanvas = love.graphics.newCanvas(256,1)
-    love.graphics.setCanvas(paletteCanvas)
-    palette = {}
-    local i = 1
-    for x = 1,256 do
-        local b,g,r = string.byte(paletteData, i),
-                      string.byte(paletteData, i+1),
-                      string.byte(paletteData, i+2)
-        table.insert(palette,{r/255,g/255,b/255})
-        love.graphics.setColor(r/255,g/255,b/255)
-        love.graphics.points(x, 1)
-        i = i + 3
-    end
-    love.graphics.setCanvas()
+    palette = loadPalette(baseDir.."/palette/ll.pal")
+    paletteCanvas = createPaletteCanvas(palette)
 
     shader = love.graphics.newShader("palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
