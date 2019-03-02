@@ -50,6 +50,15 @@ function readByte(vFile)
     return bt
 end
 
+--Reads a string from a virtual file.
+function readString(vFile)
+    local length = readShort(vFile)
+    local offset = vFile.offset
+    local s = vFile.data:sub(offset, offset + length - 1)
+    vFile.offset = vFile.offset + length
+    return s
+end
+
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
 --proper float 0 to 1 range that Love2D expects. If there is a problem
@@ -129,6 +138,30 @@ function loadSpriteSheet(fileName)
 
 end
 
+--Loads a Lynn's Legacy .map file. Assumes it is an uncompressed .map file.
+--The original set of files were zlib compressed. I ran them through the
+--offzip utility to decompress them.
+--At the time of this writing, this function will be incomplete as we are only
+--concerned with loading all the data in the map file; we will then slowly
+--piece together how to use all that data later (such as loading and placing
+--enemies, determining what sequences are, etc.)
+function loadMap(fileName)
+
+    local map = {}
+
+    local mapVFile = loadVFile(fileName)
+
+    if mapVFile then
+
+        local mapName = readString(mapVFile)
+        print(mapName)
+
+    end
+
+    return map
+
+end
+
 --Creates a palette canvas from a 256 color palette. The 256 color palette
 --is expected to be a table of 3 entry tables, where each 3 entry table is an
 --rgb triplet expected to express each component as a floating point number
@@ -163,8 +196,9 @@ function love.load()
     shader:send("u_paletteTexture", paletteCanvas)
 
     tileSpriteBatch = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
-
     lynnSpriteBatch = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
+
+    map = loadMap(baseDir.."/mapu/forest_fall.map")
 
     ssx = 64
     ssy = 120
