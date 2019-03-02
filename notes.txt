@@ -19,6 +19,12 @@ This is the location of the char_type structure.
     LL/src/headers/ll/object_structures.bi:226:Type char_type
 
 
+This is the location of the VFile_Get overload for VFile_Vector:
+
+    LL/src/headers/vfile.bi:72:Declare Function VFile_Get Overload ( ByVal h As Integer, ByVal p As Integer = -1, u As VFile_Vector ) As Integer
+    LL/src/com/vfile.bas:487:Function VFile_Get Overload ( ByVal h As Integer, ByVal p As Integer = -1, ByRef u As VFile_Vector ) As Integer
+
+
 This is a candidate for the function which loads .map files.
 
     src\com\ll_build.bas:434       Function load_mapV
@@ -141,9 +147,19 @@ This is a candidate for the function which loads .map files.
         Then, allocate a buffer with room_elem elements.
 
         Then, for get_n_cpy = 0 to 2,
-            
-            .layout[get_n_cpy] is a new buffer
 
+            .layout[get_n_cpy] is a new buffer whose size is (ubound(quickbuf) + 1) * 4 + 4096
+
+            Next, we read the current layer of this room into quickbuf. Reading the VFile_Get
+            and VF_Array source code (line numbers in this notes file), this amounts to a
+            memcpy from the open file into the buffer.
+            
+            Next, for all room elements, 
+                .layout[get_n_cpy][elem] = quickbuf(elem)
+                
+            Why this isn't also a memcpy I'm not certain. Hmm, I think it is because the quickbuf
+            which we read from the file is composed of uShort, but the actual elements of the current
+            room layer are 4 byte Integers, so we can't do a memcpy here.
 
 This function wraps the above function:
 
