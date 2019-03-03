@@ -256,6 +256,37 @@ function loadMap(fileName)
 
             room.numEnemies = readInt(mapVFile)
 
+            room.enemies = {}
+
+            for enemyIndex = 1, 1 do --room.numEnemies do
+
+                local enemy = {}
+                enemy.xOrigin = readInt(mapVFile)
+                print("enemy.xOrigin: "..enemy.xOrigin)
+                enemy.yOrigin = readInt(mapVFile)
+                print("enemy.yOrigin: "..enemy.yOrigin)
+                enemy.id = readString(mapVFile)
+                print("enemy.id: "..enemy.id)
+                enemy.direction = readInt(mapVFile)
+                print("enemy.direction: "..enemy.direction)
+                enemy.seqHere = readInt(mapVFile)
+                print("enemy.seqHere: "..enemy.seqHere)
+                enemy.spawnH = readShort(mapVFile)
+                print("enemy.spawnH: "..enemy.spawnH)
+                enemy.isHSet = readShort(mapVFile)
+                print("enemy.isHSet: "..enemy.isHSet)
+                enemy.chap = readInt(mapVFile)
+                print("enemy.chap: "..enemy.chap)
+                enemy.spawnD = readInt(mapVFile)
+                print("enemy.spawnD: "..enemy.spawnD)
+                enemy.isDSet = readInt(mapVFile)
+                print("enemy.isDSet: "..enemy.isDSet)
+                enemy.reserved_5 = readInt(mapVFile)
+                print("enemy.reserved_5: "..enemy.reserved_5)
+
+                --TODO: Continue transcribing enemy load loop.
+            end
+
         end
 
     end
