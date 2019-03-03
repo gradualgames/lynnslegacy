@@ -182,6 +182,59 @@ This function wraps the above function:
     src\com\ll_build.bas:1203 Function LLSystem_LoadMap
 
 
+This function loads sequences from an open file,
+
+LL/src/com/ll_build.bas:57:      Sub load_seqV( ff As Integer, seqs As Integer, s As sequence_type Ptr, de As list_type Ptr, t As String, i As Integer )
+
+    This function first allocates space for seqs * sizeof(sequence_type)
+
+    For 1 to seqs do
+
+        Load .ents Integer
+
+        For loop_ents is 1 to ents do
+
+            Load ent_code[loop_ents] Integer
+
+        Load .commands Integer
+
+        For loop_commands is 1 to commands do
+
+            load .ents Integer
+
+            .ent = {}
+
+            For loop_command_ents is 1 to ents do
+
+                Load .active_ent (command_data type)  Integer
+                Load .ent_state Integer
+                Load .text String
+                Load .walk_speed Double (TODO: this may be tricky to load and interpret in Lua)
+                Load .dest_y Short
+                Load .dest_x Short
+                Load .abs_x Short
+                Load .abs_y Short
+                Load .mod_y Short
+                Load .mod_x Short
+                Load .to_map Integer
+                Load .to_entry Integer
+                Load .jump_count Integer
+                Load .water_align Integer
+                Load .chap Integer
+                Load .carries_all Integer
+                Load .nocam Integer
+                Load .modify_direction Integer
+                Load .seq_pause Integer
+                Load .reserved_3 Integer
+                Load .reserved_4 Integer
+                Load .free_to_move Integer
+                Load .display_hud Integer
+                'Load .reserved_7 Integer COMMENTED OUT?
+                'Load .reserved_8 Integer COMMENTED OUT?
+                Load .reserved_9 Integer
+                Load .reserved_10 Integer
+
+
 This function is for drawing a room (a sub object of maps?):
 
     LL/src/com/engine--gfx_LL.bas:942:Sub blit_room() Static
