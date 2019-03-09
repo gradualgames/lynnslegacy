@@ -1,5 +1,4 @@
 require("blob")
-require("types")
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
@@ -44,16 +43,20 @@ function loadSpriteSheet(fileName)
     if blob then
 
         --Create a table that can contain everything in the file.
-        local spriteSheet = newSpriteSheet(
-            readInt(blob),
-            readInt(blob),
-            readInt(blob),
-            readInt(blob))
+        local spriteSheet = {}
+        spriteSheet.width = readInt(blob)
+        spriteSheet.height = readInt(blob)
+        spriteSheet.arraySize = readInt(blob)
+        spriteSheet.frameCount = readInt(blob)
+        spriteSheet.frames = {}
 
         for frameIndex = 1, spriteSheet.frameCount do
 
             --Create this frame.
-            local frame = newFrame(readShort(blob) / 8, readShort(blob))
+            local frame = {}
+            frame.frameWidth = readShort(blob) / 8
+            frame.frameHeight = readShort(blob)
+            frame.pixels = {}
 
             --Copy the image data pixel by pixel, converting to our monochrome red format.
             for y=0,frame.frameHeight-1 do
