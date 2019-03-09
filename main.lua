@@ -1,70 +1,47 @@
-function bytesToInt(b1, b2, b3, b4)
-    return b1 + b2*256 + b3*65536 + b4*16777216
-end
+BlobReader = require('BlobReader')
 
-function bytesToShort(b1, b2)
-    return b1 + b2*256
-end
-
---Loads an entire file into a string and initializes an offset
---into that string starting at the beginning of the file. The
---data and this offset are returned as a two element table called
---a virtual file.
+--Loads an entire file into a string and returns an object
+--which acts as a virtual file for reading binary data.
 function loadVFile(fileName)
-    local fileData = love.filesystem.read(fileName)
-    if fileData then
-        local vFile = {
-            data = fileData,
-            offset = 1
-        }
-        return vFile
-    else
-        return nil
-    end
+    local file = io.open(fileName, 'rb')
+    local blob = BlobReader(file:read('*all'))
+    file:close()
+    return blob
+end
+
+--Returns the offset currently pointed to in a virtual file.
+function offset(vFile)
+    return vFile._readPtr
 end
 
 --Reads a 4 byte integer from a virtual file, advancing the offset
 --in the vFile by 4.
 function readInt(vFile)
-    local offset = vFile.offset
-    local int = bytesToInt(vFile.data:byte(offset, offset + 3))
-    vFile.offset = vFile.offset + 4
-    return int
+    return vFile:u32()
 end
 
 --Reads a 2 byte integer from a virtual file, advancing the offset
 --in the vFile by 2.
 function readShort(vFile)
-    local offset = vFile.offset
-    local short = bytesToShort(vFile.data:byte(offset, offset + 1))
-    vFile.offset = vFile.offset + 2
-    return short
+    return vFile:u16()
 end
 
 --Reads a byte from a virtual file, advancing the offset in the
 --vFile by 1.
 function readByte(vFile)
-    local offset = vFile.offset
-    local bt = vFile.data:byte(offset)
-    vFile.offset = vFile.offset + 1
-    return bt
+    return vFile:u8()
 end
 
 --Reads a string from a virtual file, advancing the offset
 --by the length of the string (the header of this string) + 2.
 function readString(vFile)
-    local length = readShort(vFile)
-    print("length: "..length)
-    return readStringL(vFile, length)
+    return vFile:raw(vFile:u16())
 end
 
 --Reads a string from a virtual file, where we
 --already know the length of string to read.
 function readStringL(vFile, length)
-    local offset = vFile.offset
-    local s = vFile.data:sub(offset, offset + length - 1)
-    vFile.offset = vFile.offset + length
-    return s
+    return vFile:raw(length)
 end
 
 --Repeats a given read function count times with the
@@ -78,12 +55,6 @@ function readC(readF, vFile, count)
     end
     return field
 end
-
--- function readArray(readF, vFile)
-    -- local length = readShort(vFile)
-    -- print("langth: "..length)
-    -- return readC(readF, vFile, length)
--- end
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
@@ -231,12 +202,12 @@ function loadMap(fileName)
                 teleport.toRoom = readInt(mapVFile)
                 print("teleport.toRoom: "..teleport.toRoom)
 
-                print("offset is: "..mapVFile.offset)
+                print("offset is: "..offset(mapVFile))
 
                 teleport.toMap = readString(mapVFile)
                 print("teleport.toMap: "..teleport.toMap)
 
-                print("offset is: "..mapVFile.offset)
+                print("offset is: "..offset(mapVFile))
 
                 teleport.dx = readInt(mapVFile)
                 print("teleport.dx: "..teleport.dx)
