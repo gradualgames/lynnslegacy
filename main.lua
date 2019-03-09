@@ -31,51 +31,87 @@ end
 --short integers, the first being 8 times the width and the second being the height.
 --Following this is one byte per pixel of the frame, being an index into a 256
 --color palette.
+--It returns a table with all the frames of the spritesheet. Each frame
+--is just an array of pixels where each pixel has x, y, r, g, b, a components in
+--a simple Lua table. This data can be processed by a platform specific function
+--later for transforming into a usable sprite object for display on the screen,
+--but this function should never have to be modified for any future ports.
 function loadSpriteSheet(fileName)
 
     --Load binary data of the .spr file all at once.
     local blob = loadBlob(fileName)
     if blob then
 
+        --Create a table that can contain everything in the file.
+        local spriteSheet = {}
+
         --Load the 16 byte header of the .spr file.
-        local width = readInt(blob)
-        local height = readInt(blob)
-        local arraySize = readInt(blob)
-        local frames = readInt(blob)
+        spriteSheet.width = readInt(blob)
+        spriteSheet.height = readInt(blob)
+        spriteSheet.arraySize = readInt(blob)
+        spriteSheet.frameCount = readInt(blob)
+        spriteSheet.frames = {}
 
-        --Create an image that can contain everything in the file.
-        local imageData = love.image.newImageData(width * frames, height)
-        local imageX, imageY = 0, 0
+        for frameIndex = 1, spriteSheet.frameCount do
 
-        for frameIndex = 1, frames do
+            --Create this frame.
+            local frame = {}
 
             --Get the header for the current frame.
-            local frameWidth = readShort(blob) / 8
-            local frameHeight = readShort(blob)
+            frame.frameWidth = readShort(blob) / 8
+            frame.frameHeight = readShort(blob)
+            frame.pixels = {}
 
             --Copy the image data pixel by pixel, converting to our monochrome red format.
-            for y=0,height-1 do
-                for x=0,width-1 do
+            for y=0,frame.frameHeight-1 do
+                for x=0,frame.frameWidth-1 do
                     local bt = readByte(blob)
-                    imageData:setPixel(imageX+x,imageY+y, bt/255, 0, 0, 1)
+                    table.insert(frame.pixels, {x,y, bt/255, 0, 0, 1})
                 end
             end
-            imageX = imageX + width
+            table.insert(spriteSheet.frames, frame)
         end
 
-        local image = love.graphics.newImage(imageData)
-        local spriteBatch = love.graphics.newSpriteBatch(image, frames)
-
-        local quadX, quadY = 0, 0
-
-        for i = 1, frames do
-            local quad = love.graphics.newQuad(quadX, quadY, width, height, width * frames, height)
-            spriteBatch:add(quad, quadX, quadY)
-            quadX = quadX + width
-        end
-
-        return spriteBatch
+        return spriteSheet
     end
+
+end
+
+--Converts a spriteSheet table into a usable Love2D spriteBatch.
+function createSpriteBatch(spriteSheet)
+
+    local imageX, imageY = 0, 0
+
+    local imageData = love.image.newImageData(spriteSheet.width * spriteSheet.frameCount, spriteSheet.height)
+    
+    for frameIndex = 1, spriteSheet.frameCount do
+
+        local frame = spriteSheet.frames[frameIndex]
+
+        for k, pixel in pairs(frame.pixels) do
+            imageData:setPixel(imageX+pixel[1],imageY+pixel[2],pixel[3],pixel[4],pixel[5],pixel[6])
+        end
+        imageX = imageX + spriteSheet.width
+    end
+
+    local image = love.graphics.newImage(imageData)
+    local spriteBatch = love.graphics.newSpriteBatch(image, spriteSheet.frameCount)
+
+    local quadX, quadY = 0, 0
+
+    for i = 1, spriteSheet.frameCount do
+        local quad = love.graphics.newQuad(
+            quadX,
+            quadY,
+            spriteSheet.width,
+            spriteSheet.height,
+            spriteSheet.width * spriteSheet.frameCount,
+            spriteSheet.height)
+        spriteBatch:add(quad, quadX, quadY)
+        quadX = quadX + spriteSheet.width
+    end
+
+    return spriteBatch
 
 end
 
@@ -243,8 +279,11 @@ function love.load()
     shader = love.graphics.newShader("palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
 
-    tileSpriteBatch = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
-    lynnSpriteBatch = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
+    tileSpriteSheet = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
+    lynnSpriteSheet = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
+
+    tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
+    lynnSpriteBatch = createSpriteBatch(lynnSpriteSheet)
 
     map = loadMap(baseDir.."/mapu/forest_fall.map")
 
