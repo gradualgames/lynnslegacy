@@ -1,4 +1,4 @@
-require('vfile')
+require('blob')
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
@@ -7,14 +7,14 @@ require('vfile')
 --as b,g,r (backwards), and this is taken care of by this function.
 function loadPalette(fileName)
 
-    paletteVFile = loadVFile(fileName)
+    paletteBlob = loadBlob(fileName)
 
-    if paletteVFile then
+    if paletteBlob then
         palette = {}
         for x = 1,256 do
-            local b,g,r = readByte(paletteVFile),
-                          readByte(paletteVFile),
-                          readByte(paletteVFile)
+            local b,g,r = readByte(paletteBlob),
+                          readByte(paletteBlob),
+                          readByte(paletteBlob)
             table.insert(palette,{r/255,g/255,b/255})
         end
         return palette
@@ -34,14 +34,14 @@ end
 function loadSpriteSheet(fileName)
 
     --Load binary data of the .spr file all at once.
-    local vFile = loadVFile(fileName)
-    if vFile then
+    local blob = loadBlob(fileName)
+    if blob then
 
         --Load the 16 byte header of the .spr file.
-        local width = readInt(vFile)
-        local height = readInt(vFile)
-        local arraySize = readInt(vFile)
-        local frames = readInt(vFile)
+        local width = readInt(blob)
+        local height = readInt(blob)
+        local arraySize = readInt(blob)
+        local frames = readInt(blob)
 
         --Create an image that can contain everything in the file.
         local imageData = love.image.newImageData(width * frames, height)
@@ -50,13 +50,13 @@ function loadSpriteSheet(fileName)
         for frameIndex = 1, frames do
 
             --Get the header for the current frame.
-            local frameWidth = readShort(vFile) / 8
-            local frameHeight = readShort(vFile)
+            local frameWidth = readShort(blob) / 8
+            local frameHeight = readShort(blob)
 
             --Copy the image data pixel by pixel, converting to our monochrome red format.
             for y=0,height-1 do
                 for x=0,width-1 do
-                    local bt = readByte(vFile)
+                    local bt = readByte(blob)
                     imageData:setPixel(imageX+x,imageY+y, bt/255, 0, 0, 1)
                 end
             end
@@ -90,17 +90,17 @@ function loadMap(fileName)
 
     local map = {}
 
-    local mapVFile = loadVFile(fileName)
+    local mapBlob = loadBlob(fileName)
 
-    if mapVFile then
+    if mapBlob then
 
-        map.fileName = readString(mapVFile)
+        map.fileName = readString(mapBlob)
         print("map.fileName: "..map.fileName)
-        map.numEntries = readInt(mapVFile)
+        map.numEntries = readInt(mapBlob)
         print("map.numEntries: "..map.numEntries)
-        map.numRooms = readInt(mapVFile)
+        map.numRooms = readInt(mapBlob)
         print("map.numRooms: "..map.numRooms)
-        map.tileSetFileName = readString(mapVFile)
+        map.tileSetFileName = readString(mapBlob)
         print("map.tileSetFileName: "..map.tileSetFileName)
 
         map.rooms = {}
@@ -109,24 +109,24 @@ function loadMap(fileName)
 
             local room = {}
 
-            room.x = readInt(mapVFile)
+            room.x = readInt(mapBlob)
             print("room.x: "..room.x)
-            room.y = readInt(mapVFile)
+            room.y = readInt(mapBlob)
             print("room.y: "..room.y)
-            room.parallax = readInt(mapVFile)
+            room.parallax = readInt(mapBlob)
             print("room.parallax: "..room.parallax)
             --TODO if parallax is nonzero, load parallax image.
-            room.dark = readInt(mapVFile)
+            room.dark = readInt(mapBlob)
             print("room.dark: "..room.dark)
-            room.numTeleports = readInt(mapVFile)
+            room.numTeleports = readInt(mapBlob)
             print("room.numTeleports: "..room.numTeleports)
-            room.song = readInt(mapVFile)
+            room.song = readInt(mapBlob)
             print("room.song: "..room.song)
-            room.songChanges = readInt(mapVFile)
+            room.songChanges = readInt(mapBlob)
             print("room.songChanges: "..room.songChanges)
-            room.changeTo = readInt(mapVFile)
+            room.changeTo = readInt(mapBlob)
             print("room.changeTo: "..room.changeTo)
-            room.reserved = readC(readInt, mapVFile, 18)
+            room.reserved = readC(readInt, mapBlob, 18)
             print("#room.reserved: "..#room.reserved)
 
             room.teleports = {}
@@ -135,68 +135,68 @@ function loadMap(fileName)
 
                 local teleport = {}
 
-                teleport.x = readInt(mapVFile)
+                teleport.x = readInt(mapBlob)
                 print("teleport.x: "..teleport.x)
-                teleport.y = readInt(mapVFile)
+                teleport.y = readInt(mapBlob)
                 print("teleport.y: "..teleport.y)
-                teleport.w = readInt(mapVFile)
+                teleport.w = readInt(mapBlob)
                 print("teleport.w: "..teleport.w)
-                teleport.h = readInt(mapVFile)
+                teleport.h = readInt(mapBlob)
                 print("teleport.h: "..teleport.h)
-                teleport.toRoom = readInt(mapVFile)
+                teleport.toRoom = readInt(mapBlob)
                 print("teleport.toRoom: "..teleport.toRoom)
 
-                print("offset is: "..offset(mapVFile))
+                print("offset is: "..offset(mapBlob))
 
-                teleport.toMap = readString(mapVFile)
+                teleport.toMap = readString(mapBlob)
                 print("teleport.toMap: "..teleport.toMap)
 
-                print("offset is: "..offset(mapVFile))
+                print("offset is: "..offset(mapBlob))
 
-                teleport.dx = readInt(mapVFile)
+                teleport.dx = readInt(mapBlob)
                 print("teleport.dx: "..teleport.dx)
-                teleport.dy = readInt(mapVFile)
+                teleport.dy = readInt(mapBlob)
                 print("teleport.dy: "..teleport.dy)
-                teleport.dd = readInt(mapVFile)
+                teleport.dd = readInt(mapBlob)
                 print("teleport.dd: "..teleport.dd)
-                teleport.toSong = readInt(mapVFile)
+                teleport.toSong = readInt(mapBlob)
                 print("teleport.toSong: "..teleport.toSong)
-                teleport.reserved = readC(readInt, mapVFile, 20)
+                teleport.reserved = readC(readInt, mapBlob, 20)
                 print("#teleport.reserved: "..#teleport.reserved)
 
                 table.insert(room.teleports, teleport)
             end
 
-            room.seq_here = readInt(mapVFile)
+            room.seq_here = readInt(mapBlob)
 
-            room.numEnemies = readInt(mapVFile)
+            room.numEnemies = readInt(mapBlob)
 
             room.enemies = {}
 
             for enemyIndex = 1, 1 do --room.numEnemies do
 
                 local enemy = {}
-                enemy.xOrigin = readInt(mapVFile)
+                enemy.xOrigin = readInt(mapBlob)
                 print("enemy.xOrigin: "..enemy.xOrigin)
-                enemy.yOrigin = readInt(mapVFile)
+                enemy.yOrigin = readInt(mapBlob)
                 print("enemy.yOrigin: "..enemy.yOrigin)
-                enemy.id = readString(mapVFile)
+                enemy.id = readString(mapBlob)
                 print("enemy.id: "..enemy.id)
-                enemy.direction = readInt(mapVFile)
+                enemy.direction = readInt(mapBlob)
                 print("enemy.direction: "..enemy.direction)
-                enemy.seqHere = readInt(mapVFile)
+                enemy.seqHere = readInt(mapBlob)
                 print("enemy.seqHere: "..enemy.seqHere)
-                enemy.spawnH = readShort(mapVFile)
+                enemy.spawnH = readShort(mapBlob)
                 print("enemy.spawnH: "..enemy.spawnH)
-                enemy.isHSet = readShort(mapVFile)
+                enemy.isHSet = readShort(mapBlob)
                 print("enemy.isHSet: "..enemy.isHSet)
-                enemy.chap = readInt(mapVFile)
+                enemy.chap = readInt(mapBlob)
                 print("enemy.chap: "..enemy.chap)
-                enemy.spawnD = readInt(mapVFile)
+                enemy.spawnD = readInt(mapBlob)
                 print("enemy.spawnD: "..enemy.spawnD)
-                enemy.isDSet = readInt(mapVFile)
+                enemy.isDSet = readInt(mapBlob)
                 print("enemy.isDSet: "..enemy.isDSet)
-                enemy.reserved_5 = readInt(mapVFile)
+                enemy.reserved_5 = readInt(mapBlob)
                 print("enemy.reserved_5: "..enemy.reserved_5)
 
                 --TODO: Continue transcribing enemy load loop.
