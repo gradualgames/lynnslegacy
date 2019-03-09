@@ -24,6 +24,27 @@ function loadPalette(fileName)
 
 end
 
+--Creates a new spritesheet.
+function newSpriteSheet(width, height, arraySize, frameCount)
+    local spriteSheet = {}
+    spriteSheet.width = width
+    spriteSheet.height = height
+    spriteSheet.arraySize = arraySize
+    spriteSheet.frameCount = frameCount
+    spriteSheet.frames = {}
+
+    return spriteSheet
+end
+
+--Creates a new frame.
+function newFrame(frameWidth, frameHeight)
+    local frame = {}
+    frame.frameWidth = frameWidth
+    frame.frameHeight = frameHeight
+    frame.pixels = {}
+    return frame
+end
+
 --Loads a .spr spritesheet file. These are stored in FreeBASIC/QBasic
 --GET/PUT format. It starts with a 16 byte header stating the width and height
 --of the sprites, arraySize (unused?), and number of frames. Following this
@@ -43,24 +64,16 @@ function loadSpriteSheet(fileName)
     if blob then
 
         --Create a table that can contain everything in the file.
-        local spriteSheet = {}
-
-        --Load the 16 byte header of the .spr file.
-        spriteSheet.width = readInt(blob)
-        spriteSheet.height = readInt(blob)
-        spriteSheet.arraySize = readInt(blob)
-        spriteSheet.frameCount = readInt(blob)
-        spriteSheet.frames = {}
+        local spriteSheet = newSpriteSheet(
+            readInt(blob),
+            readInt(blob),
+            readInt(blob),
+            readInt(blob))
 
         for frameIndex = 1, spriteSheet.frameCount do
 
             --Create this frame.
-            local frame = {}
-
-            --Get the header for the current frame.
-            frame.frameWidth = readShort(blob) / 8
-            frame.frameHeight = readShort(blob)
-            frame.pixels = {}
+            local frame = newFrame(readShort(blob) / 8, readShort(blob))
 
             --Copy the image data pixel by pixel, converting to our monochrome red format.
             for y=0,frame.frameHeight-1 do
@@ -83,7 +96,7 @@ function createSpriteBatch(spriteSheet)
     local imageX, imageY = 0, 0
 
     local imageData = love.image.newImageData(spriteSheet.width * spriteSheet.frameCount, spriteSheet.height)
-    
+
     for frameIndex = 1, spriteSheet.frameCount do
 
         local frame = spriteSheet.frames[frameIndex]
