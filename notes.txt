@@ -168,7 +168,7 @@ This is a candidate for the function which loads .map files.
         Load .y Integer.
         Load .room Integer.
         Load direction Byte.
-        Load .seq_hereI Integer.
+        Load .seq_here Integer.
         Load .reserved (20 Integers so 80 bytes)
 
         Then call load_seqV to load .seq. TODO: Not sure what this is, but guessing we can leave this as

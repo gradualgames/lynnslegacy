@@ -26,6 +26,11 @@ function readShort(blob)
     return blob:u16()
 end
 
+--Reads a double precision floating point value from a binary blob.
+function readDouble(blob)
+    return blob:f64()
+end
+
 --Reads a byte from a binary blob, advancing the offset in the
 --blob by 1.
 function readByte(blob)

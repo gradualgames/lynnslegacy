@@ -73,6 +73,109 @@ function loadSpriteSheet(fileName)
 
 end
 
+--Loads a sequence from an already loaded map binary blob.
+function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
+
+    -- For 1 to seqs do
+    for grabSeq = 1, numSeqs do
+
+        local sequence = {}
+        sequence.seqType = seqType
+        sequence.seqIndex = seqIndex
+
+        -- Load .ents Integer
+        sequence.numEnts = readInt(mapBlob)
+        sequence.entCode = {}
+
+        -- For loop_ents is 1 to ents do
+        for loopEnts = 1, sequence.numEnts do
+
+            -- Load ent_code[loop_ents] Integer
+            table.insert(sequence.entCode, readInt(mapBlob))
+
+        end
+
+        -- Load .commands Integer
+
+        sequence.numCommands = readInt(mapBlob)
+
+        sequence.command = {}
+
+        -- For loop_commands is 1 to commands do
+        for loopCommands = 1, sequence.numCommands do
+
+            local command = {}
+            -- load .ents Integer
+            command.numEnts = readInt(mapBlob)
+            command.ent = {}
+
+            -- For loop_command_ents is 1 to ents do
+            for loopCommandEnts = 1, sequence.numEnts do
+
+                local commandData = {}
+
+                -- Load .active_ent (command_data type)  Integer
+                commandData.activeEnt = readInt(mapBlob)
+                -- Load .ent_state Integer
+                commandData.entState = readInt(mapBlob)
+                -- Load .text String
+                commandData.text = readString(mapBlob)
+                -- Load .walk_speed Double (TODO: this may be tricky to load and interpret in Lua)
+                commandData.walkSpeed = readDouble(mapBlob)
+                -- Load .dest_y Short
+                commandData.destY = readShort(mapBlob)
+                -- Load .dest_x Short
+                commandData.destX = readShort(mapBlob)
+                -- Load .abs_x Short
+                commandData.absX = readShort(mapBlob)
+                -- Load .abs_y Short
+                commandData.absY = readShort(mapBlob)
+                -- Load .mod_y Short
+                commandData.modY = readShort(mapBlob)
+                -- Load .mod_x Short
+                commandData.modX = readShort(mapBlob)
+                -- Load .to_map Integer
+                commandData.toMap = readInt(mapBlob)
+                -- Load .to_entry Integer
+                commandData.toEntry = readInt(mapBlob)
+                -- Load .jump_count Integer
+                commandData.jumpCount = readInt(mapBlob)
+                -- Load .water_align Integer
+                commandData.waterAlign = readInt(mapBlob)
+                -- Load .chap Integer
+                commandData.chap = readInt(mapBlob)
+                -- Load .carries_all Integer
+                commandData.carriesAll = readInt(mapBlob)
+                -- Load .nocam Integer
+                commandData.nocam = readInt(mapBlob)
+                -- Load .modify_direction Integer
+                commandData.modifyDirection = readInt(mapBlob)
+                -- Load .seq_pause Integer
+                commandData.seqPause = readInt(mapBlob)
+                -- Load .reserved_3 Integer
+                commandData.reserved3 = readInt(mapBlob)
+                -- Load .reserved_4 Integer
+                commandData.reserved4 = readInt(mapBlob)
+                -- Load .free_to_move Integer
+                commandData.freeToMove = readInt(mapBlob)
+                -- Load .display_hud Integer
+                commandData.displayHud = readInt(mapBlob)
+                -- 'Load .reserved_7 Integer COMMENTED OUT?
+                -- 'Load .reserved_8 Integer COMMENTED OUT?
+                -- Load .reserved_9 Integer
+                commandData.reserved9 = readInt(mapBlob)
+                -- Load .reserved_10 Integer
+                commandData.reserved10 = readInt(mapBlob)
+
+                table.insert(command.ent, commandData)
+            end
+        end
+
+        table.insert(seqs, sequence)
+
+    end
+end
+
 --Loads a Lynn's Legacy .map file. Assumes it is an uncompressed .map file.
 --The original set of files were zlib compressed. I ran them through the
 --offzip utility to decompress them.
@@ -99,7 +202,7 @@ function loadMap(fileName)
 
         map.rooms = {}
 
-        for roomIndex = 1, 1 do --map.numRooms do
+        for roomIndex = 1, map.numRooms do
 
             local room = {}
 
@@ -161,13 +264,18 @@ function loadMap(fileName)
                 table.insert(room.teleports, teleport)
             end
 
-            room.seq_here = readInt(mapBlob)
+            room.seqHere = readInt(mapBlob)
+            print("room.seqHere: "..room.seqHere)
+
+            room.seq = {}
+
+            loadSeq(mapBlob, room.seqHere, "room", roomIndex)
 
             room.numEnemies = readInt(mapBlob)
 
             room.enemies = {}
 
-            for enemyIndex = 1, 1 do --room.numEnemies do
+            for enemyIndex = 1, room.numEnemies do
 
                 local enemy = {}
                 enemy.xOrigin = readInt(mapBlob)
@@ -192,11 +300,103 @@ function loadMap(fileName)
                 print("enemy.isDSet: "..enemy.isDSet)
                 enemy.reserved_5 = readInt(mapBlob)
                 print("enemy.reserved_5: "..enemy.reserved_5)
+                enemy.seq = {}
+                loadSeq(mapBlob, enemy.seqHere, enemy.seq, "enemy", enemyIndex)
 
-                --TODO: Continue transcribing enemy load loop.
+                enemy.spawnCond = readInt(mapBlob)
+                print("enemy.spawnCond: "..enemy.spawnCond)
+
+                if enemy.spawnCond ~= 0 then
+
+                    enemy.spawnInfo = {}
+                    enemy.spawnInfo.waitN = readInt(mapBlob)
+                    print("enemy.spawnInfo.waitN: "..enemy.spawnInfo.waitN)
+                    enemy.spawnInfo.waitSpawn = {}
+
+                    for loopSpawns = 1, enemy.spawnInfo.waitN do
+                        local waitSpawn = {}
+                        waitSpawn.codeIndex = readShort(mapBlob)
+                        print("waitSpawn.codeIndex: "..waitSpawn.codeIndex)
+                        waitSpawn.codeState = readInt(mapBlob)
+                        print("waitSpawn.codeState: "..waitSpawn.codeState)
+                        table.insert(enemy.spawnInfo.waitSpawn, waitSpawn)
+                    end
+
+                    enemy.spawnInfo.killN = readInt(mapBlob)
+                    print("enemy.spawnInfo.killN: "..enemy.spawnInfo.killN)
+                    enemy.spawnInfo.killSpawn = {}
+
+                    for loopSpawns = 1, enemy.spawnInfo.killN do
+                        local waitSpawn = {}
+                        waitSpawn.codeIndex = readShort(mapBlob)
+                        print("waitSpawn.codeIndex: "..waitSpawn.codeIndex)
+                        waitSpawn.codeState = readInt(mapBlob)
+                        print("waitSpawn.codeState: "..waitSpawn.codeState)
+                        table.insert(enemy.spawnInfo.killSpawn, waitSpawn)
+                    end
+
+                    enemy.spawnInfo.activeN = readInt(mapBlob)
+                    print("enemy.spawnInfo.activeN: "..enemy.spawnInfo.activeN)
+                    enemy.spawnInfo.activeSpawn = {}
+
+                    for loopSpawns = 1, enemy.spawnInfo.activeN do
+                        local waitSpawn = {}
+                        waitSpawn.codeIndex = readShort(mapBlob)
+                        print("waitSpawn.codeIndex: "..waitSpawn.codeIndex)
+                        waitSpawn.codeState = readInt(mapBlob)
+                        print("waitSpawn.codeState: "..waitSpawn.codeState)
+                        table.insert(enemy.spawnInfo.activeSpawn, waitSpawn)
+                    end
+
+                end
+
+                enemy.coords = {}
+                enemy.coords.x = enemy.xOrigin
+                enemy.coords.y = enemy.yOrigin
+
+                enemy.oriDir = enemy.direction
+
+            end
+
+            room.layout = {}
+
+            --TODO: WHY did we have to change + 1 to + 2 here to get
+            --further along in the file (sane data output)?
+            room.roomElem = room.x * (room.y + 1) + 2
+            print("roomElem: "..room.roomElem)
+
+            print("Offset prior to reading layer data: "..offset(mapBlob))
+
+            for getNCpy = 1, 3 do
+
+                local layer = readC(readShort, mapBlob, room.roomElem)
+                print("Read layer data.")
+                table.insert(room.layout, layer)
+                --function readC(readF, blob, count)
+
             end
 
         end
+
+        map.entry = {}
+
+        for loopEntries = 1, map.numEntries do
+
+            local entry = {}
+
+            entry.x = readInt(mapBlob)
+            entry.y = readInt(mapBlob)
+            entry.room = readInt(mapBlob)
+            entry.direction = readByte(mapBlob)
+            entry.seqHere = readInt(mapBlob)
+            entry.reserved = readStringL(mapBlob, 80)
+            entry.seq = {}
+            loadSeq(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
+        end
+
+        --TODO: There is some post processing here running a function
+        --called seq_id. For the purposes of loading a map file and getting
+        --interesting data out of it, we don't need to transcribe that right now.
 
     end
 
