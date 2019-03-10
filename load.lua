@@ -360,16 +360,21 @@ function loadMap(fileName)
 
             room.layout = {}
 
-            --TODO: WHY did we have to change + 1 to + 2 here to get
-            --further along in the file (sane data output)?
-            room.roomElem = room.x * (room.y + 1) + 2
+            --This calculation for the number of room elements represents the
+            --upper bound (ubound) of a buffer from the original source code.
+            --When declaring an array in FreeBASIC, you declare it with the
+            --upper bound, which means the actual number of elements is the
+            --upper bound plus one. To read the data correctly, we add one
+            --to this number of elements (see the readC call below).
+
+            room.roomElem = room.x * (room.y + 1) + 1
             print("roomElem: "..room.roomElem)
 
             print("Offset prior to reading layer data: "..offset(mapBlob))
 
             for getNCpy = 1, 3 do
 
-                local layer = readC(readShort, mapBlob, room.roomElem)
+                local layer = readC(readShort, mapBlob, room.roomElem + 1)
                 print("Read layer data.")
                 table.insert(room.layout, layer)
                 --function readC(readF, blob, count)
