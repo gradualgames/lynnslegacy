@@ -28,8 +28,6 @@ function love.load()
     tileSpriteSheet = loadSpriteSheet(baseDir..map.tileSetFileName)
     tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
 
-    log.debug("map.tileSetFileName: "..map.tileSetFileName)
-
     ssx = 64
     ssy = 120
 
@@ -70,8 +68,7 @@ function love.draw()
 
     love.graphics.draw(tileSpriteBatch)
 
-    --love.graphics.draw(tileSpriteBatch)
-    --love.graphics.draw(lynnSpriteBatch, ssx, ssy)
+    -- love.graphics.draw(lynnSpriteBatch, ssx, ssy)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()

@@ -4,18 +4,20 @@ function updateRoom(room, spriteSheet, spriteBatch)
 
     spriteBatch:clear()
 
-    local quadX, quadY = 0, 0
+    for y = 1, room.y do
+        for x = 1, room.x do
 
-    for i = 1, spriteSheet.frameCount do
-        local quad = love.graphics.newQuad(
-            quadX,
-            quadY,
-            spriteSheet.width,
-            spriteSheet.height,
-            spriteSheet.width * spriteSheet.frameCount,
-            spriteSheet.height)
-        spriteBatch:add(quad, quadX, quadY)
-        quadX = quadX + spriteSheet.width
+            local tileIndex = room.layout[1][room.x * y + x]
+
+            local quad = love.graphics.newQuad(
+                spriteSheet.width * tileIndex,
+                0,
+                spriteSheet.width,
+                spriteSheet.height,
+                spriteSheet.width * spriteSheet.frameCount,
+                spriteSheet.height)
+            spriteBatch:add(quad, spriteSheet.width * x, spriteSheet.height * y)
+        end
     end
 
     spriteBatch:flush()
