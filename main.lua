@@ -1,19 +1,16 @@
 require("game/load")
 require("game/convert")
 require("game/update")
+require("game/screen")
 log = require("lib/log")
 log.usecolor = false
 log.level = "fatal"
 
 function love.load()
     love.window.setTitle("Lynn's Legacy")
-    -- love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     canvas = love.graphics.newCanvas(320,200)
-
-    screenWidth,screenHeight = love.graphics.getDimensions()
-    canvasWidth,canvasHeight = canvas:getDimensions()
-    scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
+    computeScale()
 
     baseDir = "LL/"
 
@@ -70,39 +67,40 @@ function love.update(dt)
 end
 
 function love.draw()
-
-    --Imitating fade to red from Lynn's Legacy
-    -- love.graphics.setCanvas(paletteCanvas)
-    -- for x = 1,256 do
-        -- r,g,b = palette[x][1],palette[x][2],palette[x][3]
-        -- palette[x][1] = math.min(palette[x][1] + .01, 1)
-        -- palette[x][2] = math.max(palette[x][2] - .04, 0)
-        -- palette[x][3] = math.max(palette[x][3] - .04, 0)
-        -- love.graphics.setColor(r,g,b)
-        -- love.graphics.points(x, 1)
-    -- end
-
-    love.graphics.setCanvas(canvas)
-    love.graphics.clear()
+    startDrawing()
 
     love.graphics.draw(map.spriteBatchLayers[1])
     love.graphics.draw(map.spriteBatchLayers[2])
     love.graphics.draw(map.spriteBatchLayers[3])
 
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.setCanvas()
-    love.graphics.setShader(shader)
-    love.graphics.push() -- Push transformation state, The translate and scale will affect everything bellow until love.graphics.pop()
-    love.graphics.translate( math.floor((screenWidth - canvasWidth * scale)/2) , math.floor((screenHeight - canvasHeight * scale)/2)) -- Move to the appropiate top left corner
-    love.graphics.scale(scale,scale) -- Scale
+    --Imitating fade to red from Lynn's Legacy
+    -- love.graphics.setCanvas(paletteCanvas)
+    -- for x = 1,256 do
+    --     r,g,b = palette[x][1],palette[x][2],palette[x][3]
+    --     palette[x][1] = math.min(palette[x][1] + .01, 1)
+    --     palette[x][2] = math.max(palette[x][2] - .04, 0)
+    --     palette[x][3] = math.max(palette[x][3] - .04, 0)
+    --     love.graphics.setColor(r,g,b)
+    --     love.graphics.points(x, 1)
+    -- end
 
-    love.graphics.draw(canvas) -- Draw the canvas
-    love.graphics.pop() -- pop transformation state
-    love.graphics.setShader()
+    doneDrawing()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-   if key == "escape" then
-      love.event.quit()
-   end
+
+    if key == "escape" then
+       love.event.quit()
+    end
+
+    if love.keyboard.isDown("ralt") and key == "return" then
+        if not fullscreen then
+            love.window.setFullscreen(true, "desktop")
+            fullscreen = true
+        else
+            love.window.setFullscreen(false, "desktop")
+            fullscreen = false
+        end
+        computeScale()
+    end
 end
