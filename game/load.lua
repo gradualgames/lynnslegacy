@@ -37,11 +37,9 @@ end
 --later for transforming into a usable sprite object for display on the screen,
 --but this function should never have to be modified for any future ports.
 function loadSpriteSheet(fileName)
-
     --Load binary data of the .spr file all at once.
     local blob = loadBlob(fileName)
     if blob then
-
         --Create a table that can contain everything in the file.
         local spriteSheet = {}
         spriteSheet.width = readInt(blob)
@@ -49,18 +47,15 @@ function loadSpriteSheet(fileName)
         spriteSheet.arraySize = readInt(blob)
         spriteSheet.frameCount = readInt(blob)
         spriteSheet.frames = {}
-
         for frameIndex = 1, spriteSheet.frameCount do
-
             --Create this frame.
             local frame = {}
             frame.frameWidth = readShort(blob) / 8
             frame.frameHeight = readShort(blob)
             frame.pixels = {}
-
             --Copy the image data pixel by pixel, converting to our monochrome red format.
-            for y=0,frame.frameHeight-1 do
-                for x=0,frame.frameWidth-1 do
+            for y = 0, frame.frameHeight - 1 do
+                for x = 0, frame.frameWidth - 1 do
                     local bt = readByte(blob)
                     local alpha = 1
                     if bt == 0 then alpha = 0 end
@@ -69,10 +64,8 @@ function loadSpriteSheet(fileName)
             end
             table.insert(spriteSheet.frames, frame)
         end
-
         return spriteSheet
     end
-
 end
 
 --Loads a sequence from an already loaded map binary blob.
