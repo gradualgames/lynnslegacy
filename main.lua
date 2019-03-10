@@ -9,15 +9,12 @@ log.level = "fatal"
 function love.load()
     initializeScreen()
     computeScale()
-
-    baseDir = "LL/"
-
     initializePaletteShader()
 
     --Load map data
-    map = loadMap(baseDir.."data/map/forest_fall.map")
+    map = loadMap("data/map/forest_fall.map")
 
-    map.spriteSheet = loadSpriteSheet(baseDir..map.tileSetFileName)
+    map.spriteSheet = loadSpriteSheet(map.tileSetFileName)
     map.spriteSheetImage = spriteSheetToImage(map.spriteSheet)
     map.spriteBatchLayers = {}
 

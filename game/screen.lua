@@ -15,7 +15,7 @@ end
 --are converted such that the red component is an index into this palette
 --texture.
 function initializePaletteShader()
-    palette = loadPalette(baseDir.."data/palette/ll.pal")
+    palette = loadPalette("data/palette/ll.pal")
     paletteCanvas = paletteToCanvas(palette)
     shader = love.graphics.newShader("shader/palette_shader.fs")
     shader:send("paletteTexture", paletteCanvas)
