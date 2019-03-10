@@ -21,7 +21,7 @@ function love.load()
     paletteCanvas = paletteToCanvas(palette)
 
     shader = love.graphics.newShader("shader/palette_shader.fs")
-    shader:send("u_paletteTexture", paletteCanvas)
+    shader:send("paletteTexture", paletteCanvas)
 
     --Load map data
     map = loadMap(baseDir.."data/map/forest_fall.map")
