@@ -1,4 +1,6 @@
 require("lib/blob")
+log = require("lib/log")
+log.level = "fatal"
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
@@ -85,7 +87,7 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
         -- Load .ents Integer
         sequence.numEnts = readInt(mapBlob)
-        print("sequence.numEnts: "..sequence.numEnts)
+        log.debug("sequence.numEnts: "..sequence.numEnts)
         sequence.entCode = {}
 
         -- For loop_ents is 1 to ents do
@@ -93,7 +95,7 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
             -- Load ent_code[loop_ents] Integer
             local entCode = readInt(mapBlob)
-            print("entCode: "..entCode)
+            log.debug("entCode: "..entCode)
             table.insert(sequence.entCode, entCode)
 
         end
@@ -101,7 +103,7 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
         -- Load .commands Integer
 
         sequence.numCommands = readInt(mapBlob)
-        print("sequence.numCommands: "..sequence.numCommands)
+        log.debug("sequence.numCommands: "..sequence.numCommands)
 
         sequence.command = {}
 
@@ -111,7 +113,7 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
             local command = {}
             -- load .ents Integer
             command.numEnts = readInt(mapBlob)
-            print("command.numEnts: "..command.numEnts)
+            log.debug("command.numEnts: "..command.numEnts)
             command.ent = {}
 
             -- For loop_command_ents is 1 to ents do
@@ -121,84 +123,84 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
                 -- Load .active_ent (command_data type)  Integer
                 commandData.activeEnt = readInt(mapBlob)
-                print("commandData.activeEnt: "..commandData.activeEnt)
+                log.debug("commandData.activeEnt: "..commandData.activeEnt)
                 -- Load .ent_state Integer
                 commandData.entState = readInt(mapBlob)
-                print("commandData.entState: "..commandData.entState)
+                log.debug("commandData.entState: "..commandData.entState)
                 -- Load .text String
                 commandData.text = readString(mapBlob)
-                print("commandData.text: "..commandData.text)
+                log.debug("commandData.text: "..commandData.text)
                 -- Load .walk_speed Double (TODO: this may be tricky to load and interpret in Lua)
                 commandData.walkSpeed = readDouble(mapBlob)
-                print("commandData.walkSpeed: "..commandData.walkSpeed)
+                log.debug("commandData.walkSpeed: "..commandData.walkSpeed)
                 -- Load .dest_y Short
                 commandData.destY = readShort(mapBlob)
-                print("commandData.destY: "..commandData.destY)
+                log.debug("commandData.destY: "..commandData.destY)
                 -- Load .dest_x Short
                 commandData.destX = readShort(mapBlob)
-                print("commandData.destX: "..commandData.destX)
+                log.debug("commandData.destX: "..commandData.destX)
                 -- Load .abs_x Short
                 commandData.absX = readShort(mapBlob)
-                print("commandData.absX: "..commandData.absX)
+                log.debug("commandData.absX: "..commandData.absX)
                 -- Load .abs_y Short
                 commandData.absY = readShort(mapBlob)
-                print("commandData.absY: "..commandData.absY)
+                log.debug("commandData.absY: "..commandData.absY)
                 -- Load .mod_y Short
                 commandData.modY = readShort(mapBlob)
-                print("commandData.modY: "..commandData.modY)
+                log.debug("commandData.modY: "..commandData.modY)
                 -- Load .mod_x Short
                 commandData.modX = readShort(mapBlob)
-                print("commandData.modX: "..commandData.modX)
+                log.debug("commandData.modX: "..commandData.modX)
                 -- Load .to_map Integer
                 commandData.toMap = readString(mapBlob)
-                print("commandData.toMap: "..commandData.toMap)
+                log.debug("commandData.toMap: "..commandData.toMap)
                 -- Load .to_entry Integer
                 commandData.toEntry = readInt(mapBlob)
-                print("commandData.toEntry: "..commandData.toEntry)
+                log.debug("commandData.toEntry: "..commandData.toEntry)
                 -- Load .jump_count Integer
                 commandData.jumpCount = readInt(mapBlob)
-                print("commandData.jumpCount: "..commandData.jumpCount)
+                log.debug("commandData.jumpCount: "..commandData.jumpCount)
                 -- Load .water_align Integer
                 commandData.waterAlign = readInt(mapBlob)
-                print("commandData.waterAlign: "..commandData.waterAlign)
+                log.debug("commandData.waterAlign: "..commandData.waterAlign)
                 -- Load .chap Integer
                 commandData.chap = readInt(mapBlob)
-                print("commandData.chap: "..commandData.chap)
+                log.debug("commandData.chap: "..commandData.chap)
                 -- Load .carries_all Integer
                 commandData.carriesAll = readInt(mapBlob)
-                print("commandData.carriesAll: "..commandData.carriesAll)
+                log.debug("commandData.carriesAll: "..commandData.carriesAll)
                 -- Load .nocam Integer
                 commandData.nocam = readInt(mapBlob)
-                print("commandData.nocam: "..commandData.nocam)
+                log.debug("commandData.nocam: "..commandData.nocam)
                 -- Load .modify_direction Integer
                 commandData.modifyDirection = readInt(mapBlob)
-                print("commandData.modifyDirection: "..commandData.modifyDirection)
+                log.debug("commandData.modifyDirection: "..commandData.modifyDirection)
                 -- Load .seq_pause Integer
                 commandData.seqPause = readInt(mapBlob)
-                print("commandData.seqPause: "..commandData.seqPause)
+                log.debug("commandData.seqPause: "..commandData.seqPause)
                 -- Load .reserved_3 Integer
                 commandData.reserved3 = readInt(mapBlob)
-                print("commandData.reserved3: "..commandData.reserved3)
+                log.debug("commandData.reserved3: "..commandData.reserved3)
                 -- Load .reserved_4 Integer
                 commandData.reserved4 = readInt(mapBlob)
-                print("commandData.reserved4: "..commandData.reserved4)
+                log.debug("commandData.reserved4: "..commandData.reserved4)
                 -- Load .free_to_move Integer
                 commandData.freeToMove = readInt(mapBlob)
-                print("commandData.freeToMove: "..commandData.freeToMove)
+                log.debug("commandData.freeToMove: "..commandData.freeToMove)
                 -- Load .display_hud Integer
                 commandData.displayHud = readInt(mapBlob)
-                print("commandData.displayHud: "..commandData.displayHud)
+                log.debug("commandData.displayHud: "..commandData.displayHud)
                 -- Load .fadeTime Integer
                 commandData.fadeTime = readDouble(mapBlob)
-                print("commandData.fadeTime: "..commandData.fadeTime)
+                log.debug("commandData.fadeTime: "..commandData.fadeTime)
                 -- 'Load .reserved_7 Integer COMMENTED OUT?
                 -- 'Load .reserved_8 Integer COMMENTED OUT?
                 -- Load .reserved_9 Integer
                 commandData.reserved9 = readInt(mapBlob)
-                print("commandData.reserved9: "..commandData.reserved9)
+                log.debug("commandData.reserved9: "..commandData.reserved9)
                 -- Load .reserved_10 Integer
                 commandData.reserved10 = readInt(mapBlob)
-                print("commandData.reserved10: "..commandData.reserved10)
+                log.debug("commandData.reserved10: "..commandData.reserved10)
 
                 table.insert(command.ent, commandData)
             end
@@ -225,13 +227,13 @@ function loadMap(fileName)
     if mapBlob then
 
         map.fileName = readString(mapBlob)
-        print("map.fileName: "..map.fileName)
+        log.debug("map.fileName: "..map.fileName)
         map.numEntries = readInt(mapBlob)
-        print("map.numEntries: "..map.numEntries)
+        log.debug("map.numEntries: "..map.numEntries)
         map.numRooms = readInt(mapBlob)
-        print("map.numRooms: "..map.numRooms)
+        log.debug("map.numRooms: "..map.numRooms)
         map.tileSetFileName = readString(mapBlob)
-        print("map.tileSetFileName: "..map.tileSetFileName)
+        log.debug("map.tileSetFileName: "..map.tileSetFileName)
 
         map.rooms = {}
 
@@ -240,27 +242,27 @@ function loadMap(fileName)
             local room = {}
 
             room.x = readInt(mapBlob)
-            print("room.x: "..room.x)
+            log.debug("room.x: "..room.x)
             room.y = readInt(mapBlob)
-            print("room.y: "..room.y)
+            log.debug("room.y: "..room.y)
             room.parallax = readInt(mapBlob)
-            print("room.parallax: "..room.parallax)
+            log.debug("room.parallax: "..room.parallax)
             if room.parallax ~= 0 then
              room.paraFileName = readString(mapBlob)
-             print("room.paraFileName: "..room.paraFileName)
+             log.debug("room.paraFileName: "..room.paraFileName)
             end
             room.dark = readInt(mapBlob)
-            print("room.dark: "..room.dark)
+            log.debug("room.dark: "..room.dark)
             room.numTeleports = readInt(mapBlob)
-            print("room.numTeleports: "..room.numTeleports)
+            log.debug("room.numTeleports: "..room.numTeleports)
             room.song = readInt(mapBlob)
-            print("room.song: "..room.song)
+            log.debug("room.song: "..room.song)
             room.songChanges = readInt(mapBlob)
-            print("room.songChanges: "..room.songChanges)
+            log.debug("room.songChanges: "..room.songChanges)
             room.changeTo = readInt(mapBlob)
-            print("room.changeTo: "..room.changeTo)
+            log.debug("room.changeTo: "..room.changeTo)
             room.reserved = readC(readInt, mapBlob, 18)
-            print("#room.reserved: "..#room.reserved)
+            log.debug("#room.reserved: "..#room.reserved)
 
             room.teleports = {}
 
@@ -269,39 +271,39 @@ function loadMap(fileName)
                 local teleport = {}
 
                 teleport.x = readInt(mapBlob)
-                print("teleport.x: "..teleport.x)
+                log.debug("teleport.x: "..teleport.x)
                 teleport.y = readInt(mapBlob)
-                print("teleport.y: "..teleport.y)
+                log.debug("teleport.y: "..teleport.y)
                 teleport.w = readInt(mapBlob)
-                print("teleport.w: "..teleport.w)
+                log.debug("teleport.w: "..teleport.w)
                 teleport.h = readInt(mapBlob)
-                print("teleport.h: "..teleport.h)
+                log.debug("teleport.h: "..teleport.h)
                 teleport.toRoom = readInt(mapBlob)
-                print("teleport.toRoom: "..teleport.toRoom)
+                log.debug("teleport.toRoom: "..teleport.toRoom)
 
-                print("offset is: "..offset(mapBlob))
+                log.debug("offset is: "..offset(mapBlob))
 
                 teleport.toMap = readString(mapBlob)
-                print("teleport.toMap: "..teleport.toMap)
+                log.debug("teleport.toMap: "..teleport.toMap)
 
-                print("offset is: "..offset(mapBlob))
+                log.debug("offset is: "..offset(mapBlob))
 
                 teleport.dx = readInt(mapBlob)
-                print("teleport.dx: "..teleport.dx)
+                log.debug("teleport.dx: "..teleport.dx)
                 teleport.dy = readInt(mapBlob)
-                print("teleport.dy: "..teleport.dy)
+                log.debug("teleport.dy: "..teleport.dy)
                 teleport.dd = readInt(mapBlob)
-                print("teleport.dd: "..teleport.dd)
+                log.debug("teleport.dd: "..teleport.dd)
                 teleport.toSong = readInt(mapBlob)
-                print("teleport.toSong: "..teleport.toSong)
+                log.debug("teleport.toSong: "..teleport.toSong)
                 teleport.reserved = readC(readInt, mapBlob, 20)
-                print("#teleport.reserved: "..#teleport.reserved)
+                log.debug("#teleport.reserved: "..#teleport.reserved)
 
                 table.insert(room.teleports, teleport)
             end
 
             room.seqHere = readInt(mapBlob)
-            print("room.seqHere: "..room.seqHere)
+            log.debug("room.seqHere: "..room.seqHere)
 
             room.seq = {}
 
@@ -315,72 +317,72 @@ function loadMap(fileName)
 
                 local enemy = {}
                 enemy.xOrigin = readInt(mapBlob)
-                print("enemy.xOrigin: "..enemy.xOrigin)
+                log.debug("enemy.xOrigin: "..enemy.xOrigin)
                 enemy.yOrigin = readInt(mapBlob)
-                print("enemy.yOrigin: "..enemy.yOrigin)
+                log.debug("enemy.yOrigin: "..enemy.yOrigin)
                 enemy.id = readString(mapBlob)
-                print("enemy.id: "..enemy.id)
+                log.debug("enemy.id: "..enemy.id)
                 enemy.direction = readInt(mapBlob)
-                print("enemy.direction: "..enemy.direction)
+                log.debug("enemy.direction: "..enemy.direction)
                 enemy.seqHere = readInt(mapBlob)
-                print("enemy.seqHere: "..enemy.seqHere)
+                log.debug("enemy.seqHere: "..enemy.seqHere)
                 enemy.spawnH = readShort(mapBlob)
-                print("enemy.spawnH: "..enemy.spawnH)
+                log.debug("enemy.spawnH: "..enemy.spawnH)
                 enemy.isHSet = readShort(mapBlob)
-                print("enemy.isHSet: "..enemy.isHSet)
+                log.debug("enemy.isHSet: "..enemy.isHSet)
                 enemy.chap = readInt(mapBlob)
-                print("enemy.chap: "..enemy.chap)
+                log.debug("enemy.chap: "..enemy.chap)
                 enemy.spawnD = readInt(mapBlob)
-                print("enemy.spawnD: "..enemy.spawnD)
+                log.debug("enemy.spawnD: "..enemy.spawnD)
                 enemy.isDSet = readInt(mapBlob)
-                print("enemy.isDSet: "..enemy.isDSet)
+                log.debug("enemy.isDSet: "..enemy.isDSet)
                 enemy.reserved_5 = readInt(mapBlob)
-                print("enemy.reserved_5: "..enemy.reserved_5)
+                log.debug("enemy.reserved_5: "..enemy.reserved_5)
                 enemy.seq = {}
                 loadSeq(mapBlob, enemy.seqHere, enemy.seq, "enemy", enemyIndex)
 
                 enemy.spawnCond = readInt(mapBlob)
-                print("enemy.spawnCond: "..enemy.spawnCond)
+                log.debug("enemy.spawnCond: "..enemy.spawnCond)
 
                 if enemy.spawnCond ~= 0 then
 
                     enemy.spawnInfo = {}
                     enemy.spawnInfo.waitN = readInt(mapBlob)
-                    print("enemy.spawnInfo.waitN: "..enemy.spawnInfo.waitN)
+                    log.debug("enemy.spawnInfo.waitN: "..enemy.spawnInfo.waitN)
                     enemy.spawnInfo.waitSpawn = {}
 
                     for loopSpawns = 1, enemy.spawnInfo.waitN do
                         local spawn = {}
                         spawn.codeIndex = readShort(mapBlob)
-                        print("spawn.codeIndex: "..spawn.codeIndex)
+                        log.debug("spawn.codeIndex: "..spawn.codeIndex)
                         spawn.codeState = readInt(mapBlob)
-                        print("spawn.codeState: "..spawn.codeState)
+                        log.debug("spawn.codeState: "..spawn.codeState)
                         table.insert(enemy.spawnInfo.waitSpawn, spawn)
                     end
 
                     enemy.spawnInfo.killN = readInt(mapBlob)
-                    print("enemy.spawnInfo.killN: "..enemy.spawnInfo.killN)
+                    log.debug("enemy.spawnInfo.killN: "..enemy.spawnInfo.killN)
                     enemy.spawnInfo.killSpawn = {}
 
                     for loopSpawns = 1, enemy.spawnInfo.killN do
                         local spawn = {}
                         spawn.codeIndex = readShort(mapBlob)
-                        print("spawn.codeIndex: "..spawn.codeIndex)
+                        log.debug("spawn.codeIndex: "..spawn.codeIndex)
                         spawn.codeState = readInt(mapBlob)
-                        print("spawn.codeState: "..spawn.codeState)
+                        log.debug("spawn.codeState: "..spawn.codeState)
                         table.insert(enemy.spawnInfo.killSpawn, spawn)
                     end
 
                     enemy.spawnInfo.activeN = readInt(mapBlob)
-                    print("enemy.spawnInfo.activeN: "..enemy.spawnInfo.activeN)
+                    log.debug("enemy.spawnInfo.activeN: "..enemy.spawnInfo.activeN)
                     enemy.spawnInfo.activeSpawn = {}
 
                     for loopSpawns = 1, enemy.spawnInfo.activeN do
                         local spawn = {}
                         spawn.codeIndex = readShort(mapBlob)
-                        print("spawn.codeIndex: "..spawn.codeIndex)
+                        log.debug("spawn.codeIndex: "..spawn.codeIndex)
                         spawn.codeState = readInt(mapBlob)
-                        print("spawn.codeState: "..spawn.codeState)
+                        log.debug("spawn.codeState: "..spawn.codeState)
                         table.insert(enemy.spawnInfo.activeSpawn, spawn)
                     end
 
@@ -404,14 +406,14 @@ function loadMap(fileName)
             --to this number of elements (see the readC call below).
 
             room.roomElem = room.x * (room.y + 1) + 1
-            print("roomElem: "..room.roomElem)
+            log.debug("roomElem: "..room.roomElem)
 
-            print("Offset prior to reading layer data: "..offset(mapBlob))
+            log.debug("Offset prior to reading layer data: "..offset(mapBlob))
 
             for getNCpy = 1, 3 do
 
                 local layer = readC(readShort, mapBlob, room.roomElem + 1)
-                print("Read layer data.")
+                log.debug("Read layer data.")
                 table.insert(room.layout, layer)
                 --function readC(readF, blob, count)
 
@@ -426,17 +428,17 @@ function loadMap(fileName)
             local entry = {}
 
             entry.x = readInt(mapBlob)
-            print("entry.x: "..entry.x)
+            log.debug("entry.x: "..entry.x)
             entry.y = readInt(mapBlob)
-            print("entry.y: "..entry.y)
+            log.debug("entry.y: "..entry.y)
             entry.room = readInt(mapBlob)
-            print("entry.room: "..entry.room)
+            log.debug("entry.room: "..entry.room)
             entry.direction = readByte(mapBlob)
-            print("entry.direction: "..entry.direction)
+            log.debug("entry.direction: "..entry.direction)
             entry.seqHere = readInt(mapBlob)
-            print("entry.seqHere: "..entry.seqHere)
+            log.debug("entry.seqHere: "..entry.seqHere)
             entry.reserved = readStringL(mapBlob, 84)
-            print("entry.reserved: "..entry.reserved)
+            log.debug("entry.reserved: "..entry.reserved)
             entry.seq = {}
             loadSeq(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
         end
