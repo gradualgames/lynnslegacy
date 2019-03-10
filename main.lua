@@ -8,7 +8,7 @@ function love.load()
 
     -- love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
-    canvas = love.graphics.newCanvas(320,240)
+    canvas = love.graphics.newCanvas(320,200)
 
     screenWidth,screenHeight = love.graphics.getDimensions()
     canvasWidth,canvasHeight = canvas:getDimensions()
