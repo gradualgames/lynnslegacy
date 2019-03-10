@@ -6,8 +6,7 @@ log.usecolor = false
 log.level = "fatal"
 
 function love.load()
-    baseDir = "LL/"
-
+    love.window.setTitle("Lynn's Legacy")
     -- love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     canvas = love.graphics.newCanvas(320,200)
@@ -16,22 +15,30 @@ function love.load()
     canvasWidth,canvasHeight = canvas:getDimensions()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
+    baseDir = "LL/"
+
     palette = loadPalette(baseDir.."data/palette/ll.pal")
-    paletteCanvas = createPaletteCanvas(palette)
+    paletteCanvas = paletteToCanvas(palette)
 
     shader = love.graphics.newShader("shader/palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
 
-    lynnSpriteSheet = loadSpriteSheet(baseDir.."data/pictures/char/lynn24.spr")
-    lynnSpriteBatch = createSpriteBatch(lynnSpriteSheet)
-
+    --Load map data
     map = loadMap(baseDir.."data/map/forest_fall.map")
 
-    tileSpriteSheet = loadSpriteSheet(baseDir..map.tileSetFileName)
-    tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
+    map.spriteSheet = loadSpriteSheet(baseDir..map.tileSetFileName)
+    map.spriteSheetImage = spriteSheetToImage(map.spriteSheet)
+    map.spriteBatchLayers = {}
 
-    ssx = 0
-    ssy = 0
+    for layer = 1, 3 do
+        local spriteBatch = imageToSpriteBatch(map.spriteSheetImage)
+        table.insert(map.spriteBatchLayers, spriteBatch)
+    end
+
+    camera = {}
+    camera.x = 0
+    camera.y = 0
+    camera.s = 4
 
     -- source = love.audio.newSource(baseDir.."data/music/fsun.it", "stream")
     -- source:setLooping(true)
@@ -41,22 +48,24 @@ end
 function love.update(dt)
 
     if love.keyboard.isDown("up") then
-        ssy = ssy - 1
+        camera.y = camera.y - camera.s
     end
 
     if love.keyboard.isDown("down") then
-        ssy = ssy + 1
+        camera.y = camera.y + camera.s
     end
 
     if love.keyboard.isDown("right") then
-        ssx = ssx + 1
+        camera.x = camera.x + camera.s
     end
 
     if love.keyboard.isDown("left") then
-        ssx = ssx - 1
+        camera.x = camera.x - camera.s
     end
 
-    updateRoom(map.rooms[1], tileSpriteSheet, tileSpriteBatch)
+    updateRoom(camera, map.rooms[3], 1, map.spriteSheet, map.spriteBatchLayers[1])
+    updateRoom(camera, map.rooms[3], 2, map.spriteSheet, map.spriteBatchLayers[2])
+    updateRoom(camera, map.rooms[3], 3, map.spriteSheet, map.spriteBatchLayers[3])
 
 end
 
@@ -76,9 +85,9 @@ function love.draw()
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
-    love.graphics.draw(tileSpriteBatch, ssx, ssy)
-
-    -- love.graphics.draw(lynnSpriteBatch, ssx, ssy)
+    love.graphics.draw(map.spriteBatchLayers[1])
+    love.graphics.draw(map.spriteBatchLayers[2])
+    love.graphics.draw(map.spriteBatchLayers[3])
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()
