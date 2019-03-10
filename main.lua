@@ -1,8 +1,9 @@
 require("lib/load")
 require("lib/convert")
+log = require("lib/log")
 
 function love.load()
-    baseDir = "LL/data"
+    baseDir = "LL/"
 
     --love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -12,24 +13,26 @@ function love.load()
     canvasWidth,canvasHeight = canvas:getDimensions()
     scale = math.min(screenWidth/canvasWidth , screenHeight/canvasHeight)
 
-    palette = loadPalette(baseDir.."/palette/ll.pal")
+    palette = loadPalette(baseDir.."data/palette/ll.pal")
     paletteCanvas = createPaletteCanvas(palette)
 
     shader = love.graphics.newShader("shader/palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
 
-    tileSpriteSheet = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
-    lynnSpriteSheet = loadSpriteSheet(baseDir.."/pictures/char/lynn24.spr")
-
-    tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
+    lynnSpriteSheet = loadSpriteSheet(baseDir.."data/pictures/char/lynn24.spr")
     lynnSpriteBatch = createSpriteBatch(lynnSpriteSheet)
 
-    map = loadMap(baseDir.."/map/divius.map")
+    map = loadMap(baseDir.."data/map/forest_fall.map")
+
+    tileSpriteSheet = loadSpriteSheet(baseDir..map.tileSetFileName)
+    tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
+
+    log.debug("map.tileSetFileName: "..map.tileSetFileName)
 
     ssx = 64
     ssy = 120
 
-    -- source = love.audio.newSource(baseDir.."/music/fsun.it", "stream")
+    -- source = love.audio.newSource(baseDir.."data/music/fsun.it", "stream")
     -- source:setLooping(true)
     -- source:play()
 end

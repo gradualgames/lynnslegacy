@@ -1,6 +1,4 @@
 require("lib/blob")
-log = require("lib/log")
-log.level = "fatal"
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
