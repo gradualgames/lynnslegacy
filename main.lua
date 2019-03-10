@@ -38,6 +38,14 @@ end
 
 function love.update(dt)
 
+    if love.keyboard.isDown("up") then
+        ssy = ssy - 1
+    end
+
+    if love.keyboard.isDown("down") then
+        ssy = ssy + 1
+    end
+
     if love.keyboard.isDown("right") then
         ssx = ssx + 1
     end
