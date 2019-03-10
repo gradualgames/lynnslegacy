@@ -6,7 +6,7 @@ log = require("lib/log")
 function love.load()
     baseDir = "LL/"
 
-    --love.window.setMode(0, 0, {fullscreen = true})
+    -- love.window.setMode(0, 0, {fullscreen = true})
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     canvas = love.graphics.newCanvas(320,240)
 
@@ -28,8 +28,8 @@ function love.load()
     tileSpriteSheet = loadSpriteSheet(baseDir..map.tileSetFileName)
     tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
 
-    ssx = 64
-    ssy = 120
+    ssx = 0
+    ssy = 0
 
     -- source = love.audio.newSource(baseDir.."data/music/fsun.it", "stream")
     -- source:setLooping(true)
@@ -66,7 +66,7 @@ function love.draw()
     love.graphics.setCanvas(canvas)
     love.graphics.clear()
 
-    love.graphics.draw(tileSpriteBatch)
+    love.graphics.draw(tileSpriteBatch, ssx, ssy)
 
     -- love.graphics.draw(lynnSpriteBatch, ssx, ssy)
 
