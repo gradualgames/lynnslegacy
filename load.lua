@@ -85,19 +85,23 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
         -- Load .ents Integer
         sequence.numEnts = readInt(mapBlob)
+        print("sequence.numEnts: "..sequence.numEnts)
         sequence.entCode = {}
 
         -- For loop_ents is 1 to ents do
         for loopEnts = 1, sequence.numEnts do
 
             -- Load ent_code[loop_ents] Integer
-            table.insert(sequence.entCode, readInt(mapBlob))
+            local entCode = readInt(mapBlob)
+            print("entCode: "..entCode)
+            table.insert(sequence.entCode, entCode)
 
         end
 
         -- Load .commands Integer
 
         sequence.numCommands = readInt(mapBlob)
+        print("sequence.numCommands: "..sequence.numCommands)
 
         sequence.command = {}
 
@@ -107,65 +111,91 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
             local command = {}
             -- load .ents Integer
             command.numEnts = readInt(mapBlob)
+            print("command.numEnts: "..command.numEnts)
             command.ent = {}
 
             -- For loop_command_ents is 1 to ents do
-            for loopCommandEnts = 1, sequence.numEnts do
+            for loopCommandEnts = 1, command.numEnts do
 
                 local commandData = {}
 
                 -- Load .active_ent (command_data type)  Integer
                 commandData.activeEnt = readInt(mapBlob)
+                print("commandData.activeEnt: "..commandData.activeEnt)
                 -- Load .ent_state Integer
                 commandData.entState = readInt(mapBlob)
+                print("commandData.entState: "..commandData.entState)
                 -- Load .text String
                 commandData.text = readString(mapBlob)
+                print("commandData.text: "..commandData.text)
                 -- Load .walk_speed Double (TODO: this may be tricky to load and interpret in Lua)
                 commandData.walkSpeed = readDouble(mapBlob)
+                print("commandData.walkSpeed: "..commandData.walkSpeed)
                 -- Load .dest_y Short
                 commandData.destY = readShort(mapBlob)
+                print("commandData.destY: "..commandData.destY)
                 -- Load .dest_x Short
                 commandData.destX = readShort(mapBlob)
+                print("commandData.destX: "..commandData.destX)
                 -- Load .abs_x Short
                 commandData.absX = readShort(mapBlob)
+                print("commandData.absX: "..commandData.absX)
                 -- Load .abs_y Short
                 commandData.absY = readShort(mapBlob)
+                print("commandData.absY: "..commandData.absY)
                 -- Load .mod_y Short
                 commandData.modY = readShort(mapBlob)
+                print("commandData.modY: "..commandData.modY)
                 -- Load .mod_x Short
                 commandData.modX = readShort(mapBlob)
+                print("commandData.modX: "..commandData.modX)
                 -- Load .to_map Integer
                 commandData.toMap = readInt(mapBlob)
+                print("commandData.toMap: "..commandData.toMap)
                 -- Load .to_entry Integer
                 commandData.toEntry = readInt(mapBlob)
+                print("commandData.toEntry: "..commandData.toEntry)
                 -- Load .jump_count Integer
                 commandData.jumpCount = readInt(mapBlob)
+                print("commandData.jumpCount: "..commandData.jumpCount)
                 -- Load .water_align Integer
                 commandData.waterAlign = readInt(mapBlob)
+                print("commandData.waterAlign: "..commandData.waterAlign)
                 -- Load .chap Integer
                 commandData.chap = readInt(mapBlob)
+                print("commandData.chap: "..commandData.chap)
                 -- Load .carries_all Integer
                 commandData.carriesAll = readInt(mapBlob)
+                print("commandData.carriesAll: "..commandData.carriesAll)
                 -- Load .nocam Integer
                 commandData.nocam = readInt(mapBlob)
+                print("commandData.nocam: "..commandData.nocam)
                 -- Load .modify_direction Integer
                 commandData.modifyDirection = readInt(mapBlob)
+                print("commandData.modifyDirection: "..commandData.modifyDirection)
                 -- Load .seq_pause Integer
                 commandData.seqPause = readInt(mapBlob)
+                print("commandData.seqPause: "..commandData.seqPause)
                 -- Load .reserved_3 Integer
                 commandData.reserved3 = readInt(mapBlob)
+                print("commandData.reserved3: "..commandData.reserved3)
                 -- Load .reserved_4 Integer
                 commandData.reserved4 = readInt(mapBlob)
+                print("commandData.reserved4: "..commandData.reserved4)
                 -- Load .free_to_move Integer
                 commandData.freeToMove = readInt(mapBlob)
+                print("commandData.freeToMove: "..commandData.freeToMove)
                 -- Load .display_hud Integer
                 commandData.displayHud = readInt(mapBlob)
+                print("commandData.displayHud: "..commandData.displayHud)
                 -- 'Load .reserved_7 Integer COMMENTED OUT?
                 -- 'Load .reserved_8 Integer COMMENTED OUT?
                 -- Load .reserved_9 Integer
                 commandData.reserved9 = readInt(mapBlob)
+                print("commandData.reserved9: "..commandData.reserved9)
                 -- Load .reserved_10 Integer
                 commandData.reserved10 = readInt(mapBlob)
+                print("commandData.reserved10: "..commandData.reserved10)
 
                 table.insert(command.ent, commandData)
             end
