@@ -24,7 +24,7 @@ function love.load()
     tileSpriteBatch = createSpriteBatch(tileSpriteSheet)
     lynnSpriteBatch = createSpriteBatch(lynnSpriteSheet)
 
-    map = loadMap(baseDir.."/map/forest_fall.map")
+    map = loadMap(baseDir.."/map/divius.map")
 
     ssx = 64
     ssy = 120

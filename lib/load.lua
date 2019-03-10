@@ -245,7 +245,10 @@ function loadMap(fileName)
             print("room.y: "..room.y)
             room.parallax = readInt(mapBlob)
             print("room.parallax: "..room.parallax)
-            --TODO if parallax is nonzero, load parallax image.
+            if room.parallax ~= 0 then
+             room.paraFileName = readString(mapBlob)
+             print("room.paraFileName: "..room.paraFileName)
+            end
             room.dark = readInt(mapBlob)
             print("room.dark: "..room.dark)
             room.numTeleports = readInt(mapBlob)
