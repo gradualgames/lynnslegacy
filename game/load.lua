@@ -62,7 +62,9 @@ function loadSpriteSheet(fileName)
             for y=0,frame.frameHeight-1 do
                 for x=0,frame.frameWidth-1 do
                     local bt = readByte(blob)
-                    table.insert(frame.pixels, {x,y, bt/255, 0, 0, 1})
+                    local alpha = 1
+                    if bt == 0 then alpha = 0 end
+                    table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
                 end
             end
             table.insert(spriteSheet.frames, frame)
