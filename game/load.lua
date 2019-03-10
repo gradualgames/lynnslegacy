@@ -214,10 +214,6 @@ end
 --Loads a Lynn's Legacy .map file. Assumes it is an uncompressed .map file.
 --The original set of files were zlib compressed. I ran them through the
 --offzip utility to decompress them.
---At the time of this writing, this function will be incomplete as we are only
---concerned with loading all the data in the map file; we will then slowly
---piece together how to use all that data later (such as loading and placing
---enemies, determining what sequences are, etc.)
 function loadMap(fileName)
 
     local map = {}
