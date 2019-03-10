@@ -1,4 +1,4 @@
-require("blob")
+require("lib/blob")
 
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the

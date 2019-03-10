@@ -1,4 +1,4 @@
-BlobReader = require('BlobReader')
+BlobReader = require('lib/BlobReader')
 
 --Loads an entire file into a string and returns an object
 --which acts as a binary blob for reading binary data.

@@ -1,5 +1,5 @@
-require("load")
-require("convert")
+require("lib/load")
+require("lib/convert")
 
 function love.load()
     baseDir = "LL/data"
@@ -15,7 +15,7 @@ function love.load()
     palette = loadPalette(baseDir.."/palette/ll.pal")
     paletteCanvas = createPaletteCanvas(palette)
 
-    shader = love.graphics.newShader("palette_shader.fs")
+    shader = love.graphics.newShader("shader/palette_shader.fs")
     shader:send("u_paletteTexture", paletteCanvas)
 
     tileSpriteSheet = loadSpriteSheet(baseDir.."/pictures/tiles/fgrass.spr")
@@ -29,7 +29,7 @@ function love.load()
     ssx = 64
     ssy = 120
 
-    -- source = love.audio.newSource("fsun.it", "stream")
+    -- source = love.audio.newSource(baseDir.."/music/fsun.it", "stream")
     -- source:setLooping(true)
     -- source:play()
 end
