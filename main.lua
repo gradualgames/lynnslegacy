@@ -7,18 +7,12 @@ log.usecolor = false
 log.level = "fatal"
 
 function love.load()
-    love.window.setTitle("Lynn's Legacy")
-    love.graphics.setDefaultFilter("nearest", "nearest", 1)
-    canvas = love.graphics.newCanvas(320,200)
+    initializeScreen()
     computeScale()
 
     baseDir = "LL/"
 
-    palette = loadPalette(baseDir.."data/palette/ll.pal")
-    paletteCanvas = paletteToCanvas(palette)
-
-    shader = love.graphics.newShader("shader/palette_shader.fs")
-    shader:send("paletteTexture", paletteCanvas)
+    initializePaletteShader()
 
     --Load map data
     map = loadMap(baseDir.."data/map/forest_fall.map")
