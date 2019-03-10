@@ -18,20 +18,6 @@ function createSpriteBatch(spriteSheet)
     local image = love.graphics.newImage(imageData)
     local spriteBatch = love.graphics.newSpriteBatch(image, spriteSheet.frameCount)
 
-    local quadX, quadY = 0, 0
-
-    for i = 1, spriteSheet.frameCount do
-        local quad = love.graphics.newQuad(
-            quadX,
-            quadY,
-            spriteSheet.width,
-            spriteSheet.height,
-            spriteSheet.width * spriteSheet.frameCount,
-            spriteSheet.height)
-        spriteBatch:add(quad, quadX, quadY)
-        quadX = quadX + spriteSheet.width
-    end
-
     return spriteBatch
 
 end

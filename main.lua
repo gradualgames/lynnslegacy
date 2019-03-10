@@ -1,5 +1,6 @@
-require("lib/load")
-require("lib/convert")
+require("game/load")
+require("game/convert")
+require("game/update")
 log = require("lib/log")
 
 function love.load()
@@ -47,6 +48,8 @@ function love.update(dt)
         ssx = ssx - 1
     end
 
+    updateRoom(map.rooms[1], tileSpriteSheet, tileSpriteBatch)
+
 end
 
 function love.draw()
@@ -66,7 +69,9 @@ function love.draw()
     love.graphics.clear()
 
     love.graphics.draw(tileSpriteBatch)
-    love.graphics.draw(lynnSpriteBatch, ssx, ssy)
+
+    --love.graphics.draw(tileSpriteBatch)
+    --love.graphics.draw(lynnSpriteBatch, ssx, ssy)
 
     love.graphics.setColor(1, 1, 1)
     love.graphics.setCanvas()

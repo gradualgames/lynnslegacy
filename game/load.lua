@@ -417,6 +417,8 @@ function loadMap(fileName)
 
             end
 
+            table.insert(map.rooms, room)
+
         end
 
         map.entry = {}
