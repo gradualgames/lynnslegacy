@@ -150,7 +150,7 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
                 commandData.modX = readShort(mapBlob)
                 print("commandData.modX: "..commandData.modX)
                 -- Load .to_map Integer
-                commandData.toMap = readInt(mapBlob)
+                commandData.toMap = readString(mapBlob)
                 print("commandData.toMap: "..commandData.toMap)
                 -- Load .to_entry Integer
                 commandData.toEntry = readInt(mapBlob)
@@ -188,6 +188,9 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
                 -- Load .display_hud Integer
                 commandData.displayHud = readInt(mapBlob)
                 print("commandData.displayHud: "..commandData.displayHud)
+                -- Load .fadeTime Integer
+                commandData.fadeTime = readDouble(mapBlob)
+                print("commandData.fadeTime: "..commandData.fadeTime)
                 -- 'Load .reserved_7 Integer COMMENTED OUT?
                 -- 'Load .reserved_8 Integer COMMENTED OUT?
                 -- Load .reserved_9 Integer
@@ -299,7 +302,7 @@ function loadMap(fileName)
 
             room.seq = {}
 
-            loadSeq(mapBlob, room.seqHere, "room", roomIndex)
+            loadSeq(mapBlob, room.seqHere, room.seq, "room", roomIndex)
 
             room.numEnemies = readInt(mapBlob)
 
@@ -344,12 +347,12 @@ function loadMap(fileName)
                     enemy.spawnInfo.waitSpawn = {}
 
                     for loopSpawns = 1, enemy.spawnInfo.waitN do
-                        local waitSpawn = {}
-                        waitSpawn.codeIndex = readShort(mapBlob)
-                        print("waitSpawn.codeIndex: "..waitSpawn.codeIndex)
-                        waitSpawn.codeState = readInt(mapBlob)
-                        print("waitSpawn.codeState: "..waitSpawn.codeState)
-                        table.insert(enemy.spawnInfo.waitSpawn, waitSpawn)
+                        local spawn = {}
+                        spawn.codeIndex = readShort(mapBlob)
+                        print("spawn.codeIndex: "..spawn.codeIndex)
+                        spawn.codeState = readInt(mapBlob)
+                        print("spawn.codeState: "..spawn.codeState)
+                        table.insert(enemy.spawnInfo.waitSpawn, spawn)
                     end
 
                     enemy.spawnInfo.killN = readInt(mapBlob)
@@ -357,12 +360,12 @@ function loadMap(fileName)
                     enemy.spawnInfo.killSpawn = {}
 
                     for loopSpawns = 1, enemy.spawnInfo.killN do
-                        local waitSpawn = {}
-                        waitSpawn.codeIndex = readShort(mapBlob)
-                        print("waitSpawn.codeIndex: "..waitSpawn.codeIndex)
-                        waitSpawn.codeState = readInt(mapBlob)
-                        print("waitSpawn.codeState: "..waitSpawn.codeState)
-                        table.insert(enemy.spawnInfo.killSpawn, waitSpawn)
+                        local spawn = {}
+                        spawn.codeIndex = readShort(mapBlob)
+                        print("spawn.codeIndex: "..spawn.codeIndex)
+                        spawn.codeState = readInt(mapBlob)
+                        print("spawn.codeState: "..spawn.codeState)
+                        table.insert(enemy.spawnInfo.killSpawn, spawn)
                     end
 
                     enemy.spawnInfo.activeN = readInt(mapBlob)
@@ -370,12 +373,12 @@ function loadMap(fileName)
                     enemy.spawnInfo.activeSpawn = {}
 
                     for loopSpawns = 1, enemy.spawnInfo.activeN do
-                        local waitSpawn = {}
-                        waitSpawn.codeIndex = readShort(mapBlob)
-                        print("waitSpawn.codeIndex: "..waitSpawn.codeIndex)
-                        waitSpawn.codeState = readInt(mapBlob)
-                        print("waitSpawn.codeState: "..waitSpawn.codeState)
-                        table.insert(enemy.spawnInfo.activeSpawn, waitSpawn)
+                        local spawn = {}
+                        spawn.codeIndex = readShort(mapBlob)
+                        print("spawn.codeIndex: "..spawn.codeIndex)
+                        spawn.codeState = readInt(mapBlob)
+                        print("spawn.codeState: "..spawn.codeState)
+                        table.insert(enemy.spawnInfo.activeSpawn, spawn)
                     end
 
                 end
@@ -420,11 +423,17 @@ function loadMap(fileName)
             local entry = {}
 
             entry.x = readInt(mapBlob)
+            print("entry.x: "..entry.x)
             entry.y = readInt(mapBlob)
+            print("entry.y: "..entry.y)
             entry.room = readInt(mapBlob)
+            print("entry.room: "..entry.room)
             entry.direction = readByte(mapBlob)
+            print("entry.direction: "..entry.direction)
             entry.seqHere = readInt(mapBlob)
-            entry.reserved = readStringL(mapBlob, 80)
+            print("entry.seqHere: "..entry.seqHere)
+            entry.reserved = readStringL(mapBlob, 84)
+            print("entry.reserved: "..entry.reserved)
             entry.seq = {}
             loadSeq(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
         end
