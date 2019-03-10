@@ -2,6 +2,8 @@ require("game/load")
 require("game/convert")
 require("game/update")
 log = require("lib/log")
+log.usecolor = false
+log.level = "fatal"
 
 function love.load()
     baseDir = "LL/"
