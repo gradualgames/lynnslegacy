@@ -1,6 +1,4 @@
-This file is for collecting notes about the source code as we port the
-game. It will be tricky otherwise to remember where things are. At
-least at first.
+Notes on loading map files.
 
 ***********************************************************************
 
