@@ -110,11 +110,13 @@ function loadSpriteSheet(fileName)
 					byteCount = byteCount + 1
 				end
 			end
+			--Eat extra padding at end of frame. All files under data/pictures
+			--followed this pattern except eagle.spr, to which we appended 8
+			--bytes with a hex editor.
 			local arraySizeDiff = (spriteSheet.arraySize * 2) - byteCount
 			if arraySizeDiff > 0 then
 				readStringL(blob, arraySizeDiff)
 			end
-
 			table.insert(spriteSheet.frames, frame)
 		end
 		return spriteSheet
