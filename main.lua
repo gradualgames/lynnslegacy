@@ -11,12 +11,18 @@ function love.load()
     computeScale()
     initializePaletteShader()
 
-    spriteSheets = loadSpriteSheets("data/pictures")
+    spriteSheets = {}
+
+    --The original game loaded all image data at once during a splash
+    --screen, but I've chosen to move to a lazy loading design so that
+    --the development of the port will go a bit faster. We could move back
+    --to pre-loading later if we want to.
+    --loadSpriteSheets("data/pictures")
 
     --Load map data
     map = loadMap("data/map/forest_fall.map")
 
-    map.spriteSheet = spriteSheets[map.tileSetFileName]
+    map.spriteSheet = getSpriteSheet(map.tileSetFileName)
     map.spriteSheetImage = spriteSheetToImage(map.spriteSheet)
     map.spriteBatchLayers = {}
 

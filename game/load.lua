@@ -16,8 +16,9 @@ function listAllFiles(folder, fileList, ext)
 	end
 end
 
+--Loads all sprite sheets recursively from data/pictures. Uses
+--the global spriteSheets table.
 function loadSpriteSheets(dir)
-    local spriteSheets = {}
     local spriteSheetFilePaths = {}
     listAllFiles("data/pictures", spriteSheetFilePaths, "spr")
     for i, v in ipairs(spriteSheetFilePaths) do
@@ -26,9 +27,21 @@ function loadSpriteSheets(dir)
         spriteSheets[v] = spriteSheet
         log.debug("Loaded sprite sheet: "..v)
     end
-	return spriteSheets
 end
 
+--Returns a loaded sprite sheet from the global spriteSheets
+--cache, or, if there is no sprite sheet for the specified file
+--name, loads it.
+function getSpriteSheet(fileName)
+
+	local spriteSheet = spriteSheets[fileName]
+	if not spriteSheet then
+		spriteSheet = loadSpriteSheet(fileName)
+		spriteSheets[fileName] = spriteSheet
+	end
+	return spriteSheet
+
+end
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
 --proper float 0 to 1 range that Love2D expects. If there is a problem
