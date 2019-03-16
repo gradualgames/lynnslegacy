@@ -3,9 +3,7 @@ BlobReader = require('lib/BlobReader')
 --Loads an entire file into a string and returns an object
 --which acts as a binary blob for reading binary data.
 function loadBlob(fileName)
-    local file = io.open(fileName, 'rb')
-    local blob = BlobReader(file:read('*all'))
-    file:close()
+    local blob = BlobReader(love.filesystem.read(fileName))
     return blob
 end
 

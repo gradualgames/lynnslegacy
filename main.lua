@@ -22,8 +22,7 @@ function love.load()
 	--to pre-loading later if we want to.
 	--loadSpriteSheets("data/pictures")
 
-	local xmlFile = io.open("data/object/lynn.xml", 'rb')
-	local xmlData = xmlFile:read('*all')
+	local xmlData = love.filesystem.read("data/object/lynn.xml")
 	--Instantiates the XML parser
 	local parser = xml2lua.parser(xmlHandler)
 	local parsedXmlData = parser:parse(xmlData)
