@@ -11,14 +11,14 @@ function love.load()
     computeScale()
     initializePaletteShader()
 
-    log.level = "debug"
+    ---log.level = "debug"
     --spriteSheets = loadSpriteSheets("data/pictures")
-    log.level = "fatal"
+    ---log.level = "fatal"
 
     --TODO: Learn why eagle.spr doesn't have a width/height header.
     --TODO: Learn where eagle.spr even shows up in the game...
     log.level = "debug"
-    spriteSheet = loadSpriteSheet("data/pictures/llfont.spr")
+    spriteSheet = loadSpriteSheet("data/pictures/eagle.spr")
     spriteImage = spriteSheetToImage(spriteSheet)
     spriteBatch = imageToSpriteBatch(spriteImage)
     log.level = "fatal"

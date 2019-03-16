@@ -89,15 +89,11 @@ function loadSpriteSheet(fileName)
             --Copy the image data pixel by pixel, converting to our monochrome red format.
             for y = 0, frame.frameHeight - 1 do
                 for x = 0, frame.frameWidth - 1 do
-                    if blob._size > blob._readPtr then
-                        local bt = readByte(blob)
-                        local alpha = 1
-                        if bt == 0 then alpha = 0 end
-                        table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
-						byteCount = byteCount + 1
-                    else
-                        --log.error("Ran past end of spritesheet due to no frame header?")
-                    end
+                    local bt = readByte(blob)
+                    local alpha = 1
+                    if bt == 0 then alpha = 0 end
+                    table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
+					byteCount = byteCount + 1
                 end
             end
 			local arraySizeDiff = (spriteSheet.arraySize * 2) - byteCount
