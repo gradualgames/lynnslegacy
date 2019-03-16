@@ -40,7 +40,7 @@ end
 --Reads a string from a binary blob, advancing the offset
 --by the length of the string (the header of this string) + 2.
 function readString(blob)
-    return blob:raw(blob:u16())
+    return string.gsub(blob:raw(blob:u16()), "\\", "/")
 end
 
 --Reads a string from a binary blob, where we

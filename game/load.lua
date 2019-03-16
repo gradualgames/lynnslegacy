@@ -26,6 +26,7 @@ function loadSpriteSheets(dir)
         spriteSheets[v] = spriteSheet
         log.debug("Loaded sprite sheet: "..v)
     end
+	return spriteSheets
 end
 
 --Loads a palette file and returns a table with all of the rgb triplets

@@ -11,22 +11,12 @@ function love.load()
     computeScale()
     initializePaletteShader()
 
-    ---log.level = "debug"
-    --spriteSheets = loadSpriteSheets("data/pictures")
-    ---log.level = "fatal"
-
-    --TODO: Learn why eagle.spr doesn't have a width/height header.
-    --TODO: Learn where eagle.spr even shows up in the game...
-    log.level = "debug"
-    spriteSheet = loadSpriteSheet("data/pictures/eagle.spr")
-    spriteImage = spriteSheetToImage(spriteSheet)
-    spriteBatch = imageToSpriteBatch(spriteImage)
-    log.level = "fatal"
+    spriteSheets = loadSpriteSheets("data/pictures")
 
     --Load map data
     map = loadMap("data/map/forest_fall.map")
 
-    map.spriteSheet = loadSpriteSheet(map.tileSetFileName)
+    map.spriteSheet = spriteSheets[map.tileSetFileName]
     map.spriteSheetImage = spriteSheetToImage(map.spriteSheet)
     map.spriteBatchLayers = {}
 
@@ -66,8 +56,6 @@ function love.update(dt)
     updateRoom(camera, map.rooms[3], 1, map.spriteSheet, map.spriteBatchLayers[1])
     updateRoom(camera, map.rooms[3], 2, map.spriteSheet, map.spriteBatchLayers[2])
     updateRoom(camera, map.rooms[3], 3, map.spriteSheet, map.spriteBatchLayers[3])
-
-    layoutSpriteBatch(spriteSheet, spriteBatch)
 end
 
 function love.draw()
@@ -76,8 +64,6 @@ function love.draw()
     love.graphics.draw(map.spriteBatchLayers[1])
     love.graphics.draw(map.spriteBatchLayers[2])
     love.graphics.draw(map.spriteBatchLayers[3])
-
-    love.graphics.draw(spriteBatch, camera.x, camera.y)
 
     --Imitating fade to red from Lynn's Legacy
     -- love.graphics.setCanvas(paletteCanvas)
