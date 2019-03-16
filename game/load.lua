@@ -1,5 +1,33 @@
 require("lib/blob")
 
+--This function will return a table of all file paths
+--recursively under a top level folder with the specified
+--file extension.
+function listAllFiles(folder, fileList, ext)
+	local filesTable = love.filesystem.getDirectoryItems(folder)
+	for i,v in ipairs(filesTable) do
+		local file = folder.."/"..v
+        local info = love.filesystem.getInfo(file)
+		if info.type == "file" and string.sub(file, -#ext) == ext then
+            table.insert(fileList, file)
+		elseif info.type == "directory" then
+			listAllFiles(file, fileList, ext)
+		end
+	end
+end
+
+function loadSpriteSheets(dir)
+    local spriteSheets = {}
+    local spriteSheetFilePaths = {}
+    listAllFiles("data/pictures", spriteSheetFilePaths, "spr")
+    for i, v in ipairs(spriteSheetFilePaths) do
+        log.debug("Loading sprite sheet: "..v)
+        local spriteSheet = loadSpriteSheet(v)
+        spriteSheets[v] = spriteSheet
+        log.debug("Loaded sprite sheet: "..v)
+    end
+end
+
 --Loads a palette file and returns a table with all of the rgb triplets
 --of the file as tables. Each r,g,b component is transformed into the
 --proper float 0 to 1 range that Love2D expects. If there is a problem
@@ -43,9 +71,13 @@ function loadSpriteSheet(fileName)
         --Create a table that can contain everything in the file.
         local spriteSheet = {}
         spriteSheet.width = readInt(blob)
+        log.debug("spriteSheet.width: "..spriteSheet.width)
         spriteSheet.height = readInt(blob)
+        log.debug("spriteSheet.height: "..spriteSheet.height)
         spriteSheet.arraySize = readInt(blob)
+        log.debug("spriteSheet.arraySize: "..spriteSheet.arraySize)
         spriteSheet.frameCount = readInt(blob)
+        log.debug("spriteSheet.frameCount: "..spriteSheet.frameCount)
         spriteSheet.frames = {}
         for frameIndex = 1, spriteSheet.frameCount do
             --Create this frame.
@@ -56,10 +88,14 @@ function loadSpriteSheet(fileName)
             --Copy the image data pixel by pixel, converting to our monochrome red format.
             for y = 0, frame.frameHeight - 1 do
                 for x = 0, frame.frameWidth - 1 do
-                    local bt = readByte(blob)
-                    local alpha = 1
-                    if bt == 0 then alpha = 0 end
-                    table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
+                    if blob._size > blob._readPtr then
+                        local bt = readByte(blob)
+                        local alpha = 1
+                        if bt == 0 then alpha = 0 end
+                        table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
+                    else
+                        log.error("Ran past end of spritesheet due to no frame header?")
+                    end
                 end
             end
             table.insert(spriteSheet.frames, frame)

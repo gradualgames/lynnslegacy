@@ -11,6 +11,18 @@ function love.load()
     computeScale()
     initializePaletteShader()
 
+    log.level = "debug"
+    --spriteSheets = loadSpriteSheets("data/pictures")
+    log.level = "fatal"
+
+    --TODO: Learn why eagle.spr doesn't have a width/height header.
+    --TODO: Learn where eagle.spr even shows up in the game...
+    -- log.level = "debug"
+    -- eagleSpriteSheet = loadSpriteSheet("data/pictures/eagle.spr")
+    -- eagleImage = spriteSheetToImage(eagleSpriteSheet)
+    -- eagleSpriteBatch = imageToSpriteBatch(eagleImage)
+    -- log.level = "fatal"
+
     --Load map data
     map = loadMap("data/map/forest_fall.map")
 

@@ -1,7 +1,7 @@
 --Updates a room using the tile indices from the room to arrange
 --the spritebatch for drawing, based on a sprite sheet.
 function updateRoom(camera, room, layer, spriteSheet, spriteBatch)
-    
+
     spriteBatch:clear()
     local topLeftMapX = math.floor(camera.x / spriteSheet.width)
     local topLeftMapY = math.floor(camera.y / spriteSheet.height)
@@ -29,6 +29,28 @@ function updateRoom(camera, room, layer, spriteSheet, spriteBatch)
         end
         mapY = mapY + 1
         screenY = screenY + spriteSheet.height
+    end
+    spriteBatch:flush()
+
+end
+
+--This function lays out a sprite batch with all frames in
+--order. This is really just used for debugging and inspecting
+--a given sprite sheet.
+function layoutSpriteBatch(spriteSheet, spriteBatch)
+
+    spriteBatch:clear()
+    local quadX, quadY = 0, 0
+    for i = 1, spriteSheet.frameCount do
+        local quad = love.graphics.newQuad(
+            quadX,
+            quadY,
+            spriteSheet.width,
+            spriteSheet.height,
+            spriteSheet.width * spriteSheet.frameCount,
+            spriteSheet.height)
+        spriteBatch:add(quad, quadX, quadY)
+        quadX = quadX + spriteSheet.width
     end
     spriteBatch:flush()
 
