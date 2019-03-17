@@ -1,4 +1,3 @@
-love.filesystem.setRequirePath("lib;lib/xml")
 require("game/load")
 require("game/convert")
 require("game/update")
