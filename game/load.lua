@@ -16,6 +16,30 @@ function listAllFiles(folder, fileList, ext)
 	end
 end
 
+--Loads a palette file and returns a table with all of the rgb triplets
+--of the file as tables. Each r,g,b component is transformed into the
+--proper float 0 to 1 range that Love2D expects. If there is a problem
+--loading the file, nil is returned. The palette file stores rgb triplets
+--as b,g,r (backwards), and this is taken care of by this function.
+function loadPalette(fileName)
+
+	paletteBlob = loadBlob(fileName)
+
+	if paletteBlob then
+		palette = {}
+		for x = 1,256 do
+			local b,g,r = readByte(paletteBlob),
+						  readByte(paletteBlob),
+						  readByte(paletteBlob)
+			table.insert(palette,{r/255,g/255,b/255})
+		end
+		return palette
+	else
+		return nil
+	end
+
+end
+
 --Loads all sprite sheets recursively from data/pictures. Uses
 --the global spriteSheets table.
 function loadSpriteSheets(dir)
@@ -40,29 +64,6 @@ function getSpriteSheet(fileName)
 		spriteSheets[fileName] = spriteSheet
 	end
 	return spriteSheet
-
-end
---Loads a palette file and returns a table with all of the rgb triplets
---of the file as tables. Each r,g,b component is transformed into the
---proper float 0 to 1 range that Love2D expects. If there is a problem
---loading the file, nil is returned. The palette file stores rgb triplets
---as b,g,r (backwards), and this is taken care of by this function.
-function loadPalette(fileName)
-
-	paletteBlob = loadBlob(fileName)
-
-	if paletteBlob then
-		palette = {}
-		for x = 1,256 do
-			local b,g,r = readByte(paletteBlob),
-						  readByte(paletteBlob),
-						  readByte(paletteBlob)
-			table.insert(palette,{r/255,g/255,b/255})
-		end
-		return palette
-	else
-		return nil
-	end
 
 end
 
