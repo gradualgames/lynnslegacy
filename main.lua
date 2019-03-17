@@ -2,8 +2,6 @@ require("game/load")
 require("game/convert")
 require("game/update")
 require("game/screen")
-xml2lua = require("lib/xml/xml2lua")
-xmlHandler = require("lib/xml/xmlhandler.tree")
 
 log = require("lib/log")
 log.usecolor = false
@@ -20,14 +18,12 @@ function love.load()
 	--screen, but I've chosen to move to a lazy loading design so that
 	--the development of the port will go a bit faster. We could move back
 	--to pre-loading later if we want to.
-	--loadSpriteSheets("data/pictures")
+	--loadSpriteSheets()
 
-	local xmlData = love.filesystem.read("data/object/lynn.xml")
-	--Instantiates the XML parser
-	local parser = xml2lua.parser(xmlHandler)
-	local parsedXmlData = parser:parse(xmlData)
-
-	print(xmlHandler.root["lynn"].sprite[1].filename)
+	log.level = "debug"
+	objectXml = {}
+	loadObjects()
+	log.level = "fatal"
 
 	--Load map data
 	map = loadMap("data/map/forest_fall.map")

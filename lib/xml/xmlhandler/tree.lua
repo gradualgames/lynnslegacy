@@ -1,10 +1,19 @@
+local function init()
+    local obj = {
+        root = {},
+        options = {noreduce = {}}
+    }
+    
+    obj._stack = {obj.root, n=1}  
+    return obj  
+end
 
 --- @module XML Tree Handler.
 -- Generates a lua table from an XML content string.
--- It is a simplified handler which attempts 
+-- It is a simplified handler which attempts
 -- to generate a more 'natural' table based structure which
--- supports many common XML formats. 
--- 
+-- supports many common XML formats.
+--
 -- The XML tree structure is mapped directly into a recursive
 -- table structure with node names as keys and child elements
 -- as either a table of values or directly as a string value
@@ -14,29 +23,29 @@
 -- may be preferable to always insert elements as a vector
 -- which can be specified on a per element basis in the
 -- options).  Attributes are inserted as a child element with
--- a key of '_attr'. 
--- 
+-- a key of '_attr'.
+--
 -- Only Tag/Text & CDATA elements are processed - all others
 -- are ignored.
--- 
+--
 -- This format has some limitations - primarily
---  
--- * Mixed-Content behaves unpredictably - the relationship 
---   between text elements and embedded tags is lost and 
+-- 
+-- * Mixed-Content behaves unpredictably - the relationship
+--   between text elements and embedded tags is lost and
 --   multiple levels of mixed content does not work
 -- * If a leaf element has both a text element and attributes
 --   then the text must be accessed through a vector (to
 --   provide a container for the attribute)
 --
--- In general however this format is relatively useful. 
+-- In general however this format is relatively useful.
 --
 -- It is much easier to understand by running some test
--- data through 'textxml.lua -simpletree' than to read this)
+-- data through 'testxml.lua -simpletree' than to read this)
 --
 -- Options
 -- =======
---    options.noReduce = { <tag> = bool,.. }
---        - Nodes not to reduce children vector even if only 
+--    options.noreduce = { <tag> = bool,.. }
+--        - Nodes not to reduce children vector even if only
 --          one child
 --
 --  License:
@@ -46,16 +55,25 @@
 --
 --@author Paul Chakravarti (paulc@passtheaardvark.com)
 --@author Manoel Campos da Silva Filho
-local tree = {
-    root = {},
-    options = {noreduce = {}}
-}
+local tree = init()
 
-tree._stack = {tree.root, n=1}
+---Instantiates a new handler object.
+--Each instance can handle a single XML.
+--By using such a constructor, you can parse
+--multiple XML files in the same application.
+--@return the handler instance
+function tree:new()
+    local obj = init()
+
+    obj.__index = self
+    setmetatable(obj, self)
+
+    return obj
+end
 
 --Gets the first key of a table
 --@param tb table to get its first key
---@return the table's first key, nil if the table is empty 
+--@return the table's first key, nil if the table is empty
 --or the given parameter if it isn't a table
 local function getFirstKey(tb)
    if type(tb) == "table" then
@@ -69,7 +87,7 @@ local function getFirstKey(tb)
    return tb
 end
 
---- Recursively remove redundant vectors for nodes
+--- Recursively removes redundant vectors for nodes
 -- with single child elements
 function tree:reduce(node, key, parent)
     for k,v in pairs(node) do
@@ -84,60 +102,47 @@ function tree:reduce(node, key, parent)
         node.n = nil
     end
 end
-    
+
 ---Parses a start tag.
 -- @param tag a {name, attrs} table
--- where name is the name of the tag and attrs 
+-- where name is the name of the tag and attrs
 -- is a table containing the atributtes of the tag
 function tree:starttag(tag)
     local node = {}
     if self.parseAttributes == true then
         node._attr=tag.attrs
     end
-    
+
+    --Table in the stack representing the tag being processed
     local current = self._stack[#self._stack]
+    
     if current[tag.name] then
         table.insert(current[tag.name], node)
     else
         current[tag.name] = {node; n=1}
     end
-    
+
     table.insert(self._stack, node)
 end
 
 ---Parses an end tag.
 -- @param tag a {name, attrs} table
--- where name is the name of the tag and attrs 
+-- where name is the name of the tag and attrs
 -- is a table containing the atributtes of the tag
 function tree:endtag(tag, s)
-    --Tabela que representa a tag atualmente sendo processada
+    --Table in the stack representing the tag being processed
     local current = self._stack[#self._stack]
-    --Tabela que representa a tag na qual a tag
-    --atual está contida.
+    --Table in the stack representing the containing tag of the current tag
     local prev = self._stack[#self._stack-1]
     if not prev[tag.name] then
         error("XML Error - Unmatched Tag ["..s..":"..tag.name.."]\n")
     end
     if prev == self.root then
-        -- Once parsing complete recursively reduce tree
+        -- Once parsing complete, recursively reduce tree
         self:reduce(prev, nil, nil)
     end
-    
+
     local firstKey = getFirstKey(current)
-    --Se a primeira chave da tabela que representa
-    --a tag  atual não possui nenhum elemento,
-    --é porque não há nenhum valor associado à tag
-    -- (como nos casos de tags automaticamente fechadas como <senha />).
-    --Assim, atribui uma string vazia a mesma para
-    --que seja retornado vazio no lugar da tag e não
-    --uma tabela. Retornando uma string vazia
-    --simplifica para as aplicações NCLua
-    --para imprimir tal valor.
-    if firstKey == nil then
-        current[tag.name] = ""
-        prev[tag.name] = ""
-    end
-        
     table.remove(self._stack)
 end
 
@@ -150,4 +155,5 @@ end
 
 ---Parses CDATA tag content.
 tree.cdata = tree.text
+tree.__index = tree
 return tree

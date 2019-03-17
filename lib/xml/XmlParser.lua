@@ -15,13 +15,35 @@
 --        Custom error handler function 
 --
 --  NOTE: Boolean options must be set to 'nil' not '0'
-local XmlParser = {
-    options     = {},
-    handler     = {},
-    
-    -- Private attribures/functions
-    _stack      = {},
 
+---Converts the decimal code of a character to its corresponding char
+--if it's a graphical char, otherwise, returns the HTML ISO code
+--for that decimal value in the format &#code
+--@param code the decimal value to convert to its respective character
+local function decimalToHtmlChar(code)
+    local n = tonumber(code)
+    if n >= 0 and n < 256 then
+        return string.char(n)
+    else
+        return "&#"..code..";"
+    end
+end
+
+---Converts the hexadecimal code of a character to its corresponding char
+--if it's a graphical char, otherwise, returns the HTML ISO code
+--for that hexadecimal value in the format &#xCode
+--@param code the hexadecimal value to convert to its respective character
+local function hexadecimalToHtmlChar(code)
+    local n = tonumber(code, 16)
+    if n >= 0 and n < 256 then
+        return string.char(n)
+    else
+        return "&#x"..code..";"
+    end
+end
+
+local XmlParser = {
+    -- Private attribures/functions
     _XML        = '^([^<]*)<(%/?)([^>]-)(%/?)>',
     _ATTR1      = '([%w-:_]+)%s*=%s*"(.-)"',
     _ATTR2      = '([%w-:_]+)%s*=%s*\'(.-)\'',
@@ -38,8 +60,11 @@ local XmlParser = {
     _DTD4       = '<!DOCTYPE%s+(.-)%s+(SYSTEM)%s+["\'](.-)["\']%s*>',
     _DTD5       = '<!DOCTYPE%s+(.-)%s+(PUBLIC)%s+["\'](.-)["\']%s+["\'](.-)["\']%s*>',
 
-    _ATTRERR1   = '=%s*"[^"]*$',
-    _ATTRERR2   = '=%s*\'[^\']*$',
+    --Matches an attribute with non-closing double quotes (The equal sign is matched non-greedly by using =+?)
+    _ATTRERR1   = '=+?%s*"[^"]*$',
+    --Matches an attribute with non-closing single quotes (The equal sign is matched non-greedly by using =+?)
+    _ATTRERR2   = '=+?%s*\'[^\']*$',
+    --Matches a closing tag such as </person> or the end of a openning tag such as <person>
     _TAGEXT     = '(%/?)>',
 
     _errstr = { 
@@ -75,15 +100,32 @@ local XmlParser = {
 --@param _options Options for this XmlParser instance.
 --@see XmlParser.options
 function XmlParser.new(_handler, _options)
-  local obj = {
-      handler = _handler,
-      options = _options
-  }
+    local obj = {
+        handler = _handler,
+        options = _options,
+        _stack  = {}
+    }
 
-	setmetatable(obj, XmlParser)
-  return obj;
+    setmetatable(obj, XmlParser)
+    obj.__index = XmlParser
+    return obj;
 end
 
+---Checks if a function/field exists in a table or in its metatable
+--@param table the table to check if it has a given function
+--@param elementName the name of the function/field to check if exists
+--@return true if the function/field exists, false otherwise
+local function fexists(table, elementName)
+    if table == nil then
+        return false
+    end
+
+    if table[elementName] ~= nil then
+        return true
+    else
+        return fexists(getmetatable(table), elementName)
+    end
+end
 
 local function err(self, err, pos)
     if self.options.errorHandler then
@@ -102,9 +144,7 @@ end
 
 local function parseEntities(self, s) 
     if self.options.expandEntities then
-        --for k,v in self._ENTITIES do
         for k,v in pairs(self._ENTITIES) do
-            --print (k, v) 
             s = string.gsub(s,k,v)
         end
     end
@@ -112,19 +152,19 @@ local function parseEntities(self, s)
     return s
 end
 
---- Parses a string representing a tag
+--- Parses a string representing a tag.
 --@param s String containing tag text
 --@return a {name, attrs} table
 -- where name is the name of the tag and attrs 
 -- is a table containing the atributtes of the tag
 local function parseTag(self, s)
     local tag = {
-        name = string.gsub(s, self._TAG, '%1'),
-        attrs = {}
-      }            
+            name = string.gsub(s, self._TAG, '%1'),
+            attrs = {}
+          }            
 
     local parseFunction = function (k, v) 
-            tag.attrs[string.lower(k)] = parseEntities(self, v)
+            tag.attrs[k] = parseEntities(self, v)
             tag.attrs._ = 1 
           end
                           
@@ -152,14 +192,14 @@ local function parseXmlDeclaration(self, xml, f)
         err(self, self._errstr.declStartErr, f.pos)
     end
 
-    tag = parseTag(self, f.text) 
+    local tag = parseTag(self, f.text) 
     -- TODO: Check if attributes are valid
     -- Check for version (mandatory)
     if tag.attrs and tag.attrs.version == nil then
         err(self, self._errstr.declAttrErr, f.pos)
     end
 
-    if self.handler.decl then 
+    if fexists(self.handler, 'decl') then 
         self.handler:decl(tag, f.match, f.endMatch) 
     end    
 
@@ -174,7 +214,7 @@ local function parseXmlProcessingInstruction(self, xml, f)
     if not f.match then 
         err(self, self._errstr.piErr, f.pos)
     end 
-    if self.handler.pi then 
+    if fexists(self.handler, 'pi') then 
         -- Parse PI attributes & text
         tag = parseTag(self, f.text) 
         local pi = string.sub(f.text, string.len(tag.name)+1)
@@ -197,7 +237,7 @@ local function parseComment(self, xml, f)
         err(self, self._errstr.commentErr, f.pos)
     end 
 
-    if self.handler.comment then 
+    if fexists(self.handler, 'comment') then 
         f.text = parseEntities(self, stripWS(self, f.text))
         self.handler:comment(f.text, next, f.match, f.endMatch)
     end
@@ -241,7 +281,7 @@ local function parseDtd(self, xml, f)
         err(self, self._errstr.dtdErr, f.pos)
     end 
 
-    if self.handler.dtd then
+    if fexists(self.handler, 'dtd') then
         self.handler:dtd(attrs._root, attrs, f.match, f.endMatch)
     end
 end
@@ -252,7 +292,7 @@ local function parseCdata(self, xml, f)
         err(self, self._errstr.cdataErr, f.pos)
     end 
 
-    if self.handler.cdata then
+    if fexists(self.handler, 'cdata') then
         self.handler:cdata(f.text, nil, f.match, f.endMatch)
     end    
 end
@@ -261,14 +301,20 @@ end
 -- Need check for embedded '>' in attribute value and extend
 -- match recursively if necessary eg. <tag attr="123>456"> 
 local function parseNormalTag(self, xml, f)
+    --Check for errors
     while 1 do
-        f.errStart, f.errEnd = string.find(f.tagstr,self._ATTRERR1)
+        --If there isn't an attribute without closing quotes (single or double quotes)
+        --then breaks to follow the normal processing of the tag.
+        --Otherwise, try to find where the quotes close.
+        f.errStart, f.errEnd = string.find(f.tagstr, self._ATTRERR1)        
+
         if f.errEnd == nil then
             f.errStart, f.errEnd = string.find(f.tagstr, self._ATTRERR2)
             if f.errEnd == nil then
                 break
             end
         end
+        
         f.extStart, f.extEnd, f.endt2 = string.find(xml, self._TAGEXT, f.endMatch+1)
         f.tagstr = f.tagstr .. string.sub(xml, f.endMatch, f.extEnd-1)
         if not f.match then 
@@ -278,11 +324,10 @@ local function parseNormalTag(self, xml, f)
     end 
 
     -- Extract tag name and attrs
-    tag = parseTag(self, f.tagstr) 
+    local tag = parseTag(self, f.tagstr) 
 
     if (f.endt1=="/") then
-        -- End tag
-        if self.handler.endtag then
+        if fexists(self.handler, 'endtag') then
             if tag.attrs then
                 -- Shouldn't have any attributes in endtag
                 err(self, string.format("%s (/%s)", self._errstr.endTagErr, tag.name), f.pos)
@@ -293,9 +338,8 @@ local function parseNormalTag(self, xml, f)
             self.handler:endtag(tag, f.match, f.endMatch)
         end
     else
-        -- Start Tag
         table.insert(self._stack, tag.name)
-        if self.handler.starttag then
+        if fexists(self.handler, 'starttag') then
             self.handler:starttag(tag, f.match, f.endMatch)
         end
         --TODO: Tags com fechamento automático estão sendo
@@ -306,7 +350,7 @@ local function parseNormalTag(self, xml, f)
         -- Self-Closing Tag
         if (f.endt2=="/") then
             table.remove(self._stack)
-            if self.handler.endtag then
+            if fexists(self.handler, 'endtag') then
                 self.handler:endtag(tag, f.match, f.endMatch)
             end
         end
@@ -318,9 +362,9 @@ end
 local function parseTagType(self, xml, f)
     -- Test for tag type
     if string.find(string.sub(f.tagstr, 1, 5), "?xml%s") then
-        tag = parseXmlDeclaration(self, xml, f)
+        parseXmlDeclaration(self, xml, f)
     elseif string.sub(f.tagstr, 1, 1) == "?" then
-        tag = parseXmlProcessingInstructions(self, xml, f)
+        parseXmlProcessingInstruction(self, xml, f)
     elseif string.sub(f.tagstr, 1, 3) == "!--" then
         parseComment(self, xml, f)
     elseif string.sub(f.tagstr, 1, 8) == "!DOCTYPE" then
@@ -365,23 +409,25 @@ function XmlParser:parse(xml, parseAttributes)
     if type(self) ~= "table" or getmetatable(self) ~= XmlParser then
         error("You must call xmlparser:parse(parameters) instead of xmlparser.parse(parameters)")
     end
-    
+
     if parseAttributes == nil then
-        parseAttributes = true
+       parseAttributes = true
     end
+
     self.handler.parseAttributes = parseAttributes
 
     --Stores string.find results and parameters
     --and other auxiliar variables
     local f = {
         --string.find return
-        match = 0, 
+        match = 0,
         endMatch = 0,
-        text, end1, tagstr, end2,
+        -- text, end1, tagstr, end2,
 
         --string.find parameters and auxiliar variables
-        pos = 1, startText, endText, 
-        errStart, errEnd, extStart, extEnd,
+        pos = 1,
+        -- startText, endText,
+        -- errStart, errEnd, extStart, extEnd,
     }
 
     while f.match do
@@ -394,7 +440,7 @@ function XmlParser:parse(xml, parseAttributes)
         f.endText = f.match + string.len(f.text) - 1
         f.match = f.match + string.len(f.text)
         f.text = parseEntities(self, stripWS(self, f.text))
-        if f.text ~= "" and self.handler.text then
+        if f.text ~= "" and fexists(self.handler, 'text') then
             self.handler:text(f.text, nil, f.match, f.endText)
         end
 

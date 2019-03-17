@@ -1,4 +1,6 @@
 require("lib/blob")
+xml2lua = require("lib/xml/xml2lua")
+xmlHandler = require("lib/xml/xmlhandler.tree")
 
 --This function will return a table of all file paths
 --recursively under a top level folder with the specified
@@ -14,6 +16,30 @@ function listAllFiles(folder, fileList, ext)
 			listAllFiles(file, fileList, ext)
 		end
 	end
+end
+
+--Loads all object xml files from the specified directory. Uses
+--the global objectXml table.
+function loadObjects(dir)
+
+	local xmlFilePaths = {}
+	listAllFiles("data/object", xmlFilePaths, "xml")
+
+	for i, v in ipairs(xmlFilePaths) do
+		local xmlData = love.filesystem.read(v)
+		local handler = xmlHandler:new()
+		local parser = xml2lua.parser(handler)
+		parser:parse(xmlData)
+		for objectKey, objectValue in pairs(handler.root) do
+			objectXml[objectKey] = objectValue
+			log.debug("path: "..v)
+			log.debug("objectKey: "..objectKey)
+			log.debug("#objectValue.sprite: "..#objectValue["sprite"])
+			break
+		end
+
+	end
+
 end
 
 --Loads a palette file and returns a table with all of the rgb triplets
@@ -42,7 +68,7 @@ end
 
 --Loads all sprite sheets recursively from data/pictures. Uses
 --the global spriteSheets table.
-function loadSpriteSheets(dir)
+function loadSpriteSheets()
 	local spriteSheetFilePaths = {}
 	listAllFiles("data/pictures", spriteSheetFilePaths, "spr")
 	for i, v in ipairs(spriteSheetFilePaths) do
