@@ -17,7 +17,6 @@
 
     <filename> data\pictures\char\slime_appear.spr </filename>
     <rate> .08 </rate>
-    //<madrate> .06 </madrate>
     <y_off> 8 </y_off>
 
   </sprite>
@@ -76,7 +75,6 @@
 
   </fp>
   
-  // 4
   <fp>
 
     <func> make_invisible </func>
@@ -84,7 +82,6 @@
 
   </fp>
   
-  // 5
   <fp>
 
     <func> active_anim_1 </func>
@@ -95,7 +92,6 @@
 
   </fp>
 
-  // 6
   <fp>
 
     <func> do_nothing </func>
@@ -103,7 +99,6 @@
 
   </fp>
 
-  // 7
   <fp>
 
     <func> return_reset_npc </func>

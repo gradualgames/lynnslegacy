@@ -15,7 +15,6 @@
     <filename> data\pictures\char\moth_appear.spr </filename>
     <rate> .08 </rate>
     <y_off> 8 </y_off>
-    //<dir_frames> 8 </dir_frames>
 
   </sprite>
 
@@ -24,7 +23,6 @@
     <filename> data\pictures\char\moth_disappear.spr </filename>
     <rate> .08 </rate>
     <y_off> 8 </y_off>
-    //<dir_frames> 8 </dir_frames>
 
   </sprite>
 
@@ -45,7 +43,6 @@
 
   </sprite>
   
-  // 5
   <sprite>
 
     <filename> data\pictures\char\sapling_give.spr </filename>
@@ -62,28 +59,22 @@
     
   </snd>
 
-  //<impassable> 1 </impassable>
-  //<walk_length> 40 </walk_length>
    <walk_speed> .01 </walk_speed>
- //<walk_speed> .059 </walk_speed>
   <strength> 0 </strength>
   <invincible> -1 </invincible>
   <real_y> 16 </real_y>
   <real_x> 16 </real_x>
-  //<action_sequence> 1 </action_sequence>
   <hp> 1 </hp>
   <flash_length> 80 </flash_length>
   <flash_time> .02 </flash_time>
 
   
-  // 0
   <fp>
 
     <func> return_idle </func>     
 
   </fp>
 
-  // 1
   <fp>
 
     <func> do_nothing </func>     
@@ -91,7 +82,6 @@
 
   </fp>
   
-  // 2
   <fp>
 
     <func> active_anim_1 </func>     
@@ -100,7 +90,6 @@
 
   </fp>
   
-  // 3
   <fp>
 
     <func> make_visible </func>     
@@ -108,7 +97,6 @@
 
   </fp>
 
-  // 4 '' appear
   <fp>
 
     <func> active_animate </func>     
@@ -117,7 +105,6 @@
 
   </fp>
 
-  // 5 '' disapp
   <fp>
 
     <func> active_anim_2 </func>     
@@ -128,7 +115,6 @@
   </fp>
 
 
-  // 6
   <fp>
 
     <func> push_lynn_back </func>     
@@ -137,7 +123,6 @@
   </fp>
 
 
-  // 7
   <fp>
 
     <func> set_happen </func>     
@@ -145,7 +130,6 @@
 
   </fp>
 
-  // 8
   <fp>
 
     <func> fade_down_to_color </func>
@@ -153,7 +137,6 @@
 
   </fp>
 
-  // 9
   <fp>
 
     <func> home </func>
@@ -162,7 +145,6 @@
   </fp>
 
 
-  // 10
   <fp>
 
     <func> move_backwards </func>
@@ -170,7 +152,6 @@
 
   </fp>
 
-  // 11
   <fp>
 
     <func> move_normal </func>
@@ -178,7 +159,6 @@
 
   </fp>
 
-  // 12
   <fp>
 
     <func> active_anim_3 </func>     
@@ -187,7 +167,6 @@
 
   </fp>
   
-  // 13
   <fp>
 
     <func> flicker </func>
@@ -197,7 +176,6 @@
   </fp>
 
 
-  // 14
   <fp>
 
     <func> set_camera </func>
@@ -205,7 +183,6 @@
 
   </fp>
 
-  // 15
   <fp>
 
     <func> active_anim_0 </func>
@@ -223,7 +200,6 @@
 
   </fp>
 
-  // 16
   <fp>
 
     <func> flicker </func>
@@ -232,7 +208,6 @@
   </fp>
 
 
-  // 17
   <fp>
 
     <func> active_anim_5 </func>     
@@ -240,7 +215,6 @@
 
   </fp>
   
-  // 18
   <fp>
 
     <func> idle_animate </func>     
@@ -248,7 +222,6 @@
 
   </fp>
   
-  // 19
   <fp>
 
     <func> make_invisible </func>     
@@ -256,7 +229,6 @@
 
   </fp>
   
-  // 20
   <fp>
 
     <func> active_anim_0 </func>     
@@ -264,7 +236,6 @@
 
   </fp>
   
-  // 21
   
   <fp>
 
@@ -274,7 +245,6 @@
   </fp>
   
 
-  // 22
   
   <fp>
 

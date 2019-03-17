@@ -30,8 +30,6 @@
   </snd>
 
   
-  //<strength> 30 </strength>
-  //<invincible> -1 </invincible>
   <impassable> -1 </impassable>
   <real_y> 64 </real_y>
   <real_x> 64 </real_x>
@@ -39,7 +37,6 @@
   <dead_sound> none </dead_sound>
   <isboss> 1 </isboss>
   
-  // 0
   <fp>
 
     <func> return_idle </func>     
@@ -61,7 +58,6 @@
   <fp>
 
     <proc_id> death_state </proc_id>
-    // disappear
     <func> make_dead </func>     
     <func> q_second_pause </func>     
     <func> play_seq </func>     
@@ -72,11 +68,9 @@
     <func> flash_down </func>     
     <func> kill_song </func>     
     <func> cripple </func>     
-    //<func> return_trig </func>     
 
   </fp>
 
-  // 3
   <fp>
 
     <func> play_sound </func>
@@ -84,7 +78,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> active_anim_1 </func>     
@@ -93,7 +86,6 @@
   </fp>
 
 
-  // 5
   <fp>
 
     <func> set_camera </func>
@@ -101,7 +93,6 @@
 
   </fp>
 
-  // 6
   <fp>
 
     <func> do_nothing </func>
@@ -110,7 +101,6 @@
 
   </fp>
 
-  // 7
   <fp>
 
     <func> active_animate </func>

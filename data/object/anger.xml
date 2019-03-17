@@ -1,17 +1,14 @@
 <angerelemental>
 
-  // 0
   <sprite>
 
     <filename> data\pictures\char\boss3_idle.spr </filename>
-    // <rate> .280 </rate>
     <x_off> 16 </x_off>
     <y_off> 20 </y_off>
     <dir_frames> 2 </dir_frames>
 
   </sprite>
   
-  // 1
   <sprite>
 
     <filename> data\pictures\char\boss3_shoot.spr </filename>
@@ -22,7 +19,6 @@
 
   </sprite>
   
-  // 2
   <sprite>
 
     <filename> data\pictures\char\boss3_noflame.spr </filename>
@@ -33,7 +29,6 @@
 
   </sprite>
   
-  // 3
   <sprite>
 
     <filename> data\pictures\char\boss3_open.spr </filename>
@@ -44,7 +39,6 @@
 
   </sprite>
 
-  // 4
   <sprite>
 
     <filename> data\pictures\char\boss3_appear.spr </filename>
@@ -55,7 +49,6 @@
 
   </sprite>
 
-  // 5
   <sprite>
 
     <filename> data\pictures\char\boss3_vanish.spr </filename>
@@ -66,7 +59,6 @@
 
   </sprite>
 
-  // 6
   <sprite>
 
     <anim_id> proj_anim </anim_id>
@@ -76,7 +68,6 @@
 
   </sprite>
   
-  // 7
   <sprite>
 
     <anim_id> dead_anim </anim_id>
@@ -88,7 +79,6 @@
 
   </sprite>
   
-  // 8
   <sprite>
 
     <anim_id> expl_anim </anim_id>
@@ -236,7 +226,6 @@
 
   </fp>
 
-  // 5
   <fp>
 
     <func> fade_to_black </func>
@@ -245,7 +234,6 @@
   </fp>
 
 
-  // 6
   <fp>
     <func> set_happen </func>
     <func> return_trig </func>

@@ -27,7 +27,6 @@
   </fp>
 
 
-  // 1
   <fp>
 
     <func> do_nothing </func>
@@ -35,7 +34,6 @@
 
   </fp>
 
-  // 2
   <fp>
 
     <func> home </func>
@@ -43,7 +41,6 @@
 
   </fp>
 
-  // 2
   <fp>
 
     <func> inc_sel_seq </func>

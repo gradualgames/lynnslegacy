@@ -41,7 +41,6 @@
   <explosions> 50 </explosions>
 
     
-  // '' point
   <fp>
 
     <func> sword_angle </func>
@@ -49,7 +48,6 @@
 
   </fp>
   
-  // '' fly at
   <fp>
 
     <func> sword_glow </func>

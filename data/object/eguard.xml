@@ -86,7 +86,6 @@
 
     <proc_id> reset_state </proc_id>
     <func> active_anim_0 </func>
-    //<func> second_pause </func>
     <func> return_idle </func>
 
   </fp>

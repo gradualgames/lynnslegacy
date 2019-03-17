@@ -33,7 +33,6 @@
   <impassable> 1 </impassable>
   <uni_directional> 1 </uni_directional>
 
-  // '' 1 shl 16 or 1 = 65536 + 1 = 65537
   <happen_trig> 65537 </happen_trig> 
 
   <fp>

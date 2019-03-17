@@ -138,7 +138,6 @@
   <vision_field> 32 </vision_field>
   <uni_directional> 1 </uni_directional>
 
-  // '' 1 Shl 16 Or 1000 = 65536 + 1000 = 66536
   <happen_trig> 66536 </happen_trig>
 
   <fp>

@@ -23,7 +23,6 @@
   <action_sequence> 1 </action_sequence>
   <impassable> 1 </impassable>
   <invincible> 1 </invincible>
-  //<unstoppable_by_object> 1 </unstoppable_by_object>
 
   <fp>
     
@@ -31,7 +30,6 @@
 
   </fp>
   
-  // 1
   <fp>
 
     <func> home </func>
@@ -40,7 +38,6 @@
   </fp>
 
   
-  // 2
   <fp>
 
     <func> second_pause </func>
@@ -48,7 +45,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> move_backwards </func>
@@ -56,7 +52,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> move_normal </func>
@@ -64,7 +59,6 @@
 
   </fp>
   
-  // 5
   <fp>
 
     <func> do_nothing </func>

@@ -118,7 +118,6 @@
 
   </fp>
 
-  // 2
   <fp>
 
     <proc_id> death_state </proc_id>
@@ -151,7 +150,6 @@
   </fp>
 
 
-  // 3
   <fp>
 
     <func> fade_to_black </func>
@@ -159,7 +157,6 @@
 
   </fp>
   
-  // 4
   <fp>
 
     <func> set_happen </func>

@@ -77,7 +77,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> second_pause </func>
@@ -88,7 +87,6 @@
   </fp>
 
 
-  // 4
   <fp>
 
     <func> flash </func>
@@ -98,7 +96,6 @@
   </fp>
 
 
-  // 5
   <fp>
 
     <func> play_sound </func>
@@ -106,7 +103,6 @@
 
   </fp>
 
-  // 6
   <fp>
 
     <func> second_pause </func>
@@ -116,7 +112,6 @@
 
   </fp>
 
-  // 7
   <fp>
 
     <func> flash </func>

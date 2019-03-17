@@ -20,7 +20,6 @@
 
   </fp>
   
-  // 1
   <fp>
 
     <func> active_animate </func>
@@ -28,7 +27,6 @@
 
   </fp>
 
-  // 2
   <fp>
 
     <func> do_nothing </func>

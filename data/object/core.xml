@@ -139,7 +139,6 @@
   </fp>
 
 
-  // 3
   <fp>
 
     <func> do_nothing </func>
@@ -149,7 +148,6 @@
 
 
 
-  // 4
   <fp>
 
     <func> home </func>
@@ -191,7 +189,6 @@
 
 
 
-  // 7
   <fp>
 
     <func> explode </func>
@@ -204,7 +201,6 @@
 
 
 
-  // 8
   <fp>
 
     <func> flash </func>
@@ -216,7 +212,6 @@
 
 
 
-  // 9
   <fp>
 
     <func> set_camera </func>
@@ -225,7 +220,6 @@
   </fp>
 
 
-  // 10
   <fp>
 
     <func> explode </func>
@@ -237,7 +231,6 @@
   </fp>
 
 
-  // 11
   <fp>
 
     <func> set_explosions </func>
@@ -245,7 +238,6 @@
 
   </fp>
 
-  // 12
   <fp>
 
     <func> active_anim_2 </func>
@@ -253,7 +245,6 @@
 
   </fp>
 
-  // 13
   <fp>
 
     <func> active_anim_3 </func>
@@ -261,7 +252,6 @@
 
   </fp>
 
-  // 14
   <fp>
 
     <func> active_anim_4 </func>
@@ -269,7 +259,6 @@
 
   </fp>
 
-  // 15
   <fp>
 
     <func> active_anim_5 </func>
@@ -277,7 +266,6 @@
 
   </fp>
 
-  // 16
   <fp>
 
     <func> active_anim_0 </func>
@@ -286,7 +274,6 @@
   </fp>
 
 
-  // 17
   <fp>
 
     <func> play_sound </func>
@@ -294,7 +281,6 @@
 
   </fp>
 
-  // 18
   <fp>
 
     <func> stop_sound </func>

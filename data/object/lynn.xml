@@ -1,7 +1,6 @@
 
 <lynn>
 
-  // 0
   <sprite>
 
     <filename> data\pictures\char\lynn24.spr </filename>
@@ -12,7 +11,6 @@
   </sprite>
 
   /* /* */ */
-  // 1
   <sprite>
 
     <filename> data\pictures\char\lynnsplat2.spr </filename>
@@ -24,7 +22,6 @@
   </sprite>
 
 
-  // 2
   <sprite>
 
     <filename> data\pictures\1.spr </filename>
@@ -33,7 +30,6 @@
   </sprite>
 
 
-  // 3
   <sprite>
 
     <filename> data\pictures\char\lynnattack_new.spr </filename>
@@ -54,7 +50,6 @@
   </sprite>
 
 
-  // 4
   <sprite>
 
     <filename> data\pictures\char\lynnattack_2.spr </filename>
@@ -75,7 +70,6 @@
   </sprite>
 
 
-  // 5
   <sprite>
 
     <filename> data\pictures\char\lynnattack_3.spr </filename>
@@ -96,7 +90,6 @@
   </sprite>
 
 
-  // 6
   <sprite>
 
     <filename> data\pictures\char\lynn_flare.spr </filename>
@@ -116,7 +109,6 @@
   </sprite>
 
 
-  // 7
   <sprite>
 
     <filename> data\pictures\char\lynn_ice.spr </filename>
@@ -136,7 +128,6 @@
   </sprite>
 
 
-  // 8
   <sprite>
 
     <filename> data\pictures\char\lynnfall.spr </filename>
@@ -146,14 +137,12 @@
   </sprite>
 
 
-  // 9
   <sprite>
 
     <filename> data\pictures\char\blank.spr </filename>
 
   </sprite>
 
-  // 10
   <sprite>
 
     <filename> data\pictures\char\mace_grab.spr </filename>
@@ -164,7 +153,6 @@
   </sprite>
 
 
-  // 11
   <sprite>
 
     <filename> data\pictures\char\mace_grab.spr </filename>
@@ -174,7 +162,6 @@
 
   </sprite>
 
-  // 12
   <sprite>
 
     <filename> data\pictures\char\lynngetup.spr </filename>
@@ -183,7 +170,6 @@
 
   </sprite>
 
-  // 13
   <sprite>
 
     <filename> data\pictures\char\lynnsplat_dry.spr </filename>
@@ -195,34 +181,29 @@
   </sprite>
 
 
-  // 0
   <snd>
     <index> sound_crickets </index>
     
   </snd>
   
-  // 1
   <snd>
 
     <index> sound_corealarm </index>
     
   </snd>
   
-  // 2
   <snd>
 
     <index> sound_corealarm2 </index>
     
   </snd>
   
-  // 3
   <snd>
 
     <index> sound_limboloop </index>
     
   </snd>
 
-  // 4
   <snd>
 
     <index> sound_build </index>
@@ -230,8 +211,6 @@
   </snd>
 
   
-  //<unstoppable_by_object> 1 </unstoppable_by_object>
-  //<unstoppable_by_tile> 1 </unstoppable_by_tile>
   
   <flash_length> 30 </flash_length>
   <flash_time> .02 </flash_time>
@@ -243,7 +222,6 @@
   <jump_time> 40 </jump_time>
   <fade_time> .10 </fade_time>
 
-  // 0
   <fp>
 
     <func> active_animate </func>
@@ -294,11 +272,9 @@
   </fp>
 
 
-  // 5
   <fp>
 
     <func> second_pause </func>
-    //<func> set_fade </func>
     <func> fade_to_black </func>
     <func> kill_song </func>
     <func> return_trig </func>
@@ -341,7 +317,6 @@
 
   </fp>
 
-  // 10
 
   <fp>
 
@@ -354,7 +329,6 @@
 
   </fp>
 
-  // 11 '' Invisible
   <fp>
 
     <func> make_invisible </func>
@@ -398,8 +372,6 @@
 
   </fp>
 
-  // 15
-  // '' wait a second...
 
   <fp>
 
@@ -419,7 +391,6 @@
   </fp>
 
   
-  // 17
   <fp>
 
     <func> flicker </func>
@@ -435,7 +406,6 @@
   </fp>
 
 
-  // 18
   <fp>
 
     <func> make_visible </func>
@@ -443,7 +413,6 @@
 
   </fp>
 
-  // 19 
   <fp>
 
     <func> make_invisible </func>
@@ -452,7 +421,6 @@
   </fp>
 
 
-  // 20
   <fp>
 
     <func> active_anim_1 </func>
@@ -460,7 +428,6 @@
 
   </fp>
 
-  // 21
   <fp>
 
     <func> make_invincible </func>
@@ -476,7 +443,6 @@
 
   </fp>
 
-  // 23
   <fp>
 
     <func> tile_up </func>
@@ -494,7 +460,6 @@
   </fp>
 
 
-  // 25
   <fp>
 
     <func> chapter_1_on </func>
@@ -503,7 +468,6 @@
 
   </fp>
 
-  // 26
   <fp>
 
     <func> play_sound </func>
@@ -511,7 +475,6 @@
 
   </fp>
 
-  // 27
   <fp>
 
     <func> stop_sound </func>
@@ -520,7 +483,6 @@
   </fp>
 
   
-  // 28
   <fp>
 
     <func> fade_off </func>
@@ -528,7 +490,6 @@
 
   </fp>
 
-  // 29
   <fp>
 
     <func> second_pause </func>
@@ -546,7 +507,6 @@
   </fp>
 
 
-  // 30
   <fp>
 
     <func> change_map </func>
@@ -554,7 +514,6 @@
 
   </fp>
 
-  // 31
   <fp>
 
     <func> change_map </func>
@@ -563,7 +522,6 @@
   </fp>
 
 
-  // 32
   <fp>
 
     <func> set_fade </func>
@@ -584,7 +542,6 @@
 
   </fp>
 
-  // 34 '' USE TO UNLOCK ON A SEQUENCE MAP CHANGE
   <fp>
 
     <func> do_nothing </func>
@@ -593,7 +550,6 @@
   </fp>
 
 
-  // 35
   <fp>
 
     <func> reset_frame </func>
@@ -620,7 +576,6 @@
 
   </fp>
 
-  // 38
   <fp>
 
     <func> color_on </func>
@@ -628,7 +583,6 @@
 
   </fp>
 
-  // 39
   <fp>
 
     <func> invis_entry </func>
@@ -637,8 +591,6 @@
   </fp>
 
 
-  // 40
-  // '' Portal Re-entry
   <fp>
 
     <func> flicker </func>
@@ -650,7 +602,6 @@
 
 
 
-  // 41
   <fp>
 
     <func> move_backwards </func>
@@ -658,7 +609,6 @@
 
   </fp>
 
-  // 42
   <fp>
 
     <func> move_normal </func>
@@ -667,7 +617,6 @@
   </fp>
 
 
-  // 43
   <fp>
 
     <func> fade_up_to_color </func>
@@ -675,7 +624,6 @@
 
   </fp>
 
-  // 44
   <fp>
 
     <func> set_camera </func>
@@ -683,7 +631,6 @@
 
   </fp>
 
-  // 45
   <fp>
 
     <func> active_anim_0 </func>
@@ -691,7 +638,6 @@
 
   </fp>
 
-  // 46
   <fp>
 
     <func> do_flyback </func>
@@ -700,7 +646,6 @@
 
   </fp>
 
-  // 47
   <fp>
 
     <func> drop_b_key </func>
@@ -708,7 +653,6 @@
 
   </fp>
 
-  // 48
   <fp>
 
     <func> flash </func>
@@ -718,7 +662,6 @@
 
   </fp>
 
-  // 49
   <fp>
 
     <func> q_second_pause </func>
@@ -726,7 +669,6 @@
 
   </fp>
 
-  // 50
   <fp>
 
     <func> half_second_pause </func>
@@ -734,7 +676,6 @@
 
   </fp>
 
-  // 51
   <fp>
 
     <func> fade_to_white </func>
@@ -742,7 +683,6 @@
 
   </fp>
 
-  // 52
   <fp>
 
     <func> fade_down_to_color </func>
@@ -750,7 +690,6 @@
 
   </fp>
 
-  // 53
   <fp>
 
     <func> active_anim_10 </func>
@@ -760,7 +699,6 @@
 
   </fp>
 
-  // 54
   <fp>
 
     <func> black_text_on </func>
@@ -768,7 +706,6 @@
 
   </fp>
 
-  // 55
   <fp>
 
     <func> give_100_gold </func>
@@ -776,7 +713,6 @@
 
   </fp>
 
-  // 56
   <fp>
 
     <func> play_song </func>
@@ -784,7 +720,6 @@
 
   </fp>
 
-  // 57
   <fp>
 
     <func> end </func>
@@ -792,7 +727,6 @@
 
   </fp>
 
-  // 58
   <fp>
 
     <func> kill_song </func>
@@ -800,7 +734,6 @@
 
   </fp>
 
-  // 59
   <fp>
 
     <func> set_happen </func>
@@ -808,7 +741,6 @@
 
   </fp>
 
-  // 60
   <fp>
 
     <func> q_second_pause </func>
@@ -817,7 +749,6 @@
 
   </fp>
 
-  // 61
   <fp>
 
     <func> set_white_fade </func>
@@ -825,7 +756,6 @@
 
   </fp>
 
-  // 62
   <fp>
 
     <func> set_gray_fade </func>
@@ -833,7 +763,6 @@
 
   </fp>
 
-  // 63
   <fp>
 
     <func> fade_to_black </func>
@@ -841,7 +770,6 @@
 
   </fp>
 
-  // 64
   <fp>
 
     <func> turn_off_tiles </func>
@@ -849,7 +777,6 @@
 
   </fp>
 
-  // 65
   <fp>
 
     <func> turn_on_tiles </func>
@@ -857,7 +784,6 @@
 
   </fp>
 
-  // 66
   <fp>
 
     <func> flicker </func>
@@ -866,7 +792,6 @@
 
   </fp>
 
-  // 67
   <fp>
 
     <func> fade_to_black </func>
@@ -876,7 +801,6 @@
 
   </fp>
 
-  // 68
   <fp>
 
     <func> quake </func>
@@ -885,7 +809,6 @@
   </fp>
 
 
-  // 69
   <fp>
 
     <func> flash </func>
@@ -893,7 +816,6 @@
 
   </fp>
 
-  // 70
   <fp>
 
     <func> flash_down </func>
@@ -901,7 +823,6 @@
 
   </fp>
   
-  // 71
   <fp>
 
     <func> weapon_anim </func>
@@ -913,7 +834,6 @@
 
   </fp>
 
-  // 72
   <fp>
 
     <func> color_off </func>
@@ -921,7 +841,6 @@
 
   </fp>
 
-  // 73
   <fp>
 
     <func> color_on </func>
@@ -929,7 +848,6 @@
 
   </fp>
 
-  // 74
   <fp>
 
     <func> red_tint </func>
@@ -937,7 +855,6 @@
 
   </fp>
 
-  // 75
   <fp>
 
     <func> set_anim </func>
@@ -945,7 +862,6 @@
 
   </fp>
 
-  // 76
   <fp>
 
     <func> active_animate </func>
@@ -953,7 +869,6 @@
 
   </fp>
 
-  // 77
   <fp>
 
     <func> set_font_fg </func>
@@ -961,7 +876,6 @@
 
   </fp>
 
-  // 78
   <fp>
 
     <func> set_font_bg </func>
@@ -969,7 +883,6 @@
 
   </fp>
 
-  // 79
   <fp>
 
     <func> give_costume </func>
@@ -977,7 +890,6 @@
 
   </fp>
 
-  // 80
   <fp>
 
     <func> fade_music_out </func>
@@ -985,7 +897,6 @@
 
   </fp>
 
-  // 81
   <fp>
 
     <func> home </func>
@@ -995,7 +906,6 @@
   </fp>
 
 
-  // 82
   <fp>
 
     <func> give_outfit </func>
@@ -1003,7 +913,6 @@
 
   </fp>
 
-  // 83
   <fp>
 
     <func> set_finish </func>
@@ -1011,7 +920,6 @@
 
   </fp>
 
-  // 84
   <fp>
 
     <func> outfit_swap </func>
@@ -1020,7 +928,6 @@
   </fp>
 
 
-  // 85
   <fp>
 
     <func> set_song </func>

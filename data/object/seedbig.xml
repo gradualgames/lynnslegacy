@@ -58,12 +58,10 @@
     
     <proc_id> jump_state </proc_id>
     <func> idle_animate </func>
-    //<func> return_idle </func>
 
   </fp>
 
 
-  // 2
   <fp>
 
     <func> active_anim_1 </func>
@@ -74,7 +72,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> active_anim_3 </func>

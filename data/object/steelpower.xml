@@ -17,7 +17,6 @@
   </sprite>
 
   <hp>1</hp> 
-  //<placed>1</placed> 
   <real_x>32</real_x> 
   <real_y>32</real_y> 
   <uni_directional>1</uni_directional> 

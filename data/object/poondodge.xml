@@ -29,14 +29,12 @@
 
   </fp>
 
-  // 1
   <fp>
     <proc_id> jump_state </proc_id>
     <func> infinity </func>
 
   </fp>
 
-  // 2
   <fp>
 
     <func> do_nothing </func>
@@ -46,7 +44,6 @@
 
   </fp>
        
-  // 3
   <fp>
 
     <func> return_reset_npc </func>
@@ -54,7 +51,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> do_nothing </func>
@@ -63,7 +59,6 @@
   </fp>
 
 
-  // 5
   <fp>
 
     <func> dec_sel_seq </func>

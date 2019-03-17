@@ -10,12 +10,10 @@
   </sprite>
 
   <hp>1</hp> 
-  //<placed>-1</placed> 
   <real_x>256</real_x> 
   <real_y>60</real_y> 
   <uni_directional>1</uni_directional> 
   <invincible>1</invincible> 
-  //<impassable>1</impassable>
 
   <snd>
 
@@ -38,7 +36,6 @@
 
   </fp>
   
-  // 1
   <fp>
 
     <func> make_invisible </func>
@@ -46,7 +43,6 @@
 
   </fp>
 
-  // 2
   <fp>
 
     <func> make_visible </func>
@@ -54,7 +50,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> home </func>
@@ -62,7 +57,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> do_nothing </func>
@@ -70,7 +64,6 @@
 
   </fp>
 
-  // 5
   <fp>
 
     <func> play_sound </func>
@@ -78,7 +71,6 @@
 
   </fp>
 
-  // 6
   <fp>
 
     <func> stop_sound </func>

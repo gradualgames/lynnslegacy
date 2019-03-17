@@ -113,8 +113,6 @@
     <func> dyssius_idle_gate </func>
     <func> second_pause </func>
     <func> dyssius_patience </func>
-    //<func> do_dyssius_proj </func>
-    //<func> dyssius_patience </func>
     <func> return_idle </func>
   </fp>
 
@@ -126,19 +124,12 @@
 
   </fp>
 
-  // 2
   <fp>
 
     <proc_id> death_state </proc_id>
     <func> make_dead </func>
-    //<func> dyssius_eye_explode </func>
-    //<func> explode </func>
-    //<func> do_nothing </func>
-    //<func> counted_jump_2 </func>
 
     <func> flash </func>
-    //<func> second_pause </func>
-    //<func> active_anim_dead </func>
 
     <func> play_seq </func>
     <func> infinity </func>
@@ -163,7 +154,6 @@
   </fp>
 
 
-  // 3
   <fp>
 
     <func> fade_to_black </func>
@@ -171,7 +161,6 @@
 
   </fp>
   
-  // 4
   <fp>
 
     <func> set_happen </func>
@@ -180,7 +169,6 @@
   </fp>
 
 
-  // 5
   <fp>
 
     <func> do_nothing </func>
@@ -188,7 +176,6 @@
     
   </fp>
 
-  // 6
   <fp>
 
     <func> active_anim_0 </func>
@@ -197,7 +184,6 @@
     
   </fp>
 
-  // 7
   <fp>
 
     <func> explode </func>
@@ -207,7 +193,6 @@
     
   </fp>
 
-  // 8
   <fp>
 
     <func> cripple </func>
@@ -215,7 +200,6 @@
     
   </fp>
 
-  // 9
   <fp>
 
     <func> play_sound </func>
@@ -223,7 +207,6 @@
     
   </fp>
 
-  // 10
   <fp>
 
     <func> stop_sound </func>

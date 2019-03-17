@@ -88,7 +88,6 @@
   <hp> 15 </hp>
   <maxhp> 15 </maxhp>
   
-  // 0
   <fp>
 
     <func> do_circle </func>
@@ -97,7 +96,6 @@
   </fp>
 
   
-  // 1
   <fp>
 
     <proc_id> stun_state </proc_id>
@@ -110,7 +108,6 @@
   </fp>
 
 
-  // 2
   <fp>
 
     <proc_id> reset_state </proc_id>
@@ -122,7 +119,6 @@
   </fp>
 
 
-  // 3
   <fp>
 
     <proc_id> hit_state </proc_id>
@@ -132,7 +128,6 @@
   </fp>
 
 
-  // 4
   <fp>
 
     <proc_id> death_state </proc_id>
@@ -148,7 +143,6 @@
   </fp>
 
 
-  // 5
   <fp>
 
     <func> fade_to_black </func>
@@ -157,7 +151,6 @@
   </fp>
 
 
-  // 6
   <fp>
 
     <proc_id> proj_state </proc_id>
@@ -168,7 +161,6 @@
   </fp>
 
 
-  // 7
   <fp>
 
     <func> set_happen </func>

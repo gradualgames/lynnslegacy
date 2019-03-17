@@ -55,7 +55,6 @@
   </fp>
 
   
-  // 2
   <fp>
 
     <func> explode </func>
@@ -71,7 +70,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> set_camera </func>

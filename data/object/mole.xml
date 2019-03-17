@@ -6,7 +6,6 @@
 
     <filename> data\pictures\char\mole_rise.spr </filename>
     <rate> .080 </rate>
-    //<dir_frames> 0 </dir_frames>
 
   </sprite>
 
@@ -24,7 +23,6 @@
 
     <filename> data\pictures\char\mole_settle.spr </filename>
     <rate> .080 </rate>
-    //<dir_frames> 10 </dir_frames>
 
   </sprite>
 
@@ -34,7 +32,6 @@
     <anim_id> proj_anim </anim_id>
     <filename> data\pictures\char\mole_beam.spr </filename>
     <rate> .080 </rate>
-    //<dir_frames> 1 </dir_frames>
 
   </sprite>
 
@@ -60,7 +57,6 @@
   <real_y> 16 </real_y>
   <jump_time> 1 </jump_time>
   <d_health> 50 </d_health>
-  //<uni_directional> 1 </uni_directional>
 
   <fp>
 

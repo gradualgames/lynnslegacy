@@ -24,7 +24,6 @@
   <invincible> -1 </invincible>
   <strength> 0 </strength>
   <fade_time> .1 </fade_time>
-  //<impassable> 1 </impassable>
   <uni_directional> 1 </uni_directional>
 
   <fp>
@@ -41,7 +40,6 @@
   </fp>
 
 
-  // 2
   <fp>
 
     <func> active_animate </func>
@@ -50,7 +48,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> active_animate </func>

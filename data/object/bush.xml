@@ -43,7 +43,6 @@
   <strength> 0 </strength>
   <uni_directional> 1 </uni_directional>
   
-  // '' 1 shl 16 or 4 = 65536 + 4 = 65540
   <happen_trig> 65540 </happen_trig> 
 
   <fp>

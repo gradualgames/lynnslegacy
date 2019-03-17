@@ -43,7 +43,6 @@
 
   </fp>
   
-  // 3
   <fp>
 
     <func> set_happen </func>
@@ -51,7 +50,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> set_camera </func>
@@ -59,7 +57,6 @@
 
   </fp>
 
-  // 5
   <fp>
 
     <func> do_nothing </func>
@@ -67,7 +64,6 @@
 
   </fp>
 
-  // 6
   <fp>
 
     <func> logosta_console </func>

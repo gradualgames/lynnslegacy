@@ -29,14 +29,12 @@
   <strength> 0 </strength>
   <sounds> 1 </sounds>
 
-  // 0
   <fp>
 
     <func> return_idle </func>
 
   </fp>
 
-  // 1
   <fp>
 
     <func> active_animate </func>
@@ -46,7 +44,6 @@
   </fp>
 
   
-  // 2
   <fp>
 
     <func> active_animate </func>
@@ -57,7 +54,6 @@
   </fp>
 
   
-  // 3
   <fp>
 
     <func> do_nothing </func>

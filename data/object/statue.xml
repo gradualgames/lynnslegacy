@@ -84,7 +84,6 @@
 
   </fp>
   
-  // 3
   <fp>
 
     <func> play_sound </func>
@@ -92,7 +91,6 @@
 
   </fp>
   
-  // 4
   <fp>
 
     <func> stop_sound </func>

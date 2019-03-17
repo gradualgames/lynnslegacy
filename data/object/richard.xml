@@ -22,7 +22,6 @@
   <fly_speed> .004 </fly_speed>
   <walk_speed> .059 </walk_speed>
   <walk_length> 40 </walk_length>
-//  <impassable> 1 </impassable>
   <unstoppable_by_object> 1 </unstoppable_by_object>
 
   <fp>
@@ -60,7 +59,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> home </func>
@@ -69,7 +67,6 @@
   </fp>
 
   
-  // 5
   <fp>
 
     <func> second_pause </func>
@@ -77,7 +74,6 @@
 
   </fp>
 
-  // 6
   <fp>
 
     <func> move_backwards </func>
@@ -85,7 +81,6 @@
 
   </fp>
 
-  // 7
   <fp>
 
     <func> move_normal </func>
@@ -94,7 +89,6 @@
   </fp>
 
 
-  // 8
   <fp>
 
     <func> set_camera </func>
@@ -102,7 +96,6 @@
 
   </fp>
 
-  // 9
   <fp>
 
     <func> do_nothing </func>
@@ -110,7 +103,6 @@
 
   </fp>
 
-  // 10
   <fp>
 
     <func> flicker </func>

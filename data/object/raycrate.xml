@@ -62,7 +62,6 @@
   <unstoppable_by_object> 1 </unstoppable_by_object>
   <unstoppable_by_screen> 1 </unstoppable_by_screen>
   <unstoppable_by_tile> 1 </unstoppable_by_tile>
-  //<proj_style> 69 </proj_style>
   <jump_time> 38 </jump_time>
   <no_cam> 1 </no_cam>
   <real_y> 88 </real_y>
@@ -122,7 +121,6 @@
 
   </fp>
   
-  // 5
   <fp>
 
     <func> idle_animate </func>

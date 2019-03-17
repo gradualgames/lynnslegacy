@@ -51,7 +51,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> idle_animate </func>
@@ -60,7 +59,6 @@
     
   </fp>
 
-  // 4
   <fp>
 
     <func> second_pause </func>

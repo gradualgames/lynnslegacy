@@ -21,14 +21,12 @@
   <action_sequence> 1 </action_sequence>
   <hp> 1 </hp>
   
-  // 0
   <fp>
 
     <func> return_idle </func>
 
   </fp>
   
-  // 1
   <fp>
 
     <func> second_pause </func>
@@ -39,7 +37,6 @@
 
   </fp>
   
-  // 2
   <fp>
 
     <func> do_nothing </func>
@@ -48,7 +45,6 @@
 
   </fp>
 
-  // 3
   <fp>
 
     <func> home </func>
@@ -56,7 +52,6 @@
 
   </fp>
 
-  // 4
   <fp>
 
     <func> do_nothing </func>

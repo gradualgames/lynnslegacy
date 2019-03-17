@@ -1,6 +1,5 @@
 <angerfireball>
 
-  // 0
   <sprite>
 
     <filename> data\pictures\char\fireball.spr </filename>
@@ -32,7 +31,6 @@
   </fp>
 
   <fp>
-    // '' track in on lynn, weak tracking, as in grult fireball.
     <func> anger_shoot </func>
     <func> return_idle </func>
     

@@ -96,9 +96,7 @@
     <func> directional_animate_x </func>
     <func> trigger_projectile </func>
 
-    // '' NO!
     <func> return_jump_1 </func>
-    // '' NO!
 
   </fp>
 
@@ -118,7 +116,6 @@
 
   </fp>
   
-  // 5
   <fp>
 
     <func> do_nothing </func>

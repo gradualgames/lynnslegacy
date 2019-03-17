@@ -20,14 +20,12 @@
   <hp> 1 </hp>
 
   
-  // 0
   <fp>
 
     <func> return_idle </func>     
 
   </fp>
 
-  // 1
   <fp>
 
     <func> explode_lynn </func>     

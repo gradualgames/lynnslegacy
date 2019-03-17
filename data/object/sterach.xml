@@ -68,7 +68,6 @@
   <expl_delay> .17 </expl_delay>
   <explosions> 30 </explosions>
   
-  // 0 '' point
   <fp>
 
     <func> q_second_pause </func>
@@ -122,9 +121,7 @@
 
   </fp>
   
-  // 1
   <fp>
-    // '' he's catching the sword
 
     <func> q_second_pause </func>
     <func> flash </func>
@@ -141,7 +138,6 @@
 
   </fp>
 
-  // 2
   <fp>
 
 
@@ -157,7 +153,6 @@
 
   </fp>
   
-  // 3
   <fp>
 
     <func> fade_to_black </func>
@@ -165,7 +160,6 @@
 
   </fp>
   
-  // 4
   <fp>
 
     <func> set_happen </func>
@@ -174,7 +168,6 @@
   </fp>
   
 
-  // 5
   <fp>
 
     <func> infinity </func>
