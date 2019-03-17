@@ -1,6 +1,6 @@
 require("lib/blob")
-xml2lua = require("lib/xml/xml2lua")
-xmlHandler = require("lib/xml/xmlhandler.tree")
+xml2lua = require("lib/xml2lua/xml2lua")
+xmlHandler = require("lib/xml2lua/xmlhandler.tree")
 
 --This function will return a table of all file paths
 --recursively under a top level folder with the specified

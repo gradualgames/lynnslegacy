@@ -1,9 +1,10 @@
+love.filesystem.setRequirePath("lib;lib/xml")
 require("game/load")
 require("game/convert")
 require("game/update")
 require("game/screen")
 
-log = require("lib/log")
+log = require("lib/log/log")
 log.usecolor = false
 log.level = "fatal"
 
