@@ -3,6 +3,7 @@
 --canvas to simulate SCREEN 13.
 function initializeScreen()
 	love.window.setTitle("Lynn's Legacy")
+	love.mouse.setVisible(false)
 	love.graphics.setDefaultFilter("nearest", "nearest", 1)
 	canvas = love.graphics.newCanvas(320,200)
 end
