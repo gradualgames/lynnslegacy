@@ -1,5 +1,6 @@
-require("game/load")
-require("game/convert")
+require("game/loadgfx")
+require("game/loadxml")
+require("game/convertgfx")
 require("game/update")
 require("game/screen")
 
@@ -20,10 +21,8 @@ function love.load()
 	--to pre-loading later if we want to.
 	--loadSpriteSheets()
 
-	log.level = "debug"
 	objectXml = {}
 	loadObjects()
-	log.level = "fatal"
 
 	--Load map data
 	map = loadMap("data/map/forest_fall.map")
