@@ -48,7 +48,7 @@ function loadSpriteSheets()
 	for i, v in ipairs(spriteSheetFilePaths) do
 		log.debug("Loading sprite sheet: "..v)
 		local spriteSheet = loadSpriteSheet(v)
-		spriteSheets[v] = spriteSheet
+		spriteSheetCache[v] = spriteSheet
 		log.debug("Loaded sprite sheet: "..v)
 	end
 end
@@ -58,10 +58,10 @@ end
 --name, loads it.
 function getSpriteSheet(fileName)
 
-	local spriteSheet = spriteSheets[fileName]
+	local spriteSheet = spriteSheetCache[fileName]
 	if not spriteSheet then
 		spriteSheet = loadSpriteSheet(fileName)
-		spriteSheets[fileName] = spriteSheet
+		spriteSheetCache[fileName] = spriteSheet
 	end
 	return spriteSheet
 
@@ -438,6 +438,8 @@ function loadMap(fileName)
 				enemy.coords.y = enemy.yOrigin
 
 				enemy.oriDir = enemy.direction
+
+				table.insert(room.enemies, enemy)
 
 			end
 

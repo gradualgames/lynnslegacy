@@ -13,7 +13,7 @@ function love.load()
 	computeScale()
 	initializePaletteShader()
 
-	spriteSheets = {}
+	spriteSheetCache = {}
 
 	--The original game loaded all image data at once during a splash
 	--screen, but I've chosen to move to a lazy loading design so that
@@ -21,8 +21,7 @@ function love.load()
 	--to pre-loading later if we want to.
 	--loadSpriteSheets()
 
-	objectXml = {}
-	loadObjects()
+	objectXmlCache = {}
 
 	--Load map data
 	map = loadMap("data/map/forest_fall.map")
@@ -35,6 +34,40 @@ function love.load()
 		local spriteBatch = imageToSpriteBatch(map.spriteSheetImage)
 		table.insert(map.spriteBatchLayers, spriteBatch)
 	end
+
+  curRoom = 3
+
+  enemies = {}
+
+  log.level = "debug"
+	log.outfile = "log.txt"
+	for i = 1, map.rooms[curRoom].numEnemies do
+		local roomEnemy = map.rooms[curRoom].enemies[i]
+		local enemy = {}
+		if roomEnemy.id == "data/object/gcopter.xml" then
+			enemy.id = roomEnemy.id
+			if objectXmlCache[roomEnemy.id] == nil then
+				log.debug("Loading copter xml.")
+				local copterXml = getObjectXml(roomEnemy.id)
+				log.debug("Loading copter sprite sheets.")
+				enemy.spriteBatches = {}
+				for spriteKey, spriteValue in pairs(copterXml.sprite) do
+					if spriteValue.filename then
+						log.debug(" spriteValue.filename: "..spriteValue.filename)
+						local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
+						log.debug(" fixedFileName: "..fixedFileName)
+						local spriteSheet = getSpriteSheet(fixedFileName)
+						local image = spriteSheetToImage(spriteSheet)
+						local spriteBatch = imageToSpriteBatch(image)
+						layoutSpriteBatch(spriteSheet, spriteBatch)
+						table.insert(enemy.spriteBatches, spriteBatch)
+					end
+				end
+				table.insert(enemies, enemy)
+			end
+		end
+	end
+	log.level = "fatal"
 
 	camera = {}
 	camera.x = 0
@@ -64,9 +97,9 @@ function love.update(dt)
 		camera.x = camera.x - camera.s
 	end
 
-	updateRoom(camera, map.rooms[3], 1, map.spriteSheet, map.spriteBatchLayers[1])
-	updateRoom(camera, map.rooms[3], 2, map.spriteSheet, map.spriteBatchLayers[2])
-	updateRoom(camera, map.rooms[3], 3, map.spriteSheet, map.spriteBatchLayers[3])
+	updateRoom(camera, map.rooms[curRoom], 1, map.spriteSheet, map.spriteBatchLayers[1])
+	updateRoom(camera, map.rooms[curRoom], 2, map.spriteSheet, map.spriteBatchLayers[2])
+	updateRoom(camera, map.rooms[curRoom], 3, map.spriteSheet, map.spriteBatchLayers[3])
 end
 
 function love.draw()
@@ -75,6 +108,10 @@ function love.draw()
 	love.graphics.draw(map.spriteBatchLayers[1])
 	love.graphics.draw(map.spriteBatchLayers[2])
 	love.graphics.draw(map.spriteBatchLayers[3])
+
+  log.level = "debug"
+  log.debug(enemies[1].id)
+  love.graphics.draw(enemies[1].spriteBatches[1])
 
 	--Imitating fade to red from Lynn's Legacy
 	-- love.graphics.setCanvas(paletteCanvas)
