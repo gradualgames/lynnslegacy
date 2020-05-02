@@ -28,7 +28,10 @@ end
 function computeScale()
   screenWidth, screenHeight = love.graphics.getDimensions()
   canvasWidth, canvasHeight = canvas:getDimensions()
+  --TODO: Make this an option eventually. Integer scaling is cleaner,
+  --but some users may prefer to stretch to full screen.
   scale = math.min(screenWidth / canvasWidth, screenHeight / canvasHeight)
+  --scale = 4
 end
 
 --Should be called before drawing anything to the main canvas.
