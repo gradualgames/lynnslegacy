@@ -1,5 +1,6 @@
 require("game/loadgfx")
 require("game/loadxml")
+require("game/enemies")
 require("game/convertgfx")
 require("game/update")
 require("game/screen")
@@ -41,42 +42,17 @@ function love.load()
 
   log.level = "debug"
 	log.outfile = "log.txt"
-	for i = 1, map.rooms[curRoom].numEnemies do
-		local roomEnemy = map.rooms[curRoom].enemies[i]
-		local enemy = {}
-		if roomEnemy.id == "data/object/gcopter.xml" then
-			enemy.id = roomEnemy.id
-			if objectXmlCache[roomEnemy.id] == nil then
-				log.debug("Loading copter xml.")
-				local copterXml = getObjectXml(roomEnemy.id)
-				log.debug("Loading copter sprite sheets.")
-				enemy.spriteBatches = {}
-				for spriteKey, spriteValue in pairs(copterXml.sprite) do
-					if spriteValue.filename then
-						log.debug(" spriteValue.filename: "..spriteValue.filename)
-						local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
-						log.debug(" fixedFileName: "..fixedFileName)
-						local spriteSheet = getSpriteSheet(fixedFileName)
-						local image = spriteSheetToImage(spriteSheet)
-						local spriteBatch = imageToSpriteBatch(image)
-						layoutSpriteBatch(spriteSheet, spriteBatch)
-						table.insert(enemy.spriteBatches, spriteBatch)
-					end
-				end
-				table.insert(enemies, enemy)
-			end
-		end
-	end
+	loadEnemies()
 	log.level = "fatal"
 
-	camera = {}
-	camera.x = 0
-	camera.y = 0
-	camera.s = 4
+  camera = {}
+  camera.x = 0
+  camera.y = 0
+  camera.s = 4
 
-	-- source = love.audio.newSource(baseDir.."data/music/fsun.it", "stream")
-	-- source:setLooping(true)
-	-- source:play()
+  source = love.audio.newSource("data/music/fsun.it", "stream")
+  source:setLooping(true)
+  source:play()
 end
 
 function love.update(dt)
@@ -109,9 +85,11 @@ function love.draw()
 	love.graphics.draw(map.spriteBatchLayers[2])
 	love.graphics.draw(map.spriteBatchLayers[3])
 
-  log.level = "debug"
-  log.debug(enemies[1].id)
-  love.graphics.draw(enemies[1].spriteBatches[1])
+  local y=0
+  for i =10,#enemies do
+  	love.graphics.draw(enemies[i].spriteBatches[1],0,y)
+		y = y + 16
+  end
 
 	--Imitating fade to red from Lynn's Legacy
 	-- love.graphics.setCanvas(paletteCanvas)
