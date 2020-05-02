@@ -53,20 +53,6 @@ function loadSpriteSheets()
   end
 end
 
---Returns a loaded sprite sheet from the global spriteSheets
---cache, or, if there is no sprite sheet for the specified file
---name, loads it.
-function getSpriteSheet(fileName)
-
-  local spriteSheet = spriteSheetCache[fileName]
-  if not spriteSheet then
-    spriteSheet = loadSpriteSheet(fileName)
-    spriteSheetCache[fileName] = spriteSheet
-  end
-  return spriteSheet
-
-end
-
 --Loads a .spr spritesheet file. These are stored in FreeBASIC/QBasic
 --GET/PUT format. It starts with a 16 byte header stating the width and height
 --of the sprites, arraySize (unused?), and number of frames. Following this

@@ -51,17 +51,3 @@ function loadObjectXml(xmlFilePath)
   end
   return objectXml
 end
-
---Returns a loaded xml object from the global objects xml
---cache, or, if there is no xml obect for the specified file
---name, loads it.
-function getObjectXml(fileName)
-
-  local objectXml = objectXmlCache[fileName]
-  if not objectXml then
-    objectXml = loadObjectXml(fileName)
-    objectXmlCache[fileName] = objectXml
-  end
-  return objectXml
-
-end
