@@ -15,6 +15,8 @@ function love.load()
   initializeScreen()
   computeScale()
   initializePaletteShader()
+  tickPeriod = 1/60
+  accumulator = 0.0
 
   spriteObjectCache = {}
 
@@ -47,30 +49,33 @@ function love.load()
 end
 
 function love.update(dt)
+  accumulator = accumulator + dt
+  if accumulator >= tickPeriod then
+    if love.keyboard.isDown("up") then
+      camera.y = camera.y - camera.s
+    end
 
-  if love.keyboard.isDown("up") then
-    camera.y = camera.y - camera.s
+    if love.keyboard.isDown("down") then
+      camera.y = camera.y + camera.s
+    end
+
+    if love.keyboard.isDown("right") then
+      camera.x = camera.x + camera.s
+    end
+
+    if love.keyboard.isDown("left") then
+      camera.x = camera.x - camera.s
+    end
+    accumulator = accumulator - tickPeriod
   end
-
-  if love.keyboard.isDown("down") then
-    camera.y = camera.y + camera.s
-  end
-
-  if love.keyboard.isDown("right") then
-    camera.x = camera.x + camera.s
-  end
-
-  if love.keyboard.isDown("left") then
-    camera.x = camera.x - camera.s
-  end
-
-  drawRoom(camera, map.rooms[curRoom], 1, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[1])
-  drawRoom(camera, map.rooms[curRoom], 2, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[2])
-  drawRoom(camera, map.rooms[curRoom], 3, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[3])
 end
 
 function love.draw()
   startDrawing()
+
+  drawRoom(camera, map.rooms[curRoom], 1, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[1])
+  drawRoom(camera, map.rooms[curRoom], 2, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[2])
+  drawRoom(camera, map.rooms[curRoom], 3, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[3])
 
   love.graphics.draw(map.spriteObject.spriteBatches[1])
   love.graphics.draw(map.spriteObject.spriteBatches[2])
