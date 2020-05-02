@@ -1,8 +1,10 @@
 require("game/loadgfx")
+require("game/loadmap")
 require("game/loadxml")
-require("game/enemies")
+require("game/loadenemies")
 require("game/convertgfx")
-require("game/update")
+require("game/drawenemies")
+require("game/drawmap")
 require("game/screen")
 
 log = require("lib/log/log")
@@ -26,13 +28,9 @@ function love.load()
 
   --Load map data
   map = loadMap("data/map/forest_fall.map")
-
-  log.level = "debug"
-  log.outfile = "log.txt"
   map.spriteObject = getSpriteObject(map.tileSetFileName)
-  log.level = "fatal"
 
-  curRoom = 2
+  curRoom = 3
 
   enemies = {}
 
@@ -43,9 +41,9 @@ function love.load()
   camera.y = 0
   camera.s = 4
 
-  source = love.audio.newSource("data/music/fsun.it", "stream")
-  source:setLooping(true)
-  source:play()
+  --source = love.audio.newSource("data/music/fsun.it", "stream")
+  --source:setLooping(true)
+  --source:play()
 end
 
 function love.update(dt)
@@ -66,9 +64,9 @@ function love.update(dt)
     camera.x = camera.x - camera.s
   end
 
-  updateRoom(camera, map.rooms[curRoom], 1, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[1])
-  updateRoom(camera, map.rooms[curRoom], 2, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[2])
-  updateRoom(camera, map.rooms[curRoom], 3, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[3])
+  drawRoom(camera, map.rooms[curRoom], 1, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[1])
+  drawRoom(camera, map.rooms[curRoom], 2, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[2])
+  drawRoom(camera, map.rooms[curRoom], 3, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[3])
 end
 
 function love.draw()
@@ -76,13 +74,14 @@ function love.draw()
 
   love.graphics.draw(map.spriteObject.spriteBatches[1])
   love.graphics.draw(map.spriteObject.spriteBatches[2])
+  drawEnemies()
   love.graphics.draw(map.spriteObject.spriteBatches[3])
 
-  local y=0
-  for i =1,#enemies do
-    love.graphics.draw(enemies[i].spriteObjects[1].spriteBatches[1],0,y)
-    y = y + 16
-  end
+  -- local y=0
+  -- for i =1,#enemies do
+  --   love.graphics.draw(enemies[i].spriteObjects[1].spriteBatches[1],0,y)
+  --   y = y + 16
+  -- end
 
   --Imitating fade to red from Lynn's Legacy
   -- love.graphics.setCanvas(paletteCanvas)

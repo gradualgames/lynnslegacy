@@ -1,5 +1,6 @@
 require("game/loadxml")
 require("game/cache")
+require("game/draw")
 
 -- Loads enemies from the current map.
 function loadEnemies()
@@ -8,6 +9,10 @@ function loadEnemies()
     local roomEnemy = map.rooms[curRoom].enemies[i]
     local enemy = {}
     enemy.id = roomEnemy.id
+    log.debug("Enemy x: "..map.rooms[curRoom].enemies[i].xOrigin)
+    enemy.mapX = map.rooms[curRoom].enemies[i].xOrigin
+    log.debug("Enemy y: "..map.rooms[curRoom].enemies[i].yOrigin)
+    enemy.mapY = map.rooms[curRoom].enemies[i].yOrigin
     log.debug("Loading enemy xml.")
     local enemyXml = getObjectXml(roomEnemy.id)
     log.debug("Loading enemy sprite sheets.")
@@ -19,7 +24,7 @@ function loadEnemies()
         local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
         log.debug(" fixedFileName: "..fixedFileName)
         local spriteObject = getSpriteObject(fixedFileName)
-        layoutSpriteBatch(spriteObject.spriteSheet, spriteObject.spriteBatches[1])
+        layoutFirstSpriteInSpriteBatch(spriteObject.spriteSheet, spriteObject.spriteBatches[1])
         table.insert(enemy.spriteObjects, spriteObject)
       end
     end
