@@ -32,7 +32,7 @@ function love.load()
   map.spriteObject = getSpriteObject(map.tileSetFileName)
   log.level = "fatal"
 
-  curRoom = 3
+  curRoom = 2
 
   enemies = {}
 
@@ -79,7 +79,7 @@ function love.draw()
   love.graphics.draw(map.spriteObject.spriteBatches[3])
 
   local y=0
-  for i =10,#enemies do
+  for i =1,#enemies do
     love.graphics.draw(enemies[i].spriteObjects[1].spriteBatches[1],0,y)
     y = y + 16
   end
