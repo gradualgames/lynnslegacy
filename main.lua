@@ -77,12 +77,6 @@ function love.draw()
   drawEnemies()
   love.graphics.draw(map.spriteObject.spriteBatches[3])
 
-  -- local y=0
-  -- for i =1,#enemies do
-  --   love.graphics.draw(enemies[i].spriteObjects[1].spriteBatches[1],0,y)
-  --   y = y + 16
-  -- end
-
   --Imitating fade to red from Lynn's Legacy
   -- love.graphics.setCanvas(paletteCanvas)
   -- for x = 1,256 do
