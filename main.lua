@@ -3,8 +3,7 @@ require("game/loadmap")
 require("game/loadxml")
 require("game/loadenemies")
 require("game/convertgfx")
-require("game/drawenemies")
-require("game/drawmap")
+require("game/draw")
 require("game/screen")
 
 log = require("lib/log/log")
@@ -73,14 +72,9 @@ end
 function love.draw()
   startDrawing()
 
-  drawRoom(camera, map.rooms[curRoom], 1, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[1])
-  drawRoom(camera, map.rooms[curRoom], 2, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[2])
-  drawRoom(camera, map.rooms[curRoom], 3, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[3])
+  layoutLayers()
 
-  love.graphics.draw(map.spriteObject.spriteBatches[1])
-  love.graphics.draw(map.spriteObject.spriteBatches[2])
-  drawEnemies()
-  love.graphics.draw(map.spriteObject.spriteBatches[3])
+  drawLayers()
 
   --Imitating fade to red from Lynn's Legacy
   -- love.graphics.setCanvas(paletteCanvas)
