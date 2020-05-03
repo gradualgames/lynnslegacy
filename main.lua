@@ -71,11 +71,7 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
-    log.level = "debug"
-    log.outfile = "log.txt"
     updateEnemies()
-    log.level = "fatal"
-
     updateEnemyAnimations()
 
     accumulator = accumulator - tickPeriod
