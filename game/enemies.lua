@@ -37,15 +37,41 @@ function loadEnemies()
       end
     end
     if enemyXml.fp then
+      enemy.fp = {}
+      enemy.fp.curFunc = 1
+      enemy.fp.func = {}
       local fpXml = ensureTable(enemyXml.fp)
       for fpKey, fpValue in pairs(fpXml) do
+        if fpValue.proc_id then
+          local procIdXml = ensureTable(fpValue.proc_id)
+          log.debug("  fpValue.proc_id: "..procIdXml[1])
+          enemy.fp.procId = procIdXml[1]
+        end
         if fpValue.func then
           local funcXml = ensureTable(fpValue.func)
-          log.debug("  fpValue.func: "..funcXml[1])
+          for funcKey, funcValue in pairs(funcXml) do
+            log.debug("  funcValue: "..funcValue)
+            if funcValue == "second_pause" then
+              log.debug( "  Installing secondPause function.")
+              table.insert(enemy.fp.func, secondPause)
+            end
+          end
         end
       end
     end
     table.insert(enemies, enemy)
+  end
+end
+
+function updateEnemies()
+  for i, enemy in pairs(enemies) do
+    if enemy.fp then
+      if enemy.fp.func then
+        if enemy.fp.func[enemy.fp.curFunc] then
+          enemy.fp.func[enemy.fp.curFunc]()
+        end
+      end
+    end
   end
 end
 
@@ -80,4 +106,9 @@ function drawEnemies()
       drawAnimation(enemy.animations[1], screenX, screenY)
     end
   end
+end
+
+function secondPause()
+  log.debug("secondPause() called.")
+  return 1
 end
