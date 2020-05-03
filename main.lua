@@ -39,10 +39,7 @@ function love.load()
 
   enemies = {}
 
-  log.level = "debug"
-  log.outfile = "log.txt"
   loadEnemies()
-  log.level = "fatal"
   createEnemyAnimations()
 
   camera = {}

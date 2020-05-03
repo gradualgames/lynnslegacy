@@ -17,19 +17,6 @@ function ensureTable(xmlObject)
   return table
 end
 
---Loads all object xml files from the specified directory. Uses
---the global objectXml table.
-function loadObjectXmls(dir)
-
-  local xmlFilePaths = {}
-  listAllFiles("data/object", xmlFilePaths, "xml")
-
-  for i, v in ipairs(xmlFilePaths) do
-    objectXmlCache[v] = loadObject(v)
-  end
-
-end
-
 --Loads one object xml file. Adds or replaces an entry in the
 --global objectXml table which maps file path to xml object.
 function loadObjectXml(xmlFilePath)
