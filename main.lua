@@ -30,12 +30,16 @@ function love.load()
   --Load map data
   map = loadMap("data/map/forest_fall.map")
   map.spriteObject = getSpriteObject(map.tileSetFileName)
+  map.spriteObject.spriteBatches = {}
+  table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
+  table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
+  table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
 
   curRoom = 3
 
   enemies = {}
 
-  spawnEnemies()
+  loadEnemies()
 
   camera = {}
   camera.x = 0

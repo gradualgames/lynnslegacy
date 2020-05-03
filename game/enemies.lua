@@ -1,8 +1,8 @@
 require("game/load/loadxml")
 require("game/cache")
 
--- Spawns enemies from the current map.
-function spawnEnemies()
+-- Loads enemies from the current map.
+function loadEnemies()
 
   for i = 1, map.rooms[curRoom].numEnemies do
     local roomEnemy = map.rooms[curRoom].enemies[i]

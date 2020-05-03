@@ -12,10 +12,6 @@ function getSpriteObject(fileName)
     spriteObject = {}
     spriteObject.spriteSheet = loadSpriteSheet(fileName)
     spriteObject.image = spriteSheetToImage(spriteObject.spriteSheet)
-    spriteObject.spriteBatches = {}
-    table.insert(spriteObject.spriteBatches, imageToSpriteBatch(spriteObject.image))
-    table.insert(spriteObject.spriteBatches, imageToSpriteBatch(spriteObject.image))
-    table.insert(spriteObject.spriteBatches, imageToSpriteBatch(spriteObject.image))
     spriteObjectCache[fileName] = spriteObject
   end
   return spriteObject

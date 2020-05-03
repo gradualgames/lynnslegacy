@@ -49,56 +49,68 @@ end
 
 function layoutEnemies()
   for i, enemy in pairs(enemies) do
-    layoutFirstSpriteInSpriteBatch(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].spriteBatches[1])
+    --layoutSpriteBatch(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].spriteBatches[1])
   end
 end
 
 function drawEnemies()
   for i, enemy in pairs(enemies) do
     local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
-    love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
+    --love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
+    drawFirstSpriteInImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
   end
 end
 
---This function just lays out the first sprite from the sprite
---sheet into the sprite batch, just for testing.
-function layoutFirstSpriteInSpriteBatch(spriteSheet, spriteBatch)
-
-  spriteBatch:clear()
+function drawFirstSpriteInImage(spriteSheet, image, screenX, screenY)
   local quadX, quadY = 0, 0
-  for i = 1, 1 do
-    local quad = love.graphics.newQuad(
-      quadX,
-      quadY,
-      spriteSheet.width,
-      spriteSheet.height,
-      spriteSheet.width * spriteSheet.frameCount,
-      spriteSheet.height)
-    spriteBatch:add(quad, quadX, quadY)
-    quadX = quadX + spriteSheet.width
-  end
-  spriteBatch:flush()
-
+  local quad = love.graphics.newQuad(
+    quadX,
+    quadY,
+    spriteSheet.width,
+    spriteSheet.height,
+    image:getDimensions())
+  love.graphics.draw(image, quad, screenX, screenY)
 end
 
---This function lays out a sprite batch with all frames in
---order. This is really just used for debugging and inspecting
---a given sprite sheet.
-function layoutSpriteBatch(spriteSheet, spriteBatch)
-
-  spriteBatch:clear()
-  local quadX, quadY = 0, 0
-  for i = 1, spriteSheet.frameCount do
-    local quad = love.graphics.newQuad(
-      quadX,
-      quadY,
-      spriteSheet.width,
-      spriteSheet.height,
-      spriteSheet.width * spriteSheet.frameCount,
-      spriteSheet.height)
-    spriteBatch:add(quad, quadX, quadY)
-    quadX = quadX + spriteSheet.width
-  end
-  spriteBatch:flush()
-
-end
+-- --This function just lays out the first sprite from the sprite
+-- --sheet into the sprite batch, just for testing.
+-- function layoutFirstSpriteInSpriteBatch(spriteSheet, spriteBatch)
+--
+--   spriteBatch:clear()
+--   local quadX, quadY = 0, 0
+--   for i = 1, 1 do
+--     local quad = love.graphics.newQuad(
+--       quadX,
+--       quadY,
+--       spriteSheet.width,
+--       spriteSheet.height,
+--       spriteSheet.width * spriteSheet.frameCount,
+--       spriteSheet.height)
+--     spriteBatch:add(quad, quadX, quadY)
+--     quadX = quadX + spriteSheet.width
+--   end
+--   spriteBatch:flush()
+--
+-- end
+--
+-- --This function lays out a sprite batch with all frames in
+-- --order. This is really just used for debugging and inspecting
+-- --a given sprite sheet.
+-- function layoutSpriteBatch(spriteSheet, spriteBatch)
+--
+--   spriteBatch:clear()
+--   local quadX, quadY = 0, 0
+--   for i = 1, spriteSheet.frameCount do
+--     local quad = love.graphics.newQuad(
+--       quadX,
+--       quadY,
+--       spriteSheet.width,
+--       spriteSheet.height,
+--       spriteSheet.width * spriteSheet.frameCount,
+--       spriteSheet.height)
+--     spriteBatch:add(quad, quadX, quadY)
+--     quadX = quadX + spriteSheet.width
+--   end
+--   spriteBatch:flush()
+--
+-- end
