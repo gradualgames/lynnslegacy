@@ -57,7 +57,7 @@ function drawEnemies()
   for i, enemy in pairs(enemies) do
     local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
     --love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
-    drawFirstSpriteInImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
+    drawImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
   end
 end
 
@@ -70,6 +70,10 @@ function drawFirstSpriteInImage(spriteSheet, image, screenX, screenY)
     spriteSheet.height,
     image:getDimensions())
   love.graphics.draw(image, quad, screenX, screenY)
+end
+
+function drawImage(spriteSheet, image, screenX, screenY)
+  love.graphics.draw(image, screenX, screenY)
 end
 
 -- --This function just lays out the first sprite from the sprite

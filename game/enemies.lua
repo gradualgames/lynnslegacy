@@ -7,6 +7,7 @@ function loadEnemies()
   for i = 1, map.rooms[curRoom].numEnemies do
     local roomEnemy = map.rooms[curRoom].enemies[i]
     local enemy = {}
+    log.debug("Enemy id: "..roomEnemy.id)
     enemy.id = roomEnemy.id
     log.debug("Enemy x: "..map.rooms[curRoom].enemies[i].xOrigin)
     enemy.mapX = map.rooms[curRoom].enemies[i].xOrigin

@@ -35,7 +35,7 @@ function love.load()
   table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
   table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
 
-  curRoom = 3
+  curRoom = 2
 
   enemies = {}
 
