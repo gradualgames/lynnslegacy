@@ -1,10 +1,10 @@
 require("game/load/loadgfx")
 require("game/load/loadmap")
 require("game/load/loadxml")
+require("game/gfx/convertgfx")
+require("game/gfx/screen")
 require("game/enemies")
-require("game/draw/convertgfx")
-require("game/draw/draw")
-require("game/draw/screen")
+require("game/map")
 
 log = require("lib/log/log")
 log.usecolor = false
@@ -39,11 +39,8 @@ function love.load()
 
   enemies = {}
 
-  log.level = "debug"
-  log.outfile = "log.txt"
   loadEnemies()
   createEnemyAnimations()
-  log.level = "fatal"
 
   camera = {}
   camera.x = 0
@@ -84,8 +81,6 @@ function love.draw()
   startDrawing()
 
   layoutLayers()
-
-  layoutEnemies()
 
   drawLayers()
 

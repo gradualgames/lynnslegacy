@@ -1,4 +1,5 @@
 require("game/load/loadxml")
+require("game/animation")
 require("game/cache")
 
 -- Loads enemy xml and sprite image files from the current map.
@@ -51,6 +52,25 @@ function createEnemyAnimations()
           spriteSheet.height, spriteObject.dirFrames, 1)
         table.insert(enemy.animations, animation)
       end
+    end
+  end
+end
+
+function updateEnemyAnimations()
+  for i, enemy in pairs(enemies) do
+    if #enemy.animations >=1 then
+      updateAnimation(enemy.animations[1])
+    end
+  end
+end
+
+function drawEnemies()
+  for i, enemy in pairs(enemies) do
+    local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
+    --love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
+    --drawImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
+    if #enemy.animations >= 1 then
+      drawAnimation(enemy.animations[1], screenX, screenY)
     end
   end
 end
