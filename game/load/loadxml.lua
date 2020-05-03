@@ -7,7 +7,9 @@ xmlHandler = require("lib/xml2lua/xmlhandler.tree")
 --if it was already a table. This makes it easier to process.
 function ensureTable(xmlObject)
   local table = {}
-  if #xmlObject > 0 then
+  if type(xmlObject) == "string" then
+    return {xmlObject}
+  elseif type(xmlObject) == "table" and #xmlObject > 0 then
     table = xmlObject
   else
     table = {xmlObject}

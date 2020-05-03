@@ -36,6 +36,15 @@ function loadEnemies()
         table.insert(enemy.spriteObjects, spriteObject)
       end
     end
+    if enemyXml.fp then
+      local fpXml = ensureTable(enemyXml.fp)
+      for fpKey, fpValue in pairs(fpXml) do
+        if fpValue.func then
+          local funcXml = ensureTable(fpValue.func)
+          log.debug("  fpValue.func: "..funcXml[1])
+        end
+      end
+    end
     table.insert(enemies, enemy)
   end
 end
