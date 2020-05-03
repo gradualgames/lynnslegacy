@@ -34,13 +34,6 @@ function layoutLayer(camera, room, layer, spriteSheet, spriteBatch)
 
 end
 
-function drawEnemies()
-  for i, enemy in pairs(enemies) do
-    local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
-    love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
-  end
-end
-
 function layoutLayers()
   layoutLayer(camera, map.rooms[curRoom], 1, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[1])
   layoutLayer(camera, map.rooms[curRoom], 2, map.spriteObject.spriteSheet, map.spriteObject.spriteBatches[2])
@@ -52,6 +45,19 @@ function drawLayers()
   love.graphics.draw(map.spriteObject.spriteBatches[2])
   drawEnemies()
   love.graphics.draw(map.spriteObject.spriteBatches[3])
+end
+
+function layoutEnemies()
+  for i, enemy in pairs(enemies) do
+    layoutFirstSpriteInSpriteBatch(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].spriteBatches[1])
+  end
+end
+
+function drawEnemies()
+  for i, enemy in pairs(enemies) do
+    local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
+    love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
+  end
 end
 
 --This function just lays out the first sprite from the sprite

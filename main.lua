@@ -1,10 +1,10 @@
-require("game/loadgfx")
-require("game/loadmap")
-require("game/loadxml")
-require("game/loadenemies")
-require("game/convertgfx")
-require("game/draw")
-require("game/screen")
+require("game/load/loadgfx")
+require("game/load/loadmap")
+require("game/load/loadxml")
+require("game/enemies")
+require("game/draw/convertgfx")
+require("game/draw/draw")
+require("game/draw/screen")
 
 log = require("lib/log/log")
 log.usecolor = false
@@ -35,7 +35,7 @@ function love.load()
 
   enemies = {}
 
-  loadEnemies()
+  spawnEnemies()
 
   camera = {}
   camera.x = 0
@@ -73,6 +73,8 @@ function love.draw()
   startDrawing()
 
   layoutLayers()
+
+  layoutEnemies()
 
   drawLayers()
 

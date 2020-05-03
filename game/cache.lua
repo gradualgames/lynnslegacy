@@ -1,5 +1,5 @@
-require("game/loadgfx")
-require("game/loadxml")
+require("game/load/loadgfx")
+require("game/load/loadxml")
 
 --Returns a loaded sprite object from the global spriteBatchCache
 --cache, or, if there is no sprite object for the specified file
