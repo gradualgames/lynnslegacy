@@ -1,7 +1,7 @@
 require("game/load/loadxml")
 require("game/cache")
 
--- Loads enemies from the current map.
+-- Loads enemy xml and sprite image files from the current map.
 function loadEnemies()
 
   for i = 1, map.rooms[curRoom].numEnemies do
@@ -24,9 +24,33 @@ function loadEnemies()
         local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
         log.debug(" fixedFileName: "..fixedFileName)
         local spriteObject = getSpriteObject(fixedFileName)
+        if spriteValue.rate then
+          log.debug(" spriteValue.rate: "..spriteValue.rate)
+          spriteObject.rate = tonumber(spriteValue.rate)
+        end
+        if spriteValue.dir_frames then
+          log.debug(" spriteValue.dir_frames: "..spriteValue.dir_frames)
+          spriteObject.dirFrames = tonumber(spriteValue.dir_frames)
+        end
         table.insert(enemy.spriteObjects, spriteObject)
       end
     end
     table.insert(enemies, enemy)
+  end
+end
+
+-- Creates enemy animations from the sprite objects for each enemy. Should
+-- be called after loadEnemies.
+function createEnemyAnimations()
+  for i, enemy in pairs(enemies) do
+    enemy.animations = {}
+    for j, spriteObject in pairs(enemy.spriteObjects) do
+      if spriteObject.rate and spriteObject.dirFrames then
+        local spriteSheet = spriteObject.spriteSheet
+        local animation = newAnimation(spriteObject.image, spriteSheet.width,
+          spriteSheet.height, spriteObject.dirFrames, 1)
+        table.insert(enemy.animations, animation)
+      end
+    end
   end
 end

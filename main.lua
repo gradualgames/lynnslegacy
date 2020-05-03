@@ -35,11 +35,15 @@ function love.load()
   table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
   table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
 
-  curRoom = 2
+  curRoom = 3
 
   enemies = {}
 
+  log.level = "debug"
+  log.outfile = "log.txt"
   loadEnemies()
+  createEnemyAnimations()
+  log.level = "fatal"
 
   camera = {}
   camera.x = 0
@@ -69,6 +73,9 @@ function love.update(dt)
     if love.keyboard.isDown("left") then
       camera.x = camera.x - camera.s
     end
+
+    updateEnemyAnimations()
+
     accumulator = accumulator - tickPeriod
   end
 end

@@ -53,11 +53,57 @@ function layoutEnemies()
   end
 end
 
+function updateEnemyAnimations()
+  for i, enemy in pairs(enemies) do
+    if #enemy.animations >=1 then
+      updateAnimation(enemy.animations[1])
+    end
+  end
+end
+
 function drawEnemies()
   for i, enemy in pairs(enemies) do
     local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
     --love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
-    drawImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
+    --drawImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
+    if #enemy.animations >= 1 then
+      drawAnimation(enemy.animations[1], screenX, screenY)
+    end
+  end
+end
+
+function newAnimation(image, width, height, frames, duration)
+    local animation = {}
+    animation.image = image;
+    animation.quads = {};
+
+    local x = 0
+    for i = 1, frames do
+        table.insert(animation.quads, love.graphics.newQuad(x, 0, width, height, image:getDimensions()))
+        x = x + width
+    end
+
+    animation.frameLength = 10
+    animation.frameCounter = animation.frameLength
+    animation.frame = 1
+
+    return animation
+end
+
+function updateAnimation(animation)
+  animation.frameCounter = animation.frameCounter - 1
+  if animation.frameCounter == 0 then
+    animation.frameCounter = animation.frameLength
+    animation.frame = animation.frame + 1
+    if animation.frame > #animation.quads then
+      animation.frame = 1
+    end
+  end
+end
+
+function drawAnimation(animation, screenX, screenY)
+  if animation.frame >= 1 and animation.frame <= #animation.quads then
+    love.graphics.draw(animation.image, animation.quads[animation.frame], screenX, screenY)
   end
 end
 
