@@ -67,8 +67,6 @@ end
 function drawEnemies()
   for i, enemy in pairs(enemies) do
     local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
-    --love.graphics.draw(enemy.spriteObjects[1].spriteBatches[1], screenX, screenY)
-    --drawImage(enemy.spriteObjects[1].spriteSheet, enemy.spriteObjects[1].image, screenX, screenY)
     if #enemy.animations >= 1 then
       drawAnimation(enemy.animations[1], screenX, screenY)
     end
