@@ -38,15 +38,6 @@ function loadObjectXml(xmlFilePath)
   parser:parse(xmlData)
   for objectKey, objectValue in pairs(handler.root) do
     objectXml = objectValue
-    --xmlToObject(objectValue)
-    --log.debug("path: "..xmlFilePath)
-    --log.debug("objectKey: "..objectKey)
-    --log.debug("#objectValue.sprite: "..#objectValue["sprite"])
-    for spriteKey, spriteValue in pairs(objectValue["sprite"]) do
-      if spriteValue.filename then
-        --log.debug(" spriteValue.filename: "..spriteValue.filename)
-      end
-    end
     break
   end
   return objectXml
