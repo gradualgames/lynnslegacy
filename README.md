@@ -3,9 +3,9 @@ Lynn's Legacy is a game originally by indie game developers cha0s and Josiah Tob
 It is still available as a win32 binary, but I felt it would be really nice if the game were made available on modern systems so this project
 exists to port the game to a modern game framework, Love2D. The project is in its very early stages. It can currently:
 
-- Simulate a 320x200 graphics mode with 256 palettized colors\
-- Load palette, sprites, maps and music of the game\
-- Partially load some xml objects (shows some animations on one map at the moment)\
+- Simulate a 320x200 graphics mode with 256 palettized colors
+- Load palette, sprites, maps and music of the game
+- Partially load some xml objects (shows some animations on one map at the moment)
 - Scroll around the currently loaded map.
 
 The current goal is to begin porting some of the state logic.
