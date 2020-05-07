@@ -27,10 +27,11 @@ end
 function paletteToCanvas(palette)
   local paletteCanvas = love.graphics.newCanvas(256,1)
   love.graphics.setCanvas(paletteCanvas)
-  for x = 1,256 do
-    local r,g,b = palette[x][1],palette[x][2],palette[x][3]
+  for x = 0,255 do
+    local pi = x + 1
+    local r,g,b = palette[pi][1],palette[pi][2],palette[pi][3]
     love.graphics.setColor(r,g,b)
-    love.graphics.points(x, 1)
+    love.graphics.points(x + .5, .5)
   end
   love.graphics.setCanvas()
   return paletteCanvas

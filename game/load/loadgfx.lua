@@ -27,7 +27,7 @@ function loadPalette(fileName)
 
   if paletteBlob then
     palette = {}
-    for x = 1,256 do
+    for x = 0,255 do
       local b,g,r = readByte(paletteBlob),
               readByte(paletteBlob),
               readByte(paletteBlob)
@@ -80,7 +80,7 @@ function loadSpriteSheet(fileName)
           local bt = readByte(blob)
           local alpha = 1
           if bt == 0 then alpha = 0 end
-          table.insert(frame.pixels, {x,y, (bt/255)+(.5/255), 0, 0, alpha})
+          table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
           byteCount = byteCount + 1
         end
       end
