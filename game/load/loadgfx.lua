@@ -80,7 +80,7 @@ function loadSpriteSheet(fileName)
           local bt = readByte(blob)
           local alpha = 1
           if bt == 0 then alpha = 0 end
-          table.insert(frame.pixels, {x,y, bt/255, 0, 0, alpha})
+          table.insert(frame.pixels, {x,y, (bt/255)+(.5/255), 0, 0, alpha})
           byteCount = byteCount + 1
         end
       end
