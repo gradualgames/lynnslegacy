@@ -1,7 +1,11 @@
 # Lynn's Legacy
-Lynn's Legacy is a game originally by indie game developers cha0s and Josiah Tobin. It was released as open source/public domain in 2006.
+Lynn's Legacy is a Zelda-like game originally by indie game developers cha0s and Josiah Tobin. It was released as open source/public domain in 2006.
 It is still available as a win32 binary, but I felt it would be really nice if the game were made available on modern systems so this project
-exists to port the game to a modern game framework, Love2D. The project is in its very early stages. It can currently:
+exists to port the game to a modern game framework, Love2D. You can get the original game here: https://sourceforge.net/projects/lynn/ and you can view a youtube playthrough of the game here: https://youtu.be/5cX48TFYRAk
+
+It is a very well made Zelda-clone with a dark atmosphere, great graphics and excellent music. I spent a lot of time in my youth in the 90's trying to make an RPG in QBasic, and the fact this game was made in FreeBASIC (which is an open source version of QuickBASIC) kind of gives me nostalgia both for those days as well as for it being an homage to the Zelda franchise. I don't want to see it lost to history, hence this project (the win32 binary has some problems on modern systems, and I fear it won't be long before it is completely unplayable).
+
+The project is in its very early stages. It can currently:
 
 - Simulate a 320x200 graphics mode with 256 palettized colors
 - Load palette, sprites, maps and music of the game
