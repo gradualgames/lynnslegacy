@@ -16,6 +16,8 @@ The project is in its very early stages. It can currently:
 - Partially load some xml objects (shows some animations on one map at the moment)
 - Scroll around the currently loaded map.
 
+This is a Love2D project. So to work on it, you will need to install LÖVE: https://love2d.org/ The language is Lua.
+
 The current goal is to begin porting some of the state logic.
 
 The original FreeBASIC source code and win32 installer is included in the repository for convenience.
