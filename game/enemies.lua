@@ -65,8 +65,8 @@ function loadEnemies()
           for funcKey, funcValue in pairs(funcXml) do
             log.debug("  funcValue: "..funcValue)
             if funcValue == "second_pause" then
-              log.debug( "  Installing secondPause function.")
-              table.insert(fp.func, secondPause)
+              log.debug( "  Installing second_pause function.")
+              table.insert(fp.func, second_pause)
             end
           end
         end
@@ -127,7 +127,7 @@ function drawEnemies()
   end
 end
 
-function secondPause(this)
+function second_pause(this)
   local timer = love.timer.getTime()
 
   if this.pause == 0 then
@@ -143,7 +143,7 @@ function secondPause(this)
   return 0
 end
 
-function activeAnimate(this)
+function active_animate(this)
   local timer = love.timer.getTime()
   -- this->animating = 1
   this.animating = 1
