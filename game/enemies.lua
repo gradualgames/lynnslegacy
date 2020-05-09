@@ -37,15 +37,17 @@ function loadEnemies()
       end
     end
     if enemyXml.fp then
+      enemy.fpIndex = 1
+      enemy.funcIndex = 1
       enemy.fp = {}
-      enemy.fp.curFunc = 1
-      enemy.fp.func = {}
+      local fp = {}
+      fp.func = {}
       local fpXml = ensureTable(enemyXml.fp)
       for fpKey, fpValue in pairs(fpXml) do
         if fpValue.proc_id then
           local procIdXml = ensureTable(fpValue.proc_id)
           log.debug("  fpValue.proc_id: "..procIdXml[1])
-          enemy.fp.procId = procIdXml[1]
+          fp.procId = procIdXml[1]
         end
         if fpValue.func then
           local funcXml = ensureTable(fpValue.func)
@@ -53,10 +55,11 @@ function loadEnemies()
             log.debug("  funcValue: "..funcValue)
             if funcValue == "second_pause" then
               log.debug( "  Installing secondPause function.")
-              table.insert(enemy.fp.func, secondPause)
+              table.insert(fp.func, secondPause)
             end
           end
         end
+        table.insert(enemy.fp, fp)
       end
     end
     table.insert(enemies, enemy)
@@ -66,9 +69,11 @@ end
 function updateEnemies()
   for i, enemy in pairs(enemies) do
     if enemy.fp then
-      if enemy.fp.func then
-        if enemy.fp.func[enemy.fp.curFunc] then
-          enemy.fp.func[enemy.fp.curFunc]()
+      local fp = enemy.fp[enemy.fpIndex]
+      if fp.func then
+        local func = fp.func
+        if func[enemy.funcIndex] then
+          func[enemy.funcIndex]()
         end
       end
     end
