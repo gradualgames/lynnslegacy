@@ -8,12 +8,19 @@ function loadEnemies()
   for i = 1, map.rooms[curRoom].numEnemies do
     local roomEnemy = map.rooms[curRoom].enemies[i]
     local enemy = {}
+
+    -- Initialize enemy propertes not defined in xml here.
+    enemy.pause = 0
+
+    -- Load enemy properties defined in room xml here.
     log.debug("Enemy id: "..roomEnemy.id)
     enemy.id = roomEnemy.id
     log.debug("Enemy x: "..map.rooms[curRoom].enemies[i].xOrigin)
     enemy.mapX = map.rooms[curRoom].enemies[i].xOrigin
     log.debug("Enemy y: "..map.rooms[curRoom].enemies[i].yOrigin)
     enemy.mapY = map.rooms[curRoom].enemies[i].yOrigin
+
+    -- Load enemy properties defined in enemy's object xml.
     log.debug("Loading enemy xml.")
     local enemyXml = getObjectXml(roomEnemy.id)
     log.debug("Loading enemy sprite sheets.")
@@ -73,7 +80,10 @@ function updateEnemies()
       if fp.func then
         local func = fp.func
         if func[enemy.funcIndex] then
-          func[enemy.funcIndex]()
+          if func[enemy.funcIndex](enemy) == 1 then
+            --advance to next func of the current fp state
+            enemy.funcIndex = enemy.funcIndex + 1
+          end
         end
       end
     end
@@ -113,7 +123,18 @@ function drawEnemies()
   end
 end
 
-function secondPause()
-  log.debug("secondPause() called.")
-  return 1
+function secondPause(this)
+  local timer = love.timer.getTime()
+
+  if this.pause == 0 then
+    this.pause = timer + 1
+  end
+
+  if timer >= this.pause then
+    log.debug("secondPause completed for enemy: "..this.id)
+    this.pause = 0
+    return 1
+  end
+
+  return 0
 end
