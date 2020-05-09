@@ -9,7 +9,7 @@ function loadEnemies()
     local roomEnemy = map.rooms[curRoom].enemies[i]
     local enemy = {}
 
-    -- Initialize enemy propertes not defined in xml here.
+    -- Initialize enemy properties not defined in xml here.
     enemy.pause = 0
     enemy.animating = 0
     enemy.frame = 0
