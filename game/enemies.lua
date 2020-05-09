@@ -11,6 +11,10 @@ function loadEnemies()
 
     -- Initialize enemy propertes not defined in xml here.
     enemy.pause = 0
+    enemy.animating = 0
+    enemy.frame = 0
+    enemy.frame_hold = 0
+    enemy.animControl = create_LLObject_ImageHeader()
 
     -- Load enemy properties defined in room xml here.
     log.debug("Enemy id: "..roomEnemy.id)
@@ -137,4 +141,204 @@ function secondPause(this)
   end
 
   return 0
+end
+
+function activeAnimate(this)
+  local timer = love.timer.getTime()
+  -- this->animating = 1
+  this.animating = 1
+  -- If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+  --     this->frame -= 1
+    this.frame = this.frame - 1
+  --     this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+  --     this->animating = 0
+    this.animating = 0
+  --     Return 1
+    return 1
+  --  End If
+  end
+end
+
+function create_vector()
+  local vector = {}
+  vector.x = 0
+  vector.y = 0
+  return vector
+end
+
+function create_LLSystem_FaceType
+  -- Type LLSystem_FaceType
+  local faceType = {}
+  --   As Integer x, y, w, h
+  faceType.x = 0
+  faceType.y = 0
+  faceType.w = 0
+  faceType.h = 0
+  --   strength   As Integer
+  faceType.strength = 0
+  --   invincible As Integer
+  faceType.invincible = 0
+  --   impassable As Integer
+  faceType.impassable = 0
+  -- End Type
+  return faceType
+end
+
+function create_LLSystem_FrameShell()
+  -- Type LLSystem_FrameShell
+  local frameShell = {}
+  --   faces As Integer
+  frameShell.faces = 0
+  --   face As LLSystem_FaceType Ptr
+  frameShell.face = create_LLSystem_FaceType()
+  --   sound As Integer
+  frameShell.sound = 0
+  --   vol As Integer
+  frameShell.vol = 0
+  --   chan As Integer
+  frameShell.chan = 0
+  --   uni_sound as byte
+  frameShell.uni_sound = 0
+  -- End Type
+  return frameShell
+end
+
+function create_LLSystem_ImageHeader()
+  -- Type LLSystem_ImageHeader
+  local imageHeader = {}
+  --   filename As String
+  imageHeader.filename = ""
+  --   As Integer x, y, x_off, y_off
+  imageHeader.x = 0
+  imageHeader.y = 0
+  imageHeader.x_off = 0
+  imageHeader.y_off = 0
+  --   arraysize As Integer
+  imageHeader.arraysize = 0
+  --   image As Short Ptr
+  imageHeader.image = {}
+  --   frame As LLSystem_FrameShell Ptr
+  imageHeader.frame = create_LLSystem_FrameShell()
+  --   frames As Integer
+  imageHeader.frames = 0
+  -- End Type
+  return imageHeader
+end
+
+function create_LLObject_FrameConcurrent()
+  local frameConcurrent = {}
+  -- Type LLObject_FrameConcurrent
+  --   is_relative As Integer
+  frameConcurrent.is_relative = 0
+  --   char As _char_type Ptr
+  frameConcurrent.char = nil
+  --   origin As vector
+  frameConcurrent.origin = create_vector()
+  -- End Type
+end
+
+function create_LLObject_FrameControl()
+  local frameControl = {}
+  -- Type LLObject_FrameControl
+  --   sound_lock As Integer
+  frameControl.sound_lock = 0
+  --   concurrent As LLObject_FrameConcurrent Ptr
+  frameControl.concurrent = create_LLObject_FrameConcurrent()
+  --   concurrents As Integer
+  frameControl.concurrents = 0
+  --   As Double rate, rateMad
+  frameControl.rate = 0
+  frameControl.rateMad = 0
+  -- End Type
+  return frameControl
+end
+
+function create_LLObject_ImageHeader()
+  local imageHeader = {}
+  -- Type LLObject_ImageHeader
+  --   As Integer x_off, y_off
+  imageHeader.x_off = 0
+  imageHeader.y_off = 0
+  --   dir_frames As Integer
+  imageHeader.dir_frames = 0
+  --   cur_frame As Integer
+  imageHeader.cur_frame = 0
+  --   frame As LLObject_FrameControl Ptr
+  imageHeader.frame = create_LLObject_FrameControl()
+  --   As Double rate, rateMad
+  imageHeader.rate = 0
+  imageHeader.rateMad = 0
+  return imageHeader
+end
+
+function LLObject_CalculateFrame(this)
+--( IIf( __THISCHAR__##.uni_directional = 0,
+--__THISCHAR__##.frame + ( __THISCHAR__##.direction And 3 ) * __THISCHAR__##.animControl[__THISCHAR__##.current_anim].dir_frames,
+--__THISCHAR__##.frame ) )
+  if this.uni_directional == 0 then
+    return this.frame + (this.direction % 4) * this.animControl[this.current_anim].dir_frames
+  else
+    return this.frame
+  end
+end
+
+function LLObject_IgnoreDirectional(this)
+--   With *( this )
+--     If ( .animating <> 0 ) Then
+  if this.animating ~= 0 then
+--       Return -1
+    return -1
+--     End If
+  end
+--     If ( ( .uni_directional <> 0 ) ) Then
+  if this.uni_directional ~= 0 then
+-- '      If ( .unique_id <> u_mole ) ) Then
+--         Return -1
+    return -1
+-- '      End If
+--     End If
+  end
+--   End With
+end
+
+function LLObject_IncrementFrame(this)
+  local timer = love.timer.getTime()
+  -- '' Increments an object's frame, doesn't fail.
+  -- '' Returns a finished state (1) when ".frame"
+  -- '' meets the edge of its range, directional
+  -- '' or non-diretcional.
+  --
+  -- Dim As Double tet
+  -- With *( this )
+  --   If .frame_hold = 0 Then
+  if this.frame_hold == 0 then
+  --     dim as integer frameTransfer
+    local frameTransfer = 0
+  --     frameTransfer = LLObject_CalculateFrame( this[0] )
+    frameTransfer = LLObject_CalculateFrame(this)
+  --     .animControl[.current_anim].frame[frameTransfer].sound_lock = 0
+    this.animControl[this.current_anim].frame[frameTransfer].sound_lock = 0
+  --     .frame += 1
+    this.frame = this.frame + 1
+  --     If .frame = IIf( LLObject_IgnoreDirectional( this ), .anim[.current_anim]->frames, .animControl[.current_anim].dir_frames ) Then
+    if this.frame == (LLObject_IgnoreDirectional(this) and this.anim[this.current_anim].frames or this.animControl[this.current_anim].dir_frames) then
+  --       Return 1
+      return 1
+  --     End If
+    end
+  --     With .animControl[.current_anim]
+  --       tet = IIf( ( this->mad = 0 ) Or ( this->dead ), .rate, .rateMad )
+    local tet = (this.mad == 0 or this.dead) and this.animControl.rate or this.animControl.rateMad
+  --     End With
+  --     .frame_hold = Timer + tet
+    this.frame_hold = timer + tet
+  --   End If
+  end
+  --   If Timer > .frame_hold Then .frame_hold = 0
+  if timer > this.frame_hold then
+    this.frame_hold = 0
+  end
+  -- End With
 end
