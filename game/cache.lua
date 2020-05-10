@@ -1,20 +1,17 @@
 require("game/load/loadgfx")
 require("game/load/loadxml")
 
---Returns a loaded sprite object from the global spriteBatchCache
---cache, or, if there is no sprite object for the specified file
---name, loads the sprite sheet, image and creates sprite batches for
---it.
-function getSpriteObject(fileName)
+--Returns a loaded imageHeader from the global imageHeaderCache
+--cache, or, if there is no image header for the specified file
+--name, loads the image header.
+function getImageHeader(fileName)
 
-  local spriteObject = spriteObjectCache[fileName]
-  if not spriteObject then
-    spriteObject = {}
-    spriteObject.spriteSheet = loadSpriteSheet(fileName)
-    spriteObject.image = spriteSheetToImage(spriteObject.spriteSheet)
-    spriteObjectCache[fileName] = spriteObject
+  local imageHeader = imageHeaderCache[fileName]
+  if not imageHeader then
+    imageHeader = LLSystem_ImageLoad(fileName)
+    imageHeaderCache[fileName] = imageHeader
   end
-  return spriteObject
+  return imageHeader
 
 end
 

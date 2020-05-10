@@ -17,7 +17,7 @@ function love.load()
   tickPeriod = 1/60
   accumulator = 0.0
 
-  spriteObjectCache = {}
+  imageHeaderCache = {}
 
   --The original game loaded all image data at once during a splash
   --screen, but I've chosen to move to a lazy loading design so that
@@ -29,18 +29,18 @@ function love.load()
 
   --Load map data
   map = loadMap("data/map/forest_fall.map")
-  map.spriteObject = getSpriteObject(map.tileSetFileName)
-  map.spriteObject.spriteBatches = {}
-  table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
-  table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
-  table.insert(map.spriteObject.spriteBatches, imageToSpriteBatch(map.spriteObject.image))
+  map.imageHeader = getImageHeader(map.tileSetFileName)
+  map.imageHeader.spriteBatches = {}
+  table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))
+  table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))
+  table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))
 
   curRoom = 3
 
   enemies = {}
 
-  loadEnemies()
-  createEnemyAnimations()
+  --loadEnemies()
+  --createEnemyAnimations()
 
   camera = {}
   camera.x = 0
@@ -71,10 +71,10 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
-    log.level = "debug"
-    updateEnemies()
-    log.level = "fatal"
-    updateEnemyAnimations()
+    --log.level = "debug"
+    --updateEnemies()
+    --log.level = "fatal"
+    --updateEnemyAnimations()
 
     accumulator = accumulator - tickPeriod
   end

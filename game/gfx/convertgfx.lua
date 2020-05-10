@@ -1,19 +1,19 @@
---Converts a spriteSheet into a Love2D Image.
-function spriteSheetToImage(spriteSheet)
-
-  local imageX, imageY = 0, 0
-  local imageData = love.image.newImageData(spriteSheet.width * spriteSheet.frameCount, spriteSheet.height)
-  for frameIndex = 1, spriteSheet.frameCount do
-    local frame = spriteSheet.frames[frameIndex]
-    for k, pixel in pairs(frame.pixels) do
-      imageData:setPixel(imageX+pixel[1],imageY+pixel[2],pixel[3],pixel[4],pixel[5],pixel[6])
-    end
-    imageX = imageX + spriteSheet.width
-  end
-  local image = love.graphics.newImage(imageData)
-  return image
-
-end
+-- --Converts a spriteSheet into a Love2D Image.
+-- function spriteSheetToImage(spriteSheet)
+--
+--   local imageX, imageY = 0, 0
+--   local imageData = love.image.newImageData(spriteSheet.width * spriteSheet.frameCount, spriteSheet.height)
+--   for frameIndex = 1, spriteSheet.frameCount do
+--     local frame = spriteSheet.frames[frameIndex]
+--     for k, pixel in pairs(frame.pixels) do
+--       imageData:setPixel(imageX+pixel[1],imageY+pixel[2],pixel[3],pixel[4],pixel[5],pixel[6])
+--     end
+--     imageX = imageX + spriteSheet.width
+--   end
+--   local image = love.graphics.newImage(imageData)
+--   return image
+--
+-- end
 
 --Converts an image to a sprite batch.
 function imageToSpriteBatch(image)
