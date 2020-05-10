@@ -14,7 +14,8 @@ function loadEnemies()
     enemy.animating = 0
     enemy.frame = 0
     enemy.frame_hold = 0
-    enemy.animControl = create_LLObject_ImageHeader()
+    enemy.anim = {}
+    enemy.animControl = {}
 
     -- Load enemy properties defined in room xml here.
     log.debug("Enemy id: "..roomEnemy.id)
@@ -29,22 +30,24 @@ function loadEnemies()
     local enemyXml = getObjectXml(roomEnemy.id)
     log.debug("Loading enemy sprite sheets.")
     local spriteXml = ensureTable(enemyXml.sprite)
-    enemy.spriteObjects = {}
+
     for spriteKey, spriteValue in pairs(spriteXml) do
       if spriteValue.filename then
         log.debug(" spriteValue.filename: "..spriteValue.filename)
         local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
         log.debug(" fixedFileName: "..fixedFileName)
-        local spriteObject = getSpriteObject(fixedFileName)
+        local anim = getImageHeader(fixedFileName)
+        local animControl = create_LLObject_ImageHeader()
         if spriteValue.rate then
           log.debug(" spriteValue.rate: "..spriteValue.rate)
-          spriteObject.rate = tonumber(spriteValue.rate)
+          animControl.rate = tonumber(spriteValue.rate)
         end
         if spriteValue.dir_frames then
           log.debug(" spriteValue.dir_frames: "..spriteValue.dir_frames)
-          spriteObject.dirFrames = tonumber(spriteValue.dir_frames)
+          animControl.dir_frames = tonumber(spriteValue.dir_frames)
         end
-        table.insert(enemy.spriteObjects, spriteObject)
+        table.insert(enemy.anim, anim)
+        table.insert(enemy.animControl, animControl)
       end
     end
     if enemyXml.fp then
@@ -94,36 +97,36 @@ function updateEnemies()
   end
 end
 
--- Creates enemy animations from the sprite objects for each enemy. Should
--- be called after loadEnemies.
-function createEnemyAnimations()
-  for i, enemy in pairs(enemies) do
-    enemy.animations = {}
-    for j, spriteObject in pairs(enemy.spriteObjects) do
-      if spriteObject.rate and spriteObject.dirFrames then
-        local spriteSheet = spriteObject.spriteSheet
-        local animation = newAnimation(spriteObject.image, spriteSheet.width,
-          spriteSheet.height, spriteObject.dirFrames, 1)
-        table.insert(enemy.animations, animation)
-      end
-    end
-  end
-end
+-- -- Creates enemy animations from the sprite objects for each enemy. Should
+-- -- be called after loadEnemies.
+-- function createEnemyAnimations()
+--   for i, enemy in pairs(enemies) do
+--     enemy.animations = {}
+--     for j, spriteObject in pairs(enemy.spriteObjects) do
+--       if spriteObject.rate and spriteObject.dirFrames then
+--         local spriteSheet = spriteObject.spriteSheet
+--         local animation = newAnimation(spriteObject.image, spriteSheet.width,
+--           spriteSheet.height, spriteObject.dirFrames, 1)
+--         table.insert(enemy.animations, animation)
+--       end
+--     end
+--   end
+-- end
 
-function updateEnemyAnimations()
-  for i, enemy in pairs(enemies) do
-    if #enemy.animations >=1 then
-      updateAnimation(enemy.animations[1])
-    end
-  end
-end
+-- function updateEnemyAnimations()
+--   for i, enemy in pairs(enemies) do
+--     if #enemy.animations >=1 then
+--       updateAnimation(enemy.animations[1])
+--     end
+--   end
+-- end
 
 function drawEnemies()
   for i, enemy in pairs(enemies) do
     local screenX, screenY = enemy.mapX - camera.x, enemy.mapY - camera.y
-    if #enemy.animations >= 1 then
-      drawAnimation(enemy.animations[1], screenX, screenY)
-    end
+    -- if #enemy.animations >= 1 then
+    --   drawAnimation(enemy.animations[1], screenX, screenY)
+    -- end
   end
 end
 

@@ -39,7 +39,7 @@ function love.load()
 
   enemies = {}
 
-  --loadEnemies()
+  loadEnemies()
   --createEnemyAnimations()
 
   camera = {}
