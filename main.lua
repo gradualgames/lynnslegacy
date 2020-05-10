@@ -39,7 +39,7 @@ function love.load()
 
   enemies = {}
 
-  loadEnemies()
+  LLSystem_ObjectFromXML()
   --createEnemyAnimations()
 
   camera = {}
