@@ -168,7 +168,7 @@ function create_vector()
   return vector
 end
 
-function create_LLSystem_FaceType
+function create_LLSystem_FaceType()
   -- Type LLSystem_FaceType
   local faceType = {}
   --   As Integer x, y, w, h
