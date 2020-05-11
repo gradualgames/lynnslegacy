@@ -101,13 +101,25 @@ function love.draw()
   doneDrawing()
 end
 
-function love.keypressed(key, scancode, isrepeat)
+function love.resize(w, h)
+  computeScale()
+end
 
+function love.keypressed(key, scancode, isrepeat)
   if key == "escape" then
      love.event.quit()
   end
 
-  if love.keyboard.isDown("ralt") and key == "return" then
+  if love.keyboard.isDown("f12") then
+    scaleOption = scaleOption + 1
+    if scaleOption > #scaleOptions then
+      scaleOption = 1
+    end
+    computeScale()
+  end
+
+  if (love.keyboard.isDown("ralt") and key == "return") or
+     love.keyboard.isDown("f11") then
     if not fullscreen then
       love.window.setFullscreen(true, "desktop")
       fullscreen = true

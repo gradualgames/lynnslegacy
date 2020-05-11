@@ -3,8 +3,22 @@
 --canvas to simulate SCREEN 13.
 function initializeScreen()
   love.window.setTitle("Lynn's Legacy")
+  love.window.setMode(640, 400, {resizable=true, minwidth=320, minheight=200})
   love.mouse.setVisible(false)
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
+  scaleOptions = {
+    function()
+      retrieveDimensions()
+      scale = math.min(screenWidth / canvasWidth, screenHeight / canvasHeight)    
+    end,
+    function() scale = 1 end,
+    function() scale = 2 end,
+    function() scale = 3 end,
+    function() scale = 4 end,
+    function() scale = 5 end,
+    function() scale = 6 end
+  }
+  scaleOption = 1
   canvas = love.graphics.newCanvas(320,200)
 end
 
@@ -22,16 +36,16 @@ function initializePaletteShader()
   shader:send("paletteTexture", paletteCanvas)
 end
 
+function retrieveDimensions()
+  screenWidth, screenHeight = love.graphics.getDimensions()
+  canvasWidth, canvasHeight = canvas:getDimensions()
+end
+
 --Computes how the main canvas should be scaled based on the dimensions
 --of the current screen. This is intended to be used at startup and
 --when toggling between windowed and full screen modes.
 function computeScale()
-  screenWidth, screenHeight = love.graphics.getDimensions()
-  canvasWidth, canvasHeight = canvas:getDimensions()
-  --TODO: Make this an option eventually. Integer scaling is cleaner,
-  --but some users may prefer to stretch to full screen.
-  scale = math.min(screenWidth / canvasWidth, screenHeight / canvasHeight)
-  --scale = 4
+  scaleOptions[scaleOption]()
 end
 
 --Should be called before drawing anything to the main canvas.
@@ -47,6 +61,7 @@ function doneDrawing()
   love.graphics.setShader(shader)
   love.graphics.push()
   --Move to the appropiate top left corner.
+  retrieveDimensions()
   love.graphics.translate(math.floor(
     (screenWidth - canvasWidth * scale) / 2),
     math.floor((screenHeight - canvasHeight * scale) / 2))
