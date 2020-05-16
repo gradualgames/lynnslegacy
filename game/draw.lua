@@ -1,3 +1,5 @@
+require("game/map")
+
 function blit_scene()
   -- If llg( do_chap ) = 0 Then
   --   '' chapter screen is not up
@@ -128,7 +130,88 @@ function blit_room()
 end
 
 function blit_y_sorted()
+  -- Redim As char_type Ptr y_sort( 0 )
+  --
+  -- Redim As char_type Ptr srt_Char( 0 )
+  -- Redim As Integer srt_CharNum( 0 )
+  -- Dim As Integer srt_Num, ac
+  --
+  -- srt_Num = 0
+  --
+  -- srt_Num += 1 '' enemy bank
+  -- srt_Num += 1 '' temp enemy bank
+  --
+  --
+  --
+  -- Redim srt_CharNum( srt_Num - 1 )
+  -- Redim srt_Char( srt_Num - 1 )
+  --
+  -- srt_CharNum( 0 ) = now_room().enemies
+  -- srt_Char( 0 ) = now_room().enemy
+  --
+  -- srt_CharNum( 1 ) = now_room().temp_enemies
+  -- srt_Char( 1 ) = @now_room().temp_enemy( 0 )
+  --
+  --
+  -- '' Add concurrents to y-sorting list
+  --
+  -- Dim As Integer i, it
+  -- For i = 0 To now_room().enemies - 1
+  for i = 1, #now_room().enemies do
+  --
+  --   If LLObject_IsWithin( Varptr( now_room().enemy[i] ) ) = 0 Then
+  --     Continue For
+  --
+  --   End If
+  --
+  --   With now_room().enemy[i]
+  --
+  --     If .animControl[.current_anim].frame[.frame].concurrents <> 0 Then
+  --
+  --       For it = 0 To .animControl[.current_anim].frame[.frame].concurrents - 1
+  --         '' add one.
+  --
+  --         srt_Num += 1
+  --
+  --         Redim Preserve srt_CharNum( srt_Num - 1 )
+  --         Redim Preserve srt_Char( srt_Num - 1 )
+  --
+  --         srt_CharNum( srt_Num - 1 ) = 1
+  --
+  --         With .animControl[.current_anim].frame[.frame].concurrent[it]
+  --           srt_Char( srt_Num - 1 ) = .char
+  --
+  --         End With
+  --
+  --       Next
+  --
+  --     End If
+  --
+  --   End With
+  --
+  -- Next
+  end
+  --
+  -- ac = sort_index( y_sort(), Varptr( srt_Char( 0 ) ), Varptr( srt_CharNum( 0 ) ), srt_Num )
+  --
+  -- Dim As Integer _blit_em
+  --
+  -- For _blit_em = 0 To ac - 1
+  for i = 1, #now_room().enemies do
+  --
+  --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
+  --
+  --     blit_enemy( *y_sort( _blit_em ) )
+    blit_enemy(now_room().enemies[i])
+  --
+  --   End If
+  --
+  -- Next
+  end
+end
 
+function blit_enemy(enemy)
+  log.debug("Blitting enemy: "..enemy.id)
 end
 
 --Updates a room using the tile indices from the room to arrange
