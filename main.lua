@@ -1,7 +1,7 @@
+require("game/cache")
 require("game/load/loadxml")
 require("game/gfx/convertgfx")
 require("game/gfx/screen")
-require("game/enemies")
 require("game/engine--images")
 require("game/engine--LL")
 require("game/engine--gfx_LL")
@@ -62,10 +62,7 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
-    --log.level = "debug"
-    --updateEnemies()
-    --log.level = "fatal"
-    --updateEnemyAnimations()
+    enemy_main()
 
     accumulator = accumulator - tickPeriod
   end

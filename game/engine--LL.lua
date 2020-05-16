@@ -99,3 +99,601 @@ function set_up_room_enemies(enemies)
     -- Next
   end
 end
+
+function enemy_main()
+  -- With now_room()
+  --
+  --   If .enemies > 0 Then
+  --     act_enemies( .enemies, .enemy )
+  act_enemies(now_room().enemies)
+  --
+  --   End If
+  --   If .temp_enemies > 0 Then
+  --     act_enemies( .temp_enemies, Varptr( .temp_enemy( 0 ) ) )
+  --
+  --   End If
+  --
+  -- End With
+end
+
+function act_enemies(enemies)
+  -- Dim As Integer do_stuff
+  --
+  -- For do_stuff = 0 To _enemies - 1
+  --
+  --
+  --   With _enemy[do_stuff]
+  --
+  --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
+  --
+  --       If ( .seq_paused <> 0 ) And ( llg( seq ) <> 0 ) Then
+  --
+  --       Else
+  --
+  --
+  --         .seq_paused = 0
+  --
+  --
+  --         if .unique_id = u_healthguy then
+  --           __healthguy_branch( Varptr( _enemy[do_stuff] ) )
+  --
+  --         end if
+  --
+  --
+  --         If .unique_id <> u_sparkle Then
+  --
+  --           Dim As vector_pair target, origin
+  --
+  --           If .unique_id = u_slimeman Then
+  --             If .chap = 255 Then
+  --               .mad = 1
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --           If llg( hero ).menu_sel <> 0 Then
+  --
+  --             If ( .unique_id <> u_savepoint ) And ( .unique_id <> u_menu ) Then
+  --
+  --               Continue For
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --
+  --           .last_cycle_ice = .on_ice
+  --           .on_ice = 0
+  --
+  --           check_ice( _enemy[do_stuff] )
+  --
+  --
+  --           If .unique_id = u_core Then
+  --             '' Hack Fest!!!!!!!!!!!!
+  --
+  --             If llg( now )[725] Then
+  --
+  --               Dim As Integer enemyIterate, stateConfirm
+  --               stateConfirm = -1
+  --               Select Case .shifty_state
+  --               '' if wave dead then advance
+  --                 Case 0
+  --                   .shifty_state += 1
+  --                   For enemyIterate = 5 To 10
+  --                     now_room().enemy[enemyIterate].trigger = TRUE
+  --
+  --                   Next
+  --                   play_sample( sound_turret, 80 )
+  --                   .unstoppable_by_object = 0
+  --
+  --                 Case 1
+  --                   '' 5- 10
+  --                   For enemyIterate = 5 To 10
+  --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+  --                   Next
+  --                   If stateConfirm Then
+  --                     .shifty_state += 1
+  --                     For enemyIterate = 11 To 18
+  --                       now_room().enemy[enemyIterate].trigger = TRUE
+  --
+  --                     Next
+  --                     play_sample( sound_turret, 80 )
+  --
+  --                   End If
+  --
+  --                 Case 2
+  --                   '' 11 - 18
+  --                   For enemyIterate = 11 To 18
+  --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+  --                   Next
+  --                   If stateConfirm Then
+  --                     .shifty_state += 1
+  --                     For enemyIterate = 19 To 28
+  --                       now_room().enemy[enemyIterate].trigger = TRUE
+  --
+  --                     Next
+  --                     play_sample( sound_turret, 80 )
+  --
+  --                   End If
+  --
+  --                 Case 3
+  --                   '' 19 - 28
+  --                   For enemyIterate = 19 To 28
+  --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+  --                   Next
+  --                   If stateConfirm Then
+  --                     .shifty_state += 1
+  --                     For enemyIterate = 29 To 48
+  --                       now_room().enemy[enemyIterate].trigger = TRUE
+  --
+  --                     Next
+  --                     play_sample( sound_turret, 80 )
+  --
+  --                   End If
+  --
+  --                 Case 4
+  --                   '' 29 - 48
+  --                   For enemyIterate = 29 To 48
+  --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+  --                   Next
+  --                   If stateConfirm Then
+  --                     .shifty_state += 1
+  --                     For enemyIterate = 0 To 7
+  --                       .anim[.current_anim]->frame[0].face[enemyIterate].invincible = 0
+  --
+  --                     Next
+  --                     .invincible = 0
+  --                     LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .jump_state )
+  --
+  --                   End If
+  --
+  --                 Case 5
+  --                   '' core vulnerable
+  --
+  --               End Select
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --
+  --
+  --           If llg( hero_only ).attacking <> 0 Then
+  --             LLObject_MAINAttack( 1, Varptr( _enemy[do_stuff] ), Varptr( llg( hero ) ) )
+  --
+  --           End If
+  --
+  --
+  --           If ( .unique_id = u_anger ) Or ( .unique_id = u_sterach ) Then
+  --
+  --             If .hit <> 0 Then
+  --               '' This is how all hit state shifts should be handled.
+  --               '' This runs parallel to any running state.
+  --               If __anger_flyback( Varptr( _enemy[do_stuff] ) ) <> 0 Then
+  --
+  --                 .hit = 0
+  --
+  --               End If
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --           If ( .unique_id = u_beamcrystal ) Or _
+  --              ( .unique_id = u_boss5_right ) Or _
+  --              ( .unique_id = u_boss5_down ) Or _
+  --              ( .unique_id = u_boss5_left ) Or _
+  --              ( .unique_id = u_boss5_crystal ) Then
+  --
+  --             LLObject_ProjectileDamage( now_room().enemies, now_room().enemy, Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --
+  --           If ( .on_ice <> 0 ) Then
+  --
+  --             __calc_slide( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --           If .on_ice = 0 Then
+  --             __stop_grip( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --
+  --           If .walk_hold = 0 Then
+  --
+  --             If .walk_steps = 0 Then
+  --               __momentum_move ( Varptr( _enemy[do_stuff] ) )
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --
+  --
+  --           If  .hurt <> 0 Then
+  --             '' this enemy is showing damage effects
+  --
+  --             If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
+  --
+  --             Else
+  --
+  --               If  .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
+  --                 '' the enemy called back (damage is done)
+  --
+  --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
+  --
+  --                 If .unique_id = u_ferus Then
+  --
+  --                   LLObject_ClearProjectiles( _enemy[do_stuff] )
+  --                   .radius = Timer
+  --
+  --
+  --                 End If
+  --
+  --                 If .unique_id = u_grult Then
+  --
+  --                   LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .stun_state )
+  --                   .funcs.current_func[.funcs.active_state] = 2
+  --
+  --                 End If
+  --
+  --                 LLObject_ClearDamage( Varptr( _enemy[do_stuff] ) )
+  --                 .flash_count = 0
+  --                 .flash_timer = 0
+  --                 .invisible = 0
+  --
+  --
+  --               End If
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --           If .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
+  --             '' if function block reaches end, return to beginning.
+  --
+  --             .funcs.current_func[.funcs.active_state] = 0
+  --
+  --           End If
+  --
+  --
+  --           If .dead = 0 Then
+  --             '' entity is not dead
+  --
+  --             If .hp <= 0 Then
+  --               '' entity is below the hp limit (marked for death)
+  --
+  --
+  --
+  --               If .dead_sound <> 0 Then
+  --                 play_sample( llg( snd )[.dead_sound] )
+  --
+  --               End If
+  --
+  --               LLObject_ShiftState( Varptr( _enemy[do_stuff] ), _enemy[do_stuff].death_state )
+  --
+  --             End If
+  --
+  --             If .dead = 0 Then
+  --               If .froggy <> 0 Then
+  --                 '' this entity can become mad
+  --
+  --
+  --                 If ( .mad = 0 ) Then
+  --                   '' entity is not mad
+  --
+  --                   If ( .funcs.active_state < .reset_state ) Then
+  --
+  --                     '' entity is not resetting
+  --
+  --                     '' implicit proximity detection
+  --                     .funcs.active_state = in_proximity( Varptr( _enemy[do_stuff] ) )
+  --
+  --                   End If
+  --
+  --                 End If
+  --
+  --               End If
+  --
+  --               If .mad <> 0 Then
+  --                 '' entity is mad
+  --
+  --                 '' see if its far enough to get a reset
+  --                 .funcs.active_state = out_proximity( Varptr( _enemy[do_stuff] ) )
+  --
+  --               End If
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --
+  --           If .projectile Then
+  --             If .projectile->active <> 0 Then
+  --               '' projectile triggered
+  --
+  --               __do_proj ( Varptr( _enemy[do_stuff] ) )
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --           If .unique_id = u_ferus Then
+  --
+  --             if .radius = 0 then
+  --               .radius = Timer + 3 + ( Rnd * 3 )
+  --
+  --             end if
+  --
+  --             If Timer > .radius Then
+  --
+  --               .radius = 0
+  --               __trigger_projectile( Varptr( _enemy[do_stuff] ) )
+  --
+  --
+  --             End If
+  --
+  --
+  --
+  --           End If
+  --
+  --
+  --           If .pushable <> 0 Then
+  --             '' the entity is pushable
+  --
+  --             __push ( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --           If .vol_fade_trig <> 0 Then
+  --             '' projectile triggered
+  --
+  --             __do_vol_fade ( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --
+  --           If llg( seq ) = 0 Then
+  --             '' no sequence happening already
+  --
+  --
+  --             If llg( hero ).switch_room = -1 Then
+  --
+  --               If .action_sequence <> 0 Then
+  --                 '' ths entity loads a sequence when you action it
+  --
+  --                 If llg( hero_only ).action <> 0 Then
+  --
+  --                   LLObject_ActionSequence( Varptr( _enemy[do_stuff] ) )
+  --
+  --                 End If
+  --
+  --
+  --               End If
+  --
+  --
+  --
+  --
+  --               If .touch_sequence <> 0 Then
+  --                 '' ths entity loads a sequence when you touch it
+  --
+  --                 LLObject_TouchSequence( Varptr( _enemy[do_stuff] ) )
+  --
+  --               End If
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --
+  --           If .grult_proj_trig <> 0 Then
+  --
+  --
+  --             '' projectile triggered (concurrent functionality)
+  --             __do_grult_proj ( Varptr( _enemy[do_stuff] ) )
+  --
+  --             LLObject_CheckGTorchLit( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --
+  --           If .anger_proj_trig <> 0 Then
+  --             __do_anger_proj ( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --           If .unique_id = u_grult Then
+  --
+  -- '              If .funcs.active_state <> .stun_state Then
+  --             If .funcs.active_state = 0 Or ( .funcs.active_state = .proj_state )Then
+  --
+  --
+  --               If llg( dark ) <> 4 Then
+  --                 '' stunned
+  --
+  --                 .stun_return_trig = 0
+  --                 LLObject_ClearProjectiles( _enemy[do_stuff] )
+  --                 .fly_timer = 0
+  --                 .fly_count = 0
+  --                 .grult_proj_trig = 0
+  --
+  --
+  --                 .jump_counter = 0
+  --
+  --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .stun_state )
+  --
+  --               End If
+  --
+  --             Else'If (.funcs.active_state = .stun_state) Or (.funcs.active_state = .hit_state) Then
+  --
+  --
+  --               If (.stun_return_trig = 0) Then
+  --
+  -- '                    If now_room().dark = 4 Then
+  --                 If llg( dark ) = 4 Then
+  --                   .stun_return_trig = 1
+  --
+  --                 End If
+  --                   '' un-stunned!
+  --
+  --                 If .stun_return_trig = 1 Then
+  --
+  --                   If .dead = 0 Then
+  --
+  --                     .jump_counter = 0
+  --
+  --                     .hurt = 0
+  --
+  --
+  --                     LLObject_ClearDamage( Varptr( _enemy[do_stuff] ) )
+  --
+  --                     .fly_count = 0
+  --                     .fly_timer = 0
+  --                     .flash_timer = 0
+  --                     .invisible = 0
+  --                     .mad =  0
+  --
+  --                     .invincible = -1
+  --
+  --                     LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
+  --
+  --
+  --
+  --
+  --                   End If
+  --
+  --                 End If
+  --
+  --               End If
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --
+  --
+  --           If .spawn_cond <> 0 Then
+  --             LLObject_CheckSpawn( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --           If .unique_id = u_gbutton Then
+  --
+  --             Dim As LLObject_CollisionType collisionCheck
+  --             Dim As Integer buttonSet, rockCheck
+  --
+  --             collisionCheck = LLObject_Collision( llg( hero ), _enemy[do_stuff] )
+  --             If collisionCheck.isColliding = -1 Then
+  --               buttonSet = -1
+  --
+  --             End If
+  --
+  --             If buttonSet = 0 Then
+  --
+  --               For rockCheck = 0 To now_room().enemies - 1
+  --
+  --                 If now_room().enemy[rockCheck].unique_id = u_pushrock Then
+  --                   collisionCheck = LLObject_Collision( now_room().enemy[rockCheck], _enemy[do_stuff] )
+  --                   If collisionCheck.isColliding = -1 Then
+  --                     buttonSet = -1
+  --                     Exit For
+  --
+  --                   End If
+  --
+  --                 End If
+  --
+  --               Next
+  --
+  --             End If
+  --
+  --             .funcs.active_state = IIf( buttonSet, 1, 0 )
+  --
+  --
+  --
+  --
+  --           End If
+  --
+  --           If ( .unique_id = u_gold ) Or ( .unique_id = u_silver ) Or ( .unique_id = u_health ) Then
+  --             '' this is loot to pick up
+  --
+  --             LLObject_GrabItems( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --           If .unique_id = u_ltorch Then
+  --
+  --             LLObject_TorchModify( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --           If  .dmg.id <> 0 Then
+  --             '' enemy was hit by lynn
+  --
+  --             __flashy( Varptr( _enemy[do_stuff] ) )
+  --
+  --           End If
+  --
+  --
+  --           If Timer > .walk_hold Then .walk_hold = 0
+  --
+  --
+  --
+  --             If .animControl[.current_anim].frame[.frame].concurrents <> 0 Then
+  --
+  --               LLEngine_ExecuteConcurrents( Varptr( _enemy[do_stuff] ) )
+  --
+  --
+  --             End If
+  --
+  --           If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
+  --
+  --             If .dead = 0 Then
+  --
+  --               If .sway <> 0 Then
+  --
+  --                 If Timer > .sway Then
+  --                   __dyssius_jump_slide( Varptr( _enemy[do_stuff] ) )
+  --                   .sway = 0
+  --
+  --                   .fly_count = 0
+  --                   .fly_timer = 0
+  --                   .flash_timer = 0
+  --                   .invisible = 0
+  --                   .hurt = 0
+  --
+  --                   If ( .projectile->coords[0].x <> 0 ) Or ( .projectile->coords[0].y <> 0 ) Then
+  --
+  --                     LLObject_ClearProjectiles( _enemy[do_stuff] )
+  --
+  --                   End If
+  --
+  --                 End If
+  --
+  --               End If
+  --
+  --             End If
+  --
+  --           End If
+  --
+  --         End If
+  --
+  --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
+  --
+  --       End If
+  --
+  --     End If
+  --
+  --   End With
+  --
+  -- Next
+  --
+  -- If _enemy = Varptr( now_room().temp_enemy( 0 ) ) Then
+  --   maintain_temps( Varptr( now_room() ) )
+  --
+  -- End If
+
+end
