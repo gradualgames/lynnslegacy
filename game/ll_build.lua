@@ -1,5 +1,7 @@
+require("game/object_structures")
+
 --Loads a sequence from an already loaded map binary blob.
-function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
+function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
   -- For 1 to seqs do
   for grabSeq = 1, numSeqs do
@@ -134,10 +136,14 @@ function loadSeq(mapBlob, numSeqs, seqs, seqType, seqIndex)
   end
 end
 
+function LLSystem_LoadMap(fileName)
+  return load_mapV(fileName)
+end
+
 --Loads a Lynn's Legacy .map file. Assumes it is an uncompressed .map file.
 --The original set of files were zlib compressed. I ran them through the
 --offzip utility to decompress them.
-function loadMap(fileName)
+function load_mapV(fileName)
 
   local map = {}
 
@@ -226,7 +232,7 @@ function loadMap(fileName)
 
       room.seq = {}
 
-      loadSeq(mapBlob, room.seqHere, room.seq, "room", roomIndex)
+      load_seqV(mapBlob, room.seqHere, room.seq, "room", roomIndex)
 
       room.numEnemies = readInt(mapBlob)
 
@@ -257,7 +263,7 @@ function loadMap(fileName)
         enemy.reserved_5 = readInt(mapBlob)
         log.debug("enemy.reserved_5: "..enemy.reserved_5)
         enemy.seq = {}
-        loadSeq(mapBlob, enemy.seq_here, enemy.seq, "enemy", enemyIndex)
+        load_seqV(mapBlob, enemy.seq_here, enemy.seq, "enemy", enemyIndex)
 
         enemy.spawn_cond = readInt(mapBlob)
         log.debug("enemy.spawn_cond: "..enemy.spawn_cond)
@@ -362,7 +368,7 @@ function loadMap(fileName)
       entry.reserved = readStringL(mapBlob, 84)
       log.debug("entry.reserved: "..entry.reserved)
       entry.seq = {}
-      loadSeq(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
+      load_seqV(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
     end
 
     --TODO: There is some post processing here running a function

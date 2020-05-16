@@ -1,11 +1,11 @@
-require("game/load/loadgfx")
-require("game/load/loadmap")
 require("game/load/loadxml")
 require("game/gfx/convertgfx")
 require("game/gfx/screen")
-require("game/draw")
 require("game/enemies")
-require("game/map")
+require("game/engine--images")
+require("game/engine--LL")
+require("game/engine--gfx_LL")
+require("game/ll_build")
 
 log = require("lib/log/log")
 log.usecolor = false
@@ -22,7 +22,7 @@ function love.load()
   objectXmlCache = {}
 
   --Load map data
-  map = loadMap("data/map/forest_fall.map")
+  map = LLSystem_LoadMap("data/map/forest_fall.map")
   map.imageHeader = getImageHeader(map.tileSetFileName)
   map.imageHeader.spriteBatches = {}
   table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))

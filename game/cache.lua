@@ -1,4 +1,4 @@
-require("game/load/loadgfx")
+require("game/engine--images")
 require("game/load/loadxml")
 
 --Returns a loaded imageHeader from the global imageHeaderCache

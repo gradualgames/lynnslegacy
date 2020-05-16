@@ -1,0 +1,101 @@
+require("game/engine--object")
+
+-- Loops over the enemies of the current room and spawns them
+function set_up_room_enemies(enemies)
+    -- Dim As Integer setup
+    --
+    --
+    -- For setup = 0 To enemies - 1
+  for setup = 1, #enemies do
+    --   '' cycle thru these enemies
+    --
+    --   With enemy[setup]
+    local enemy = enemies[setup]
+    --
+    --     If .spawn_cond <> 0 Then
+    --
+    --       If .spawn_info->wait_n > 0 Then
+    --
+    --         If LLObject_SpawnWait( Varptr( enemy[setup] ) ) <> 0 Then
+    --
+    --           '' done waiting
+    --
+    --           LLSystem_CopyNewObject( enemy[setup] )
+    LLSystem_ObjectLoad(enemy)
+    --
+    --         Else
+    --           Dim As String oldid
+    --
+    --           oldid = enemy[setup].id
+    --
+    --           LLSystem_ObjectDeepCopy( enemy[setup], *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( "data\object\null.xml" ) ) )
+    --           enemy[setup].id = oldid
+    --
+    --         End If
+    --
+    --       Else
+    --
+    --         LLSystem_CopyNewObject( enemy[setup] )
+    --
+    --       End If
+    --
+    --     Else
+    --
+    --     '' if regular then spawn
+    --       LLSystem_CopyNewObject( enemy[setup] )
+    --
+    --     End If
+    --
+    --     '' setting a couple last vars
+    --     .num = setup
+    --
+    --     If .spawn_cond <> 0 Then
+    --
+    --       If LLObject_SpawnKill( Varptr( enemy[setup] ) ) <> 0 Then
+    --         '' all conditions met to kill
+    --
+    --         __make_dead  ( Varptr( enemy[setup] ) )
+    --         __cripple  ( Varptr( enemy[setup] ) )
+    --
+    --         If(                                     _
+    --             ( .unique_id = u_chest         ) Or _
+    --             ( .unique_id = u_bluechest     ) Or _
+    --             ( .unique_id = u_bluechestitem ) Or _
+    --             ( .unique_id = u_ghut          ) Or _
+    --             ( .unique_id = u_button        ) Or _
+    --             ( .unique_id = u_gbutton       )    _
+    --           ) Then
+    --           .current_anim = 1
+    --
+    --         End If
+    --
+    --
+    --         .seq_release = 0
+    --
+    --         .spawn_kill_trig = -1
+    --
+    --
+    --         if .unique_id = u_biglarva then
+    --           LLObject_ShiftState( Varptr( enemy[setup] ), 3 )
+    --
+    --         end if
+    --
+    --         if .unique_id = u_ghut then
+    --           LLObject_ShiftState( Varptr( enemy[setup] ), 3 )
+    --
+    --         end if
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   End With
+    --
+    --   #IfDef LL_LOGRoomEnemySetup
+    --     LLSystem_Log( "Initialized room["& llg( this_room ).i &"] enemy " & setup, "set_up_room_enemies.txt" )
+    --
+    --   #EndIf
+    --
+    -- Next
+  end
+end

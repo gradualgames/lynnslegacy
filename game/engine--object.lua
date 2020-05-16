@@ -1,0 +1,95 @@
+require("game/engine--object_XML")
+
+-- Loads an object and its images from xml and spr files. Assumes that
+-- objectLoad.id has been initialized with the relative path of an object
+-- xml file.
+function LLSystem_ObjectLoad(objectLoad)
+  --   Dim As Integer op1, op2, i, it, itt
+  --   Dim As String dblquote = """"""
+  --
+  --   op1 = ( objectLoad.id = "" )
+  --   op2 = ( Dir( objectLoad.id ) = "" )
+  --
+  --   If op1 Or op2 Then
+  --
+  --     Return 0
+  --
+  --   End If
+  --
+  --   Dim As xml_type Ptr clean_up
+  --
+  --
+  --   clean_up = xml_Load( objectLoad.id )
+  --
+  --
+  --   #IfDef LL_OBJECTLOADPROGRESS
+  --     LLSystem_Log( "XML loaded.", "objectload.txt" )
+  --
+  --   #EndIf
+  --
+  --   objectLoad.flash_time = .02
+  --   objectLoad.flash_length = 30
+  --
+  --   objectLoad.hit_sound = sound_enemyhit
+  --   objectLoad.dead_sound = sound_enemykill
+  --
+  --
+  --   LLSystem_ObjectFromXML( clean_up, objectLoad )
+  LLSystem_ObjectFromXML(objectLoad)
+  --
+  --   #IfDef LL_OBJECTLOADPROGRESS
+  --     LLSystem_Log( "Object extracted from XML.", "objectload.txt" )
+  --
+  --   #EndIf
+  --
+  --   xml_Destroy( clean_up )
+  --
+  --   #IfDef LL_OBJECTLOADPROGRESS
+  --     LLSystem_Log( "Destroyed XML tree.", "objectload.txt" )
+  --
+  --   #EndIf
+  --
+  --
+  --   For i = 0 To objectLoad.anims - 1
+  --
+  --     For it = 0 To objectLoad.anim[i]->frames - 1
+  --
+  --       For itt = 0 To objectLoad.animControl[i].frame[it].concurrents - 1
+  --
+  --         With objectLoad.animControl[i].frame[it].concurrent[itt]
+  --           '' one day...
+  --           '' .char.location = V2_Add( objectLoad.location, V2_Subtract( .origin, V2_Scale( .char->perimeter, .5 ) ) )
+  --           ''
+  --           '' hehe dreams come true through hard work and diligence.
+  --
+  -- '          .char->x_origin = objectLoad.coords.x + .origin.x - ( .char->perimeter.x * .5 )
+  -- '          .char->y_origin = objectLoad.coords.y + .origin.y - ( .char->perimeter.y * .5 )
+  -- '          .char->coords.x = .char->x_origin
+  -- '          .char->coords.y = .char->y_origin
+  --
+  --           .char->coords = V2_Add( objectLoad.coords, V2_Subtract( .origin, V2_Scale( .char->perimeter, .5 ) ) )
+  --
+  --           .char->x_origin = .char->coords.x
+  --           .char->y_origin = .char->coords.y
+  --
+  --         End With
+  --
+  --       Next
+  --
+  --     Next
+  --
+  --   Next
+  --
+  --   objectLoad.funcs.active_state = 0
+  --   objectLoad.current_anim = 0
+  --   objectLoad.frame = 0
+  --
+  --   objectLoad.maxhp = objectLoad.hp
+  --   objectLoad.switch_room = -1
+  --
+  --   LLObject_UniqueCheck( objectLoad )
+  --
+  --
+  --
+  --   Return 1
+end

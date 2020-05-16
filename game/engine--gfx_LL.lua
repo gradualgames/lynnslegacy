@@ -1,4 +1,40 @@
-require("game/map")
+require("game/macros")
+
+--Updates a room using the tile indices from the room to arrange
+--the spritebatch for drawing, based on an image header.
+function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
+
+  spriteBatch:clear()
+  local topLeftMapX = math.floor(camera.x / imageHeader.x)
+  local topLeftMapY = math.floor(camera.y / imageHeader.y)
+  local topLeftScreenX = -(camera.x % imageHeader.x)
+  local topLeftScreenY = -(camera.y % imageHeader.y)
+  local mapX = topLeftMapX
+  local mapY = topLeftMapY
+  local screenX = topLeftScreenX
+  local screenY = topLeftScreenY
+  for y = 1, 14 do
+    mapX = topLeftMapX
+    screenX = topLeftScreenX
+    for x = 1, 21 do
+      if mapX >= 0 and mapX < room.x and
+         mapY >= 0 and mapY < room.y then
+        local tileIndex = bit.band(room.layout[layer][room.x * mapY + mapX + 1], 0xff)
+        local quad = love.graphics.newQuad(
+          imageHeader.x * tileIndex, 0,
+          imageHeader.x, imageHeader.y,
+          imageHeader.x * imageHeader.frames, imageHeader.y)
+        spriteBatch:add(quad, screenX, screenY)
+      end
+      mapX = mapX + 1
+      screenX = screenX + imageHeader.x
+    end
+    mapY = mapY + 1
+    screenY = screenY + imageHeader.y
+  end
+  spriteBatch:flush()
+
+end
 
 function blit_scene()
   -- If llg( do_chap ) = 0 Then
@@ -408,97 +444,3 @@ function blit_object_ex(enemy)
   --
   -- End With
 end
-
---Updates a room using the tile indices from the room to arrange
---the spritebatch for drawing, based on an image header.
-function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
-
-  spriteBatch:clear()
-  local topLeftMapX = math.floor(camera.x / imageHeader.x)
-  local topLeftMapY = math.floor(camera.y / imageHeader.y)
-  local topLeftScreenX = -(camera.x % imageHeader.x)
-  local topLeftScreenY = -(camera.y % imageHeader.y)
-  local mapX = topLeftMapX
-  local mapY = topLeftMapY
-  local screenX = topLeftScreenX
-  local screenY = topLeftScreenY
-  for y = 1, 14 do
-    mapX = topLeftMapX
-    screenX = topLeftScreenX
-    for x = 1, 21 do
-      if mapX >= 0 and mapX < room.x and
-         mapY >= 0 and mapY < room.y then
-        local tileIndex = bit.band(room.layout[layer][room.x * mapY + mapX + 1], 0xff)
-        local quad = love.graphics.newQuad(
-          imageHeader.x * tileIndex, 0,
-          imageHeader.x, imageHeader.y,
-          imageHeader.x * imageHeader.frames, imageHeader.y)
-        spriteBatch:add(quad, screenX, screenY)
-      end
-      mapX = mapX + 1
-      screenX = screenX + imageHeader.x
-    end
-    mapY = mapY + 1
-    screenY = screenY + imageHeader.y
-  end
-  spriteBatch:flush()
-
-end
-
-function drawFirstSpriteInImage(spriteSheet, image, screenX, screenY)
-  local quadX, quadY = 0, 0
-  local quad = love.graphics.newQuad(
-    quadX,
-    quadY,
-    spriteSheet.width,
-    spriteSheet.height,
-    image:getDimensions())
-  love.graphics.draw(image, quad, screenX, screenY)
-end
-
-function drawImage(spriteSheet, image, screenX, screenY)
-  love.graphics.draw(image, screenX, screenY)
-end
-
--- --This function just lays out the first sprite from the sprite
--- --sheet into the sprite batch, just for testing.
--- function layoutFirstSpriteInSpriteBatch(spriteSheet, spriteBatch)
---
---   spriteBatch:clear()
---   local quadX, quadY = 0, 0
---   for i = 1, 1 do
---     local quad = love.graphics.newQuad(
---       quadX,
---       quadY,
---       spriteSheet.width,
---       spriteSheet.height,
---       spriteSheet.width * spriteSheet.frameCount,
---       spriteSheet.height)
---     spriteBatch:add(quad, quadX, quadY)
---     quadX = quadX + spriteSheet.width
---   end
---   spriteBatch:flush()
---
--- end
---
--- --This function lays out a sprite batch with all frames in
--- --order. This is really just used for debugging and inspecting
--- --a given sprite sheet.
--- function layoutSpriteBatch(spriteSheet, spriteBatch)
---
---   spriteBatch:clear()
---   local quadX, quadY = 0, 0
---   for i = 1, spriteSheet.frameCount do
---     local quad = love.graphics.newQuad(
---       quadX,
---       quadY,
---       spriteSheet.width,
---       spriteSheet.height,
---       spriteSheet.width * spriteSheet.frameCount,
---       spriteSheet.height)
---     spriteBatch:add(quad, quadX, quadY)
---     quadX = quadX + spriteSheet.width
---   end
---   spriteBatch:flush()
---
--- end
