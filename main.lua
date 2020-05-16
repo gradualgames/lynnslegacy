@@ -3,6 +3,7 @@ require("game/load/loadmap")
 require("game/load/loadxml")
 require("game/gfx/convertgfx")
 require("game/gfx/screen")
+require("game/draw")
 require("game/enemies")
 require("game/map")
 
@@ -18,13 +19,6 @@ function love.load()
   accumulator = 0.0
 
   imageHeaderCache = {}
-
-  --The original game loaded all image data at once during a splash
-  --screen, but I've chosen to move to a lazy loading design so that
-  --the development of the port will go a bit faster. We could move back
-  --to pre-loading later if we want to.
-  --loadSpriteSheets()
-
   objectXmlCache = {}
 
   --Load map data
@@ -37,14 +31,7 @@ function love.load()
 
   curRoom = 3
 
-  --enemies = {}
-  log.level = "debug"
-  log.outfile = "log.txt"
   set_up_room_enemies(map.rooms[curRoom].enemies)
-  log.level = "fatal"
-
-  --LLSystem_ObjectFromXML()
-  --createEnemyAnimations()
 
   camera = {}
   camera.x = 0
@@ -86,22 +73,7 @@ end
 
 function love.draw()
   startDrawing()
-
-  layoutLayers()
-
-  drawLayers()
-
-  --Imitating fade to red from Lynn's Legacy
-  -- love.graphics.setCanvas(paletteCanvas)
-  -- for x = 1,256 do
-  --     r,g,b = palette[x][1],palette[x][2],palette[x][3]
-  --     palette[x][1] = math.min(palette[x][1] + .01, 1)
-  --     palette[x][2] = math.max(palette[x][2] - .04, 0)
-  --     palette[x][3] = math.max(palette[x][3] - .04, 0)
-  --     love.graphics.setColor(r,g,b)
-  --     love.graphics.points(x, 1)
-  -- end
-
+  blit_scene()
   doneDrawing()
 end
 
