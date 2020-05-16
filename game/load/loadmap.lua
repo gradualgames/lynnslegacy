@@ -233,85 +233,84 @@ function loadMap(fileName)
       room.enemies = {}
 
       for enemyIndex = 1, room.numEnemies do
-
-        local enemy = {}
-        enemy.xOrigin = readInt(mapBlob)
-        log.debug("enemy.xOrigin: "..enemy.xOrigin)
-        enemy.yOrigin = readInt(mapBlob)
-        log.debug("enemy.yOrigin: "..enemy.yOrigin)
+        local enemy = create_Object()
+        enemy.x_origin = readInt(mapBlob)
+        log.debug("enemy.x_origin: "..enemy.x_origin)
+        enemy.y_origin = readInt(mapBlob)
+        log.debug("enemy.y_origin: "..enemy.y_origin)
         enemy.id = readString(mapBlob)
         log.debug("enemy.id: "..enemy.id)
         enemy.direction = readInt(mapBlob)
         log.debug("enemy.direction: "..enemy.direction)
-        enemy.seqHere = readInt(mapBlob)
-        log.debug("enemy.seqHere: "..enemy.seqHere)
-        enemy.spawnH = readShort(mapBlob)
-        log.debug("enemy.spawnH: "..enemy.spawnH)
-        enemy.isHSet = readShort(mapBlob)
-        log.debug("enemy.isHSet: "..enemy.isHSet)
+        enemy.seq_here = readInt(mapBlob)
+        log.debug("enemy.seq_here: "..enemy.seq_here)
+        enemy.spawn_h = readShort(mapBlob)
+        log.debug("enemy.spawn_h: "..enemy.spawn_h)
+        enemy.is_h_set = readShort(mapBlob)
+        log.debug("enemy.is_h_set: "..enemy.is_h_set)
         enemy.chap = readInt(mapBlob)
         log.debug("enemy.chap: "..enemy.chap)
-        enemy.spawnD = readInt(mapBlob)
-        log.debug("enemy.spawnD: "..enemy.spawnD)
-        enemy.isDSet = readInt(mapBlob)
-        log.debug("enemy.isDSet: "..enemy.isDSet)
+        enemy.spawn_d = readInt(mapBlob)
+        log.debug("enemy.spawn_d: "..enemy.spawn_d)
+        enemy.is_d_set = readInt(mapBlob)
+        log.debug("enemy.is_d_set: "..enemy.is_d_set)
         enemy.reserved_5 = readInt(mapBlob)
         log.debug("enemy.reserved_5: "..enemy.reserved_5)
         enemy.seq = {}
-        loadSeq(mapBlob, enemy.seqHere, enemy.seq, "enemy", enemyIndex)
+        loadSeq(mapBlob, enemy.seq_here, enemy.seq, "enemy", enemyIndex)
 
-        enemy.spawnCond = readInt(mapBlob)
-        log.debug("enemy.spawnCond: "..enemy.spawnCond)
+        enemy.spawn_cond = readInt(mapBlob)
+        log.debug("enemy.spawn_cond: "..enemy.spawn_cond)
 
-        if enemy.spawnCond ~= 0 then
+        if enemy.spawn_cond ~= 0 then
 
-          enemy.spawnInfo = {}
-          enemy.spawnInfo.waitN = readInt(mapBlob)
-          log.debug("enemy.spawnInfo.waitN: "..enemy.spawnInfo.waitN)
-          enemy.spawnInfo.waitSpawn = {}
+          enemy.spawn_info = {}
+          enemy.spawn_info.wait_n = readInt(mapBlob)
+          log.debug("enemy.spawn_info.wait_n: "..enemy.spawn_info.wait_n)
+          enemy.spawn_info.wait_spawn = {}
 
-          for loopSpawns = 1, enemy.spawnInfo.waitN do
+          for loopSpawns = 1, enemy.spawn_info.wait_n do
             local spawn = {}
-            spawn.codeIndex = readShort(mapBlob)
-            log.debug("spawn.codeIndex: "..spawn.codeIndex)
-            spawn.codeState = readInt(mapBlob)
-            log.debug("spawn.codeState: "..spawn.codeState)
-            table.insert(enemy.spawnInfo.waitSpawn, spawn)
+            spawn.code_index = readShort(mapBlob)
+            log.debug("spawn.code_index: "..spawn.code_index)
+            spawn.code_state = readInt(mapBlob)
+            log.debug("spawn.code_state: "..spawn.code_state)
+            table.insert(enemy.spawn_info.wait_spawn, spawn)
           end
 
-          enemy.spawnInfo.killN = readInt(mapBlob)
-          log.debug("enemy.spawnInfo.killN: "..enemy.spawnInfo.killN)
-          enemy.spawnInfo.killSpawn = {}
+          enemy.spawn_info.kill_n = readInt(mapBlob)
+          log.debug("enemy.spawn_info.kill_n: "..enemy.spawn_info.kill_n)
+          enemy.spawn_info.kill_spawn = {}
 
-          for loopSpawns = 1, enemy.spawnInfo.killN do
+          for loopSpawns = 1, enemy.spawn_info.kill_n do
             local spawn = {}
-            spawn.codeIndex = readShort(mapBlob)
-            log.debug("spawn.codeIndex: "..spawn.codeIndex)
-            spawn.codeState = readInt(mapBlob)
-            log.debug("spawn.codeState: "..spawn.codeState)
-            table.insert(enemy.spawnInfo.killSpawn, spawn)
+            spawn.code_index = readShort(mapBlob)
+            log.debug("spawn.code_index: "..spawn.code_index)
+            spawn.code_state = readInt(mapBlob)
+            log.debug("spawn.code_state: "..spawn.code_state)
+            table.insert(enemy.spawn_info.kill_spawn, spawn)
           end
 
-          enemy.spawnInfo.activeN = readInt(mapBlob)
-          log.debug("enemy.spawnInfo.activeN: "..enemy.spawnInfo.activeN)
-          enemy.spawnInfo.activeSpawn = {}
+          enemy.spawn_info.active_n = readInt(mapBlob)
+          log.debug("enemy.spawn_info.active_n: "..enemy.spawn_info.active_n)
+          enemy.spawn_info.active_spawn = {}
 
-          for loopSpawns = 1, enemy.spawnInfo.activeN do
+          for loopSpawns = 1, enemy.spawn_info.active_n do
             local spawn = {}
-            spawn.codeIndex = readShort(mapBlob)
-            log.debug("spawn.codeIndex: "..spawn.codeIndex)
-            spawn.codeState = readInt(mapBlob)
-            log.debug("spawn.codeState: "..spawn.codeState)
-            table.insert(enemy.spawnInfo.activeSpawn, spawn)
+            spawn.code_index = readShort(mapBlob)
+            log.debug("spawn.code_index: "..spawn.code_index)
+            spawn.code_state = readInt(mapBlob)
+            log.debug("spawn.code_state: "..spawn.code_state)
+            table.insert(enemy.spawn_info.active_spawn, spawn)
           end
 
         end
 
-        enemy.coords = {}
-        enemy.coords.x = enemy.xOrigin
-        enemy.coords.y = enemy.yOrigin
+        enemy.coords = create_vector()
+        enemy.coords.x = enemy.x_origin
+        enemy.coords.y = enemy.y_origin
 
-        enemy.oriDir = enemy.direction
+        enemy.ori_dir = enemy.direction
 
         table.insert(room.enemies, enemy)
 

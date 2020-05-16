@@ -53,6 +53,7 @@ function create_Object()
   --   diag_chase            As Integer
   --   diag_thrust           As Integer
   --   direction             As Integer
+  object.direction = 0
   --   far_reset_delay       As Double
   --
   --   '' needs a simple explosion display
@@ -179,6 +180,7 @@ function create_Object()
   --   on_ice                As Integer
   --
   --   ori_dir               As Integer
+  object.ori_dir = 0
   --
   --   pause                 As Single
   object.pause = 0
@@ -211,10 +213,14 @@ function create_Object()
   --   spawn_y               As Integer
   --
   --   spawn_h               As uShort
+  object.spawn_h = 0
   --   is_h_set              As uShort
+  object.is_h_set = 0
   --
   --   spawn_d               As Integer
+  object.spawn_d = 0
   --   is_d_set              As Integer
+  object.is_d_set = 0
   --
   --   spawns_id             As String
   --
@@ -261,7 +267,9 @@ function create_Object()
   --
   --
   --   x_origin              As Integer
+  object.x_origin = 0
   --   y_origin              As Integer
+  object.y_origin = 0
   --
   --   yet_spawned           As Integer
   --
@@ -285,12 +293,15 @@ function create_Object()
   --   '' ==========================
   --     action_sequence       As Integer
   --     chap                  As Integer
+  object.chap = 0
   --     dest_x                As Integer
   --     dest_y                As Integer
   --
   --     sel_seq               As Integer
   --     seq                   As sequence_type Ptr
+  object.seq = {}
   --     seq_here              As Integer
+  object.seq_here = 0
   --     seq_paused            As Integer
   --     seq_release           As Integer
   --
@@ -329,7 +340,9 @@ function create_Object()
   object.coords = create_vector()
   --
   --     spawn_cond As Integer
+  object.spawn_cond = 0
   --     spawn_info As LLObject_ConditionalSpawn Ptr
+  object.spawn_info = {}
   --
   --     perimeter As Vector
   --
@@ -459,79 +472,261 @@ function create_Object()
   --   reserved_3            As Integer
   --   reserved_4            As Integer
   --   reserved_5            As Integer
+  object.reserved_5 = 0
   --   reserved_6            As Integer
   --
   -- End Type
   return object
 end
 
--- Loads enemy xml and sprite image files from the current map.
-function LLSystem_ObjectFromXML()
+-- Loops over the enemies of the current room and spawns them
+function set_up_room_enemies(enemies)
+    -- Dim As Integer setup
+    --
+    --
+    -- For setup = 0 To enemies - 1
+  for setup = 1, #enemies do
+    --   '' cycle thru these enemies
+    --
+    --   With enemy[setup]
+    local enemy = enemies[setup]
+    --
+    --     If .spawn_cond <> 0 Then
+    --
+    --       If .spawn_info->wait_n > 0 Then
+    --
+    --         If LLObject_SpawnWait( Varptr( enemy[setup] ) ) <> 0 Then
+    --
+    --           '' done waiting
+    --
+    --           LLSystem_CopyNewObject( enemy[setup] )
+    LLSystem_ObjectLoad(enemy)
+    --
+    --         Else
+    --           Dim As String oldid
+    --
+    --           oldid = enemy[setup].id
+    --
+    --           LLSystem_ObjectDeepCopy( enemy[setup], *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( "data\object\null.xml" ) ) )
+    --           enemy[setup].id = oldid
+    --
+    --         End If
+    --
+    --       Else
+    --
+    --         LLSystem_CopyNewObject( enemy[setup] )
+    --
+    --       End If
+    --
+    --     Else
+    --
+    --     '' if regular then spawn
+    --       LLSystem_CopyNewObject( enemy[setup] )
+    --
+    --     End If
+    --
+    --     '' setting a couple last vars
+    --     .num = setup
+    --
+    --     If .spawn_cond <> 0 Then
+    --
+    --       If LLObject_SpawnKill( Varptr( enemy[setup] ) ) <> 0 Then
+    --         '' all conditions met to kill
+    --
+    --         __make_dead  ( Varptr( enemy[setup] ) )
+    --         __cripple  ( Varptr( enemy[setup] ) )
+    --
+    --         If(                                     _
+    --             ( .unique_id = u_chest         ) Or _
+    --             ( .unique_id = u_bluechest     ) Or _
+    --             ( .unique_id = u_bluechestitem ) Or _
+    --             ( .unique_id = u_ghut          ) Or _
+    --             ( .unique_id = u_button        ) Or _
+    --             ( .unique_id = u_gbutton       )    _
+    --           ) Then
+    --           .current_anim = 1
+    --
+    --         End If
+    --
+    --
+    --         .seq_release = 0
+    --
+    --         .spawn_kill_trig = -1
+    --
+    --
+    --         if .unique_id = u_biglarva then
+    --           LLObject_ShiftState( Varptr( enemy[setup] ), 3 )
+    --
+    --         end if
+    --
+    --         if .unique_id = u_ghut then
+    --           LLObject_ShiftState( Varptr( enemy[setup] ), 3 )
+    --
+    --         end if
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   End With
+    --
+    --   #IfDef LL_LOGRoomEnemySetup
+    --     LLSystem_Log( "Initialized room["& llg( this_room ).i &"] enemy " & setup, "set_up_room_enemies.txt" )
+    --
+    --   #EndIf
+    --
+    -- Next
+  end
+end
 
-  for i = 1, map.rooms[curRoom].numEnemies do
-    local roomEnemy = map.rooms[curRoom].enemies[i]
-    local enemy = create_Object()
+-- Loads an object and its images from xml and spr files. Assumes that
+-- objectLoad.id has been initialized with the relative path of an object
+-- xml file.
+function LLSystem_ObjectLoad(objectLoad)
+  --   Dim As Integer op1, op2, i, it, itt
+  --   Dim As String dblquote = """"""
+  --
+  --   op1 = ( objectLoad.id = "" )
+  --   op2 = ( Dir( objectLoad.id ) = "" )
+  --
+  --   If op1 Or op2 Then
+  --
+  --     Return 0
+  --
+  --   End If
+  --
+  --   Dim As xml_type Ptr clean_up
+  --
+  --
+  --   clean_up = xml_Load( objectLoad.id )
+  --
+  --
+  --   #IfDef LL_OBJECTLOADPROGRESS
+  --     LLSystem_Log( "XML loaded.", "objectload.txt" )
+  --
+  --   #EndIf
+  --
+  --   objectLoad.flash_time = .02
+  --   objectLoad.flash_length = 30
+  --
+  --   objectLoad.hit_sound = sound_enemyhit
+  --   objectLoad.dead_sound = sound_enemykill
+  --
+  --
+  --   LLSystem_ObjectFromXML( clean_up, objectLoad )
+  LLSystem_ObjectFromXML(objectLoad)
+  --
+  --   #IfDef LL_OBJECTLOADPROGRESS
+  --     LLSystem_Log( "Object extracted from XML.", "objectload.txt" )
+  --
+  --   #EndIf
+  --
+  --   xml_Destroy( clean_up )
+  --
+  --   #IfDef LL_OBJECTLOADPROGRESS
+  --     LLSystem_Log( "Destroyed XML tree.", "objectload.txt" )
+  --
+  --   #EndIf
+  --
+  --
+  --   For i = 0 To objectLoad.anims - 1
+  --
+  --     For it = 0 To objectLoad.anim[i]->frames - 1
+  --
+  --       For itt = 0 To objectLoad.animControl[i].frame[it].concurrents - 1
+  --
+  --         With objectLoad.animControl[i].frame[it].concurrent[itt]
+  --           '' one day...
+  --           '' .char.location = V2_Add( objectLoad.location, V2_Subtract( .origin, V2_Scale( .char->perimeter, .5 ) ) )
+  --           ''
+  --           '' hehe dreams come true through hard work and diligence.
+  --
+  -- '          .char->x_origin = objectLoad.coords.x + .origin.x - ( .char->perimeter.x * .5 )
+  -- '          .char->y_origin = objectLoad.coords.y + .origin.y - ( .char->perimeter.y * .5 )
+  -- '          .char->coords.x = .char->x_origin
+  -- '          .char->coords.y = .char->y_origin
+  --
+  --           .char->coords = V2_Add( objectLoad.coords, V2_Subtract( .origin, V2_Scale( .char->perimeter, .5 ) ) )
+  --
+  --           .char->x_origin = .char->coords.x
+  --           .char->y_origin = .char->coords.y
+  --
+  --         End With
+  --
+  --       Next
+  --
+  --     Next
+  --
+  --   Next
+  --
+  --   objectLoad.funcs.active_state = 0
+  --   objectLoad.current_anim = 0
+  --   objectLoad.frame = 0
+  --
+  --   objectLoad.maxhp = objectLoad.hp
+  --   objectLoad.switch_room = -1
+  --
+  --   LLObject_UniqueCheck( objectLoad )
+  --
+  --
+  --
+  --   Return 1
+end
 
-    -- Load enemy properties defined in room xml here.
-    log.debug("Enemy id: "..roomEnemy.id)
-    enemy.id = roomEnemy.id
-    log.debug("Enemy x: "..map.rooms[curRoom].enemies[i].xOrigin)
-    enemy.coords.x = map.rooms[curRoom].enemies[i].xOrigin
-    log.debug("Enemy y: "..map.rooms[curRoom].enemies[i].yOrigin)
-    enemy.coords.y = map.rooms[curRoom].enemies[i].yOrigin
+-- Loads enemy xml and sprite image files. Assumes enemy.id has at least
+-- been initialized with the relative path of an object xml file.
+function LLSystem_ObjectFromXML(enemy)
 
-    -- Load enemy properties defined in enemy's object xml.
-    log.debug("Loading enemy xml.")
-    local enemyXml = getObjectXml(roomEnemy.id)
-    log.debug("Loading enemy sprite sheets.")
-    local spriteXml = ensureTable(enemyXml.sprite)
+  -- Load enemy properties defined in enemy's object xml.
+  log.debug("Loading enemy xml.")
+  local enemyXml = getObjectXml(enemy.id)
+  log.debug("Loading enemy sprite sheets.")
+  local spriteXml = ensureTable(enemyXml.sprite)
 
-    for spriteKey, spriteValue in pairs(spriteXml) do
-      if spriteValue.filename then
-        log.debug(" spriteValue.filename: "..spriteValue.filename)
-        local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
-        log.debug(" fixedFileName: "..fixedFileName)
-        local anim = getImageHeader(fixedFileName)
-        local animControl = create_LLObject_ImageHeader()
-        if spriteValue.rate then
-          log.debug(" spriteValue.rate: "..spriteValue.rate)
-          animControl.rate = tonumber(spriteValue.rate)
-        end
-        if spriteValue.dir_frames then
-          log.debug(" spriteValue.dir_frames: "..spriteValue.dir_frames)
-          animControl.dir_frames = tonumber(spriteValue.dir_frames)
-        end
-        table.insert(enemy.anim, anim)
-        table.insert(enemy.animControl, animControl)
+  for spriteKey, spriteValue in pairs(spriteXml) do
+    if spriteValue.filename then
+      log.debug(" spriteValue.filename: "..spriteValue.filename)
+      local fixedFileName = string.gsub(spriteValue.filename, "\\", "/")
+      log.debug(" fixedFileName: "..fixedFileName)
+      local anim = getImageHeader(fixedFileName)
+      local animControl = create_LLObject_ImageHeader()
+      if spriteValue.rate then
+        log.debug(" spriteValue.rate: "..spriteValue.rate)
+        animControl.rate = tonumber(spriteValue.rate)
       end
+      if spriteValue.dir_frames then
+        log.debug(" spriteValue.dir_frames: "..spriteValue.dir_frames)
+        animControl.dir_frames = tonumber(spriteValue.dir_frames)
+      end
+      table.insert(enemy.anim, anim)
+      table.insert(enemy.animControl, animControl)
     end
-    if enemyXml.fp then
-      enemy.fpIndex = 1
-      enemy.funcIndex = 1
-      enemy.fp = {}
-      local fp = {}
-      fp.func = {}
-      local fpXml = ensureTable(enemyXml.fp)
-      for fpKey, fpValue in pairs(fpXml) do
-        if fpValue.proc_id then
-          local procIdXml = ensureTable(fpValue.proc_id)
-          log.debug("  fpValue.proc_id: "..procIdXml[1])
-          fp.procId = procIdXml[1]
-        end
-        if fpValue.func then
-          local funcXml = ensureTable(fpValue.func)
-          for funcKey, funcValue in pairs(funcXml) do
-            log.debug("  funcValue: "..funcValue)
-            if funcValue == "second_pause" then
-              log.debug( "  Installing second_pause function.")
-              table.insert(fp.func, second_pause)
-            end
+  end
+  if enemyXml.fp then
+    enemy.fpIndex = 1
+    enemy.funcIndex = 1
+    enemy.fp = {}
+    local fp = {}
+    fp.func = {}
+    local fpXml = ensureTable(enemyXml.fp)
+    for fpKey, fpValue in pairs(fpXml) do
+      if fpValue.proc_id then
+        local procIdXml = ensureTable(fpValue.proc_id)
+        log.debug("  fpValue.proc_id: "..procIdXml[1])
+        fp.procId = procIdXml[1]
+      end
+      if fpValue.func then
+        local funcXml = ensureTable(fpValue.func)
+        for funcKey, funcValue in pairs(funcXml) do
+          log.debug("  funcValue: "..funcValue)
+          if funcValue == "second_pause" then
+            log.debug( "  Installing second_pause function.")
+            table.insert(fp.func, second_pause)
           end
         end
-        table.insert(enemy.fp, fp)
       end
+      table.insert(enemy.fp, fp)
     end
-    table.insert(enemies, enemy)
   end
 end
 

@@ -37,9 +37,13 @@ function love.load()
 
   curRoom = 3
 
-  enemies = {}
+  --enemies = {}
+  log.level = "debug"
+  log.outfile = "log.txt"
+  set_up_room_enemies(map.rooms[curRoom].enemies)
+  log.level = "fatal"
 
-  LLSystem_ObjectFromXML()
+  --LLSystem_ObjectFromXML()
   --createEnemyAnimations()
 
   camera = {}
