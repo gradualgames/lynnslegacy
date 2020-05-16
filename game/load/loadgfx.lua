@@ -188,6 +188,16 @@ function LLSystem_ImageLoad(fileName)
     end
     imageHeader.image = love.graphics.newImage(imageData)
 
+    --Now generate quads for use by Love2D later when displaying individual frames
+    --of the image.
+    imageHeader.quads = {}
+    local x = 0
+    for i = 1, imageHeader.frames do
+      table.insert(imageHeader.quads, love.graphics.newQuad(x, 0,
+        imageHeader.x, imageHeader.y, imageHeader.image:getDimensions()))
+      x = x + imageHeader.x
+    end
+
     return imageHeader
   end
 end

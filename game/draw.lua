@@ -90,8 +90,10 @@ function blit_room()
   --   '' bottom layers
   --   LLEngine_BlitLayer( 0 )
   layoutLayer(camera, map.rooms[curRoom], 1, map.imageHeader, map.imageHeader.spriteBatches[1])
+  love.graphics.draw(map.imageHeader.spriteBatches[1])
   --   LLEngine_BlitLayer( 1 )
   layoutLayer(camera, map.rooms[curRoom], 2, map.imageHeader, map.imageHeader.spriteBatches[2])
+  love.graphics.draw(map.imageHeader.spriteBatches[2])
   --
   -- End If
   --
@@ -115,6 +117,7 @@ function blit_room()
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
   layoutLayer(camera, map.rooms[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
+  love.graphics.draw(map.imageHeader.spriteBatches[3])
   --
   -- End If
   --
@@ -122,11 +125,6 @@ function blit_room()
   --   __handle_menu( llg( box_entity ) )
   --
   -- End If
-
-  love.graphics.draw(map.imageHeader.spriteBatches[1])
-  love.graphics.draw(map.imageHeader.spriteBatches[2])
-  --drawEnemies()
-  love.graphics.draw(map.imageHeader.spriteBatches[3])
 end
 
 function blit_y_sorted()
@@ -211,7 +209,204 @@ function blit_y_sorted()
 end
 
 function blit_enemy(enemy)
-  log.debug("Blitting enemy: "..enemy.id)
+  -- With _enemy
+  --
+  --   Dim As Integer temp_x_cam, temp_y_cam
+  --
+  --   temp_x_cam = 0
+  --   temp_y_cam = 0
+  --
+  --   If .no_cam = 0 Then
+  --
+  --     '' this object is not camera relative
+  --     temp_x_cam = llg( this )_room.cx
+  --     temp_y_cam = llg( this )_room.cy
+  --
+  --   End If
+  --
+  --   If llg( hero ).menu_sel <> 0 Then
+  --       '' menu showing
+  --
+  --     If .unique_id = u_menu Or .unique_id = u_savepoint Then
+  --       '' the menu is the active "enemy"
+  --
+  --       llg( box_entity ) = Varptr( _enemy )
+  --
+  --
+  --     End If
+  --
+  --
+  --   Else
+  --     '' no menu
+  --
+  --     llg( box_entity ) = 0
+  --
+  --     If .projectile Then
+  --
+  --       If .projectile->overChar = FALSE Then
+  --         '' this enemy's projectiles are under it.
+  --         blit_enemy_proj( Varptr( _enemy ) )
+  --
+  --       End If
+  --
+  --     End If
+  --
+  --
+  --
+  --     If Not ( .unique_id = u_menu ) Then
+  --       '' put the enemy on screen
+  --
+  --       blit_object( VarPtr( _enemy ) )
+  blit_object(enemy)
+  --
+  --     End If
+  --
+  --
+  --     If .projectile Then
+  --
+  --       If .projectile->overChar Then
+  --         '' this enemy's projectiles are over it.
+  --         blit_enemy_proj( Varptr( _enemy ) )
+  --
+  --       End If
+  --
+  --     End If
+  --
+  --
+  --
+  --     If .grult_proj_trig <> 0 Then
+  --
+  --       Put( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
+  --
+  --     End If
+  --
+  --     If .anger_proj_trig <> 0 Then
+  --
+  --       Put( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
+  --
+  --     End If
+  --
+  --
+  --     If .cur_expl > 0 Then
+  --
+  --       Dim As Integer px, py, pf, pa, do_expl
+  --
+  --       For do_expl = 0 To .cur_expl - 1
+  --         '' cycle through active explosions
+  --
+  --         With .explosion( do_expl )
+  --
+  --           px = .x
+  --           py = .y
+  --           pf = .frame
+  --           pa = .alive
+  --
+  --         End With
+  --
+  --         If pa <> 0 Then
+  --           '' this explosion is animating
+  --
+  --           With *( .anim[.expl_anim] )
+  --
+  --             Put ( px - temp_x_cam, py - temp_y_cam ), @.image[pf * ( .arraysize )], Trans
+  --
+  --           End With
+  --
+  --         End If
+  --
+  --       Next
+  --
+  --     End If
+  --
+  --   End If
+  --
+  -- End With
+end
+
+function blit_object(enemy)
+--   With *this
+--
+--
+--   If .invisible = 0 Then
+--
+--     dim as integer handShake
+--     handShake = LLObject_CalculateFrame( this[0] )
+--     With .anim[.current_anim]->frame[handShake]
+--
+--       If .sound <> 0 Then
+--
+--         If this->animControl[this->current_anim].frame[handShake].sound_lock = 0 Then
+--
+--           Dim As Integer iifCalc
+--           iifCalc = Int( Rnd * 30 ) + 70
+--
+--           play_sample( llg( snd )[.sound], IIf( .vol <> 0, .vol, iifCalc  ) )
+--           this->animControl[this->current_anim].frame[handShake].sound_lock = -1
+--
+--         End If
+--
+--       End If
+--
+--     End With
+--
+--     blit_object_ex( this )
+  blit_object_ex(enemy)
+--
+--   End If
+--
+-- End With
+
+end
+
+function blit_object_ex(enemy)
+  -- With *( this )
+  --
+  --   Dim As Integer f_opt, x_opt, y_opt
+  --
+  --
+  --     x_opt = .coords.x
+  local x_opt = enemy.coords.x
+  --     y_opt = .coords.y
+  local y_opt = enemy.coords.y
+  --
+  --     If .no_cam = 0 Then
+  --
+  --       x_opt -= llg( this_room ).cx
+  x_opt = x_opt - camera.x
+  --       y_opt -= llg( this_room ).cy
+  y_opt = y_opt - camera.y
+  --
+  --     End If
+  --
+  --     f_opt = .frame
+  local f_opt = enemy.frame
+  --
+  --     With *( .anim[.current_anim] )
+  --
+  --       x_opt -= this->animControl[this->current_anim].x_off
+  x_opt = x_opt - enemy.animControl[enemy.current_anim].x_off
+  --       y_opt -= this->animControl[this->current_anim].y_off
+  y_opt = y_opt - enemy.animControl[enemy.current_anim].y_off
+
+  --
+  --       f_opt *= .arraysize
+  --
+  --       If LLObject_IgnoreDirectional( this ) = 0 Then
+  --         f_opt += this->direction * ( this->animControl[this->current_anim].dir_frames * .arraysize )
+  --
+  --       End If
+  --
+  --       Put( x_opt, y_opt ), varptr( .image[f_opt] ), Trans
+
+  local anim = enemy.anim[enemy.current_anim]
+  love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
+--love.graphics.draw(animation.image, animation.quads[animation.frame], screenX, screenY)
+
+
+  --
+  --     End With
+  --
+  -- End With
 end
 
 --Updates a room using the tile indices from the room to arrange

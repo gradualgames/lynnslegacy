@@ -33,7 +33,7 @@ function create_Object()
   object.animControl = {}
   --
   --   current_anim          As Integer
-  object.current_anim = 0
+  object.current_anim = 1
   --
   --   d_gold                As Integer
   --   d_health              As Integer
@@ -63,7 +63,7 @@ function create_Object()
   --
   --
   --   frame                 As Integer
-  object.frame = 0
+  object.frame = 1
   --   frame_hold            As Double
   object.frame_hold = 0
   --   high_frame            As Double

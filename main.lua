@@ -73,9 +73,7 @@ end
 
 function love.draw()
   startDrawing()
-  log.level = "debug"
   blit_scene()
-  log.level = "fatal"
   doneDrawing()
 end
 
