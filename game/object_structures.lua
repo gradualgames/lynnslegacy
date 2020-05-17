@@ -1,5 +1,28 @@
 require("game/matrices")
 
+function create_e_funcs()
+  local e_funcs = {}
+  -- Type e_funcs
+  --
+  --   active_state As Integer
+  e_funcs.active_state = 0
+  --
+  --   func As fp Ptr Ptr
+  e_funcs.func = {}
+  --
+  --   current_func As Integer Ptr
+  e_funcs.current_func = {}
+  --
+  --
+  --   func_count   As Integer Ptr
+  e_funcs.func_count = {}
+  --   states As Integer
+  e_funcs.states = 0
+  --
+  -- End Type
+  return e_funcs
+end
+
 function create_Object()
   local object = {}
   -- Type char_type
