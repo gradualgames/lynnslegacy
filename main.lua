@@ -31,7 +31,9 @@ function love.load()
 
   curRoom = 3
 
+  log.level = "debug"
   set_up_room_enemies(map.rooms[curRoom].enemies)
+  log.level = "fatal"
 
   camera = {}
   camera.x = 0

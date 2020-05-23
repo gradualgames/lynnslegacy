@@ -59,7 +59,7 @@ function create_LLSystem_ImageHeader()
   imageHeader.image = nil
 
   --   frame As LLSystem_FrameShell Ptr
-  imageHeader.frame = create_LLSystem_FrameShell()
+  imageHeader.frame = {}
   --   frames As Integer
   imageHeader.frames = 0
   -- End Type

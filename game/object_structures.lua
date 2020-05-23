@@ -36,6 +36,7 @@ function create_Object()
   --   animating             As Integer
   object.animating = 0
   --   anims                 As Integer
+  object.anims = 0
   --
   --   hp                    As Integer
   --   maxhp                 As Integer
@@ -87,6 +88,7 @@ function create_Object()
   --   froggy                As Integer
   --
   --   funcs                 As e_funcs
+  object.funcs = create_e_funcs()
   --
   --   thrust                As Integer
   --
