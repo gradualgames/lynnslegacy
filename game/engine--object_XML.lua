@@ -8,7 +8,19 @@ function LLSystem_ObjectFromXML(enemy)
 
   local xml = getObjectXml(enemy.id)
 --   #Define func_drop objectLoad.funcs.func[objectLoad.funcs.active_state][objectLoad.funcs.current_func[objectLoad.funcs.active_state]]
---   #Define inc_func  objectLoad.funcs.current_func[objectLoad.funcs.active_state] += 1: If objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] Then objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
+  function func_drop(func)
+    local funcList = enemy.funcs.func[enemy.funcs.active_state]
+    funcList[enemy.funcs.current_func[enemy.funcs.active_state]] = func
+  end
+--   #Define inc_func  objectLoad.funcs.current_func[objectLoad.funcs.active_state] += 1:
+--                       If objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] Then
+--                         objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
+  function inc_func()
+    enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + 1
+    if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
+      enemy.funcs.current_func[enemy.funcs.active_state] = 0
+    end
+  end
 --
 --   With objectLoad
 --
@@ -29,68 +41,7 @@ function LLSystem_ObjectFromXML(enemy)
 --
 --       Case "fp"
   elseif xml.fp then
---         .funcs.states += 1
---
---         .funcs.func_count   = Reallocate( .funcs.func_count,   .funcs.states * Len( Integer ) )
---         .funcs.current_func = Reallocate( .funcs.current_func, .funcs.states * Len( Integer ) )
---
---         .funcs.func         = Reallocate( .funcs.func,         .funcs.states * Len( fp Ptr )  )
---
---         .funcs.active_state = .funcs.states - 1
---
---         .funcs.func_count[.funcs.active_state] = 0
---         .funcs.current_func[.funcs.active_state] = 0
---
---         .funcs.func[.funcs.active_state] = 0
---
---         Dim As Integer cn, c2
---
---         Dim As list_type Ptr cn_thr
---
---         cn_thr = x->list
---         c2 = 0
---
---         For cn = 0 To length( x->list ) - 1
---
---           If CPtr( xml_type Ptr, cn_thr->dat.pnt )->key = "block_macro" Then
---
---             Select Case CPtr( xml_type Ptr, cn_thr->dat.pnt )->list->dat.s
---
---               Case "dead_block"
---                 c2 = 6
---                 Exit For
---
---               Case "dead_drop_block"
---                 c2 = 7
---                 Exit For
---
---               Case "fire_block"
---                 c2 = 3
---                 Exit For
---
---               Case "ice_block"
---                 c2 = 3
---                 Exit For
---
---             End Select
---
---           End If
---
---           If CPtr( xml_type Ptr, cn_thr->dat.pnt )->key = "func" Then
---             c2 += 1
---
---           End If
---
---           cn_thr = cn_thr->nxt
---
---         Next
---
---         .funcs.func_count[.funcs.active_state] = c2
---         .funcs.func[.funcs.active_state] = CAllocate( .funcs.func_count[.funcs.active_state] * Len( fp ) )
---
---     End Select
---
---   End With
+
   end
 --
 --   Dim As list_type Ptr thr
@@ -398,10 +349,98 @@ function LLSystem_ObjectFromXML(enemy)
 --       End Select
 --
 --     ElseIf Instr( concat, "fp->" ) Then
---
+  if xml.fp then
+    log.debug("Found fp tag.")
+    local fpXml = ensureTable(xml.fp)
+    for key, value in pairs(fpXml) do
+
+
+      --NOTE: This chunk comes from a select statement higher up
+      --in the FB code that performs allocation and counting. It
+      --makes more sense here due to how we are processing the xml.
+      --         .funcs.states += 1
+      enemy.funcs.states = enemy.funcs.states + 1
+      --
+      --         .funcs.func_count   = Reallocate( .funcs.func_count,   .funcs.states * Len( Integer ) )
+      table.insert(enemy.funcs.func_count, 0)
+      --         .funcs.current_func = Reallocate( .funcs.current_func, .funcs.states * Len( Integer ) )
+      table.insert(enemy.funcs.current_func, {})
+      --
+      --         .funcs.func         = Reallocate( .funcs.func,         .funcs.states * Len( fp Ptr )  )
+      table.insert(enemy.funcs.func, {})
+      --
+      --         .funcs.active_state = .funcs.states - 1
+      enemy.funcs.active_state = enemy.funcs.states
+      --
+      --         .funcs.func_count[.funcs.active_state] = 0
+      enemy.funcs.func_count[enemy.funcs.active_state] = 1
+      --         .funcs.current_func[.funcs.active_state] = 0
+      enemy.funcs.current_func[enemy.funcs.active_state] = 1
+      --
+      --         .funcs.func[.funcs.active_state] = 0
+      --
+
+      --TODO: I do not know what the following c2/cn
+      -- loop and logic does. Don't think we will
+      -- need it til we port those _block tags.
+
+      --         Dim As Integer cn, c2
+      --
+      --         Dim As list_type Ptr cn_thr
+      --
+      --         cn_thr = x->list
+      --         c2 = 0
+      --
+      --         For cn = 0 To length( x->list ) - 1
+      --
+      --           If CPtr( xml_type Ptr, cn_thr->dat.pnt )->key = "block_macro" Then
+      --
+      --             Select Case CPtr( xml_type Ptr, cn_thr->dat.pnt )->list->dat.s
+      --
+      --               Case "dead_block"
+      --                 c2 = 6
+      --                 Exit For
+      --
+      --               Case "dead_drop_block"
+      --                 c2 = 7
+      --                 Exit For
+      --
+      --               Case "fire_block"
+      --                 c2 = 3
+      --                 Exit For
+      --
+      --               Case "ice_block"
+      --                 c2 = 3
+      --                 Exit For
+      --
+      --             End Select
+      --
+      --           End If
+      --
+      --           If CPtr( xml_type Ptr, cn_thr->dat.pnt )->key = "func" Then
+      --             c2 += 1
+      --
+      --           End If
+      --
+      --           cn_thr = cn_thr->nxt
+      --
+      --         Next
+      --
+      --         .funcs.func_count[.funcs.active_state] = c2
+      --         .funcs.func[.funcs.active_state] = CAllocate( .funcs.func_count[.funcs.active_state] * Len( fp ) )
+      --
+      --     End Select
+      --
+      --   End With
+
+
+
+
 --       Select Case LCase( x->key )
 --
 --         Case "proc_id"
+      if value.proc_id then
+        log.debug(" value.proc_id: "..value.proc_id)
 --
 --           #Define LLObject_ProcIDLoad(__Proc_ID__) _
 --             Case ###__Proc_ID__: objectLoad.##__Proc_ID__ = objectLoad.funcs.active_state
@@ -422,8 +461,14 @@ function LLSystem_ObjectFromXML(enemy)
 --             LLObject_ProcIDLoad( thrust_state )
 --
 --           End Select
+        --NOTE: I think this one line is equivalent to the above select case.
+        --In lua, we table["property"] is equivalent to table.property. We can
+        --use the proc_id text directly from the xml to set it to the value of the
+        --current active state, which is what is being done above.
+        enemy[value.proc_id] = enemy.funcs.active_state
 --
 --         Case "block_macro"
+      elseif value.block_macro then
 --
 --
 --           #IfNDef LL_Minimal
@@ -462,7 +507,19 @@ function LLSystem_ObjectFromXML(enemy)
 --           #EndIf '' LL_Minimal
 --
 --         Case "func"
+      elseif value.func then
+        local funcXml = ensureTable(value.func)
+        for key, value in pairs(funcXml) do
+          log.debug(" key: "..key)
+          log.debug(" value: "..value)
 --
+          --NOTE: This one line may be equivalent to the entire switch case below.
+          local func = _G[value]
+          if func then
+            log.debug("Installing func: "..value)
+            func_drop(_G[value])
+            inc_func()
+          end
 --           #Define LLObject_FunctionLoad(___x) _
 --             Case ###___x: func_drop = CPtr( Any Ptr, ProcPtr( __##___x ) ): inc_func
 --
@@ -697,6 +754,8 @@ function LLSystem_ObjectFromXML(enemy)
 --       End Select
 --
 --     Else
+        end
+      else
 --
 --       #Define LLObject_AttributeLoad(__attribute__) _
 --         Case ###__attribute__: objectLoad.##__attribute__ = Val( thr->dat.s )
@@ -1030,6 +1089,10 @@ function LLSystem_ObjectFromXML(enemy)
 --     Exit Sub
 --
 --   End If
+      end
+    end
+  end
+
 --
 --   Dim As Integer i
 --   For i = 0 To  length( thr ) - 1
