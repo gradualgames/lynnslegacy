@@ -1,2 +1,2 @@
 * linguist-vendored
-*.bas linguist-vendored=false
+*.lua linguist-vendored=false
