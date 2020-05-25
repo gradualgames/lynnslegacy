@@ -236,7 +236,11 @@ function blit_y_sorted()
   --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
   --
   --     blit_enemy( *y_sort( _blit_em ) )
-    blit_enemy(now_room().enemies[i])
+    local enemy = now_room().enemies[i]
+    --FIXME: This is a hack to narrow the problem space while porting. See LLObject_IsWithin
+    if enemy.onlycopter then
+      blit_enemy(enemy)
+    end
   --
   --   End If
   --
@@ -416,6 +420,7 @@ function blit_object_ex(enemy)
   --
   --     f_opt = .frame
   local f_opt = enemy.frame
+  log.debug("f_opt: "..f_opt)
   --
   --     With *( .anim[.current_anim] )
   --

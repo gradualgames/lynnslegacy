@@ -99,13 +99,17 @@ function LLSystem_ObjectFromXML(enemy)
 --             .animControl[.current_anim].frame = CAllocate( Len( LLObject_FrameControl ) * ( .anim[.current_anim]->frames ) )
 --
 --           Case "dir_frames"
-      elseif value.dir_frames then
+      end
+
+      if value.dir_frames then
 --             .animControl[.current_anim].dir_frames = Val( thr->dat.s )
         log.debug( " value.dir_frames: "..value.dir_frames)
         enemy.animControl[enemy.current_anim].dir_frames = tonumber(value.dir_frames)
 --
 --           Case "rate"
-      elseif value.rate then
+      end
+
+      if value.rate then
 --             .animControl[.current_anim].rate       = Val( thr->dat.s )
         log.debug( " value.rate: "..value.rate)
         enemy.animControl[enemy.current_anim].rate = tonumber(value.rate)
@@ -518,6 +522,14 @@ function LLSystem_ObjectFromXML(enemy)
           if func then
             log.debug("Installing func: "..value)
             func_drop(_G[value])
+            inc_func()
+          else
+            log.debug("Installing no-op func for: "..value)
+            func_drop(
+              function()
+                log.debug("TODO: Implement: "..value)
+                return 0
+              end)
             inc_func()
           end
 --           #Define LLObject_FunctionLoad(___x) _
@@ -1106,4 +1118,6 @@ function LLSystem_ObjectFromXML(enemy)
   --values. They are used while loading XML, but are clearly
   --reset before actual play begins.
   enemy.current_anim = 1
+  enemy.funcs.active_state = 1
+  enemy.funcs.current_func[enemy.funcs.active_state] = 1
 end

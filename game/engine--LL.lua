@@ -1,4 +1,5 @@
 require("game/engine--object")
+require("game/macros")
 
 -- Loops over the enemies of the current room and spawns them
 function set_up_room_enemies(enemies)
@@ -120,15 +121,21 @@ function act_enemies(enemies)
   -- Dim As Integer do_stuff
   --
   -- For do_stuff = 0 To _enemies - 1
+  for i = 1, #enemies do
   --
   --
   --   With _enemy[do_stuff]
+    local enemy = enemies[i]
   --
   --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
+    if LLObject_IsWithin(enemy) then
   --
   --       If ( .seq_paused <> 0 ) And ( llg( seq ) <> 0 ) Then
+      --TODO: Actually port the above if statement once we understand the sequence system.
+      if false then
   --
   --       Else
+      else
   --
   --
   --         .seq_paused = 0
@@ -682,14 +689,23 @@ function act_enemies(enemies)
   --         End If
   --
   --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
+        log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
+        log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
+        local result = enemy.funcs.func[enemy.funcs.active_state][enemy.funcs.current_func[enemy.funcs.active_state]](enemy)
+        log.debug("result: "..(result and result or "nil"))
+        enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + result
+--NOTE: The above line should be ported to Lua first as it is what actually performs the function execution.
   --
   --       End If
+      end
   --
   --     End If
+    end
   --
   --   End With
   --
   -- Next
+  end
   --
   -- If _enemy = Varptr( now_room().temp_enemy( 0 ) ) Then
   --   maintain_temps( Varptr( now_room() ) )

@@ -31,13 +31,13 @@ function love.load()
 
   curRoom = 3
 
-  log.level = "debug"
+  --log.level = "debug"
   set_up_room_enemies(map.rooms[curRoom].enemies)
-  log.level = "fatal"
+  --log.level = "fatal"
 
   camera = {}
   camera.x = 0
-  camera.y = 0
+  camera.y = 400
   camera.s = 4
 
   source = love.audio.newSource("data/music/fsun.it", "stream")
@@ -64,7 +64,9 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
+    log.level = "debug"
     enemy_main()
+    log.level = "fatal"
 
     accumulator = accumulator - tickPeriod
   end
@@ -72,7 +74,9 @@ end
 
 function love.draw()
   startDrawing()
+  --log.level = "debug"
   blit_scene()
+  --log.level = "fatal"
   doneDrawing()
 end
 

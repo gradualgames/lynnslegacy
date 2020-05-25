@@ -1,4 +1,7 @@
+require("game/object--gfx_frame")
+
 function active_animate(this)
+  log.debug("active_animate called.")
   local timer = love.timer.getTime()
   -- this->animating = 1
   this.animating = 1
@@ -14,4 +17,5 @@ function active_animate(this)
     return 1
   --  End If
   end
+  return 0
 end
