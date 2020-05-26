@@ -19,7 +19,6 @@ end
 
 function LLObject_IncrementFrame(this)
   log.debug("LLObject_IncrementFrame called.")
-  local timer = love.timer.getTime()
   -- '' Increments an object's frame, doesn't fail.
   -- '' Returns a finished state (1) when ".frame"
   -- '' meets the edge of its range, directional

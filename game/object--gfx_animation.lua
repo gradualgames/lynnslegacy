@@ -2,7 +2,6 @@ require("game/object--gfx_frame")
 
 function active_animate(this)
   log.debug("active_animate called.")
-  local timer = love.timer.getTime()
   -- this->animating = 1
   this.animating = 1
   -- If LLObject_IncrementFrame( this ) <> 0 Then

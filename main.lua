@@ -17,6 +17,7 @@ function love.load()
   initializePaletteShader()
   tickPeriod = 1/60
   accumulator = 0.0
+  timer = love.timer.getTime()
 
   imageHeaderCache = {}
   objectXmlCache = {}
@@ -46,6 +47,7 @@ function love.load()
 end
 
 function love.update(dt)
+  timer = love.timer.getTime()
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
     if love.keyboard.isDown("up") then
