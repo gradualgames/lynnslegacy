@@ -713,3 +713,332 @@ function act_enemies(enemies)
   -- End If
 
 end
+
+function move_object()
+    -- Dim As Integer mx, my '' holds open axes
+    --
+    -- Select Case o->direction
+    --
+    --   Case 0
+    --
+    --
+    --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
+    --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
+    --
+    --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
+    --
+    --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.y -= 1 * moment
+    --
+    --           End If
+    --
+    --           my = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --
+    --   Case 1
+    --
+    --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then '' mul tileX
+    --
+    --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
+    --
+    --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
+    --
+    --
+    --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.x += 1 * moment
+    --
+    --           End If
+    --
+    --           mx = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --
+    --   Case 2
+    --
+    --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then '' mul tileY
+    --
+    --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.y += 1 * moment
+    --
+    --           End If
+    --
+    --           my = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   Case 3
+    --
+    --
+    --     If o->coords.x > 0 Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.x -= 1 * moment
+    -- 
+    --           End If
+    --
+    --           mx = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   Case 4
+    --
+    --
+    --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.y -= 1 * moment
+    --
+    --           End If
+    --
+    --           my = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --
+    --     If o->coords.x > 0 Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.x -= 1 * moment
+    --
+    --           End If
+    --
+    --           mx = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   Case 5
+    --
+    --
+    --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.y -= 1 * moment
+    --
+    --           End If
+    --
+    --           my = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.x += 1 * moment
+    --
+    --           End If
+    --
+    --           mx = 1
+    --
+    --         End If
+    --
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   Case 6
+    --
+    --
+    --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.y += 1 * moment
+    --
+    --           End If
+    --
+    --           my = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.x += 1 * moment
+    --
+    --           End If
+    --
+    --           mx = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --   Case 7
+    --
+    --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.y += 1 * moment
+    --
+    --           End If
+    --
+    --           my = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --
+    --     If o->coords.x > 0 Or ( o->unstoppable_by_screen ) Then
+    --
+    --
+    --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+    --
+    --
+    --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+    --
+    --
+    --           If only_looking = 0 Then
+    --             '' execute
+    --             ''
+    --             o->coords.x -= 1 * moment
+    --
+    --           End If
+    --
+    --           mx = 1
+    --
+    --         End If
+    --
+    --       End If
+    --
+    --     End If
+    --
+    --
+    -- End Select
+    --
+    --
+    -- Return ( mx Shl 16 ) Or my
+
+end

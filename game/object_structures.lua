@@ -276,9 +276,11 @@ function create_Object()
   --   vol_fade_trig         As Integer
   --
   --   walk_buffer           As Integer
+  object.walk_buffer = 0
   --   walk_hold             As Double
   --   walk_speed            As Double
   --   walk_length           As Integer
+  object.walk_length = 9
   --   walk_steps            As Double
   --
   --

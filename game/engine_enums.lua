@@ -1,0 +1,6 @@
+--Enum MO_FLAGS
+
+MO_JUST_CHECKING = -1
+MO_NO_RECURSION  = -1
+
+--End Enum

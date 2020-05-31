@@ -41,9 +41,9 @@ function love.load()
   camera.y = 400
   camera.s = 4
 
-  source = love.audio.newSource("data/music/fsun.it", "stream")
-  source:setLooping(true)
-  source:play()
+  --source = love.audio.newSource("data/music/fsun.it", "stream")
+  --source:setLooping(true)
+  --source:play()
 end
 
 function love.update(dt)

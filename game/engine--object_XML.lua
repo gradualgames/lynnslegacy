@@ -1,5 +1,7 @@
 require("game/object_time")
+require("game/object--gfx")
 require("game/object--gfx_animation")
+require("game/object_move")
 
 -- Loads enemy xml and sprite image files. Assumes enemy.id has at least
 -- been initialized with the relative path of an object xml file.
