@@ -278,6 +278,7 @@ function create_Object()
   --   walk_buffer           As Integer
   object.walk_buffer = 0
   --   walk_hold             As Double
+  object.walk_hold = 0
   --   walk_speed            As Double
   --   walk_length           As Integer
   object.walk_length = 9

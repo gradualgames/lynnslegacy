@@ -1,6 +1,7 @@
 require("game/engine_enums")
 
 function copter_path(this)
+  log.debug("copter_path called.")
   local exit_cond, c = 0, 0
 --
 --   this->walk_buffer = this->walk_length
@@ -52,5 +53,97 @@ function copter_path(this)
 --
 --   Return 1
   return 1
+--
+end
+
+function walk(this)
+  log.debug("walk called.")
+--   If this->walk_hold = 0 Then
+  if this.walk_hold == 0 then
+--
+--
+--     this->momentum.i( this->direction ) += this->walk_speed * 2
+--
+--     If this->momentum.i( this->direction ) > 1 Then
+--       this->momentum.i( this->direction ) = 1
+--
+--     End If
+  end
+--
+--
+--     If this->on_ice = 0 Then
+  if this.on_ice == 0 then
+--       '' traction
+--
+--       __go_grip( this )
+--
+--     End If
+  end
+--
+--
+--     If this->walk_buffer > this->walk_length Then
+--
+--       If this->on_ice = 0 Then
+--         ''coming off ice check... too much path
+--
+--         this->walk_buffer = this->walk_length
+--
+--       End If
+--
+--     End If
+--
+--
+--
+--     If move_object( this, MO_JUST_CHECKING, this->momentum.i( this->direction ) ) = 0 Then
+--       this->walk_steps = this->walk_buffer' - 1
+-- '      this->momentum.i( this->direction ) = 0
+--
+--     Else
+--
+--       If this->momentum.i( this->direction ) = 0 Then
+--         this->walk_steps = this->walk_buffer' - 1
+--
+--       Else
+--         __momentum_move( this )
+--
+--       End If
+--
+--     End If
+--
+--
+--     If this->momentum.i( this->direction ) > 0 Then
+--       this->walk_steps +=  1
+--
+--     End If
+--
+--
+--     If this->walk_steps >= this->walk_buffer Then
+--       this->frame = 0
+--       this->walk_steps = 0
+--
+--       Return 1
+--
+--     End If
+--
+--
+--     If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+--
+--       this->frame = 0
+    this.frame = 1
+--       this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--       '' reset rate?
+--     End If
+--
+--   End If
+  end
+--
+--
+--   If Timer >= this->walk_hold Then this->walk_hold = 0
+  if timer >= this.walk_hold then this.walk_hold = 0 end
+
+  return 0
 --
 end
