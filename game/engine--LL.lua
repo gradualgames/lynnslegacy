@@ -689,10 +689,10 @@ function act_enemies(enemies)
   --         End If
   --
   --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
-        log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
-        log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
+        --log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
+        --log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
         local result = enemy.funcs.func[enemy.funcs.active_state][enemy.funcs.current_func[enemy.funcs.active_state]](enemy)
-        log.debug("result: "..(result and result or "nil"))
+        --log.debug("result: "..(result and result or "nil"))
         enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + result
 --NOTE: The above line should be ported to Lua first as it is what actually performs the function execution.
   --
@@ -714,40 +714,55 @@ function act_enemies(enemies)
 
 end
 
-function move_object()
+--Function move_object( o As char_type Ptr, only_looking As Integer = 0, moment As Double = 1, recurring As Integer = 0 ) As uInteger
+function move_object(o, only_looking, moment, recurring)
+
     -- Dim As Integer mx, my '' holds open axes
+   local mx, my = 0, 0
     --
     -- Select Case o->direction
     --
     --   Case 0
+  if o.direction == 0 then
     --
     --
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
+    if o.coords.y > 0 or o.unstoppable_by_screen then
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+      if check_walk(o, 0, only_looking or recurring) or o.unstoppable_by_tile ~= 0 then
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+        if check_against_entities(0, o) ~= 1 or o.unstoppable_by_object then
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
     --           If only_looking = 0 Then
+          if only_looking == 0 then
     --             '' execute
     --             ''
     --             o->coords.y -= 1 * moment
+            o.coords.y = o.coords.y - moment
     --
     --           End If
+          end
     --
     --           my = 1
+          my = 1
     --
     --         End If
+        end
     --
     --       End If
+      end
     --
     --     End If
+    end
     --
     --
+  end
     --   Case 1
     --
     --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then '' mul tileX
@@ -818,7 +833,7 @@ function move_object()
     --             '' execute
     --             ''
     --             o->coords.x -= 1 * moment
-    -- 
+    --
     --           End If
     --
     --           mx = 1
@@ -1041,4 +1056,221 @@ function move_object()
     --
     -- Return ( mx Shl 16 ) Or my
 
+end
+
+  -- Function check_walk ( o As char_type Ptr, d As Integer, psfing = 0 ) Static
+function check_walk(o, d, psfing)
+  psfing = psfing or 0
+  --
+  --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
+  --     Return FALSE
+  --
+  --   End If
+  --
+  --
+  --   Dim As Integer x_offset_2, y_offset_2, x_tile_2, y_tile_2, quads_x, quads_y, x_aligned, y_aligned
+  --   dim as integer t_index
+  --   Dim As Integer layer
+  --   Dim As Integer crawl_axis, crawl
+  --   Dim As Integer x_opt, y_opt
+  --   Dim As Integer tile_free, psf_free
+  --
+  --   x_aligned = 0
+  --   y_aligned = 0
+  --
+  --   x_tile_2 = Int( o->coords.x ) Shr 3
+  --   y_tile_2 = Int( o->coords.y ) Shr 3
+  --
+  --   x_offset_2 = Int( o->coords.x ) And 7
+  --   y_offset_2 = Int( o->coords.y ) And 7
+  --
+  --   quads_x = Int( o->perimeter.x ) Shr 3
+  --   quads_y = Int( o->perimeter.y ) Shr 3
+  --
+  --   If x_offset_2 <> 0 Then
+  --     quads_x += 1
+  --
+  --   Else
+  --     x_aligned = 1
+  --
+  --   End If
+  --
+  --   If y_offset_2 <> 0 Then
+  --     quads_y += 1
+  --
+  --   Else
+  --     y_aligned = 1
+  --
+  --   End If
+  --
+  --   '' prime
+  --   if psfing then
+  --     psf_free = TRUE
+  --
+  --   else
+  --     tile_free = TRUE
+  --
+  --   end if
+  --
+  --     Select Case d Mod 2
+  --
+  --       Case 0
+  --
+  --         crawl_axis = quads_x
+  --
+  --       Case 1
+  --
+  --         crawl_axis = quads_y
+  --
+  --     End Select
+  --
+  --
+  --     For layer = 0 To 2
+  --
+  --
+  --       For crawl = 0 To crawl_axis - 1
+  --
+  --
+  --         Select Case d
+  --
+  --
+  --           Case 0
+  --
+  --             x_opt = ( x_tile_2 + crawl )
+  --             y_opt = ( y_tile_2 - y_aligned )
+  --
+  --           Case 1
+  --
+  --             x_opt = ( quads_x - 1 ) + x_tile_2 + x_aligned
+  --             y_opt = ( y_tile_2 + crawl )
+  --
+  --           Case 2
+  --
+  --             x_opt = ( x_tile_2 + crawl )
+  --             y_opt = ( quads_y - 1 ) + y_tile_2 + y_aligned
+  --
+  --           Case 3
+  --
+  --             x_opt = ( x_tile_2 - x_aligned )
+  --             y_opt = ( y_tile_2 + crawl )
+  --
+  --
+  --         End Select
+  --
+  --         t_index = ( ( y_opt Shl 3 ) Shr 4 ) * now_room().x + ( ( x_opt Shl 3 ) Shr 4 )
+  --
+  --         If Bit( now_room().layout[layer][t_index], 15 - quad_calc( x_opt, y_opt ) ) <> 0 Then
+  --           if psfing then
+  --             psf_free = FALSE
+  --
+  --           else
+  --             tile_free = FALSE
+  --
+  --           end if
+  --
+  --         End If
+  --
+  --       Next
+  --
+  --     Next
+  --
+  --
+  --   If tile_free = FALSE Then
+  --
+  --     If psfing = FALSE Then
+  --
+  --       If o->unique_id = u_lynn Then
+  --         check_psf( o, d )
+  --
+  --       Else
+  --         If o->unique_id = u_pushrock Then
+  --           check_psf( o, d )
+  --
+  --         End If
+  --
+  --       End If
+  --
+  --     End If
+  --
+  --   End If
+  --
+  --
+  --   if psfing then
+  --     Return psf_free
+  --   else
+  --
+  --     Return tile_free
+  --   end if
+  --
+  --
+  --
+  --FIXME: Just returning true for now instead of porting, so we can see something moving sooner. Remove
+  return true
+  -- End Function
+
+end
+
+-- Function check_against_entities( d As Integer = 0, o As char_type Ptr ) As Integer' Static
+function check_against_entities(d, o)
+  d = d or 0
+--
+--
+--   Dim As Integer cycle, relay
+--
+--
+--   With now_room()
+--
+--     If .enemies = 0 Then
+--       '' there are no objects to collide with in this room
+--       Return 0
+--
+--     End If
+--
+--     For cycle = 0 To .enemies - 1
+--       '' cycle thru enemies
+--
+--       If o->num <> .enemy[cycle].num Then
+--         '' if this "o" isn't this enemy, then check it against this enemy
+--         relay = check_against( o, .enemy, cycle, d )
+--         If relay Then Return relay
+--
+--       End If
+--
+--     Next
+--
+--
+--
+--     For cycle = 0 To .temp_enemies - 1
+--       '' cycle through temp enemies
+--
+--       If o->num <> .temp_enemy( cycle ).num Then
+--         '' if this "o" isn't this temp enemy, then check it against this temp enemy
+--         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
+--         If relay Then Return relay
+--
+--       End If
+--
+--     Next
+--
+--   End With
+--
+--
+--
+--   If o->unique_id <> u_lynn Then
+--     '' if this "o" isn't lynn, check the "o" against her
+--
+--     If llg( hero_only ).attacking = 0 Then
+--       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
+--       If relay Then Return relay
+--
+--     End If
+--
+--   End If
+--
+--
+--
+-- End Function
+  --FIXME: Returning 0 while porting just so we can get something moving without
+  --collision checks. Remove.
+  return 0
 end

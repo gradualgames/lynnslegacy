@@ -1,5 +1,16 @@
 require("game/matrices")
 
+function create_dir_type()
+  -- Type dir_type
+  local dir_type = {}
+  --
+  --   i( 7 ) As Double
+  dir_type.i = {[0]=0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+  --
+  -- End Type
+  return dir_type
+end
+
 function create_e_funcs()
   local e_funcs = {}
   -- Type e_funcs
@@ -175,7 +186,9 @@ function create_Object()
   --
   --   mod_lock              As Integer
   --   momentum              As dir_type
+  object.momentum = create_dir_type()
   --   momentum_history      As dir_type
+  object.momentum_history = create_dir_type()
   --
   --   money                 As Integer
   --
@@ -280,6 +293,7 @@ function create_Object()
   --   walk_hold             As Double
   object.walk_hold = 0
   --   walk_speed            As Double
+  object.walk_speed = 0
   --   walk_length           As Integer
   object.walk_length = 9
   --   walk_steps            As Double
