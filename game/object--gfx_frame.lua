@@ -18,7 +18,7 @@ function LLObject_IgnoreDirectional(this)
 end
 
 function LLObject_IncrementFrame(this)
-  log.debug("LLObject_IncrementFrame called.")
+  --log.debug("LLObject_IncrementFrame called.")
   -- '' Increments an object's frame, doesn't fail.
   -- '' Returns a finished state (1) when ".frame"
   -- '' meets the edge of its range, directional
@@ -33,11 +33,11 @@ function LLObject_IncrementFrame(this)
   --     frameTransfer = LLObject_CalculateFrame( this[0] )
     frameTransfer = LLObject_CalculateFrame(this)
   --     .animControl[.current_anim].frame[frameTransfer].sound_lock = 0
-    -- log.debug("this.current_anim: "..this.current_anim)
-    -- log.debug("frameTransfer: "..frameTransfer)
-    -- log.debug("this.animControl[this.current_anim].frame: "..type(this.animControl[this.current_anim].frame))
-    -- log.debug("#this.animControl[this.current_anim].frame: "..#this.animControl[this.current_anim].frame)
-    -- log.debug("this.animControl[this.current_anim].frame[frameTransfer]: "..type(this.animControl[this.current_anim].frame[frameTransfer]))
+    --log.debug("this.current_anim: "..this.current_anim)
+    --log.debug("frameTransfer: "..frameTransfer)
+    --log.debug("this.animControl[this.current_anim].frame: "..type(this.animControl[this.current_anim].frame))
+    --log.debug("#this.animControl[this.current_anim].frame: "..#this.animControl[this.current_anim].frame)
+    --log.debug("this.animControl[this.current_anim].frame[frameTransfer]: "..type(this.animControl[this.current_anim].frame[frameTransfer]))
 
     --TODO: Re-introduce this line when we start porting the sound code. We are not populating
     --the frames array of the animation control object yet, but this is the only line that uses it
@@ -50,17 +50,17 @@ function LLObject_IncrementFrame(this)
     --for now and re-introduce when it becomes relevant.
     if this.frame == (this.anim[this.current_anim].frames + 1) then
     --if this.frame == (LLObject_IgnoreDirectional(this) and this.anim[this.current_anim].frames or this.animControl[this.current_anim].dir_frames) then
-      log.debug("frame reached end of range, animation complete.")
+      --log.debug("frame reached end of range, animation complete.")
   --       Return 1
       return 1
   --     End If
     end
   --     With .animControl[.current_anim]
   --       tet = IIf( ( this->mad = 0 ) Or ( this->dead ), .rate, .rateMad )
-    --TODO: Re-introduce the mad/dead/rate/rateMad logic when needed. For now we'll just set it to rate
+    --TODO: Re-introduce the mad/dead/rate/rateMad --logic when needed. For now we'll just set it to rate
     --local tet = (this.mad == 0 or this.dead) and this.animControl.rate or this.animControl.rateMad
     local tet = this.animControl[this.current_anim].rate
-    log.debug("tet: "..tet)
+    --log.debug("tet: "..tet)
   --     End With
   --     .frame_hold = Timer + tet
     this.frame_hold = timer + tet

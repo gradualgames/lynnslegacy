@@ -1,7 +1,7 @@
 require("game/engine_enums")
 
 function copter_path(this)
-  log.debug("copter_path called.")
+  --log.debug("copter_path called.")
   local exit_cond, c = 0, 0
 --
 --   this->walk_buffer = this->walk_length
@@ -18,7 +18,7 @@ function copter_path(this)
 --
 --     this->direction += rand_dir
     --FIXME: Hard coded 0 here so we can test just one case of object movement to start. Remove.
-    log.debug("Setting direction to 0.")
+    --log.debug("Setting direction to 0.")
     this.direction = 0 --this.direction + rand_dir
 --     If this->direction = -1 Then this->direction = 7
     if this.direction == -1 then this.direction = 7 end
@@ -59,9 +59,13 @@ function copter_path(this)
 end
 
 function walk(this)
-  log.debug("walk called.")
+  --log.debug("walk called.")
 
+  log.debug("this.walk_hold: "..this.walk_hold)
   log.debug("this.walk_speed: "..this.walk_speed)
+  log.debug("this.momentum.i[this.direction]: "..this.momentum.i[this.direction])
+
+  --log.debug("this.walk_speed: "..this.walk_speed)
 --   If this->walk_hold = 0 Then
   if this.walk_hold == 0 then
 --
@@ -76,96 +80,96 @@ function walk(this)
 --
 --     End If
     end
-  end
 --
 --
 --     If this->on_ice = 0 Then
-  if this.on_ice == 0 then
+    if this.on_ice == 0 then
 --       '' traction
 --
 --       __go_grip( this )
 --
 --     End If
-  end
+    end
 --
 --
 --     If this->walk_buffer > this->walk_length Then
-  if this.walk_buffer > this.walk_length then
+    if this.walk_buffer > this.walk_length then
 --
 --       If this->on_ice = 0 Then
-    if this.on_ice == 0 then
+      if this.on_ice == 0 then
 --         ''coming off ice check... too much path
 --
 --         this->walk_buffer = this->walk_length
-      this.walk_buffer = this.walk_length
+        this.walk_buffer = this.walk_length
 --
 --       End If
-    end
+      end
 --
 --     End If
-  end
+    end
 --
 --
 --
 --     If move_object( this, MO_JUST_CHECKING, this->momentum.i( this->direction ) ) = 0 Then
-  if move_object(this, MO_JUST_CHECKING, this.momentum.i[this.direction]) == 0 then
+    if move_object(this, MO_JUST_CHECKING, this.momentum.i[this.direction]) == 0 then
 --       this->walk_steps = this->walk_buffer' - 1
-    this.walk_steps = this.walk_buffer
+      this.walk_steps = this.walk_buffer
 -- '      this->momentum.i( this->direction ) = 0
 --
 --     Else
-  else
+    else
 --
 --       If this->momentum.i( this->direction ) = 0 Then
-    if this.momentum.i[this.direction] == 0 then
+      if this.momentum.i[this.direction] == 0 then
 --         this->walk_steps = this->walk_buffer' - 1
-      this.walk_steps = this.walk_buffer
+        this.walk_steps = this.walk_buffer
 --
 --       Else
-    else
+      else
 --         __momentum_move( this )
-      __momentum_move(this)
+        __momentum_move(this)
 --
 --       End If
-    end
+      end
 --
 --     End If
-  end
+    end
 --
 --
 --     If this->momentum.i( this->direction ) > 0 Then
-  if this.momentum.i[this.direction] > 0 then
+    if this.momentum.i[this.direction] > 0 then
 --       this->walk_steps +=  1
-    this.walk_steps = this.walk_steps + 1
+      this.walk_steps = this.walk_steps + 1
 --
 --     End If
-  end
+    end
 --
 --
 --     If this->walk_steps >= this->walk_buffer Then
-  if this.walk_steps >= this.walk_buffer then
+    if this.walk_steps >= this.walk_buffer then
 --       this->frame = 0
-    this.frame = 1
+      this.frame = 1
 --       this->walk_steps = 0
-    this.walk_steps = 0
+      this.walk_steps = 0
 --
 --       Return 1
-    return 1
+      return 1
 --
 --     End If
-  end
+    end
 --
 --
 --     If LLObject_IncrementFrame( this ) <> 0 Then
-  if LLObject_IncrementFrame(this) ~= 0 then
+    if LLObject_IncrementFrame(this) ~= 0 then
 --
 --       this->frame = 0
-    this.frame = 1
+      this.frame = 1
 --       this->frame_hold = Timer + this->animControl[this->current_anim].rate
-    this.frame_hold = timer + this.animControl[this.current_anim].rate
+      this.frame_hold = timer + this.animControl[this.current_anim].rate
 --
 --       '' reset rate?
 --     End If
+    end
 --
 --   End If
   end
@@ -180,7 +184,7 @@ end
 
 -- Function __momentum_move ( this As _char_type Ptr ) As Integer
 function __momentum_move(this)
-  log.debug("__momentum_move called.")
+  --log.debug("__momentum_move called.")
 --
 --   With *this
 --
