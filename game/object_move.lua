@@ -150,7 +150,7 @@ function walk(this)
     this.walk_steps = 0
 --
 --       Return 1
-    return 0
+    return 1
 --
 --     End If
   end

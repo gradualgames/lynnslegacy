@@ -32,9 +32,9 @@ function love.load()
 
   curRoom = 3
 
-  log.level = "debug"
+  --log.level = "debug"
   set_up_room_enemies(map.rooms[curRoom].enemies)
-  log.level = "fatal"
+  --log.level = "fatal"
 
   camera = {}
   camera.x = 0
@@ -66,9 +66,9 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
-    --log.level = "debug"
+    log.level = "debug"
     enemy_main()
-    --log.level = "fatal"
+    log.level = "fatal"
 
     accumulator = accumulator - tickPeriod
   end
