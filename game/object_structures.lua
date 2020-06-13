@@ -276,8 +276,11 @@ function create_Object()
   --   unique_id             As Integer
   --
   --   unstoppable_by_tile   As Integer
+  object.unstoppable_by_tile = 0
   --   unstoppable_by_object As Integer
+  object.unstoppable_by_object = 0
   --   unstoppable_by_screen As Integer
+  object.unstoppable_by_screen = 0
   --
   --   vision_field          As Integer
   --   side_vision As Integer

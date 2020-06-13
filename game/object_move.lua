@@ -60,6 +60,8 @@ end
 
 function walk(this)
   log.debug("walk called.")
+
+  log.debug("this.walk_speed: "..this.walk_speed)
 --   If this->walk_hold = 0 Then
   if this.walk_hold == 0 then
 --
@@ -148,7 +150,7 @@ function walk(this)
     this.walk_steps = 0
 --
 --       Return 1
-    return 1
+    return 0
 --
 --     End If
   end
@@ -174,4 +176,86 @@ function walk(this)
 
   return 0
 --
+end
+
+-- Function __momentum_move ( this As _char_type Ptr ) As Integer
+function __momentum_move(this)
+  log.debug("__momentum_move called.")
+--
+--   With *this
+--
+--
+--     Dim As Integer movement
+--     Dim As Integer look_ahead
+--
+--     Dim As Integer all_momentum
+  local movement, look_ahead, all_momentum = 0, 0, 0
+--
+--
+--     For all_momentum = 0 To 7
+  for all_momentum = 0, 7 do
+--
+--       look_ahead = 0
+    look_ahead = 0
+--
+--
+--
+--
+--       If .momentum.i( all_momentum ) <> 0 Then
+    if this.momentum.i[all_momentum] ~= 0 then
+--
+--         Dim As Integer temp_dir
+      local temp_dir = 0
+--         temp_dir = .direction
+      temp_dir = this.direction
+--         .direction = all_momentum
+      this.direction = all_momentum
+--
+--         look_ahead = move_object( this, , .momentum.i( .direction ) )
+      look_ahead = move_object(this, 0, this.momentum.i[this.direction])
+--
+--         If look_ahead = 0 Then
+      if look_ahead == 0 then
+--           '' momentum dies on impact.
+--
+--           If ( .is_psfing = 0 ) And ( .is_pushing = 0 ) Then
+        if this.is_psfing == 0 and this.is_pushing == 0 then
+--
+--             .momentum.i( .direction ) = 0
+          this.momentum.i[this.direction] = 0
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--         .direction = temp_dir
+      this.direction = temp_dir
+--
+--       End If
+    end
+--
+--       movement Or = .momentum.i( all_momentum ) <> 0
+    movement = bit.bor(movement, this.momentum.i[all_momentum] ~= 0)
+--
+--     Next
+  end
+--
+--
+--
+--     If movement <> 0 Then
+  if movement ~=0 then
+--       .walk_hold = Timer + .walk_speed
+    this.walk_hold = timer + this.walk_speed
+--
+--     End If
+  end
+--
+--     Return 1
+  return 1
+--
+--   End With
+--
+-- End Function
 end

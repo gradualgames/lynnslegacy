@@ -716,7 +716,7 @@ end
 
 --Function move_object( o As char_type Ptr, only_looking As Integer = 0, moment As Double = 1, recurring As Integer = 0 ) As uInteger
 function move_object(o, only_looking, moment, recurring)
-
+  log.debug("move_object called.")
     -- Dim As Integer mx, my '' holds open axes
    local mx, my = 0, 0
     --
@@ -724,23 +724,33 @@ function move_object(o, only_looking, moment, recurring)
     --
     --   Case 0
   if o.direction == 0 then
+    log.debug("o.direction is 0.")
     --
     --
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
     if o.coords.y > 0 or o.unstoppable_by_screen then
+      log.debug("o.coords.y: "..o.coords.y)
+      log.debug("o.unstoppable_by_screen: "..o.unstoppable_by_screen)
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 0, only_looking or recurring) or o.unstoppable_by_tile ~= 0 then
+        log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
+        log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         if check_against_entities(0, o) ~= 1 or o.unstoppable_by_object then
+          log.debug("check_against_entities(0, o): "..(check_against_entities(0, o) and "true" or "false"))
+          log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
+          log.debug("only_looking: "..only_looking)
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
     --           If only_looking = 0 Then
           if only_looking == 0 then
+            log.debug("only_looking: "..only_looking)
+            log.debug("moment: "..moment)
     --             '' execute
     --             ''
     --             o->coords.y -= 1 * moment
