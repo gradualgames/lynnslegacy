@@ -1065,6 +1065,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     -- Return ( mx Shl 16 ) Or my
+  return bit.bor(bit.lshift(mx, 16), my)
 
 end
 
