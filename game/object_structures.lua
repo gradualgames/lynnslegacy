@@ -300,6 +300,7 @@ function create_Object()
   --   walk_length           As Integer
   object.walk_length = 9
   --   walk_steps            As Double
+  object.walk_steps = 0.0
   --
   --
   --   x_origin              As Integer

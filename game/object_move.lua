@@ -237,7 +237,7 @@ function __momentum_move(this)
     end
 --
 --       movement Or = .momentum.i( all_momentum ) <> 0
-    movement = bit.bor(movement, this.momentum.i[all_momentum] ~= 0)
+    movement = bit.bor(movement, (this.momentum.i[all_momentum] ~= 0) and 1 or 0)
 --
 --     Next
   end
