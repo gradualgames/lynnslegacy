@@ -17,10 +17,14 @@ function LLSystem_ObjectFromXML(enemy)
 --                       If objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] Then
 --                         objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
   local function inc_func()
+    log.debug("inc_func called.")
     enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + 1
-    if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
-      enemy.funcs.current_func[enemy.funcs.active_state] = 0
-    end
+    -- log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
+    -- log.debug("enemy.funcs.func_count[enemy.funcs.active_state]: "..enemy.funcs.func_count[enemy.funcs.active_state])
+    -- if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
+    --   log.debug("Resetting current_func to 1 for active state: "..enemy.funcs.active_state)
+    --   enemy.funcs.current_func[enemy.funcs.active_state] = 1
+    -- end
   end
 
   local path = {}
@@ -46,7 +50,7 @@ function LLSystem_ObjectFromXML(enemy)
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then
-        log.debug(" value.proc_id: "..text)
+        log.debug(" proc_id text: "..text)
 --
 --           #Define LLObject_ProcIDLoad(__Proc_ID__) _
 --             Case ###__Proc_ID__: objectLoad.##__Proc_ID__ = objectLoad.funcs.active_state
@@ -72,7 +76,9 @@ function LLSystem_ObjectFromXML(enemy)
         --use the proc_id text directly from the xml to set it to the value of the
         --current active state, which is what is being done above.
         enemy[text] = enemy.funcs.active_state
+        log.debug(" active_state is: "..enemy[text])
       elseif path[3] == "func" then
+        enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 1
         local func = _G[text]
         if func then
           log.debug("Installing func: "..text)
@@ -109,6 +115,7 @@ function LLSystem_ObjectFromXML(enemy)
       enemy.anims = enemy.anims + 1
       enemy.current_anim = enemy.anims
     elseif name == "fp" then
+      log.debug("Processing fp tag.")
       --NOTE: This chunk comes from a select statement higher up
       --in the FB code that performs allocation and counting. It
       --makes more sense here due to how we are processing the xml.
@@ -127,14 +134,18 @@ function LLSystem_ObjectFromXML(enemy)
       enemy.funcs.active_state = enemy.funcs.states
       --
       --         .funcs.func_count[.funcs.active_state] = 0
-      enemy.funcs.func_count[enemy.funcs.active_state] = 1
+      enemy.funcs.func_count[enemy.funcs.active_state] = 0
       --         .funcs.current_func[.funcs.active_state] = 0
-      enemy.funcs.current_func[enemy.funcs.active_state] = 1
+      enemy.funcs.current_func[enemy.funcs.active_state] = 0
     end
   end
 
   local closeElement = function(name, nsURI)
     table.remove(path)
+    if name == "fp" then
+      log.debug("fp tag closed, resetting current_func for that state.")
+      enemy.funcs.current_func[enemy.funcs.active_state] = 0
+    end
   end
 
   local xmlData = getObjectXml(enemy.id)

@@ -61,9 +61,9 @@ end
 function walk(this)
   --log.debug("walk called.")
 
-  log.debug("this.walk_hold: "..this.walk_hold)
-  log.debug("this.walk_speed: "..this.walk_speed)
-  log.debug("this.momentum.i[this.direction]: "..this.momentum.i[this.direction])
+  --log.debug("this.walk_hold: "..this.walk_hold)
+  --log.debug("this.walk_speed: "..this.walk_speed)
+  --log.debug("this.momentum.i[this.direction]: "..this.momentum.i[this.direction])
 
   --log.debug("this.walk_speed: "..this.walk_speed)
 --   If this->walk_hold = 0 Then
