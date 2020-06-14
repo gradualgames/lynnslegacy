@@ -4,7 +4,6 @@
 function initializeScreen()
   love.window.setTitle("Lynn's Legacy")
   love.window.setMode(640, 400, {resizable=true, minwidth=320, minheight=200})
-  love.window.setVSync(0)
   love.mouse.setVisible(false)
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
   scaleOptions = {

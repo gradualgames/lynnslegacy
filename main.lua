@@ -47,7 +47,6 @@ function love.load()
 end
 
 function love.update(dt)
-  timer = love.timer.getTime()
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
     if love.keyboard.isDown("up") then
@@ -66,11 +65,15 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
+    for u = 1, 4 do
+      timer = love.timer.getTime()
+      log.level = "debug"
+      enemy_main()
+      log.level = "fatal"
+    end
+
     accumulator = accumulator - tickPeriod
   end
-  log.level = "debug"
-  enemy_main()
-  log.level = "fatal"
 end
 
 function love.draw()
