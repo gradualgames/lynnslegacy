@@ -66,12 +66,11 @@ function love.update(dt)
       camera.x = camera.x - camera.s
     end
 
-    log.level = "debug"
-    enemy_main()
-    log.level = "fatal"
-
     accumulator = accumulator - tickPeriod
   end
+  log.level = "debug"
+  enemy_main()
+  log.level = "fatal"
 end
 
 function love.draw()

@@ -4,12 +4,13 @@
 function initializeScreen()
   love.window.setTitle("Lynn's Legacy")
   love.window.setMode(640, 400, {resizable=true, minwidth=320, minheight=200})
+  love.window.setVSync(0)
   love.mouse.setVisible(false)
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
   scaleOptions = {
     function()
       retrieveDimensions()
-      scale = math.min(screenWidth / canvasWidth, screenHeight / canvasHeight)    
+      scale = math.min(screenWidth / canvasWidth, screenHeight / canvasHeight)
     end,
     function() scale = 1 end,
     function() scale = 2 end,
