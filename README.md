@@ -13,12 +13,13 @@ The project is in its very early stages. It can currently:
 
 - Simulate a 320x200 graphics mode with 256 palettized colors
 - Load palette, sprites, maps and music of the game
-- Partially load some xml objects (shows some animations on one map at the moment)
+- Partially load enemy xml
+- Has some state callback implemented for the gcopter enemy
 - Scroll around the currently loaded map.
 
 This is a Love2D project. So to work on it, you will need to install LÖVE: https://love2d.org/ The language is Lua.
 
-The current goal is to begin porting some of the state logic.
+The current goal is to continue porting enemy state, movement and collision logic. Once the gcopter is working properly moving around the map with collision detection, the goal is to start work on Lynn herself, and then eventually introduce logic for interaction with enemies starting with the gcopter.
 
 The original FreeBASIC source code and win32 installer is included in the repository for convenience.
 
