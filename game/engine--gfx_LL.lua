@@ -237,7 +237,6 @@ function blit_y_sorted()
   --
   --     blit_enemy( *y_sort( _blit_em ) )
     local enemy = now_room().enemies[i]
-    --FIXME: This is a hack to narrow the problem space while porting. See LLObject_IsWithin
     blit_enemy(enemy)
   --
   --   End If
