@@ -28,3 +28,21 @@ function return_reset(this)
 --
 -- End Function
 end
+
+-- Function __return_idle ( this As _char_type Ptr ) As Integer
+function return_idle(this)
+--
+--
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--   this->funcs.active_state = 0
+  this.funcs.active_state = 1
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
