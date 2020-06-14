@@ -2,12 +2,85 @@ require("game/object_time")
 require("game/object--gfx")
 require("game/object--gfx_animation")
 require("game/object_move")
+SLAXML = require 'lib/SLAXML/slaxml'
 
 -- Loads enemy xml and sprite image files. Assumes enemy.id has at least
 -- been initialized with the relative path of an object xml file.
 function LLSystem_ObjectFromXML(enemy)
+  --   #Define func_drop objectLoad.funcs.func[objectLoad.funcs.active_state][objectLoad.funcs.current_func[objectLoad.funcs.active_state]]
+  local function func_drop(func)
+    local funcList = enemy.funcs.func[enemy.funcs.active_state]
+    funcList[enemy.funcs.current_func[enemy.funcs.active_state]] = func
+  end
+--   #Define inc_func  objectLoad.funcs.current_func[objectLoad.funcs.active_state] += 1:
+--                       If objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] Then
+--                         objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
+  local function inc_func()
+    enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + 1
+    if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
+      enemy.funcs.current_func[enemy.funcs.active_state] = 0
+    end
+  end
 
+  local path = {}
 
+  local text = function(text, cdata)
+    -- log.debug("Processing text: "..text)
+    -- log.debug("At path:")
+    -- for key, value in pairs(path) do
+    --   log.debug(value)
+    -- end
+    if path[2] == "sprite" then
+      if path[3] == "filename" then
+        log.debug(" Processing sprite/filename: "..text)
+        local fixedFileName = string.gsub(text, "\\", "/")
+        enemy.anim[enemy.current_anim] = getImageHeader(fixedFileName)
+        enemy.animControl[enemy.current_anim] = create_LLObject_ImageHeader()
+      elseif path[3] == "dir_frames" then
+        log.debug( " Processing sprite/dir_frames: "..text)
+        enemy.animControl[enemy.current_anim].dir_frames = tonumber(text)
+      elseif path[3] == "rate" then
+        log.debug( " Processing sprite/rate: "..text)
+        enemy.animControl[enemy.current_anim].rate = tonumber(text)
+      end
+    end
+  end
+
+  local startElement = function(name, nsURI, nsPrefix)
+    table.insert(path, name)
+    if name == "sprite" then
+      log.debug("Processing sprite tag.")
+      enemy.anims = enemy.anims + 1
+      enemy.current_anim = enemy.anims
+    end
+  end
+
+  local closeElement = function(name, nsURI)
+    table.remove(path)
+  end
+
+  local xmlData = love.filesystem.read(enemy.id)
+  -- Specify as many/few of these as you like
+  local parser = SLAXML:parser{
+    startElement = startElement, -- When "<foo" or <x:foo is seen
+    attribute    = function(name,value,nsURI,nsPrefix) end, -- attribute found on current element
+    closeElement = closeElement, -- When "</foo>" or </x:foo> or "/>" is seen
+    text         = text, -- text and CDATA nodes (cdata is true for cdata nodes)
+    comment      = function(content)                   end, -- comments
+    pi           = function(target,content)            end, -- processing instructions e.g. "<?yes mon?>"
+  }
+  parser:parse(xmlData, {stripWhitespace=true})
+
+  --TODO: Find out where Lynn's Legacy actually resets these
+  --values. They are used while loading XML, but are clearly
+  --reset before actual play begins.
+  enemy.current_anim = 1
+  enemy.funcs.active_state = 1
+  enemy.funcs.current_func[enemy.funcs.active_state] = 1
+
+end
+
+function oldxmlcode(enemy)
   local xml = getObjectXml(enemy.id)
 --   #Define func_drop objectLoad.funcs.func[objectLoad.funcs.active_state][objectLoad.funcs.current_func[objectLoad.funcs.active_state]]
   function func_drop(func)
@@ -23,6 +96,7 @@ function LLSystem_ObjectFromXML(enemy)
       enemy.funcs.current_func[enemy.funcs.active_state] = 0
     end
   end
+
 --
 --   With objectLoad
 --
