@@ -86,7 +86,7 @@ function walk(this)
     if this.on_ice == 0 then
 --       '' traction
 --
---       __go_grip( this )
+      __go_grip( this )
 --
 --     End If
     end
@@ -260,6 +260,36 @@ function __momentum_move(this)
   return 1
 --
 --   End With
+--
+-- End Function
+end
+
+-- Function __go_grip ( this As _char_type Ptr ) As Integer
+function __go_grip(this)
+--
+--
+--   Dim As Integer all_momentum
+  local all_momentum = 0
+--
+--   For all_momentum = 0 To 7
+  for all_momentum = 0, 7 do
+--
+--     If this->momentum.i( all_momentum ) <> 0 Then
+    if this.momentum.i[all_momentum] ~= 0 then
+--
+--       this->momentum.i( all_momentum ) = 1
+      this.momentum.i[all_momentum] = 1
+--
+--     End If
+    end
+--
+--   Next
+  end
+--
+--   Return 1
+  return 1
+--
+--
 --
 -- End Function
 end

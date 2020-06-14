@@ -207,6 +207,7 @@ function create_Object()
   --   num                   As Integer
   --
   --   on_ice                As Integer
+  object.on_ice = 0
   --
   --   ori_dir               As Integer
   object.ori_dir = 0
