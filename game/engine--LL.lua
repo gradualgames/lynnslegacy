@@ -816,29 +816,41 @@ function move_object(o, only_looking, moment, recurring)
     --
   end
     --   Case 2
+  if o.direction == 2 then
     --
     --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then '' mul tileY
+    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+      if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object) then
     --
     --
     --           If only_looking = 0 Then
+          if only_looking == 0 then
     --             '' execute
     --             ''
     --             o->coords.y += 1 * moment
+            o.coords.y = o.coords.y + moment
     --
     --           End If
+          end
     --
     --           my = 1
+          my = 1
     --
     --         End If
+        end
     --
     --       End If
+      end
     --
     --     End If
+    end
     --
+  end
     --   Case 3
     --
     --
