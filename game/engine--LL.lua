@@ -774,35 +774,47 @@ function move_object(o, only_looking, moment, recurring)
     --
   end
     --   Case 1
+  if o.direction == 1 then
     --
     --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then '' mul tileX
+    if o.coords.x < (now_room().x * 16) - o.perimeter.x or o.unstoppable_by_screen then
     --
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
+      if check_walk(o, 1, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --
     --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
+        if check_against_entities(1, o) ~= 0 or o.unstoppable_by_object then
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
     --           If only_looking = 0 Then
+          if only_looking == 0 then
     --             '' execute
     --             ''
     --             o->coords.x += 1 * moment
+            o.coords.x = o.coords.x + moment
     --
     --           End If
+          end
     --
     --           mx = 1
+          mx = 1
     --
     --         End If
+        end
     --
     --       End If
+      end
     --
     --     End If
+    end
     --
     --
+  end
     --   Case 2
     --
     --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then '' mul tileY

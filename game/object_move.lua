@@ -17,9 +17,9 @@ function copter_path(this)
     local rand_dir = math.floor(love.math.random() * 8) - 1
 --
 --     this->direction += rand_dir
-    --FIXME: Hard coded 0 here so we can test just one case of object movement to start. Remove.
+    --FIXME: Hard coded here so we can test just one case of object movement to start. Remove.
     --log.debug("Setting direction to 0.")
-    this.direction = 0 --this.direction + rand_dir
+    this.direction = 1 --this.direction + rand_dir
 --     If this->direction = -1 Then this->direction = 7
     if this.direction == -1 then this.direction = 7 end
 --     this->direction = Abs( this->direction ) And 7

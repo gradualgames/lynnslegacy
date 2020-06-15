@@ -383,6 +383,7 @@ function create_Object()
   object.spawn_info = {}
   --
   --     perimeter As Vector
+  object.perimeter = create_vector()
   --
   --
   --   '' Flyback information struct(s) suggestion:
