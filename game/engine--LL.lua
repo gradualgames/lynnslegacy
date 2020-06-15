@@ -148,6 +148,7 @@ function act_enemies(enemies)
   --
   --
   --         If .unique_id <> u_sparkle Then
+        if true then
   --
   --           Dim As vector_pair target, origin
   --
@@ -305,19 +306,27 @@ function act_enemies(enemies)
   --           End If
   --
   --           If .on_ice = 0 Then
+          if enemy.on_ice == 0 then
   --             __stop_grip( Varptr( _enemy[do_stuff] ) )
+            __stop_grip(enemy)
   --
   --           End If
+          end
   --
   --
   --           If .walk_hold = 0 Then
+          if enemy.walk_hold == 0 then
   --
   --             If .walk_steps = 0 Then
+            if enemy.walk_steps == 0 then
   --               __momentum_move ( Varptr( _enemy[do_stuff] ) )
+              __momentum_move(enemy)
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --
   --
@@ -646,6 +655,7 @@ function act_enemies(enemies)
   --
   --
   --           If Timer > .walk_hold Then .walk_hold = 0
+          if timer > enemy.walk_hold then enemy.walk_hold = 0 end
   --
   --
   --
@@ -687,6 +697,7 @@ function act_enemies(enemies)
   --           End If
   --
   --         End If
+        end
   --
   --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
         --log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)

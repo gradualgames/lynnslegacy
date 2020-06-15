@@ -291,3 +291,40 @@ function __go_grip(this)
 --
 -- End Function
 end
+
+-- Function __stop_grip ( this As _char_type Ptr ) As Integer
+function __stop_grip(this)
+--
+--
+--   Scope
+--
+--     Dim As Integer all_momentum
+  local all_momentum = 0
+--
+--       For all_momentum = 0 To 7
+  for all_momentum = 0, 7 do
+--
+--         this->momentum_history.i( all_momentum ) = this->momentum.i( all_momentum )
+    this.momentum_history.i[all_momentum] = this.momentum.i[all_momentum]
+--
+--         If this->momentum.i( all_momentum ) <> 0 Then
+    if this.momentum.i[all_momentum] ~= 0 then
+--
+--           this->momentum.i( all_momentum ) = 0
+      this.momentum.i[all_momentum] = 0
+--
+--         End If
+    end
+--
+--       Next
+  end
+--
+--   End Scope
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+--
+end
