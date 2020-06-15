@@ -722,7 +722,7 @@ function move_object(o, only_looking, moment, recurring)
   log.debug("move_object called.")
   log.debug("moment: "..moment)
     -- Dim As Integer mx, my '' holds open axes
-   local mx, my = 0, 0
+  local mx, my = 0, 0
     --
     -- Select Case o->direction
     --
