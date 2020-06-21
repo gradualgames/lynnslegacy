@@ -15,7 +15,7 @@ function active_anim_0(this)
 end
 
 function active_anim_1(this)
-  log.debug("active_anim_1 called.")
+  --log.debug("active_anim_1 called.")
 --   this->current_anim = 1
   this.current_anim = 2
 --   this->frame = 0

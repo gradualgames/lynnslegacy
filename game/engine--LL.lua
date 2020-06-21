@@ -1,5 +1,6 @@
 require("game/engine--object")
 require("game/macros")
+require("game/utils")
 
 -- Loops over the enemies of the current room and spawns them
 function set_up_room_enemies(enemies)
@@ -730,8 +731,8 @@ function move_object(o, only_looking, moment, recurring)
   only_looking = only_looking or 0
   moment = moment or 1
   recurring = recurring or 0
-  log.debug("move_object called.")
-  log.debug("moment: "..moment)
+  --log.debug("move_object called.")
+  --log.debug("moment: "..moment)
     -- Dim As Integer mx, my '' holds open axes
   local mx, my = 0, 0
     --
@@ -875,7 +876,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(0, 3, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 3, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
@@ -1206,119 +1207,203 @@ end
 
   -- Function check_walk ( o As char_type Ptr, d As Integer, psfing = 0 ) Static
 function check_walk(o, d, psfing)
+  log.debug("check_walk called.")
+  log.debug("psfing: "..psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
+  if (o.coords.x < 0) or (o.coords.y < 0) or ((o.coords.x + o.perimeter.x) > (now_room().x * 16)) or ((o.coords.y + o.perimeter.y) > (now_room().y * 16)) then
   --     Return FALSE
+    return false
   --
   --   End If
+  end
   --
   --
   --   Dim As Integer x_offset_2, y_offset_2, x_tile_2, y_tile_2, quads_x, quads_y, x_aligned, y_aligned
-  --   dim as integer t_index
+  --   dim as= integer t_index
+  local t_index
   --   Dim As Integer layer
+  local layer
   --   Dim As Integer crawl_axis, crawl
+  local crawl_axis, crawl
   --   Dim As Integer x_opt, y_opt
+  local x_opt, y_opt
   --   Dim As Integer tile_free, psf_free
+  local tile_free, psf_free = true, true
   --
   --   x_aligned = 0
+  local x_aligned = 0
   --   y_aligned = 0
+  local y_aligned = 0
   --
   --   x_tile_2 = Int( o->coords.x ) Shr 3
+  local x_tile_2 = bit.rshift(math.floor(o.coords.x), 3)
+  --log.debug("x_tile_2: "..x_tile_2)
   --   y_tile_2 = Int( o->coords.y ) Shr 3
+  local y_tile_2 = bit.rshift(math.floor(o.coords.y), 3)
+  --log.debug("y_tile_2: "..y_tile_2)
   --
   --   x_offset_2 = Int( o->coords.x ) And 7
+  local x_offset_2 = bit.band(math.floor(o.coords.x), 7)
+  --log.debug("x_offset_2: "..x_offset_2)
   --   y_offset_2 = Int( o->coords.y ) And 7
+  local y_offset_2 = bit.band(math.floor(o.coords.y), 7)
+  --log.debug("y_offset_2: "..y_offset_2)
   --
   --   quads_x = Int( o->perimeter.x ) Shr 3
+  local quads_x = bit.rshift(math.floor(o.perimeter.x), 3)
+  --log.debug("quads_x: "..quads_x)
   --   quads_y = Int( o->perimeter.y ) Shr 3
+  local quads_y = bit.rshift(math.floor(o.perimeter.y), 3)
+  --log.debug("quads_y: "..quads_y)
   --
   --   If x_offset_2 <> 0 Then
+  if x_offset_2 ~= 0 then
   --     quads_x += 1
+    quads_x = quads_x + 1
   --
   --   Else
+  else
   --     x_aligned = 1
+    x_aligned = 1
   --
   --   End If
+  end
   --
   --   If y_offset_2 <> 0 Then
+  if y_offset_2 ~= 0 then
   --     quads_y += 1
+    quads_y = quads_y + 1
   --
   --   Else
+  else
   --     y_aligned = 1
+    y_aligned = 1
   --
   --   End If
+  end
   --
   --   '' prime
   --   if psfing then
+  if psfing ~= 0 then
+    log.debug("psf_free is true.")
   --     psf_free = TRUE
+    psf_free = true
   --
   --   else
+  else
   --     tile_free = TRUE
+    tile_free = true
+    log.debug("tile_free is true.")
   --
   --   end if
+  end
   --
   --     Select Case d Mod 2
   --
   --       Case 0
+  if d % 2 == 0 then
   --
   --         crawl_axis = quads_x
+    crawl_axis = quads_x
   --
   --       Case 1
+  elseif d % 2 == 1 then
   --
   --         crawl_axis = quads_y
+    crawl_axis = quads_y
   --
   --     End Select
+  end
   --
   --
   --     For layer = 0 To 2
+  for layer = 1, 3 do
   --
   --
   --       For crawl = 0 To crawl_axis - 1
+    for crawl = 0, crawl_axis - 1 do
   --
   --
   --         Select Case d
   --
   --
   --           Case 0
+      if d == 0 then
   --
   --             x_opt = ( x_tile_2 + crawl )
+        x_opt = (x_tile_2 + crawl)
   --             y_opt = ( y_tile_2 - y_aligned )
+        y_opt = (y_tile_2 - y_aligned)
   --
   --           Case 1
+      elseif d == 1 then
   --
   --             x_opt = ( quads_x - 1 ) + x_tile_2 + x_aligned
+        x_opt = (quads_x - 1) + x_tile_2 + x_aligned
   --             y_opt = ( y_tile_2 + crawl )
+        y_opt = (y_tile_2 + crawl)
   --
   --           Case 2
+      elseif d == 2 then
   --
   --             x_opt = ( x_tile_2 + crawl )
+        x_opt = (x_tile_2 + crawl)
   --             y_opt = ( quads_y - 1 ) + y_tile_2 + y_aligned
+        y_opt = (quads_y - 1) + y_tile_2 + y_aligned
   --
   --           Case 3
+      elseif d == 3 then
   --
   --             x_opt = ( x_tile_2 - x_aligned )
+        x_opt = (x_tile_2 - x_aligned)
   --             y_opt = ( y_tile_2 + crawl )
+        y_opt = (y_tile_2 + crawl)
   --
   --
   --         End Select
+      end
   --
   --         t_index = ( ( y_opt Shl 3 ) Shr 4 ) * now_room().x + ( ( x_opt Shl 3 ) Shr 4 )
+      t_index = bit.rshift(bit.lshift(y_opt, 3), 4) * now_room().x + bit.rshift(bit.lshift(x_opt, 3), 4) + 1
+      --log.debug("t_index: "..t_index)
   --
   --         If Bit( now_room().layout[layer][t_index], 15 - quad_calc( x_opt, y_opt ) ) <> 0 Then
+      local tile = now_room().layout[layer][t_index]
+      --log.debug("tile: "..tile)
+      --log.debug("bitstring: "..bitstring(tile))
+      local quad = quad_calc(x_opt, y_opt)
+      --log.debug("quad: "..quad)
+      local bit_index = 15 - quad
+      --log.debug("bit_index: "..bit_index)
+      if testbit(tile, bit_index) ~= 0 then
+        --log.debug("bit was set.")
   --           if psfing then
+        if psfing then
+          log.debug("psf_free set to false.")
   --             psf_free = FALSE
+          psf_free = false
   --
   --           else
+        else
+          log.debug("tile_free set to false.")
   --             tile_free = FALSE
+          tile_free = false
   --
   --           end if
+        end
   --
   --         End If
+      else
+        --log.debug("bit was not set.")
+      end
   --
   --       Next
+    end
   --
   --     Next
+  end
   --
   --
   --   If tile_free = FALSE Then
@@ -1342,16 +1427,20 @@ function check_walk(o, d, psfing)
   --
   --
   --   if psfing then
+
+  if psfing then
   --     Return psf_free
+    return psf_free
   --   else
+  else
   --
   --     Return tile_free
+    return tile_free
   --   end if
+  end
   --
   --
   --
-  --FIXME: Just returning true for now instead of porting, so we can see something moving sooner. Remove
-  return true
   -- End Function
 
 end

@@ -32,3 +32,13 @@ function LLObject_IsWithin(object)
   end
   return false
 end
+
+function quad_calc(x, y)
+-- #Define quad_calc(x,y)                          _
+--                                                 _
+--   ( ( Abs( y And 1 ) Shl 1 ) + Abs( x And 1 ) )
+  return math.abs(bit.lshift(bit.band(y, 1), 1)) + math.abs(bit.band(x, 1))
+--
+--
+-- '' #EndDefine quad_calc
+end

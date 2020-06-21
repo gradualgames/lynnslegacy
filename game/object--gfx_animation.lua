@@ -1,7 +1,7 @@
 require("game/object--gfx_frame")
 
 function active_animate(this)
-  log.debug("active_animate called.")
+  --log.debug("active_animate called.")
   -- this->animating = 1
   this.animating = 1
   -- If LLObject_IncrementFrame( this ) <> 0 Then

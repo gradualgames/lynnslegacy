@@ -160,6 +160,11 @@ function LLSystem_ObjectFromXML(enemy)
   }
   parser:parse(xmlData, {stripWhitespace=true})
 
+  --Some attributes have different names from xml when they become part of
+  --an enemy.
+  enemy.perimeter.x = enemy.real_x
+  enemy.perimeter.y = enemy.real_y
+
   --TODO: Find out where Lynn's Legacy actually resets these
   --values. They are used while loading XML, but are clearly
   --reset before actual play begins.
