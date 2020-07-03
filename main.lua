@@ -5,6 +5,7 @@ require("game/engine--images")
 require("game/engine--LL")
 require("game/engine--gfx_LL")
 require("game/ll_build")
+require("game/global_structures")
 
 log = require("lib/log/log")
 log.usecolor = false
@@ -32,6 +33,8 @@ function love.load()
   curRoom = 3
 
   --log.level = "debug"
+  ll_global = create_ll_system()
+  engine_init()
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 

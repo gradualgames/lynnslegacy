@@ -1,5 +1,53 @@
 require("game/object_structures")
 
+-- Function ctor_hero( l As char_type Ptr = 0 ) As char_type Ptr
+function ctor_hero(l)
+--
+--   Dim As Integer pass
+--
+--   If l = 0 Then
+--     l = CAllocate( Len( char_type ) )
+--     pass = Not 0
+--
+--   End If
+--
+--
+--   With *l
+--
+--
+--
+--     l->id = "data\object\lynn.xml"
+  l.id = "data/object/lynn.xml"
+--
+--     LLSystem_CopyNewObject( *l )
+  log.level = "debug"
+  LLSystem_ObjectLoad(l)
+  log.level = "fatal"
+--
+--     l->dead_sound = sound_lynn_die
+--
+--     .num = -1
+--
+--     .hp = 6
+--     .maxhp = 6
+--
+--     llg( hero_only ).weapon = -1
+--     llg( hero_only ).has_weapon = -1
+--
+--     llg( hero_only ).hasCostume( 0 ) = -1
+--     llg( hero ).fade_time = .003
+--
+--   End With
+--
+--   If pass <> 0 Then
+--     Return l
+--
+--   End If
+--
+--
+-- End Function
+end
+
 --Loads a sequence from an already loaded map binary blob.
 function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
 

@@ -2,6 +2,143 @@ require("game/engine--object")
 require("game/macros")
 require("game/utils")
 
+-- Sub engine_init()
+function engine_init()
+--
+--   fb_StartGlobal()
+--
+--   echo_print( "setting keys to values in ""data\controls.xml""" )
+--
+--   Kill "roomchange.txt"
+--   Kill "set_up_room_enemies.txt"
+--
+--   Dim As xml_type Ptr last_controls
+--   last_controls = xml_Load( "data\controls.xml" )
+--
+--
+--   Dim As Integer control_check
+--
+--   If last_controls <> 0 Then
+--
+--     control_check = -1
+--
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->attack"     ) ) ) <> 0
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->item"       ) ) ) <> 0
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->action"     ) ) ) <> 0
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->move_up"    ) ) ) <> 0
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->move_right" ) ) ) <> 0
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->move_down"  ) ) ) <> 0
+--     control_check And= ( Val( xml_TagValue( last_controls, "key_map->move_left"  ) ) ) <> 0
+--
+--   End If
+--
+--   If control_check = 0 Then
+--     ? "Run Controls.exe to set the game controls."
+--     Sleep 5000
+--     End
+--
+--   End If
+--
+--
+--
+--
+--   llg( atk_key )         = init_bin_obj( Val( xml_TagValue( last_controls, "key_map->attack" ) ), ProcPtr( atk_key_in_sub    ), ProcPtr( atk_key_out_sub    ) )
+--   llg( act_key )         = init_bin_obj( Val( xml_TagValue( last_controls, "key_map->item"   ) ), ProcPtr( act_key_in_sub    ), ProcPtr( act_key_out_sub    ) )
+--   llg( conf_key )        = init_bin_obj( Val( xml_TagValue( last_controls, "key_map->action" ) ), ProcPtr( conf_key_in_sub   ), ProcPtr( conf_key_out_sub   ) )
+--   llg( item_l_key )      = init_bin_obj( sc_comma                                               , ProcPtr( item_l_key_in_sub ), ProcPtr( item_l_key_out_sub ) )
+--   llg( item_r_key )      = init_bin_obj( sc_period                                              , ProcPtr( item_r_key_in_sub ), ProcPtr( item_r_key_out_sub ) )
+--
+--   llg( u_key.code ) = Val( xml_TagValue( last_controls, "key_map->move_up"    ) )
+--   llg( r_key.code ) = Val( xml_TagValue( last_controls, "key_map->move_right" ) )
+--   llg( d_key.code ) = Val( xml_TagValue( last_controls, "key_map->move_down"  ) )
+--   llg( l_key.code ) = Val( xml_TagValue( last_controls, "key_map->move_left"  ) )
+--
+--
+--   xml_Destroy( last_controls )
+--
+--
+--   echo_print( "setting up directional ""hints""." )
+--
+--   llg( dir_hint ) = CAllocate( Len( uByte ) * 4 )
+--
+--     llg( dir_hint[0] ) = llg( u_key.code )
+--     llg( dir_hint[1] ) = llg( r_key.code )
+--     llg( dir_hint[2] ) = llg( d_key.code )
+--     llg( dir_hint[3] ) = llg( l_key.code )
+--
+--
+--
+--   echo_print( "setting up event table" )
+--   llg( now ) = CAllocate( Len( uByte ) * LL_EVENTS_MAX )
+--
+--
+--   echo_print( "setting screen pages" )
+--   llg( a_page ) = 0
+--   llg( v_page ) = 1
+--
+--
+--
+--
+--   echo_print( "determining entry point" )
+--   load_entrypoint()
+--
+--
+--   echo_print( "map: " & llg( start_map ) )
+--
+--
+--   echo_print( "constructing main object" )
+--   ctor_hero( Varptr( llg( hero ) ) )
+  ctor_hero(ll_global.hero)
+--
+--   llg( do_hud ) = -1
+--
+--   llg( current_cam ) = Varptr( llg( hero ) )
+--
+--
+--   echo_print( "loading menu and HUD gfx" )
+--   load_status_images( Varptr( llg( savImages ) ) )
+--   load_hud( Varptr( llg( hud ) ) )
+--
+--   load_menu()
+--   menu_StringInit()
+--
+--
+--   '' 15, 241
+--   llg( font ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\llfont.spr" ) )
+--   llg( fontFG ) = 15
+--   llg( fontBG ) = 241
+--
+--
+--
+--
+--   echo_print( "retrieving screen information" )
+--   ScreenInfo llg( sx ), llg( sy )
+--
+--
+--   llg( menu_ScreenSave ) = ImageCreate( 320, 200 )
+--
+--   llg( scrn_ptr ) = ScreenPtr
+--
+--   llg( hero_only ).specialSequence = callocate( len( sequence_type ) )
+--
+--   llg( hero_only ).specialSequence[0].commands = 1
+--
+--   llg( hero_only ).specialSequence[0].command = callocate( len( command_type ) )
+--
+--   llg( hero_only ).specialSequence[0].command[0].ents = 1
+--
+--   llg( hero_only ).specialSequence[0].command[0].ent = callocate( len( command_data ) )
+--
+--   llg( hero_only ).specialSequence[0].command[0].ent[0].active_ent = SF_BOX
+--   llg( hero_only ).specialSequence[0].command[0].ent[0].text = "Lynn: I can't use this here."
+--
+--   llg( hero_only ).healingImage = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\heal.spr"  ) )
+--
+--
+--
+-- End Sub
+end
+
 -- Loops over the enemies of the current room and spawns them
 function set_up_room_enemies(enemies)
     -- Dim As Integer setup
