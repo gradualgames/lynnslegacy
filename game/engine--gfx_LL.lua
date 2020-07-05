@@ -152,8 +152,8 @@ function blit_room()
   --
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
-  layoutLayer(camera, map.rooms[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
-  love.graphics.draw(map.imageHeader.spriteBatches[3])
+  --layoutLayer(camera, map.rooms[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
+  --love.graphics.draw(map.imageHeader.spriteBatches[3])
   --
   -- End If
   --
@@ -191,7 +191,6 @@ function blit_y_sorted()
   --
   -- Dim As Integer i, it
   -- For i = 0 To now_room().enemies - 1
-  for i = 1, #now_room().enemies do
   --
   --   If LLObject_IsWithin( Varptr( now_room().enemy[i] ) ) = 0 Then
   --     Continue For
@@ -224,7 +223,6 @@ function blit_y_sorted()
   --   End With
   --
   -- Next
-  end
   --
   -- ac = sort_index( y_sort(), Varptr( srt_Char( 0 ) ), Varptr( srt_CharNum( 0 ) ), srt_Num )
   --
@@ -243,6 +241,12 @@ function blit_y_sorted()
   --
   -- Next
   end
+  --FIXME: For now, we're just going to blit the hero separately. Eventually
+  --we will want to port or rewrite the full sorting implementation in this
+  --function
+  log.level = "debug"
+  blit_object(ll_global.hero)
+  log.level = "fatal"
 end
 
 function blit_enemy(enemy)
@@ -423,8 +427,10 @@ function blit_object_ex(enemy)
   --
   --       x_opt -= this->animControl[this->current_anim].x_off
   x_opt = x_opt - enemy.animControl[enemy.current_anim].x_off
+  log.debug("x_opt: "..x_opt)
   --       y_opt -= this->animControl[this->current_anim].y_off
   y_opt = y_opt - enemy.animControl[enemy.current_anim].y_off
+  log.debug("y_opt: "..y_opt)
 
   --
   --       f_opt *= .arraysize
@@ -438,6 +444,7 @@ function blit_object_ex(enemy)
 
   local anim = enemy.anim[enemy.current_anim]
   love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
+  --love.graphics.draw(anim.image, x_opt, y_opt)
 --love.graphics.draw(animation.image, animation.quads[animation.frame], screenX, screenY)
 
 

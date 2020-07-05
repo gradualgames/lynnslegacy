@@ -69,9 +69,9 @@ function love.update(dt)
 
     for u = 1, 4 do
       timer = love.timer.getTime()
-      log.level = "debug"
+      --log.level = "debug"
       enemy_main()
-      log.level = "fatal"
+      --log.level = "fatal"
     end
 
     accumulator = accumulator - tickPeriod
