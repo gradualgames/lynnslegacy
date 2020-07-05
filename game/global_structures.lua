@@ -37,7 +37,9 @@ function create_ll_system()
   --   menu_ScreenSave As Any Ptr
   --
   --   sx As Integer
+  ll_system.sx = 320
   --   sy As Integer
+  ll_system.sy = 200
   --
   --   palx As Integer Ptr
   --
@@ -144,6 +146,7 @@ function create_ll_system()
   --   dark As Integer
   --
   --   current_cam As char_type Ptr
+  ll_system.current_cam = nil
   --
   --   box_entity As _char_type Ptr
   --

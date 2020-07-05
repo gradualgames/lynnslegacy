@@ -863,6 +863,47 @@ function act_enemies(enemies)
 
 end
 
+-- Sub update_cam( mn As char_type Ptr = 0 )
+function update_cam(mn)
+--
+--   If mn = 0 Then mn = Varptr( llg( hero ) )
+  mn = mn or ll_global.hero
+--
+--   Dim As Integer cam_x, cam_y
+  local cam_x, cam_y = 0, 0
+--
+--   With ll_global
+--
+--     cam_x = mn->coords.x - ( ( ( .sx ) - ( mn->perimeter.x Shr 1 ) ) Shr 1 )  - 1 '' div 2, div 2
+  cam_x = mn.coords.x - (bit.rshift((ll_global.sx) - bit.rshift(mn.perimeter.x, 1), 1)) - 1
+--     If cam_x < 0 Then cam_x = 0
+  if cam_x < 0 then cam_x = 0 end
+--     If cam_x > ( now_room().x Shl 4 ) - .sx Then cam_x = ( now_room().x Shl 4 ) - .sx '' mul tileX, multileX
+  if cam_x > bit.lshift(now_room().x, 4) - ll_global.sx then
+    cam_x = bit.lshift(now_room().x, 4) - ll_global.sx
+  end
+--
+--     cam_y = mn->coords.y - ( ( ( .sy ) - ( mn->perimeter.y Shr 1 ) ) Shr 1 )  - 1 '' div 2, div 2
+  cam_y = mn.coords.y - (bit.rshift((ll_global.sy) - bit.rshift(mn.perimeter.y, 1), 1)) - 1
+--     If cam_y < 0 Then cam_y = 0
+  if cam_y < 0 then cam_y = 0 end
+--      If cam_y > ( now_room().y Shl 4 ) - .sy Then cam_y = ( now_room().y Shl 4 ) - .sy '' mul tileY, mul tileY
+  if cam_y > bit.lshift(now_room().y, 4) - ll_global.sy then
+    cam_y = bit.lshift(now_room().y, 4) - ll_global.sy
+  end
+--
+--     .this_room.cx = cam_x
+  ll_global.this_room.cx = cam_x
+--     .this_room.cy = cam_y
+  ll_global.this_room.cy = cam_y
+--
+--
+--   End With
+--
+--
+-- End Sub
+end
+
 --Function move_object( o As char_type Ptr, only_looking As Integer = 0, moment As Double = 1, recurring As Integer = 0 ) As uInteger
 function move_object(o, only_looking, moment, recurring)
   only_looking = only_looking or 0

@@ -40,6 +40,7 @@ function blit_scene()
   -- If llg( do_chap ) = 0 Then
   --   '' chapter screen is not up
   --   update_cam( llg( current_cam ) )
+  update_cam(ll_global.current_cam)
   blit_room()
   --
   -- Else
