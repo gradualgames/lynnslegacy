@@ -1,5 +1,22 @@
 require("game/object_structures")
 
+function create_room_prop()
+  local room_prop = {}
+  -- Type room_prop
+  --
+  --
+  --   As Integer i
+  room_prop.i = 0
+  --
+  --   As Integer cx, cy '' camera loc
+  room_prop.cx = 0
+  room_prop.cy = 0
+  --
+  --
+  -- End Type
+  return room_prop
+end
+
 function create_ll_system()
   local ll_system = {}
   -- Type ll_system
@@ -59,6 +76,7 @@ function create_ll_system()
   --   #EndIf
   --
   --   this_room As room_prop
+  ll_system.this_room = create_room_prop()
   --
   --   map As map_type Ptr
   --   hero As _char_type

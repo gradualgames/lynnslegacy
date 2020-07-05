@@ -5,10 +5,10 @@ require("game/macros")
 function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
 
   spriteBatch:clear()
-  local topLeftMapX = math.floor(camera.x / imageHeader.x)
-  local topLeftMapY = math.floor(camera.y / imageHeader.y)
-  local topLeftScreenX = -(camera.x % imageHeader.x)
-  local topLeftScreenY = -(camera.y % imageHeader.y)
+  local topLeftMapX = math.floor(ll_global.this_room.cx / imageHeader.x)
+  local topLeftMapY = math.floor(ll_global.this_room.cy / imageHeader.y)
+  local topLeftScreenX = -(ll_global.this_room.cx % imageHeader.x)
+  local topLeftScreenY = -(ll_global.this_room.cy % imageHeader.y)
   local mapX = topLeftMapX
   local mapY = topLeftMapY
   local screenX = topLeftScreenX
@@ -413,9 +413,9 @@ function blit_object_ex(enemy)
   --     If .no_cam = 0 Then
   --
   --       x_opt -= llg( this_room ).cx
-  x_opt = x_opt - camera.x
+  x_opt = x_opt - ll_global.this_room.cx
   --       y_opt -= llg( this_room ).cy
-  y_opt = y_opt - camera.y
+  y_opt = y_opt - ll_global.this_room.cy
   --
   --     End If
   --

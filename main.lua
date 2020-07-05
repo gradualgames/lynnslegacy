@@ -38,10 +38,11 @@ function love.load()
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 
-  camera = {}
-  camera.x = 0
-  camera.y = 400
-  camera.s = 4
+  ll_global.this_room.cx = 0
+  ll_global.this_room.cy = 0
+
+  --FIXME: Not a ported variable, just used for now
+  camera_speed = 4
 
   --source = love.audio.newSource("data/music/fsun.it", "stream")
   --source:setLooping(true)
@@ -52,19 +53,19 @@ function love.update(dt)
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
     if love.keyboard.isDown("up") then
-      camera.y = camera.y - camera.s
+      ll_global.this_room.cy = ll_global.this_room.cy - camera_speed
     end
 
     if love.keyboard.isDown("down") then
-      camera.y = camera.y + camera.s
+      ll_global.this_room.cy = ll_global.this_room.cy + camera_speed
     end
 
     if love.keyboard.isDown("right") then
-      camera.x = camera.x + camera.s
+      ll_global.this_room.cx = ll_global.this_room.cx + camera_speed
     end
 
     if love.keyboard.isDown("left") then
-      camera.x = camera.x - camera.s
+      ll_global.this_room.cx = ll_global.this_room.cx - camera_speed
     end
 
     for u = 1, 4 do
