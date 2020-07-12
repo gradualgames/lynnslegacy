@@ -73,6 +73,7 @@ function love.update(dt)
       timer = love.timer.getTime()
       --log.level = "debug"
       enemy_main()
+      hero_main()
       --log.level = "fatal"
     end
 

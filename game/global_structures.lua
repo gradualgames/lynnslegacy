@@ -1,4 +1,5 @@
 require("game/object_structures")
+require("game/lynn_structures")
 
 function create_room_prop()
   local room_prop = {}
@@ -84,6 +85,7 @@ function create_ll_system()
   --   hero As _char_type
   ll_system.hero = create_Object()
   --   hero_only As main_char_type
+  ll_system.hero_only = create_main_char_type()
   --
   --
   --   atk_key As b_data

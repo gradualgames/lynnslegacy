@@ -239,6 +239,645 @@ function set_up_room_enemies(enemies)
   end
 end
 
+-- Sub hero_main()
+function hero_main()
+--
+--
+--   if llg( hero_only ).selected_item = 0 then
+  if ll_global.hero_only.selected_item == 0 then
+--     if llg( hero_only ).hasItem( 0 ) then
+    if ll_global.hero_only.has_item[0] ~= 0 then
+--       llg( hero_only ).selected_item = 1
+      ll_global.hero_only.selected_item = 1
+--
+--     end if
+    end
+--
+--   end if
+  end
+--
+--   If ( llg( hero_only ).isWearing = 1 ) Then
+  if ll_global.hero_only.isWearing == 1 then
+--     llg( hero ).walk_speed = .003
+    ll_global.hero.walk_speed = .003
+--
+--   elseIf ( llg( hero_only ).isWearing = 5 ) Then
+  elseif ll_global.hero_only.isWearing == 5 then
+--     llg( hero ).walk_speed = .02
+    ll_global.hero.walk_speed = .02
+--
+--   Else
+  else
+--     llg( hero ).walk_speed = .009
+    ll_global.hero.walk_speed = .009
+--
+--   End If
+  end
+--
+--   llg( hero_only ).action  = 0
+  ll_global.hero_only.action = 0
+--
+--   If ( llg( hero_only ).isWearing = 5 ) Then
+  if ll_global.hero_only.isWearing == 5 then
+--
+--     if llg( hero_only ).healTimer = 0 then
+    if ll_global.hero_only.healTimer == 0 then
+--       llg( hero_only ).healTimer = timer + 6
+      ll_global.hero_only.healTimer = timer + 6
+--
+--     end if
+    end
+--
+--     if timer > llg( hero_only ).healTimer then
+    if timer > ll_global.hero_only.healTimer then
+--       if llg( hero ).hp < llg( hero ).maxhp then
+      if ll_global.hero.hp < ll_global.hero.maxhp then
+--         llg( hero ).hp += 1
+        ll_global.hero.hp = ll_global.hero.hp + 1
+--         antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--
+--         play_sample( sound_healthgrab )
+--       end if
+      end
+--       llg( hero_only ).healTimer = 0
+        ll_global.hero_only.healTimer = 0
+--
+--     end if
+    end
+--
+--   else
+  else
+--     llg( hero_only ).healTimer = 0
+    ll_global.hero_only.healTimer = 0
+--
+--   end if
+  end
+--
+--
+--   static as integer adrenalineState
+--   if llg( hero_only ).adrenaline <> NULL then
+  if ll_global.hero_only.adrenaline ~= 0.0 then
+--
+--     select case as const adrenalineState
+--
+--       case 0
+--         adrenalineState += __flash( @llg( hero ) )
+--
+--       case 1
+--         adrenalineState += __flash_down( @llg( hero ) )
+--
+--     end select
+--
+--     if timer > llg( hero_only ).adrenaline then
+--       llg( hero_only ).adrenaline = NULL
+--       adrenalineState = 0
+--       llg( hero_only ).crazy_points = 0
+--
+--     end if
+--
+--   end if
+  end
+--
+--
+--   static as double healingTimer
+--   if llg( hero_only ).healing <> NULL then
+--
+--     if healingTimer = 0 then
+--       healingTimer = timer + .1
+--
+--     end if
+--
+--     if timer > healingTimer then
+--
+--       llg( hero_only ).healingFrame += 1
+--       healingTimer = 0
+--
+--     end if
+--
+--     if llg( hero_only ).healingFrame = 5 then
+--
+--       llg( hero_only ).healingFrame = 0
+--       llg( hero_only ).healing = 0
+--
+--       healingTimer = 0
+--
+--     end if
+--
+--   end if
+--
+--
+--
+--
+--   With llg( conf_key )
+--     bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+--
+--   End With
+--
+--   If llg( hero ).vol_fade_trig <> 0 Then
+--     '' projectile triggered
+--
+--     __do_vol_fade ( VarPtr( llg( hero ) ) )
+--
+--   End If
+--
+--
+--
+--   With llg( hero )
+--
+--
+--     .last_cycle_ice = .on_ice
+  ll_global.hero.last_cycle_ice = ll_global.hero.on_ice
+--     .on_ice = 0
+  ll_global.hero.on_ice = 0
+--     check_ice( llg( hero ) )
+  check_ice(ll_global.hero)
+--
+--     If .on_ice = 0 Then
+  if ll_global.hero.on_ice == 0 then
+--       .coords.x = Int( .coords.x )
+    ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
+--       .coords.y = Int( .coords.y )
+    ll_global.hero.coords.y = math.floor(ll_global.hero.coords.y)
+--
+--     End If
+  end
+--
+--
+--     If ( .on_ice <> 0 ) And .last_cycle_ice = 0 Then
+  if (ll_global.hero.on_ice ~= 0) and ll_global.hero.last_cycle_ice == 0 then
+--
+--       Dim As Integer all_momentum
+--       For all_momentum = 0 To 3
+    for all_momentum = 0, 3 do
+--         .momentum.i( all_momentum ) = .momentum_history.i( all_momentum )
+      ll_global.hero.momentum.i[all_momentum] = ll_global.hero.momentum_history.i[all_momentum]
+--
+--       Next
+    end
+--
+--     End If
+  end
+--
+--     '' reset lynn move flag
+--     .moving = 0
+  ll_global.hero.moving = 0
+--
+--
+--     If llg( hero_only ).action_lock = 0 Then
+  if ll_global.hero_only.action_lock == 0 then
+--       '' lynn can do actions
+--
+--       If llg( hero_only ).attacking = 0 Then
+    if ll_global.hero_only.attacking == 0 then
+--         '' lynn is not attacking
+--
+--         If (.fly_count = 0) Then
+      if ll_global.hero.fly_count == 0 then
+--           '' lynn is not flying back
+--
+--           If .dead = 0 Then
+        if ll_global.hero.dead == 0 then
+--             '' lynn is not dead
+--
+--             If .switch_room = -1 Then
+          if ll_global.hero.switch_room == -1 then
+--               '' lynn isnt doing a room switch fade thing
+--
+--               With llg( act_key )
+--                 bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+--
+--               End With
+--
+--               With llg( atk_key )
+--                 bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+--
+--               End With
+--
+--               dir_keys()
+            dir_keys()
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--
+--       If .on_ice = 0 Then
+    if ll_global.hero.on_ice == 0 then
+--         '' traction
+--         If .unique_id <> u_steelstrider Then
+--           __go_grip( Varptr( llg( hero ) ) )
+      __go_grip(ll_global.hero)
+--
+--         End If
+    end
+--
+--       End If
+  end
+--
+--       If .walk_hold = 0 Then
+   if ll_global.hero.walk_hold == 0 then
+--
+--         '' walk_hold timer is initialized
+--         If .dead = 0 Then
+    if ll_global.hero.dead == 0 then
+--
+--           If llg( hero_only ).attacking <> 0 Then
+      if ll_global.hero_only.attacking ~= 0 then
+--
+--             If .on_ice <> 0 Then
+        if ll_global.hero.on_ice ~= 0 then
+--               __momentum_move( VarPtr( llg( hero ) ) )
+          __momentum_move(ll_global.hero)
+
+--
+--             End If
+        end
+--
+--           Else
+      else
+-- '            llg( hero ).momentum.i( llg( hero ).direction ) *= 2
+--             __momentum_move( VarPtr( llg( hero ) ) )
+        __momentum_move(ll_global.hero)
+--
+--           End If
+      end
+--
+--         End If
+    end
+--
+--       End If
+  end
+--
+--
+--       hero_continue_movement( VarPtr( llg( hero ) ) )
+  hero_continue_movement(ll_global.hero)
+--
+--       If ( .on_ice <> 0 ) Then
+  if ll_global.hero.on_ice ~= 0 then
+--
+--         __calc_slide( VarPtr( llg( hero ) ) )
+    __calc_slide(ll_global.hero)
+--
+--
+--       Else
+  else
+--         __stop_grip( VarPtr( llg( hero ) ) )
+    __stop_grip(ll_global.hero)
+--
+--       End If
+  end
+--
+--
+--       .moving Or = ( .is_psfing <> 0 )
+  if ll_global.hero.is_psfing ~= 0 then
+    ll_global.hero.moving = 1
+  end
+--       .moving Or = ( .is_pushing <> 0 )
+  if ll_global.hero.is_pushing ~= 0 then
+--
+--
+--       If .moving <> 0 Then
+    if ll_global.hero.moving ~= 0 then
+--         '' lynn's moving
+--
+--         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
+      if LLObjet_IncrementFrame(ll_global.hero) ~= 0 then
+--           llg( hero ).frame = 0
+        ll_global.hero.frame = 0
+--           llg( hero ).frame_hold = Timer + llg( hero ).animControl[llg( hero ).current_anim].rate
+        ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
+--
+--         End If
+      end
+--
+--       Else
+    else
+--         '' lynn isn't moving
+--
+--         If .dead = 0 Then
+      if ll_global.hero.dead == 0 then
+--           '' lynn's alive
+--
+--           If llg( hero_only ).attacking  = 0 Then
+        if ll_global.hero_only.attacking == 0 then
+--
+--             If .frame <> 0 Then
+          if ll_global.frame ~= 0 then
+--               '' lynn frame not zero, reset
+--
+--               __reset_frame( VarPtr( llg( hero ) ) )
+            __reset_frame(ll_global.hero)
+--
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--
+--       If llg( hero ).switch_room = -1 Then
+    if ll_global.hero.switch_room == -1 then
+--         llg( hero ).switch_room = check_against_teles( llg( hero ) )
+--
+--       End If
+    end
+--
+--
+--     End If
+  end
+--
+--     With llg( item_l_key )
+--       bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+--
+--     End With
+--     With llg( item_r_key )
+--       bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+--
+--     End With
+--
+--
+--     If llg( hero_only ).attacking <> 0 Then
+  if ll_global.hero_only.attacking ~= 0 then
+--       '' lynn is attacking
+--       hero_attack( VarPtr( llg( hero ) ) )
+--
+--     End If
+  end
+--
+--
+--     If Timer > .walk_hold Then
+  if timer > ll_global.hero.walk_hold then
+--       '' walkhold timer expired
+--
+--       .walk_hold = 0
+    ll_global.hero.walk_hold = 0
+--       .is_psfing = 0
+    ll_global.hero.is_psfing = 0
+--
+--     End If
+  end
+--
+--
+--     If .switch_room <> -1 Then
+--       change_room( VarPtr( llg( hero ) ) )
+--
+--     End If
+--
+--
+--     If .dead = FALSE Then
+--       '' lynn's alive,
+--
+--       LLObject_MAINDamage( VarPtr( llg( hero ) ) )
+--
+--       If ( .dmg.id <> 0 ) Then
+--         '' lynn is damaged by something
+--         __flashy( VarPtr( llg( hero ) ) )
+--
+--
+--       End If
+--
+--     End If
+--
+--
+--     If .hurt Then
+  if ll_global.hero.hurt ~= 0 then
+--       '' lynn's hurt
+--
+--       .funcs.current_func[.hit_state] += .funcs.func[.hit_state][.funcs.current_func[.hit_state]]( VarPtr( llg( hero ) ) )
+--
+--
+--       If .funcs.current_func[.hit_state] = .funcs.func_count[.hit_state] Then
+--         '' lynn called back
+--
+--         .funcs.current_func[.hit_state] = 0
+--
+--         .hurt = 0
+--         .dmg.index = 0
+--         .dmg.specific = 0
+--
+--       End If
+--
+--     End If
+  end
+--
+--
+--     If .dead Then
+  if ll_global.hero.dead ~= 0 then
+--       '' lynn is dead
+--
+--       llg( hero_only ).attacking = 0
+--       llg( hero ).fade_time = .003
+--
+--       .funcs.current_func[.death_state] += .funcs.func[.death_state][.funcs.current_func[.death_state]]( VarPtr( llg( hero ) ) )
+--
+--       If ( .funcs.current_func[.death_state] = .funcs.func_count[.death_state] ) Then
+--         '' lynn called back
+--         jump_to_title()
+--
+--       End If
+--
+--     End If
+  end
+--
+--   End With
+--
+--   If llg( hero.hp ) > llg( hero.maxhp ) Then
+--     llg( hero.hp ) = llg( hero.maxhp )
+--     antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--
+--   end if
+--
+--   #IfDef ll_audio
+--     check_env_sounds()
+--
+--   #EndIf
+--
+--   cache_crazy()
+--   decay_crazy()
+--
+--   If llg( hero_only ).songFade <> NULL Then
+--     LLMusic_Fade()
+--
+--   End If
+--
+--
+-- End Sub
+end
+
+-- Private Sub dir_keys()
+function dir_keys()
+--
+--   Static As Double SLIDE_CONSTANT = .02
+--
+--   With llg( hero )
+--
+--     .momentum_history.i( 0 ) = 0
+--     .momentum_history.i( 1 ) = 0
+--     .momentum_history.i( 2 ) = 0
+--     .momentum_history.i( 3 ) = 0
+--
+--     If .walk_hold = 0 Then
+--
+--       '' walk_hold timer is initialized
+--
+--       If MultiKey ( llg( l_key.code ) ) Then
+--         '' hit left
+--
+--         .direction = 3
+--         .momentum.i( .direction ) += SLIDE_CONSTANT
+--
+--         If .momentum.i( .direction ) > 1 Then
+--           .momentum.i( .direction ) = 1
+--
+--         End If
+--
+--       Else
+--
+--         If llg( hero.is_pushing ) = 4 Then
+--           llg( hero.is_pushing ) = 0
+--
+--         End If
+--
+--       End If
+--
+--       If MultiKey ( llg( r_key.code ) ) Then
+--         '' hit right
+--
+--         .direction = 1
+--         .momentum.i( .direction ) += SLIDE_CONSTANT
+--
+--         If .momentum.i( .direction ) > 1 Then
+--           .momentum.i( .direction ) = 1
+--
+--         End If
+--
+--       Else
+--
+--         If llg( hero.is_pushing ) = 2 Then
+--           llg( hero.is_pushing ) = 0
+--
+--         End If
+--
+--       End If
+--
+--       If MultiKey ( llg( d_key.code ) ) Then
+--         '' hit down
+--
+--         .direction = 2
+--         .momentum.i( .direction ) += SLIDE_CONSTANT
+--
+--         If .momentum.i( .direction ) > 1 Then
+--           .momentum.i( .direction ) = 1
+--
+--         End If
+--
+--       Else
+--
+--         If llg( hero.is_pushing ) = 3 Then
+--           llg( hero.is_pushing ) = 0
+--
+--         End If
+--
+--       End If
+--
+--       If MultiKey ( llg( u_key.code ) )   Then
+--         '' hit up
+--
+--         .direction = 0
+--         .momentum.i( .direction ) += SLIDE_CONSTANT
+--
+--         If .momentum.i( .direction ) > 1 Then
+--           .momentum.i( .direction ) = 1
+--
+--         End If
+--
+--       Else
+--         If llg( hero.is_pushing ) = 1 Then
+--           llg( hero.is_pushing ) = 0
+--
+--         End If
+--
+--       End If
+--
+--     End If
+--
+--   End With
+--
+--
+-- End Sub
+end
+
+-- Sub hero_continue_movement( mn As _char_type Ptr )
+function hero_continue_movement(mn)
+--
+--   If mn->dead <> 0 Then Exit Sub
+--
+--   If MultiKey ( llg( u_key ).code ) Or MultiKey ( llg( r_key ).code ) Or MultiKey ( llg( d_key ).code ) Or MultiKey ( llg( l_key ).code ) Then
+--     '' hit a directional arrow
+--     If mn->switch_room = -1 Then
+--
+--       If MultiKey ( llg( l_key ).code ) Then
+--         '' hit left
+--
+--         mn->direction = 3
+--         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+--         mn->moving Or = ( mn->is_pushing <> 0 )
+--
+--       End If
+--
+--
+--       If MultiKey ( llg( r_key ).code ) Then
+--         '' hit right
+--
+--         mn->direction = 1
+--         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+--         mn->moving Or = ( mn->is_pushing <> 0 )
+--
+--       End If
+--
+--
+--       If MultiKey ( llg( d_key ).code ) Then
+--         '' hit down
+--
+--         mn->direction = 2
+--         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+--         mn->moving Or = ( mn->is_pushing <> 0 )
+--
+--       End If
+--
+--
+--       If MultiKey ( llg( u_key ).code )   Then
+--         '' hit up
+--
+--         mn->direction = 0
+--         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+--         mn->moving Or = ( mn->is_pushing <> 0 )
+--
+--       End If
+--
+--     End If
+--
+--   End If
+--
+--
+-- End Sub
+end
+
 function enemy_main()
   -- With now_room()
   --

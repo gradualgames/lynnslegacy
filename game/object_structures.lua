@@ -161,7 +161,9 @@ function create_Object()
   --   invisible             As Integer
   --
   --   is_psfing             As Integer
+  object.is_psfing = 0
   --   is_pushing            As Integer
+  object.is_pushing = 0
   --
   --   jump_count            As Integer
   --   jump_counter          As Integer
@@ -173,6 +175,7 @@ function create_Object()
   --   key_door              As Integer
   --
   --   last_cycle_ice         As Integer
+  object.last_cycle_ice = 0
   --
   --   light_sensitive       As Integer
   --
@@ -195,6 +198,7 @@ function create_Object()
   --   moveBackwards         As Integer
   --
   --   moving                As Integer
+  object.moving = 0
   --
   --
   --   must_align            As Integer

@@ -245,9 +245,7 @@ function blit_y_sorted()
   --FIXME: For now, we're just going to blit the hero separately. Eventually
   --we will want to port or rewrite the full sorting implementation in this
   --function
-  log.level = "debug"
   blit_object(ll_global.hero)
-  log.level = "fatal"
 end
 
 function blit_enemy(enemy)

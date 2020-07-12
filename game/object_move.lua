@@ -1,5 +1,42 @@
 require("game/engine_enums")
 
+-- Function __calc_slide ( this As _char_type Ptr ) As Integer
+function __calc_slide(this)
+--
+--   Dim As Double  thingo
+--   thingo = Abs( Log( .01 ) )
+--   thingo /= 100
+--   thingo *= 5
+--
+--   Dim As Double SLIDE_CONSTANT = .01 - ( .01 * thingo )
+--
+--   If this->slide_hold = 0 Then
+--
+--
+--     Dim As Integer all_momentum
+--
+--
+--       For all_momentum = 0 To 7
+--
+--
+--         this->momentum.i( all_momentum ) -= .01
+--         If this->momentum.i( all_momentum ) < 0 Then this->momentum.i( all_momentum ) = 0
+--
+--       Next
+--
+--       this->slide_hold = Timer + SLIDE_CONSTANT '' !!!!
+--
+--   End If
+--
+--   If Timer >= this->slide_hold Then this->slide_hold = 0
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
+
 function copter_path(this)
   --log.debug("copter_path called.")
   local exit_cond, c = 0, 0

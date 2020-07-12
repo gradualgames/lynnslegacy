@@ -73,3 +73,15 @@ function LLObject_IncrementFrame(this)
   -- End With
   return 0
 end
+
+-- Function __reset_frame ( this As _char_type Ptr ) As Integer
+function __reset_frame(this)
+--
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end

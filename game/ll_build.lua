@@ -20,9 +20,9 @@ function ctor_hero(l)
   l.id = "data/object/lynn.xml"
 --
 --     LLSystem_CopyNewObject( *l )
-  log.level = "debug"
+  --log.level = "debug"
   LLSystem_ObjectLoad(l)
-  log.level = "fatal"
+  --log.level = "fatal"
 --
 --     l->dead_sound = sound_lynn_die
 --
