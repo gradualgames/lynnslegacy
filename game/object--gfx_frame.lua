@@ -78,7 +78,7 @@ end
 function __reset_frame(this)
 --
 --   this->frame = 0
-  this.frame = 0
+  this.frame = 1
 --
 --   Return 1
   return 1

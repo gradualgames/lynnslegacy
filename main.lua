@@ -77,9 +77,9 @@ function love.update(dt)
       --log.level = "debug"
       enemy_main()
       --log.level = "fatal"
-      log.level = "debug"
+      --log.level = "debug"
       hero_main()
-      log.level = "fatal"
+      --log.level = "fatal"
     end
 
     accumulator = accumulator - tickPeriod
@@ -88,9 +88,9 @@ end
 
 function love.draw()
   startDrawing()
-  --log.level = "debug"
+  log.level = "debug"
   blit_scene()
-  --log.level = "fatal"
+  log.level = "fatal"
   doneDrawing()
 end
 
