@@ -554,7 +554,7 @@ function hero_main()
 --         '' lynn's moving
 --
 --         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
-      if LLObjet_IncrementFrame(ll_global.hero) ~= 0 then
+      if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
 --           llg( hero ).frame = 0
         ll_global.hero.frame = 0
 --           llg( hero ).frame_hold = Timer + llg( hero ).animControl[llg( hero ).current_anim].rate
