@@ -300,7 +300,7 @@ function hero_main()
 --       end if
       end
 --       llg( hero_only ).healTimer = 0
-        ll_global.hero_only.healTimer = 0
+      ll_global.hero_only.healTimer = 0
 --
 --     end if
     end
@@ -478,17 +478,18 @@ function hero_main()
     if ll_global.hero.on_ice == 0 then
 --         '' traction
 --         If .unique_id <> u_steelstrider Then
+      if ll_global.hero.unique_id ~= u_steelstrider then
 --           __go_grip( Varptr( llg( hero ) ) )
-      __go_grip(ll_global.hero)
+        __go_grip(ll_global.hero)
 --
 --         End If
-    end
+      end
 --
 --       End If
   end
 --
 --       If .walk_hold = 0 Then
-   if ll_global.hero.walk_hold == 0 then
+  if ll_global.hero.walk_hold == 0 then
 --
 --         '' walk_hold timer is initialized
 --         If .dead = 0 Then
@@ -547,60 +548,62 @@ function hero_main()
   end
 --       .moving Or = ( .is_pushing <> 0 )
   if ll_global.hero.is_pushing ~= 0 then
+    ll_global.hero.moving = 1
+  end
 --
 --
 --       If .moving <> 0 Then
-    if ll_global.hero.moving ~= 0 then
+  if ll_global.hero.moving ~= 0 then
 --         '' lynn's moving
 --
 --         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
-      if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
+    if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
 --           llg( hero ).frame = 0
-        ll_global.hero.frame = 0
+      ll_global.hero.frame = 0
 --           llg( hero ).frame_hold = Timer + llg( hero ).animControl[llg( hero ).current_anim].rate
-        ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
+      ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
 --
 --         End If
-      end
+    end
 --
 --       Else
-    else
+  else
 --         '' lynn isn't moving
 --
 --         If .dead = 0 Then
-      if ll_global.hero.dead == 0 then
+    if ll_global.hero.dead == 0 then
 --           '' lynn's alive
 --
 --           If llg( hero_only ).attacking  = 0 Then
-        if ll_global.hero_only.attacking == 0 then
+      if ll_global.hero_only.attacking == 0 then
 --
 --             If .frame <> 0 Then
-          if ll_global.frame ~= 0 then
+        if ll_global.frame ~= 0 then
 --               '' lynn frame not zero, reset
 --
 --               __reset_frame( VarPtr( llg( hero ) ) )
-            __reset_frame(ll_global.hero)
+          __reset_frame(ll_global.hero)
 --
 --
 --             End If
-          end
---
---           End If
         end
 --
---         End If
+--           End If
       end
 --
---       End If
+--         End If
     end
+--
+--       End If
+  end
 --
 --
 --       If llg( hero ).switch_room = -1 Then
-    if ll_global.hero.switch_room == -1 then
+  if ll_global.hero.switch_room == -1 then
 --         llg( hero ).switch_room = check_against_teles( llg( hero ) )
 --
 --       End If
-    end
+  end
 --
 --
 --     End If
