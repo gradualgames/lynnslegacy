@@ -959,13 +959,14 @@ function hero_continue_movement(mn)
         mn.direction = 0
 --         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
         if move_object(mn, MO_JUST_CHECKING) ~= 0 then
+          mn.moving = 1
+        end
 --         mn->moving Or = ( mn->is_pushing <> 0 )
-          if mn.is_pushing ~= 0 then
-            mn.moving = 1
-          end
+        if mn.is_pushing ~= 0 then
+          mn.moving = 1
+        end
 --
 --       End If
-        end
       end
 --
 --     End If
