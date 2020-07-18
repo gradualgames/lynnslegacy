@@ -952,7 +952,7 @@ function hero_continue_movement(mn)
 --
 --
 --       If MultiKey ( llg( u_key ).code )   Then
-      if love.keyboard.isDown("down") then
+      if love.keyboard.isDown("up") then
 --         '' hit up
 --
 --         mn->direction = 0
