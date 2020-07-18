@@ -104,7 +104,9 @@ function create_Object()
   --   thrust                As Integer
   --
   --   switch_room           As Integer
+  object.switch_room = -1
   --   dead                  As Integer
+  object.dead = 0
   --
   --
   --   heal_me               As Integer
@@ -410,6 +412,7 @@ function create_Object()
   --   ''   End Type
   --   ''
   --     fly_count             As Integer
+  object.fly_count = 0
   --     fly_hold              As Integer
   --     fly_length            As Integer
   --     fly_speed             As Double

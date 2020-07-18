@@ -425,22 +425,27 @@ function hero_main()
 --
 --     If llg( hero_only ).action_lock = 0 Then
   if ll_global.hero_only.action_lock == 0 then
+    log.debug("action lock was 0")
 --       '' lynn can do actions
 --
 --       If llg( hero_only ).attacking = 0 Then
     if ll_global.hero_only.attacking == 0 then
+      log.debug("attacking was 0")
 --         '' lynn is not attacking
 --
 --         If (.fly_count = 0) Then
       if ll_global.hero.fly_count == 0 then
+        log.debug("fly_count was 0")
 --           '' lynn is not flying back
 --
 --           If .dead = 0 Then
         if ll_global.hero.dead == 0 then
+          log.debug("dead was 0")
 --             '' lynn is not dead
 --
 --             If .switch_room = -1 Then
           if ll_global.hero.switch_room == -1 then
+            log.debug("switch_room is -1")
 --               '' lynn isnt doing a room switch fade thing
 --
 --               With llg( act_key )
@@ -721,100 +726,152 @@ end
 
 -- Private Sub dir_keys()
 function dir_keys()
+  log.debug("dir_keys entered.")
 --
 --   Static As Double SLIDE_CONSTANT = .02
+  local SLIDE_CONSTANT = .02
 --
 --   With llg( hero )
 --
 --     .momentum_history.i( 0 ) = 0
+  ll_global.hero.momentum_history[0] = 0
 --     .momentum_history.i( 1 ) = 0
+  ll_global.hero.momentum_history[1] = 0
 --     .momentum_history.i( 2 ) = 0
+  ll_global.hero.momentum_history[2] = 0
 --     .momentum_history.i( 3 ) = 0
+  ll_global.hero.momentum_history[3] = 0
 --
 --     If .walk_hold = 0 Then
+  if ll_global.hero.walk_hold == 0 then
 --
 --       '' walk_hold timer is initialized
 --
 --       If MultiKey ( llg( l_key.code ) ) Then
+    if love.keyboard.isDown("left") then
 --         '' hit left
 --
 --         .direction = 3
+      ll_global.hero.direction = 3
 --         .momentum.i( .direction ) += SLIDE_CONSTANT
+      ll_global.hero.momentum.i[ll_global.hero.direction] = ll_global.hero.momentum.i[ll_global.hero.direction] + SLIDE_CONSTANT
 --
 --         If .momentum.i( .direction ) > 1 Then
+      if ll_global.hero.momentum.i[ll_global.hero.direction] > 1 then
 --           .momentum.i( .direction ) = 1
+        ll_global.hero.momentum.i[ll_global.hero.direction] = 1
 --
 --         End If
+      end
 --
 --       Else
+    else
 --
 --         If llg( hero.is_pushing ) = 4 Then
+      if ll_global.hero.is_pushing == 4 then
 --           llg( hero.is_pushing ) = 0
+        ll_global.hero.is_pushing = 0
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --       If MultiKey ( llg( r_key.code ) ) Then
+    if love.keyboard.isDown("right") then
 --         '' hit right
 --
 --         .direction = 1
+      ll_global.hero.direction = 1
 --         .momentum.i( .direction ) += SLIDE_CONSTANT
+      ll_global.hero.momentum.i[ll_global.hero.direction] = ll_global.hero.momentum.i[ll_global.hero.direction] + SLIDE_CONSTANT
 --
 --         If .momentum.i( .direction ) > 1 Then
+      if ll_global.hero.momentum.i[ll_global.hero.direction] > 1 then
 --           .momentum.i( .direction ) = 1
+        ll_global.hero.momentum.i[ll_global.hero.direction] = 1
 --
 --         End If
+      end
 --
 --       Else
+    else
 --
 --         If llg( hero.is_pushing ) = 2 Then
+      if ll_global.hero.is_pushing == 2 then
 --           llg( hero.is_pushing ) = 0
+        ll_global.hero.is_pushing = 0
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --       If MultiKey ( llg( d_key.code ) ) Then
+    if love.keyboard.isDown("down") then
 --         '' hit down
 --
 --         .direction = 2
+      ll_global.hero.direction = 2
 --         .momentum.i( .direction ) += SLIDE_CONSTANT
+      ll_global.hero.momentum.i[ll_global.hero.direction] = ll_global.hero.momentum.i[ll_global.hero.direction] + SLIDE_CONSTANT
 --
 --         If .momentum.i( .direction ) > 1 Then
+      if ll_global.hero.momentum.i[ll_global.hero.direction] > 1 then
 --           .momentum.i( .direction ) = 1
+        ll_global.hero.momentum.i[ll_global.hero.direction] = 1
 --
 --         End If
+      end
 --
 --       Else
+    else
 --
 --         If llg( hero.is_pushing ) = 3 Then
+      if ll_global.hero.is_pushing == 3 then
 --           llg( hero.is_pushing ) = 0
+        ll_global.hero.is_pushing = 0
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --       If MultiKey ( llg( u_key.code ) )   Then
+    if love.keyboard.isDown("up") then
 --         '' hit up
 --
 --         .direction = 0
+      ll_global.hero.direction = 0
 --         .momentum.i( .direction ) += SLIDE_CONSTANT
+      ll_global.hero.momentum.i[ll_global.hero.direction] = ll_global.hero.momentum.i[ll_global.hero.direction] + SLIDE_CONSTANT
 --
 --         If .momentum.i( .direction ) > 1 Then
+      if ll_global.hero.momentum.i[ll_global.hero.direction] > 1 then
 --           .momentum.i( .direction ) = 1
+        ll_global.hero.momentum.i[ll_global.hero.direction] = 1
 --
 --         End If
+      end
 --
 --       Else
+    else
 --         If llg( hero.is_pushing ) = 1 Then
+      if ll_global.hero.is_pushing == 1 then
 --           llg( hero.is_pushing ) = 0
+        ll_global.hero.is_pushing = 0
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --     End If
+  end
 --
 --   End With
 --

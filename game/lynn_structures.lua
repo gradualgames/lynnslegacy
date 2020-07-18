@@ -4,8 +4,10 @@ function create_main_char_type()
 --
 --   action As Integer
 --   action_lock As Integer
+  main_char_type.action_lock = 0
 --
 --   attacking As Integer
+  main_char_type.attacking = 0
 --   b_key As Integer
 --   crazy_points As Integer
 --   crazy_cache As Integer

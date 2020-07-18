@@ -38,6 +38,9 @@ function love.load()
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 
+  ll_global.hero.coords.x = 320
+  ll_global.hero.coords.y = 200
+
   ll_global.current_cam = ll_global.hero
   ll_global.this_room.cx = 0
   ll_global.this_room.cy = 0
@@ -53,28 +56,30 @@ end
 function love.update(dt)
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
-    if love.keyboard.isDown("up") then
-      ll_global.hero.coords.y = ll_global.hero.coords.y - speed
-    end
-
-    if love.keyboard.isDown("down") then
-      ll_global.hero.coords.y = ll_global.hero.coords.y + speed
-    end
-
-    if love.keyboard.isDown("right") then
-      ll_global.hero.coords.x = ll_global.hero.coords.x + speed
-    end
-
-    if love.keyboard.isDown("left") then
-      ll_global.hero.coords.x = ll_global.hero.coords.x - speed
-    end
+    -- if love.keyboard.isDown("up") then
+    --   ll_global.hero.coords.y = ll_global.hero.coords.y - speed
+    -- end
+    --
+    -- if love.keyboard.isDown("down") then
+    --   ll_global.hero.coords.y = ll_global.hero.coords.y + speed
+    -- end
+    --
+    -- if love.keyboard.isDown("right") then
+    --   ll_global.hero.coords.x = ll_global.hero.coords.x + speed
+    -- end
+    --
+    -- if love.keyboard.isDown("left") then
+    --   ll_global.hero.coords.x = ll_global.hero.coords.x - speed
+    -- end
 
     for u = 1, 4 do
       timer = love.timer.getTime()
       --log.level = "debug"
       enemy_main()
-      hero_main()
       --log.level = "fatal"
+      log.level = "debug"
+      hero_main()
+      log.level = "fatal"
     end
 
     accumulator = accumulator - tickPeriod
