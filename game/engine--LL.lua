@@ -559,7 +559,7 @@ function hero_main()
 --         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
     if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
 --           llg( hero ).frame = 0
-      ll_global.hero.frame = 0
+      ll_global.hero.frame = 1
 --           llg( hero ).frame_hold = Timer + llg( hero ).animControl[llg( hero ).current_anim].rate
       ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
 --
@@ -578,7 +578,7 @@ function hero_main()
       if ll_global.hero_only.attacking == 0 then
 --
 --             If .frame <> 0 Then
-        if ll_global.frame ~= 0 then
+        if ll_global.frame ~= 1 then
 --               '' lynn frame not zero, reset
 --
 --               __reset_frame( VarPtr( llg( hero ) ) )
@@ -886,53 +886,93 @@ end
 function hero_continue_movement(mn)
 --
 --   If mn->dead <> 0 Then Exit Sub
+  if mn.dead ~= 0 then return end
 --
 --   If MultiKey ( llg( u_key ).code ) Or MultiKey ( llg( r_key ).code ) Or MultiKey ( llg( d_key ).code ) Or MultiKey ( llg( l_key ).code ) Then
+  if love.keyboard.isDown("up") or love.keyboard.isDown("right") or love.keyboard.isDown("down") or love.keyboard.isDown("left") then
 --     '' hit a directional arrow
 --     If mn->switch_room = -1 Then
+    if mn.switch_room == -1 then
 --
 --       If MultiKey ( llg( l_key ).code ) Then
+      if love.keyboard.isDown("left") then
 --         '' hit left
 --
 --         mn->direction = 3
+        mn.direction = 3
 --         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+        if move_object(mn, MO_JUST_CHECKING) ~= 0 then
+          mn.moving = 1
+        end
 --         mn->moving Or = ( mn->is_pushing <> 0 )
+        if mn.is_pushing ~= 0 then
+          mn.moving = 1
+        end
 --
 --       End If
+      end
 --
 --
 --       If MultiKey ( llg( r_key ).code ) Then
+      if love.keyboard.isDown("right") then
 --         '' hit right
 --
 --         mn->direction = 1
+        mn.direction = 1
 --         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+        if move_object(mn, MO_JUST_CHECKING) ~= 0 then
+          mn.moving = 1
+        end
 --         mn->moving Or = ( mn->is_pushing <> 0 )
+        if mn.is_pushing ~= 0 then
+          mn.moving = 1
+        end
 --
 --       End If
+      end
 --
 --
 --       If MultiKey ( llg( d_key ).code ) Then
+      if love.keyboard.isDown("down") then
 --         '' hit down
 --
 --         mn->direction = 2
+        mn.direction = 2
 --         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+        if move_object(mn, MO_JUST_CHECKING) ~= 0 then
+          mn.moving = 1
+        end
 --         mn->moving Or = ( mn->is_pushing <> 0 )
+        if mn.is_pushing ~= 0 then
+          mn.moving = 1
+        end
 --
 --       End If
+      end
 --
 --
 --       If MultiKey ( llg( u_key ).code )   Then
+      if love.keyboard.isDown("down") then
 --         '' hit up
 --
 --         mn->direction = 0
+        mn.direction = 0
 --         mn->moving Or = move_object ( mn, MO_JUST_CHECKING ) <> 0
+        if move_object(mn, MO_JUST_CHECKING) ~= 0 then
 --         mn->moving Or = ( mn->is_pushing <> 0 )
+          if mn.is_pushing ~= 0 then
+            mn.moving = 1
+          end
 --
 --       End If
+        end
+      end
 --
 --     End If
+    end
 --
 --   End If
+  end
 --
 --
 -- End Sub
