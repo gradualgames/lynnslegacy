@@ -425,27 +425,27 @@ function hero_main()
 --
 --     If llg( hero_only ).action_lock = 0 Then
   if ll_global.hero_only.action_lock == 0 then
-    log.debug("action lock was 0")
+    --log.debug("action lock was 0")
 --       '' lynn can do actions
 --
 --       If llg( hero_only ).attacking = 0 Then
     if ll_global.hero_only.attacking == 0 then
-      log.debug("attacking was 0")
+      --log.debug("attacking was 0")
 --         '' lynn is not attacking
 --
 --         If (.fly_count = 0) Then
       if ll_global.hero.fly_count == 0 then
-        log.debug("fly_count was 0")
+        --log.debug("fly_count was 0")
 --           '' lynn is not flying back
 --
 --           If .dead = 0 Then
         if ll_global.hero.dead == 0 then
-          log.debug("dead was 0")
+          --log.debug("dead was 0")
 --             '' lynn is not dead
 --
 --             If .switch_room = -1 Then
           if ll_global.hero.switch_room == -1 then
-            log.debug("switch_room is -1")
+            --log.debug("switch_room is -1")
 --               '' lynn isnt doing a room switch fade thing
 --
 --               With llg( act_key )
@@ -528,6 +528,8 @@ function hero_main()
 --
 --       If ( .on_ice <> 0 ) Then
   if ll_global.hero.on_ice ~= 0 then
+    log.debug("ll_global.hero.on_ice: "..ll_global.hero.on_ice)
+    log.debug("Hero is on ice, calling __calc_slide.")
 --
 --         __calc_slide( VarPtr( llg( hero ) ) )
     __calc_slide(ll_global.hero)
@@ -535,6 +537,7 @@ function hero_main()
 --
 --       Else
   else
+    log.debug("Hero is on not on ice, calling __stop_grip.")
 --         __stop_grip( VarPtr( llg( hero ) ) )
     __stop_grip(ll_global.hero)
 --
@@ -729,7 +732,7 @@ end
 
 -- Private Sub dir_keys()
 function dir_keys()
-  log.debug("dir_keys entered.")
+  --log.debug("dir_keys entered.")
 --
 --   Static As Double SLIDE_CONSTANT = .02
   local SLIDE_CONSTANT = .02
@@ -2125,8 +2128,8 @@ end
 
   -- Function check_walk ( o As char_type Ptr, d As Integer, psfing = 0 ) Static
 function check_walk(o, d, psfing)
-  log.debug("check_walk called.")
-  log.debug("psfing: "..psfing)
+  --log.debug("check_walk called.")
+  --log.debug("psfing: "..psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
@@ -2205,7 +2208,7 @@ function check_walk(o, d, psfing)
   --   '' prime
   --   if psfing then
   if psfing ~= 0 then
-    log.debug("psf_free is true.")
+    --log.debug("psf_free is true.")
   --     psf_free = TRUE
     psf_free = true
   --
@@ -2213,7 +2216,7 @@ function check_walk(o, d, psfing)
   else
   --     tile_free = TRUE
     tile_free = true
-    log.debug("tile_free is true.")
+    --log.debug("tile_free is true.")
   --
   --   end if
   end
@@ -2299,13 +2302,13 @@ function check_walk(o, d, psfing)
         --log.debug("bit was set.")
   --           if psfing then
         if psfing then
-          log.debug("psf_free set to false.")
+          --log.debug("psf_free set to false.")
   --             psf_free = FALSE
           psf_free = false
   --
   --           else
         else
-          log.debug("tile_free set to false.")
+          --log.debug("tile_free set to false.")
   --             tile_free = FALSE
           tile_free = false
   --

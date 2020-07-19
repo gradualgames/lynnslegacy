@@ -48,7 +48,6 @@ function check_ice(c)
 --                                                                       _
 --   If Bit( ll_current_room( layout[0][tile_char_on( c )] ), 8 ) Then : _
 --     c.on_ice = -1                                                   : _
-  c.on_ice = -1
 --                                                                     : _
 --   End If
 --
