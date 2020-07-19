@@ -528,8 +528,8 @@ function hero_main()
 --
 --       If ( .on_ice <> 0 ) Then
   if ll_global.hero.on_ice ~= 0 then
-    log.debug("ll_global.hero.on_ice: "..ll_global.hero.on_ice)
-    log.debug("Hero is on ice, calling __calc_slide.")
+    --log.debug("ll_global.hero.on_ice: "..ll_global.hero.on_ice)
+    --log.debug("Hero is on ice, calling __calc_slide.")
 --
 --         __calc_slide( VarPtr( llg( hero ) ) )
     __calc_slide(ll_global.hero)
@@ -537,7 +537,7 @@ function hero_main()
 --
 --       Else
   else
-    log.debug("Hero is on not on ice, calling __stop_grip.")
+    --log.debug("Hero is on not on ice, calling __stop_grip.")
 --         __stop_grip( VarPtr( llg( hero ) ) )
     __stop_grip(ll_global.hero)
 --
