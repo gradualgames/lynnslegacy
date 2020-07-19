@@ -236,7 +236,7 @@ function blit_y_sorted()
   --
   --     blit_enemy( *y_sort( _blit_em ) )
     local enemy = now_room().enemies[i]
-    --blit_enemy(enemy)
+    blit_enemy(enemy)
   --
   --   End If
   --
