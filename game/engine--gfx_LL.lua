@@ -435,7 +435,7 @@ function blit_object_ex(enemy)
   --       f_opt *= .arraysize
   --
   --       If LLObject_IgnoreDirectional( this ) = 0 Then
-  if true then --LLObject_IgnoreDirectional(enemy) == 0 then
+  if LLObject_IgnoreDirectional(enemy) == 0 then
   --         f_opt += this->direction * ( this->animControl[this->current_anim].dir_frames * .arraysize )
     f_opt = f_opt + enemy.direction * enemy.animControl[enemy.current_anim].dir_frames
   --
