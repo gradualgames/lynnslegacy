@@ -236,7 +236,7 @@ function blit_y_sorted()
   --
   --     blit_enemy( *y_sort( _blit_em ) )
     local enemy = now_room().enemies[i]
-    blit_enemy(enemy)
+    --blit_enemy(enemy)
   --
   --   End If
   --
@@ -426,18 +426,21 @@ function blit_object_ex(enemy)
   --
   --       x_opt -= this->animControl[this->current_anim].x_off
   x_opt = x_opt - enemy.animControl[enemy.current_anim].x_off
-  log.debug("x_opt: "..x_opt)
+  --log.debug("x_opt: "..x_opt)
   --       y_opt -= this->animControl[this->current_anim].y_off
   y_opt = y_opt - enemy.animControl[enemy.current_anim].y_off
-  log.debug("y_opt: "..y_opt)
-
+  --log.debug("y_opt: "..y_opt)
+  log.debug("enemy.animControl[enemy.current_anim].dir_frames: "..enemy.animControl[enemy.current_anim].dir_frames)
   --
   --       f_opt *= .arraysize
   --
   --       If LLObject_IgnoreDirectional( this ) = 0 Then
+  if true then --LLObject_IgnoreDirectional(enemy) == 0 then
   --         f_opt += this->direction * ( this->animControl[this->current_anim].dir_frames * .arraysize )
+    f_opt = f_opt + enemy.direction * enemy.animControl[enemy.current_anim].dir_frames
   --
   --       End If
+  end
   --
   --       Put( x_opt, y_opt ), varptr( .image[f_opt] ), Trans
 

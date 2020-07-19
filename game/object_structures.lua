@@ -280,6 +280,7 @@ function create_Object()
   --   trigger               As Integer
   --
   --   uni_directional       As Integer
+  object.uni_directional = 0
   --   unique_id             As Integer
   --
   --   unstoppable_by_tile   As Integer
