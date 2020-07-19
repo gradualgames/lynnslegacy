@@ -1724,7 +1724,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(1, o) ~= 0 or o.unstoppable_by_object then
+        if check_against_entities(1, o) ~= 1 or o.unstoppable_by_object then
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
