@@ -153,8 +153,8 @@ function blit_room()
   --
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
-  --layoutLayer(camera, map.rooms[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
-  --love.graphics.draw(map.imageHeader.spriteBatches[3])
+  layoutLayer(camera, map.rooms[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
+  love.graphics.draw(map.imageHeader.spriteBatches[3])
   --
   -- End If
   --
@@ -236,7 +236,7 @@ function blit_y_sorted()
   --
   --     blit_enemy( *y_sort( _blit_em ) )
     local enemy = now_room().enemies[i]
-    --blit_enemy(enemy)
+    blit_enemy(enemy)
   --
   --   End If
   --
