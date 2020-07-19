@@ -282,6 +282,7 @@ function create_Object()
   --   uni_directional       As Integer
   object.uni_directional = 0
   --   unique_id             As Integer
+  object.unique_id = 0
   --
   --   unstoppable_by_tile   As Integer
   object.unstoppable_by_tile = 0

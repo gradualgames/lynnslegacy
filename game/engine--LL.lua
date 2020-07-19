@@ -393,18 +393,20 @@ function hero_main()
   check_ice(ll_global.hero)
 --
 --     If .on_ice = 0 Then
+log.debug("walk speed: "..ll_global.hero.walk_speed)
   if ll_global.hero.on_ice == 0 then
---       .coords.x = Int( .coords.x )
-    ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
---       .coords.y = Int( .coords.y )
-    ll_global.hero.coords.y = math.floor(ll_global.hero.coords.y)
---
+-- --       .coords.x = Int( .coords.x )
+--     ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
+-- --       .coords.y = Int( .coords.y )
+--     ll_global.hero.coords.y = math.floor(ll_global.hero.coords.y)
+-- --
 --     End If
   end
 --
 --
 --     If ( .on_ice <> 0 ) And .last_cycle_ice = 0 Then
   if (ll_global.hero.on_ice ~= 0) and ll_global.hero.last_cycle_ice == 0 then
+    log.debug("thing")
 --
 --       Dim As Integer all_momentum
 --       For all_momentum = 0 To 3
@@ -478,7 +480,10 @@ function hero_main()
     if ll_global.hero.on_ice == 0 then
 --         '' traction
 --         If .unique_id <> u_steelstrider Then
+      log.debug("unique_id"..ll_global.hero.unique_id)
+      log.debug("u_steelstrider: "..u_steelstrider)
       if ll_global.hero.unique_id ~= u_steelstrider then
+        log.debug("go grip")
 --           __go_grip( Varptr( llg( hero ) ) )
         __go_grip(ll_global.hero)
 --
