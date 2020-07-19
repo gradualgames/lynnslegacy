@@ -47,6 +47,12 @@ function LLSystem_ObjectFromXML(enemy)
       elseif path[3] == "rate" then
         log.debug( " Processing sprite/rate: "..text)
         enemy.animControl[enemy.current_anim].rate = tonumber(text)
+      elseif path[3] == "x_off" then
+        log.debug( " Processing sprite/x_off: "..text)
+        enemy.animControl[enemy.current_anim].x_off = tonumber(text)
+      elseif path[3] == "y_off" then
+        log.debug( " Processing sprite/y_off: "..text)
+        enemy.animControl[enemy.current_anim].y_off = tonumber(text)
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then
