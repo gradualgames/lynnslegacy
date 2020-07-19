@@ -48,9 +48,9 @@ function love.load()
   --FIXME: Not a ported variable, just used for now
   speed = 4
 
-  --source = love.audio.newSource("data/music/fsun.it", "stream")
-  --source:setLooping(true)
-  --source:play()
+  source = love.audio.newSource("data/music/world.it", "stream")
+  source:setLooping(true)
+  source:play()
 end
 
 function love.update(dt)
