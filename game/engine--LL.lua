@@ -740,13 +740,13 @@ function dir_keys()
 --   With llg( hero )
 --
 --     .momentum_history.i( 0 ) = 0
-  ll_global.hero.momentum_history[0] = 0
+  ll_global.hero.momentum_history.i[0] = 0
 --     .momentum_history.i( 1 ) = 0
-  ll_global.hero.momentum_history[1] = 0
+  ll_global.hero.momentum_history.i[1] = 0
 --     .momentum_history.i( 2 ) = 0
-  ll_global.hero.momentum_history[2] = 0
+  ll_global.hero.momentum_history.i[2] = 0
 --     .momentum_history.i( 3 ) = 0
-  ll_global.hero.momentum_history[3] = 0
+  ll_global.hero.momentum_history.i[3] = 0
 --
 --     If .walk_hold = 0 Then
   if ll_global.hero.walk_hold == 0 then
