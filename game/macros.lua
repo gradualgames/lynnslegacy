@@ -53,3 +53,13 @@ function check_ice(c)
 --
 -- '' #EndDefine check_ice
 end
+
+-- #Define quad_calc(x,y)                          _
+function quad_calc(x, y)
+--                                                 _
+--   ( ( Abs( y And 1 ) Shl 1 ) + Abs( x And 1 ) )
+  return math.abs(bit.lshift(bit.band(y, 1), 1) + math.abs(bit.band(x, 1)))
+--
+--
+-- '' #EndDefine quad_calc
+end

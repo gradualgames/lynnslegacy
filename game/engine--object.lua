@@ -1,4 +1,133 @@
 require("game/engine--object_XML")
+require("game/engine_enums")
+
+-- Private Sub LLObject_UniqueCheck( c As char_type )
+function LLObject_UniqueCheck(c)
+
+  --NOTE: I think the entire function below can be done just by extracting the
+  --name of the object from its id (xml file path) and removing all but the name
+  --then prefixing it with u_. Then, the global enums for unique ids should be
+  --able to be looked up in _G.
+  local name = string.gsub(c.id, "data/object/", "")
+  name = string.gsub(name, ".xml", "")
+  name = "u_"..name
+  if _G[name] then
+    c.unique_id = _G[name]
+    --log.level = "debug"
+    --log.debug("Object name: "..name)
+    --log.debug("Object unique id: "..c.unique_id)
+    --log.level = "fatal"
+  end
+
+--
+--   #Define this_object(x) _
+--
+--
+--   #Define check_object_id(__x__)                                                _
+--                                                                                 _
+--     If ( Right( .id, Len( ###__x__ & ".xml" ) ) = ( ###__x__ & ".xml" ) ) Then :_
+--       .unique_id = u_##__x__                                                   :_
+--       Exit Sub                                                                 :_
+--                                                                                :_
+--     End If                                                                     :_
+--
+--
+--   With c
+--
+--     check_object_id( beamcrystal   )
+--     check_object_id( bluechest     )
+--     check_object_id( chest         )
+--     check_object_id( bluechestitem )
+--     check_object_id( gbutton       )
+--     check_object_id( button        )
+--     check_object_id( bshape        )
+--     check_object_id( gshape        )
+--     check_object_id( bush          )
+--     check_object_id( tguard        )
+--     check_object_id( bguard        )
+--     check_object_id( eguard        )
+--     check_object_id( cguard        )
+--     check_object_id( ltorch        )
+--     check_object_id( gtorch        )
+--     check_object_id( torch         )
+--     check_object_id( ibug          )
+--     check_object_id( beetle        )
+--     check_object_id( fbug          )
+--     check_object_id( gold          )
+--     check_object_id( silver        )
+--     check_object_id( crate_health  )
+--     check_object_id( charger       )
+--     check_object_id( health        )
+--     check_object_id( fkeydoor      )
+--     check_object_id( keydoor       )
+--     check_object_id( bardoor       )
+--     check_object_id( static        )
+--     check_object_id( pushrock      )
+--     check_object_id( menu          )
+--     check_object_id( savepoint     )
+--     check_object_id( crate         )
+--     check_object_id( grult         )
+--     check_object_id( ghut          )
+--     check_object_id( hotrock       )
+--     check_object_id( coldrock      )
+--     check_object_id( greyrock      )
+--     check_object_id( bombrock      )
+--     check_object_id( mole          )
+--     check_object_id( sign          )
+--     check_object_id( dyssius       )
+--     check_object_id( anger         )
+--     check_object_id( angerfireball )
+--     check_object_id( sparkle       )
+--     check_object_id( sterach       )
+--     check_object_id( swordie       )
+--     check_object_id( lynn          )
+--     check_object_id( slimeman      )
+--     check_object_id( antiwall2     )
+--     check_object_id( antiwall      )
+--     check_object_id( pmouth        )
+--     check_object_id( boss5_right   )
+--     check_object_id( boss5_left    )
+--     check_object_id( boss5_down    )
+--     check_object_id( boss5_crystal )
+--
+--     check_object_id( pekkle_blue )
+--     check_object_id( pekkle_red )
+--     check_object_id( pekkle_grey )
+--     check_object_id( pekkle_red )
+--     check_object_id( pekkle_big )
+--     check_object_id( pekkle_bomb )
+--
+--     check_object_id( goldblock )
+--
+--     check_object_id( divine_ball )
+--     check_object_id( divine_bug )
+--     check_object_id( divine )
+--
+--     check_object_id( kambot )
+--     check_object_id( auto )
+--     check_object_id( mech )
+--     check_object_id( godstat )
+--     check_object_id( haywire )
+--     check_object_id( biglarva )
+--     check_object_id( cell )
+--     check_object_id( statue )
+--     check_object_id( battleseed )
+--     check_object_id( healthguy )
+--
+--     If .id = ( "data\object\ferus.xml" ) Then
+--       .unique_id = u_ferus
+--       Exit Sub
+--
+--     End If
+--
+--     check_object_id( steelstrider )
+--
+--     check_object_id( core )
+--
+--   End With
+--
+-- End Sub
+end
 
 -- Loads an object and its images from xml and spr files. Assumes that
 -- objectLoad.id has been initialized with the relative path of an object
@@ -88,6 +217,7 @@ function LLSystem_ObjectLoad(objectLoad)
   --   objectLoad.switch_room = -1
   --
   --   LLObject_UniqueCheck( objectLoad )
+  LLObject_UniqueCheck(objectLoad)
   --
   --
   --

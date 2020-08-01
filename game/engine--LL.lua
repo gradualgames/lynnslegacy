@@ -2333,23 +2333,34 @@ function check_walk(o, d, psfing)
   --
   --
   --   If tile_free = FALSE Then
+  if tile_free == false then
   --
   --     If psfing = FALSE Then
+    if psfing == false then
   --
   --       If o->unique_id = u_lynn Then
+      if o.unique_id == u_lynn then
   --         check_psf( o, d )
+        check_psf(o, d)
   --
   --       Else
+      else
   --         If o->unique_id = u_pushrock Then
+        if o.unique_id == u_pushrock then
   --           check_psf( o, d )
+          check_psf(o, d)
   --
   --         End If
+        end
   --
   --       End If
+      end
   --
   --     End If
+    end
   --
   --   End If
+  end
   --
   --
   --   if psfing then
@@ -2435,3 +2446,245 @@ function check_against_entities(d, o)
   --collision checks. Remove.
   return 0
 end
+
+-- Sub check_psf( o As char_type Ptr, d As Integer )
+function check_psf(o, d)
+--
+--
+--   Dim As Integer layercheck, pnts, tmp_dir, po_x, po_y, pol, tmp_d
+--   Dim As Integer tx_2 = ( 8 ), ty_2 = ( 8 )
+--   Dim As Integer x_crawl, y_crawl
+--
+--   in_dir_small( d )
+--
+--   tmp_dir = o->direction
+--   tmp_d = d
+--
+--   If ( d And 1 ) = 0 Then
+--     If rl_key() Then Exit sub
+--     pnts = ( o->perimeter.x Shr 3 ) '' div tx_2
+--     x_crawl = tx_2
+--
+--   Else
+--     If ud_key() Then Exit Sub
+--     pnts = ( o->perimeter.y Shr 3 ) '' div ty_2
+--     y_crawl = ty_2
+--
+--   End If
+--
+--   po_x = Int( o->coords.x )
+--   po_y = Int( o->coords.y )
+--
+--   Select Case d
+--
+--     Case 0
+--
+--     Case 1
+--
+--       po_x += Int( o->perimeter.x ) - tx_2
+--
+--     Case 2
+--
+--       po_x += Int( o->perimeter.x )
+--       po_y += Int( o->perimeter.y ) - ty_2
+--
+--     Case 3
+--
+--       po_y += Int( o->perimeter.y )
+--
+--
+--   End Select
+--
+--
+--   Select Case d Shr 1
+--
+--     Case 0
+--
+--       pol = 1
+--
+--     Case Else
+--
+--       pol = -1
+--
+--   End Select
+--
+--
+--   For layercheck = 0 To 2
+--
+--     Dim As tile_quad slider, chkr
+--     Dim As Integer crawl, x_opt, y_opt, po_quad, mi_quad, op_quad
+--
+--     crawl = 0
+--
+--     x_opt = ( crawl * x_crawl * pol ) + po_x
+--     y_opt = ( crawl * y_crawl * pol ) + po_y
+--
+--     slider.x = ( x_opt ) Shr 4 '' div tileX
+--     slider.y = ( y_opt ) Shr 4 '' div tileY
+--     slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 ) '' div tx_2, ty_2
+--
+--     chkr = quad_seek( slider, d )
+--     po_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
+--
+--
+--     For crawl = 1 To pnts - 1
+--
+--       x_opt = ( crawl * x_crawl * pol ) + po_x
+--       y_opt = ( crawl * y_crawl * pol ) + po_y
+--
+--       slider.x = ( x_opt ) Shr 4 '' div tileX
+--       slider.y = ( y_opt ) Shr 4 '' div tileY
+--       slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 ) '' div tx_2, ty_2
+--
+--       chkr = quad_seek( slider, d )
+--       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
+--
+--     Next
+--
+--     '' unnecessary syntactically, but it's clarification that counts, kids.
+--     crawl = pnts
+--
+--     x_opt = ( crawl * x_crawl * pol ) + po_x
+--     y_opt = ( crawl * y_crawl * pol ) + po_y
+--
+--     slider.x = ( x_opt ) Shr 4
+--     slider.y = ( y_opt ) Shr 4
+--     slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 )
+--
+--     chkr = quad_seek( slider, d )
+--     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
+--
+--
+--     d = tmp_d
+--     '' got all the quads
+--
+--
+--     If ( po_quad <> 0 ) And ( op_quad <> 0 ) Then
+--       Exit sub
+--
+--     End If
+--
+--
+--     If ( po_quad <> 0 ) And ( op_quad = 0 ) Then
+--     '' clockwise
+--       o->direction += 1
+--       in_dir_small( o->direction )
+--
+--       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
+--       o->direction =  tmp_dir
+--
+--       Exit Sub
+--
+--     End If
+--
+--
+--     If ( po_quad = 0 ) And ( op_quad <> 0 ) Then
+--       '' counter clockwise
+--       o->direction -= 1
+--       in_dir_small( o->direction )
+--
+--       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
+--       o->direction =  tmp_dir
+--
+--       Exit Sub
+--
+--     End If
+--
+--
+--     If ( po_quad = 0 ) And ( op_quad = 0 ) And ( mi_quad <> 0 ) Then
+--     '' clockwise
+--       o->direction += 1
+--       in_dir_small( o->direction )
+--
+--       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
+--       o->direction =  tmp_dir
+--
+--       Exit Sub
+--
+--     End If
+--
+--   Next
+--
+-- End Sub
+end
+--
+--
+--
+--
+-- Function quad_seek( t_in As tile_quad, d As Integer ) As tile_quad
+--
+--   Dim As Integer opt, to_quad, to_tile_x, to_tile_y
+--
+--   to_tile_x = t_in.x
+--   to_tile_y = t_in.y
+--
+--   Select Case As Const d
+--
+--     Case 0
+--
+--       opt = -2
+--
+--     Case 1
+--
+--       opt = 1
+--
+--     Case 2
+--
+--       opt = 2
+--
+--     Case 3
+--
+--       opt = -1
+--
+--   End Select
+--
+--   to_quad = opt + t_in.quad
+--
+--   Select Case As Const d '' overflow
+--
+--     Case 0
+--
+--       If to_quad < 0 Then
+--         ''move tile up one
+--
+--         to_tile_y -= 1
+--         to_quad = IIf( to_quad = -2, 2, 3 )
+--
+--       End If
+--
+--     Case 1
+--
+--       If ( Abs( to_quad ) And 1 ) = 0 Then
+--         ''move tile right one
+--
+--         to_tile_x += 1
+--         to_quad = IIf( to_quad = 2, 0, 2 )
+--
+--       End If
+--
+--     Case 2
+--
+--       If to_quad > 3 Then
+--         ''move tile down one
+--
+--         to_tile_y += 1
+--         to_quad = IIf( to_quad = 4, 0, 1 )
+--
+--       End If
+--
+--     Case 3
+--
+--       If ( Abs( to_quad ) And 1 ) <> 0 Then
+--         ''move tile left one
+--
+--         to_tile_x -= 1
+--         to_quad = IIf( to_quad = 1, 3, 1 )
+--
+--       End If
+--
+--   End Select
+--
+--   Return Type <tile_quad> ( to_tile_x, to_tile_y, to_quad )
+--
+-- End Function
+--
