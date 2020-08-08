@@ -2481,12 +2481,11 @@ function check_psf(o, d)
 --     If ud_key() Then Exit Sub
     if ud_key() then return end
 --     pnts = ( o->perimeter.y Shr 3 ) '' div ty_2
-      pnts = bit.rshift(o.perimeter.y, 3)
+    pnts = bit.rshift(o.perimeter.y, 3)
 --     y_crawl = ty_2
-      y_crawl = ty_2
+    y_crawl = ty_2
 --
 --   End If
-    end
   end
 --
 --   po_x = Int( o->coords.x )
