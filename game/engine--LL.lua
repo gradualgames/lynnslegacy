@@ -2566,7 +2566,7 @@ function check_psf(o, d)
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
 --     po_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
-    po_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad)
+    po_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad)
 --
 --
 --     For crawl = 1 To pnts - 1
@@ -2587,7 +2587,7 @@ function check_psf(o, d)
 --       chkr = quad_seek( slider, d )
       chkr = quad_seek(slider, d)
 --       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
-      mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad))
+      mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad))
 --
 --     Next
     end
@@ -2611,7 +2611,7 @@ function check_psf(o, d)
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
 --     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
-    op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad)
+    op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad)
 --
 --
 --     d = tmp_d
