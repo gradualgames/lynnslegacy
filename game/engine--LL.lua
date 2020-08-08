@@ -394,7 +394,7 @@ function hero_main()
   check_ice(ll_global.hero)
 --
 --     If .on_ice = 0 Then
-log.debug("walk speed: "..ll_global.hero.walk_speed)
+  --log.debug("walk speed: "..ll_global.hero.walk_speed)
   if ll_global.hero.on_ice == 0 then
 -- --       .coords.x = Int( .coords.x )
 --     ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
@@ -407,7 +407,6 @@ log.debug("walk speed: "..ll_global.hero.walk_speed)
 --
 --     If ( .on_ice <> 0 ) And .last_cycle_ice = 0 Then
   if (ll_global.hero.on_ice ~= 0) and ll_global.hero.last_cycle_ice == 0 then
-    log.debug("thing")
 --
 --       Dim As Integer all_momentum
 --       For all_momentum = 0 To 3
@@ -481,10 +480,10 @@ log.debug("walk speed: "..ll_global.hero.walk_speed)
     if ll_global.hero.on_ice == 0 then
 --         '' traction
 --         If .unique_id <> u_steelstrider Then
-      log.debug("unique_id"..ll_global.hero.unique_id)
-      log.debug("u_steelstrider: "..u_steelstrider)
+      --log.debug("unique_id"..ll_global.hero.unique_id)
+      --log.debug("u_steelstrider: "..u_steelstrider)
       if ll_global.hero.unique_id ~= u_steelstrider then
-        log.debug("go grip")
+        --log.debug("go grip")
 --           __go_grip( Varptr( llg( hero ) ) )
         __go_grip(ll_global.hero)
 --
@@ -2134,8 +2133,8 @@ end
 
   -- Function check_walk ( o As char_type Ptr, d As Integer, psfing = 0 ) Static
 function check_walk(o, d, psfing)
-  --log.debug("check_walk called.")
-  --log.debug("psfing: "..psfing)
+  log.debug("check_walk called.")
+  log.debug("psfing: "..psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
@@ -2307,7 +2306,7 @@ function check_walk(o, d, psfing)
       if testbit(tile, bit_index) ~= 0 then
         --log.debug("bit was set.")
   --           if psfing then
-        if psfing then
+        if psfing ~= 0 then
           --log.debug("psf_free set to false.")
   --             psf_free = FALSE
           psf_free = false
@@ -2337,7 +2336,7 @@ function check_walk(o, d, psfing)
   if tile_free == false then
   --
   --     If psfing = FALSE Then
-    if psfing == false then
+    if psfing == 0 then
   --
   --       If o->unique_id = u_lynn Then
       if o.unique_id == u_lynn then
@@ -2366,7 +2365,7 @@ function check_walk(o, d, psfing)
   --
   --   if psfing then
 
-  if psfing then
+  if psfing ~= 0 then
   --     Return psf_free
     return psf_free
   --   else
@@ -2450,6 +2449,7 @@ end
 
 -- Sub check_psf( o As char_type Ptr, d As Integer )
 function check_psf(o, d)
+  log.debug("check_psf entered.")
 --
 --
 --   Dim As Integer layercheck, pnts, tmp_dir, po_x, po_y, pol, tmp_d
@@ -2525,7 +2525,7 @@ function check_psf(o, d)
 --   Select Case d Shr 1
 --
 --     Case 0
-  if math.rshift(d, 1) == 0 then
+  if bit.rshift(d, 1) == 0 then
 --
 --       pol = 1
     pol = 1
@@ -2557,11 +2557,11 @@ function check_psf(o, d)
     y_opt = (crawl * y_crawl * pol) + po_y
 --
 --     slider.x = ( x_opt ) Shr 4 '' div tileX
-    slider.x = math.rshift(x_opt, 4)
+    slider.x = bit.rshift(x_opt, 4)
 --     slider.y = ( y_opt ) Shr 4 '' div tileY
-    slider.y = math.rshift(y_opt, y)
+    slider.y = bit.rshift(y_opt, 4)
 --     slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 ) '' div tx_2, ty_2
-    slider.quad = quad_calc(math.rshift(x_opt, 3), math.rshift(y_opt, 3))
+    slider.quad = quad_calc(bit.rshift(x_opt, 3), bit.rshift(y_opt, 3))
 --
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
@@ -2578,11 +2578,11 @@ function check_psf(o, d)
       y_opt = (crawl * y_crawl * pol) + po_y
 --
 --       slider.x = ( x_opt ) Shr 4 '' div tileX
-      slider.x = math.rshift(x_opt, 4)
+      slider.x = bit.rshift(x_opt, 4)
 --       slider.y = ( y_opt ) Shr 4 '' div tileY
-      slider.y = math.rshift(y_opt, 4)
+      slider.y = bit.rshift(y_opt, 4)
 --       slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 ) '' div tx_2, ty_2
-      slider.quad = quad_calc(math.rshift(x_opt, 3), math.rshift(y_opt, 3))
+      slider.quad = quad_calc(bit.rshift(x_opt, 3), bit.rshift(y_opt, 3))
 --
 --       chkr = quad_seek( slider, d )
       chkr = quad_seek(slider, d)
@@ -2602,11 +2602,11 @@ function check_psf(o, d)
     y_opt = (crawl * y_crawl * pol) + po_y
 --
 --     slider.x = ( x_opt ) Shr 4
-    slider.x = math.rshift(x_opt, 4)
+    slider.x = bit.rshift(x_opt, 4)
 --     slider.y = ( y_opt ) Shr 4
-    slider.y = math.rshift(y_opt, 4)
+    slider.y = bit.rshift(y_opt, 4)
 --     slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 )
-    slider.quad = quad_calc(math.rshift(x_opt, 3), math.rshift(y_opt, 3))
+    slider.quad = quad_calc(bit.rshift(x_opt, 3), bit.rshift(y_opt, 3))
 --
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)

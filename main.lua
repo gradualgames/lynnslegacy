@@ -79,9 +79,9 @@ function love.update(dt)
     --log.level = "debug"
     enemy_main()
     --log.level = "fatal"
-    --log.level = "debug"
+    log.level = "debug"
     hero_main()
-    --log.level = "fatal"
+    log.level = "fatal"
   end
 end
 
