@@ -1,6 +1,7 @@
 require("game/engine--object")
 require("game/macros")
 require("game/utils")
+require("game/utility")
 
 -- Sub engine_init()
 function engine_init()
@@ -2452,158 +2453,243 @@ function check_psf(o, d)
 --
 --
 --   Dim As Integer layercheck, pnts, tmp_dir, po_x, po_y, pol, tmp_d
+  local layercheck, pnts, tmp_dir, po_x, po_y, pol, tmp_d = 0, 0, 0, 0, 0, 0, 0
 --   Dim As Integer tx_2 = ( 8 ), ty_2 = ( 8 )
+  local tx_2, ty_2 = 8, 8
 --   Dim As Integer x_crawl, y_crawl
+  local x_crawl, y_crawl = 0, 0
 --
 --   in_dir_small( d )
+  d = in_dir_small(d)
 --
 --   tmp_dir = o->direction
+  tmp_dir = o.direction
 --   tmp_d = d
+  tmp_d = d
 --
 --   If ( d And 1 ) = 0 Then
+  if bit.band(d, 1) == 0 then
 --     If rl_key() Then Exit sub
+    if rl_key() then return end
 --     pnts = ( o->perimeter.x Shr 3 ) '' div tx_2
+    pnts = bit.rshift(o.perimeter.x, 3)
 --     x_crawl = tx_2
+    x_crawl = tx_2
 --
 --   Else
+  else
 --     If ud_key() Then Exit Sub
+    if ud_key() then return end
 --     pnts = ( o->perimeter.y Shr 3 ) '' div ty_2
+      pnts = bit.rshift(o.perimeter.y, 3)
 --     y_crawl = ty_2
+      y_crawl = ty_2
 --
 --   End If
+    end
+  end
 --
 --   po_x = Int( o->coords.x )
+  po_x = math.floor(o.coords.x)
 --   po_y = Int( o->coords.y )
+  po_y = math.floor(o.coords.y)
 --
 --   Select Case d
 --
 --     Case 0
 --
 --     Case 1
+  if d == 0 or d == 1 then
 --
 --       po_x += Int( o->perimeter.x ) - tx_2
+    po_x = po_x + math.floor(o.perimeter.x) - tx_2
 --
 --     Case 2
+  elseif d == 2 then
 --
 --       po_x += Int( o->perimeter.x )
+    po_x = po_x + math.floor(o.perimeter.x)
 --       po_y += Int( o->perimeter.y ) - ty_2
+    po_y = po_y + math.floor(o.perimeter.y) - ty_2
 --
 --     Case 3
+  elseif d == 3 then
 --
 --       po_y += Int( o->perimeter.y )
+    po_y = po_y + math.floor(o.perimeter.y)
 --
 --
 --   End Select
+  end
 --
 --
 --   Select Case d Shr 1
 --
 --     Case 0
+  if math.rshift(d, 1) == 0 then
 --
 --       pol = 1
+    pol = 1
 --
 --     Case Else
+  else
 --
 --       pol = -1
+    pol = -1
 --
 --   End Select
+  end
 --
 --
 --   For layercheck = 0 To 2
+  for layercheck = 1, 3 do
 --
 --     Dim As tile_quad slider, chkr
+    local slider, chkr = create_tile_quad(), create_tile_quad()
 --     Dim As Integer crawl, x_opt, y_opt, po_quad, mi_quad, op_quad
+    local crawl, x_opt, y_opt, po_quad, mi_quad, op_quad = 0, 0, 0, 0, 0, 0
 --
 --     crawl = 0
+    crawl = 0
 --
 --     x_opt = ( crawl * x_crawl * pol ) + po_x
+    x_opt = (crawl * x_crawl * pol) + po_x
 --     y_opt = ( crawl * y_crawl * pol ) + po_y
+    y_opt = (crawl * y_crawl * pol) + po_y
 --
 --     slider.x = ( x_opt ) Shr 4 '' div tileX
+    slider.x = math.rshift(x_opt, 4)
 --     slider.y = ( y_opt ) Shr 4 '' div tileY
+    slider.y = math.rshift(y_opt, y)
 --     slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 ) '' div tx_2, ty_2
+    slider.quad = quad_calc(math.rshift(x_opt, 3), math.rshift(y_opt, 3))
 --
 --     chkr = quad_seek( slider, d )
+    chkr = quad_seek(slider, d)
 --     po_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
+    po_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad)
 --
 --
 --     For crawl = 1 To pnts - 1
+    for crawl = 1, pnts - 1 do
 --
 --       x_opt = ( crawl * x_crawl * pol ) + po_x
+      x_opt = (crawl * x_crawl * pol) + po_x
 --       y_opt = ( crawl * y_crawl * pol ) + po_y
+      y_opt = (crawl * y_crawl * pol) + po_y
 --
 --       slider.x = ( x_opt ) Shr 4 '' div tileX
+      slider.x = math.rshift(x_opt, 4)
 --       slider.y = ( y_opt ) Shr 4 '' div tileY
+      slider.y = math.rshift(y_opt, 4)
 --       slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 ) '' div tx_2, ty_2
+      slider.quad = quad_calc(math.rshift(x_opt, 3), math.rshift(y_opt, 3))
 --
 --       chkr = quad_seek( slider, d )
+      chkr = quad_seek(slider, d)
 --       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
+      mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad))
 --
 --     Next
+    end
 --
 --     '' unnecessary syntactically, but it's clarification that counts, kids.
 --     crawl = pnts
+    crawl = pnts
 --
 --     x_opt = ( crawl * x_crawl * pol ) + po_x
+    x_opt = (crawl * x_crawl * pol) + po_x
 --     y_opt = ( crawl * y_crawl * pol ) + po_y
+    y_opt = (crawl * y_crawl * pol) + po_y
 --
 --     slider.x = ( x_opt ) Shr 4
+    slider.x = math.rshift(x_opt, 4)
 --     slider.y = ( y_opt ) Shr 4
+    slider.y = math.rshift(y_opt, 4)
 --     slider.quad = quad_calc( ( x_opt ) Shr 3, ( y_opt ) Shr 3 )
+    slider.quad = quad_calc(math.rshift(x_opt, 3), math.rshift(y_opt, 3))
 --
 --     chkr = quad_seek( slider, d )
+    chkr = quad_seek(slider, d)
 --     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
+    op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad)
 --
 --
 --     d = tmp_d
+    d = tmp_d
 --     '' got all the quads
 --
 --
 --     If ( po_quad <> 0 ) And ( op_quad <> 0 ) Then
+    if (po_quad ~= 0) and (op_quad ~= 0) then
 --       Exit sub
+      return
 --
 --     End If
+    end
 --
 --
 --     If ( po_quad <> 0 ) And ( op_quad = 0 ) Then
+    if (po_quad ~= 0) and (op_quad == 0) then
 --     '' clockwise
 --       o->direction += 1
+      o.direction = o.direction + 1
 --       in_dir_small( o->direction )
+      o.direction = in_dir_small(o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
+      o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
 --       o->direction =  tmp_dir
+      o.direction = tmp_dir
 --
 --       Exit Sub
+      return
 --
 --     End If
+    end
 --
 --
 --     If ( po_quad = 0 ) And ( op_quad <> 0 ) Then
+    if po_quad == 0 and op_quad ~= 0 then
 --       '' counter clockwise
 --       o->direction -= 1
+      o.direction = o.direction - 1
 --       in_dir_small( o->direction )
+      o.direction = in_dir_small(o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
+      o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
 --       o->direction =  tmp_dir
+      o.direction = tmp_dir
 --
 --       Exit Sub
+      return
 --
 --     End If
+    end
 --
 --
 --     If ( po_quad = 0 ) And ( op_quad = 0 ) And ( mi_quad <> 0 ) Then
+    if (po_quad == 0) and (op_quad == 0) and (mi_quad ~= 0) then
 --     '' clockwise
 --       o->direction += 1
+      o.direction = o.direction + 1
 --       in_dir_small( o->direction )
+      o.direction = in_dir_small(o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
+      o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
 --       o->direction =  tmp_dir
+      o.direction = tmp_dir
 --
 --       Exit Sub
+      return
 --
 --     End If
+    end
 --
 --   Next
+  end
 --
 -- End Sub
 end
@@ -2612,79 +2698,120 @@ end
 --
 --
 -- Function quad_seek( t_in As tile_quad, d As Integer ) As tile_quad
+function quad_seek(t_in, d)
 --
 --   Dim As Integer opt, to_quad, to_tile_x, to_tile_y
+  local opt, to_quad, to_tile_x, to_tile_y = 0, 0, 0, 0
 --
 --   to_tile_x = t_in.x
+  to_tile_x = t_in.x
 --   to_tile_y = t_in.y
+  to_tile_y = t_in.y
 --
 --   Select Case As Const d
 --
 --     Case 0
+  if d == 0 then
 --
 --       opt = -2
+    opt = -2
 --
 --     Case 1
+  elseif d == 1 then
 --
 --       opt = 1
+    opt = 1
 --
 --     Case 2
+  elseif d == 2 then
 --
 --       opt = 2
+    opt = 2
 --
 --     Case 3
+  elseif d == 3 then
 --
 --       opt = -1
+    opt = -1
 --
 --   End Select
+  end
 --
 --   to_quad = opt + t_in.quad
+  to_quad = opt + t_in.quad
 --
 --   Select Case As Const d '' overflow
 --
 --     Case 0
+  if d == 0 then
 --
 --       If to_quad < 0 Then
+    if to_quad < 0 then
 --         ''move tile up one
 --
 --         to_tile_y -= 1
+      to_tile_y = to_tile_y - 1
 --         to_quad = IIf( to_quad = -2, 2, 3 )
+      to_quad = ((to_quad == -2) and 2 or 3)
 --
 --       End If
+    end
 --
 --     Case 1
+  elseif d == 1 then
 --
 --       If ( Abs( to_quad ) And 1 ) = 0 Then
+    if bit.band(math.abs(to_quad), 1) == 0 then
 --         ''move tile right one
 --
 --         to_tile_x += 1
+      to_tile_x = to_tile_x + 1
 --         to_quad = IIf( to_quad = 2, 0, 2 )
+      to_quad = ((to_quad == 2) and 0 or 2)
 --
 --       End If
+    end
 --
 --     Case 2
+  elseif d == 2 then
 --
 --       If to_quad > 3 Then
+    if to_quad > 3 then
 --         ''move tile down one
 --
 --         to_tile_y += 1
+      to_tile_y = to_tile_y + 1
 --         to_quad = IIf( to_quad = 4, 0, 1 )
+      to_quad = ((to_quad == 4) and 0 or 1)
 --
 --       End If
+    end
 --
 --     Case 3
+  elseif d == 3 then
 --
 --       If ( Abs( to_quad ) And 1 ) <> 0 Then
+    if bit.band(math.abs(to_quad), 1) ~= 0 then
 --         ''move tile left one
 --
 --         to_tile_x -= 1
+      to_tile_x = to_tile_x - 1
 --         to_quad = IIf( to_quad = 1, 3, 1 )
+      to_quad = ((to_quad == 1) and 3 or 1)
 --
 --       End If
+    end
 --
 --   End Select
+  end
 --
 --   Return Type <tile_quad> ( to_tile_x, to_tile_y, to_quad )
+  local result = create_tile_quad()
+  result.x = to_tile_x
+  result.y = to_tile_y
+  result.quad = to_quad
+  return result
 --
 -- End Function
+end
 --

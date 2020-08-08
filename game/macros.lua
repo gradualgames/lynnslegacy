@@ -63,3 +63,44 @@ function quad_calc(x, y)
 --
 -- '' #EndDefine quad_calc
 end
+
+-- #Define in_dir_small(__d) _
+-- NOTE: Changed this to return the result rather than modify the parameter.
+function in_dir_small(d)
+--   __d = IIf( __d < 0, 3, IIf( __d > 3, 0, __d ) )
+  return (d < 0) and 3 or ((d > 3) and 0 or d)
+--
+-- '' #EndDefine in_dir_small
+end
+
+-- #Define rl_key()                             _
+function rl_key()
+--                                              _
+--   (                                          _
+--     (                                        _
+--       MultiKey( ll_global.l_key.code )       _
+--     )                                        _
+--       Or (                                   _
+--             MultiKey( ll_global.r_key.code ) _
+--          )                                   _
+--   )
+  return love.keyboard.isDown("left") or love.keyboard.isDown("right")
+--
+-- '' #EndDefine rl_key
+end
+
+-- #Define ud_key()                             _
+function ud_key()
+--                                              _
+--   (                                          _
+--     (                                        _
+--       MultiKey( ll_global.u_key.code )       _
+--     )                                        _
+--       Or (                                   _
+--             MultiKey( ll_global.d_key.code ) _
+--          )                                   _
+--   )
+--
+-- '' EndIf ud_key
+  return love.keyboard.isDown("up") or love.keyboard.isDown("down")
+end
