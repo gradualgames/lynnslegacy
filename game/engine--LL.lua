@@ -2133,8 +2133,8 @@ end
 
   -- Function check_walk ( o As char_type Ptr, d As Integer, psfing = 0 ) Static
 function check_walk(o, d, psfing)
-  log.debug("check_walk called.")
-  log.debug("psfing: "..psfing)
+  --log.debug("check_walk called.")
+  --log.debug("psfing: "..psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
@@ -2470,7 +2470,10 @@ function check_psf(o, d)
 --   If ( d And 1 ) = 0 Then
   if bit.band(d, 1) == 0 then
 --     If rl_key() Then Exit sub
-    if rl_key() then return end
+    if rl_key() then
+      log.debug("rl_key() true so return")
+      return
+    end
 --     pnts = ( o->perimeter.x Shr 3 ) '' div tx_2
     pnts = bit.rshift(o.perimeter.x, 3)
 --     x_crawl = tx_2
@@ -2479,7 +2482,10 @@ function check_psf(o, d)
 --   Else
   else
 --     If ud_key() Then Exit Sub
-    if ud_key() then return end
+    if ud_key() then
+      log.debug("ud_key() true so return")
+      return
+    end
 --     pnts = ( o->perimeter.y Shr 3 ) '' div ty_2
     pnts = bit.rshift(o.perimeter.y, 3)
 --     y_crawl = ty_2
@@ -2586,6 +2592,8 @@ function check_psf(o, d)
 --
 --       chkr = quad_seek( slider, d )
       chkr = quad_seek(slider, d)
+
+      table.insert(dbgrects, {x = chkr.x, y = chkr.y})
 --       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
       mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad))
 --
@@ -2610,6 +2618,8 @@ function check_psf(o, d)
 --
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
+
+    table.insert(dbgrects, {x = chkr.x, y = chkr.y})
 --     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
     op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad)
 --
@@ -2621,6 +2631,7 @@ function check_psf(o, d)
 --
 --     If ( po_quad <> 0 ) And ( op_quad <> 0 ) Then
     if (po_quad ~= 0) and (op_quad ~= 0) then
+      log.debug("Returning")
 --       Exit sub
       return
 --
@@ -2632,9 +2643,11 @@ function check_psf(o, d)
     if (po_quad ~= 0) and (op_quad == 0) then
 --     '' clockwise
 --       o->direction += 1
+      log.debug("cw before o.direction: "..o.direction)
       o.direction = o.direction + 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
+      log.debug("cw after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -2652,9 +2665,11 @@ function check_psf(o, d)
     if po_quad == 0 and op_quad ~= 0 then
 --       '' counter clockwise
 --       o->direction -= 1
+      log.debug("ccw before o.direction: "..o.direction)
       o.direction = o.direction - 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
+      log.debug("ccw after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -2672,9 +2687,11 @@ function check_psf(o, d)
     if (po_quad == 0) and (op_quad == 0) and (mi_quad ~= 0) then
 --     '' clockwise
 --       o->direction += 1
+      log.debug("cw3 before o.direction: "..o.direction)
       o.direction = o.direction + 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
+      log.debug("cw3 after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -2689,6 +2706,7 @@ function check_psf(o, d)
 --
 --   Next
   end
+  log.debug("got to end of check_psf...")
 --
 -- End Sub
 end

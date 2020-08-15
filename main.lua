@@ -48,12 +48,16 @@ function love.load()
   --FIXME: Not a ported variable, just used for now
   speed = 4
 
+  --Variables not related to the Lynn's Legacy engine
+  dbgrects = {}
+
   source = love.audio.newSource("data/music/world.it", "stream")
   source:setLooping(true)
   source:play()
 end
 
 function love.update(dt)
+  dbgrects = {}
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
     -- if love.keyboard.isDown("up") then
@@ -89,6 +93,14 @@ function love.draw()
   startDrawing()
   --log.level = "debug"
   blit_scene()
+
+  for key, dbgrect in pairs(dbgrects) do
+    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+    local rectx = dbgrect.x * 16 - ll_global.this_room.cx
+    local recty = dbgrect.y * 16 - ll_global.this_room.cy
+    love.graphics.rectangle("fill", rectx, recty, 16, 16)
+  end
+
   --log.level = "fatal"
   doneDrawing()
 end

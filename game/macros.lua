@@ -58,7 +58,8 @@ end
 function quad_calc(x, y)
 --                                                 _
 --   ( ( Abs( y And 1 ) Shl 1 ) + Abs( x And 1 ) )
-  return math.abs(bit.lshift(bit.band(y, 1), 1) + math.abs(bit.band(x, 1)))
+  --return math.abs(bit.lshift(bit.band(y, 1), 1) + math.abs(bit.band(x, 1)))
+  return bit.lshift(math.abs(bit.band(y, 1)), 1) + math.abs(bit.band(x, 1))
 --
 --
 -- '' #EndDefine quad_calc
@@ -69,6 +70,15 @@ end
 function in_dir_small(d)
 --   __d = IIf( __d < 0, 3, IIf( __d > 3, 0, __d ) )
   return (d < 0) and 3 or ((d > 3) and 0 or d)
+  -- if d < 0 then
+  --   return 3
+  -- else
+  --   if d > 3 then
+  --     return 0
+  --   else
+  --     return d
+  --   end
+  -- end
 --
 -- '' #EndDefine in_dir_small
 end
