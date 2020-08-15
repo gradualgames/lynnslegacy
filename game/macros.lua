@@ -70,16 +70,6 @@ end
 function in_dir_small(d)
 --   __d = IIf( __d < 0, 3, IIf( __d > 3, 0, __d ) )
   return (d < 0) and 3 or ((d > 3) and 0 or d)
-  -- if d < 0 then
-  --   return 3
-  -- else
-  --   if d > 3 then
-  --     return 0
-  --   else
-  --     return d
-  --   end
-  -- end
---
 -- '' #EndDefine in_dir_small
 end
 
