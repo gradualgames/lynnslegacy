@@ -2504,7 +2504,7 @@ function check_psf(o, d)
 --     Case 0
 --
 --     Case 1
-  if d == 0 or d == 1 then
+  if d == 1 then
 --
 --       po_x += Int( o->perimeter.x ) - tx_2
     po_x = po_x + math.floor(o.perimeter.x) - tx_2
