@@ -1,3 +1,4 @@
+require("game/binary_objects")
 require("game/engine--object")
 require("game/macros")
 require("game/utils")
@@ -459,6 +460,12 @@ function hero_main()
 --                 bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
 --
 --               End With
+            --NOTE: We are wiring up hard-coded keys directly to their callbacks, here,
+            --completely ignoring the key configuration system or porting it. We will
+            --add our own key configuration system much later on in development.
+            if love.keyboard.isDown("x") then
+              atk_key_in_sub()
+            end
 --
 --               dir_keys()
             dir_keys()

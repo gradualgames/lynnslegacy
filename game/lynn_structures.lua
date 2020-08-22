@@ -10,6 +10,7 @@ function create_main_char_type()
   main_char_type.attacking = 0
 --   b_key As Integer
 --   crazy_points As Integer
+  main_char_type.crazy_points = 0
 --   crazy_cache As Integer
 --   crazy_dcache As Integer
 --
