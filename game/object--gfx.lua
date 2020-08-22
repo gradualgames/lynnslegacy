@@ -2,7 +2,8 @@
 function weapon_anim(this)
   log.debug("weapon_anim called.")
 --   this->current_anim = llg( hero_only ).weapon + 3
-  this.current_anim = ll_global.hero_only.weapon + 3
+  --NOTE: Animations are in a 1-indexed array so bump up offset by 1
+  this.current_anim = ll_global.hero_only.weapon + 4
 --   this->frame = 0
   this.frame = 1
 --

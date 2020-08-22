@@ -42,8 +42,6 @@ function love.load()
 
   ll_global.hero.coords.x = 320
   ll_global.hero.coords.y = 200
-  --NOTE: Hard-coding this to 4 gives us the sapling weapon animation.
-  ll_global.hero.current_anim = 4
 
   --Hard-code Lynn's weapon to the sapling for now.
   ll_global.hero_only.weapon = 0
