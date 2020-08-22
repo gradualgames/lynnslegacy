@@ -1036,8 +1036,6 @@ function hero_attack(hr)
 --       '' lynn called back
 --
 --       .funcs.current_func[.attack_state] = 0
-    --NOTE: Even though the func array starts at 1, the current_func
-    --index is reset to 0 because it is pre-incremented before use.
     hr.funcs.current_func[hr.attack_state] = 0
 --       llg( hero_only ).attacking = 0
     ll_global.hero_only.attacking = 0
