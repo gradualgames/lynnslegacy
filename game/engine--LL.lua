@@ -1021,20 +1021,22 @@ function hero_attack(hr)
 --
 --     '' increment this function loop
 --     .funcs.current_func[.attack_state] += .funcs.func[.attack_state][.funcs.current_func[.attack_state]] ( hr )
+  --log.debug("hr.attack_state is: "..hr.attack_state)
+  --log.debug("hr.funcs.current_func[hr.attack_state]: "..hr.funcs.current_func[hr.attack_state])
   hr.funcs.current_func[hr.attack_state] = hr.funcs.current_func[hr.attack_state] + hr.funcs.func[hr.attack_state][hr.funcs.current_func[hr.attack_state]](hr)
 --
 --
 --     Dim As Integer call_back
   local call_back = 0
 --     call_back = ( .funcs.current_func[.attack_state] >= .funcs.func_count[.attack_state] )
-  call_back = (hr.funcs.current_func[hr.attack_state] >= hr.funcs.func_count[hr.attack_state])
+  call_back = (hr.funcs.current_func[hr.attack_state] == hr.funcs.func_count[hr.attack_state])
 --
 --     If call_back Then
-  if call_back then
+  if call_back ~= 0 then
 --       '' lynn called back
 --
 --       .funcs.current_func[.attack_state] = 0
-    hr.funcs.current_func[hr.attack_state] = 0
+    hr.funcs.current_func[hr.attack_state] = 1
 --       llg( hero_only ).attacking = 0
     ll_global.hero_only.attacking = 0
 --       llg( hero ).psycho = 0
