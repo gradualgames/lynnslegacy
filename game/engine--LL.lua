@@ -594,7 +594,7 @@ function hero_main()
       if ll_global.hero_only.attacking == 0 then
 --
 --             If .frame <> 0 Then
-        if ll_global.frame ~= 1 then
+        if ll_global.hero.frame ~= 1 then
 --               '' lynn frame not zero, reset
 --
 --               __reset_frame( VarPtr( llg( hero ) ) )
@@ -1029,7 +1029,7 @@ function hero_attack(hr)
 --     Dim As Integer call_back
   local call_back = false
 --     call_back = ( .funcs.current_func[.attack_state] >= .funcs.func_count[.attack_state] )
-  call_back = (hr.funcs.current_func[hr.attack_state] == hr.funcs.func_count[hr.attack_state])
+  call_back = (hr.funcs.current_func[hr.attack_state] >= hr.funcs.func_count[hr.attack_state])
 --
 --     If call_back Then
   if call_back == true then
