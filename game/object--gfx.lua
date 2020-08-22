@@ -16,6 +16,7 @@ end
 
 -- Function __active_anim_0 ( this As _char_type Ptr ) As Integer
 function active_anim_0(this)
+  log.debug("active_anim_0 called.")
 --
 --
 --   this->current_anim = 0
@@ -31,7 +32,7 @@ function active_anim_0(this)
 end
 
 function active_anim_1(this)
-  --log.debug("active_anim_1 called.")
+  log.debug("active_anim_1 called.")
 --   this->current_anim = 1
   this.current_anim = 2
 --   this->frame = 0

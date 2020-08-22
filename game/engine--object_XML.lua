@@ -142,6 +142,8 @@ function LLSystem_ObjectFromXML(enemy)
       --         .funcs.func_count[.funcs.active_state] = 0
       enemy.funcs.func_count[enemy.funcs.active_state] = 0
       --         .funcs.current_func[.funcs.active_state] = 0
+      --NOTE: Even though the func array starts at 1, the current_func
+      --index is reset to 0 because it is pre-incremented before use.
       enemy.funcs.current_func[enemy.funcs.active_state] = 0
     end
   end
