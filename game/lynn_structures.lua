@@ -29,6 +29,7 @@ function create_main_char_type()
   main_char_type.selected_item = 0
 --
 --   weapon As Integer
+  main_char_type.weapon = 0
 --
 --   invisibleEntry As Integer
 --

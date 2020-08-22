@@ -464,6 +464,7 @@ function hero_main()
             --completely ignoring the key configuration system or porting it. We will
             --add our own key configuration system much later on in development.
             if love.keyboard.isDown("x") then
+              log.debug("Pressed attack key.")
               atk_key_in_sub()
             end
 --

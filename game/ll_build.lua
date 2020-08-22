@@ -27,12 +27,17 @@ function ctor_hero(l)
 --     l->dead_sound = sound_lynn_die
 --
 --     .num = -1
+  l.num = -1
 --
 --     .hp = 6
+  l.hp = 6
 --     .maxhp = 6
+  l.maxhp = 6
 --
 --     llg( hero_only ).weapon = -1
+  ll_global.hero_only.weapon = -1
 --     llg( hero_only ).has_weapon = -1
+  ll_global.hero_only.has_weapon = -1
 --
 --     llg( hero_only ).hasCostume( 0 ) = -1
 --     llg( hero ).fade_time = .003
