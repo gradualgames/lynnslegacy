@@ -34,14 +34,16 @@ function love.load()
 
   --log.level = "debug"
   ll_global = create_ll_system()
-  --log.level = "debug"
+  log.level = "debug"
   engine_init()
-  --log.level = "fatal"
+  log.level = "fatal"
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 
   ll_global.hero.coords.x = 320
   ll_global.hero.coords.y = 200
+  --NOTE: Hard-coding this to 4 gives us the sapling weapon animation.
+  ll_global.hero.current_anim = 4
 
   --Hard-code Lynn's weapon to the sapling for now.
   ll_global.hero_only.weapon = 0
