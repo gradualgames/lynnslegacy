@@ -34,7 +34,9 @@ function love.load()
 
   --log.level = "debug"
   ll_global = create_ll_system()
+  --log.level = "debug"
   engine_init()
+  --log.level = "fatal"
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 

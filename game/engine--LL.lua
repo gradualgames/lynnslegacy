@@ -638,6 +638,7 @@ function hero_main()
   if ll_global.hero_only.attacking ~= 0 then
 --       '' lynn is attacking
 --       hero_attack( VarPtr( llg( hero ) ) )
+    hero_attack(ll_global.hero)
 --
 --     End If
   end
@@ -1008,6 +1009,44 @@ function enemy_main()
   --   End If
   --
   -- End With
+end
+
+-- Private Sub hero_attack( hr As _char_type Ptr )
+function hero_attack(hr)
+  log.debug("hero_attack called.")
+--
+--
+--   With *hr
+--
+--     '' increment this function loop
+--     .funcs.current_func[.attack_state] += .funcs.func[.attack_state][.funcs.current_func[.attack_state]] ( hr )
+  hr.funcs.current_func[hr.attack_state] = hr.funcs.current_func[hr.attack_state] + hr.funcs.func[hr.attack_state][hr.funcs.current_func[hr.attack_state]](hr)
+--
+--
+--     Dim As Integer call_back
+  local call_back = 0
+--     call_back = ( .funcs.current_func[.attack_state] >= .funcs.func_count[.attack_state] )
+  call_back = (hr.funcs.current_func[hr.attack_state] >= hr.funcs.func_count[hr.attack_state])
+--
+--     If call_back Then
+  if call_back then
+--       '' lynn called back
+--
+--       .funcs.current_func[.attack_state] = 0
+    hr.funcs.current_func[hr.attack_state] = 0
+--       llg( hero_only ).attacking = 0
+    ll_global.hero_only.attacking = 0
+--       llg( hero ).psycho = 0
+    ll_global.hero.psycho = 0
+--
+--
+--     End If
+  end
+--
+--   End With
+--
+--
+-- End Sub
 end
 
 function act_enemies(enemies)
@@ -2456,7 +2495,7 @@ end
 
 -- Sub check_psf( o As char_type Ptr, d As Integer )
 function check_psf(o, d)
-  log.debug("check_psf entered.")
+  --log.debug("check_psf entered.")
 --
 --
 --   Dim As Integer layercheck, pnts, tmp_dir, po_x, po_y, pol, tmp_d
@@ -2478,7 +2517,7 @@ function check_psf(o, d)
   if bit.band(d, 1) == 0 then
 --     If rl_key() Then Exit sub
     if rl_key() then
-      log.debug("rl_key() true so return")
+      --log.debug("rl_key() true so return")
       return
     end
 --     pnts = ( o->perimeter.x Shr 3 ) '' div tx_2
@@ -2490,7 +2529,7 @@ function check_psf(o, d)
   else
 --     If ud_key() Then Exit Sub
     if ud_key() then
-      log.debug("ud_key() true so return")
+      --log.debug("ud_key() true so return")
       return
     end
 --     pnts = ( o->perimeter.y Shr 3 ) '' div ty_2
@@ -2638,7 +2677,7 @@ function check_psf(o, d)
 --
 --     If ( po_quad <> 0 ) And ( op_quad <> 0 ) Then
     if (po_quad ~= 0) and (op_quad ~= 0) then
-      log.debug("Returning")
+      --log.debug("Returning")
 --       Exit sub
       return
 --
@@ -2650,11 +2689,11 @@ function check_psf(o, d)
     if (po_quad ~= 0) and (op_quad == 0) then
 --     '' clockwise
 --       o->direction += 1
-      log.debug("cw before o.direction: "..o.direction)
+      --log.debug("cw before o.direction: "..o.direction)
       o.direction = o.direction + 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
-      log.debug("cw after o.direction: "..o.direction)
+      --log.debug("cw after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -2672,11 +2711,11 @@ function check_psf(o, d)
     if po_quad == 0 and op_quad ~= 0 then
 --       '' counter clockwise
 --       o->direction -= 1
-      log.debug("ccw before o.direction: "..o.direction)
+      --log.debug("ccw before o.direction: "..o.direction)
       o.direction = o.direction - 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
-      log.debug("ccw after o.direction: "..o.direction)
+      --log.debug("ccw after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -2694,11 +2733,11 @@ function check_psf(o, d)
     if (po_quad == 0) and (op_quad == 0) and (mi_quad ~= 0) then
 --     '' clockwise
 --       o->direction += 1
-      log.debug("cw3 before o.direction: "..o.direction)
+      --log.debug("cw3 before o.direction: "..o.direction)
       o.direction = o.direction + 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
-      log.debug("cw3 after o.direction: "..o.direction)
+      --log.debug("cw3 after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -2713,7 +2752,7 @@ function check_psf(o, d)
 --
 --   Next
   end
-  log.debug("got to end of check_psf...")
+  --log.debug("got to end of check_psf...")
 --
 -- End Sub
 end

@@ -60,13 +60,13 @@ function LLSystem_ImageLoad(fileName)
     --Create a table that can contain everything in the file.
     local imageHeader = create_LLSystem_ImageHeader()
     imageHeader.x = readInt(blob)
-    log.debug("imageHeader.x: "..imageHeader.x)
+    --log.debug("imageHeader.x: "..imageHeader.x)
     imageHeader.y = readInt(blob)
-    log.debug("imageHeader.y: "..imageHeader.y)
+    --log.debug("imageHeader.y: "..imageHeader.y)
     imageHeader.arraysize = readInt(blob)
-    log.debug("imageHeader.arraysize: "..imageHeader.arraysize)
+    --log.debug("imageHeader.arraysize: "..imageHeader.arraysize)
     imageHeader.frames = readInt(blob)
-    log.debug("imageHeader.frames: "..imageHeader.frames)
+    --log.debug("imageHeader.frames: "..imageHeader.frames)
 
     --Here we deviate from the FB implementation due to necessity. Where it is
     --loading raw binary data for the entire set of frames, we load it byte by

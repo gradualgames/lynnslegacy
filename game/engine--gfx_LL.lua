@@ -429,7 +429,7 @@ function blit_object_ex(enemy)
   --log.debug("x_opt: "..x_opt)
   --       y_opt -= this->animControl[this->current_anim].y_off
   y_opt = y_opt - enemy.animControl[enemy.current_anim].y_off
-  log.debug("y_off: "..enemy.animControl[enemy.current_anim].y_off)
+  --log.debug("y_off: "..enemy.animControl[enemy.current_anim].y_off)
   --log.debug("y_opt: "..y_opt)
   --log.debug("enemy.animControl[enemy.current_anim].dir_frames: "..enemy.animControl[enemy.current_anim].dir_frames)
   --
