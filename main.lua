@@ -56,9 +56,9 @@ function love.load()
   --Variables not related to the Lynn's Legacy engine
   dbgrects = {}
 
-  source = love.audio.newSource("data/music/world.it", "stream")
-  source:setLooping(true)
-  source:play()
+  -- source = love.audio.newSource("data/music/world.it", "stream")
+  -- source:setLooping(true)
+  -- source:play()
 end
 
 function love.update(dt)

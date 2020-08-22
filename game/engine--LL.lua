@@ -1027,12 +1027,12 @@ function hero_attack(hr)
 --
 --
 --     Dim As Integer call_back
-  local call_back = 0
+  local call_back = false
 --     call_back = ( .funcs.current_func[.attack_state] >= .funcs.func_count[.attack_state] )
   call_back = (hr.funcs.current_func[hr.attack_state] == hr.funcs.func_count[hr.attack_state])
 --
 --     If call_back Then
-  if call_back ~= 0 then
+  if call_back == true then
 --       '' lynn called back
 --
 --       .funcs.current_func[.attack_state] = 0
