@@ -47,7 +47,7 @@ function LLObject_IncrementFrame(this)
   --     .frame += 1
     this.frame = this.frame + 1
   --     If .frame = IIf( LLObject_IgnoreDirectional( this ), .anim[.current_anim]->frames, .animControl[.current_anim].dir_frames ) Then
-    if this.frame == ((LLObject_IgnoreDirectional(this) == -1) and (this.anim[this.current_anim].frames + 1) or (this.animControl[this.current_anim].dir_frames) + 1) then
+    if this.frame == ((LLObject_IgnoreDirectional(this) == -1) and (this.anim[this.current_anim].frames) or (this.animControl[this.current_anim].dir_frames)) then
       --log.debug("frame reached end of range, animation complete.")
   --       Return 1
       return 1
@@ -76,7 +76,7 @@ end
 function __reset_frame(this)
 --
 --   this->frame = 0
-  this.frame = 1
+  this.frame = 0
 --
 --   Return 1
   return 1

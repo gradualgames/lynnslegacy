@@ -5,7 +5,7 @@ function weapon_anim(this)
   --NOTE: Animations are in a 1-indexed array so bump up offset by 1
   this.current_anim = ll_global.hero_only.weapon + 3
 --   this->frame = 0
-  this.frame = 1
+  this.frame = 0
 --
 --   Return 1
   return 1
@@ -22,7 +22,7 @@ function active_anim_0(this)
 --   this->current_anim = 0
   this.current_anim = 0
 --   this->frame = 0
-  this.frame = 1
+  this.frame = 0
 --
 --   Return 1
   return 1
@@ -36,7 +36,7 @@ function active_anim_1(this)
 --   this->current_anim = 1
   this.current_anim = 1
 --   this->frame = 0
-  this.frame = 1
+  this.frame = 0
 --
 --   Return 1
   return 1
@@ -48,7 +48,7 @@ function active_anim_2(this)
 --   this->current_anim = 2
   this.current_anim = 2
 --   this->frame = 0
-  this.frame = 1
+  this.frame = 0
 --
 --   Return 1
   return 1

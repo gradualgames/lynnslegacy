@@ -183,7 +183,7 @@ function walk(this)
 --     If this->walk_steps >= this->walk_buffer Then
     if this.walk_steps >= this.walk_buffer then
 --       this->frame = 0
-      this.frame = 1
+      this.frame = 0
 --       this->walk_steps = 0
       this.walk_steps = 0
 --
@@ -198,7 +198,7 @@ function walk(this)
     if LLObject_IncrementFrame(this) ~= 0 then
 --
 --       this->frame = 0
-      this.frame = 1
+      this.frame = 0
 --       this->frame_hold = Timer + this->animControl[this->current_anim].rate
       this.frame_hold = timer + this.animControl[this.current_anim].rate
 --

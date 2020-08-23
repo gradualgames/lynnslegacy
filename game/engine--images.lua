@@ -77,7 +77,7 @@ function LLSystem_ImageLoad(fileName)
     --names that were integrated from the original codebase so there is less
     --possibility for confusion.
     local monochromeRedFrameImages = {}
-    for frameIndex = 1, imageHeader.frames do
+    for frameIndex = 0, imageHeader.frames - 1 do
       --Create this frame.
       local monochromeRedFrameImage = {}
       monochromeRedFrameImage.frameWidth = readShort(blob) / 8
@@ -101,7 +101,7 @@ function LLSystem_ImageLoad(fileName)
       if arraySizeDiff > 0 then
         readStringL(blob, arraySizeDiff)
       end
-      table.insert(monochromeRedFrameImages, monochromeRedFrameImage)
+      monochromeRedFrameImages[frameIndex] = monochromeRedFrameImage
     end
 
     --Here is where we generate the .image property of the image header. It is
@@ -112,7 +112,7 @@ function LLSystem_ImageLoad(fileName)
     --SCREEN 13 like the old days. :)
     local imageX, imageY = 0, 0
     local imageData = love.image.newImageData(imageHeader.x * imageHeader.frames, imageHeader.y)
-    for frameIndex = 1, imageHeader.frames do
+    for frameIndex = 0, imageHeader.frames - 1 do
       local monochromeRedFrameImage = monochromeRedFrameImages[frameIndex]
       for k, pixel in pairs(monochromeRedFrameImage.pixels) do
         imageData:setPixel(imageX+pixel[1],imageY+pixel[2],pixel[3],pixel[4],pixel[5],pixel[6])
@@ -125,9 +125,9 @@ function LLSystem_ImageLoad(fileName)
     --of the image.
     imageHeader.quads = {}
     local x = 0
-    for i = 1, imageHeader.frames do
-      table.insert(imageHeader.quads, love.graphics.newQuad(x, 0,
-        imageHeader.x, imageHeader.y, imageHeader.image:getDimensions()))
+    for i = 0, imageHeader.frames - 1 do
+      imageHeader.quads[i] = love.graphics.newQuad(x, 0,
+        imageHeader.x, imageHeader.y, imageHeader.image:getDimensions())
       x = x + imageHeader.x
     end
 

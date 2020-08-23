@@ -89,7 +89,7 @@ function create_Object()
   --
   --
   --   frame                 As Integer
-  object.frame = 1
+  object.frame = 0
   --   frame_hold            As Double
   object.frame_hold = 0
   --   high_frame            As Double

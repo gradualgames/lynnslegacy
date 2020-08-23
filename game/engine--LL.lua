@@ -575,7 +575,7 @@ function hero_main()
 --         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
     if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
 --           llg( hero ).frame = 0
-      ll_global.hero.frame = 1
+      ll_global.hero.frame = 0
 --           llg( hero ).frame_hold = Timer + llg( hero ).animControl[llg( hero ).current_anim].rate
       ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
 --
@@ -594,7 +594,7 @@ function hero_main()
       if ll_global.hero_only.attacking == 0 then
 --
 --             If .frame <> 0 Then
-        if ll_global.hero.frame ~= 1 then
+        if ll_global.hero.frame ~= 0 then
 --               '' lynn frame not zero, reset
 --
 --               __reset_frame( VarPtr( llg( hero ) ) )
