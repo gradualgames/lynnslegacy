@@ -248,7 +248,7 @@ function hero_main()
 --   if llg( hero_only ).selected_item = 0 then
   if ll_global.hero_only.selected_item == 0 then
 --     if llg( hero_only ).hasItem( 0 ) then
-    if ll_global.hero_only.has_item[0] ~= 0 then
+    if ll_global.hero_only.hasItem[0] ~= 0 then
 --       llg( hero_only ).selected_item = 1
       ll_global.hero_only.selected_item = 1
 --

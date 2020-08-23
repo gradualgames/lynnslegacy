@@ -16,8 +16,9 @@ function create_main_char_type()
 --
 --   has_bar As Integer
 --   has_item As Integer
+  main_char_type.has_item = 0
 --   hasItem( 5 ) as integer
-  main_char_type.has_item = {[0] = 0, 0, 0, 0, 0}
+  main_char_type.hasItem = {[0] = 0, 0, 0, 0, 0}
 --
 --
 --   has_weapon As Integer
