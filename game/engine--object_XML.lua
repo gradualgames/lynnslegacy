@@ -126,7 +126,6 @@ function LLSystem_ObjectFromXML(enemy)
       --in the FB code that performs allocation and counting. It
       --makes more sense here due to how we are processing the xml.
       --         .funcs.states += 1
-      enemy.funcs.states = enemy.funcs.states + 1
       --
       --         .funcs.func_count   = Reallocate( .funcs.func_count,   .funcs.states * Len( Integer ) )
       --         .funcs.current_func = Reallocate( .funcs.current_func, .funcs.states * Len( Integer ) )
@@ -134,13 +133,14 @@ function LLSystem_ObjectFromXML(enemy)
       --         .funcs.func         = Reallocate( .funcs.func,         .funcs.states * Len( fp Ptr )  )
       --
       --         .funcs.active_state = .funcs.states - 1
-      enemy.funcs.active_state = enemy.funcs.states - 1
-      enemy.funcs.func[enemy.funcs.active_state] = {}
       --
       --         .funcs.func_count[.funcs.active_state] = 0
-      enemy.funcs.func_count[enemy.funcs.active_state] = 0
       --         .funcs.current_func[.funcs.active_state] = 0
+      enemy.funcs.active_state = enemy.funcs.states
+      enemy.funcs.func[enemy.funcs.active_state] = {}
+      enemy.funcs.func_count[enemy.funcs.active_state] = 0
       enemy.funcs.current_func[enemy.funcs.active_state] = 0
+      enemy.funcs.states = enemy.funcs.states + 1
     end
   end
 
