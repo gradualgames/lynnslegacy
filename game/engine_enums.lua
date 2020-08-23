@@ -208,3 +208,142 @@ u_lynn = 77
 --
 --
 -- End Enum
+
+-- Enum ll_sound_fx
+--
+--   sound_null
+sound_null = 0
+--
+--   sound_bassdrop
+sound_bassdrop = 1
+--   sound_beam
+sound_beam = 2
+--   sound_bigchest
+sound_bigchest = 3
+--   sound_boss_hit
+sound_boss_hit = 4
+--   sound_cashget
+sound_cashget = 5
+--   sound_doorfkey
+sound_doorfkey = 6
+--   sound_doorsmall
+sound_doorsmall = 7
+--   sound_enemyhit
+sound_enemyhit = 8
+--   sound_enemykill
+sound_enemykill = 9
+--   sound_explosion
+sound_explosion = 10
+--   sound_flare
+sound_flare = 11
+--   sound_healthgrab
+sound_healthgrab = 12
+--   sound_heart
+sound_heart = 13
+--   sound_ice
+sound_ice = 14
+--   sound_portal
+sound_portal = 15
+--   sound_smallchest
+sound_smallchest = 16
+--   sound_switch
+sound_switch = 17
+--   sound_treepull
+sound_treepull = 18
+--   sound_lowhealth
+sound_lowhealth = 19
+--   sound_bush
+sound_bush = 20
+--   sound_crateting
+sound_crateting = 21
+--   sound_sea
+sound_sea = 22
+--
+--
+--   sound_lynn_attack_1
+sound_lynn_attack_1 = 23
+--   sound_lynn_attack_2
+sound_lynn_attack_2 = 24
+--   sound_lynn_attack_3
+sound_lynn_attack_3 = 25
+--   sound_lynn_attack_4  '' Attacks & hurts must be grouped!
+sound_lynn_attack_4 = 26
+--
+--   sound_lynn_hurt_1
+sound_lynn_hurt_1 = 27
+--   sound_lynn_hurt_2
+sound_lynn_hurt_2 = 28
+--   sound_lynn_hurt_3
+sound_lynn_hurt_3 = 29
+--
+--
+--   sound_lynn_die
+sound_lynn_die = 30
+--   sound_mace_0
+sound_mace_0 = 31
+--   sound_mace_1
+sound_mace_1 = 32
+--   sound_mace_2
+sound_mace_2 = 33
+--   sound_texttemp
+sound_texttemp = 34
+--   sound_torchlight
+sound_torchlight = 35
+--   sound_greystatic
+sound_greystatic = 36
+--   sound_crickets
+sound_crickets = 37
+--   sound_gulls2
+sound_gulls2 = 38
+--   sound_rayflap2
+sound_rayflap2 = 39
+--   sound_flap
+sound_flap = 40
+--   sound_sploosh
+sound_sploosh = 41
+--
+--   sound_camera
+sound_camera = 42
+--   sound_ferusstep
+sound_ferusstep = 43
+--   sound_ferusbeep
+sound_ferusbeep = 44
+--
+--   sound_ferusgarbled
+sound_ferusgarbled = 45
+--
+--   sound_beamcharge
+sound_beamcharge = 46
+--
+--   sound_corealarm
+sound_corealarm = 47
+--   sound_corealarm2
+sound_corealarm2 = 48
+--   sound_rumble
+sound_rumble = 49
+--   sound_coreclunk
+sound_coreclunk = 50
+--
+--   sound_gunfire
+sound_gunfire = 51
+--   sound_limboloop
+sound_limboloop = 52
+--
+--   sound_podopen
+sound_podopen = 53
+--
+--   sound_turret
+sound_turret = 54
+--   sound_heal
+sound_heal = 55
+--
+--   sound_build
+sound_build = 56
+--
+--   sound_mothdie
+sound_mothdie = 57
+--
+--   NUM_OF_SOUNDS
+NUM_OF_SOUNDS = 58
+--
+-- End Enum

@@ -1,3 +1,4 @@
+require("game/audio")
 require("game/binary_objects")
 require("game/engine--object")
 require("game/macros")
@@ -2881,3 +2882,78 @@ function quad_seek(t_in, d)
 -- End Function
 end
 --
+-- Sub init_splash()
+function init_splash()
+--
+--
+--   Dim As Any Ptr ll_SplashScreen
+--
+--   dim as double justLongEnough
+--   justLongEnough = timer + 3.5
+--
+--   Screen 13, , 2, iif( isFullscreen(), 1, 0 )
+--
+--   Sleep 1000, 1
+--   SetMouse , , 0
+--   fb_Global.display.pal = load_pal( "data\palette\ll.pal" )
+--   Palette Using fb_Global.display.pal
+--
+--   ll_SplashScreen = ImageCreate( 320, 200 )
+--
+--   Bload "data\pictures\splash_screen.bmp", ll_SplashScreen
+--
+--
+--
+--   llg( hero ).fade_time = .0001
+--   Do
+--   Loop Until __fade_to_black( VarPtr( llg( hero ) ) )
+--
+--   Put( 0, 0 ), ll_SplashScreen
+--
+--
+--   llg( hero ).fade_time = .01
+--   Do
+--   Loop Until __fade_up_to_color( VarPtr( llg( hero ) ) )
+--
+--
+--   #IfDef ll_audio
+--     ' initialize f mod
+--
+--     If bass_init() = 0 Then
+--       bass_init( 0 )
+--
+--     End If
+--
+--     init_snd()
+  init_snd()
+--
+--   #EndIf
+--
+--   Kill "objectload.txt"
+--   Kill "imageload.txt"
+--
+--
+--   LLSystem_CachePictureFiles( "data\pictures" )
+--   LLSystem_CacheObjectFiles( "data\object" )
+--
+--
+--   do while justLongEnough > timer
+--     sleep 1
+--   loop
+--
+--   llg( hero ).fade_time = .01
+--   Do
+--   Loop Until __fade_to_black( Varptr( llg( hero ) ) )
+--   Cls
+--
+--   llg( hero ).fade_time = .003
+--
+--   shift_pal()
+--
+--   ImageDestroy( ll_SplashScreen )
+--
+--   Sleep 300, 1
+--
+--
+-- End Sub
+end

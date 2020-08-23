@@ -1,3 +1,5 @@
+require("game/engine_enums")
+
 -- Sub atk_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
 function atk_key_in_sub(ip, op)
   log.debug("atk_key_in_sub called.")
@@ -18,23 +20,23 @@ function atk_key_in_sub(ip, op)
 --
 --
 --     If llg( hero_only ).crazy_points >= 99 Then
-      if ll_global.hero_only.crazy_points >= 99 then
+    if ll_global.hero_only.crazy_points >= 99 then
 --
 --
 --       llg( hero_only ).crazy_points = 0
-        ll_global.hero_only.crazy_points = 0
+      ll_global.hero_only.crazy_points = 0
 --       llg( hero ).attack_state = 37
         --NOTE: States are stored in a normal 1 indexed Lua array so add 1
-        ll_global.hero.attack_state = 37
+      ll_global.hero.attack_state = 37
 --       llg( hero ).psycho = -1
-        ll_global.hero.psycho = -1
+      ll_global.hero.psycho = -1
 --
 --     Else
-      else
+    else
 --
 --       llg( hero ).attack_state = 6
-        ll_global.hero.attack_state = 6
-        log.debug("Set ll_global.hero.attack_state to: "..ll_global.hero.attack_state)
+      ll_global.hero.attack_state = 6
+      log.debug("Set ll_global.hero.attack_state to: "..ll_global.hero.attack_state)
 --
 --
 --     End If
@@ -43,12 +45,16 @@ function atk_key_in_sub(ip, op)
 --
 --     Dim lynn_yell As Integer
       -- local lynn_yell = 0
+    local lynn_yell = 0
 --
 --     lynn_yell = Int( Rnd * 4 )
+    lynn_yell = math.floor(math.random() * 4)
 --     lynn_yell += sound_lynn_attack_1
+    lynn_yell = lynn_yell + sound_lynn_attack_1
 --
 --
 --     play_sample( llg( snd )[lynn_yell], 30 )
+    ll_global.snd[lynn_yell]:play()
 --
 --
 --   End If

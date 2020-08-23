@@ -66,9 +66,12 @@ function create_ll_system()
   --   #Else
   --
   --     snds As Integer
+  ll_system.snds = 0
   --     snd  As uInteger Ptr
+  ll_system.snd = {}
   --
   --     sng  As uInteger
+  ll_system.sng = 0
   --
   --
   --   #EndIf

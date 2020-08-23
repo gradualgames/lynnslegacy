@@ -32,8 +32,16 @@ function love.load()
 
   curRoom = 3
 
-  --log.level = "debug"
   ll_global = create_ll_system()
+
+  --NOTE: Not certain if we will keep this structure,
+  --but in the original source code, init_splash would show the splash
+  --screen but also load all assets, including sound. We might refactor
+  --this later.
+  --log.level = "debug"
+  init_splash()
+  --log.level = "fatal"
+
   --log.level = "debug"
   engine_init()
   --log.level = "fatal"
