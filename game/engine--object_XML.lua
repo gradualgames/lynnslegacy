@@ -129,6 +129,10 @@ function LLSystem_ObjectFromXML(enemy)
       enemy.funcs.states = enemy.funcs.states + 1
       --
       --         .funcs.func_count   = Reallocate( .funcs.func_count,   .funcs.states * Len( Integer ) )
+      --FIXME: This table is already allocated. Inserting 0 does nothing
+      --because just a few lines later we go enemy.funcs.func_count[..active_state] = 0
+      --so the indices are governed by active_state, this line can be removed. Same
+      --goes for current_func, and func.
       table.insert(enemy.funcs.func_count, 0)
       --         .funcs.current_func = Reallocate( .funcs.current_func, .funcs.states * Len( Integer ) )
       table.insert(enemy.funcs.current_func, {})
