@@ -118,8 +118,8 @@ function LLSystem_ObjectFromXML(enemy)
     table.insert(path, name)
     if name == "sprite" then
       log.debug("Processing sprite tag.")
-      enemy.anims = enemy.anims + 1
       enemy.current_anim = enemy.anims
+      enemy.anims = enemy.anims + 1
     elseif name == "fp" then
       log.debug("Processing fp tag.")
       --NOTE: This chunk comes from a select statement higher up
@@ -172,7 +172,7 @@ function LLSystem_ObjectFromXML(enemy)
   --TODO: Find out where Lynn's Legacy actually resets these
   --values. They are used while loading XML, but are clearly
   --reset before actual play begins.
-  enemy.current_anim = 1
+  enemy.current_anim = 0
   enemy.funcs.active_state = 0
   enemy.funcs.current_func[enemy.funcs.active_state] = 0
 

@@ -59,7 +59,7 @@ function create_Object()
   object.animControl = {}
   --
   --   current_anim          As Integer
-  object.current_anim = 1
+  object.current_anim = 0
   --
   --   d_gold                As Integer
   --   d_health              As Integer
