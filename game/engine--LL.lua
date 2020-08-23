@@ -463,7 +463,7 @@ function hero_main()
             --NOTE: We are wiring up hard-coded keys directly to their callbacks, here,
             --completely ignoring the key configuration system or porting it. We will
             --add our own key configuration system much later on in development.
-            if love.keyboard.isDown("x") then
+            if bpressed("x") then
               log.debug("Pressed attack key.")
               atk_key_in_sub()
             end

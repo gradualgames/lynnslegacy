@@ -34,9 +34,9 @@ function love.load()
 
   --log.level = "debug"
   ll_global = create_ll_system()
-  log.level = "debug"
+  --log.level = "debug"
   engine_init()
-  log.level = "fatal"
+  --log.level = "fatal"
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 
@@ -54,6 +54,7 @@ function love.load()
   speed = 4
 
   --Variables not related to the Lynn's Legacy engine
+  bhist = {}
   dbgrects = {}
 
   source = love.audio.newSource("data/music/world.it", "stream")
@@ -63,6 +64,7 @@ end
 
 function love.update(dt)
   dbgrects = {}
+  updateBHist("x")
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
     -- if love.keyboard.isDown("up") then
@@ -88,9 +90,9 @@ function love.update(dt)
     --log.level = "debug"
     enemy_main()
     --log.level = "fatal"
-    log.level = "debug"
+    --log.level = "debug"
     hero_main()
-    log.level = "fatal"
+    --log.level = "fatal"
   end
 end
 
@@ -137,5 +139,18 @@ function love.keypressed(key, scancode, isrepeat)
       fullscreen = false
     end
     computeScale()
+  end
+end
+
+function bpressed(key)
+  return bhist[key] and bhist[key][1] == false and bhist[key][2] == true
+end
+
+function updateBHist(key)
+  if bhist[key] == nil then
+    bhist[key] = {false, love.keyboard.isDown(key)}
+  else
+    table.remove(bhist[key], 1)
+    table.insert(bhist[key], love.keyboard.isDown(key))
   end
 end
