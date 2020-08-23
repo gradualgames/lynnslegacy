@@ -25,7 +25,7 @@ function atk_key_in_sub(ip, op)
         ll_global.hero_only.crazy_points = 0
 --       llg( hero ).attack_state = 37
         --NOTE: States are stored in a normal 1 indexed Lua array so add 1
-        ll_global.hero.attack_state = 38
+        ll_global.hero.attack_state = 37
 --       llg( hero ).psycho = -1
         ll_global.hero.psycho = -1
 --
@@ -33,10 +33,7 @@ function atk_key_in_sub(ip, op)
       else
 --
 --       llg( hero ).attack_state = 6
-        --NOTE: States are stored in a normal 1 indexed Lua array so bump up hard-coded
-        --attack_state index here. Note this is hard-coded to match lynn.xml,
-        --the attack state is the 7th state counting from 1.
-        ll_global.hero.attack_state = 7
+        ll_global.hero.attack_state = 6
         log.debug("Set ll_global.hero.attack_state to: "..ll_global.hero.attack_state)
 --
 --

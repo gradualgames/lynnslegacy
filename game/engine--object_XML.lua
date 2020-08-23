@@ -129,19 +129,13 @@ function LLSystem_ObjectFromXML(enemy)
       enemy.funcs.states = enemy.funcs.states + 1
       --
       --         .funcs.func_count   = Reallocate( .funcs.func_count,   .funcs.states * Len( Integer ) )
-      --FIXME: This table is already allocated. Inserting 0 does nothing
-      --because just a few lines later we go enemy.funcs.func_count[..active_state] = 0
-      --so the indices are governed by active_state, this line can be removed. Same
-      --goes for current_func, and func.
-      table.insert(enemy.funcs.func_count, 0)
       --         .funcs.current_func = Reallocate( .funcs.current_func, .funcs.states * Len( Integer ) )
-      table.insert(enemy.funcs.current_func, {})
       --
       --         .funcs.func         = Reallocate( .funcs.func,         .funcs.states * Len( fp Ptr )  )
-      table.insert(enemy.funcs.func, {})
       --
       --         .funcs.active_state = .funcs.states - 1
-      enemy.funcs.active_state = enemy.funcs.states
+      enemy.funcs.active_state = enemy.funcs.states - 1
+      enemy.funcs.func[enemy.funcs.active_state] = {}
       --
       --         .funcs.func_count[.funcs.active_state] = 0
       enemy.funcs.func_count[enemy.funcs.active_state] = 0
@@ -179,7 +173,7 @@ function LLSystem_ObjectFromXML(enemy)
   --values. They are used while loading XML, but are clearly
   --reset before actual play begins.
   enemy.current_anim = 1
-  enemy.funcs.active_state = 1
+  enemy.funcs.active_state = 0
   enemy.funcs.current_func[enemy.funcs.active_state] = 0
 
 end

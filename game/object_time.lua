@@ -36,7 +36,7 @@ function return_idle(this)
 --   this->funcs.current_func[this->funcs.active_state] = 0
   this.funcs.current_func[this.funcs.active_state] = 0
 --   this->funcs.active_state = 0
-  this.funcs.active_state = 1
+  this.funcs.active_state = 0
 --   this->funcs.current_func[this->funcs.active_state] = 0
   this.funcs.current_func[this.funcs.active_state] = 0
 --
