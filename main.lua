@@ -41,7 +41,7 @@ function love.load()
   --log.level = "fatal"
 
   ll_global.hero.coords.x = 320
-  ll_global.hero.coords.y = 200
+  ll_global.hero.coords.y = 480
 
   --Hard-code Lynn's weapon to the sapling for now.
   ll_global.hero_only.weapon = 0
@@ -87,9 +87,9 @@ function love.update(dt)
   end
   for u = 1, 4 do
     timer = love.timer.getTime()
-    --log.level = "debug"
+    log.level = "debug"
     enemy_main()
-    --log.level = "fatal"
+    log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"

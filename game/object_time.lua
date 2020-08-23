@@ -15,10 +15,10 @@ end
 
 -- Function __return_reset ( this As _char_type Ptr ) As Integer
 function return_reset(this)
-  --log.debug("return_reset called.")
+  log.debug("return_reset called.")
 --
 --   this->funcs.current_func[this->funcs.active_state] = 0
-  this.funcs.current_func[this.funcs.active_state] = 1
+  this.funcs.current_func[this.funcs.active_state] = 0
 --
 --   this->funcs.active_state = this->reset_state
   this.funcs.active_state = this.reset_state

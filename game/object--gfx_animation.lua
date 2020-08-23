@@ -1,7 +1,7 @@
 require("game/object--gfx_frame")
 
 function active_animate(this)
-  log.debug("active_animate called.")
+  --log.debug("active_animate called.")
   -- this->animating = 1
   this.animating = 1
   -- If LLObject_IncrementFrame( this ) <> 0 Then
@@ -21,7 +21,7 @@ end
 
 -- Function __directional_animate ( this As _char_type Ptr ) As Integer
 function directional_animate(this)
-  log.debug("directional_animate called.")
+  --log.debug("directional_animate called.")
 --
 --   '' no "animating" for direction
 --   If LLObject_IncrementFrame( this ) <> 0 Then
