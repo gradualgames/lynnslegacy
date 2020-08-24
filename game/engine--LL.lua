@@ -1,6 +1,7 @@
 require("game/audio")
 require("game/binary_objects")
 require("game/engine--object")
+require("game/engine--object_damage")
 require("game/macros")
 require("game/utils")
 require("game/utility")
@@ -1057,11 +1058,11 @@ function act_enemies(enemies)
   -- Dim As Integer do_stuff
   --
   -- For do_stuff = 0 To _enemies - 1
-  for i = 1, #enemies do
+  for do_stuff = 1, #enemies do
   --
   --
   --   With _enemy[do_stuff]
-    local enemy = enemies[i]
+    local enemy = enemies[do_stuff]
   --
   --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
     if LLObject_IsWithin(enemy) then
@@ -1204,9 +1205,12 @@ function act_enemies(enemies)
   --
   --
   --           If llg( hero_only ).attacking <> 0 Then
+          if ll_global.hero_only.attacking ~= 0 then
   --             LLObject_MAINAttack( 1, Varptr( _enemy[do_stuff] ), Varptr( llg( hero ) ) )
+            LLObject_MAINAttack(1, enemy, ll_global.hero)
   --
   --           End If
+          end
   --
   --
   --           If ( .unique_id = u_anger ) Or ( .unique_id = u_sterach ) Then

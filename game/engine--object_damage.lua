@@ -1,0 +1,156 @@
+-- Sub LLObject_MAINAttack( _enemies As Integer, _enemy As _char_type Ptr, hr As _char_type Ptr )
+function LLObject_MAINAttack(_enemies, _enemy, hr)
+  log.debug("LLObject_MAINAttack called.")
+--
+--   '' ASSUMES: hr->anim[hr->current_anim] contains an attacking anim'.
+--   ''
+--   '' Fixes...
+--   ''
+--   '' Use LLObject_Collision(), change to return multiple collisions
+--   '' then iterate through, and check for invincible
+--
+--   Dim As Integer enemy_collide
+--   Dim As Integer hero_faces, check_fields
+--   Dim As vector_pair origin, target
+--
+--     For enemy_collide = 0 To _enemies - 1
+--       '' cycle thru enemies to compare
+--
+--
+--       _enemy[enemy_collide].frame_check = LLObject_CalculateFrame( _enemy[enemy_collide] )
+--
+--       hr->frame_check = LLObject_CalculateFrame( hr[0] )
+--
+--       If _enemy[enemy_collide].dead = 0 Then
+--         '' this entity is still alive
+--
+--         If _enemy[enemy_collide].dmg.id = 0 Then
+--           '' this entity is unharmed
+--
+--           For hero_faces = 0 To hr->anim[hr->current_anim]->frame[hr->frame_check].faces - 1
+--             '' cycle thru hero's mace faces
+--
+--             '' hero vector pair
+--             origin = LLO_VPE( hr, OV_FACE, hero_faces )
+--
+--             If _enemy[enemy_collide].anim[_enemy[enemy_collide].current_anim]->frame[_enemy[enemy_collide].frame_check].faces = 0 Then
+--               '' this enemy has only one box
+--
+--               '' enemy's vector pair
+--               target = LLO_VP( Varptr( _enemy[enemy_collide] ) )
+--               With _enemy[enemy_collide]
+--
+--                 If check_bounds( origin, target ) = 0 Then
+--
+--                   If _enemy[enemy_collide].unique_id = u_pmouth Then
+--
+--
+--                     If _enemy[enemy_collide].funcs.active_state = 0 Then
+--                       _enemy[enemy_collide].impassable = 0
+--                       LLObject_ShiftState( Varptr( _enemy[enemy_collide] ), 1 )
+--
+--                     End If
+--
+--
+--                   ElseIf _enemy[enemy_collide].unique_id = u_boss5_crystal Then
+--
+--
+--                     If _enemy[enemy_collide].funcs.active_state = 0 Then
+-- '                      _enemy[enemy_collide].impassable = 0
+--                       LLObject_ShiftState( Varptr( _enemy[enemy_collide] ), 1 )
+--
+--                       '' possible vguard spawn
+--
+--                     End If
+--
+--                   Else
+--
+--                     '' hero's mace connected with this entity
+--                     .dmg.id = DF_MAIN_CHAR
+--                     .dmg.index = 0
+--
+--                     LLObject_DamageCalc( Varptr( _enemy[enemy_collide] ) )
+--
+--                     If .dmg.id <> 0 Then
+--                     '' ignore the rest of the faces.
+--                       Exit For
+--
+--                     End If
+--
+--                   end if
+--
+--                 End If
+--
+--               End With
+--
+--             Else
+--               '' enemy has multiple boxes
+--
+--               For check_fields = 0 To _enemy[enemy_collide].anim[_enemy[enemy_collide].current_anim]->frame[_enemy[enemy_collide].frame_check].faces - 1
+--                 '' cycle thru this entity's boxes
+--
+--                 '' enemy's vector pair
+--                 target = LLO_VPE( Varptr( _enemy[enemy_collide] ), OV_FACE, check_fields )
+--
+--                 If check_bounds( origin, target ) = 0 Then
+--
+--                   '' ONLY jumps out if the face is not invincible!
+--                   With _enemy[enemy_collide]
+--                   With .anim[.current_anim]->frame[.frame_check].face[check_fields]
+--
+--                     If .invincible = 0 Then
+--                       _enemy[enemy_collide].dmg.id       = DF_MAIN_CHAR
+--                       _enemy[enemy_collide].dmg.index    = 0
+--                       _enemy[enemy_collide].dmg.specific = check_fields
+--
+--                       LLObject_DamageCalc( Varptr( _enemy[enemy_collide] ) )
+--
+--                       If _enemy[enemy_collide].dmg.id <> 0 Then
+--                       '' ignore the rest of the objects.
+--                         Exit For
+--
+--                       End If
+--
+--                     End If
+--
+--                   End With
+--                   End With
+--
+--                 End If
+--
+--               Next
+--
+--               If _enemy[enemy_collide].dmg.id <> 0 Then
+--                 '' there was a hit, so jmp the rest of heros frames for this enemy
+--
+--                 Exit For
+--
+--               End If
+--
+--             End If
+--
+--           Next
+--
+--         End If
+--
+--       End If
+--
+--
+--       With _enemy[enemy_collide]
+--
+--         If .heal_me <> 0 Then
+--
+--           .hp = .maxhp
+--
+--         End If
+--
+--       End With
+--
+--
+--     Next
+--
+--
+--
+--
+-- End Sub
+end
