@@ -54,11 +54,12 @@ end
 --later for transforming into a usable sprite object for display on the screen,
 --but this function should never have to be modified for any future ports.
 function LLSystem_ImageLoad(fileName)
+  --Create a table that can contain everything in the .spr
+  --file and associated .col file if it exists.
+  local imageHeader = create_LLSystem_ImageHeader()
   --Load binary data of the .spr file all at once.
   local blob = loadBlob(fileName)
   if blob then
-    --Create a table that can contain everything in the file.
-    local imageHeader = create_LLSystem_ImageHeader()
     imageHeader.x = readInt(blob)
     --log.debug("imageHeader.x: "..imageHeader.x)
     imageHeader.y = readInt(blob)
@@ -130,7 +131,87 @@ function LLSystem_ImageLoad(fileName)
         imageHeader.x, imageHeader.y, imageHeader.image:getDimensions())
       x = x + imageHeader.x
     end
-
-    return imageHeader
   end
+
+  log.level = "debug"
+  -- .frame = CAllocate( Len ( LLSystem_FrameShell ) * ( .frames ) )
+  --
+  -- If Dir ( kfe( .filename ) + ".col" ) <> "" Then
+  local colFileName = string.sub(fileName, 1, #fileName - 4)..".col" --string.sub(file, -#ext)
+  log.debug("Collision file name: "..colFileName)
+  --
+  --   #IfDef LL_IMAGELOADPROGRESS
+  --     LLSystem_Log( "Loading collision data.", "imageload.txt" )
+  --
+  --   #EndIf
+  --
+  --   o = FreeFile
+  --   If Open( kfe( .filename ) + ".col", For Binary Access Read, As o ) = 0 Then
+  if love.filesystem.exists(colFileName) then
+    local blob = loadBlob(colFileName)
+    if blob then
+      log.debug("Collision file exists: "..colFileName)
+    --
+    --     For get_frames = 0 To .frames - 1
+      for get_frames = 0, imageHeader.frames - 1 do
+    --
+    --       With .frame[get_frames]
+        imageHeader.frame[get_frames] = create_LLSystem_FrameShell()
+    --
+    --         Get #o, , .faces
+        imageHeader.frame[get_frames].faces = readInt(blob)
+        log.debug(" # of faces: "..imageHeader.frame[get_frames].faces)
+    --
+    --         .face = CAllocate( Len( LLSystem_FaceType ) * ( .faces ) )
+        imageHeader.frame[get_frames].face = {}
+    --
+    --         For get_faces = 0 To .faces - 1
+        for get_faces = 0, imageHeader.frame[get_frames].faces - 1 do
+    --
+    --           With .face[get_faces]
+          imageHeader.frame[get_frames].face[get_faces] = create_LLSystem_FaceType()
+    --
+    --             Get #o, , .x
+          imageHeader.frame[get_frames].face[get_faces].x = readInt(blob)
+          log.debug("  face.x: "..imageHeader.frame[get_frames].face[get_faces].x)
+    --             Get #o, , .y
+          imageHeader.frame[get_frames].face[get_faces].y = readInt(blob)
+          log.debug("  face.y: "..imageHeader.frame[get_frames].face[get_faces].y)
+    --             Get #o, , .w
+          imageHeader.frame[get_frames].face[get_faces].w = readInt(blob)
+          log.debug("  face.w: "..imageHeader.frame[get_frames].face[get_faces].w)
+    --             Get #o, , .h
+          imageHeader.frame[get_frames].face[get_faces].h = readInt(blob)
+          log.debug("  face.h: "..imageHeader.frame[get_frames].face[get_faces].h)
+    --             Get #o, , .strength
+          imageHeader.frame[get_frames].face[get_faces].strength = readInt(blob)
+          log.debug("  face.strength: "..imageHeader.frame[get_frames].face[get_faces].strength)
+    --             Get #o, , .invincible
+          imageHeader.frame[get_frames].face[get_faces].invincible = readInt(blob)
+          log.debug("  face.invincible: "..imageHeader.frame[get_frames].face[get_faces].invincible)
+    --             Get #o, , .impassable
+          imageHeader.frame[get_frames].face[get_faces].impassable = readInt(blob)
+          log.debug("  face.impassable: "..imageHeader.frame[get_frames].face[get_faces].impassable)
+    --
+    --           End With
+    --
+    --         Next
+        end
+    --
+    --       End With
+    --
+    --     Next
+      end
+    --
+    --     Close o
+    --
+    --   End If
+    end
+    --
+    -- End If
+  end
+
+  log.level = "fatal"
+
+  return imageHeader
 end

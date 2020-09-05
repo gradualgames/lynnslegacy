@@ -45,6 +45,8 @@ function love.load()
   --log.level = "debug"
   engine_init()
   --log.level = "fatal"
+
+  --log.level = "debug"
   set_up_room_enemies(map.rooms[curRoom].enemies)
   --log.level = "fatal"
 
@@ -95,9 +97,9 @@ function love.update(dt)
   end
   for u = 1, 4 do
     timer = love.timer.getTime()
-    log.level = "debug"
+    --log.level = "debug"
     enemy_main()
-    log.level = "fatal"
+    --log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"
