@@ -1,3 +1,5 @@
+require("game/engine--etc")
+
 function now_room()
   return map.rooms[curRoom]
 end
@@ -104,3 +106,6 @@ function ud_key()
 -- '' EndIf ud_key
   return love.keyboard.isDown("up") or love.keyboard.isDown("down")
 end
+
+LLO_VPE = LLObject_VectorPairEx
+LLO_VP = LLObject_VectorPair

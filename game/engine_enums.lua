@@ -347,3 +347,28 @@ sound_mothdie = 57
 NUM_OF_SOUNDS = 58
 --
 -- End Enum
+
+-- Enum LL_OBJVECTOR_FLAGS
+--
+--   OV_ONEBOX
+OV_ONEBOX = 0
+--   OV_FACE
+OV_FACE = 1
+--
+-- End Enum
+
+-- Enum LL_DAMAGE_FLAGS
+--
+--   DF_NO_DAMAGE
+DF_NO_DAMAGE = 0
+--   DF_ROOM_ENEMY = 1
+DF_ROOM_ENEMY = 1
+--   DF_TEMP_ENEMY = 2
+DF_TEMP_ENEMY = 2
+--   DF_MAIN_CHAR  = 4
+DF_MAIN_CHAR = 4
+--
+--   DF_PROJ       = 65536
+DF_PROJ = 65536
+--
+-- End Enum
