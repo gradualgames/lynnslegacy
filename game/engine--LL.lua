@@ -1207,7 +1207,10 @@ function act_enemies(enemies)
   --           If llg( hero_only ).attacking <> 0 Then
           if ll_global.hero_only.attacking ~= 0 then
   --             LLObject_MAINAttack( 1, Varptr( _enemy[do_stuff] ), Varptr( llg( hero ) ) )
-            LLObject_MAINAttack(1, enemy, ll_global.hero)
+            -- NOTE: The only place this function is called, the count _enemies is passed
+            -- in as 1, and the current enemy in act_enemies is passed in as _enemy. Therefore,
+            -- we are simplifying this to just pass the enemy in to begin with and eliminate the loop.
+            LLObject_MAINAttack(enemy, ll_global.hero)
   --
   --           End If
           end

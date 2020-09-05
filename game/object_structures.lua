@@ -40,6 +40,7 @@ function create_Object()
   --
   --
   --   dmg As ll_entity_damage
+  object.dmg = create_ll_entity_damage()
   --
   --
   --   internalState as integer
@@ -359,6 +360,7 @@ function create_Object()
   --
   --     elite                 As Integer
   --     frame_check           As Integer
+  object.frame_check = 0
   --
   --     melt                  As Integer
   --
@@ -571,4 +573,36 @@ function create_LLObject_ImageHeader()
   imageHeader.rate = 0
   imageHeader.rateMad = 0
   return imageHeader
+end
+
+-- '' Damage information struct:
+-- ''
+-- '' Operates with:
+-- '' Enum LL_DAMAGE_FLAGS
+-- ''
+-- '' Damage information is held inside this struct. this struct contains
+-- '' various information about what the object was damaged by.
+-- ''
+-- Type ll_entity_damage
+function create_ll_entity_damage()
+  local ll_entity_damage = {}
+--
+--   '' description of damaging entity.
+--   '' ( Enum LL_DAMAGE_FLAGS )
+--   id As Integer
+  ll_entity_damage.id = 0
+--   ''
+--   '' the number of whatever type you hit.
+--   '' e.g. equals 2 when object is damaged by room enemy #2
+--   index As Integer
+  ll_entity_damage.index = 0
+--   ''
+--   '' if id = DF_XXXX_ENEMY_PROJ, then "specific" equals the projectile number.
+--   '' elseif the enemy has multiple bounds, then "specific" is the bound touched.
+--   '' else "spcific" is undefined.
+--   specific As Integer
+  ll_entity_damage.specific = 0
+--
+  return ll_entity_damage
+-- End Type
 end

@@ -1,5 +1,10 @@
+require("game/matrices")
+
 -- Sub LLObject_MAINAttack( _enemies As Integer, _enemy As _char_type Ptr, hr As _char_type Ptr )
-function LLObject_MAINAttack(_enemies, _enemy, hr)
+-- NOTE: The only place this function is called, the count _enemies is passed
+-- in as 1, and the current enemy in act_enemies is passed in as _enemy. Therefore,
+-- we are simplifying this to just pass the enemy in to begin with and eliminate the loop.
+function LLObject_MAINAttack(_enemy, hr)
   log.debug("LLObject_MAINAttack called.")
 --
 --   '' ASSUMES: hr->anim[hr->current_anim] contains an attacking anim'.
@@ -10,8 +15,11 @@ function LLObject_MAINAttack(_enemies, _enemy, hr)
 --   '' then iterate through, and check for invincible
 --
 --   Dim As Integer enemy_collide
+  local enemy_collide = 0
 --   Dim As Integer hero_faces, check_fields
+  local hero_faces, check_fields = 0, 0
 --   Dim As vector_pair origin, target
+  local origin, target = create_vector_pair(), create_vector_pair()
 --
 --     For enemy_collide = 0 To _enemies - 1
 --       '' cycle thru enemies to compare
