@@ -1,7 +1,7 @@
 require("game/engine--etc")
 
 function now_room()
-  return map.rooms[curRoom]
+  return map.room[curRoom]
 end
 
 function LLObject_CalculateFrame(this)

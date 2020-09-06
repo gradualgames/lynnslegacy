@@ -126,10 +126,10 @@ function blit_room()
   -- If llg( tilesDisabled ) = FALSE Then
   --   '' bottom layers
   --   LLEngine_BlitLayer( 0 )
-  layoutLayer(camera, map.rooms[curRoom], 1, map.imageHeader, map.imageHeader.spriteBatches[1])
+  layoutLayer(camera, map.room[curRoom], 1, map.imageHeader, map.imageHeader.spriteBatches[1])
   love.graphics.draw(map.imageHeader.spriteBatches[1])
   --   LLEngine_BlitLayer( 1 )
-  layoutLayer(camera, map.rooms[curRoom], 2, map.imageHeader, map.imageHeader.spriteBatches[2])
+  layoutLayer(camera, map.room[curRoom], 2, map.imageHeader, map.imageHeader.spriteBatches[2])
   love.graphics.draw(map.imageHeader.spriteBatches[2])
   --
   -- End If
@@ -153,7 +153,7 @@ function blit_room()
   --
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
-  layoutLayer(camera, map.rooms[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
+  layoutLayer(camera, map.room[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
   love.graphics.draw(map.imageHeader.spriteBatches[3])
   --
   -- End If
@@ -230,12 +230,12 @@ function blit_y_sorted()
   -- Dim As Integer _blit_em
   --
   -- For _blit_em = 0 To ac - 1
-  for i = 1, #now_room().enemies do
+  for i = 1, now_room().enemies do
   --
   --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
   --
   --     blit_enemy( *y_sort( _blit_em ) )
-    local enemy = now_room().enemies[i]
+    local enemy = now_room().enemy[i]
     blit_enemy(enemy)
   --
   --   End If

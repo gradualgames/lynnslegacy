@@ -47,7 +47,7 @@ function love.load()
   --log.level = "fatal"
 
   --log.level = "debug"
-  set_up_room_enemies(map.rooms[curRoom].enemies)
+  set_up_room_enemies(map.room[curRoom].enemy)
   --log.level = "fatal"
 
   ll_global.hero.coords.x = 320

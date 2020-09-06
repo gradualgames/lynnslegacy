@@ -1003,7 +1003,7 @@ function enemy_main()
   --
   --   If .enemies > 0 Then
   --     act_enemies( .enemies, .enemy )
-  act_enemies(now_room().enemies)
+  act_enemies(now_room().enemy)
   --
   --   End If
   --   If .temp_enemies > 0 Then
