@@ -64,3 +64,77 @@ function check_bounds(m, n)
 --
 -- End Function
 end
+
+-- Function V2_Subtract( hi As vector, lo As vector ) As vector
+function V2_Subtract(hi, lo)
+--
+--   Function = Type( hi.x - lo.x, hi.y - lo.y )
+  return {x = hi.x - lo.x, y = hi.y - lo.y}
+--
+-- End Function
+end
+
+-- Function V2_Midpoint( m As vector_pair ) As vector
+function V2_MidPoint(m)
+--
+--   Function = V2_Add( m.u, V2_Scale( m.v, .5 ) )
+  return V2_Add(m.u, V2_Scale(m.v, .5))
+--
+-- End Function
+end
+
+-- Function V2_DotProduct( v As vector, v2 As vector ) As Double
+function V2_DotProduct(v, v2)
+--
+--   Function = v.x * v2.x + v.y * v2.y
+  return v.x * v2.x + v.y * v2.y
+--
+-- End Function
+end
+--
+-- Function V2_Scale( v As vector, k As Double ) As vector
+function V2_Scale(v, k)
+--
+--   Function = Type( v.x * k, v.y * k )
+  return {x = v.x * k, y = v.y *k}
+--
+-- End Function
+end
+
+-- '' Great code from CoderJeff at http://freebasic.net/forum
+-- ''
+-- ''
+-- '' An Approximation
+-- '' m = V3_DotProduct(distance, distance) / (Abs(distance.x) + Abs(distance.y) + Abs(distance.z))
+--
+-- '' Exact
+-- '' m = sqr( V3_DotProduct(distance, distance) )
+-- Function V2_CalcFlyback( m As vector, n As vector ) As vector
+function V2_CalcFlyback(m, n)
+--
+-- Dim As vector distance = V2_Subtract( m, n )
+  local distance = V2_Subtract(m, n)
+-- Dim As vector res = V2_Scale( distance, 1 / Sqr( V2_DotProduct( distance, distance ) ) )
+  local res = V2_Scale(distance, 1 / math.sqrt(V2_DotProduct(distance, distance)))
+--
+  --FIXME: The following tests for legal numbers are not yet ported.
+  --I don't know what the differences are between Lua and FreeBASIC here when
+  --handling divide by zero, NaN, and so forth. So I'm just going to wait for
+  --crashes or odd behavior to decide how to handle these cases.
+-- If is_LegalNumber( res.x ) = 0 Then
+--   res.x = 0
+--
+-- End If
+--
+-- If is_LegalNumber( res.y ) = 0 Then
+--   res.y = 0
+--
+-- End If
+--
+--
+-- Return res
+  return res
+--
+-- End Function
+end
+-- ''

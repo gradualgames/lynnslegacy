@@ -1,5 +1,6 @@
 require("game/macros")
 require("game/matrices")
+require("game/utils")
 
 -- Sub LLObject_MAINAttack( _enemies As Integer, _enemy As _char_type Ptr, hr As _char_type Ptr )
 -- NOTE: The only place this function is called, the count _enemies is passed
@@ -225,6 +226,449 @@ function LLObject_MAINAttack(_enemy, hr)
 -- End Sub
 end
 
+-- Sub LLObject_DeriveHurt( h As char_type Ptr )
+function LLObject_DeriveHurt(h)
+--
+--   Select Case h->dmg.id
+--
+--     Case DF_ROOM_ENEMY
+  if h.dmg.id == DF_ROOM_ENEMY then
+--
+--       With now_room().enemy[h->dmg.index]
+--
+--         If .anim[.current_anim]->frame[.frame_check].faces = 0 Then
+    if now_room().enemy[h.dmg.index].anim[now_room().enemy[h.dmg.index].current_anim].frame[now_room().enemy[h.dmg.index].frame_check].faces == 0 then
+--           h->hurt = .strength
+      h.hurt = now_room().enemy[h.dmg.index].strength
+--
+--         Else
+    else
+--           h->hurt = .anim[.current_anim]->frame[.frame_check].face[h->dmg.specific].strength
+      h.hurt = now_room().enemy[h.dmg.index].anim[now_room().enemy[h.dmg.index].current_anim].frame[now_room().enemy[h.dmg.index].frame_check].face[h.dmg.specific].strength
+--
+--         End If
+    end
+--
+--       End With
+--
+--
+--     Case DF_TEMP_ENEMY
+  elseif h.dmg.id == DF_TEMP_ENEMY then
+--
+--       With now_room().temp_enemy( h->dmg.index )
+--
+--         If .anim[.current_anim]->frame[.frame_check].faces = 0 Then
+    if now_room().temp_enemy[h.dmg.index].anim[now_room().temp_enemy[h.dmg.index].current_anim].frame[now_room().temp_enemy[h.dmg.index].frame_check].faces == 0 then
+--           h->hurt = .strength
+      h.hurt = now_room().temp_enemy[h.dmg.index].strength
+--
+--         Else
+    else
+--           h->hurt = .anim[.current_anim]->frame[.frame_check].face[h->dmg.specific].strength
+      h.hurt = now_room().temp_enemy[h.dmg.index].anim[now_room().temp_enemy[h.dmg.index].current_anim].frame[now_room().temp_enemy[h.dmg.index].frame_check].face[h.dmg.specific].strength
+--
+--         End If
+    end
+--
+--       End With
+--
+--
+--     Case DF_ROOM_ENEMY Or DF_PROJ
+  elseif h.dmg.id == DF_ROOM_ENEMY or h.dmg.id == DF_PROJ then
+--
+--       With now_room().enemy[h->dmg.index]
+--
+--         h->hurt = .projectile->strength
+    h.hurt = now_room().enemy[h.dmg.index].projectile.strength
+--
+--       End With
+--
+--
+--     Case DF_MAIN_CHAR
+  elseif h.dmg.id == DF_MAIN_CHAR then
+--
+-- '        With _enemy[enemy_collide]
+--
+--       If llg( hero_only ).powder <> 0 Then
+    if ll_global.hero_only.powder ~= 0 then
+--         '' sprinkling powder
+--
+--         If h->invincible <> 0 Then
+      if h.invincible ~= 0 then
+--           '' this enemy is invincible
+--
+--           If llg( hero_only ).selected_item = 1 Then
+        if ll_global.hero_only.selected_item == 1 then
+--             '' flare powder selected.
+--
+--             If h->fire_weak <> 0 Then
+          if h.fire_weak ~= 0 then
+--               '' this enemy is only vulnerable to fire
+--
+--               If h->torch <> 0 Then
+            if h.torch ~= 0 then
+--                 '' this is a torch
+--
+--                 If h->funcs.current_func[h->funcs.active_state] = 0 Then
+              if h.funcs.current_func[h.funcs.active_state] == 0 then
+--                   '' torch isn't currently lit
+--
+--                   h->jump_timer = 0
+                h.jump_timer = 0
+--
+--                   LLObject_ShiftState( h, h->hit_state )
+                LLObject_ShiftState(h, h.hit_state)
+--
+--
+--                 End If
+              end
+--
+--               Else
+            else
+--                 ''destroy it
+--                 h->hp = 0
+                h.hp = 0
+--
+--               End If
+            end
+--
+--             End If
+          end
+--
+--           Else
+        else
+--             '' ice powder selected
+--
+--
+--             If h->ice_weak <> 0 Then
+          if h.ice_weak ~= 0 then
+--               '' this enemy is only destroyable by ice
+--
+--               If h->torch <> 0 Then
+            if h.torch ~= 0 then
+--                 '' this is a torch
+--
+--                 If ( h->funcs.active_state = h->hit_state ) Then
+              if h.funcs.active_state == h.hit_state then
+--                   '' torch is currently lit
+--
+--                   h->jump_timer = 0
+                h.jump_timer = 0
+--
+--                   LLObject_ShiftState( h, h->reset_state )
+                LLObject_ShiftState(h, h.reset_state)
+--
+--
+--                 End If
+              end
+--
+--
+--               Else
+            else
+--
+--
+--                 ''destroy it
+--                 h->hp = 0
+              h.hp = 0
+--
+--               End If
+            end
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--
+--           '' reset enemy damage flags
+--           LLObject_ClearDamage( h )
+        LLObject_ClearDamage(h)
+--           Exit Sub
+        return
+--
+--         Else
+      else
+--           '' entity is not invincible
+--
+--
+--           If llg( hero_only ).selected_item = 1 Then
+        if ll_global.hero_only.selected_item == 1 then
+--             '' flare powder selected
+--
+--
+--             If h->fire_weak <> 0 Then
+          if h.fire_weak ~= 0 then
+--               '' knocked back and stunned with fire powder
+--
+--
+--               If h->melt = 0 Then
+            if h.melt == 0 then
+--                 '' it's not a frozen bush
+--
+--                 LLObject_ShiftState( h, h->fire_state )
+              LLObject_ShiftState(h, h.fire_state)
+--                 LLObject_ClearDamage( h )
+              LLObject_ClearDamage(h)
+--
+--               Else
+            else
+--                 '' thaw the frozen bush
+--
+--                 LLObject_ShiftState( h, h->thaw_state )
+              LLObject_ShiftState(h, h.thaw_state)
+--                 LLObject_ClearDamage( h )
+              LLObject_ClearDamage(h)
+--
+--
+--               End If
+            end
+--
+--               h->fly = V2_CalcFlyback( _
+--                                         V2_MidPoint( LLObject_VectorPair( h ) ), _
+--                                         V2_MidPoint( LLObject_VectorPair( Varptr( llg( hero ) ) ) ) _
+--                                       )
+            h.fly = V2_CalcFlyback(
+                                    V2_MidPoint(LLObject_VectorPair(h)),
+                                    V2_MidPoint(LLObject_VectorPair(ll_global.hero))
+                                  )
+--
+--               LLObject_ClearDamage( h )
+            LLObject_ClearDamage(h)
+--
+--
+--             Else
+          else
+--               '' not susceptible
+--
+--               LLObject_ClearDamage( h )
+            LLObject_ClearDamage(h)
+--
+--             End If
+          end
+--
+--
+--           Else
+        else
+--
+--
+--             If h->ice_weak <> 0 Then
+          if h.ice_weak ~= 0 then
+--               '' ice powder freezes this entity
+--
+--               LLObject_ShiftState( h, h->ice_state )
+            LLObject_ShiftState(h, h.ice_state)
+--
+--               If h->unique_id = u_bush Then
+            if h.unique_id == u_bush then
+--                 '' it's a bush
+--
+--                 h->melt = 1
+              h.melt = 1
+--                 LLObject_ClearDamage( h )
+              LLObject_ClearDamage(h)
+--
+--               End If
+            end
+--
+--               h->hurt = 0
+            h.hurt = 0
+--
+--
+--
+--               h->fly = V2_CalcFlyback( _
+--                                        V2_MidPoint( LLObject_VectorPair( h ) ), _
+--                                        V2_MidPoint( LLObject_VectorPair( Varptr( llg( hero ) ) ) ) _
+--                                      )
+            h.fly = V2_CalcFlyback(
+                                    V2_MidPoint(LLObject_VectorPair(h)),
+                                    V2_MidPoint(LLObject_VectorPair(ll_global.hero))
+                                  )
+
+--               LLObject_ClearDamage( h )
+            LLObject_ClearDamage(h)
+--
+--             Else
+          else
+--               '' not susceptible
+--
+--               LLObject_ClearDamage( h )
+            LLObject_ClearDamage(h)
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--       Else
+    else
+--         '' attacking normally
+--
+--         If h->invincible <> 0 Then
+      if h.invincible ~= 0 then
+--           '' current enemy is invincible
+--
+--
+--           If llg( hero_only ).weapon >= 1 Then
+        if ll_global.hero_only.weapon >= 1 then
+--             '' hero's weapon is mace or better
+--             If h->mace_weak <> 0 Then
+          if h.mace_weak ~= 0 then
+--               '' this entity dies from a mace or better weapon hit.
+--
+--               h->hp = 0
+            h.hp = 0
+--               LLObject_ClearDamage( h )
+            LLObject_ClearDamage(h)
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--           If llg( hero_only ).weapon >= 2 Then
+        if ll_global.hero_only.weapon >= 2 then
+--             '' hero's weapon is the divius star
+--             If h->star_weak <> 0 Then
+          if h.star_weak ~= 0 then
+--               '' this entity dies from a hit with the star
+--               h->hp = 0
+            h.hp = 0
+--               LLObject_ClearDamage( h )
+            LLObject_ClearDamage(h)
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--
+--         If h->anim[h->current_anim]->frame[h->frame_check].faces = 0 Then
+      if h.anim[h.current_anim].frame[h.frame_check].faces == 0 then
+--           '' enemy only has one bound
+--
+--           If h->invincible = 0 Then
+        if h.invincible == 0 then
+--             '' enemy is not invincible
+--
+--             If  ( ( h->mace_weak ) Imp ( llg( hero_only ).weapon >= 1 ) ) And _
+--                 ( ( h->star_weak ) Imp ( llg( hero_only ).weapon >= 2 ) ) Then
+          if (imp(h.mace_weak, ll_global.hero_only.weapon >= 1 and 1 or 0) ~= 0) and
+             (imp(h.star_weak, ll_global.hero_only.weapon >= 2 and 1 or 0) ~= 0) then
+--               '' Imp-i-fied
+--
+--               h->hurt = ( 2 ^ ( llg( hero_only ).weapon ) ) * IIf( llg( hero ).psycho <> 0, 2, 1 )
+            h.hurt = (2 ^ (ll_global.hero_only.weapon)) * (ll_global.hero.psycho ~= 0 and 2 or 1)
+--
+--               if llg( hero_only ).adrenaline <> 0 then
+            if ll_global.hero_only.adrenaline ~= 0 then
+--                 select case as const llg( hero_only ).weapon
+--                   case 0
+              if ll_global.hero_only.weapon == 0 then
+--                     h->hurt += 1
+                h.hurt = h.hurt + 1
+--                   case 1
+              elseif ll_global.hero_only.weapon == 1 then
+--                     h->hurt += 1
+                h.hurt = h.hurt + 1
+--                   case 2
+              elseif ll_global.hero_only.weapon == 2 then
+--                     h->hurt += 2
+                h.hurt = h.hurt + 2
+--                 end select
+              end
+--
+--               end if
+            end
+--
+--
+--             End If
+          end
+--
+--
+--           End If
+        end
+--
+--
+--         Else
+      else
+--           '' enemy has multiple faces
+--
+--
+--
+--           If h->anim[h->current_anim]->frame[h->frame_check].face[h->dmg.specific].invincible = 0 Then
+        if h.anim[h.current_anim].frame[h.frame_check].face[h.dmg.specific].invincible == 0 then
+--             '' entity face is not invincible
+--
+--             If  ( ( h->mace_weak <> 0 ) Imp ( llg( hero_only ).weapon >= 1 ) ) _
+--             And ( ( h->star_weak <> 0 ) Imp ( llg( hero_only ).weapon >= 2 ) ) Then
+          if (imp(h.mace_weak, ll_global.hero_only.weapon >= 1 and 1 or 0) ~= 0) and
+             (imp(h.star_weak, ll_global.hero_only.weapon >= 2 and 1 or 0) ~= 0) then
+
+--
+--               h->hurt = ( 2 ^ ( llg( hero_only ).weapon ) ) * IIf( llg( hero ).psycho <> 0, 2, 1 )
+            h.hurt = (2 ^ (ll_global.hero_only.weapon)) * (ll_global.hero.psycho ~= 0 and 2 or 1)
+--
+--               if llg( hero_only ).adrenaline <> 0 then
+            if ll_global.hero_only.adrenaline ~= 0 then
+--                 select case as const llg( hero_only ).weapon
+--                   case 0
+              if ll_global.hero_only.weapon == 0 then
+--                     h->hurt += 1
+                h.hurt = h.hurt + 1
+--                   case 1
+              elseif ll_global.hero_only.weapon == 1 then
+--                     h->hurt += 1
+                h.hurt = h.hurt + 1
+--                   case 2
+              elseif ll_global.hero_only.weapon == 2 then
+--                     h->hurt += 2
+                h.hurt = h.hurt + 2
+--                 end select
+              end
+--
+--               end if
+            end
+--
+--
+--
+--             End If
+          end
+--
+--           End If
+        end
+--
+--           '' reset face
+--           h->dmg.specific = 0
+          h.dmg.specific = 0
+--
+--         End If
+      end
+--
+--
+--
+--
+--       End If
+    end
+--
+-- '        End With
+--
+--
+--   End Select
+  end
+--
+-- End Sub
+end
+
 -- Sub LLObject_DamageCalc( h As _char_type Ptr )
 function LLObject_DamageCalc(h)
   log.debug("LLObject_DamageCalc called. TODO: Implement me.")
@@ -288,6 +732,22 @@ function LLObject_DamageCalc(h)
 --     .frame_check = 0
 --
 --   End With
+--
+-- End Sub
+end
+
+-- Sub LLObject_ClearDamage( h As char_type Ptr )
+function LLObject_ClearDamage(h)
+--
+--   h->hurt         = 0
+  h.hurt = 0
+--
+--   h->dmg.id       = 0
+  h.dmg.id = 0
+--   h->dmg.index    = 0
+  h.dmg.index = 0
+--   h->dmg.specific = 0
+  h.dmg.specific = 0
 --
 -- End Sub
 end
