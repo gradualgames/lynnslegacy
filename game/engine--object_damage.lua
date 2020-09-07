@@ -560,6 +560,20 @@ function LLObject_DeriveHurt(h)
         if h.invincible == 0 then
 --             '' enemy is not invincible
 --
+
+-- NOTE: I do not really understand why Imp is used in the
+-- original code, below. However, this example was supplied
+-- by someone on discord, so if we ever have a bug here, we can
+-- refer to this example to try to understand the code:
+-- If I am in Sacramento, then I am in California.
+--
+-- I am not in Sacramento and I am not in California. [true]
+-- I am in Sacramento and I am not in California. [false]
+-- I am not in Sacramento and I am in Calfornia. [true]
+-- I am in Sacramento and I am in California. [true]
+-- [4:23 PM]
+-- As an example
+
 --             If  ( ( h->mace_weak ) Imp ( llg( hero_only ).weapon >= 1 ) ) And _
 --                 ( ( h->star_weak ) Imp ( llg( hero_only ).weapon >= 2 ) ) Then
           if (imp(h.mace_weak, ll_global.hero_only.weapon >= 1 and 1 or 0) ~= 0) and
