@@ -2,6 +2,7 @@ function create_vector()
   local vector = {}
   vector.x = 0
   vector.y = 0
+  vector.clone = function(vector) return {x=vector.x, y=vector.y} end
   return vector
 end
 
