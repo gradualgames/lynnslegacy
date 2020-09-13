@@ -12,7 +12,9 @@ function create_main_char_type()
 --   crazy_points As Integer
   main_char_type.crazy_points = 0
 --   crazy_cache As Integer
+  main_char_type.crazy_cache = 0
 --   crazy_dcache As Integer
+  main_char_type.crazy_dcache = 0
 --
 --   has_bar As Integer
 --   has_item As Integer

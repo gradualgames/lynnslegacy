@@ -2964,3 +2964,31 @@ function init_splash()
 --
 -- End Sub
 end
+
+-- Sub LLObject_ClearProjectiles( char As char_type )
+function LLObject_ClearProjectiles(char)
+  log.debug("Implement LLObject_ClearProjectiles.")
+--
+--   if char.projectile = 0 then exit sub
+--
+--   Dim As Integer numOfProjectiles, incre
+--
+--   With char
+--
+--     For incre = 0 To .projectile->projectiles - 1
+--       .projectile->coords[incre] = Type <vector> ( 0, 0 )
+--
+--     Next
+--     .projectile->plock = 0
+--     .projectile->active = 0
+--     .projectile->refreshTime = 0
+--     .projectile->saveDirection = 0
+--     .projectile->travelled = 0
+--     .projectile->sound = 0
+--
+--   End With
+--
+--
+--
+-- End Sub
+end

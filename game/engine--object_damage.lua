@@ -1,5 +1,7 @@
+require("game/engine_enums")
 require("game/macros")
 require("game/matrices")
+require("game/object_modification")
 require("game/utils")
 
 -- Sub LLObject_MAINAttack( _enemies As Integer, _enemy As _char_type Ptr, hr As _char_type Ptr )
@@ -683,67 +685,446 @@ function LLObject_DeriveHurt(h)
 -- End Sub
 end
 
+-- Sub LLObject_ProcessHurt( h As char_type Ptr )
+function LLObject_ProcessHurt(h)
+--
+--
+--
+--   h->hp -= h->hurt
+  h.hp = h.hp - h.hurt
+--   '' take away the damage from the hp .
+--
+--   if h->unique_id = u_lynn then
+--     antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--
+--   end if
+--
+--
+--   If h->hurt < 0 Then
+  if h.hurt < 0 then
+--     '' reset damaged status.
+--     LLObject_ClearDamage( h )
+    LLObject_ClearDamage(h)
+--     Exit Sub
+    return
+--
+--   End If
+  end
+--
+--
+--   Dim As vector flyback
+  local flyback = create_vector()
+--   Dim As vector_pair origin, target
+  local origin, target = create_vector_pair(), create_vector_pair()
+--
+--   If h->hp > 0 Then
+  if h.hp > 0 then
+--     '' lynn's still alive.
+--
+--
+--     Select Case h->dmg.id
+--
+--       Case DF_ROOM_ENEMY
+    if h.dmg.id == DF_ROOM_ENEMY then
+--
+--         with now_room().enemy[h->dmg.index]
+      local with0 = now_room().enemy[h.dmx.index]
+--           If .anim[.current_anim]->frame[.frame_check].faces = 0 Then
+      if with0.anim[with0.current_anim].frame[with0.frame_check].faces == 0 then
+--             origin = LLObject_VectorPair( @now_room().enemy[h->dmg.index] )
+        origin = LLObject_VectorPair(now_room().enemy[h.dmg.index])
+--
+--           Else
+      else
+--
+--             origin.u.x = .coords.x
+        origin.u.x = with0.coords.x
+--             origin.u.y = .coords.y
+        origin.u.y = with0.coords.y
+--
+--             with .animControl[.current_anim]
+        local with1 = with0.animControl[with0.current_anim]
+--
+--               origin.u.x -= .x_off
+        origin.u.x = origin.u.x - with1.x_off
+--               origin.u.y -= .y_off
+        origin.u.y = origin.u.y - with1.y_off
+--
+--             end with
+--
+--             with .anim[.current_anim]->frame[.frame_check]
+        with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
+--
+--               with .face[h->dmg.specific]
+        local with2 = with1.face[h.dmg.specific]
+--                 origin.u.x += .x
+        origin.u.x = origin.u.x + with2.x
+--                 origin.u.y += .y
+        origin.u.y = origin.u.y + with2.y
+--                 origin.v.x = .w
+        origin.v.x = with2.w
+--                 origin.v.y = .h
+        origin.v.y = with2.h
+--
+--               end with
+--
+--             end with
+--
+--           End If
+      end
+--
+--         end with
+--
+--
+--       Case DF_TEMP_ENEMY
+    elseif h.dmg.id == DF_TEMP_ENEMY then
+--         origin = LLObject_VectorPair( @now_room().temp_enemy( h->dmg.index ) )
+      origin = LLObject_VectorPair(now_room().temp_enemy[h.dmg.index])
+--
+--
+--       Case DF_ROOM_ENEMY Or DF_PROJ
+    elseif h.dmg.id == DF_ROOM_ENEMY or h.dmg.id == DF_PROJ then
+--
+--         With now_room().enemy[h->dmg.index]
+      local with0 = now_room().enemy[h.dmx.index]
+--
+--           origin.u.x = .projectile->coords[h->dmg.specific].x
+      origin.u.x = with0.projectile.coords[h.dmg.specific].x
+--           origin.u.y = .projectile->coords[h->dmg.specific].y
+      origin.u.y = with0.projectile.coords[h.dmg.specific].y
+--           origin.v.x = .anim[.proj_anim]->x
+      origin.v.x = with0.anim[with0.proj_anim].x
+--           origin.v.y = .anim[.proj_anim]->y
+      origin.v.y = with0.anim[with0.proj_anim].y
+--
+--         End With
+--
+--       Case DF_TEMP_ENEMY Or DF_PROJ
+    elseif h.dmg.id == DF_TEMP_ENEMY or h.dmg.id == DF_PROJ then
+--
+--         With now_room().temp_enemy( h->dmg.index )
+      local with0 = now_room().temp_enemy[h.dmx.index]
+--
+--           origin.u.x = .projectile->coords[h->dmg.specific].x
+      origin.u.x = with0.projectile.coords[h.dmg.specific].x
+--           origin.u.y = .projectile->coords[h->dmg.specific].y
+      origin.u.y = with0.projectile.coords[h.dmg.specific].y
+--           origin.v.x = .anim[.proj_anim]->x
+      origin.v.x = with0.anim[with0.proj_anim].x
+--           origin.v.y = .anim[.proj_anim]->y
+      origin.v.y = with0.anim[with0.proj_anim].y
+--
+--         End With
+--
+--
+--       Case DF_MAIN_CHAR
+    elseif h.dmg.id == DF_MAIN_CHAR then
+--
+--         Dim As Integer unhurt_enemies = -1
+      local unhurt_enemies = -1
+--         unhurt_enemies = -1
+      unhurt_enemies = -1
+--
+--         unhurt_enemies And= ( Not ( h->unique_id = u_bush ) )
+      unhurt_enemies = bit.band(unhurt_enemies, bit.bnot((h.unique_id == u_bush) and 1 or 0))
+--         unhurt_enemies And= ( Not ( h->unique_id = u_crate ) )
+      unhurt_enemies = bit.band(unhurt_enemies, bit.bnot((h.unique_id == u_crate) and 1 or 0))
+--         unhurt_enemies And= ( Not ( h->unique_id = u_crate_health ) )
+      unhurt_enemies = bit.band(unhurt_enemies, bit.bnot((h.unique_id == u_crate_health) and 1 or 0))
+--         unhurt_enemies And= ( Not ( h->unique_id = u_greyrock ) )
+      unhurt_enemies = bit.band(unhurt_enemies, bit.bnot((h.unique_id == u_greyrock) and 1 or 0))
+--         unhurt_enemies And= ( Not ( h->unique_id = u_bombrock ) )
+      unhurt_enemies = bit.band(unhurt_enemies, bit.bnot((h.unique_id == u_bombrock) and 1 or 0))
+--         unhurt_enemies And= ( Not ( h->unique_id = u_goldblock ) )
+      unhurt_enemies = bit.band(unhurt_enemies, bit.bnot((h.unique_id == u_goldblock) and 1 or 0))
+--
+--         If unhurt_enemies <> 0 Then
+      if unhurt_enemies ~= 0 then
+--           llg( hero_only ).crazy_cache += IIf( llg( hero_only ).isWearing = 2, 20, 10 )
+        ll_global.hero_only.crazy_cache = ll_global.hero_only.crazy_cache + ((ll_global.hero_only.isWearing == 2) and 20 or 10)
+
+--
+--         End If
+      end
+--
+--         If ( h->unique_id = u_anger ) Or ( h->unique_id = u_sterach ) Then
+      if (h.unique_id == u_anger) or (h.unique_id == u_sterach) then
+--           h->shifty_state = 0
+        h.shifty_state = 0
+--           h->hit = -1
+        h.hit = -1
+--
+--         Else
+      else
+--
+--           LLObject_ShiftState( h, h->hit_state )
+        LLObject_ShiftState(h, h.hit_state)
+--           origin = LLO_VP( @llg( hero ) )
+        origin = LLO_VP(ll_global.hero)
+--           If h->unique_id = u_dyssius Then
+        if h.unique_id == u_dyssius then
+--             h->fly_count = 0
+          h.fly_count = 0
+--
+--           End If
+        end
+--           If h->unique_id = u_steelstrider Then
+        if h.unique_id == u_steelstrider then
+--             h->fly_count = 0
+          h.fly_count = 0
+--
+--           End If
+        end
+--           If h->unique_id = u_grult Then
+        if h.unique_id == u_grult then
+--             h->fly_count = 0
+          h.fly_count = 0
+--
+--           End If
+        end
+--           If h->unique_id = u_divine Then
+        if h.unique_id == u_divine then
+--             h->fly_count = 0
+          h.fly_count = 0
+--
+--           End If
+        end
+--           If (h->unique_id = u_dyssius) or (h->unique_id = u_anger) Then
+        if (h.unique_id == u_dyssius) or (h.unique_id == u_anger) then
+--             h->shifty_state = 0
+          h.shifty_state = 0
+--             h->slide_hold   = 0
+          h.slide_hold = 0
+--
+--           end if
+        end
+--
+--
+--         End If
+      end
+--
+--
+--     End Select
+    end
+--
+--     If h->unique_id = u_lynn Then
+    if h.unique_id == u_lynn then
+-- '      If h->dmg.id = DF_ROOM_ENEMY Then
+--         If now_room().enemy[h->dmg.index].unique_id <> u_beetle Then
+      if now_room().enemy[h.dmx.index].unique_id ~= u_beetle then
+--           Dim As Integer lynn_yell
+        local lynn_yell = 0
+--           lynn_yell = CInt( sound_lynn_hurt_1 ) + Int( Rnd * 3 )
+        lynn_yell = sound_lynn_hurt_1 + math.floor(math.random() * 3)
+--
+--           play_sample( llg( snd )[lynn_yell], 50 )
+        ll_global.snd[lynn_yell]:play()
+
+--
+--         End If
+      end
+--
+-- '      End If
+--
+--     Else
+    else
+--
+--       If h->hit_sound <> 0 Then
+      if h.hit_sound ~= 0 then
+--
+--         #IfDef ll_audio
+-- '          If h->hit_sound_vol <> 0 Then
+--             play_sample( llg( snd )[h->hit_sound], IIf( h->hit_sound_vol <> 0, h->hit_sound_vol, 100 ) )
+        --FIXME: Port the volume adjustment based on hit_sound_vol
+        ll_global.snd[h.hit_sound]:play()
+--
+-- '          End If
+--
+--         #EndIf
+--
+--       End If
+      end
+--
+--     End If
+    end
+--
+--     flyback = V2_CalcFlyback( V2_MidPoint( LLO_VP( h ) ), V2_MidPoint( origin ) )
+    flyback = V2_CalcFlyback(V2_MidPoint(LLO_VP(h)), V2_MidPoint(origin))
+--
+--     If llg( hero ).psycho <> 0 Then
+    if ll_global.hero.psycho ~= 0 then
+--
+--       If h->unique_id <> u_lynn Then
+      if h.unique_id ~= u_lynn then
+--
+--         flyback = V2_CalcFlyback( V2_MidPoint( LLO_VP( h ) ), V2_MidPoint( origin ) )
+        flyback = V2_CalcFlyback(V2_MidPoint(LLO_VP(h)), V2_MidPoint(origin))
+--         flyback = V2_Scale( flyback, 4 )
+        flyback = V2_Scale(flyback, 4)
+--
+--       End If
+      end
+--
+--     End If
+    end
+--
+--     If ( h->unique_id <> u_anger ) And ( h->unique_id <> u_grult ) Then
+    if (h.unique_id ~= u_anger) and (h.unique_id ~= u_grult) then
+--       '' his fireballs are affected by fly_?, and he doesn't fly back.
+--       h->fly = flyback
+      h.fly = flyback
+--
+--     End If
+    end
+--
+--
+--   Else
+  else
+--     '' hp is 0 or below, dead.
+--
+--     If h->dead = 0 Then
+    if h.dead == 0 then
+--       '' first time initialization.
+--
+--       If h->dead_sound <> 0 Then
+      if h.dead_sound ~= 0 then
+--
+--         If h->unique_id <> u_lynn Then
+        if h.unique_id ~= u_lynn then
+--           play_sample( llg( snd )[h->dead_sound] )
+          ll_global.snd[h.dead_sound]:play()
+--
+--         else
+        else
+--           play_sample( llg( snd )[h->dead_sound], 30 )
+          --FIXME: Port the volume adjustments
+          ll_global.snd[lynn_yell]:play()
+--
+--         End If
+        end
+--
+--       End If
+      end
+--
+--       if h->unique_id = u_battleseed then
+      if h.unique_id == u_battleseed then
+--         now_room().enemy[2].hp = 0
+        now_room().enemy[2].hp = 0
+--
+--       end if
+      end
+--
+--       LLObject_ClearProjectiles( *h )
+      LLObject_ClearProjectiles(h)
+--       LLObject_ShiftState( h, h->death_state )
+      LLObject_ShiftState(h, h.death_state)
+--
+--       h->dead = 1
+      h.dead = 1
+--       h->fade_time = .07
+      h.fade_time = .07
+--
+--     End If
+    end
+--
+--     '' reset damaged status.
+--     LLObject_ClearDamage( h )
+    LLObject_ClearDamage(h)
+--
+--   End If
+  end
+--
+-- End Sub
+end
+
 -- Sub LLObject_DamageCalc( h As _char_type Ptr )
 function LLObject_DamageCalc(h)
-  log.debug("LLObject_DamageCalc called. TODO: Implement me.")
+  log.debug("LLObject_DamageCalc called.")
 --
 --   With *h
 --
 --
 --
 --     LLObject_DeriveHurt( h )
+  LLObject_DeriveHurt(h)
 --
 --     If .hurt <> 0 Then
+  if h.hurt ~= 0 then
 --       '' got hurt.
 --       If h->dmg.id = DF_ROOM_ENEMY Then
+    if h.dmg.id == DF_ROOM_ENEMY then
 --
 --         If( now_room().enemy[h->dmg.index].unique_id = u_gshape ) _
 --                                    Or                             _
 --           ( now_room().enemy[h->dmg.index].unique_id = u_bshape ) Then
+      if (now_room().enemy[h.dmg.index].uniqe_id == u_gshape) or (now_room().enemy[h.dmg.index].unique_id == u_bshape) then
 --
 --           __make_dead( Varptr( now_room().enemy[h->dmg.index] ) )
+        __make_dead(now_room().enemy[h.dmg.index])
 --           __cripple( Varptr( now_room().enemy[h->dmg.index] ) )
+        __cripple(now_room().enemy[h.dmg.index])
 --
 --         End If
+      end
 --
 --         If ( now_room().enemy[h->dmg.index].unique_id = u_beetle ) Then
+      if (now_room().enemy[h.dmg.index].unique_id == u_beetle) then
 --
 --           With now_room().enemy[h->dmg.index]
+        local with0 = now_room().enemy[h.dmg.index]
 --
 --             .hp = 0
+        with0.hp = 0
 --
 --             LLObject_ShiftState( Varptr( now_room().enemy[h->dmg.index] ), now_room().enemy[h->dmg.index].death_state )
+        LLObject_ShiftState(now_room().enemy[h.dmg.index], now_room().enemy[h.dmg.index].death_state)
 --
 --             now_room().enemy[h->dmg.index].dead = 1
+        now_room().enemy[h.dmg.index].dead = 1
 --             now_room().enemy[h->dmg.index].fade_time = .07
+        now_room().enemy[h.dmg.index].fade_time = .07
 --
 --             play_sample( llg( snd )[.dead_sound], IIf( .dead_sound_vol <> 0, .dead_sound_vol, 100 ) )
+        --FIXME: Port volume adjustment
+        ll_global.snd[with0.dead_sound]:play()
 --
 --           End With
 --
 --           dim as integer saveIndex
+        local saveIndex = 0
 --           saveIndex = h->dmg.index
+        saveIndex = h.dmg.index
 --
 --           h->hurt = 0
+        h.hurt = 0
 --           LLObject_ClearDamage( h )
+        LLObject_ClearDamage(h)
 --
 --           h->dmg.index = saveIndex
+        h.dmg.index = saveIndex
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --       LLObject_ProcessHurt( h )
+    LLObject_ProcessHurt(h)
 --
 --     Else
+  else
 --       '' took 0 damage.
 --
 --       '' reset damaged status.
 --       LLObject_ClearDamage( h )
+    LLObject_ClearDamage(h)
 --
 --     End If
+  end
 --
 --     .frame_check = 0
+  h.frame_check = 0
 --
 --   End With
 --
