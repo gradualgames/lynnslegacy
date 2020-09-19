@@ -134,19 +134,24 @@ function LLObject_MAINAttack(_enemy, hr)
 --               '' enemy has multiple boxes
 --
 --               For check_fields = 0 To _enemy[enemy_collide].anim[_enemy[enemy_collide].current_anim]->frame[_enemy[enemy_collide].frame_check].faces - 1
+            local ubound = _enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1
+            --log.debug("ubound: "..ubound)
             for check_fields = 0, _enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1 do
 --                 '' cycle thru this entity's boxes
 --
 --                 '' enemy's vector pair
 --                 target = LLO_VPE( Varptr( _enemy[enemy_collide] ), OV_FACE, check_fields )
-              log.debug("_enemy.current_anim: ".._enemy.current_anim)
-              log.debug("_enemy.frame_check: ".._enemy.frame_check)
-              log.debug("_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces:".._enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces)
-              log.debug("check_fields: "..check_fields)
+              --log.debug("_enemy.current_anim: ".._enemy.current_anim)
+              --log.debug("_enemy.frame_check: ".._enemy.frame_check)
+              --log.debug("_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces:".._enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces)
+              --log.debug("_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1:"..(_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1))
+              --log.debug("check_fields: "..check_fields)
               target = LLO_VPE(_enemy, OV_FACE, check_fields)
 --
 --                 If check_bounds( origin, target ) = 0 Then
               if check_bounds(origin, target) == 0 then
+                log.debug("Collision found on:")
+                log.debug(" _enemy.id:".._enemy.id)
 --
 --                   '' ONLY jumps out if the face is not invincible!
 --                   With _enemy[enemy_collide]
@@ -162,10 +167,13 @@ function LLObject_MAINAttack(_enemy, hr)
                   _enemy.dmg.specific = check_fields
 --
 --                       LLObject_DamageCalc( Varptr( _enemy[enemy_collide] ) )
+                  log.debug("b4 _enemy.dmg.id:".._enemy.dmg.id)
                   LLObject_DamageCalc(_enemy)
+                  log.debug("after _enemy.dmg.id:".._enemy.dmg.id)
 --
 --                       If _enemy[enemy_collide].dmg.id <> 0 Then
                   if _enemy.dmg.id ~= 0 then
+                    log.debug("Damage id is valid, so break out of loop.")
 --                       '' ignore the rest of the objects.
 --                         Exit For
                     break
@@ -292,11 +300,13 @@ function LLObject_DeriveHurt(h)
 --
 --     Case DF_MAIN_CHAR
   elseif h.dmg.id == DF_MAIN_CHAR then
+    log.debug("h.dmg.id == DF_MAIN_CHAR")
 --
 -- '        With _enemy[enemy_collide]
 --
 --       If llg( hero_only ).powder <> 0 Then
     if ll_global.hero_only.powder ~= 0 then
+      log.debug("ll_global.hero_only.powder ~= 0")
 --         '' sprinkling powder
 --
 --         If h->invincible <> 0 Then
@@ -512,6 +522,7 @@ function LLObject_DeriveHurt(h)
 --
 --       Else
     else
+      log.debug("Attacking normally.")
 --         '' attacking normally
 --
 --         If h->invincible <> 0 Then
@@ -1049,11 +1060,12 @@ function LLObject_DamageCalc(h)
 --
 --
 --
---     LLObject_DeriveHurt( h )
+--     LLObject_DeriveHurt( h )d
   LLObject_DeriveHurt(h)
 --
 --     If .hurt <> 0 Then
   if h.hurt ~= 0 then
+    log.debug("Enemy got hurt.")
 --       '' got hurt.
 --       If h->dmg.id = DF_ROOM_ENEMY Then
     if h.dmg.id == DF_ROOM_ENEMY then
@@ -1061,7 +1073,7 @@ function LLObject_DamageCalc(h)
 --         If( now_room().enemy[h->dmg.index].unique_id = u_gshape ) _
 --                                    Or                             _
 --           ( now_room().enemy[h->dmg.index].unique_id = u_bshape ) Then
-      if (now_room().enemy[h.dmg.index].uniqe_id == u_gshape) or (now_room().enemy[h.dmg.index].unique_id == u_bshape) then
+      if (now_room().enemy[h.dmg.index].unique_id == u_gshape) or (now_room().enemy[h.dmg.index].unique_id == u_bshape) then
 --
 --           __make_dead( Varptr( now_room().enemy[h->dmg.index] ) )
         __make_dead(now_room().enemy[h.dmg.index])
@@ -1118,6 +1130,7 @@ function LLObject_DamageCalc(h)
 --
 --     Else
   else
+    log.debug("Enemy not hurt. This leads to resetting damage id...")
 --       '' took 0 damage.
 --
 --       '' reset damaged status.

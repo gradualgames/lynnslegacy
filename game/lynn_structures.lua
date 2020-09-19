@@ -27,6 +27,7 @@ function create_main_char_type()
 --
 --
 --   powder As Integer
+  main_char_type.powder = 0
 --
 --   selected_item As Integer
   main_char_type.selected_item = 0
