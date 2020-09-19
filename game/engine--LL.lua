@@ -1274,50 +1274,75 @@ function act_enemies(enemies)
   --
   --
   --           If  .hurt <> 0 Then
+          if enemy.hurt ~= 0 then
+            log.debug("This enemy is showing damage effects")
   --             '' this enemy is showing damage effects
   --
   --             If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
+            if (enemy.unique_id == u_dyssius) or (enemy.unique_id == u_steelstrider) then
   --
   --             Else
+            else
   --
   --               If  .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
+              if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
+                log.debug("The enemy called back (damage is done)")
   --                 '' the enemy called back (damage is done)
   --
   --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
+                LLObject_ShiftState(enemy, enemy.reset_state)
   --
   --                 If .unique_id = u_ferus Then
+                if enemy.unique_id == u_ferus then
   --
   --                   LLObject_ClearProjectiles( _enemy[do_stuff] )
+                  LLObject_ClearProjectiles(enemy)
   --                   .radius = Timer
+                  enemy.radius = timer
   --
   --
   --                 End If
+                end
   --
   --                 If .unique_id = u_grult Then
+                if enemy.unique_id == u_grult then
   --
   --                   LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .stun_state )
+                  LLObject_ShiftState(enemy, enemy.stun_state)
   --                   .funcs.current_func[.funcs.active_state] = 2
+                  enemy.funcs.current_func[enemy.funcs.active_state] = 2
   --
   --                 End If
+                end
   --
   --                 LLObject_ClearDamage( Varptr( _enemy[do_stuff] ) )
+                LLObject_ClearDamage(enemy)
   --                 .flash_count = 0
+                enemy.flash_count = 0
   --                 .flash_timer = 0
+                enemy.flash_timer = 0
   --                 .invisible = 0
+                enemy.invisible = 0
   --
   --
   --               End If
+              end
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --           If .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
+          if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
   --             '' if function block reaches end, return to beginning.
   --
   --             .funcs.current_func[.funcs.active_state] = 0
+            enemy.funcs.current_func[enemy.funcs.active_state] = 0
   --
   --           End If
+          end
   --
   --
   --           If .dead = 0 Then
@@ -1590,11 +1615,15 @@ function act_enemies(enemies)
   --           End If
   --
   --           If  .dmg.id <> 0 Then
+          if enemy.dmg.id ~= 0 then
+            log.debug("Enemy was hit by lynn.")
   --             '' enemy was hit by lynn
   --
   --             __flashy( Varptr( _enemy[do_stuff] ) )
+            flashy(enemy)
   --
   --           End If
+          end
   --
   --
   --           If Timer > .walk_hold Then .walk_hold = 0
@@ -1643,8 +1672,8 @@ function act_enemies(enemies)
         end
   --
   --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
-        log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
-        log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
+        --log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
+        --log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
         local result = enemy.funcs.func[enemy.funcs.active_state][enemy.funcs.current_func[enemy.funcs.active_state]](enemy)
         --log.debug("result: "..(result and result or "nil"))
         enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + result

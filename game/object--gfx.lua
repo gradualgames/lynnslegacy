@@ -71,6 +71,68 @@ function flicker(this)
 -- End Function
 end
 
+-- Function __flashy ( this As _char_type Ptr ) As Integer
+function flashy(this)
+--
+--   If this->flash_timer = 0 Then
+  if this.flash_timer == 0 then
+--     '' flash timer is initialized
+--
+--     this->invisible = Not this->invisible
+    this.invisible = bit.bnot(this.invisible)
+--     this->flash_timer = Timer + this->flash_time
+    this.flash_timer = timer + this.flash_time
+--     this->flash_count += 1
+    this.flash_count = this.flash_count + 1
+--
+--
+--   End If
+  end
+--
+--
+--   If Timer >= this->flash_timer Then
+  if timer >= this.flash_timer then
+--     '' flash timer has expired, initialize it
+--
+--     this->flash_timer = 0
+    this.flash_timer = 0
+--
+--   End If
+  end
+--
+--
+--   If this->flash_count >= this->flash_length Then
+  if this.flash_count >= this.flash_length then
+--
+--     '' reset damage & flash flags
+--     this->flash_count = 0
+    this.flash_count = 0
+--     this->flash_timer = 0
+    this.flash_timer = 0
+--     this->invisible = 0
+    this.invisible = 0
+--
+--     this->dmg.id = 0
+    this.dmg.id = 0
+--     If this->unique_id <> u_pekkle_grey Then
+    if this.unique_id ~= u_pekkle_grey then
+--
+--       LLObject_ClearDamage( this )
+      LLObject_ClearDamage(this)
+--
+--     End If
+    end
+--
+--
+--   End If
+  end
+--
+--   Return 0
+  return 0
+--
+-- End Function
+end
+
 -- Function __weapon_anim ( this As _char_type Ptr ) As Integer
 function weapon_anim(this)
   log.debug("weapon_anim called.")

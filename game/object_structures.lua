@@ -158,6 +158,7 @@ function create_Object()
   object.hit_sound_vol = 0
   --
   --   hurt                  As Integer
+  object.hurt = 0
   --
   --
   --
@@ -165,9 +166,12 @@ function create_Object()
   object.id = ""
   --
   --   impassable            As Integer
+  object.impassable = 0
   --
   --   invincible            As Integer
+  object.invincible = 0
   --   invisible             As Integer
+  object.invisible = 0
   --
   --   is_psfing             As Integer
   object.is_psfing = 0
