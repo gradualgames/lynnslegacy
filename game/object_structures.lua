@@ -150,7 +150,9 @@ function create_Object()
   --   hit                   As Integer
   --
   --   hit_sound             As Integer
+  object.hit_sound = 0
   --   hit_sound_vol         As Integer
+  object.hit_sound_vol = 0
   --
   --   hurt                  As Integer
   --
