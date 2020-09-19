@@ -536,6 +536,7 @@ function create_Object()
   --
   --
   --   psycho As Integer
+  object.psycho = 0
   --
   --
   --

@@ -24,6 +24,7 @@ function create_main_char_type()
 --
 --
 --   has_weapon As Integer
+  main_char_type.has_weapon = 0
 --
 --
 --   powder As Integer
