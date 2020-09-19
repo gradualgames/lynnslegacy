@@ -111,6 +111,7 @@ function create_Object()
   --
   --
   --   heal_me               As Integer
+  object.heal_me = 0
   --
   --
   --
