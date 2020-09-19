@@ -65,6 +65,15 @@ function check_bounds(m, n)
 -- End Function
 end
 
+-- Function V2_Add( hi As vector, lo As vector ) As vector
+function V2_Add(hi, lo)
+--
+--   Function = Type( hi.x + lo.x, hi.y + lo.y )
+  return {x = hi.x + lo.x, y = hi.y + lo.y}
+--
+-- End Function
+end
+
 -- Function V2_Subtract( hi As vector, lo As vector ) As vector
 function V2_Subtract(hi, lo)
 --
