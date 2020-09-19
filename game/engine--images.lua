@@ -133,12 +133,15 @@ function LLSystem_ImageLoad(fileName)
     end
   end
 
-  log.level = "debug"
   -- .frame = CAllocate( Len ( LLSystem_FrameShell ) * ( .frames ) )
   --
   -- If Dir ( kfe( .filename ) + ".col" ) <> "" Then
   local colFileName = string.sub(fileName, 1, #fileName - 4)..".col" --string.sub(file, -#ext)
   log.debug("Collision file name: "..colFileName)
+  if colFileName == "data/pictures/char/copter_fly.col" or
+     colFileName == "data/pictures/char/copter_rise.col" then
+    --log.level = "debug"
+  end
   --
   --   #IfDef LL_IMAGELOADPROGRESS
   --     LLSystem_Log( "Loading collision data.", "imageload.txt" )
@@ -211,7 +214,7 @@ function LLSystem_ImageLoad(fileName)
     -- End If
   end
 
-  log.level = "fatal"
+  --log.level = "fatal"
 
   return imageHeader
 end

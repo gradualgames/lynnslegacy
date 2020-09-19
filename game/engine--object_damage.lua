@@ -139,6 +139,10 @@ function LLObject_MAINAttack(_enemy, hr)
 --
 --                 '' enemy's vector pair
 --                 target = LLO_VPE( Varptr( _enemy[enemy_collide] ), OV_FACE, check_fields )
+              log.debug("_enemy.current_anim: ".._enemy.current_anim)
+              log.debug("_enemy.frame_check: ".._enemy.frame_check)
+              log.debug("_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces:".._enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces)
+              log.debug("check_fields: "..check_fields)
               target = LLO_VPE(_enemy, OV_FACE, check_fields)
 --
 --                 If check_bounds( origin, target ) = 0 Then

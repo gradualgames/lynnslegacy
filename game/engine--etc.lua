@@ -57,6 +57,16 @@ function LLObject_VectorPairEx(o, op, par)
 --         With .face[par]
 --
 --           res.u.x += .x
+    log.debug("o.id:"..o.id)
+    log.debug("o.funcs.active_state:"..o.funcs.active_state)
+    log.debug("o.current_anim:"..o.current_anim)
+    log.debug("o.frame_check"..o.frame_check)
+    log.debug("par:"..par)
+    log.debug("o.anim:"..(o.anim and "exists" or "nil"))
+    log.debug("o.anim[o.current_anim].frame[o.frame_check]:"..(o.anim[o.current_anim].frame[o.frame_check] and "exists" or "nil"))
+    log.debug("o.anim[o.current_anim].frame[o.frame_check].faces:"..o.anim[o.current_anim].frame[o.frame_check].faces)
+    log.debug("o.anim[o.current_anim].frame[o.frame_check].face:"..(o.anim[o.current_anim].frame[o.frame_check].face and "exists" or "nil"))
+    log.debug("o.anim[o.current_anim].frame[o.frame_check].face[par]:"..(o.anim[o.current_anim].frame[o.frame_check].face[par] and "exists" or "nil"))
     res.u.x = res.u.x + o.anim[o.current_anim].frame[o.frame_check].face[par].x
 --           res.u.y += .y
     res.u.y = res.u.y + o.anim[o.current_anim].frame[o.frame_check].face[par].y
