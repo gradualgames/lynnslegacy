@@ -69,8 +69,11 @@ function create_Object()
   --   ice_weak              As Integer
   --   total_dead            As Integer
   --   dead_sound            As Integer
+  object.dead_sound = 0
   --   dead_sound_vol        As Integer
+  object.dead_sound_vol = 0
   --   dead_hold             As Double
+  object.dead_hold = 0.0
   --
   --   degree                As Double
   --   sway                  As Double
@@ -516,9 +519,13 @@ function create_Object()
   --
   --
   --     flash_count           As Integer
+  object.flash_count = 0
   --     flash_length          As Integer
+  object.flash_length = 0
   --     flash_time            As Double
+  object.flash_time = 0.0
   --     flash_timer           As Double
+  object.flash_timer = 0.0
   --
   --
   --   '' ==========================

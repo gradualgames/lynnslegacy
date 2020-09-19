@@ -1643,8 +1643,8 @@ function act_enemies(enemies)
         end
   --
   --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
-        --log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
-        --log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
+        log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
+        log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
         local result = enemy.funcs.func[enemy.funcs.active_state][enemy.funcs.current_func[enemy.funcs.active_state]](enemy)
         --log.debug("result: "..(result and result or "nil"))
         enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + result
