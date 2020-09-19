@@ -702,10 +702,14 @@ end
 
 -- Sub LLObject_ProcessHurt( h As char_type Ptr )
 function LLObject_ProcessHurt(h)
+  log.debug("LLObject_ProcessHurt called.")
 --
 --
 --
 --   h->hp -= h->hurt
+  log.debug("h.id: "..h.id)
+  log.debug("h.hp: "..(h.hp and h.hp or "nil"))
+  log.debug("h.hurt: "..(h.hurt and h.hurt or "nil"))
   h.hp = h.hp - h.hurt
 --   '' take away the damage from the hp .
 --

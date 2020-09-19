@@ -186,6 +186,7 @@ function create_Object()
   --   line_sight            As Integer
   --
   --   mace_weak             As Integer
+  object.mace_weak = 0
   --
   --   mad                   As Integer
   --   mad_walk_speed        As Double
@@ -262,6 +263,7 @@ function create_Object()
   --   spawns_id             As String
   --
   --   star_weak             As Integer
+  object.star_weak = 0
   --
   --   state_shift           As Integer
   --
