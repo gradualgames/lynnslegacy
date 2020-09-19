@@ -423,10 +423,15 @@ function create_Object()
   --     fly_count             As Integer
   object.fly_count = 0
   --     fly_hold              As Integer
+  object.fly_hold = 0
   --     fly_length            As Integer
+  object.fly_length = 0
   --     fly_speed             As Double
+  object.fly_speed = 0.0
   --     fly_timer             As Double
+  object.fly_timer = 0.0
   --     fly As vector
+  object.fly = create_vector()
   --
   --
   --

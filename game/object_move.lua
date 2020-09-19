@@ -299,6 +299,206 @@ function __momentum_move(this)
 -- End Function
 end
 
+-- Function __do_flyback ( this As _char_type Ptr ) As Integer
+function do_flyback(this)
+--
+--   With *this
+--
+--     Dim As Integer moveback
+  local moveback = 0
+--
+--
+--     If ( .unique_id = u_grult ) Then
+  if (this.unique_id == u_grult) then
+--
+--       If .fly_timer = 0 Then
+    if this.fly_timer == 0 then
+--
+--
+--
+--         .fly_timer = Timer + .fly_speed
+      this.fly_timer = timer + this.fly_speed
+--         .fly_count += 1
+      this.fly_count = this.fly_count + 1
+--
+--       End If
+    end
+--
+--       If Timer >= .fly_timer Then .fly_timer = 0
+    if timer >= this.fly_timer then this.fly_timer = 0 end
+--
+--       If .fly_count >= 50 Then
+    if this.fly_count >= 50 then
+--
+--         .fly_count = 0
+      this.fly_count = 0
+--         .fly_timer = 0
+      this.fly_timer = 0
+--         .flash_timer = 0
+      this.flash_timer = 0
+--         .invisible = 0
+      this.invisible = 0
+--         .mad =  0
+      this.mad = 0
+--
+--         Return 1
+      return 1
+--
+--       End If
+    end
+--
+--       Return 0
+    return 0
+--
+--     End If
+  end
+--
+--
+--     If .fly_length = 0 Then
+  if this.fly_length == 0 then
+--
+--       If .fly_timer = 0 Then
+    if this.fly_timer == 0 then
+--         .fly_timer = Timer + .2
+      this.fly_timer = timer + .2
+--
+--       End If
+    end
+--       If Timer > .fly_timer Then .fly_timer = 0
+    if timer > this.fly_timer then this.fly_timer = 0 end
+--
+--       If .fly_timer = 0 Then
+    if this.fly_timer == 0 then
+--
+--         .fly_count = 0
+      this.fly_count = 0
+--         .fly_timer = 0
+      this.fly_timer = 0
+--         .flash_timer = 0
+      this.flash_timer = 0
+--         .invisible = 0
+      this.invisible = 0
+--         .mad =  0
+      this.mad = 0
+-- '        .return_trig = -1
+--
+--         Return 1
+      return 1
+--
+--
+--       End If
+    end
+--
+--       Return 0
+    return 0
+--
+--     End If
+  end
+--
+--     If .fly_timer = 0 Then
+  if this.fly_timer == 0 then
+--
+--       .fly_hold = .direction
+    this.fly_hold = this.direction
+--
+--
+--       Select Case .fly.y
+--
+--         Case Is < 0
+    if this.fly.y < 0 then
+--
+--           .direction = 0
+      this.direction = 0
+--             move_object( this, , Abs( .fly.y ) )
+      move_object(this, nil, math.abs(this.fly.y))
+--
+--         Case Is > 0
+    elseif this.fly.y > 0 then
+--
+--           .direction = 2
+      this.direction = 2
+--             move_object( this, , Abs( .fly.y ) )
+      move_object(this, nil, math.abs(this.fly.y))
+--
+--         Case 0
+    elseif this.fly.y == 0 then
+--
+--
+--
+--       End Select
+    end
+--
+--       Select Case .fly.x
+--
+--         Case Is < 0
+    if this.fly.x < 0 then
+--
+--           .direction = 3
+      this.direction = 3
+--
+--             move_object( this, , Abs( .fly.x ) )
+      move_object(this, nil, math.abs(this.fly.x))
+--
+--         Case Is > 0
+    elseif this.fly.x > 0 then
+--
+--           .direction = 1
+      this.direction = 1
+--
+--             move_object( this, , Abs( .fly.x ) )
+      move_object(this, nil, math.abs(this.fly.x))
+--
+--
+--         Case 0
+    elseif this.fly.x == 0 then
+--
+--
+--
+--
+--       End Select
+    end
+--
+--
+--       .fly_timer = Timer + .fly_speed
+    this.fly_timer = timer + this.fly_speed
+--       .fly_count += 1
+    this.fly_count = this.fly_count + 1
+--       .direction = .fly_hold
+    this.direction = this.fly_hold
+--
+--     End If
+  end
+--
+--     If Timer >= .fly_timer Then .fly_timer = 0
+  if timer >= this.fly_timer then this.fly_timer = 0 end
+--
+--     If .fly_count >= .fly_length Then
+  if this.fly_count >= this.fly_length then
+--
+--       .fly_count = 0
+    this.fly_count = 0
+--       .fly_timer = 0
+    this.fly_timer = 0
+--       .flash_timer = 0
+    this.flash_timer = 0
+--       .invisible = 0
+    this.invisible = 0
+--       .mad =  0
+    this.mad = 0
+--
+--       Return 1
+    return 1
+--
+--     End If
+  end
+--
+--   End With
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __go_grip ( this As _char_type Ptr ) As Integer
 function __go_grip(this)
 --
