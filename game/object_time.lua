@@ -1,11 +1,11 @@
-function second_pause(this)
-  --log.debug("second_pause called.")
+function __second_pause(this)
+  --log.debug("__second_pause called.")
   if this.pause == 0 then
     this.pause = timer + 1
   end
 
   if timer >= this.pause then
-    --log.debug("second_pause completed for enemy: "..this.id)
+    --log.debug("__second_pause completed for enemy: "..this.id)
     this.pause = 0
     return 1
   end
@@ -14,8 +14,8 @@ function second_pause(this)
 end
 
 -- Function __return_reset ( this As _char_type Ptr ) As Integer
-function return_reset(this)
-  log.debug("return_reset called.")
+function __return_reset(this)
+  log.debug("__return_reset called.")
 --
 --   this->funcs.current_func[this->funcs.active_state] = 0
   this.funcs.current_func[this.funcs.active_state] = 0
@@ -30,7 +30,7 @@ function return_reset(this)
 end
 
 -- Function __return_idle ( this As _char_type Ptr ) As Integer
-function return_idle(this)
+function __return_idle(this)
 --
 --
 --   this->funcs.current_func[this->funcs.active_state] = 0

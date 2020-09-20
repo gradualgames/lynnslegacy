@@ -1,5 +1,5 @@
 -- Function __flicker ( this As _char_type Ptr ) As Integer
-function flicker(this)
+function __flicker(this)
 --
 --
 --
@@ -72,8 +72,8 @@ function flicker(this)
 end
 
 -- Function __flashy ( this As _char_type Ptr ) As Integer
-function flashy(this)
-  log.debug("flashy called.")
+function __flashy(this)
+  log.debug("__flashy called.")
   log.debug("this.flash_timer: "..this.flash_timer)
   log.debug("this.flash_time: "..this.flash_time)
   log.debug("this.flash_count: "..this.flash_count)
@@ -140,8 +140,8 @@ function flashy(this)
 end
 
 -- Function __weapon_anim ( this As _char_type Ptr ) As Integer
-function weapon_anim(this)
-  log.debug("weapon_anim called.")
+function __weapon_anim(this)
+  log.debug("__weapon_anim called.")
 --   this->current_anim = llg( hero_only ).weapon + 3
   --NOTE: Animations are in a 1-indexed array so bump up offset by 1
   this.current_anim = ll_global.hero_only.weapon + 3
@@ -156,8 +156,8 @@ function weapon_anim(this)
 end
 
 -- Function __active_anim_0 ( this As _char_type Ptr ) As Integer
-function active_anim_0(this)
-  log.debug("active_anim_0 called.")
+function __active_anim_0(this)
+  log.debug("__active_anim_0 called.")
 --
 --
 --   this->current_anim = 0
@@ -172,8 +172,8 @@ function active_anim_0(this)
 -- End Function
 end
 
-function active_anim_1(this)
-  log.debug("active_anim_1 called.")
+function __active_anim_1(this)
+  log.debug("__active_anim_1 called.")
 --   this->current_anim = 1
   this.current_anim = 1
 --   this->frame = 0
@@ -184,7 +184,7 @@ function active_anim_1(this)
 end
 
 -- Function __active_anim_2 ( this As _char_type Ptr ) As Integer
-function active_anim_2(this)
+function __active_anim_2(this)
 --
 --   this->current_anim = 2
   this.current_anim = 2

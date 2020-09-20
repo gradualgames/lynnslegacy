@@ -92,6 +92,7 @@ function __make_dead(this)
 --
 --
 --   Return 1
+  return 1
 --
 --
 -- End Function

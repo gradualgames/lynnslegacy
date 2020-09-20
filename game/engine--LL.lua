@@ -1620,7 +1620,7 @@ function act_enemies(enemies)
   --             '' enemy was hit by lynn
   --
   --             __flashy( Varptr( _enemy[do_stuff] ) )
-            flashy(enemy)
+            __flashy(enemy)
   --
   --           End If
           end

@@ -85,16 +85,17 @@ function LLSystem_ObjectFromXML(enemy)
         log.debug(" active_state is: "..enemy[text])
       elseif path[3] == "func" then
         enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 1
-        local func = _G[text]
+        local funcName = "__"..text
+        local func = _G[funcName]
         if func then
-          log.debug("Installing func: "..text)
-          func_drop(_G[text])
+          log.debug("Installing func: "..funcName)
+          func_drop(_G[funcName])
           inc_func()
         else
-          log.debug("Installing no-op func for: "..text)
+          log.debug("Installing no-op func for: "..funcName)
           func_drop(
             function()
-              log.debug("TODO: Implement: "..text)
+              log.debug("TODO: Implement: "..funcName)
               return 0
             end)
           inc_func()

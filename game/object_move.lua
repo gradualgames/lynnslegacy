@@ -37,8 +37,8 @@ function __calc_slide(this)
 -- End Function
 end
 
-function copter_path(this)
-  --log.debug("copter_path called.")
+function __copter_path(this)
+  --log.debug("__copter_path called.")
   local exit_cond, c = 0, 0
 --
 --   this->walk_buffer = this->walk_length
@@ -93,8 +93,8 @@ function copter_path(this)
 --
 end
 
-function walk(this)
-  --log.debug("walk called.")
+function __walk(this)
+  --log.debug("__walk called.")
 
   --log.debug("this.walk_hold: "..this.walk_hold)
   --log.debug("this.walk_speed: "..this.walk_speed)
@@ -300,7 +300,7 @@ function __momentum_move(this)
 end
 
 -- Function __do_flyback ( this As _char_type Ptr ) As Integer
-function do_flyback(this)
+function __do_flyback(this)
 --
 --   With *this
 --
