@@ -73,6 +73,11 @@ end
 
 -- Function __flashy ( this As _char_type Ptr ) As Integer
 function flashy(this)
+  log.debug("flashy called.")
+  log.debug("this.flash_timer: "..this.flash_timer)
+  log.debug("this.flash_time: "..this.flash_time)
+  log.debug("this.flash_count: "..this.flash_count)
+  log.debug("this.flash_length: "..this.flash_length)
 --
 --   If this->flash_timer = 0 Then
   if this.flash_timer == 0 then

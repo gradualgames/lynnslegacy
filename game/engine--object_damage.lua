@@ -1154,6 +1154,8 @@ end
 
 -- Sub LLObject_ClearDamage( h As char_type Ptr )
 function LLObject_ClearDamage(h)
+  log.debug("LLObject_ClearDamage called.")
+  log.debug(debug.traceback())
 --
 --   h->hurt         = 0
   h.hurt = 0

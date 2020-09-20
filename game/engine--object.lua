@@ -157,7 +157,9 @@ function LLSystem_ObjectLoad(objectLoad)
   --   #EndIf
   --
   --   objectLoad.flash_time = .02
+  objectLoad.flash_time = .02
   --   objectLoad.flash_length = 30
+  objectLoad.flash_length = 30
   --
   --   objectLoad.hit_sound = sound_enemyhit
   --   objectLoad.dead_sound = sound_enemykill
