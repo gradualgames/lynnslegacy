@@ -368,6 +368,7 @@ function blit_object(enemy)
 --
 --
 --   If .invisible = 0 Then
+  if enemy.invisible == 0 then
 --
 --     dim as integer handShake
 --     handShake = LLObject_CalculateFrame( this[0] )
@@ -390,9 +391,10 @@ function blit_object(enemy)
 --     End With
 --
 --     blit_object_ex( this )
-  blit_object_ex(enemy)
+    blit_object_ex(enemy)
 --
 --   End If
+  end
 --
 -- End With
 
