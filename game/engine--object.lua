@@ -162,7 +162,9 @@ function LLSystem_ObjectLoad(objectLoad)
   objectLoad.flash_length = 30
   --
   --   objectLoad.hit_sound = sound_enemyhit
+  objectLoad.hit_sound = sound_enemyhit
   --   objectLoad.dead_sound = sound_enemykill
+  objectLoad.dead_sound = sound_enemykill
   --
   --
   --   LLSystem_ObjectFromXML( clean_up, objectLoad )
