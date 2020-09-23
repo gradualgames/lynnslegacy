@@ -42,3 +42,32 @@ function __directional_animate(this)
   return 0
 -- End Function
 end
+
+-- Function __idle_animate ( this As _char_type Ptr ) As Integer
+function __idle_animate(this)
+--
+--   this->animating = 1
+  this.animating = 1
+--
+--
+--   If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+--
+--     this->animating = 0
+    this.animating = 0
+--
+--     this->frame = 0
+    this.frame = 0
+--     this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--     Function = 1
+    return 1
+--
+--   End If
+  end
+--
+--
+  return 0
+-- End Function
+end

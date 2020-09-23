@@ -1,48 +1,76 @@
+require("game/engine_enums")
+
 -- Function __make_dead ( this As _char_type Ptr ) As Integer
 function __make_dead(this)
-  log.debug("Implement __make_dead.")
+  log.debug("__make_dead called.")
 --
 --   With *this
 --
 --     If ( .unique_id <> u_charger ) And ( .unique_id <> u_ferus ) Then
+  if (this.unique_id ~= u_charger) and (this.unique_id ~= u_ferus) then
 --       .direction = 0
+    this.direction = 0
 --       .animating = 1
+    this.animating = 1
 --
 --     End If
+  end
 --
 --     .hurt        = 0
+  this.hurt = 0
 --     LLObject_ClearDamage( this )
+  LLObject_ClearDamage(this)
 --
 --     .flash_timer = 0
+  this.flash_timer = 0
 --     .flash_count = 0
+  this.flash_count = 0
 --     .invisible   = 0
+  this.invisible = 0
 --     .dead        = -1
+  this.dead = -1
 --
 --     If ( .unique_id = u_pekkle_bomb ) Or ( .unique_id = u_kambot ) Then
+  if (this.unique_id == u_pekkle_bomb) or (this.unique_id == u_kambot) then
 --
 --       play_sample( llg( snd )[sound_explosion], 80 )
+    ll_global.snd[sound_explosion]:play()
 --
 --       .coords.x -= 24
+    this.coords.x = this.coords.x - 24
 --       .coords.y -= 24
+    this.coords.y = this.coords.y - 24
 --
 --       .perimeter.x = 64
+    this.perimeter.x = 64
 --       .perimeter.y = 64
+    this.perimeter.y = 64
 --
 --       .strength    = 3
+    this.strength = 3
 --
 --     Else
+  else
 --
 --       .strength    = 0
+    this.strength = 0
 --
 --     End If
+  end
 --
 --     .fly = Type <vector> ( 0, 0 )
+  this.fly = create_vector()
 --
 --     If ( Not ( .unique_id = u_ibug ) ) And ( Not ( .unique_id = u_fbug ) ) And ( Not ( .unique_id = u_boss5_down ) ) And ( Not ( .unique_id = u_boss5_left ) ) And ( Not ( .unique_id = u_boss5_right ) ) Then
+  if (not (this.unique_id == u_ibug)) and (not (this.unique_id == u_fbug)) and (not (this.unique_id == u_boss5_down)) and (not (this.unique_id == u_boss5_left)) and (not (this.unique_id == u_boss5_right)) then
 --       .proj_style = 0
+    this.proj_style = 0
 --
 --     End If
+  end
 --
+-- TODO: Leaving the rest of this entity specific stuff
+-- unported until it becomes relevant.
 --     Select Case .unique_id
 --
 --

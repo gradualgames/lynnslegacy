@@ -197,3 +197,19 @@ function __active_anim_2(this)
 --
 -- End Function
 end
+
+-- Function __active_anim_3 ( this As _char_type Ptr ) As Integer
+function __active_anim_3(this)
+--
+--
+--   this->current_anim = 3
+  this.current_anim = 3
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
