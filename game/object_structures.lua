@@ -63,8 +63,11 @@ function create_Object()
   object.current_anim = 0
   --
   --   d_gold                As Integer
+  object.d_gold = 0
   --   d_health              As Integer
+  object.d_health = 0
   --   d_silver              As Integer
+  object.d_silver = 0
   --
   --   ice_weak              As Integer
   --   total_dead            As Integer

@@ -1,6 +1,158 @@
 require("game/engine--object_XML")
 require("game/engine_enums")
 
+--NOTE: Both LLSystem_CopyNewObject
+--and LLSystem_ObjectDeepCopy call through to
+--LLSystem_ObjectLoad. This is not how the original engine was
+--architected. In the original engine, LLSystem_ObjectLoad
+--was called to cache all object types from xml when the program
+--started up. Then, these two functions are used to clone those
+--prototypes in memory. In how we implemented things, LLSystem_ObjectLoad
+--calls through to lazy loading/caching xml files in memory, effectively
+--creating new, deep copies of objects. It's another way of implementing
+--the same thing. There are other requirements satisfied by these two
+--objects like loading "drop" objects so we are just forwarding calls
+--to LLSystem_ObjectLoad from these two functions and then doing those
+--other needed bits of bookkeeping. So this is probably the most significant
+--departure from the original code, and at the moment I do not know how this
+--will shake out. Hopefully we can get away with it. :)
+
+-- Sub LLSystem_CopyNewObject( objectCopy As char_type )
+function LLSystem_CopyNewObject(objectCopy)
+--
+--   LLSystem_ObjectDeepCopy( objectCopy, *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( objectCopy.id ) ) )
+--
+  LLSystem_ObjectDeepCopy(objectCopy, nil)
+--
+-- End Sub
+end
+
+-- Sub LLSystem_ObjectDeepCopy( d As _char_type, s As _char_type )
+function LLSystem_ObjectDeepCopy (d, s)
+--
+  LLSystem_ObjectLoad(d)
+--
+-- ' id as string
+-- ' spawns_id as string
+-- ' to_map as string
+--
+--   Dim As Integer i, j, k
+--
+--   #Define copy_Pointer(pnt,sz,elem)                 _
+--                                                     _
+--     If s.##pnt <> 0 Then                           :_
+--       d.##pnt = CAllocate( sz * Len( elem ) )      :_
+--       MemCpy( d.##pnt, s.##pnt, sz * Len( elem ) ) :_
+--                                                    :_
+--     End If
+--
+--   #Define dbg_PrintSidebyside(x) ? d.##x, s.##x
+--
+--
+--   LLSystem_ObjectInitialCopy( d, s )
+--
+--   copy_Pointer( sound, s.sounds, Integer )
+--   Assert( diffAlloc( sound ) )
+--
+--   copy_Pointer( vol,   s.sounds, Integer )
+--   Assert( diffAlloc( vol ) )
+--
+--   copy_Pointer( funcs.func_count,   s.funcs.states, Integer )
+--   Assert( diffAlloc( funcs.func_count ) )
+--
+--   copy_Pointer( funcs.current_func, s.funcs.states, Integer )
+--   Assert( diffAlloc( funcs.current_func ) )
+--
+--   d.funcs.func = CAllocate( s.funcs.states * Len( fp Ptr ) )
+--
+--   For i = 0 To s.funcs.states - 1
+--     copy_Pointer( funcs.func[i], s.funcs.func_count[i], fp )
+--     Assert( diffAlloc( funcs.func[i] ) )
+--
+--   Next
+--
+--   copy_Pointer( anim, s.anims, LLSystem_ImageHeader Ptr )
+--   Assert( diffAlloc( anim ) )
+--
+--   copy_Pointer( animControl, s.anims, LLObject_ImageHeader )
+--   Assert( diffAlloc( animControl ) )
+--
+--   If s.projectile Then
+--
+--     copy_Pointer( projectile, 1, ll_entity_projectile )
+--     Assert( diffAlloc( projectile ) )
+--
+--     copy_Pointer( projectile->coords, s.projectile->projectiles, vector )
+--     Assert( diffAlloc( projectile->coords ) )
+--
+--   End If
+--
+--   For i = 0 To s.anims - 1
+--
+--     copy_Pointer( animControl[i].frame, s.anim[i]->frames, LLObject_FrameControl )
+--     Assert( diffAlloc( animControl[i].frame ) )
+--
+--     For j = 0 To s.anim[i]->frames - 1
+--
+--       If s.animControl[i].frame[j].concurrents > 0 Then
+--         copy_Pointer( animControl[i].frame[j].concurrent, s.animControl[i].frame[j].concurrents, LLObject_FrameConcurrent )
+--         Assert( diffAlloc( animControl[i].frame[j].concurrent ) )
+--
+--         ''
+--         For k = 0 To s.animControl[i].frame[j].concurrents - 1
+--
+--           With s.animControl[i].frame[j].concurrent[k]
+--
+--             LLSystem_CopyNewObject( *.char )
+--
+--           End With
+--
+--         Next
+--
+--       End If
+--
+--     Next
+--
+--   Next
+--
+--
+--   d.drop = CAllocate( Len( _char_type ) )
+  d.drop = create_Object()
+--   d.drop->anims = 3
+  d.drop.anims = 3
+--
+--   d.drop->anim = CAllocate( d.drop->anims * Len( LLSystem_ImageHeader Ptr ) )
+  d.drop.anim = {}
+--
+--   d.drop->anim[0] = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\helth.spr"  ) )
+  d.drop.anim[0] = getImageHeader("data/pictures/char/helth.spr")
+--   d.drop->anim[1] = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\gold.spr"   ) )
+  d.drop.anim[1] = getImageHeader("data/pictures/char/gold.spr")
+--   d.drop->anim[2] = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\silver.spr" ) )
+  d.drop.anim[2] = getImageHeader("data/pictures/char/silver.spr")
+--
+--   d.direction = d.ori_dir
+  d.direction = d.ori_dir
+--
+--
+--   #IfNDef LL_Minimal
+--
+--     If d.unique_id = u_angerfireball Then
+--       __anger_fireball_lock( Varptr( d ) )
+--
+--     End If
+--
+--     If d.unique_id = u_cell Then
+--       d.direction = int( rnd * 4 ) + 4
+--
+--     End If
+--
+--   #EndIf
+--
+--
+-- End Sub
+end
+
 -- Private Sub LLObject_UniqueCheck( c As char_type )
 function LLObject_UniqueCheck(c)
 

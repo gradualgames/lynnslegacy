@@ -1,4 +1,5 @@
 require("game/cache")
+require("game/object_etc")
 require("game/object_time")
 require("game/object--gfx")
 require("game/object--gfx_animation")

@@ -164,7 +164,7 @@ function set_up_room_enemies(enemies)
     --           '' done waiting
     --
     --           LLSystem_CopyNewObject( enemy[setup] )
-    LLSystem_ObjectLoad(enemy)
+    LLSystem_CopyNewObject(enemy)
     --
     --         Else
     --           Dim As String oldid
@@ -1346,54 +1346,74 @@ function act_enemies(enemies)
   --
   --
   --           If .dead = 0 Then
+          if enemy.dead == 0 then
   --             '' entity is not dead
   --
   --             If .hp <= 0 Then
+            if enemy.hp <= 0 then
   --               '' entity is below the hp limit (marked for death)
   --
   --
   --
   --               If .dead_sound <> 0 Then
+              if enemy.dead_sound ~= 0 then
   --                 play_sample( llg( snd )[.dead_sound] )
+                ll_global.snd[enemy.dead_sound]:play()
   --
   --               End If
+              end
   --
   --               LLObject_ShiftState( Varptr( _enemy[do_stuff] ), _enemy[do_stuff].death_state )
+              LLObject_ShiftState(enemy, enemy.death_state)
   --
   --             End If
+            end
   --
   --             If .dead = 0 Then
+            if enemy.dead == 0 then
   --               If .froggy <> 0 Then
+              if enemy.froggy ~= 0 then
   --                 '' this entity can become mad
   --
   --
   --                 If ( .mad = 0 ) Then
+                if (enemy.mad == 0) then
   --                   '' entity is not mad
   --
   --                   If ( .funcs.active_state < .reset_state ) Then
+                  if (enemy.funcs.active_state < enemy.reset_state) then
   --
   --                     '' entity is not resetting
   --
+                    --TODO: Port proximity detection. Don't know what this is yet.
   --                     '' implicit proximity detection
   --                     .funcs.active_state = in_proximity( Varptr( _enemy[do_stuff] ) )
   --
   --                   End If
+                  end
   --
   --                 End If
+                end
   --
   --               End If
+              end
   --
   --               If .mad <> 0 Then
+              if enemy.mad ~= 0 then
   --                 '' entity is mad
   --
+                --TODO: Port proximity logic.
   --                 '' see if its far enough to get a reset
   --                 .funcs.active_state = out_proximity( Varptr( _enemy[do_stuff] ) )
   --
   --               End If
+              end
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --
   --           If .projectile Then

@@ -128,37 +128,62 @@ end
 
 -- Function __cripple ( this As _char_type Ptr ) As Integer
 function __cripple(this)
-  log.debug("Implement __cripple.")
+  log.debug("__cripple called.")
 --
 --
 --   Select Case this->unique_id
 --
 --     Case u_ghut, u_chest, u_bluechest, u_bluechestitem, u_hotrock, u_coldrock, u_greyrock, u_button, u_gbutton
+  if this.unique_id == u_ghut or
+     this.unique_id == u_chest or
+     this.unique_id == u_bluechest or
+     this.unique_id == u_bluechestitem or
+     this.unique_id == u_hotrock or
+     this.unique_id == u_coldrock or
+     this.unique_id == u_greyrock or
+     this.unique_id == u_button or
+     this.unique_id == u_gbutton then
 --       this->invisible = 0
+    this.invisible = 0
 --
 --     Case Else
+  else
 --       this->invisible = -1
+    this.invisible = -1
 --
 --   End Select
+  end
 --
 --   If this->dead_hold = 0 Then
+  if this.dead_hold == 0 then
 --     this->dead_hold = Timer + .1
+    this.dead_hold = timer + .1
 --
 --   End If
+  end
 --
 --   If Timer > this->dead_hold Then
+  if timer > this.dead_hold then
 --     this->dead_hold = 0
+    this.dead_hold = 0
 --
 --     Return 1
+    return 1
 --
 --   End If
+  end
 --
 --
 --   this->strength = 0 '' clean up after the pekkle hack.
+  this.strength = 0
 --   this->impassable = 0
+  this.impassable = 0
 --   this->animating = 0
+  this.animating = 0
 --   this->total_dead = -1
+  this.total_dead = -1
 --
 --
+  return 0
 -- End Function
 end
