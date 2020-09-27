@@ -147,6 +147,7 @@ function blit_room()
   -- end if
   --
   -- blit_enemy_loot()
+  blit_enemy_loot()
   --
   --
   -- If llg( tilesDisabled ) = FALSE Then
@@ -361,6 +362,135 @@ function blit_enemy(enemy)
   --   End If
   --
   -- End With
+end
+
+-- Sub blit_enemy_loot()
+function blit_enemy_loot()
+--
+--
+--   Dim As Integer enemy_loot, conf
+  local enemy_loot, conf = 0, 0
+--   Dim As vector_pair origin, target
+  local origin, target = create_vector_pair(), create_vector_pair()
+--
+--
+--     For enemy_loot = 0 To now_room().enemies - 1
+  for enemy_loot = 1, now_room().enemies do
+--
+--       With now_room().enemy[enemy_loot]
+    local enemy = now_room().enemy[enemy_loot]
+--
+--         Dim As Integer drop_check = -1, face_check
+    local drop_check, face_check = false, 0
+
+    --NOTE: I'm ignoring this convoluted logic and
+    --just writing a straightforward if statement...
+--
+--         drop_check And= Not ( .unique_id = u_gold )
+--         drop_check And= Not ( .unique_id = u_silver )
+--         drop_check And= Not ( .unique_id = u_health )
+    if enemy.unique_id == u_gold or
+       enemy.unique_id == u_silver or
+       enemy.unique_id == u_health then
+      drop_check = true
+    end
+--
+--         If drop_check = 0 Then
+    if drop_check == false then
+--           Continue For
+      goto continue
+--
+--         End If
+    end
+--
+--         If drop_check Then
+    if drop_check == true then
+      log.debug("drop_check is true.")
+--
+--           If .dropped <> 0 Then
+      if enemy.dropped ~= 0 then
+--
+--             Put ( .drop->coords.x - llg( this )_room.cx, .drop->coords.y - llg( this )_room.cy ), .drop->anim[.dropped - 1]->image, Trans
+        local anim = enemy.drop.anim[enemy.dropped - 1]
+        love.graphics.draw(anim.image, anim.quads[0], enemy.drop.coords.x - ll_global.this_room.cx, enemy.drop.coords.y - ll_global.this_room.cy)
+--
+--             target.u.x = .drop->coords.x
+        target.u.x = enemy.drop.coords.x
+--             target.u.y = .drop->coords.y
+        target.u.y = enemy.drop.coords.y
+--             target.v.x = 8
+        target.v.x = 8
+--             target.v.y = 8
+        target.v.y = 8
+--
+--             If llg( hero ).anim[llg( hero ).current_anim]->frame[llg( hero ).frame].faces = 0 Then
+        if ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame].faces == 0 then
+--
+--               conf = ( touched_bound_box( varptr( llg( hero ) ), target ) <> -1 )
+          conf = (touched_bound_box(ll_global.hero, target) ~= -1)
+--
+--             Else
+        else
+--
+--               conf = ( touched_frame_face( varptr( llg( hero ) ), target ) <> -1 )
+          conf = (touched_frame_face(ll_global.hero, target) ~= -1)
+--
+--             End If
+        end
+--
+--             If conf Then
+        if conf then
+--
+--               Select Case .dropped
+--
+--                 Case 1
+          if enemy.dropped == 1 then
+--                   If llg( hero ).hp < llg( hero ).maxhp Then llg( hero ).hp += 1
+            if ll_global.hero.hp < ll_global.hero.maxhp then
+              ll_global.hero.hp = ll_global.hero.hp + 1
+            end
+--                   antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--                   play_sample( llg( snd )[sound_healthgrab] )
+            ll_global.snd[sound_healthgrab]:play()
+--
+--                 Case 2
+          elseif enemy.dropped == 2 then
+--                   llg( hero ).money += ( .n_gold * 5 )
+            ll_global.hero.money = ll_global.hero.money + (enemy.n_gold * 5)
+--                   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--                   play_sample( llg( snd )[sound_cashget] )
+            ll_global.snd[sound_cashget]:play()
+--
+--                 Case 3
+          elseif enemy.dropped == 3 then
+--                   llg( hero ).money += ( .n_silver )
+            ll_global.hero.money = ll_global.hero.money + (enemy.n_silver)
+--                   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--                   play_sample( llg( snd )[sound_cashget] )
+            ll_global.snd[sound_cashget]:play()
+--
+--               End Select
+          end
+--
+--               .dropped = 0
+          enemy.dropped = 0
+--
+--             End If
+        end
+--
+--           End If
+      end
+--
+--         End If
+    end
+--
+--       End With
+--
+--     Next
+    ::continue::
+  end
+--
+-- End Sub
 end
 
 function blit_object(enemy)

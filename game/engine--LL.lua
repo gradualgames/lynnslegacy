@@ -3041,3 +3041,53 @@ function LLObject_ClearProjectiles(char)
 --
 -- End Sub
 end
+
+-- Function touched_frame_face( c As char_type Ptr, v As vector_pair ) As Integer
+function touched_frame_face(c, v)
+--
+--   Dim As vector_pair origin
+  local origin = create_vector_pair()
+--   Dim As Integer face_check
+  local face_check = 0
+--
+--   With *( c )
+--
+--     .frame_check = LLObject_CalculateFrame( c[0] )
+  c.frame_check = LLObject_CalculateFrame(c)
+--
+--     For face_check = 0 To .anim[.current_anim]->frame[.frame].faces - 1
+  for face_check = 0, c.anim[c.current_anim].frame[c.frame].faces - 1 do
+--
+--       origin = LLO_VPE( c, OV_FACE, face_check )
+    origin = LLO_VPE(c, OV_FACE, face_check)
+--
+--       If ( check_bounds( origin, v ) = 0 ) Then
+    if (check_bounds(origin, v) == 0) then
+--         Return face_check
+      return face_check
+--
+--       End If
+    end
+--
+--     Next
+  end
+--
+--   End With
+--
+--   Return -1
+  return -1
+--
+--
+-- End Function
+end
+--
+--
+--
+-- Function touched_bound_box( c As char_type Ptr, v As vector_pair ) As Integer
+function touched_bound_box(c, v)
+--
+--   Return check_bounds( LLObject_VectorPair( c ), v )
+  return check_bounds(LLObject_VectorPair(c), v)
+--
+-- End Function
+end
