@@ -28,7 +28,7 @@ function LLSystem_CopyNewObject(objectCopy)
 end
 
 -- Sub LLSystem_ObjectDeepCopy( d As _char_type, s As _char_type )
-function LLSystem_ObjectDeepCopy (d, s)
+function LLSystem_ObjectDeepCopy(d, s)
 --
   LLSystem_ObjectLoad(d)
 --

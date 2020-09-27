@@ -1,10 +1,12 @@
 -- Function __drop ( this As _char_type Ptr ) As Integer
 function __drop(this)
+  log.debug("__drop called.")
 --
 --
 --
 --   If this->d_health > Int( Rnd * 100 ) Then
   if this.d_health > math.floor(math.random() * 100) then
+    log.debug("Dropping health.")
 --     this->dropped = 1
     this.dropped = 1
 --

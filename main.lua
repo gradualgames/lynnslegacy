@@ -98,9 +98,9 @@ function love.update(dt)
   local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
     timer = love.timer.getTime()
-    log.level = "debug"
+    --log.level = "debug"
     enemy_main()
-    log.level = "fatal"
+    --log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"
@@ -109,7 +109,7 @@ end
 
 function love.draw()
   startDrawing()
-  --log.level = "debug"
+  log.level = "debug"
   blit_scene()
 
   for key, dbgrect in pairs(dbgrects) do
@@ -119,7 +119,7 @@ function love.draw()
     love.graphics.rectangle("fill", rectx, recty, 16, 16)
   end
 
-  --log.level = "fatal"
+  log.level = "fatal"
   doneDrawing()
 end
 

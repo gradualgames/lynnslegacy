@@ -461,7 +461,11 @@ function create_Object()
   --
   --
   --   drop                  As _char_type    Ptr
+  --NOTE: Calling create_Object here would cause stack overflow,
+  --this object is created in LLSystem_ObjectDeepCopy
+  object.drop = nil
   --   dropped               As Integer
+  object.dropped = 0
   --
   --
   --

@@ -381,7 +381,7 @@ function blit_enemy_loot()
     local enemy = now_room().enemy[enemy_loot]
 --
 --         Dim As Integer drop_check = -1, face_check
-    local drop_check, face_check = false, 0
+    local drop_check, face_check = true, 0
 
     --NOTE: I'm ignoring this convoluted logic and
     --just writing a straightforward if statement...
@@ -392,7 +392,7 @@ function blit_enemy_loot()
     if enemy.unique_id == u_gold or
        enemy.unique_id == u_silver or
        enemy.unique_id == u_health then
-      drop_check = true
+      drop_check = false
     end
 --
 --         If drop_check = 0 Then
@@ -424,6 +424,11 @@ function blit_enemy_loot()
         target.v.y = 8
 --
 --             If llg( hero ).anim[llg( hero ).current_anim]->frame[llg( hero ).frame].faces = 0 Then
+        log.debug("ll_global.hero.current_anim: "..ll_global.hero.current_anim)
+        log.debug("ll_global.hero.frame: "..ll_global.hero.frame)
+        log.debug("ll_global.hero.anim: "..(ll_global.hero.anim and "exists" or "nil"))
+        log.debug("ll_global.hero.anim[ll_global.hero.current_anim].frame: "..(ll_global.hero.anim[ll_global.hero.current_anim].frame and "exists" or "nil"))
+        log.debug("ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame]: "..(ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame] and "exists" or "nil"))
         if ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame].faces == 0 then
 --
 --               conf = ( touched_bound_box( varptr( llg( hero ) ), target ) <> -1 )
