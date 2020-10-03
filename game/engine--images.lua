@@ -134,6 +134,9 @@ function LLSystem_ImageLoad(fileName)
   end
 
   -- .frame = CAllocate( Len ( LLSystem_FrameShell ) * ( .frames ) )
+  for i = 0, imageHeader.frames - 1 do
+   imageHeader.frame[i] = create_LLSystem_FrameShell()
+  end
   --
   -- If Dir ( kfe( .filename ) + ".col" ) <> "" Then
   local colFileName = string.sub(fileName, 1, #fileName - 4)..".col" --string.sub(file, -#ext)
