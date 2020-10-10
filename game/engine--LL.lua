@@ -2653,7 +2653,7 @@ function check_psf(o, d)
 --
 --
 --   For layercheck = 0 To 2
-  for layercheck = 1, 3 do
+  for layercheck = 0, 2 do
 --
 --     Dim As tile_quad slider, chkr
     local slider, chkr = create_tile_quad(), create_tile_quad()
