@@ -238,6 +238,7 @@ function create_Object()
   --   pause_hold            As Integer
   --
   --   placed                As Integer                        '0 = norm, pos = top, neg = bottom
+  object.placed = 0
   --
   --   pushable              As Integer
   --
@@ -597,7 +598,7 @@ function create_LLObject_ImageHeader()
   --   cur_frame As Integer
   imageHeader.cur_frame = 0
   --   frame As LLObject_FrameControl Ptr
-  imageHeader.frame = create_LLObject_FrameControl()
+  imageHeader.frame = {}
   --   As Double rate, rateMad
   imageHeader.rate = 0
   imageHeader.rateMad = 0

@@ -42,6 +42,11 @@ function LLSystem_ObjectFromXML(enemy)
         local fixedFileName = string.gsub(text, "\\", "/")
         enemy.anim[enemy.current_anim] = getImageHeader(fixedFileName)
         enemy.animControl[enemy.current_anim] = create_LLObject_ImageHeader()
+        --NOTE: In the original code, the animControl.frame array is filled
+        --with blank frames, we need to do the same here.
+        for i = 0, enemy.anim[enemy.current_anim].frames - 1 do
+          enemy.animControl[enemy.current_anim].frame[i] = create_LLObject_FrameControl()
+        end
       elseif path[3] == "dir_frames" then
         log.debug( " Processing sprite/dir_frames: "..text)
         enemy.animControl[enemy.current_anim].dir_frames = tonumber(text)
