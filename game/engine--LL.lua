@@ -144,16 +144,16 @@ function engine_init()
 end
 
 -- Loops over the enemies of the current room and spawns them
-function set_up_room_enemies(enemies)
+function set_up_room_enemies(enemies, enemy)
     -- Dim As Integer setup
     --
     --
     -- For setup = 0 To enemies - 1
-  for setup = 1, #enemies do
+  for setup = 0, enemies - 1 do
     --   '' cycle thru these enemies
     --
     --   With enemy[setup]
-    local enemy = enemies[setup]
+    local with0 = enemy[setup]
     --
     --     If .spawn_cond <> 0 Then
     --
@@ -164,7 +164,7 @@ function set_up_room_enemies(enemies)
     --           '' done waiting
     --
     --           LLSystem_CopyNewObject( enemy[setup] )
-    LLSystem_CopyNewObject(enemy)
+    LLSystem_CopyNewObject(with0)
     --
     --         Else
     --           Dim As String oldid
@@ -1058,7 +1058,7 @@ function act_enemies(enemies)
   -- Dim As Integer do_stuff
   --
   -- For do_stuff = 0 To _enemies - 1
-  for do_stuff = 1, #enemies do
+  for do_stuff = 0, #enemies - 1 do
   --
   --
   --   With _enemy[do_stuff]
@@ -2351,7 +2351,7 @@ function check_walk(o, d, psfing)
   --
   --
   --     For layer = 0 To 2
-  for layer = 1, 3 do
+  for layer = 0, 2 do
   --
   --
   --       For crawl = 0 To crawl_axis - 1

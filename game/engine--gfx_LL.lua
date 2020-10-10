@@ -126,11 +126,11 @@ function blit_room()
   -- If llg( tilesDisabled ) = FALSE Then
   --   '' bottom layers
   --   LLEngine_BlitLayer( 0 )
+  layoutLayer(camera, map.room[curRoom], 0, map.imageHeader, map.imageHeader.spriteBatches[0])
+  love.graphics.draw(map.imageHeader.spriteBatches[0])
+  --   LLEngine_BlitLayer( 1 )
   layoutLayer(camera, map.room[curRoom], 1, map.imageHeader, map.imageHeader.spriteBatches[1])
   love.graphics.draw(map.imageHeader.spriteBatches[1])
-  --   LLEngine_BlitLayer( 1 )
-  layoutLayer(camera, map.room[curRoom], 2, map.imageHeader, map.imageHeader.spriteBatches[2])
-  love.graphics.draw(map.imageHeader.spriteBatches[2])
   --
   -- End If
   --
@@ -154,8 +154,8 @@ function blit_room()
   --
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
-  layoutLayer(camera, map.room[curRoom], 3, map.imageHeader, map.imageHeader.spriteBatches[3])
-  love.graphics.draw(map.imageHeader.spriteBatches[3])
+  layoutLayer(camera, map.room[curRoom], 2, map.imageHeader, map.imageHeader.spriteBatches[2])
+  love.graphics.draw(map.imageHeader.spriteBatches[2])
   --
   -- End If
   --
@@ -231,7 +231,8 @@ function blit_y_sorted()
   -- Dim As Integer _blit_em
   --
   -- For _blit_em = 0 To ac - 1
-  for i = 1, now_room().enemies do
+  for i = 0, now_room().enemies - 1 do
+    log.debug("i: "..i)
   --
   --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
   --
@@ -375,7 +376,7 @@ function blit_enemy_loot()
 --
 --
 --     For enemy_loot = 0 To now_room().enemies - 1
-  for enemy_loot = 1, now_room().enemies do
+  for enemy_loot = 0, now_room().enemies - 1 do
 --
 --       With now_room().enemy[enemy_loot]
     local enemy = now_room().enemy[enemy_loot]
@@ -424,11 +425,6 @@ function blit_enemy_loot()
         target.v.y = 8
 --
 --             If llg( hero ).anim[llg( hero ).current_anim]->frame[llg( hero ).frame].faces = 0 Then
-        log.debug("ll_global.hero.current_anim: "..ll_global.hero.current_anim)
-        log.debug("ll_global.hero.frame: "..ll_global.hero.frame)
-        log.debug("ll_global.hero.anim: "..(ll_global.hero.anim and "exists" or "nil"))
-        log.debug("ll_global.hero.anim[ll_global.hero.current_anim].frame: "..(ll_global.hero.anim[ll_global.hero.current_anim].frame and "exists" or "nil"))
-        log.debug("ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame]: "..(ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame] and "exists" or "nil"))
         if ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame].faces == 0 then
 --
 --               conf = ( touched_bound_box( varptr( llg( hero ) ), target ) <> -1 )

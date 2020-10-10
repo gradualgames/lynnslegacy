@@ -26,11 +26,11 @@ function love.load()
   map = LLSystem_LoadMap("data/map/forest_fall.map")
   map.imageHeader = getImageHeader(map.tileSetFileName)
   map.imageHeader.spriteBatches = {}
-  table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))
-  table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))
-  table.insert(map.imageHeader.spriteBatches, imageToSpriteBatch(map.imageHeader.image))
+  map.imageHeader.spriteBatches[0] = imageToSpriteBatch(map.imageHeader.image)
+  map.imageHeader.spriteBatches[1] = imageToSpriteBatch(map.imageHeader.image)
+  map.imageHeader.spriteBatches[2] = imageToSpriteBatch(map.imageHeader.image)
 
-  curRoom = 3
+  curRoom = 2
 
   ll_global = create_ll_system()
 
@@ -47,7 +47,7 @@ function love.load()
   --log.level = "fatal"
 
   --log.level = "debug"
-  set_up_room_enemies(map.room[curRoom].enemy)
+  set_up_room_enemies(map.room[curRoom].enemies, map.room[curRoom].enemy)
   --log.level = "fatal"
 
   ll_global.hero.coords.x = 320
@@ -98,9 +98,9 @@ function love.update(dt)
   local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
     timer = love.timer.getTime()
-    log.level = "debug"
+    --log.level = "debug"
     enemy_main()
-    log.level = "fatal"
+    --log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"

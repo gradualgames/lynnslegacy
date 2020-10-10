@@ -57,8 +57,8 @@ end
 --Loads a sequence from an already loaded map binary blob.
 function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
-  -- For 1 to seqs do
-  for grabSeq = 1, numSeqs do
+  -- For 0 to seqs - 1 do
+  for grabSeq = 0, numSeqs - 1 do
 
     local sequence = create_sequence_type()
     sequence.seq_type = seqType
@@ -69,14 +69,13 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
     log.debug("sequence.ents: "..sequence.ents)
     sequence.ent_code = {}
 
-    -- For loop_ents is 1 to ents do
-    for loopEnts = 1, sequence.ents do
+    -- For loop_ents is 0 to ents - 1 do
+    for loopEnts = 0, sequence.ents - 1 do
 
       -- Load ent_code[loop_ents] Integer
       local ent_code = readInt(mapBlob)
       log.debug("ent_code: "..ent_code)
-      table.insert(sequence.ent_code, ent_code)
-
+      sequence.ent_code[loopEnts] = ent_code
     end
 
     -- Load .commands Integer
@@ -86,8 +85,8 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
 
     sequence.Command = {}
 
-    -- For loop_commands is 1 to commands do
-    for loopCommands = 1, sequence.commands do
+    -- For loop_commands is 0 to commands - 1 do
+    for loopCommands = 0, sequence.commands - 1 do
 
       local command = create_command_data()
       -- load .ents Integer
@@ -95,8 +94,8 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
       log.debug("command.ents: "..command.ents)
       command.ent = {}
 
-      -- For loop_command_ents is 1 to ents do
-      for loopCommandEnts = 1, command.ents do
+      -- For loop_command_ents is 0 to ents - 1 do
+      for loopCommandEnts = 0, command.ents - 1 do
 
         local commandData = create_command_data()
 
@@ -181,12 +180,11 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
         commandData.reserved10 = readInt(mapBlob)
         log.debug("commandData.reserved10: "..commandData.reserved10)
 
-        table.insert(command.ent, commandData)
+        command.ent[loopCommandEnts] = commandData
       end
+      sequence.Command[loopCommands] = command
     end
-
-    table.insert(seqs, sequence)
-
+    seqs[grabSeq] = sequence
   end
 end
 
@@ -219,7 +217,7 @@ function load_mapV(fileName)
 
     map.room = {}
 
-    for roomIndex = 1, map.rooms do
+    for roomIndex = 0, map.rooms - 1 do
 
       local room = create_room_type()
 
@@ -251,7 +249,7 @@ function load_mapV(fileName)
 
       room.teleport = {}
 
-      for teleportIndex = 1, room.teleports do
+      for teleportIndex = 0, room.teleports - 1 do
 
         local teleport = {}
 
@@ -284,7 +282,7 @@ function load_mapV(fileName)
         teleport.reserved = readC(readInt, mapBlob, 20)
         log.debug("#teleport.reserved: "..#teleport.reserved)
 
-        table.insert(room.teleport, teleport)
+        room.teleport[teleportIndex] = teleport
       end
 
       room.seq_here = readInt(mapBlob)
@@ -298,7 +296,7 @@ function load_mapV(fileName)
 
       room.enemy = {}
 
-      for enemyIndex = 1, room.enemies do
+      for enemyIndex = 0, room.enemies - 1 do
         local enemy = create_Object()
         enemy.x_origin = readInt(mapBlob)
         log.debug("enemy.x_origin: "..enemy.x_origin)
@@ -335,39 +333,39 @@ function load_mapV(fileName)
           log.debug("enemy.spawn_info.wait_n: "..enemy.spawn_info.wait_n)
           enemy.spawn_info.wait_spawn = {}
 
-          for loopSpawns = 1, enemy.spawn_info.wait_n do
+          for loopSpawns = 0, enemy.spawn_info.wait_n - 1 do
             local spawn = {}
             spawn.code_index = readShort(mapBlob)
             log.debug("spawn.code_index: "..spawn.code_index)
             spawn.code_state = readInt(mapBlob)
             log.debug("spawn.code_state: "..spawn.code_state)
-            table.insert(enemy.spawn_info.wait_spawn, spawn)
+            enemy.spawn_info.wait_spawn[loopSpawns] = spawn
           end
 
           enemy.spawn_info.kill_n = readInt(mapBlob)
           log.debug("enemy.spawn_info.kill_n: "..enemy.spawn_info.kill_n)
           enemy.spawn_info.kill_spawn = {}
 
-          for loopSpawns = 1, enemy.spawn_info.kill_n do
+          for loopSpawns = 0, enemy.spawn_info.kill_n - 1 do
             local spawn = {}
             spawn.code_index = readShort(mapBlob)
             log.debug("spawn.code_index: "..spawn.code_index)
             spawn.code_state = readInt(mapBlob)
             log.debug("spawn.code_state: "..spawn.code_state)
-            table.insert(enemy.spawn_info.kill_spawn, spawn)
+            enemy.spawn_info.kill_spawn[loopSpawns] = spawn
           end
 
           enemy.spawn_info.active_n = readInt(mapBlob)
           log.debug("enemy.spawn_info.active_n: "..enemy.spawn_info.active_n)
           enemy.spawn_info.active_spawn = {}
 
-          for loopSpawns = 1, enemy.spawn_info.active_n do
+          for loopSpawns = 0, enemy.spawn_info.active_n - 1 do
             local spawn = {}
             spawn.code_index = readShort(mapBlob)
             log.debug("spawn.code_index: "..spawn.code_index)
             spawn.code_state = readInt(mapBlob)
             log.debug("spawn.code_state: "..spawn.code_state)
-            table.insert(enemy.spawn_info.active_spawn, spawn)
+            enemy.spawn_info.active_spawn[loopSpawns] = spawn
           end
 
         end
@@ -378,7 +376,7 @@ function load_mapV(fileName)
 
         enemy.ori_dir = enemy.direction
 
-        table.insert(room.enemy, enemy)
+        room.enemy[enemyIndex] = enemy
 
       end
 
@@ -396,22 +394,20 @@ function load_mapV(fileName)
 
       log.debug("Offset prior to reading layer data: "..offset(mapBlob))
 
-      for getNCpy = 1, 3 do
+      for getNCpy = 0, 2 do
 
         local layer = readC(readShort, mapBlob, room.roomElem + 1)
         log.debug("Read layer data.")
-        table.insert(room.layout, layer)
+        room.layout[getNCpy] = layer
         --function readC(readF, blob, count)
 
       end
-
-      table.insert(map.room, room)
-
+      map.room[roomIndex] = room
     end
 
     map.entry = create_map_entry_type()
 
-    for loopEntries = 1, map.entries do
+    for loopEntries = 0, map.entries - 1 do
 
       local entry = {}
 
