@@ -2494,63 +2494,212 @@ function check_against_entities(d, o)
 --
 --
 --   Dim As Integer cycle, relay
+  local cycle, relay = 0, 0
 --
 --
 --   With now_room()
+  local with0 = now_room()
 --
 --     If .enemies = 0 Then
+  if with0.enemies == 0 then
 --       '' there are no objects to collide with in this room
 --       Return 0
+    return 0
 --
 --     End If
+  end
 --
 --     For cycle = 0 To .enemies - 1
+  for cycle = 0, with0.enemies - 1 do
 --       '' cycle thru enemies
 --
 --       If o->num <> .enemy[cycle].num Then
+    if o.num ~= with0.enemy[cycle].num then
 --         '' if this "o" isn't this enemy, then check it against this enemy
 --         relay = check_against( o, .enemy, cycle, d )
+      relay = check_against(o, with0.enemy, cycle, d)
 --         If relay Then Return relay
+      if relay then return relay end
 --
 --       End If
+    end
 --
 --     Next
+  end
 --
 --
 --
 --     For cycle = 0 To .temp_enemies - 1
+  for cycle = 0, with0.temp_enemies - 1 do
 --       '' cycle through temp enemies
 --
 --       If o->num <> .temp_enemy( cycle ).num Then
+    if o.num ~= with0.temp_enemy[cycle].num then
 --         '' if this "o" isn't this temp enemy, then check it against this temp enemy
 --         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
+      relay = check_against(o, with0.temp_enemy, cycle, d)
 --         If relay Then Return relay
+      if relay then return relay end
 --
 --       End If
+    end
 --
 --     Next
+  end
 --
 --   End With
 --
 --
 --
 --   If o->unique_id <> u_lynn Then
+  if o.unique_id ~= u_lynn then
 --     '' if this "o" isn't lynn, check the "o" against her
 --
 --     If llg( hero_only ).attacking = 0 Then
+    if ll_global.hero_only.attacking == 0 then
 --       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
+      relay = check_against(o, ll_global.hero, 0, d)
 --       If relay Then Return relay
+      if relay then return relay end
 --
 --     End If
+    end
 --
 --   End If
+  end
 --
 --
 --
--- End Function
-  --FIXME: Returning 0 while porting just so we can get something moving without
-  --collision checks. Remove.
   return 0
+-- End Function
+end
+
+-- Function check_against( o As char_type Ptr, othr As char_type Ptr, check As Integer, d As Integer ) Static
+function check_against(o, othr, check, d)
+--
+--
+--   #Define LLObject_Impassable(__THISCHAR__,__FACE__)                                                                             _
+--                                                                                                                                  _
+--     ( IIf( __THISCHAR__.##anim[__THISCHAR__.##current_anim]->frame[LLObject_CalculateFrame(__THISCHAR__)].faces = 0,             _
+--                                                                                                                                  _
+--     __THISCHAR__.##impassable,                                                                                                   _
+--                                                                                                                                  _
+--     __THISCHAR__.##anim[__THISCHAR__.##current_anim]->frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable ) )                                                                                                   _
+--
+--
+--
+--   '' moving object to static object collision detection
+--
+--   Function = 0
+--
+--   Dim As Vector opty
+--   Dim As vector_pair m, n
+--   Dim As Integer faces, faces2
+--   Dim As Integer check_fields, check_fields2
+--
+--   dim as integer res
+--   res = 0
+--
+--   opty.x = 0
+--   opty.y = 0
+--
+--   Select Case d
+--
+--     Case 0
+--       opty.y = -1
+--
+--     Case 1
+--       opty.x = 1
+--
+--     Case 2
+--       opty.y = 1
+--
+--     Case 3
+--       opty.x = -1
+--
+--
+--   End Select
+--
+--   o->frame_check          = LLObject_CalculateFrame( o[0] )
+--   othr[check].frame_check = LLObject_CalculateFrame( othr[check] )
+--
+--   With othr[check]: With .anim[.current_anim]->frame[.frame_check]: faces  = IIf( .faces = 0, 0, .faces -1 ): End With: End With
+--   With *( o )     : With .anim[.current_anim]->frame[.frame_check]: faces2 = IIf( .faces = 0, 0, .faces -1 ): End With: End With
+--
+--   For check_fields = 0 To faces
+--
+--     For check_fields2 = 0 To faces2
+--
+--       m.u = V2_Add( o->coords, opty )
+--       n.u = othr[check].coords
+--
+--       calc_positions( o, m, check_fields2 )
+--       calc_positions( Varptr( othr[check] ), n, check_fields )
+--
+--
+--       If check_bounds( m, n ) = 0 Then
+--
+--         If o->unique_id = u_charger Then
+--
+--           If othr[check].unique_id = u_charger Then
+--             '' kill both!
+--
+--             o->hp = 0
+--             othr[check].hp = 0
+--
+--             return 0
+--
+--           End If
+--
+--         End If
+--
+--         res = (                                                                                                                                       _
+--                 IIf(                                                                                                                                  _
+--                      ( ( o[0].unique_id = u_dyssius ) Or ( o[0].unique_id = u_steelstrider ) ) And ( othr[check].unique_id = u_lynn ),                _
+--                      1,                                                                                                                               _
+--                      IIf(                                                                                                                             _
+--                           IIf(                                                                                                                        _
+--                                (                                                                                                                      _
+--                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
+--                                                                              Or                                                                       _
+--                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
+--                                ),                                                                                                                     _
+--                                IIf(                                                                                                                   _
+--                                     (                                                                                                                 _
+--                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
+--                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
+--                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
+--                                     ),                                                                                                                _
+--                                     0,                                                                                                                _
+--                                     1                                                                                                                 _
+--                                   ),                                                                                                                  _
+--                                IIf(                                                                                                                   _
+--                                     ( othr[check].unique_id = u_sparkle ) Or ( othr[check].unique_id = u_gbutton ) Or ( o[0].unique_id = u_godstat ), _
+--                                     0,                                                                                                                _
+--                                     1                                                                                                                 _
+--                                   )                                                                                                                   _
+--                              ),                                                                                                                       _
+--                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
+--                           0                                                                                                                           _
+--                         )                                                                                                                             _
+--                    )                                                                                                                                  _
+--               )
+--
+--         If res = 1 Then
+--
+--           return res
+--
+--         end if
+--
+--       End If
+--
+--     Next
+--
+--   Next
+--
+--
+  return 0
+-- End Function
 end
 
 -- Sub check_psf( o As char_type Ptr, d As Integer )
