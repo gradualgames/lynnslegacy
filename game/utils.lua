@@ -1,3 +1,13 @@
+--NOTE: IIf is a ternary operator that FreeBASIC
+--provides. Lua's ternary idiom is a and b or c. Most of
+--the port we just used this idiom directly. But in cases
+--where IIf is heavily nested, I felt it would be easier
+--to port the code if we could follow the structure more
+--or less exactly, so this exists for that need.
+function iif(a, b, c)
+  return a and b or c
+end
+
 function testbit(n, b)
   return bit.band(n, bit.lshift(1, b))
 end

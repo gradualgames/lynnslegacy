@@ -98,9 +98,9 @@ function love.update(dt)
   local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
     timer = love.timer.getTime()
-    --log.level = "debug"
+    log.level = "debug"
     enemy_main()
-    --log.level = "fatal"
+    log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"

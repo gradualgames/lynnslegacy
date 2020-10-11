@@ -9,7 +9,7 @@ require("game/utils")
 -- in as 1, and the current enemy in act_enemies is passed in as _enemy. Therefore,
 -- we are simplifying this to just pass the enemy in to begin with and eliminate the loop.
 function LLObject_MAINAttack(_enemy, hr)
-  log.debug("LLObject_MAINAttack called.")
+  --log.debug("LLObject_MAINAttack called.")
 --
 --   '' ASSUMES: hr->anim[hr->current_anim] contains an attacking anim'.
 --   ''

@@ -2025,7 +2025,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(0, i) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(0, o) ~= 1 or (o.unstoppable_by_object) then
     --
     --
     --           If only_looking = 0 Then
@@ -2517,7 +2517,7 @@ function check_against_entities(d, o)
     if o.num ~= with0.enemy[cycle].num then
 --         '' if this "o" isn't this enemy, then check it against this enemy
 --         relay = check_against( o, .enemy, cycle, d )
-      relay = check_against(o, with0.enemy, cycle, d)
+      relay = check_against({[0] = o}, with0.enemy, cycle, d)
 --         If relay Then Return relay
       if relay then return relay end
 --
@@ -2537,7 +2537,7 @@ function check_against_entities(d, o)
     if o.num ~= with0.temp_enemy[cycle].num then
 --         '' if this "o" isn't this temp enemy, then check it against this temp enemy
 --         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
-      relay = check_against(o, with0.temp_enemy, cycle, d)
+      relay = check_against({[0] = o}, with0.temp_enemy, cycle, d)
 --         If relay Then Return relay
       if relay then return relay end
 --
@@ -2558,7 +2558,7 @@ function check_against_entities(d, o)
 --     If llg( hero_only ).attacking = 0 Then
     if ll_global.hero_only.attacking == 0 then
 --       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
-      relay = check_against(o, ll_global.hero, 0, d)
+      relay = check_against({[0] = o}, {[0] = ll_global.hero}, 0, d)
 --       If relay Then Return relay
       if relay then return relay end
 --
@@ -2576,130 +2576,258 @@ end
 
 -- Function check_against( o As char_type Ptr, othr As char_type Ptr, check As Integer, d As Integer ) Static
 function check_against(o, othr, check, d)
+  --log.debug("othr: "..(othr and "exists" or "nil"))
 --
 --
---   #Define LLObject_Impassable(__THISCHAR__,__FACE__)                                                                             _
+--   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
+  function LLObject_Impassable(__THISCHAR__, __FACE__)
 --                                                                                                                                  _
 --     ( IIf( __THISCHAR__.##anim[__THISCHAR__.##current_anim]->frame[LLObject_CalculateFrame(__THISCHAR__)].faces = 0,             _
+    return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 and
 --                                                                                                                                  _
 --     __THISCHAR__.##impassable,                                                                                                   _
 --                                                                                                                                  _
+      __THISCHAR__.impassable or
 --     __THISCHAR__.##anim[__THISCHAR__.##current_anim]->frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable ) )                                                                                                   _
+      __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
 --
+  end
 --
 --
 --   '' moving object to static object collision detection
 --
+  --NOTE: Function = 0 sets return value to 0, but we just return 0
+  --at the end instead---Should work the same, but just keeping this
+  --note here in case...
 --   Function = 0
 --
 --   Dim As Vector opty
+  local opty = create_vector()
 --   Dim As vector_pair m, n
+  local m, n = create_vector_pair(), create_vector_pair()
 --   Dim As Integer faces, faces2
+  local faces, faces2 = 0, 0
 --   Dim As Integer check_fields, check_fields2
+  local check_fields, check_fields2 = 0, 0
 --
 --   dim as integer res
 --   res = 0
+  local res = 0
 --
 --   opty.x = 0
+  opty.x = 0
 --   opty.y = 0
+  opty.y = 0
 --
 --   Select Case d
 --
 --     Case 0
+  if d == 0 then
 --       opty.y = -1
+    opty.y = -1
 --
 --     Case 1
+  elseif d == 1 then
 --       opty.x = 1
+    opty.x = 1
 --
 --     Case 2
+  elseif d == 2 then
 --       opty.y = 1
+    opty.y = 1
 --
 --     Case 3
+  elseif d == 3 then
 --       opty.x = -1
+    opty.x = -1
 --
 --
 --   End Select
+  end
 --
 --   o->frame_check          = LLObject_CalculateFrame( o[0] )
+  o[0].frame_check = LLObject_CalculateFrame(o[0])
 --   othr[check].frame_check = LLObject_CalculateFrame( othr[check] )
+  othr[check].frame_check = LLObject_CalculateFrame(othr[check])
 --
---   With othr[check]: With .anim[.current_anim]->frame[.frame_check]: faces  = IIf( .faces = 0, 0, .faces -1 ): End With: End With
---   With *( o )     : With .anim[.current_anim]->frame[.frame_check]: faces2 = IIf( .faces = 0, 0, .faces -1 ): End With: End With
+--   With othr[check]:
+  local with0 = othr[check]
+--     With .anim[.current_anim]->frame[.frame_check]:
+  local with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
+--       faces  = IIf( .faces = 0, 0, .faces -1 ):
+  faces = with1.faces == 0 and 0 or with1.faces - 1
+--     End With:
+--   End With
+
+--   With *( o )     :
+  with0 = o[0]
+--     With .anim[.current_anim]->frame[.frame_check]:
+  with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
+--       faces2 = IIf( .faces = 0, 0, .faces -1 ):
+  faces2 = with1.faces == 0 and 0 or with1.faces - 1
+--     End With:
+--   End With
 --
 --   For check_fields = 0 To faces
+  for check_fields = 0, faces do
 --
 --     For check_fields2 = 0 To faces2
+    for check_fields2 = 0, faces2 do
 --
 --       m.u = V2_Add( o->coords, opty )
+      m.u = V2_Add(o[0].coords, opty)
 --       n.u = othr[check].coords
+      n.u = othr[check].coords
 --
 --       calc_positions( o, m, check_fields2 )
+      calc_positions(o[0], m, check_fields2)
 --       calc_positions( Varptr( othr[check] ), n, check_fields )
+      calc_positions(othr[check], n, check_fields)
 --
 --
 --       If check_bounds( m, n ) = 0 Then
+      if check_bounds(m, n) == 0 then
 --
 --         If o->unique_id = u_charger Then
+        if o.unique_id == u_charger then
 --
 --           If othr[check].unique_id = u_charger Then
+          if othr[check].unique_id == u_charger then
 --             '' kill both!
 --
 --             o->hp = 0
+            o[0].hp = 0
 --             othr[check].hp = 0
+            othr[check].hp = 0
 --
 --             return 0
+            return 0
 --
 --           End If
+          end
 --
 --         End If
+        end
 --
 --         res = (                                                                                                                                       _
+           res = (
 --                 IIf(                                                                                                                                  _
+                   iif(
 --                      ( ( o[0].unique_id = u_dyssius ) Or ( o[0].unique_id = u_steelstrider ) ) And ( othr[check].unique_id = u_lynn ),                _
+                        (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ),
+
 --                      1,                                                                                                                               _
+                        1,
 --                      IIf(                                                                                                                             _
+                        iif(
+
 --                           IIf(                                                                                                                        _
+                             iif(
 --                                (                                                                                                                      _
+                                  (
 --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
+                                    ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
 --                                                                              Or                                                                       _
+                                                                                or
 --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
+                                           ( ( o[0].dead ) or ( othr[check].dead ) or (othr[check].unique_id == u_gold ) )
 --                                ),                                                                                                                     _
+                                  ),
 --                                IIf(                                                                                                                   _
+                                  iif(
 --                                     (                                                                                                                 _
+                                       (
 --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
+                                         ( not ( othr[check].unique_id == u_chest        ) ) and
 --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
+                                         ( not ( othr[check].unique_id == u_bluechest    ) ) and
 --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
+                                         ( not (othr[check].unique_id == u_bluechestitem ) )
 --                                     ),                                                                                                                _
+                                       ),
 --                                     0,                                                                                                                _
+                                       0,
 --                                     1                                                                                                                 _
+                                       1
 --                                   ),                                                                                                                  _
+                                     ),
 --                                IIf(                                                                                                                   _
+                                  iif(
 --                                     ( othr[check].unique_id = u_sparkle ) Or ( othr[check].unique_id = u_gbutton ) Or ( o[0].unique_id = u_godstat ), _
+                                       (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ),
 --                                     0,                                                                                                                _
+                                       0,
 --                                     1                                                                                                                 _
+                                       1
 --                                   )                                                                                                                   _
+                                     )
 --                              ),                                                                                                                       _
+                                ),
 --                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
+                             iif( othr[check].unstoppable_by_object, 0, iif( o[0].unstoppable_by_object, 0, 1 ) ),
 --                           0                                                                                                                           _
+                             0
 --                         )                                                                                                                             _
+                           )
 --                    )                                                                                                                                  _
+                      )
 --               )
+                 )
 --
 --         If res = 1 Then
+        if res == 1 then
 --
 --           return res
+          return res
 --
 --         end if
+        end
 --
 --       End If
+      end
 --
 --     Next
+    end
 --
 --   Next
+  end
 --
 --
   return 0
 -- End Function
+end
+
+-- Sub calc_positions( obj As char_type Ptr, v As vector_pair, _face As Integer )
+function calc_positions(obj, v, _face)
+--
+--   With obj->anim[obj->current_anim]->frame[obj->frame_check]
+  local with0 = obj.anim[obj.current_anim].frame[obj.frame_check]
+--
+--     If .faces = 0 Then
+  if with0.faces == 0 then
+--
+--       v.v = obj->perimeter
+    v.v = obj.perimeter
+--
+--     Else
+  else
+--
+--       v.u.x += .face[_face].x - obj->animControl[obj->current_anim].x_off
+    v.u.x = v.u.x + with0.face[_face].x - obj.animControl[obj.current_anim].x_off
+--       v.u.y += .face[_face].y - obj->animControl[obj->current_anim].y_off
+    v.u.y = v.u.y + with0.face[_face].y - obj.animControl[obj.current_anim].y_off
+--
+--       v.v.x = .face[_face].w
+    v.v.x = with0.face[_face].w
+--       v.v.y = .face[_face].h
+    v.v.y = with0.face[_face].h
+--
+--     End If
+  end
+--
+--   End With
+--
+-- End Sub
 end
 
 -- Sub check_psf( o As char_type Ptr, d As Integer )

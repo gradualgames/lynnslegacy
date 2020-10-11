@@ -226,6 +226,7 @@ function create_Object()
   --   no_cam                As Integer
   --
   --   num                   As Integer
+  object.num = 0
   --
   --   on_ice                As Integer
   object.on_ice = 0

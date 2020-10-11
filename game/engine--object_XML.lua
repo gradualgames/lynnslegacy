@@ -182,9 +182,5 @@ function LLSystem_ObjectFromXML(enemy)
   enemy.current_anim = 0
   enemy.funcs.active_state = 0
   enemy.funcs.current_func[enemy.funcs.active_state] = 0
-  log.level = "debug"
-  log.debug("enemy.id: "..enemy.id)
-  log.debug("enemy.animControl[enemy.current_anim]: "..(enemy.animControl[enemy.current_anim] and "exists" or "nil"))
-  log.level = "fatal"
 
 end
