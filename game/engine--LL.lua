@@ -2516,7 +2516,7 @@ function check_against_entities(d, o)
 --
 --       If o->num <> .enemy[cycle].num Then
     if o.num ~= with0.enemy[cycle].num then
-      log.debug("Proceeding to call check_against")
+      --log.debug("Proceeding to call check_against")
 --         '' if this "o" isn't this enemy, then check it against this enemy
 --         relay = check_against( o, .enemy, cycle, d )
       relay = check_against({[0] = o}, with0.enemy, cycle, d)
@@ -2679,7 +2679,7 @@ function check_against(o, othr, check, d)
 --       m.u = V2_Add( o->coords, opty )
       m.u = V2_Add(o[0].coords, opty)
 --       n.u = othr[check].coords
-      n.u = othr[check].coords
+      n.u = othr[check].coords:clone()
 --
 --       calc_positions( o, m, check_fields2 )
       calc_positions(o[0], m, check_fields2)
