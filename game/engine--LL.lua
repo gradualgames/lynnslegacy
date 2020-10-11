@@ -2807,7 +2807,7 @@ function calc_positions(obj, v, _face)
   if with0.faces == 0 then
 --
 --       v.v = obj->perimeter
-    v.v = obj.perimeter
+    v.v = obj.perimeter:clone()
 --
 --     Else
   else
