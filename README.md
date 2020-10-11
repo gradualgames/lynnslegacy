@@ -3,7 +3,7 @@ Lynn's Legacy is a Zelda-like game originally by indie game developers cha0s and
 It is still available as a win32 binary, but I felt it would be really nice if the game were made available on modern systems so this project
 exists to port the game to a modern game framework, Love2D. You can get the original game here: https://sourceforge.net/projects/lynn/ and you can view a youtube playthrough of the game here: https://youtu.be/5cX48TFYRAk
 
-It is a very well made Zelda-clone with a dark atmosphere, great graphics and excellent music. I spent a lot of time in my youth in the 90's trying to make an RPG in QBasic, and the fact this game was made in FreeBASIC (which is an open source version of QuickBASIC) kind of gives me nostalgia both for those days as well as for it being an homage to the Zelda franchise. I don't want to see it lost to history, hence this project (the win32 binary has some problems on modern systems, and I fear it won't be long before it is completely unplayable).
+It is a very well made Zelda-clone with a dark atmosphere, great graphics and excellent music. I spent a lot of time in my youth in the 90's trying to make an RPG in QBasic, and the fact this game was made in FreeBASIC (which is an open source BASIC compiler that features compatibility with QBasic) kind of gives me nostalgia both for those days as well as for it being an homage to the Zelda franchise. I don't want to see it lost to history, hence this project (the win32 binary has some problems on modern systems, and I fear it won't be long before it is completely unplayable).
 
 Q. Since the source code is still available, and FreeBASIC is still maintained and has a 64 bit version, why not just fix up the original codebase?
 
@@ -14,12 +14,12 @@ The project is in its very early stages. It can currently:
 - Simulate a 320x200 graphics mode with 256 palettized colors
 - Load palette, sprites, maps and music of the game
 - Partially load enemy xml
-- Has enough state callbacks implemented so that one gcopter enemy flies around with map collision
-- Partially loads hero xml. You can move Lynn around and the camera follows her.
+- One map is loaded and all gcopter enemies and healthguy can move around.
+- Lynn can walk around and kill enemies and pick up health.
 
 This is a Love2D project. So to work on it, you will need to install LÖVE: https://love2d.org/ The language is Lua.
 
-The current goal is to get Lynn herself walking around the map and eventually fighting with the gcopter enemy.
+The current goal is to get most functionality for the first hard coded map working. This includes being able to talk to the health guy and buy health upgrades, use the game menu and use the save game feature with the save point. After that, the goal will be to implement teleports and sequences, which are responsible for moving to different maps and for scripted cut scenes.
 
 The original FreeBASIC source code and win32 installer is included in the repository for convenience.
 
