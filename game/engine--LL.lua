@@ -2521,7 +2521,7 @@ function check_against_entities(d, o)
 --         relay = check_against( o, .enemy, cycle, d )
       relay = check_against({[0] = o}, with0.enemy, cycle, d)
 --         If relay Then Return relay
-      if relay then return relay end
+      if relay ~= 0 then return relay end
 --
 --       End If
     end
@@ -2541,7 +2541,7 @@ function check_against_entities(d, o)
 --         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
       relay = check_against({[0] = o}, with0.temp_enemy, cycle, d)
 --         If relay Then Return relay
-      if relay then return relay end
+      if relay ~= 0 then return relay end
 --
 --       End If
     end
@@ -2562,7 +2562,7 @@ function check_against_entities(d, o)
 --       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
       relay = check_against({[0] = o}, {[0] = ll_global.hero}, 0, d)
 --       If relay Then Return relay
-      if relay then return relay end
+      if relay ~= 0 then return relay end
 --
 --     End If
     end
