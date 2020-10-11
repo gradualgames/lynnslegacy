@@ -191,6 +191,7 @@ function set_up_room_enemies(enemies, enemy)
     --
     --     '' setting a couple last vars
     --     .num = setup
+    with0.num = setup
     --
     --     If .spawn_cond <> 0 Then
     --
@@ -2515,6 +2516,7 @@ function check_against_entities(d, o)
 --
 --       If o->num <> .enemy[cycle].num Then
     if o.num ~= with0.enemy[cycle].num then
+      log.debug("Proceeding to call check_against")
 --         '' if this "o" isn't this enemy, then check it against this enemy
 --         relay = check_against( o, .enemy, cycle, d )
       relay = check_against({[0] = o}, with0.enemy, cycle, d)
