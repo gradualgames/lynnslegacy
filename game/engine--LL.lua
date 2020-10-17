@@ -1783,13 +1783,13 @@ function move_object(o, only_looking, moment, recurring)
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 0, only_looking or recurring) or o.unstoppable_by_tile ~= 0 then
+      if check_walk(o, 0, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
         --log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
         --log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(0, o) ~= 1 or o.unstoppable_by_object then
+        if check_against_entities(0, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
           --log.debug("check_against_entities(0, o): "..(check_against_entities(0, o) and "true" or "false"))
           --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
           --log.debug("only_looking: "..only_looking)
@@ -1836,7 +1836,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(1, o) ~= 1 or o.unstoppable_by_object then
+        if check_against_entities(1, o) ~= 1 or o.unstoppable_by_object ~= 0 then
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
@@ -1874,7 +1874,7 @@ function move_object(o, only_looking, moment, recurring)
       if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -1913,7 +1913,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(3, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(3, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -1952,7 +1952,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(0, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(0, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -1987,7 +1987,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(3, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(3, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -2026,7 +2026,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(0, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(0, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -2062,7 +2062,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(1, o) ~= 0 or o.unstoppable_by_object then
+        if check_against_entities(1, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
@@ -2100,7 +2100,7 @@ function move_object(o, only_looking, moment, recurring)
       if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -2136,7 +2136,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 1, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(1, o) ~= 0 or o.unstoppable_by_object then
+        if check_against_entities(1, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
@@ -2173,7 +2173,7 @@ function move_object(o, only_looking, moment, recurring)
       if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -2206,7 +2206,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
-        if check_against_entities(3, o) ~= 1 or (o.unstoppable_by_object) then
+        if check_against_entities(3, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
     --
     --
     --           If only_looking = 0 Then
@@ -2689,6 +2689,19 @@ function check_against(o, othr, check, d)
 --
 --       If check_bounds( m, n ) = 0 Then
       if check_bounds(m, n) == 0 then
+
+        table.insert(dbgrects, {
+          c = .01,
+          x = m.u.x - ll_global.this_room.cx,
+          y = m.u.y - ll_global.this_room.cy,
+          w = m.v.x,
+          h = m.v.y})
+        table.insert(dbgrects, {
+          c = .01,
+          x = n.u.x - ll_global.this_room.cx,
+          y = n.u.y - ll_global.this_room.cy,
+          w = n.v.x,
+          h = n.v.y})
 --
 --         If o->unique_id = u_charger Then
         if o.unique_id == u_charger then

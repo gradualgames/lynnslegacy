@@ -51,18 +51,18 @@ function check_bounds(m, n)
 --   If touching.x And touching.y Then
   if (touching.x ~= 0) and (touching.y ~= 0) then
 
-    table.insert(dbgrects, {
-      c = .05,
-      x = m.u.x - ll_global.this_room.cx,
-      y = m.u.y - ll_global.this_room.cy,
-      w = m.v.x,
-      h = m.v.y})
-    table.insert(dbgrects, {
-      c = .05,
-      x = n.u.x - ll_global.this_room.cx,
-      y = n.u.y - ll_global.this_room.cy,
-      w = n.v.x,
-      h = n.v.y})
+    -- table.insert(dbgrects, {
+    --   c = .05,
+    --   x = m.u.x - ll_global.this_room.cx,
+    --   y = m.u.y - ll_global.this_room.cy,
+    --   w = m.v.x,
+    --   h = m.v.y})
+    -- table.insert(dbgrects, {
+    --   c = .05,
+    --   x = n.u.x - ll_global.this_room.cx,
+    --   y = n.u.y - ll_global.this_room.cy,
+    --   w = n.v.x,
+    --   h = n.v.y})
 
 --     Return 0
     return 0
@@ -70,18 +70,18 @@ function check_bounds(m, n)
 --   Else
   else
 
-    table.insert(dbgrects, {
-      c = .01,
-      x = m.u.x - ll_global.this_room.cx,
-      y = m.u.y - ll_global.this_room.cy,
-      w = m.v.x,
-      h = m.v.y})
-    table.insert(dbgrects, {
-      c = .01,
-      x = n.u.x - ll_global.this_room.cx,
-      y = n.u.y - ll_global.this_room.cy,
-      w = n.v.x,
-      h = n.v.y})
+    -- table.insert(dbgrects, {
+    --   c = .01,
+    --   x = m.u.x - ll_global.this_room.cx,
+    --   y = m.u.y - ll_global.this_room.cy,
+    --   w = m.v.x,
+    --   h = m.v.y})
+    -- table.insert(dbgrects, {
+    --   c = .01,
+    --   x = n.u.x - ll_global.this_room.cx,
+    --   y = n.u.y - ll_global.this_room.cy,
+    --   w = n.v.x,
+    --   h = n.v.y})
 
 --     Return -1
     return -1
