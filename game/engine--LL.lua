@@ -2587,16 +2587,16 @@ function check_against(o, othr, check, d)
 --
 --   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
   function LLObject_Impassable(__THISCHAR__, __FACE__)
---                                                                                                                                  _
---     ( IIf( __THISCHAR__.##anim[__THISCHAR__.##current_anim]->frame[LLObject_CalculateFrame(__THISCHAR__)].faces = 0,             _
-    return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 and
---                                                                                                                                  _
---     __THISCHAR__.##impassable,                                                                                                   _
---                                                                                                                                  _
-      __THISCHAR__.impassable or
---     __THISCHAR__.##anim[__THISCHAR__.##current_anim]->frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable ) )                                                                                                   _
-      __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
---
+    --NOTE: There had been a tenary operator here
+    --and the problem with how I ported iif is that it evaluates both
+    --arguments always, which causes a crash here if faces == 0. So we might
+    --have to look out for more bugs wherever iif is used for this reason. We
+    --may have to go back to Lua's ternary idiom directly.
+    if __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 then
+      return __THISCHAR__.impassable
+    else
+      return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
+    end
   end
 --
 --
@@ -2694,116 +2694,115 @@ function check_against(o, othr, check, d)
 --       If check_bounds( m, n ) = 0 Then
       if check_bounds(m, n) == 0 then
 
-        table.insert(dbgrects, {
-          c = .01,
-          x = m.u.x - ll_global.this_room.cx,
-          y = m.u.y - ll_global.this_room.cy,
-          w = m.v.x,
-          h = m.v.y})
-        table.insert(dbgrects, {
-          c = .01,
-          x = n.u.x - ll_global.this_room.cx,
-          y = n.u.y - ll_global.this_room.cy,
-          w = n.v.x,
-          h = n.v.y})
-        return 1
--- --
--- --         If o->unique_id = u_charger Then
---         if o.unique_id == u_charger then
--- --
--- --           If othr[check].unique_id = u_charger Then
---           if othr[check].unique_id == u_charger then
--- --             '' kill both!
--- --
--- --             o->hp = 0
---             o[0].hp = 0
--- --             othr[check].hp = 0
+        -- table.insert(dbgrects, {
+        --   c = .01,
+        --   x = m.u.x - ll_global.this_room.cx,
+        --   y = m.u.y - ll_global.this_room.cy,
+        --   w = m.v.x,
+        --   h = m.v.y})
+        -- table.insert(dbgrects, {
+        --   c = .01,
+        --   x = n.u.x - ll_global.this_room.cx,
+        --   y = n.u.y - ll_global.this_room.cy,
+        --   w = n.v.x,
+        --   h = n.v.y})
+--
+--         If o->unique_id = u_charger Then
+        if o.unique_id == u_charger then
+--
+--           If othr[check].unique_id = u_charger Then
+          if othr[check].unique_id == u_charger then
+--             '' kill both!
+--
+--             o->hp = 0
+            o[0].hp = 0
 --             othr[check].hp = 0
--- --
--- --             return 0
+            othr[check].hp = 0
+--
 --             return 0
--- --
--- --           End If
---           end
--- --
--- --         End If
---         end
--- --
--- --         res = (                                                                                                                                       _
---            res = (
--- --                 IIf(                                                                                                                                  _
---                    iif(
--- --                      ( ( o[0].unique_id = u_dyssius ) Or ( o[0].unique_id = u_steelstrider ) ) And ( othr[check].unique_id = u_lynn ),                _
---                         (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ),
+            return 0
 --
--- --                      1,                                                                                                                               _
---                         1,
--- --                      IIf(                                                                                                                             _
---                         iif(
+--           End If
+          end
 --
--- --                           IIf(                                                                                                                        _
---                              iif(
--- --                                (                                                                                                                      _
---                                   (
--- --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
---                                     ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
--- --                                                                              Or                                                                       _
---                                                                                 or
--- --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
---                                            ( ( o[0].dead ) or ( othr[check].dead ) or (othr[check].unique_id == u_gold ) )
--- --                                ),                                                                                                                     _
---                                   ),
--- --                                IIf(                                                                                                                   _
---                                   iif(
--- --                                     (                                                                                                                 _
---                                        (
--- --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
---                                          ( not ( othr[check].unique_id == u_chest        ) ) and
--- --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
---                                          ( not ( othr[check].unique_id == u_bluechest    ) ) and
--- --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
---                                          ( not (othr[check].unique_id == u_bluechestitem ) )
--- --                                     ),                                                                                                                _
---                                        ),
--- --                                     0,                                                                                                                _
---                                        0,
--- --                                     1                                                                                                                 _
---                                        1
--- --                                   ),                                                                                                                  _
---                                      ),
--- --                                IIf(                                                                                                                   _
---                                   iif(
--- --                                     ( othr[check].unique_id = u_sparkle ) Or ( othr[check].unique_id = u_gbutton ) Or ( o[0].unique_id = u_godstat ), _
---                                        (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ),
--- --                                     0,                                                                                                                _
---                                        0,
--- --                                     1                                                                                                                 _
---                                        1
--- --                                   )                                                                                                                   _
---                                      )
--- --                              ),                                                                                                                       _
---                                 ),
--- --                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
---                              iif( othr[check].unstoppable_by_object, 0, iif( o[0].unstoppable_by_object, 0, 1 ) ),
--- --                           0                                                                                                                           _
---                              0
--- --                         )                                                                                                                             _
---                            )
--- --                    )                                                                                                                                  _
---                       )
--- --               )
---                  )
--- --
--- --         If res = 1 Then
---         if res == 1 then
--- --
--- --           return res
+--         End If
+        end
+--
+--         res = (                                                                                                                                       _
+           res = (
+--                 IIf(                                                                                                                                  _
+                   iif(
+--                      ( ( o[0].unique_id = u_dyssius ) Or ( o[0].unique_id = u_steelstrider ) ) And ( othr[check].unique_id = u_lynn ),                _
+                        (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ),
+
+--                      1,                                                                                                                               _
+                        1,
+--                      IIf(                                                                                                                             _
+                        iif(
+
+--                           IIf(                                                                                                                        _
+                             iif(
+--                                (                                                                                                                      _
+                                  (
+--                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
+                                    ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
+--                                                                              Or                                                                       _
+                                                                                or
+--                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
+                                           ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
+--                                ),                                                                                                                     _
+                                  ),
+--                                IIf(                                                                                                                   _
+                                  iif(
+--                                     (                                                                                                                 _
+                                       (
+--                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
+                                         ( not ( othr[check].unique_id == u_chest        ) ) and
+--                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
+                                         ( not ( othr[check].unique_id == u_bluechest    ) ) and
+--                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
+                                         ( not (othr[check].unique_id == u_bluechestitem ) )
+--                                     ),                                                                                                                _
+                                       ),
+--                                     0,                                                                                                                _
+                                       0,
+--                                     1                                                                                                                 _
+                                       1
+--                                   ),                                                                                                                  _
+                                     ),
+--                                IIf(                                                                                                                   _
+                                  iif(
+--                                     ( othr[check].unique_id = u_sparkle ) Or ( othr[check].unique_id = u_gbutton ) Or ( o[0].unique_id = u_godstat ), _
+                                       (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ),
+--                                     0,                                                                                                                _
+                                       0,
+--                                     1                                                                                                                 _
+                                       1
+--                                   )                                                                                                                   _
+                                     )
+--                              ),                                                                                                                       _
+                                ),
+--                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
+                             iif( othr[check].unstoppable_by_object ~= 0, 0, iif( o[0].unstoppable_by_object ~= 0, 0, 1 ) ),
+--                           0                                                                                                                           _
+                             0
+--                         )                                                                                                                             _
+                           )
+--                    )                                                                                                                                  _
+                      )
+--               )
+                 )
+--
+--         If res = 1 Then
+        if res == 1 then
+--
 --           return res
--- --
--- --         end if
---         end
+          return res
 --
---       End If
+--         end if
+        end
+
+      -- End If
       end
 --
 --     Next
@@ -2996,13 +2995,13 @@ function check_psf(o, d)
 --       chkr = quad_seek( slider, d )
       chkr = quad_seek(slider, d)
 
-      table.insert(dbgrects, {
-        c = .5,
-        x = chkr.x * 16 - ll_global.this_room.cx,
-        y = chkr.y * 16 - ll_global.this_room.cy,
-        w = 16,
-        h = 16
-      })
+      -- table.insert(dbgrects, {
+      --   c = .5,
+      --   x = chkr.x * 16 - ll_global.this_room.cx,
+      --   y = chkr.y * 16 - ll_global.this_room.cy,
+      --   w = 16,
+      --   h = 16
+      -- })
 --       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
       mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad))
 --
@@ -3028,13 +3027,13 @@ function check_psf(o, d)
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
 
-    table.insert(dbgrects, {
-      c = .5,
-      x = chkr.x * 16 - ll_global.this_room.cx,
-      y = chkr.y * 16 - ll_global.this_room.cy,
-      w = 16,
-      h = 16
-    })
+    -- table.insert(dbgrects, {
+    --   c = .5,
+    --   x = chkr.x * 16 - ll_global.this_room.cx,
+    --   y = chkr.y * 16 - ll_global.this_room.cy,
+    --   w = 16,
+    --   h = 16
+    -- })
 --     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
     op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad)
 --
