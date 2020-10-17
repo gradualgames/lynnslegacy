@@ -15,6 +15,16 @@ end
 
 -- Function check_bounds ( m As vector_pair, n As vector_pair ) As Integer
 function check_bounds(m, n)
+  table.insert(dbgrects, {
+    x = m.u.x - ll_global.this_room.cx,
+    y = m.u.y - ll_global.this_room.cy,
+    w = m.v.x,
+    h = m.v.y})
+  table.insert(dbgrects, {
+    x = n.u.x - ll_global.this_room.cx,
+    y = n.u.y - ll_global.this_room.cy,
+    w = n.v.x,
+    h = n.v.y})
 --
 --
 --   Dim As vector touching

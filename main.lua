@@ -112,12 +112,11 @@ function love.draw()
   --log.level = "debug"
   blit_scene()
 
-  -- for key, dbgrect in pairs(dbgrects) do
-  --   love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
-  --   local rectx = dbgrect.x * 16 - ll_global.this_room.cx
-  --   local recty = dbgrect.y * 16 - ll_global.this_room.cy
-  --   love.graphics.rectangle("fill", rectx, recty, 16, 16)
-  -- end
+  for key, dbgrect in pairs(dbgrects) do
+    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+    local x,y,w,h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
+    love.graphics.rectangle("fill", x, y, w, h)
+  end
 
   --log.level = "fatal"
   doneDrawing()

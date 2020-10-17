@@ -2978,7 +2978,12 @@ function check_psf(o, d)
 --       chkr = quad_seek( slider, d )
       chkr = quad_seek(slider, d)
 
-      table.insert(dbgrects, {x = chkr.x, y = chkr.y})
+      table.insert(dbgrects, {
+        x = chkr.x * 16 - ll_global.this_room.cx,
+        y = chkr.y * 16 - ll_global.this_room.cy,
+        w = 16,
+        h = 16
+      })
 --       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
       mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad))
 --
@@ -3004,7 +3009,12 @@ function check_psf(o, d)
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
 
-    table.insert(dbgrects, {x = chkr.x, y = chkr.y})
+    table.insert(dbgrects, {
+      x = chkr.x * 16 - ll_global.this_room.cx,
+      y = chkr.y * 16 - ll_global.this_room.cy,
+      w = 16,
+      h = 16
+    })
 --     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
     op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad)
 --
