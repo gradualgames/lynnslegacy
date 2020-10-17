@@ -2979,6 +2979,7 @@ function check_psf(o, d)
       chkr = quad_seek(slider, d)
 
       table.insert(dbgrects, {
+        c = .5,
         x = chkr.x * 16 - ll_global.this_room.cx,
         y = chkr.y * 16 - ll_global.this_room.cy,
         w = 16,
@@ -3010,6 +3011,7 @@ function check_psf(o, d)
     chkr = quad_seek(slider, d)
 
     table.insert(dbgrects, {
+      c = .5,
       x = chkr.x * 16 - ll_global.this_room.cx,
       y = chkr.y * 16 - ll_global.this_room.cy,
       w = 16,

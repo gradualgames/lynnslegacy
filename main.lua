@@ -113,8 +113,8 @@ function love.draw()
   blit_scene()
 
   for key, dbgrect in pairs(dbgrects) do
-    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
-    local x,y,w,h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
+    local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
+    love.graphics.setColor(dbgrect.c, 0.0, 0.0, 1.0)
     love.graphics.rectangle("fill", x, y, w, h)
   end
 
