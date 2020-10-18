@@ -2768,6 +2768,25 @@ function check_against(o, othr, check, d)
             --                                   ),                                                                                                                  _
                                                  )
           end
+          function impassabletest()
+            return
+            --                           IIf(                                                                                                                        _
+                                         iif(
+            --                                (                                                                                                                      _
+                                              (
+            --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
+                                                ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
+            --                                                                              Or                                                                       _
+                                                                                            or
+            --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
+                                                       ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
+            --                                ),                                                                                                                     _
+                                              ),
+                                              notnotnottest(),
+                                              sparklebuttongodtest()
+            --                              ),                                                                                                                       _
+                                            )
+          end
 --         res = (                                                                                                                                       _
            res = (
 --                 IIf(                                                                                                                                  _
@@ -2780,22 +2799,7 @@ function check_against(o, othr, check, d)
 --                      IIf(                                                                                                                             _
                         iif(
 
---                           IIf(                                                                                                                        _
-                             iif(
---                                (                                                                                                                      _
-                                  (
---                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
-                                    ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
---                                                                              Or                                                                       _
-                                                                                or
---                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
-                                           ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
---                                ),                                                                                                                     _
-                                  ),
-                                  notnotnottest(),
-                                  sparklebuttongodtest()
---                              ),                                                                                                                       _
-                                ),
+                             impassabletest(),
 --                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
                              othrunstoppabletest(),
 --                           0                                                                                                                           _
