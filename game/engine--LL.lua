@@ -2728,13 +2728,6 @@ function check_against(o, othr, check, d)
 --         End If
         end
 --
-        function othrunstoppabletest()
-          if othr[check].unstoppable_by_object ~= 0 then
-            return 0
-          else
-            return ounstoppabletest()
-          end
-        end
         function ounstoppabletest()
           if o[0].unstoppable_by_object ~= 0 then
             return 0
@@ -2784,7 +2777,11 @@ function check_against(o, othr, check, d)
           res = 1
         else
           if impassabletest() then
-            res = othrunstoppabletest()
+            if othr[check].unstoppable_by_object ~= 0 then
+              res = 0
+            else
+              res = ounstoppabletest()
+            end
           else
             res = 0
           end
