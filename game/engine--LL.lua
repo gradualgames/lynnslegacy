@@ -2788,17 +2788,11 @@ function check_against(o, othr, check, d)
                                             )
         end
         function impassableunstoppabletest()
-            return
-            --                      IIf(                                                                                                                             _
-                                    iif(
-
-                                         impassabletest(),
-            --                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
-                                         othrunstoppabletest(),
-            --                           0                                                                                                                           _
-                                         0
-            --                         )                                                                                                                             _
-                                       )
+          if impassabletest() then
+            return othrunstoppabletest()
+          else
+            return 0
+          end
         end
 
         if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
