@@ -2787,6 +2787,19 @@ function check_against(o, othr, check, d)
             --                              ),                                                                                                                       _
                                             )
           end
+          function impassableunstoppabletest()
+            return
+            --                      IIf(                                                                                                                             _
+                                    iif(
+
+                                         impassabletest(),
+            --                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
+                                         othrunstoppabletest(),
+            --                           0                                                                                                                           _
+                                         0
+            --                         )                                                                                                                             _
+                                       )
+          end
 --         res = (                                                                                                                                       _
            res = (
 --                 IIf(                                                                                                                                  _
@@ -2796,16 +2809,7 @@ function check_against(o, othr, check, d)
 
 --                      1,                                                                                                                               _
                         1,
---                      IIf(                                                                                                                             _
-                        iif(
-
-                             impassabletest(),
---                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
-                             othrunstoppabletest(),
---                           0                                                                                                                           _
-                             0
---                         )                                                                                                                             _
-                           )
+                        impassableunstoppabletest()
 --                    )                                                                                                                                  _
                       )
 --               )
