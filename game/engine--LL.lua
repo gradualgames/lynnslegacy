@@ -2769,23 +2769,19 @@ function check_against(o, othr, check, d)
                                                  )
         end
         function impassabletest()
-            return
-            --                           IIf(                                                                                                                        _
-                                         iif(
-            --                                (                                                                                                                      _
-                                              (
-            --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
-                                                ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
-            --                                                                              Or                                                                       _
-                                                                                            or
-            --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
-                                                       ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
-            --                                ),                                                                                                                     _
-                                              ),
-                                              notnotnottest(),
-                                              sparklebuttongodtest()
-            --                              ),                                                                                                                       _
-                                            )
+          if                                            (
+                      --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
+                                                          ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
+                      --                                                                              Or                                                                       _
+                                                                                                      or
+                      --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
+                                                                 ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
+                      --                                ),                                                                                                                     _
+                                                        ) then
+            return notnotnottest()
+          else
+            return sparklebuttongodtest()
+          end
         end
         function impassableunstoppabletest()
           if impassabletest() then
