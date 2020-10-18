@@ -2728,6 +2728,9 @@ function check_against(o, othr, check, d)
 --         End If
         end
 --
+        function ounstoppabletest()
+          return iif( o[0].unstoppable_by_object ~= 0, 0, 1 )
+        end
 --         res = (                                                                                                                                       _
            res = (
 --                 IIf(                                                                                                                                  _
@@ -2783,7 +2786,7 @@ function check_against(o, othr, check, d)
 --                              ),                                                                                                                       _
                                 ),
 --                           IIf( othr[check].unstoppable_by_object, 0, IIf( o->unstoppable_by_object, 0, 1 ) ),                                         _
-                             iif( othr[check].unstoppable_by_object ~= 0, 0, iif( o[0].unstoppable_by_object ~= 0, 0, 1 ) ),
+                             iif( othr[check].unstoppable_by_object ~= 0, 0, ounstoppabletest() ),
 --                           0                                                                                                                           _
                              0
 --                         )                                                                                                                             _
