@@ -2779,18 +2779,15 @@ function check_against(o, othr, check, d)
             return sparklebuttongodtest()
           end
         end
-        function impassableunstoppabletest()
-          if impassabletest() then
-            return othrunstoppabletest()
-          else
-            return 0
-          end
-        end
 
         if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
           res = 1
         else
-          res = impassableunstoppabletest()
+          if impassabletest() then
+            res = othrunstoppabletest()
+          else
+            res = 0
+          end
         end
 --
 --         If res = 1 Then
