@@ -2728,42 +2728,41 @@ function check_against(o, othr, check, d)
 --         End If
         end
 --
-        function impassabletest()
-          if                                            (
-                      --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
-                                                          ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
-                      --                                                                              Or                                                                       _
-                                                                                                      or
-                      --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
-                                                                 ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
-                      --                                ),                                                                                                                     _
-                                                        ) then
-            if                                                 (
-                        --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
-                                                                 ( not ( othr[check].unique_id == u_chest        ) ) and
-                        --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
-                                                                 ( not ( othr[check].unique_id == u_bluechest    ) ) and
-                        --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
-                                                                 ( not (othr[check].unique_id == u_bluechestitem ) )
-                        --                                     ),                                                                                                                _
-                                                               ) then
-              return 0
-            else
-              return 1
-            end
+        local impassable = 0
+        if                                            (
+                    --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
+                                                        ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
+                    --                                                                              Or                                                                       _
+                                                                                                    or
+                    --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
+                                                               ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
+                    --                                ),                                                                                                                     _
+                                                      ) then
+          if                                                 (
+                      --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
+                                                               ( not ( othr[check].unique_id == u_chest        ) ) and
+                      --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
+                                                               ( not ( othr[check].unique_id == u_bluechest    ) ) and
+                      --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
+                                                               ( not (othr[check].unique_id == u_bluechestitem ) )
+                      --                                     ),                                                                                                                _
+                                                             ) then
+            impassable = 0
           else
-            if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
-              return 0
-            else
-              return 1
-            end
+            impassable = 1
+          end
+        else
+          if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
+            impassable = 0
+          else
+            impassable = 1
           end
         end
 
         if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
           res = 1
         else
-          if impassabletest() ~= 0 then
+          if impassable ~= 0 then
             if othr[check].unstoppable_by_object ~= 0 then
               res = 0
             else
