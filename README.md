@@ -11,7 +11,7 @@ A. That's a very good question. I have spent quite a lot of time trying to do th
 
 The project is in its very early stages. It can currently:
 
-- Simulate a 320x200 graphics mode with 256 palettized colors
+- Simulate a 320x200 graphics mode with a 256 color palette.
 - Load palette, sprites, maps and music of the game
 - Partially load enemy xml
 - One map is loaded and all gcopter enemies and healthguy can move around.
