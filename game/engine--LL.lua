@@ -2728,13 +2728,6 @@ function check_against(o, othr, check, d)
 --         End If
         end
 --
-        function ounstoppabletest()
-          if o[0].unstoppable_by_object ~= 0 then
-            return 0
-          else
-            return 1
-          end
-        end
         function sparklebuttongodtest()
           if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
             return 0
@@ -2780,7 +2773,11 @@ function check_against(o, othr, check, d)
             if othr[check].unstoppable_by_object ~= 0 then
               res = 0
             else
-              res = ounstoppabletest()
+              if o[0].unstoppable_by_object ~= 0 then
+                res = 0
+              else
+                res = 1
+              end
             end
           else
             res = 0
