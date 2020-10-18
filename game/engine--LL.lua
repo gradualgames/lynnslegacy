@@ -2746,8 +2746,8 @@ function check_against(o, othr, check, d)
                                                  1
           --                                   )                                                                                                                   _
                                                )
-          end
-          function notnotnottest()
+        end
+        function notnotnottest()
             return
             --                                IIf(                                                                                                                   _
                                               iif(
@@ -2767,8 +2767,8 @@ function check_against(o, othr, check, d)
                                                    1
             --                                   ),                                                                                                                  _
                                                  )
-          end
-          function impassabletest()
+        end
+        function impassabletest()
             return
             --                           IIf(                                                                                                                        _
                                          iif(
@@ -2786,8 +2786,8 @@ function check_against(o, othr, check, d)
                                               sparklebuttongodtest()
             --                              ),                                                                                                                       _
                                             )
-          end
-          function impassableunstoppabletest()
+        end
+        function impassableunstoppabletest()
             return
             --                      IIf(                                                                                                                             _
                                     iif(
@@ -2799,21 +2799,13 @@ function check_against(o, othr, check, d)
                                          0
             --                         )                                                                                                                             _
                                        )
-          end
---         res = (                                                                                                                                       _
-           res = (
---                 IIf(                                                                                                                                  _
-                   iif(
---                      ( ( o[0].unique_id = u_dyssius ) Or ( o[0].unique_id = u_steelstrider ) ) And ( othr[check].unique_id = u_lynn ),                _
-                        (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ),
+        end
 
---                      1,                                                                                                                               _
-                        1,
-                        impassableunstoppabletest()
---                    )                                                                                                                                  _
-                      )
---               )
-                 )
+        if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
+          res = 1
+        else
+          res = impassableunstoppabletest()
+        end
 --
 --         If res = 1 Then
         if res == 1 then
