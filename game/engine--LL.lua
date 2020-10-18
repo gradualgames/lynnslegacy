@@ -2728,28 +2728,6 @@ function check_against(o, othr, check, d)
 --         End If
         end
 --
-        function sparklebuttongodtest()
-          if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
-            return 0
-          else
-            return 1
-          end
-        end
-        function notnotnottest()
-          if                                                 (
-                      --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
-                                                               ( not ( othr[check].unique_id == u_chest        ) ) and
-                      --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
-                                                               ( not ( othr[check].unique_id == u_bluechest    ) ) and
-                      --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
-                                                               ( not (othr[check].unique_id == u_bluechestitem ) )
-                      --                                     ),                                                                                                                _
-                                                             ) then
-            return 0
-          else
-            return 1
-          end
-        end
         function impassabletest()
           if                                            (
                       --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
@@ -2760,9 +2738,25 @@ function check_against(o, othr, check, d)
                                                                  ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
                       --                                ),                                                                                                                     _
                                                         ) then
-            return notnotnottest()
+            if                                                 (
+                        --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
+                                                                 ( not ( othr[check].unique_id == u_chest        ) ) and
+                        --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
+                                                                 ( not ( othr[check].unique_id == u_bluechest    ) ) and
+                        --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
+                                                                 ( not (othr[check].unique_id == u_bluechestitem ) )
+                        --                                     ),                                                                                                                _
+                                                               ) then
+              return 0
+            else
+              return 1
+            end
           else
-            return sparklebuttongodtest()
+            if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
+              return 0
+            else
+              return 1
+            end
           end
         end
 
