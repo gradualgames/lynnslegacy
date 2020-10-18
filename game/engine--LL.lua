@@ -2763,7 +2763,7 @@ function check_against(o, othr, check, d)
         if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
           res = 1
         else
-          if impassabletest() then
+          if impassabletest() ~= 0 then
             if othr[check].unstoppable_by_object ~= 0 then
               res = 0
             else
