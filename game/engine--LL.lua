@@ -2748,25 +2748,19 @@ function check_against(o, othr, check, d)
                                                )
         end
         function notnotnottest()
-            return
-            --                                IIf(                                                                                                                   _
-                                              iif(
-            --                                     (                                                                                                                 _
-                                                   (
-            --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
-                                                     ( not ( othr[check].unique_id == u_chest        ) ) and
-            --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
-                                                     ( not ( othr[check].unique_id == u_bluechest    ) ) and
-            --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
-                                                     ( not (othr[check].unique_id == u_bluechestitem ) )
-            --                                     ),                                                                                                                _
-                                                   ),
-            --                                     0,                                                                                                                _
-                                                   0,
-            --                                     1                                                                                                                 _
-                                                   1
-            --                                   ),                                                                                                                  _
-                                                 )
+          if                                                 (
+                      --                                       ( Not ( othr[check].unique_id = u_chest         ) ) And                                                         _
+                                                               ( not ( othr[check].unique_id == u_chest        ) ) and
+                      --                                       ( Not ( othr[check].unique_id = u_bluechest     ) ) And                                                         _
+                                                               ( not ( othr[check].unique_id == u_bluechest    ) ) and
+                      --                                       ( Not ( othr[check].unique_id = u_bluechestitem ) )                                                             _
+                                                               ( not (othr[check].unique_id == u_bluechestitem ) )
+                      --                                     ),                                                                                                                _
+                                                             ) then
+            return 0
+          else
+            return 1
+          end
         end
         function impassabletest()
           if                                            (
