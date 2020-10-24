@@ -55,6 +55,7 @@ function create_ll_system()
   --   now As Byte Ptr
   --
   --   hud As load_hudImage
+  ll_system.hud = create_load_hudImage()
   --
   --   t_rect As boxcontrol_type
   --
@@ -161,4 +162,23 @@ function create_ll_system()
   --
   -- End Type
   return ll_system
+end
+
+-- Type load_hudImage
+function create_load_hudImage()
+--
+  local load_hudImage = {}
+--   img( 8 ) As LLSystem_ImageHeader Ptr
+  load_hudImage.img = {[0] = create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader(),
+    create_LLSystem_ImageHeader()
+  }
+--
+  return load_hudImage
+-- End Type
 end

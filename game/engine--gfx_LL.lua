@@ -58,6 +58,7 @@ function blit_scene()
   --
   -- If llg( do_hud ) <> 0 Then
   --   blit_hud()
+  blit_hud()
   --
   -- End If
   --
@@ -725,4 +726,200 @@ function blit_object_ex(enemy)
   --     End With
   --
   -- End With
+end
+
+-- Sub blit_hud( e As _char_type Ptr = 0 )
+function blit_hud(e)
+--
+--   If e = 0 Then e = Varptr( llg( hero ) )
+  e = e or ll_global.hero
+--
+--   Static As Double ll_low_health
+  local ll_low_health = 0.0
+--   Dim As Integer key_Put
+  local key_Put = 0
+--
+--   With *e
+--
+--     hud_BlitMain( e )
+  hud_BlitMain(e)
+--     hud_BlitEnemies()
+--
+--
+--     scope
+--
+--       if llg( hero_only ).selected_item = 3 then
+--
+--
+--         if llg( hero_only ).has_weapon = 2 then
+--           ''templewood
+--           Put( 132, 8 ), llg( hud ).img(1)->image, Trans
+--
+--         elseif llg( now )[1206] then
+--           ''templewood
+--           Put( 132, 8 ), llg( hud ).img(8)->image, Trans
+--
+--         elseif llg( now )[470] then
+--
+--           Put( 132, 8 ), llg( hud ).img(7)->image, Trans
+--
+--         else
+--           Put( 132, 8 ), @llg( hud ).img(1)->image[llg( hero_only ).selected_item * llg( hud ).img(1)->arraysize], Trans
+--
+--         end if
+--
+--       else
+--         Put( 132, 8 ), @llg( hud ).img(1)->image[llg( hero_only ).selected_item * llg( hud ).img(1)->arraysize], Trans
+--
+--       end if
+--
+--       '' selected item
+--
+--     end scope
+--
+--
+--
+--
+--     If llg( map )->isDungeon Then
+--       '' regular key
+--
+--       If llg( hero_only ).b_key <> 0 Then
+--         Put( 8, 164 ), llg( hud ).img(6)->image, Trans
+--
+--       End If
+--
+--       For key_Put = 0 To llg( hero ).key - 1
+--
+--         Put( 8 + (key_Put * 8) , 180 ), llg( hud ).img(5)->image, Trans
+--
+--       Next
+--
+--     End If
+--
+--     '' dollar sign
+--     Put( 275, 8 ), @llg( hud ).img(2)->image[0], Trans
+--
+--     if .money < 0 then
+--       .money = 0
+--       antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--
+--     end if
+--
+--     if .money > 999 then
+--       .money = 999
+--       antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--
+--     end if
+--
+--     Scope
+--
+--       Dim mny As String
+--
+--         mny = String( 3 - Len( Str( .money ) ), "0" )
+--         mny += Str( .money )
+--
+--       Dim As Integer nums
+--
+--         For nums = 0 To 2
+--
+--           Put ( 289 + ( nums Shl 3 ), 8 ), @llg( hud ).img(3)->image[( mny[nums] - 48 ) * llg( hud ).img(3)->arraysize], Trans
+-- '          Put ( 289 + ( nums * 8 ), 8 ), @llg( hud ).img(3).image[( mny[nums] - 48 ) * llg( hud ).img(3).arraysize], Trans
+--
+--         Next
+--
+--     End Scope
+--
+--
+--     If .hp <= int( llg( hero ).maxhp / 3 ) Then
+--
+--       If ll_low_health = 0 Then
+--
+--         play_sample( llg( snd )[sound_lowhealth] )
+--
+--
+--
+--         ll_low_health = Timer + 1.5
+--
+--         If .hp <= cint( llg( hero ).maxhp / 6.5 ) Then
+--           ll_low_health = Timer + .75
+--
+--
+--         End If
+--
+--       End If
+--
+--     End If
+--
+--
+--     If Timer > ll_low_health Then
+--       ll_low_health = 0
+--
+--     End If
+--
+--     if llg( hero_only ).adrenaline = NULL then
+--       Put( 12, 24 ), llg( hud ).img(4)->image, Trans
+--
+--       Dim As Integer crazy_Ceiling = llg( hero_only ).crazy_points
+--       If crazy_Ceiling > 100 Then
+--         crazy_Ceiling = 100
+--
+--       End If
+--       '' 15, 27
+--       If ( llg( hero_only ).crazy_points ) > 0 Then
+--
+--         Line( 15, 27 )-( 15 + ( crazy_Ceiling ), 30 ), 26, bf
+--
+--       End If
+--
+--     end if
+--
+--   End With
+--
+--
+-- End Sub
+end
+
+-- Sub hud_BlitMain( this As char_type Ptr )
+function hud_BlitMain(this)
+--
+--
+--   With *( this )
+--
+--     Dim As Integer p, x_opt, y_opt
+  local p, x_opt, y_opt = 0, 0, 0
+--
+--       For p = 0 To 29
+  for p = 0, 29 do
+--
+--         x_opt = ( ( p Mod 15 ) Shl 3 ) + 8
+    x_opt = bit.lshift(p % 15, 3) + 8
+--         y_opt = ( ( p  \  15 ) Shl 3 ) + 8
+    y_opt = bit.lshift(math.floor(p / 15), 3) + 8
+--
+--         If ( .hp  > p )Then
+    if this.hp > p then
+--           Put( x_opt, y_opt ), varptr( llg( hud ).img(0)->image[0] ), Trans
+      love.graphics.draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[0], x_opt, y_opt)
+--
+--         ElseIf (.maxhp ) > p Then
+    elseif this.maxhp > p then
+--           Put( x_opt, y_opt ), varptr( llg( hud ).img(0)->image[34] ), Trans
+      love.graphics.draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[1], x_opt, y_opt)
+--
+--         Else
+    else
+--           Put( x_opt, y_opt ), varptr( llg( hud ).img(0)->image[68] ), Trans
+      love.graphics.draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[2], x_opt, y_opt)
+--
+--         End If
+    end
+--
+--       Next
+  end
+--
+--
+--   End With
+--
+--
+-- End Sub
 end

@@ -31,7 +31,7 @@ function ctor_hero(l)
   l.num = -1
 --
 --     .hp = 6
-  l.hp = 6
+  l.hp = 3
 --     .maxhp = 6
   l.maxhp = 6
 --
@@ -435,4 +435,34 @@ function load_mapV(fileName)
 
   return map
 
+end
+
+-- Sub load_hud( h As load_hudImage Ptr )
+function load_hud(h)
+--
+--   With *h
+--
+--     .img( 0 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\HUD_health.spr"  ) )
+  h.img[0] = getImageHeader("data/pictures/hud/HUD_health.spr")
+--     .img( 1 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\HUD_items.spr"   ) )
+  h.img[1] = getImageHeader("data/pictures/hud/HUD_items.spr")
+--     .img( 2 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\cash.spr"        ) )
+  h.img[2] = getImageHeader("data/pictures/hud/cash.spr")
+--     .img( 3 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\cashnumbers.spr" ) )
+  h.img[3] = getImageHeader("data/pictures/hud/cashnumbers.spr")
+--     .img( 4 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\fullbar.spr"     ) )
+  h.img[4] = getImageHeader("data/pictures/hud/fullbar.spr")
+--     .img( 5 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\key.spr"         ) )
+  h.img[5] = getImageHeader("data/pictures/hud/key.spr")
+--     .img( 6 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\key2.spr"        ) )
+  h.img[6] = getImageHeader("data/pictures/hud/key2.spr")
+--
+--     .img( 7 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\materials2.spr"   ) )
+  h.img[7] = getImageHeader("data/pictures/hud/materials2.spr")
+--     .img( 8 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\materials3.spr"   ) )
+  h.img[8] = getImageHeader("data/pictures/hud/materials3.spr")
+--
+--   End With
+--
+-- End Sub
 end
