@@ -1785,7 +1785,7 @@ function move_object(o, only_looking, moment, recurring)
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 0, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 0, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
         --log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
         --log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
@@ -1836,7 +1836,7 @@ function move_object(o, only_looking, moment, recurring)
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 1, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 1, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --
@@ -1876,7 +1876,7 @@ function move_object(o, only_looking, moment, recurring)
     if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 2, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
@@ -1914,7 +1914,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 3, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 3, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
@@ -1953,7 +1953,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 0, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 0, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
@@ -1988,7 +1988,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 3, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 3, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
@@ -2027,7 +2027,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 0, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 0, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
@@ -2062,7 +2062,7 @@ function move_object(o, only_looking, moment, recurring)
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 1, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 1, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --
@@ -2102,7 +2102,7 @@ function move_object(o, only_looking, moment, recurring)
     if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 2, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
@@ -2136,7 +2136,7 @@ function move_object(o, only_looking, moment, recurring)
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 1, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 1, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 1, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --
@@ -2175,7 +2175,7 @@ function move_object(o, only_looking, moment, recurring)
     if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 2, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 2, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --         If check_against_entities ( 2, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         if check_against_entities(2, o) ~= 1 or (o.unstoppable_by_object ~= 0) then
@@ -2207,7 +2207,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
-      if check_walk(o, 3, only_looking or recurring) or (o.unstoppable_by_tile ~= 0) then
+      if check_walk(o, 3, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
     --
     --
     --         If check_against_entities ( 3, o ) <> 1 Or ( o->unstoppable_by_object ) Then
@@ -2250,7 +2250,7 @@ function check_walk(o, d, psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
-  if (o.coords.x < 0) or (o.coords.y < 0) or ((o.coords.x + o.perimeter.x) > (now_room().x * 16)) or ((o.coords.y + o.perimeter.y) > (now_room().y * 16)) then
+  if (o.coords.x <= 0) or (o.coords.y <= 0) or ((o.coords.x + o.perimeter.x) > (now_room().x * 16)) or ((o.coords.y + o.perimeter.y) > (now_room().y * 16)) then
   --     Return FALSE
     return false
   --
