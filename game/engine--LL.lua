@@ -2250,12 +2250,9 @@ function check_walk(o, d, psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
-  if (o.coords.x <= 0) or (o.coords.y <= 0) or ((o.coords.x + o.perimeter.x) > (now_room().x * 16)) or ((o.coords.y + o.perimeter.y) > (now_room().y * 16)) then
   --     Return FALSE
-    return false
   --
   --   End If
-  end
   --
   --
   --   Dim As Integer x_offset_2, y_offset_2, x_tile_2, y_tile_2, quads_x, quads_y, x_aligned, y_aligned

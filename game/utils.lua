@@ -9,7 +9,7 @@ function iif(a, b, c)
 end
 
 function testbit(n, b)
-  return bit.band(n, bit.lshift(1, b))
+  return bit.band(n and n or -1, bit.lshift(1, b))
 end
 
 function imp(a, b)
