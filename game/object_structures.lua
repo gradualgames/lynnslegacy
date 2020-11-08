@@ -453,7 +453,9 @@ function create_Object()
   --
   --
   --     proj_style As LLPROJECTILE_STYLES
+  object.proj_style = 0
   --     projectile As ll_entity_projectile Ptr
+  object.projectile = create_ll_entity_projectile()
   --
   --
   --
@@ -604,6 +606,56 @@ function create_LLObject_ImageHeader()
   imageHeader.rate = 0
   imageHeader.rateMad = 0
   return imageHeader
+end
+
+-- '' Projectile information struct(s) suggestion:
+-- ''
+-- '' Operates with:
+-- ''
+-- '' Projectile information is held inside this struct. this struct contains
+-- '' various information about the object's projectile's properties - speed, length, strength, etc.
+-- ''
+-- ''
+--    Type ll_entity_projectile
+function create_ll_entity_projectile()
+--
+  local ll_entity_projectile = {}
+--      refreshTime       As Double
+  ll_entity_projectile.refreshTime = 0.0
+--
+--      plock as byte
+  ll_entity_projectile.plock = 0
+--
+--      projectiles   As Integer
+  ll_entity_projectile.projectiles = 0
+--      saveDirection As Integer
+  ll_entity_projectile.saveDirection = 0
+--      direction     As Integer
+  ll_entity_projectile.direction = 0
+--      length        As Integer
+  ll_entity_projectile.length = 0
+--      travelled     As Integer
+  ll_entity_projectile.travelled = 0
+--      invisible     As Integer
+  ll_entity_projectile.invisible = 0
+--      overChar      As Integer
+  ll_entity_projectile.overChar = 0
+--      sound         As Integer
+  ll_entity_projectile.sound = 0
+--      strength      As Integer
+  ll_entity_projectile.strength = 0
+--      active        As Integer
+  ll_entity_projectile.active = 0
+--      coords        As Vector Ptr
+  ll_entity_projectile.coords = create_vector()
+--
+--      startVector As vector
+  ll_entity_projectile.startVector = create_vector()
+--      flightPath as vector
+  ll_entity_projectile.flightPath = create_vector()
+--
+  return ll_entity_projectile
+--    End Type
 end
 
 -- '' Damage information struct:

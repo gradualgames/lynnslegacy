@@ -1,3 +1,8 @@
+--Const As Double pi = Atn(1) * 4
+pi = math.atan(1) * 4
+--Const As Double rad = ( pi / 180 )
+rad = (pi / 180)
+
 -- Type tile_quad
 function create_tile_quad()
   local tile_quad = {}

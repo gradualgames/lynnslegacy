@@ -669,18 +669,24 @@ function hero_main()
 --
 --
 --     If .dead = FALSE Then
+  if ll_global.hero.dead == 0 then
 --       '' lynn's alive,
 --
 --       LLObject_MAINDamage( VarPtr( llg( hero ) ) )
+    LLObject_MAINDamage(ll_global.hero)
 --
 --       If ( .dmg.id <> 0 ) Then
+    if ll_global.hero.dmg.id ~= 0 then
 --         '' lynn is damaged by something
 --         __flashy( VarPtr( llg( hero ) ) )
+      __flashy(ll_global.hero)
 --
 --
 --       End If
+    end
 --
 --     End If
+  end
 --
 --
 --     If .hurt Then
@@ -3328,6 +3334,208 @@ function LLObject_ClearProjectiles(char)
 --   End With
 --
 --
+--
+-- End Sub
+end
+
+-- Sub LLObject_IncrementProjectiles( char As char_type )
+function LLObject_IncrementProjectiles(char)
+--
+--   With char
+  local with0 = char
+--
+--     Select Case As Const .proj_style
+--
+--       Case PROJECTILE_ORB
+  if with0.proj_style == PROJECTILE_ORB then
+--
+--         Select Case As Const .projectile->direction
+--
+--           Case 0: .projectile->coords[0].y -= 8
+    if with0.projectile.direction == 0 then
+      with0.projectile.coords[0].y = with0.projectile.coords[0].y - 8
+    end
+--
+--           Case 1: .projectile->coords[0].x += 8
+    if with0.projectile.direction == 1 then
+      with0.projectile.coords[0].x = with0.projectile.coords[0].x + 8
+    end
+--
+--           Case 2: .projectile->coords[0].y += 8
+    if with0.projectile.direction == 2 then
+      with0.projectile.coords[0].y = with0.projectile.coords[0].y + 8
+    end
+--
+--           Case 3: .projectile->coords[0].x -= 8
+    if with0.projectile.direction == 3 then
+      with0.projectile.coords[0].x = with0.projectile.coords[0].x - 8
+    end
+--
+--         End Select
+--
+--       Case PROJECTILE_BEAM
+  elseif with0.proj_style == PROJECTILE_BEAM then
+--
+--         Dim As vector tempVector
+    local tempVector = create_vector()
+--
+--         tempVector = .projectile->coords[0]
+    tempVector = with0.projectile.coords[0]
+--
+--         .projectile->coords[0] = .projectile->coords[1]
+    with0.projectile.coords[0] = with0.projectile.coords[1]:clone()
+--         .projectile->coords[1] = V2_Add( .projectile->coords[1], V2_Subtract( .projectile->coords[1], tempVector ) )
+    with0.projectile.coords[1] = V2_Add(with0.projectile.coords[1], V2_Subtract(with0.projectile.coords[1], tempVector))
+
+--
+--       Case PROJECTILE_DIAGONAL
+  elseif with0.proj_style == PROJECTILE_DIAGONAL then
+--
+--         .projectile->coords[0].x -= 1
+    with0.projectile.coords[0].x = with0.projectile.coords[0].x - 1
+--         .projectile->coords[0].y -= 1
+    with0.projectile.coords[0].y = with0.projectile.coords[0].y - 1
+--
+--         .projectile->coords[1].x += 1
+    with0.projectile.coords[1].x = with0.projectile.coords[1].x + 1
+--         .projectile->coords[1].y -= 1
+    with0.projectile.coords[1].y = with0.projectile.coords[1].y - 1
+--
+--         .projectile->coords[2].x += 1
+    with0.projectile.coords[2].x = with0.projectile.coords[2].x + 1
+--         .projectile->coords[2].y += 1
+    with0.projectile.coords[2].y = with0.projectile.coords[2].y + 1
+--
+--         .projectile->coords[3].x -= 1
+    with0.projectile.coords[3].x = with0.projectile.coords[3].x - 1
+--         .projectile->coords[3].y += 1
+    with0.projectile.coords[3].y = with0.projectile.coords[3].y + 1
+--
+--
+--       Case PROJECTILE_CROSS, PROJECTILE_8WAY, PROJECTILE_SCHIZO
+  elseif with0.proj_style == PROJECTILE_CROSS or
+         with0.proj_style == PROJECTILE_8WAY or
+         with0.proj_style == PROJECTILE_SCHIZO then
+--
+--         Dim As Integer i
+    local i = 0
+--         Dim As Double a, m
+    local a, m = 0.0, 0.0
+--
+--         m = 360 / .projectile->projectiles
+    m = 360 / with0.projectile.projectiles
+--         For i = 0 To .projectile->projectiles - 1
+    for i = 0, with0.projectile.projectiles - 1 do
+--
+--           .projectile->coords[i].x += Sin( a * rad )
+      with0.projectile.coords[i].x = with0.projectile.coords[i].x + math.sin(a * rad)
+--           .projectile->coords[i].y += Cos( a * rad )
+      with0.projectile.coords[i].y = with0.projectile.coords[i].y + math.cos(a * rad)
+--
+--           a += m
+      a = a + m
+--
+--         Next
+    end
+--
+--       Case PROJECTILE_SPIRAL, PROJECTILE_SUN
+  elseif with0.proj_style == PROJECTILE_SPIRAL or
+         with0.proj_style == PROJECTILE_SUN then
+--
+--         Dim As Integer i
+    local i = 0
+--         Dim As Double a, m
+    local a, m = 0.0, 0.0
+--
+--         m = 360 / .projectile->projectiles
+    m = 360 / with0.projectile.projectiles
+--         For i = 0 To .projectile->projectiles - 1
+    for i = 0, with0.projectile.projectiles - 1 do
+--
+--           .projectile->coords[i].x = .projectile->startVector.x + Sin( ( ( a + .sway ) Mod 360 ) * rad ) * ( .projectile->travelled )
+      with0.projectile.coords[i].x = with0.projectile.startVector.x + math.sin(((a + with0.sway) % 360) * rad) * (with0.projectile.travelled)
+--           .projectile->coords[i].y = .projectile->startVector.y + Cos( ( ( a + .sway ) Mod 360 ) * rad ) * ( .projectile->travelled )
+      with0.projectile.coords[i].y = with0.projectile.startVector.y + math.cos(((a + with0.sway) % 360) * rad) * (with0.projectile.travelled)
+--
+--           a += m
+      a = a + m
+--
+--         Next
+    end
+--
+--         If .sway = 359 Then
+    if with0.sway == 359 then
+--           .sway = 0
+      with0.sway = 0
+--
+--         Else
+    else
+--           .sway += 1
+      with0.sway = with0.sway + 1
+--
+--         End If
+    end
+--
+--
+--       Case PROJECTILE_TRACK '' implied target hero; could be genericized.
+  elseif with0.proj_style == PROJECTILE_TRACK then
+--
+--
+--         If ( .projectile->travelled And 3 ) = 0 Then
+    if math.band(with0.projectile.travelled, 3) == 0 then
+--
+--           If ( Abs( .projectile->coords[0].x - llg( hero ).coords.x ) < 48 ) Then
+      if (math.abs(with0.projectile.coords[0].x - ll_global.hero.coords.x) < 48) then
+--
+--             If ( Abs( .projectile->coords[0].y - llg( hero ).coords.y ) < 48 ) Then
+        if (math.abs(with0.projectile.coords[0].y - ll_global.hero.coords.y) < 48) then
+--
+--               .projectile->plock = 1
+          with0.projectile.plock = 1
+--
+--             End If
+        end
+--
+--           End If
+      end
+--
+--           If .projectile->plock = 0 Then
+      if with0.projectile.plock == 0 then
+--
+--             Dim As vector_pair thisProjectile
+        local thisProjectile = create_vector_pair()
+--
+--             With .projectile->coords[0]
+        local with1 = with0.projectile.coords[0]
+--
+--               thisProjectile.u.x = .x
+        thisProjectile.u.x = with0.x
+--               thisProjectile.u.y = .y
+        thisProjectile.u.y = with0.y
+--
+--             End With
+--
+--             thisProjectile.v = Type <vector> ( .anim[.proj_anim]->x, .anim[.proj_anim]->y )
+        thisProjectile.v = create_vector()
+        thisProjectile.v.x = with0.anim[with0.proj_anim].x
+        thisProjectile.v.y = with0.anim[with0.proj_anim].y
+--
+--             .projectile->flightPath = V2_CalcFlyback( V2_MidPoint( LLO_VP( Varptr( llg( hero ) ) ) ), V2_MidPoint( thisProjectile ) )
+        with0.projectile.flightPath = V2_CalcFlyback(V2_MidPoint(LLO_VP(ll_global.hero)), V2_MidPoint(thisProjectile))
+--
+--           End If
+      end
+--
+--         End If
+    end
+--
+--        .projectile->coords[0] = V2_Add( .projectile->coords[0], .projectile->flightPath )
+    with0.projectile.coords[0] = V2_Add(with0.projectile.coords[0], with0.projectile.flightPath)
+--
+--     End Select
+  end
+--
+--   End With
 --
 -- End Sub
 end

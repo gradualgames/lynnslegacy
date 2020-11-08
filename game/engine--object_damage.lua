@@ -747,7 +747,7 @@ function LLObject_ProcessHurt(h)
     if h.dmg.id == DF_ROOM_ENEMY then
 --
 --         with now_room().enemy[h->dmg.index]
-      local with0 = now_room().enemy[h.dmx.index]
+      local with0 = now_room().enemy[h.dmg.index]
 --           If .anim[.current_anim]->frame[.frame_check].faces = 0 Then
       if with0.anim[with0.current_anim].frame[with0.frame_check].faces == 0 then
 --             origin = LLObject_VectorPair( @now_room().enemy[h->dmg.index] )
@@ -930,7 +930,7 @@ function LLObject_ProcessHurt(h)
     if h.unique_id == u_lynn then
 -- '      If h->dmg.id = DF_ROOM_ENEMY Then
 --         If now_room().enemy[h->dmg.index].unique_id <> u_beetle Then
-      if now_room().enemy[h.dmx.index].unique_id ~= u_beetle then
+      if now_room().enemy[h.dmg.index].unique_id ~= u_beetle then
 --           Dim As Integer lynn_yell
         local lynn_yell = 0
 --           lynn_yell = CInt( sound_lynn_hurt_1 ) + Int( Rnd * 3 )
@@ -1017,7 +1017,7 @@ function LLObject_ProcessHurt(h)
         else
 --           play_sample( llg( snd )[h->dead_sound], 30 )
           --FIXME: Port the volume adjustments
-          ll_global.snd[lynn_yell]:play()
+          ll_global.snd[h.dead_sound]:play()
 --
 --         End If
         end
@@ -1152,10 +1152,361 @@ function LLObject_DamageCalc(h)
 -- End Sub
 end
 
+-- Sub LLObject_ProjectileDamage( _objects As Integer, _object As _char_type Ptr, h As _char_type Ptr )
+function LLObject_ProjectileDamage(_objects, _object, h)
+--
+--
+--   Dim As Integer chk_proj, do_stuff
+  local chk_proj, do_stuff = 0, 0
+--
+--   Dim As vector_pair origin, target
+  local origin, target = create_vector_pair(), create_vector_pair()
+--
+--   For do_stuff = 0 To _objects - 1
+  for do_stuff = 0, _objects - 1 do
+--     '' loop through all objects
+--
+--     With _object[do_stuff]
+    local with0 = _object[do_stuff]
+--
+--       If ( .dead = 0 ) Or ( .unique_id = u_ibug ) Or ( .unique_id = u_fbug ) Then
+    if (with0.dead == 0) or (with0.unique_id == u_ibug) or (with0.unique_id == u_fbug) then
+--
+--         If .projectile Then
+      if with0.projectile then
+--
+--           If ( .projectile->active <> 0 ) Or _
+        if (with0.projectile.active ~= 0) or
+--              ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Or _
+                (with0.unique_id == u_dyssius) or (with0.unique_id == u_steelstrider) or
+--              ( .unique_id = u_grult     ) Or _
+                (with0.unique_id == u_grult) or
+--              ( .unique_id = u_anger     ) Then
+                (with0.unique_id == u_anger) then
+--
+--             For chk_proj = 0 To .projectile->projectiles - 1
+          for chk_proj = 0, with0.projectile.projectiles - 1 do
+--
+--               origin.u = .projectile->coords[chk_proj]
+            origin.u = with0.projectile.coords[chk_proj]:clone()
+--               origin.v.x = .anim[.proj_anim]->x
+            origin.v.x = with0.anim[with0.proj_anim].x
+--               origin.v.y = .anim[.proj_anim]->y
+            origin.v.y = with0.anim[with0.proj_anim].y
+--
+--               target.u = h->coords
+            target.u = h.coords:clone()
+--               target.v = h->perimeter
+            target.v = h.perimeter:clone()
+--
+--               If check_bounds( origin, target ) = 0 Then
+            if check_bounds(origin, target) == 0 then
+--
+--                 Select Case h->unique_id
+--
+--                   Case u_boss5_left, u_boss5_right, u_boss5_down
+              if h.unique_id == u_boss5_left or h.unique_id == u_boss5_right or
+                 h.unique_id == u_boss5_down then
+--
+--                     If .unique_id = h->unique_id Then
+                if with0.unique_id == h.unique_id then
+--
+--                       If h->shifty Then
+                  if h.shifty ~= 0 then
+--
+--                         LLObject_ShiftState( h, h->hit_state )
+                    LLObject_ShiftState(h, h.hit_state)
+
+--                         LLObject_ClearProjectiles( _object[do_stuff] )
+                    LLObject_ClearProjectiles(_object[do_stuff])
+--
+--                         h->hp -=1
+                    h.hp = h.hp - 1
+--                         .shifty = 0
+                    with0.shifty = 0
+--
+--                       End If
+                  end
+--
+--                     End If
+                end
+--
+--                     Continue For
+                goto continue
+--
+--
+--                   Case u_boss5_crystal
+              elseif h.unique_id == u_boss5_crystal then
+--
+--                     If h->funcs.active_state = 1 Then
+                if h.funcs.active_state == 1 then
+--
+--                       LLObject_ShiftState( h, 2 )
+                  LLObject_ShiftState(h, 2)
+--
+--                       .projectile->direction += 2
+                  with0.projectile.direction = with0.projectile.direction + 2
+--                       .projectile->direction And= 3
+                  with0.projectile.direction = bit.band(with0.projectile.direction, 3)
+--
+--                       Swap .projectile->coords[0], .projectile->coords[1]
+                  --save a
+                  local c0 = with0.projectile.coords[0]:clone()
+                  --a = b
+                  with0.projectile.coords[0] = with0.projectile.coords[1]:clone()
+                  --b = saved a
+                  with0.projectile.coords[1] = c0:clone()
+--
+--                       LLObject_IncrementProjectiles( _object[do_stuff] )
+                  LLObject_IncrementProjectiles(_object[do_stuff])
+--
+--                       .shifty = -1
+                  with0.shifty = -1
+--
+--                     Else
+                else
+--
+--                       If .unique_id <> u_boss5_crystal Then
+                  if with0.unique_id ~= u_boss5_crystal then
+--                         LLObject_ClearProjectiles( _object[do_stuff] )
+                    LLObject_ClearProjectiles(_object[do_stuff])
+--
+--                       End If
+                  end
+--
+--                     End If
+                end
+--
+--                     Continue For
+                goto continue
+--
+--
+--                   Case u_beamcrystal
+              elseif h.unique_id == u_beamcrystal then
+--
+--                     LLObject_ClearProjectiles( _object[do_stuff] )
+                LLObject_ClearProjectiles(_object[do_stuff])
+--
+--
+--                   Case Else
+              else
+--
+--                     If h->dmg.id = 0 Then
+                if h.dmg.id == 0 then
+--                       h->dmg.id       = DF_ROOM_ENEMY Or DF_PROJ
+                  h.dmg.id = bit.band(DF_ROOM_ENEMY, DF_PROJ)
+--                       h->dmg.index    = do_stuff
+                  h.dmg.index = do_stuff
+--                       h->dmg.specific = chk_proj
+                  h.dmg.specific = chk_proj
+--
+--                       LLObject_DamageCalc( h )
+                  LLObject_DamageCalc(h)
+--                       If h->dmg.id <> 0 Then
+                  if h.dmg.id ~= 0 then
+--                         Exit Sub
+                    return
+--
+--                       End If
+                  end
+--
+--                     End If
+                end
+--
+--                 End Select
+              end
+--
+--               End If
+            end
+--
+--             Next
+            ::continue::
+          end
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     End With
+--
+--   Next
+  end
+--
+--
+-- End Sub
+end
+
+-- Sub LLObject_ObjectDamage( _enemies As Integer, _enemy As _char_type Ptr, hr As _char_type Ptr, e_type As Integer = DF_ROOM_ENEMY )
+function LLObject_ObjectDamage(_enemies, _enemy, hr, e_type)
+  e_type = e_type and e_type or DF_ROOM_ENEMY
+--
+--   If hr->invincible <> 0 Then Exit Sub
+  if hr.invincible ~= 0 then return end
+--
+--   Dim As Integer enemy_collide, check_fields
+  local enemy_collide, check_fields = 0, 0
+--   Dim As vector_pair origin
+  local origin = create_vector_pair()
+--
+--   For enemy_collide = 0 To _enemies - 1
+  for enemy_collide = 0, _enemies - 1 do
+--     '' loop through all enemies in this room.
+--
+--     With _enemy[enemy_collide]
+    local with0 = _enemy[enemy_collide]
+--
+--       If LLObject_IsWithin( Varptr( _enemy[enemy_collide] ) ) = 0 Then
+    if LLObject_IsWithin(_enemy[enemy_collide]) == 0 then
+--         Continue For
+      goto continue
+--
+--       End If
+    end
+--
+--
+--       If .strength = 0 Then
+    if with0.strength == 0 then
+--         Continue For
+      goto continue
+--
+--       End If
+    end
+--
+--       .frame_check = LLObject_CalculateFrame( _enemy[enemy_collide] )
+    with0.frame_check = LLObject_CalculateFrame(_enemy[enemy_collide])
+--
+--       If .anim[.current_anim]->frame[.frame_check].faces = 0 Then
+    if with0.anim[with0.current_anim].frame[with0.frame_check].faces == 0 then
+--         '' this enemy only has a single box boundary.
+--
+--         If check_bounds( LLObject_VectorPair( Varptr( _enemy[enemy_collide] ) ), _
+--                          LLObject_VectorPair( hr ) ) = 0 Then
+      if check_bounds(LLObject_VectorPair(_enemy[enemy_collide]), LLObject_VectorPair(hr)) == 0 then
+--
+--           '' hit by the current enemy.
+--           hr->dmg.id    = e_type
+        hr.dmg.id = e_type
+--           hr->dmg.index = enemy_collide
+        hr.dmg.index = enemy_collide
+--
+--           LLObject_DamageCalc( hr )
+        LLObject_DamageCalc(hr)
+--
+--           If hr->dmg.id <> 0 Then
+        if hr.dmg.id ~= 0 then
+--           '' ignore the rest of the objects.
+--             Exit For
+          break
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--
+--       Else
+    else
+--         '' this enemy has multiple box boundaries.
+--
+--
+--         For check_fields = 0 To .anim[.current_anim]->frame[.frame_check].faces - 1
+      for check_fields = 0, with0.anim[with0.current_anim].frame[with0.frame_check].faces - 1 do
+--           '' loop thru all of the current enemy's box boundaries.
+--
+--           origin = LLO_VPE( Varptr( _enemy[enemy_collide] ), OV_FACE, check_fields )
+        origin = LLO_VPE(_enemy[enemy_collide], OV_FACE, check_fields)
+--
+--           If check_bounds( origin, LLObject_VectorPair( hr ) ) = 0 Then
+        if check_bounds(origin, LLObject_VectorPair(hr)) == 0 then
+--             '' got damaged by the object that owns this face.
+--
+--             hr->dmg.id       = e_type
+          hr.dmg.id = e_type
+--             hr->dmg.index    = enemy_collide
+          hr.dmg.index = enemy_collide
+--             hr->dmg.specific = check_fields
+          hr.dmg.specific = check_fields
+--
+--             LLObject_DamageCalc( hr )
+          LLObject_DamageCalc(hr)
+--
+--             If hr->dmg.id <> 0 Then
+          if hr.dmg.id ~= 0 then
+--             '' ignore the rest of the objects.
+--               Exit For
+            break
+--
+--             End If
+
+          end
+--
+--           End If
+        end
+--
+--         Next
+      end
+--
+--       End If
+    end
+--
+--     End With
+--
+--   Next
+  ::continue::
+  end
+--
+-- End Sub
+end
+
+-- Sub LLObject_MAINDamage( hr As _char_type Ptr )
+function LLObject_MAINDamage(hr)
+--
+--
+--   If hr->invincible <> 0 Then Exit Sub
+  if hr.invincible ~= 0 then return end
+--
+--   With now_room()
+  local with0 = now_room()
+--
+--     If ( hr->dmg.id = 0 ) Then
+  if hr.dmg.id == 0 then
+--       LLObject_ProjectileDamage( .enemies, .enemy, hr )
+    LLObject_ProjectileDamage(with0.enemies, with0.enemy, hr)
+--
+--     End If
+  end
+--       If ( hr->dmg.id = 0 ) Then
+  if hr.dmg.id == 0 then
+--         LLObject_ObjectDamage( .enemies, .enemy, hr, DF_ROOM_ENEMY )
+    LLObject_ObjectDamage(with0.enemies, with0.enemy, hr, DF_ROOM_ENEMY)
+--
+--       End If
+  end
+--         If ( hr->dmg.id = 0 ) Then
+  if hr.dmg.id == 0 then
+--           LLObject_ObjectDamage( .temp_enemies, @.temp_enemy( 0 ), hr, DF_TEMP_ENEMY )
+    LLObject_ObjectDamage(with0.temp_enemies, with0.temp_enemy[0], hr, DF_TEMP_ENEMY)
+--
+--         End If
+  end
+--
+--
+--
+--   End With
+--
+--
+-- End Sub
+end
+
 -- Sub LLObject_ClearDamage( h As char_type Ptr )
 function LLObject_ClearDamage(h)
   log.debug("LLObject_ClearDamage called.")
-  log.debug(debug.traceback())
 --
 --   h->hurt         = 0
   h.hurt = 0
