@@ -389,18 +389,19 @@ function hero_main()
 --
 --
 --   With llg( hero )
+  local with0 = ll_global.hero
 --
 --
 --     .last_cycle_ice = .on_ice
-  ll_global.hero.last_cycle_ice = ll_global.hero.on_ice
+  with0.last_cycle_ice = with0.on_ice
 --     .on_ice = 0
-  ll_global.hero.on_ice = 0
+  with0.on_ice = 0
 --     check_ice( llg( hero ) )
   check_ice(ll_global.hero)
 --
 --     If .on_ice = 0 Then
   --log.debug("walk speed: "..ll_global.hero.walk_speed)
-  if ll_global.hero.on_ice == 0 then
+  if with0.on_ice == 0 then
 -- --       .coords.x = Int( .coords.x )
 --     ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
 -- --       .coords.y = Int( .coords.y )
@@ -411,13 +412,13 @@ function hero_main()
 --
 --
 --     If ( .on_ice <> 0 ) And .last_cycle_ice = 0 Then
-  if (ll_global.hero.on_ice ~= 0) and ll_global.hero.last_cycle_ice == 0 then
+  if (with0.on_ice ~= 0) and with0.last_cycle_ice == 0 then
 --
 --       Dim As Integer all_momentum
 --       For all_momentum = 0 To 3
     for all_momentum = 0, 3 do
 --         .momentum.i( all_momentum ) = .momentum_history.i( all_momentum )
-      ll_global.hero.momentum.i[all_momentum] = ll_global.hero.momentum_history.i[all_momentum]
+      with0.momentum.i[all_momentum] = with0.momentum_history.i[all_momentum]
 --
 --       Next
     end
@@ -427,7 +428,7 @@ function hero_main()
 --
 --     '' reset lynn move flag
 --     .moving = 0
-  ll_global.hero.moving = 0
+  with0.moving = 0
 --
 --
 --     If llg( hero_only ).action_lock = 0 Then
@@ -441,17 +442,17 @@ function hero_main()
 --         '' lynn is not attacking
 --
 --         If (.fly_count = 0) Then
-      if ll_global.hero.fly_count == 0 then
+      if with0.fly_count == 0 then
         --log.debug("fly_count was 0")
 --           '' lynn is not flying back
 --
 --           If .dead = 0 Then
-        if ll_global.hero.dead == 0 then
+        if with0.dead == 0 then
           --log.debug("dead was 0")
 --             '' lynn is not dead
 --
 --             If .switch_room = -1 Then
-          if ll_global.hero.switch_room == -1 then
+          if with0.switch_room == -1 then
             --log.debug("switch_room is -1")
 --               '' lynn isnt doing a room switch fade thing
 --
@@ -489,12 +490,12 @@ function hero_main()
 --
 --
 --       If .on_ice = 0 Then
-    if ll_global.hero.on_ice == 0 then
+    if with0.on_ice == 0 then
 --         '' traction
 --         If .unique_id <> u_steelstrider Then
       --log.debug("unique_id"..ll_global.hero.unique_id)
       --log.debug("u_steelstrider: "..u_steelstrider)
-      if ll_global.hero.unique_id ~= u_steelstrider then
+      if with0.unique_id ~= u_steelstrider then
         --log.debug("go grip")
 --           __go_grip( Varptr( llg( hero ) ) )
         __go_grip(ll_global.hero)
@@ -506,17 +507,17 @@ function hero_main()
   end
 --
 --       If .walk_hold = 0 Then
-  if ll_global.hero.walk_hold == 0 then
+  if with0.walk_hold == 0 then
 --
 --         '' walk_hold timer is initialized
 --         If .dead = 0 Then
-    if ll_global.hero.dead == 0 then
+    if with0.dead == 0 then
 --
 --           If llg( hero_only ).attacking <> 0 Then
       if ll_global.hero_only.attacking ~= 0 then
 --
 --             If .on_ice <> 0 Then
-        if ll_global.hero.on_ice ~= 0 then
+        if with0.on_ice ~= 0 then
 --               __momentum_move( VarPtr( llg( hero ) ) )
           __momentum_move(ll_global.hero)
 
@@ -544,7 +545,7 @@ function hero_main()
   hero_continue_movement(ll_global.hero)
 --
 --       If ( .on_ice <> 0 ) Then
-  if ll_global.hero.on_ice ~= 0 then
+  if with0.on_ice ~= 0 then
     --log.debug("ll_global.hero.on_ice: "..ll_global.hero.on_ice)
     --log.debug("Hero is on ice, calling __calc_slide.")
 --
@@ -563,17 +564,17 @@ function hero_main()
 --
 --
 --       .moving Or = ( .is_psfing <> 0 )
-  if ll_global.hero.is_psfing ~= 0 then
-    ll_global.hero.moving = 1
+  if with0.is_psfing ~= 0 then
+    with0.moving = 1
   end
 --       .moving Or = ( .is_pushing <> 0 )
-  if ll_global.hero.is_pushing ~= 0 then
-    ll_global.hero.moving = 1
+  if with0.is_pushing ~= 0 then
+    with0.moving = 1
   end
 --
 --
 --       If .moving <> 0 Then
-  if ll_global.hero.moving ~= 0 then
+  if with0.moving ~= 0 then
 --         '' lynn's moving
 --
 --         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
@@ -591,14 +592,14 @@ function hero_main()
 --         '' lynn isn't moving
 --
 --         If .dead = 0 Then
-    if ll_global.hero.dead == 0 then
+    if with0.dead == 0 then
 --           '' lynn's alive
 --
 --           If llg( hero_only ).attacking  = 0 Then
       if ll_global.hero_only.attacking == 0 then
 --
 --             If .frame <> 0 Then
-        if ll_global.hero.frame ~= 0 then
+        if with0.frame ~= 0 then
 --               '' lynn frame not zero, reset
 --
 --               __reset_frame( VarPtr( llg( hero ) ) )
@@ -650,13 +651,13 @@ function hero_main()
 --
 --
 --     If Timer > .walk_hold Then
-  if timer > ll_global.hero.walk_hold then
+  if timer > with0.walk_hold then
 --       '' walkhold timer expired
 --
 --       .walk_hold = 0
-    ll_global.hero.walk_hold = 0
+    with0.walk_hold = 0
 --       .is_psfing = 0
-    ll_global.hero.is_psfing = 0
+    with0.is_psfing = 0
 --
 --     End If
   end
@@ -669,14 +670,14 @@ function hero_main()
 --
 --
 --     If .dead = FALSE Then
-  if ll_global.hero.dead == 0 then
+  if with0.dead == 0 then
 --       '' lynn's alive,
 --
 --       LLObject_MAINDamage( VarPtr( llg( hero ) ) )
     LLObject_MAINDamage(ll_global.hero)
 --
 --       If ( .dmg.id <> 0 ) Then
-    if ll_global.hero.dmg.id ~= 0 then
+    if with0.dmg.id ~= 0 then
 --         '' lynn is damaged by something
 --         __flashy( VarPtr( llg( hero ) ) )
       __flashy(ll_global.hero)
@@ -690,26 +691,26 @@ function hero_main()
 --
 --
 --     If .hurt Then
-  if ll_global.hero.hurt ~= 0 then
+  if with0.hurt ~= 0 then
 --       '' lynn's hurt
 --
 --       .funcs.current_func[.hit_state] += .funcs.func[.hit_state][.funcs.current_func[.hit_state]]( VarPtr( llg( hero ) ) )
-    ll_global.hero.funcs.current_func[ll_global.hero.hit_state] = ll_global.hero.funcs.current_func[ll_global.hero.hit_state] + ll_global.hero.funcs.func[ll_global.hero.hit_state][ll_global.hero.funcs.current_func[ll_global.hero.hit_state]](ll_global.hero)
+    with0.funcs.current_func[with0.hit_state] = with0.funcs.current_func[with0.hit_state] + with0.funcs.func[with0.hit_state][with0.funcs.current_func[with0.hit_state]](ll_global.hero)
 --
 --
 --       If .funcs.current_func[.hit_state] = .funcs.func_count[.hit_state] Then
-    if ll_global.hero.funcs.current_func[ll_global.hero.hit_state] == ll_global.hero.funcs.func_count[ll_global.hero.hit_state] then
+    if with0.funcs.current_func[with0.hit_state] == with0.funcs.func_count[with0.hit_state] then
 --         '' lynn called back
 --
 --         .funcs.current_func[.hit_state] = 0
-      ll_global.hero.funcs.current_func[ll_global.hero.hit_state] = 0
+      with0.funcs.current_func[with0.hit_state] = 0
 --
 --         .hurt = 0
-      ll_global.hero.hurt = 0
+      with0.hurt = 0
 --         .dmg.index = 0
-      ll_global.hero.dmg.index = 0
+      with0.dmg.index = 0
 --         .dmg.specific = 0
-      ll_global.hero.dmg.specific = 0
+      with0.dmg.specific = 0
 --
 --       End If
     end
@@ -719,7 +720,7 @@ function hero_main()
 --
 --
 --     If .dead Then
-  if ll_global.hero.dead ~= 0 then
+  if with0.dead ~= 0 then
 --       '' lynn is dead
 --
 --       llg( hero_only ).attacking = 0
