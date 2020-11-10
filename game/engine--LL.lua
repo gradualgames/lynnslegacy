@@ -694,18 +694,25 @@ function hero_main()
 --       '' lynn's hurt
 --
 --       .funcs.current_func[.hit_state] += .funcs.func[.hit_state][.funcs.current_func[.hit_state]]( VarPtr( llg( hero ) ) )
+    ll_global.hero.funcs.current_func[ll_global.hero.hit_state] = ll_global.hero.funcs.current_func[ll_global.hero.hit_state] + ll_global.hero.funcs.func[ll_global.hero.hit_state][ll_global.hero.funcs.current_func[ll_global.hero.hit_state]](ll_global.hero)
 --
 --
 --       If .funcs.current_func[.hit_state] = .funcs.func_count[.hit_state] Then
+    if ll_global.hero.funcs.current_func[ll_global.hero.hit_state] == ll_global.hero.funcs.func_count[ll_global.hero.hit_state] then
 --         '' lynn called back
 --
 --         .funcs.current_func[.hit_state] = 0
+      ll_global.hero.funcs.current_func[ll_global.hero.hit_state] = 0
 --
 --         .hurt = 0
+      ll_global.hero.hurt = 0
 --         .dmg.index = 0
+      ll_global.hero.dmg.index = 0
 --         .dmg.specific = 0
+      ll_global.hero.dmg.specific = 0
 --
 --       End If
+    end
 --
 --     End If
   end
