@@ -213,3 +213,141 @@ function __active_anim_3(this)
 --
 -- End Function
 end
+
+-- Function __active_anim_4 ( this As _char_type Ptr ) As Integer
+function __active_anim_4(this)
+--   this->current_anim = 4
+  this.current_anim = 4
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_5 ( this As _char_type Ptr ) As Integer
+function __active_anim_5(this)
+--   this->current_anim = 5
+  this.current_anim = 5
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_6 ( this As _char_type Ptr ) As Integer
+function __active_anim_6(this)
+--   this->current_anim = 6
+  this.current_anim = 6
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_7 ( this As _char_type Ptr ) As Integer
+function __active_anim_7(this)
+--   this->current_anim = 7
+  this.current_anim = 7
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_8 ( this As _char_type Ptr ) As Integer
+function __active_anim_8(this)
+--   this->current_anim = 8
+  this.current_anim = 8
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_9 ( this As _char_type Ptr ) As Integer
+function __active_anim_9(this)
+--   this->current_anim = 9
+  this.current_anim = 9
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_10 ( this As _char_type Ptr ) As Integer
+function __active_anim_10(this)
+--   this->current_anim = 10
+  this.current_anim = 10
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_0 ( this As _char_type Ptr ) As Integer
+function __active_anim_0(this)
+--
+--
+--   this->current_anim = 0
+  this.current_anim = 0
+--   this->frame = 0
+  this.frame = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __active_anim_dead ( this As _char_type Ptr ) As Integer
+function __active_anim_dead(this)
+--
+--
+--   this->frame = 0
+  this.frame = 0
+--   this->current_anim = this->dead_anim
+  this.current_anim = this.dead_anim
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end

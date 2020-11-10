@@ -126,6 +126,64 @@ function __make_dead(this)
 -- End Function
 end
 
+-- Function __dir_up ( this As _char_type Ptr ) As Integer
+function __dir_up(this)
+--
+--   this->direction = 0
+  this.direction = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+--
+-- Function __dir_right ( this As _char_type Ptr ) As Integer
+function __dir_right(this)
+--
+--   this->direction = 1
+  this.direction = 1
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+--
+-- Function __dir_left ( this As _char_type Ptr ) As Integer
+function __dir_left(this)
+--
+--   this->direction = 3
+  this.direction = 3
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+--
+-- Function __dir_down ( this As _char_type Ptr ) As Integer
+function __dir_down(this)
+--
+--   this->direction = 2
+  this.direction = 2
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __cripple ( this As _char_type Ptr ) As Integer
 function __cripple(this)
   log.debug("__cripple called.")
