@@ -530,7 +530,9 @@ function create_Object()
   --     fade_count            As Integer
   --     fade_out              As Integer
   --     fade_time             As Double
+  object.fade_time = 0.0
   --     fade_timer            As Double
+  object.fade_timer = 0.0
   --
   --
   --     flash_count           As Integer

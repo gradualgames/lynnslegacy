@@ -3,6 +3,7 @@ require("game/object_etc")
 require("game/object_time")
 require("game/object--gfx")
 require("game/object--gfx_animation")
+require("game/object--gfx_palette")
 require("game/object_move")
 SLAXML = require 'lib/SLAXML/slaxml'
 

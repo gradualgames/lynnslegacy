@@ -57,6 +57,11 @@ end
 
 --Should be called after drawing everything to the main canvas.
 function doneDrawing()
+  love.graphics.setCanvas(paletteCanvas)
+  for x = 0, 255 do
+    love.graphics.setColor(palette[x][0], palette[x][1], palette[x][2])
+    love.graphics.points(x + .5, .5)
+  end
   love.graphics.setColor(1, 1, 1)
   love.graphics.setCanvas()
   love.graphics.setShader(shader)

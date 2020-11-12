@@ -32,7 +32,7 @@ function loadPalette(fileName)
       local b,g,r = readByte(paletteBlob),
               readByte(paletteBlob),
               readByte(paletteBlob)
-      table.insert(palette,{r/255,g/255,b/255})
+      palette[x] = {[0] = r / 255, g / 255, b /255}
     end
     return palette
   else
