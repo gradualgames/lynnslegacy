@@ -109,9 +109,13 @@ function create_ll_system()
   --   hero_dmg_calc As _char_type Ptr
   --
   --   song_fade As Integer
+  ll_system.song_fade = 0
   --   song_lock As Integer
+  ll_system.song_lock = 0
   --   song As Integer
+  ll_system.song = 0
   --   song_wait As Integer
+  ll_system.song_wait = 0
   --
   --   seq As sequence_type Ptr
   --

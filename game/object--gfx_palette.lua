@@ -60,17 +60,23 @@ function __fade_to_black(this)
     end
 --
 --     If llg( song )_fade <> 0 Then
+    if ll_global.song_fade ~= 0 then
 --
 --       this->song_fade_count += 1
+      this.song_fade_count = this.song_fade_count + 1
 --
 --       Dim As Double tmp_val
+      local tmp_val = 0.0
 --       tmp_val = ( this->fade_out - this->song_fade_count ) '' 0-63
+      tmp_val = (this.fade_out - this.song_fade_count)
 --       tmp_val Shl= 3 '' 0 - 512
+      log.debug("tmp_val: "..tmp_val)
 --       tmp_val /= 5.12 '' close enough...
 --       LLMusic_SetVolume( CInt( tmp_val ) )
 -- '        bass_setconfig( BASS_CONFIG_GVOL_MUSIC, tmp_val )
 --
 --     End If
+    end
 --
 --     this->fade_timer = Timer + this->fade_time
     this.fade_timer = timer + this.fade_time
@@ -93,6 +99,7 @@ function __fade_to_black(this)
     if ll_global.song_fade ~= 0 then
 --
 --       LLMusic_Stop()
+      love.audio.stop()
 --
 --     End If
     end

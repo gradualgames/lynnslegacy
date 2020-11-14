@@ -258,6 +258,7 @@ function create_Object()
   --   slide_hold            As Double
   --
   --   song_fade_count       As Integer
+  object.song_fade_count = 0
   --
   --   sound                 As Integer Ptr
   --   sounds                As Integer
@@ -528,7 +529,9 @@ function create_Object()
   --   '' gfx stuff....
   --   '' ==========================
   --     fade_count            As Integer
+  object.fade_count = 0
   --     fade_out              As Integer
+  object.fade_out = 0
   --     fade_time             As Double
   object.fade_time = 0.0
   --     fade_timer            As Double
