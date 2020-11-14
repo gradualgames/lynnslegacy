@@ -245,6 +245,119 @@ function set_up_room_enemies(enemies, enemy)
   end
 end
 
+-- Private Function check_teleports( _char As _char_type, _tele As teleport_type Ptr, num_tele As Integer ) As Integer
+function check_teleports(_char, _tele, num_tele)
+--
+--
+--   Dim As Integer tele_check
+  local tele_check = 0
+--   For tele_check = 0 To num_tele - 1
+  for tele_check = 0, num_tele - 1 do
+--
+--     Dim As vector_pair origin, target
+    local origin, target = create_vector_pair(), create_vector_pair()
+--
+--     origin.u = _char.coords
+    origin.u = _char.coords:clone()
+--     origin.v = _char.perimeter
+    origin.v = _char.perimeter:clone()
+--
+--     target.u.x = _tele[tele_check].x
+    target.u.x = _tele[tele_check].x
+--     target.u.y = _tele[tele_check].y
+    target.u.y = _tele[tele_check].y
+--     target.v.x = _tele[tele_check].w
+    target.v.x = _tele[tele_check].w
+--     target.v.y = _tele[tele_check].h
+    target.v.y = _tele[tele_check].h
+
+    table.insert(dbgrects, {
+      c = .05,
+      x = target.u.x - ll_global.this_room.cx,
+      y = target.u.y - ll_global.this_room.cy,
+      w = target.v.x,
+      h = target.v.y})
+--
+--     If check_bounds( origin, target ) = 0 Then
+    if check_bounds(origin, target) == 0 then
+--
+--       Return tele_check
+      return tele_check
+--
+--     End If
+    end
+--
+--   Next
+  end
+--
+--   Return -1
+  return -1
+--
+-- End Function
+end
+
+-- Private Function check_against_teles( o As _char_type )
+function check_against_teles(o)
+--
+--   Function = -1
+  local result = -1
+--
+--   Dim As Integer o_returned_tele
+  local o_returned_tele = 0
+--
+--   '' returns the teleport lynn is standing on (-1 = no collision detected)
+--   o_returned_tele = check_teleports( o, now_room().teleport, now_room().teleports )
+  o_returned_tele = check_teleports(o, now_room().teleport, now_room().teleports)
+--
+--   If o_returned_tele <> -1 Then
+  if o_returned_tele ~= -1 then
+--     '' touched a teleport
+--
+--     If now_room().teleport[o_returned_tele].to_map = "" Then
+    if now_room().teleport[o_returned_tele].to_map == "" then
+--
+--       '' this is a room teleport
+--       change_room( 0, -1, 0 ) '' change_room() is a static FSM, initialize it
+      change_room(0, -1, 0)
+--       Function = o_returned_tele
+      result = o_returned_tele
+--
+--     Else
+    else
+--       '' this teleport changed the map
+--       With now_room()
+      local with0 = now_room()
+--
+--         With .teleport[o_returned_tele]
+      local with1 = with0.teleport[o_returned_tele]
+--           o.to_map   = .to_map
+      o.to_map = with1.to_map
+--           o.to_entry = .to_room
+      o.to_entry = with1.to_room
+--
+--         End With
+--
+--       End With
+--
+--       change_room( 0, -1, 1 ) '' change_room() is a static FSM, initialize it
+      change_room(0, -1, 1)
+--       Function = o_returned_tele
+      result = o_returned_tele
+--
+--     End If
+    end
+--
+--     o.fade_time = .003
+    o.fade_time = .003
+--
+--   End If
+  end
+--
+--
+  return result
+-- End Function
+end
+
 -- Sub hero_main()
 function hero_main()
 --
@@ -622,6 +735,7 @@ function hero_main()
 --       If llg( hero ).switch_room = -1 Then
   if ll_global.hero.switch_room == -1 then
 --         llg( hero ).switch_room = check_against_teles( llg( hero ) )
+    ll_global.hero.switch_room = check_against_teles(ll_global.hero)
 --
 --       End If
   end
@@ -1036,9 +1150,348 @@ function enemy_main()
   -- End With
 end
 
+-- Sub change_room( o As char_type Ptr, _call As Byte = 0, t As Integer = 0 )
+function change_room(o, _call, t)
+  _call = _call and _call or 0
+  t = t and t or 0
+  log.debug("change_room called.")
+  log.debug("_call: ".._call)
+  log.debug("t: "..t)
+--
+--   Static As Integer switch_type, switch_state
+--
+--   If _call <> 0 Then
+--     switch_type = t
+--     switch_state = 0
+--
+--     Exit Sub
+--
+--   End If
+--
+--
+--
+--
+--   Select Case switch_state
+--
+--
+--     Case 0
+--       '' lynn invincible
+--
+--       Dim As Integer all_momentum
+--       For all_momentum = 0 To 3
+--
+--         o->momentum.i( all_momentum ) = 0
+--
+--       Next
+--
+--       Select Case switch_type
+--
+--         Case 0
+--
+--           With llg( map )->room[now_room().teleport[o->switch_room].to_room]
+--
+--             If .song_changes Then
+--
+--               If llg( now )[.song_changes] <> 0 Then
+--                 llg( song_wait ) = .changes_to
+--
+--               Else
+--                 llg( song_wait ) = .song
+--
+--               End If
+--
+--             Else
+--               llg( song_wait ) = .song
+--
+--             End If
+--
+--             if llg( song ) then
+--
+--               If llg( song ) <> llg( song_wait ) Then
+--                 llg( song_fade ) = -1
+--
+--               End If
+--
+--             end if
+--
+--           End With
+--
+--
+--
+--         Case 1
+--
+--
+--           If o->switch_room = -2 Then
+--
+--             llg( song_fade ) = -1
+--             llg( song_wait ) = -1
+--
+--           Else
+--
+--             #macro regularChange()
+--
+--               llg( song_wait ) = now_room().teleport[o->switch_room].to_song
+--               llg( song_fade ) = -1
+--
+--             #endmacro
+--
+--             '' hack coming back from houses...
+--             If llg( map )->filename = "data\map\inhouse.map" Then
+--               If now_room().teleport[o->switch_room].to_song = 9 Then
+--                 If llg( now )[199] <> 0 Then
+--                 Else
+--                   If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+--                     '' song is going to change
+--                     regularChange()
+--                   End If
+--                 End If
+--               Else
+--                 If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+--                   '' song is going to change
+--                   regularChange()
+--                 End If
+--               End If
+--             Else
+--               If llg( map )->filename = "data\map\forest_fall.map" Then
+--                 If llg( this_room ).i = 4 Then
+--                   If llg( now )[199] <> 0 Then
+--                   Else
+--                     If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+--                       '' song is going to change
+--                       regularChange()
+--                     End If
+--                   End If
+--                 Else
+--                   If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+--                     '' song is going to change
+--                     regularChange()
+--                   End If
+--                 End If
+--               Else
+--                 If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+--                   '' song is going to change
+--                   regularChange()
+--                 End If
+--               End If
+--             End If
+--           End If
+--
+--
+--       End Select
+--
+--
+--
+--       switch_state += __make_invincible ( o )
+--
+--
+--     Case 1
+--       '' do the fade
+--
+--       If llg( hero_only ).fadeStyle And LLFADE_WHITE Then
+--         switch_state += __fade_to_white( o )
+--
+--       Else'If llg( hero_only ).fadeStyle And LLFADE_NORMAL Then
+--
+--         If o->fade_out = 0 Then
+--
+--           Dim As Integer hi_r, cols, r, g, b
+--           For cols = 0 To 255
+--
+--             Palette Get cols, r, g, b
+--
+--             If r > hi_r Then
+--               hi_r = r
+--
+--             End If
+--
+--           Next
+--
+--           o->fade_out = hi_r \ 4
+--
+--         End If
+--
+--         switch_state += __fade_to_black ( o )
+--
+--       End If
+--
+--       If switch_state = 2 Then
+--         '' its gonna progress, last minute sh!t
+--
+--         o->fade_out = 0
+--
+--         o->song_fade_count = 0
+--
+--
+--         If llg( song_fade ) <> 0 Then
+--
+--           #IfDef ll_audio
+--             bass_channelstop( llg( sng ) )
+--
+--           #EndIf
+--
+--         End If
+--
+--       End If
+--
+--
+--     Case 2
+--       '' switch thing! (either or)
+--
+--       Select Case switch_type
+--
+--         Case 0
+--
+--           llg( seq ) = 0
+--
+--           llg( hero ).coords.x = now_room().teleport[o->switch_room].dx
+--           llg( hero ).coords.y = now_room().teleport[o->switch_room].dy
+--
+--           If llg( this_room ).i <> now_room().teleport[o->switch_room].to_room Then
+--
+--             #IfDef LL_LOGROOMCHANGE
+--               LLSystem_Log( "Reached switch (room " & llg( this_room ).i & ")", "roomchange.txt" )
+--
+--             #EndIf
+--
+--             del_room_enemies now_room().enemies, now_room().enemy
+--             del_room_enemies now_room().temp_enemies, Varptr( now_room().temp_enemy( 0 ) )
+--
+--             #IfDef LL_LOGROOMCHANGE
+--               LLSystem_Log( "Reached deletion (room " & llg( this_room ).i & ")", "roomchange.txt" )
+--
+--             #EndIf
+--
+--             now_room().temp_enemies = 0
+--
+--             llg( this_room ).i = now_room().teleport[o->switch_room].to_room
+--
+--             llg( dark ) = now_room().dark
+--
+--             set_up_room_enemies now_room().enemies, now_room().enemy
+--
+--             #IfDef LL_LOGROOMCHANGE
+--               LLSystem_Log( "Reached initialize (room " & llg( this_room ).i & ")", "roomchange.txt" )
+--
+--             #EndIf
+--
+--             If now_room().seq <> 0 Then
+--               o->seq = now_room().seq
+--
+--             End If
+--
+--           End If
+--
+--           switch_state += 1
+--
+--         Case 1
+--           enter_map( o, llg( map ), "data\map\" & o->to_map, o->to_entry ) '' "
+--           set_up_room_enemies now_room().enemies, now_room().enemy
+--
+--           switch_state += 1
+--
+--       End Select
+--
+--       If llg( song_wait ) = -1 Then
+--
+--         llg( song_wait ) = now_room().song
+--
+--       End If
+--
+--       If llg( song_fade ) <> 0 Then
+--
+--         llg( song ) = llg( song_wait )
+--
+--         LLMusic_Start( *music_strings( llg( song ) ) )
+--
+--       End If
+--
+--       If llg( hero_only ).isLoading Then
+--         llg( hero_only ).isLoading = FALSE
+--         llg( do_hud ) = -1
+--
+--       End If
+--
+--       If llg( hero_only ).invisibleEntry = 0 Then
+--         o->invisible = 0
+--
+--       Else
+--         llg( hero_only ).invisibleEntry = 0
+--         llg( hero ).invisible = 1
+--
+--       End If
+--
+--     Case 3
+--
+--       #IfDef LL_LOGROOMCHANGE
+--         LLSystem_Log( "Start fade up" )
+--
+--       #EndIf
+--       '' fade back up
+--       '' gray is implictly given priority.
+--       If llg( hero_only ).fadeStyle And LLFADE_GRAY Then
+--         switch_state += __fade_down_to_gray( o )
+--       ElseIf llg( hero_only ).fadeStyle And LLFADE_WHITE Then
+--         switch_state += __fade_down_to_color( o )
+--       Else'If llg( hero_only ).fadeStyle And LLFADE_NORMAL Then
+--         switch_state += __fade_up_to_color( o )
+--
+--       End If
+--
+--
+--       If switch_state = 4 Then
+--         '' moving along...
+--         #IfDef LL_LOGROOMCHANGE
+--           LLSystem_Log( "Fade Succeded" )
+--
+--         #EndIf
+--         llg( song_fade ) = 0
+--
+--       End If
+--
+--
+--     Case 4
+--       '' make lynn vulnerable
+--       #IfDef LL_LOGROOMCHANGE
+--         LLSystem_Log( "Make vulnerable" )
+--
+--       #EndIf
+--
+--       switch_state += __make_vulnerable ( o )
+--
+--
+--     Case 5
+--       '' final anything :)
+--
+--       llg( seq ) = o->seq
+--
+--       o->seq = 0
+--
+--       o->switch_room = -1
+--
+--       switch_state = -1
+--       switch_type = -1
+--
+--       If llg( map )->isDungeon <> 0 Then
+--         llg( minimap ).room[llg( this_room ).i].hasVisited = -1
+--
+--       End If
+--
+--       llg( hero_only ).fadeStyle = LLFADE_NORMAL
+--
+--       #IfDef LL_LOGROOMCHANGE
+--         LLSystem_Log( "Final stuff OK" )
+--
+--       #EndIf
+--
+--   End Select
+--
+--
+-- End Sub
+end
+
 -- Private Sub hero_attack( hr As _char_type Ptr )
 function hero_attack(hr)
-  log.debug("hero_attack called.")
+  --log.debug("hero_attack called.")
 --
 --
 --   With *hr
@@ -1790,7 +2243,7 @@ function move_object(o, only_looking, moment, recurring)
     -- Dim As Integer mx, my '' holds open axes
   local mx, my = 0, 0
 
-  log.debug("o.direction: "..o.direction)
+  --log.debug("o.direction: "..o.direction)
     --
     -- Select Case o->direction
     --
@@ -1812,8 +2265,8 @@ function move_object(o, only_looking, moment, recurring)
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         local cae = check_against_entities(0, o)
-        log.debug("cae: "..cae)
-        log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
+        --log.debug("cae: "..cae)
+        --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
         if cae ~= 1 or (o.unstoppable_by_object ~= 0) then
           --log.debug("check_against_entities(0, o): "..(check_against_entities(0, o) and "true" or "false"))
           --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
