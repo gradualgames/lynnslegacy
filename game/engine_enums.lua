@@ -373,6 +373,19 @@ DF_PROJ = 65536
 --
 -- End Enum
 
+-- Enum LLFADE_FADETYPES
+--
+--
+--   LLFADE_NORMAL = 0
+LLFADE_NORMAL = 0
+--   LLFADE_WHITE  = 1
+LLFADE_WHITE = 1
+--   LLFADE_GRAY   = 2
+LLFADE_GRAY = 2
+--
+--
+-- End Enum
+
 -- Enum LLPROJECTILE_STYLES
 --
 --   PROJECTILE_NONE

@@ -1,7 +1,8 @@
 require("game/engine--etc")
 
+--#Define now_room() llg( map )->room[llg( this_room ).i]
 function now_room()
-  return map.room[curRoom]
+  return ll_global.map.room[ll_global.this_room.i]
 end
 
 function LLObject_CalculateFrame(this)

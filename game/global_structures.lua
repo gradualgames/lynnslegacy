@@ -1,5 +1,7 @@
 require("game/object_structures")
 require("game/lynn_structures")
+require("game/map_structures")
+require("game/sequence_structures")
 
 function create_room_prop()
   local room_prop = {}
@@ -53,6 +55,7 @@ function create_ll_system()
   --   do_hud As Integer
   --
   --   now As Byte Ptr
+  ll_system.now = {}
   --
   --   hud As load_hudImage
   ll_system.hud = create_load_hudImage()
@@ -86,6 +89,7 @@ function create_ll_system()
   ll_system.this_room = create_room_prop()
   --
   --   map As map_type Ptr
+  ll_system.map = create_map_type()
   --   hero As _char_type
   ll_system.hero = create_Object()
   --   hero_only As main_char_type
@@ -118,6 +122,7 @@ function create_ll_system()
   ll_system.song_wait = 0
   --
   --   seq As sequence_type Ptr
+  ll_system.seq = create_sequence_type()
   --
   --
   --   #IfDef list_type
@@ -154,6 +159,7 @@ function create_ll_system()
   --   catch_dbg As Integer
   --
   --   dark As Integer
+  ll_system.dark = 0
   --
   --   current_cam As char_type Ptr
   ll_system.current_cam = nil

@@ -22,17 +22,17 @@ function love.load()
   imageHeaderCache = {}
   objectXmlCache = {}
 
-  --Load map data
-  map = LLSystem_LoadMap("data/map/forest_fall.map")
-  map.imageHeader = getImageHeader(map.tileSetFileName)
-  map.imageHeader.spriteBatches = {}
-  map.imageHeader.spriteBatches[0] = imageToSpriteBatch(map.imageHeader.image)
-  map.imageHeader.spriteBatches[1] = imageToSpriteBatch(map.imageHeader.image)
-  map.imageHeader.spriteBatches[2] = imageToSpriteBatch(map.imageHeader.image)
-
-  curRoom = 2
-
   ll_global = create_ll_system()
+
+  --Load map data
+  ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
+  ll_global.map.imageHeader = getImageHeader(ll_global.map.tileSetFileName)
+  ll_global.map.imageHeader.spriteBatches = {}
+  ll_global.map.imageHeader.spriteBatches[0] = imageToSpriteBatch(ll_global.map.imageHeader.image)
+  ll_global.map.imageHeader.spriteBatches[1] = imageToSpriteBatch(ll_global.map.imageHeader.image)
+  ll_global.map.imageHeader.spriteBatches[2] = imageToSpriteBatch(ll_global.map.imageHeader.image)
+
+  ll_global.this_room.i = 2
 
   --NOTE: Not certain if we will keep this structure,
   --but in the original source code, init_splash would show the splash
@@ -47,7 +47,7 @@ function love.load()
   --log.level = "fatal"
 
   --log.level = "debug"
-  set_up_room_enemies(map.room[curRoom].enemies, map.room[curRoom].enemy)
+  set_up_room_enemies(now_room().enemies, now_room().enemy)
   --log.level = "fatal"
 
   ll_global.hero.coords.x = 320

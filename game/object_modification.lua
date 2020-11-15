@@ -1,5 +1,19 @@
 require("game/engine_enums")
 
+-- Function __make_invincible ( this As _char_type Ptr ) As Integer
+function __make_invincible(this)
+--
+--
+--   this->invincible = 1
+  this.invincible = 1
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __make_dead ( this As _char_type Ptr ) As Integer
 function __make_dead(this)
   log.debug("__make_dead called.")

@@ -73,7 +73,12 @@ function engine_init()
 --
 --
 --   echo_print( "setting up event table" )
+  log.debug("setting up event table")
 --   llg( now ) = CAllocate( Len( uByte ) * LL_EVENTS_MAX )
+  --NOTE: Probably don't need to allocate this. It is just a
+  --big table of values used throughout the game with hard-coded
+  --indices, no need to pre-allocate since we just use Lua tables.
+  ll_global.now = {}
 --
 --
 --   echo_print( "setting screen pages" )
@@ -778,9 +783,12 @@ function hero_main()
 --
 --
 --     If .switch_room <> -1 Then
+  if with0.switch_room ~= -1 then
 --       change_room( VarPtr( llg( hero ) ) )
+    change_room(ll_global.hero)
 --
 --     End If
+  end
 --
 --
 --     If .dead = FALSE Then
@@ -1159,14 +1167,21 @@ function change_room(o, _call, t)
   log.debug("t: "..t)
 --
 --   Static As Integer switch_type, switch_state
+  switch_type, switch_state = 0, 0
 --
 --   If _call <> 0 Then
+  if _call ~= 0 then
+    log.debug("_call was not zero. Exiting change_room.")
 --     switch_type = t
+    switch_type = t
 --     switch_state = 0
+    switch_state = 0
 --
 --     Exit Sub
+    return
 --
 --   End If
+  end
 --
 --
 --
@@ -1175,178 +1190,279 @@ function change_room(o, _call, t)
 --
 --
 --     Case 0
+  if switch_state == 0 then
 --       '' lynn invincible
 --
 --       Dim As Integer all_momentum
+    local all_momentum = 0
 --       For all_momentum = 0 To 3
+    for all_momentum = 0, 3 do
 --
 --         o->momentum.i( all_momentum ) = 0
+      o.momentum.i[all_momentum] = 0
 --
 --       Next
+    end
 --
 --       Select Case switch_type
 --
 --         Case 0
+    if switch_type == 0 then
 --
 --           With llg( map )->room[now_room().teleport[o->switch_room].to_room]
+      log.debug("o.switch_room: "..o.switch_room)
+      log.debug("now_room().teleport[o.switch_room].to_room: "..now_room().teleport[o.switch_room].to_room)
+      log.debug("#ll_global.map.room: "..#ll_global.map.room)
+      local with0 = ll_global.map.room[now_room().teleport[o.switch_room].to_room]
 --
 --             If .song_changes Then
+      if with0.song_changes ~= 0 then
 --
 --               If llg( now )[.song_changes] <> 0 Then
+        if ll_global.now[with0.song_changes] ~= 0 then
 --                 llg( song_wait ) = .changes_to
+          ll_global.song_wait = with0.changes_to
 --
 --               Else
+        else
 --                 llg( song_wait ) = .song
+          ll_global.song_wait = with0.song
 --
 --               End If
+        end
 --
 --             Else
+      else
 --               llg( song_wait ) = .song
+        ll_global.song_wait = with0.song
 --
 --             End If
+      end
 --
 --             if llg( song ) then
+      if ll_global.song ~= 0 then
 --
 --               If llg( song ) <> llg( song_wait ) Then
+        if ll_global.song ~= ll_global.song_wait then
 --                 llg( song_fade ) = -1
+          ll_global.song_fade = -1
 --
 --               End If
+        end
 --
 --             end if
+      end
 --
 --           End With
 --
 --
 --
 --         Case 1
+    elseif switch_type == 1 then
 --
 --
 --           If o->switch_room = -2 Then
+      if o.switch_room == -2 then
 --
 --             llg( song_fade ) = -1
+        ll_global.song_fade = -1
 --             llg( song_wait ) = -1
+        ll_global.song_wait = -1
 --
 --           Else
+      else
 --
 --             #macro regularChange()
+        function regularChange()
 --
 --               llg( song_wait ) = now_room().teleport[o->switch_room].to_song
+          ll_global.song_wait = now_room().teleport[o.switch_room].to_song
 --               llg( song_fade ) = -1
+          ll_global.song_fade = -1
 --
 --             #endmacro
+        end
 --
 --             '' hack coming back from houses...
 --             If llg( map )->filename = "data\map\inhouse.map" Then
+        --FIXME: Not sure how we are treating slashes in map filenames right now.
+        if ll_global.map.filename == "data/map/inhouse.map" then
 --               If now_room().teleport[o->switch_room].to_song = 9 Then
+          if now_room().teleport[o.switch_room].to_song == 9 then
 --                 If llg( now )[199] <> 0 Then
+            if ll_global.now[199] ~= 0 then
 --                 Else
+            else
 --                   If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+              if now_room().teleport[o.switch_room].to_song ~= ll_global.song then
 --                     '' song is going to change
 --                     regularChange()
+                regularChange()
 --                   End If
+              end
 --                 End If
+            end
 --               Else
+          else
 --                 If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+            if now_room().teleport[o.switch_room].to_song ~= ll_global.song then
 --                   '' song is going to change
 --                   regularChange()
+              regularChange()
 --                 End If
+            end
 --               End If
+          end
 --             Else
+        else
 --               If llg( map )->filename = "data\map\forest_fall.map" Then
+          if ll_global.map.filename == "data/map/forest_fall.map" then
 --                 If llg( this_room ).i = 4 Then
+            if ll_global.this_room.i == 4 then
 --                   If llg( now )[199] <> 0 Then
+              if ll_global.now[199] ~= 0 then
 --                   Else
+              else
 --                     If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+                if now_room().teleport[o.switch_room].to_song ~= ll_global.song then
 --                       '' song is going to change
 --                       regularChange()
+                  regularChange()
 --                     End If
+                end
 --                   End If
+              end
 --                 Else
+            else
 --                   If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+              if now_room().teleport[o.switch_room].to_song ~= ll_global.song then
 --                     '' song is going to change
 --                     regularChange()
+                regularChange()
 --                   End If
+              end
 --                 End If
+            end
 --               Else
+          else
 --                 If now_room().teleport[o->switch_room].to_song <> llg( song ) Then
+            if now_room().teleport[o.switch_room].to_song ~= ll_global.song then
 --                   '' song is going to change
 --                   regularChange()
+              regularChange()
 --                 End If
+            end
 --               End If
+          end
 --             End If
+        end
 --           End If
+      end
 --
 --
 --       End Select
+    end
 --
 --
 --
 --       switch_state += __make_invincible ( o )
+    switch_state = switch_state + __make_invincible(o)
 --
 --
 --     Case 1
+  elseif switch_state == 1 then
 --       '' do the fade
 --
 --       If llg( hero_only ).fadeStyle And LLFADE_WHITE Then
+    if bit.band(ll_global.hero_only.fadeStyle, LLFADE_WHITE) then
 --         switch_state += __fade_to_white( o )
+      switch_state = switch_state + __fade_to_white(o)
 --
 --       Else'If llg( hero_only ).fadeStyle And LLFADE_NORMAL Then
+    else
 --
 --         If o->fade_out = 0 Then
+      if o.fade_out == 0 then
 --
 --           Dim As Integer hi_r, cols, r, g, b
+        local hi_r, cols, r, g, b = 0, 0, 0, 0, 0
 --           For cols = 0 To 255
+        for cols = 0, 255 do
 --
 --             Palette Get cols, r, g, b
+          r = palette[cols][0]
+          g = palette[cols][1]
+          b = palette[cols][2]
 --
 --             If r > hi_r Then
+          if r > hi_r then
 --               hi_r = r
+            hi_r = r
 --
 --             End If
+          end
 --
 --           Next
+        end
 --
 --           o->fade_out = hi_r \ 4
+        o.fade_out = math.floor(hi_r / 4)
 --
 --         End If
+      end
 --
 --         switch_state += __fade_to_black ( o )
+      switch_state = switch_state + __fade_to_black(o)
 --
 --       End If
+    end
 --
 --       If switch_state = 2 Then
+    if switch_state == 2 then
 --         '' its gonna progress, last minute sh!t
 --
 --         o->fade_out = 0
+      o.fade_out = 0
 --
 --         o->song_fade_count = 0
+      o.song_fade_count = 0
 --
 --
 --         If llg( song_fade ) <> 0 Then
+      if ll_global.song_fade ~= 0 then
 --
 --           #IfDef ll_audio
 --             bass_channelstop( llg( sng ) )
+        love.audio.stop()
 --
 --           #EndIf
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --
 --     Case 2
+  elseif switch_state == 2 then
 --       '' switch thing! (either or)
 --
 --       Select Case switch_type
 --
 --         Case 0
+    if switch_type == 0 then
 --
 --           llg( seq ) = 0
+      ll_global.seq = nil
 --
 --           llg( hero ).coords.x = now_room().teleport[o->switch_room].dx
+      ll_global.hero.coords.x = now_room().teleport[o.switch_room].dx
 --           llg( hero ).coords.y = now_room().teleport[o->switch_room].dy
+      ll_global.hero.coords.y = now_room().teleport[o.switch_room].dy
 --
 --           If llg( this_room ).i <> now_room().teleport[o->switch_room].to_room Then
+      if ll_global.this_room.i ~= now_room().teleport[o.switch_room].to_room then
 --
 --             #IfDef LL_LOGROOMCHANGE
 --               LLSystem_Log( "Reached switch (room " & llg( this_room ).i & ")", "roomchange.txt" )
@@ -1362,12 +1478,16 @@ function change_room(o, _call, t)
 --             #EndIf
 --
 --             now_room().temp_enemies = 0
+        now_room().temp_enemies = 0
 --
 --             llg( this_room ).i = now_room().teleport[o->switch_room].to_room
+        ll_global.this_room.i = now_room().teleport[o.switch_room].to_room
 --
 --             llg( dark ) = now_room().dark
+        ll_global.dark = now_room().dark
 --
 --             set_up_room_enemies now_room().enemies, now_room().enemy
+        set_up_room_enemies(now_room().enemies, now_room().enemy)
 --
 --             #IfDef LL_LOGROOMCHANGE
 --               LLSystem_Log( "Reached initialize (room " & llg( this_room ).i & ")", "roomchange.txt" )
@@ -1375,52 +1495,80 @@ function change_room(o, _call, t)
 --             #EndIf
 --
 --             If now_room().seq <> 0 Then
+        if now_room().seq ~= nil then
 --               o->seq = now_room().seq
+          o.seq = now_room().seq
 --
 --             End If
+        end
 --
 --           End If
+      end
 --
 --           switch_state += 1
+      switch_state = switch_state + 1
 --
 --         Case 1
+    elseif switch_type == 1 then
 --           enter_map( o, llg( map ), "data\map\" & o->to_map, o->to_entry ) '' "
+      enter_map(o, {ll_global.map}, "data/map"..o.to_map, o.to_entry)
 --           set_up_room_enemies now_room().enemies, now_room().enemy
+      set_up_room_enemies(now_room().enemies, now_room().enemy)
 --
 --           switch_state += 1
+      switch_state = switch_state + 1
 --
 --       End Select
+    end
 --
 --       If llg( song_wait ) = -1 Then
+    if ll_global.song_wait == -1 then
 --
 --         llg( song_wait ) = now_room().song
+      ll_global.song_wait = now_room().song
 --
 --       End If
+    end
 --
 --       If llg( song_fade ) <> 0 Then
+    if ll_global.song_fade ~= 0 then
 --
 --         llg( song ) = llg( song_wait )
+      ll_global.song = ll_global.song_wait
 --
+      --TODO: Actually start the new song...
 --         LLMusic_Start( *music_strings( llg( song ) ) )
 --
 --       End If
+    end
 --
 --       If llg( hero_only ).isLoading Then
+    if ll_global.hero_only.isLoading ~= 0 then
 --         llg( hero_only ).isLoading = FALSE
+      ll_global.hero_only.isLoading = false
 --         llg( do_hud ) = -1
+      ll_global.do_hud = -1
 --
 --       End If
+    end
 --
 --       If llg( hero_only ).invisibleEntry = 0 Then
+    if ll_global.hero_only.invisibleEntry == 0 then
 --         o->invisible = 0
+      o.invisible = 0
 --
 --       Else
+    else
 --         llg( hero_only ).invisibleEntry = 0
+      ll_global.hero_only.invisibleEntry = 0
 --         llg( hero ).invisible = 1
+      ll_global.hero.invisible = 1
 --
 --       End If
+    end
 --
 --     Case 3
+  elseif switch_state == 3 then
 --
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Start fade up" )
@@ -1429,27 +1577,38 @@ function change_room(o, _call, t)
 --       '' fade back up
 --       '' gray is implictly given priority.
 --       If llg( hero_only ).fadeStyle And LLFADE_GRAY Then
+    if bit.band(ll_global.hero_only.fadeStyle, LLFADE_GRAY) ~= 0 then
 --         switch_state += __fade_down_to_gray( o )
+      switch_state = switch_state + __fade_down_to_gray(o)
 --       ElseIf llg( hero_only ).fadeStyle And LLFADE_WHITE Then
+    elseif bit.band(ll_global.hero_only.fadeStyle, LLFADE_WHITE) ~= 0 then
 --         switch_state += __fade_down_to_color( o )
+      switch_state = switch_state + __fade_down_to_color(o)
 --       Else'If llg( hero_only ).fadeStyle And LLFADE_NORMAL Then
+    else
 --         switch_state += __fade_up_to_color( o )
+      switch_state = switch_state + __fade_up_to_color(o)
 --
 --       End If
+    end
 --
 --
 --       If switch_state = 4 Then
+    if swith_state == 4 then
 --         '' moving along...
 --         #IfDef LL_LOGROOMCHANGE
 --           LLSystem_Log( "Fade Succeded" )
 --
 --         #EndIf
 --         llg( song_fade ) = 0
+      ll_global.song_fade = 0
 --
 --       End If
+    end
 --
 --
 --     Case 4
+  elseif switch_state == 4 then
 --       '' make lynn vulnerable
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Make vulnerable" )
@@ -1457,26 +1616,37 @@ function change_room(o, _call, t)
 --       #EndIf
 --
 --       switch_state += __make_vulnerable ( o )
+    switch_state = switch_state + __make_vulnerable(o)
 --
 --
 --     Case 5
+  elseif switch_state == 5 then
 --       '' final anything :)
 --
 --       llg( seq ) = o->seq
+    ll_global.seq = o.seq
 --
 --       o->seq = 0
+    o.seq = nil
 --
 --       o->switch_room = -1
+    o.switch_room = -1
 --
 --       switch_state = -1
+    switch_state = -1
 --       switch_type = -1
+    switch_type = -1
 --
 --       If llg( map )->isDungeon <> 0 Then
+    if ll_global.map.isDungeon ~= 0 then
 --         llg( minimap ).room[llg( this_room ).i].hasVisited = -1
+      ll_global.minimap.room[ll_global.this_room.i].hasVisited = -1
 --
 --       End If
+    end
 --
 --       llg( hero_only ).fadeStyle = LLFADE_NORMAL
+    ll_global.hero_only.fadeStyle = LLFADE_NORMAL
 --
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Final stuff OK" )
@@ -1484,6 +1654,92 @@ function change_room(o, _call, t)
 --       #EndIf
 --
 --   End Select
+  end
+--
+--
+-- End Sub
+end
+
+-- Sub enter_map( _char As char_type Ptr, _m As map_type Ptr, desc As String, _entry As Integer )
+function enter_map(_char, _m, desc, _entry)
+--
+--   Dim As Integer _
+--     _fade, _
+--     _song, _
+--     _wait, _
+--     cary
+  local _fade, _song, _wait, cary = 0, 0, 0, 0
+--
+--
+--   If _m <> 0 Then
+  if _m ~= nil then
+--     cary = Not 0
+    cary = -1
+--     _fade = llg( song_fade )
+    _fade = ll_global.song_fade
+--     _song = llg( song )
+    _song = ll_global.song
+--     _wait = llg( song_wait )
+    _wait = ll_global.song_wait
+--
+--   End If
+  end
+--   map_Destroy( _m )
+--
+--   _m = LLSystem_LoadMap( desc )
+  _m[1] = LLSystem_LoadMap(desc)
+--
+--   '' if flag ptr set, access it.
+--   if llg( hero_only ).roomVisited then
+  if ll_global.hero_only.roomVisited ~= 0 then
+--     dim as integer iRoom
+    local iRoom = 0
+--
+--     for iRoom = 0 to _m->rooms - 1
+    for iRoom = 0, _m[1].rooms - 1 do
+--
+--       llg( miniMap ).room[iRoom].hasVisited = llg( hero_only ).roomVisited[iRoom]
+      ll_global.miniMap.room[iRoom].hasVisited = ll_global.hero_only.roomVisited[iRoom]
+--
+--     next
+    end
+--
+--     clean_Deallocate( llg( hero_only ).roomVisited )
+--
+--   end if
+  end
+--
+--
+--   If cary <> 0 Then
+  if cary ~= 0 then
+--     llg( song_fade ) = _fade
+    ll_global.song_fade = _fade
+--     llg( song ) = _song
+    ll_global.song = _song
+--     llg( song_wait ) = _wait
+    ll_global.song_wait = _wait
+--
+--   End If
+  end
+--
+--   _char->coords.x         = _m->entry[_entry].x
+
+  _char.coords.x = _m[1].entry[_entry].x
+--   _char->coords.y         = _m->entry[_entry].y
+  _char.coords.y = _m[1].entry[_entry].y
+--
+--   _char->direction = _m->entry[_entry].direction
+  _char.direction = _m[1].entry[_entry].direction
+--
+--   llg( this_room.i )  = _m->entry[_entry].room
+  ll_global.this_room.i = _m[1].entry[_entry].room
+--
+--   '' active sequence
+--   llg( hero ).seq = _m->entry[_entry].seq
+  ll_global.hero.seq = _m[1].entry[_entry].seq
+--
+--   llg( dark ) = now_room().dark
+  ll_global.dark = now_room().dark
 --
 --
 -- End Sub
