@@ -44,7 +44,7 @@ function __fade_to_black(this)
     end
 --
 --     blackened = 1
-    blackened = 1
+    blackened = true
 --
 --     For cols = 0 To 255
     for cols = 0, 255 do
@@ -88,7 +88,7 @@ function __fade_to_black(this)
   if timer >= this.fade_timer then this.fade_timer = 0 end
 --
 --   If blackened Then
-  if blackened ~= 0 then
+  if blackened then
 --
 --     this->fade_out = 0
     this.fade_out = 0
@@ -106,7 +106,7 @@ function __fade_to_black(this)
 --
 --
 --     Return 1
-    return 0
+    return 1
 --
 --   End If
   end
@@ -191,5 +191,65 @@ function __fade_to_red(this)
 --
 --
 --
+-- End Function
+end
+
+-- Function __fade_up_to_color ( this As _char_type Ptr ) As Integer
+function __fade_up_to_color(this)
+--
+--   const as integer slices = 64
+--
+--   If this->fade_timer = 0 Then
+--
+--     Dim As Integer cols
+--
+--     For cols = 0 To 255
+--       Palette cols,       Int( ( ( this->fade_count * ( 5 - (llg( dark ) * .63) )) / 5 ) * ( (fb_Global.display.pal[cols] Shr 0  And &hff)) / 64) Or _
+--                           Int( ( ( this->fade_count * ( 5 - (llg( dark ) * .63) )) / 5 ) * ( (fb_Global.display.pal[cols] Shr 8  And &hff)) / 64) Shl 8 Or _
+--                           Int( ( ( this->fade_count * ( 5 - (llg( dark ) * .63) )) / 5 ) * ( (fb_Global.display.pal[cols] Shr 16 And &hff)) / 64) Shl 16
+--
+--     Next
+--
+--     this->fade_count += 1
+--
+--     If llg( song_fade ) <> 0 Then
+--
+--       #IfDef ll_audio
+--
+--         Dim As Double tmp_val
+--
+--         tmp_val = slices' - this->fade_count
+-- '        tmp_val = ( this->fade_count ) / 64 '' 0-1
+--         tmp_val *= (100 / slices) '' 0 - 100
+--         bass_setconfig( BASS_CONFIG_GVOL_MUSIC, tmp_val )
+--
+--       #EndIf
+--
+--
+--
+--     End If
+--
+--
+--
+--     If this->fade_count = slices Then
+--
+--
+--       shift_pal()
+--
+--
+--       this->fade_count= 0
+--       Return 1
+--
+--     End If
+--
+--     this->fade_timer = Timer + this->fade_time
+--
+--   End If
+--
+--   If Timer >= this->fade_timer Then this->fade_timer = 0
+--
+--
+--
+  return 0
 -- End Function
 end

@@ -43,8 +43,10 @@ function create_main_char_type()
   main_char_type.isWearing = 0
 --
 --   fadeStyle As Integer
+  main_char_type.fadeStyle = 0
 --
 --   isLoading As Integer
+  main_char_type.isLoading = 0
 --
 --   dropoutSequence As Integer
 --

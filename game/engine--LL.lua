@@ -1167,7 +1167,9 @@ function change_room(o, _call, t)
   log.debug("t: "..t)
 --
 --   Static As Integer switch_type, switch_state
-  switch_type, switch_state = 0, 0
+  if switch_type == nil and switch_state == nil then
+    switch_type, switch_state = 0, 0
+  end
 --
 --   If _call <> 0 Then
   if _call ~= 0 then
@@ -1374,7 +1376,7 @@ function change_room(o, _call, t)
 --       '' do the fade
 --
 --       If llg( hero_only ).fadeStyle And LLFADE_WHITE Then
-    if bit.band(ll_global.hero_only.fadeStyle, LLFADE_WHITE) then
+    if bit.band(ll_global.hero_only.fadeStyle, LLFADE_WHITE) ~= 0 then
 --         switch_state += __fade_to_white( o )
       switch_state = switch_state + __fade_to_white(o)
 --
@@ -1510,6 +1512,7 @@ function change_room(o, _call, t)
 --
 --         Case 1
     elseif switch_type == 1 then
+      log.debug("switch_type is 1. Entering map and setting up room enemies.")
 --           enter_map( o, llg( map ), "data\map\" & o->to_map, o->to_entry ) '' "
       enter_map(o, {ll_global.map}, "data/map"..o.to_map, o.to_entry)
 --           set_up_room_enemies now_room().enemies, now_room().enemy
