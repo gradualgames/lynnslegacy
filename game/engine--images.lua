@@ -24,17 +24,18 @@ end
 --as b,g,r (backwards), and this is taken care of by this function.
 function loadPalette(fileName)
 
-  paletteBlob = loadBlob(fileName)
+  local paletteBlob = loadBlob(fileName)
 
   if paletteBlob then
-    palette = {}
+    local palette, masterPalette = {}, {}
     for x = 0,255 do
       local b,g,r = readByte(paletteBlob),
               readByte(paletteBlob),
               readByte(paletteBlob)
-      palette[x] = {[0] = r / 255, g / 255, b /255}
+      masterPalette[x] = {[0] = r / 255, g / 255, b /255}
+      palette[x] = masterPalette[x]
     end
-    return palette
+    return masterPalette, palette
   else
     return nil
   end
