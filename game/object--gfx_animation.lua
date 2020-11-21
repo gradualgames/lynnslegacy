@@ -50,6 +50,36 @@ function __active_animate_x(this)
 -- End Function
 end
 
+-- Function __dead_animate ( this As _char_type Ptr ) As Integer
+function __dead_animate(this)
+--
+--
+--   this->animating = 1
+  this.animating = 1
+--
+--   If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+--
+--
+--     this->frame -= 1
+    this.frame = this.frame - 1
+--
+--     this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--     this->animating = 0
+    this.animating = 0
+--
+--     Function = 1
+    return 1
+--
+--   End If
+  end
+--
+  return 0
+-- End Function
+end
+
 -- Function __directional_animate ( this As _char_type Ptr ) As Integer
 function __directional_animate(this)
   --log.debug("__directional_animate called.")

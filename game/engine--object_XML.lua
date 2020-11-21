@@ -5,6 +5,7 @@ require("game/object--gfx")
 require("game/object--gfx_animation")
 require("game/object--gfx_palette")
 require("game/object_move")
+require("game/object_states")
 SLAXML = require 'lib/SLAXML/slaxml'
 
 -- Loads enemy xml and sprite image files. Assumes enemy.id has at least
