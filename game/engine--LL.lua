@@ -1475,6 +1475,8 @@ function change_room(o, _call, t)
 --             #EndIf
 --
 --             del_room_enemies now_room().enemies, now_room().enemy
+        now_room().enemy = {}
+        now_room().enemies = 0
 --             del_room_enemies now_room().temp_enemies, Varptr( now_room().temp_enemy( 0 ) )
 --
 --             #IfDef LL_LOGROOMCHANGE
@@ -1483,6 +1485,7 @@ function change_room(o, _call, t)
 --             #EndIf
 --
 --             now_room().temp_enemies = 0
+        now_room().temp_enemies = {}
         now_room().temp_enemies = 0
 --
 --             llg( this_room ).i = now_room().teleport[o->switch_room].to_room
@@ -1803,6 +1806,13 @@ function act_enemies(enemies)
   --
   --   With _enemy[do_stuff]
     local enemy = enemies[do_stuff]
+
+    -- table.insert(dbgrects, {
+    --   c = .01,
+    --   x = enemy.coords.x - ll_global.this_room.cx,
+    --   y = enemy.coords.y - ll_global.this_room.cy,
+    --   w = 16,
+    --   h = 16})
   --
   --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
     if LLObject_IsWithin(enemy) then

@@ -826,12 +826,12 @@ function blit_hud(e)
 --
 --         mny = String( 3 - Len( Str( .money ) ), "0" )
 --         mny += Str( .money )
-  log.debug("with0.money: "..with0.money)
+  --log.debug("with0.money: "..with0.money)
   for i = 1, 3 - #(""..with0.money) do
     mny = mny.."0"
   end
   mny = mny..(""..with0.money)
-  log.debug("mny: "..mny)
+  --log.debug("mny: "..mny)
 --
 --       Dim As Integer nums
   local nums = 0
