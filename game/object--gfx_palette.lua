@@ -1,5 +1,9 @@
--- Function __fade_to_black ( this As _char_type Ptr ) As Integer
 function __fade_to_black(this)
+  return 1
+end
+
+-- Function __fade_to_black ( this As _char_type Ptr ) As Integer
+function __fade_to_black_impl(this)
   log.debug("__fade_to_black called.")
 --
 --   Dim As Integer cols, r, g, b, blackened, p
@@ -196,6 +200,7 @@ end
 
 -- Function __fade_up_to_color ( this As _char_type Ptr ) As Integer
 function __fade_up_to_color(this)
+  log.debug("__fade_up_to_color called.")
 --
 --   const as integer slices = 64
 --
@@ -250,6 +255,6 @@ function __fade_up_to_color(this)
 --
 --
 --
-  return 0
+  return 1
 -- End Function
 end

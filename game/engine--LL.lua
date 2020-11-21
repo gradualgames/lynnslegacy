@@ -1193,6 +1193,7 @@ function change_room(o, _call, t)
 --
 --     Case 0
   if switch_state == 0 then
+    log.debug("switch_state is 0")
 --       '' lynn invincible
 --
 --       Dim As Integer all_momentum
@@ -1448,12 +1449,14 @@ function change_room(o, _call, t)
 --
 --     Case 2
   elseif switch_state == 2 then
+    log.debug("switch_state is 2")
 --       '' switch thing! (either or)
 --
 --       Select Case switch_type
 --
 --         Case 0
     if switch_type == 0 then
+      log.debug("switch_type is 0, positioning hero.")
 --
 --           llg( seq ) = 0
       ll_global.seq = nil
@@ -1572,6 +1575,7 @@ function change_room(o, _call, t)
 --
 --     Case 3
   elseif switch_state == 3 then
+    log.debug("switch_state is 3")
 --
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Start fade up" )
@@ -1597,7 +1601,7 @@ function change_room(o, _call, t)
 --
 --
 --       If switch_state = 4 Then
-    if swith_state == 4 then
+    if switch_state == 4 then
 --         '' moving along...
 --         #IfDef LL_LOGROOMCHANGE
 --           LLSystem_Log( "Fade Succeded" )
@@ -1612,6 +1616,7 @@ function change_room(o, _call, t)
 --
 --     Case 4
   elseif switch_state == 4 then
+    log.debug("switch_state is 4")
 --       '' make lynn vulnerable
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Make vulnerable" )
@@ -1624,6 +1629,7 @@ function change_room(o, _call, t)
 --
 --     Case 5
   elseif switch_state == 5 then
+    log.debug("switch_state is 5, finalize the change room state sequence.")
 --       '' final anything :)
 --
 --       llg( seq ) = o->seq

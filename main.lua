@@ -118,6 +118,10 @@ function love.draw()
     love.graphics.rectangle("fill", x, y, w, h)
   end
 
+  -- local x, y, w, h = ll_global.hero.coords.x - ll_global.this_room.cx, ll_global.hero.coords.y - ll_global.this_room.cy, 16, 16
+  -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
+  -- love.graphics.rectangle("fill", x, y, w, h)
+
   --log.level = "fatal"
   doneDrawing()
 end

@@ -37,6 +37,7 @@ function create_main_char_type()
   main_char_type.weapon = 0
 --
 --   invisibleEntry As Integer
+  main_char_type.invisibleEntry = 0
 --
 --   hasCostume( 8 ) As Byte
 --   isWearing As Integer
