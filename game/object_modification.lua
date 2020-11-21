@@ -214,7 +214,6 @@ end
 
 -- Function __cripple ( this As _char_type Ptr ) As Integer
 function __cripple(this)
-  log.debug("__cripple called.")
 --
 --
 --   Select Case this->unique_id
