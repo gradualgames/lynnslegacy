@@ -225,6 +225,7 @@ function create_Object()
   object.momentum_history = create_dir_type()
   --
   --   money                 As Integer
+  object.money = 0
   --
   --   moveBackwards         As Integer
   --
