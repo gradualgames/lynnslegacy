@@ -132,23 +132,37 @@ function create_Object()
   --     '' states!!
   --
   --   attack_state          As Integer
+  object.attack_state = 0
   --   death_state           As Integer
+  object.death_state = 0
   --   fire_state            As Integer
+  object.fire_state = 0
   --   hit_state             As Integer
+  object.hit_state = 0
   --   ice_state             As Integer
+  object.ice_state = 0
   --   jump_state            As Integer
+  object.jump_state = 0
   --   proj_state            As Integer
+  object.proj_state = 0
   --   reset_state           As Integer
+  object.reset_state = 0
   --   stun_state            As Integer
+  object.stun_state = 0
   --   thaw_state            As Integer
+  object.thaw_state = 0
   --   thrust_state          As Integer
+  object.thrust_state = 0
   --
   --
   --     '' anims
   --
   --   dead_anim             As Integer
+  object.dead_anim = 0
   --   expl_anim             As Integer
+  object.dead_anim = 0
   --   proj_anim             As Integer
+  object.proj_anim = 0
   --
   --
   --

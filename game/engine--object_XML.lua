@@ -29,6 +29,23 @@ function LLSystem_ObjectFromXML(enemy)
     -- end
   end
 
+  local function install_func(funcName)
+    local func = _G[funcName]
+    if func then
+      log.debug("Installing func: "..funcName)
+      func_drop(_G[funcName])
+      inc_func()
+    else
+      log.debug("Installing no-op func for: "..funcName)
+      func_drop(
+        function()
+          log.debug("TODO: Implement: "..funcName)
+          return 0
+        end)
+      inc_func()
+    end
+  end
+
   local path = {}
 
   local text = function(text, cdata)
@@ -38,7 +55,24 @@ function LLSystem_ObjectFromXML(enemy)
     --   log.debug(value)
     -- end
     if path[2] == "sprite" then
-      if path[3] == "filename" then
+      if path[3] == "anim_id" then
+        -- Select Case LCase( thr->dat.s )
+        --   Case "dead_anim"
+        if text == "dead_anim" then
+        --     .dead_anim = .current_anim
+          enemy.dead_anim = enemy.current_anim
+        --   Case "proj_anim"
+        elseif text == "proj_anim" then
+        --     .proj_anim = .current_anim
+          enemy.proj_anim = enemy.current_anim
+        --   Case "expl_anim"
+        elseif text == "expl_anim" then
+        --     .expl_anim = .current_anim
+          enemy.expl_anim = enemy.current_anim
+        --
+        -- End Select
+        end
+      elseif path[3] == "filename" then
         log.debug(" Processing sprite/filename: "..text)
         local fixedFileName = string.gsub(text, "\\", "/")
         enemy.anim[enemy.current_anim] = getImageHeader(fixedFileName)
@@ -93,19 +127,58 @@ function LLSystem_ObjectFromXML(enemy)
       elseif path[3] == "func" then
         enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 1
         local funcName = "__"..text
-        local func = _G[funcName]
-        if func then
-          log.debug("Installing func: "..funcName)
-          func_drop(_G[funcName])
-          inc_func()
-        else
-          log.debug("Installing no-op func for: "..funcName)
-          func_drop(
-            function()
-              log.debug("TODO: Implement: "..funcName)
-              return 0
-            end)
-          inc_func()
+        install_func(funcName)
+      elseif path[3] == "block_macro" then
+        if text == "dead_block" then
+          enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 6
+          log.debug("Installing functions for block_macro 'dead_block'")
+          -- func_drop = CPtr( Any Ptr, @__make_dead        ): inc_func
+          install_func("__make_dead")
+          -- func_drop = CPtr( Any Ptr, @__active_anim_dead ): inc_func
+          install_func("__active_anim_dead")
+          -- func_drop = CPtr( Any Ptr, @__dead_animate     ): inc_func
+          install_func("__dead_animate")
+          -- func_drop = CPtr( Any Ptr, @__cripple          ): inc_func
+          install_func("__cripple")
+          -- func_drop = CPtr( Any Ptr, @__active_anim_0    ): inc_func
+          install_func("__active_anim_0")
+          -- func_drop = CPtr( Any Ptr, @__infinity         ): inc_func
+          install_func("__infinity")
+        elseif text == "dead_drop_block" then
+          enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 7
+          log.debug("Installing functions for block_macro 'dead_drop_block'")
+          -- func_drop = CPtr( Any Ptr, @__make_dead        ): inc_func
+          install_func("__make_dead")
+          -- func_drop = CPtr( Any Ptr, @__active_anim_dead ): inc_func
+          install_func("__active_anim_dead")
+          -- func_drop = CPtr( Any Ptr, @__dead_animate     ): inc_func
+          install_func("__dead_animate")
+          -- func_drop = CPtr( Any Ptr, @__cripple          ): inc_func
+          install_func("__cripple")
+          -- func_drop = CPtr( Any Ptr, @__drop             ): inc_func
+          install_func("__drop")
+          -- func_drop = CPtr( Any Ptr, @__active_anim_0    ): inc_func
+          install_func("__active_anim_0")
+          -- func_drop = CPtr( Any Ptr, @__infinity         ): inc_func
+          install_func("__infinity")
+        elseif text == "fire_block" then
+          enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 3
+          log.debug("Installing functions for block_macro 'fire_block'")
+          -- func_drop = CPtr( Any Ptr, @__do_flyback       ): inc_func
+          install_func("__do_flyback")
+          -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
+          install_func("__second_pause")
+          -- func_drop = CPtr( Any Ptr, @__return_idle      ): inc_func
+          install_func("__return_idle")
+        elseif text == "ice_block" then
+          enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 3
+          log.debug("Installing functions for block_macro 'ice_block'")
+          -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
+          install_func("__second_pause")
+          -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
+          install_func("__second_pause")
+          -- func_drop = CPtr( Any Ptr, @__return_idle      ): inc_func
+          install_func("__return_idle")
         end
       end
     elseif #path == 2 then
