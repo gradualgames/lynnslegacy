@@ -273,7 +273,7 @@ function blit_y_sorted()
   -- Dim As Integer _blit_em
   --
   -- For _blit_em = 0 To ac - 1
-  log.debug("ac: "..ac)
+  --log.debug("ac: "..ac)
   for _blit_em = 0, ac - 1 do
   --
   --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
@@ -411,13 +411,13 @@ end
 
 -- Function sort_index( ary() As char_type Ptr, bank As char_type Ptr Ptr, bank_size As Integer Ptr, banks As Integer ) As Integer Static
 function sort_index(ary, bank, bank_size, banks)
-  log.debug("#ary: "..#ary[0])
-  log.debug("#bank: "..#bank)
-  log.debug("#bank[0]: "..#bank[0])
-  log.debug("#bank_size: "..#bank_size)
-  log.debug("bank_size[0]: "..bank_size[0])
-  log.debug("bank_size[1]: "..bank_size[1])
-  log.debug("banks: "..banks)
+  -- log.debug("#ary: "..#ary[0])
+  -- log.debug("#bank: "..#bank)
+  -- log.debug("#bank[0]: "..#bank[0])
+  -- log.debug("#bank_size: "..#bank_size)
+  -- log.debug("bank_size[0]: "..bank_size[0])
+  -- log.debug("bank_size[1]: "..bank_size[1])
+  -- log.debug("banks: "..banks)
 --
 --
 --   Dim As Integer i, it, j
@@ -443,11 +443,11 @@ function sort_index(ary, bank, bank_size, banks)
 --   j = 0
   j = 0
 --   For i = 0 To banks - 1
-  log.debug("banks - 1: "..(banks - 1))
+  -- log.debug("banks - 1: "..(banks - 1))
   for i = 0, banks - 1 do
 --
 --     For it = 0 To bank_size[i] - 1
-    log.debug("bank_size[i] - 1: "..(bank_size[i] - 1))
+    -- log.debug("bank_size[i] - 1: "..(bank_size[i] - 1))
     for it = 0, bank_size[i] - 1 do
 --
 --       transfer = Varptr( bank[i][it] )
@@ -473,12 +473,12 @@ function sort_index(ary, bank, bank_size, banks)
 --   Redim Preserve ary( j )
 --
 --   ary( j ) = Varptr( llg( hero ) )
-  log.debug("Adding hero to array...")
+  -- log.debug("Adding hero to array...")
   ary[0][j + 1] = ll_global.hero
 
 --
 --   mergesort_y( ary() )
-  log.debug("        #ary[0]: "..#ary[0])
+  -- log.debug("        #ary[0]: "..#ary[0])
   --NOTE: The original code had two sorts one after another
   --for sorting by y, then by placed. When I attempt to do
   --this it appears to mess up some of the order and I never
@@ -740,6 +740,7 @@ function blit_hud(e)
   local key_Put = 0
 --
 --   With *e
+  local with0 = e
 --
 --     hud_BlitMain( e )
   hud_BlitMain(e)
@@ -798,34 +799,52 @@ function blit_hud(e)
 --
 --     '' dollar sign
 --     Put( 275, 8 ), @llg( hud ).img(2)->image[0], Trans
+  love.graphics.draw(ll_global.hud.img[2].image, ll_global.hud.img[2].quads[0], 275, 8)
 --
 --     if .money < 0 then
+  if with0.money < 0 then
 --       .money = 0
+    with0.money = 0
 --       antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
 --
 --     end if
+  end
 --
 --     if .money > 999 then
+  if with0.money > 999 then
 --       .money = 999
+    with0.money = 999
 --       antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
 --
 --     end if
+  end
 --
 --     Scope
 --
 --       Dim mny As String
+  local mny = ""
 --
 --         mny = String( 3 - Len( Str( .money ) ), "0" )
 --         mny += Str( .money )
+  log.debug("with0.money: "..with0.money)
+  for i = 1, 3 - #(""..with0.money) do
+    mny = mny.."0"
+  end
+  mny = mny..(""..with0.money)
+  log.debug("mny: "..mny)
 --
 --       Dim As Integer nums
+  local nums = 0
 --
 --         For nums = 0 To 2
+  for nums = 0, 2 do
 --
 --           Put ( 289 + ( nums Shl 3 ), 8 ), @llg( hud ).img(3)->image[( mny[nums] - 48 ) * llg( hud ).img(3)->arraysize], Trans
+    love.graphics.draw(ll_global.hud.img[3].image, ll_global.hud.img[3].quads[mny:byte(nums + 1) - 48], 289 + nums * 8, 8)
 -- '          Put ( 289 + ( nums * 8 ), 8 ), @llg( hud ).img(3).image[( mny[nums] - 48 ) * llg( hud ).img(3).arraysize], Trans
 --
 --         Next
+  end
 --
 --     End Scope
 --
