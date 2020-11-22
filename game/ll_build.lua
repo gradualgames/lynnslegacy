@@ -450,9 +450,9 @@ function load_hud(h)
 --   With *h
 --
 --     .img( 0 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\HUD_health.spr"  ) )
-  h.img[0] = getImageHeader("data/pictures/hud/HUD_health.spr")
+  h.img[0] = getImageHeader("data/pictures/hud/hud_health.spr")
 --     .img( 1 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\HUD_items.spr"   ) )
-  h.img[1] = getImageHeader("data/pictures/hud/HUD_items.spr")
+  h.img[1] = getImageHeader("data/pictures/hud/hud_items.spr")
 --     .img( 2 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\cash.spr"        ) )
   h.img[2] = getImageHeader("data/pictures/hud/cash.spr")
 --     .img( 3 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\hud\cashnumbers.spr" ) )
