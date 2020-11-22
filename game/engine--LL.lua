@@ -1483,7 +1483,6 @@ function change_room(o, _call, t)
 --             #EndIf
 --
 --             now_room().temp_enemies = 0
-        now_room().temp_enemies = {}
         now_room().temp_enemies = 0
 --
 --             llg( this_room ).i = now_room().teleport[o->switch_room].to_room
