@@ -62,9 +62,7 @@ function love.load()
   bhist = {}
   dbgrects = {}
 
-  source = love.audio.newSource("data/music/world.it", "stream")
-  source:setLooping(true)
-  source:play()
+  LLMusic_Start("data/music/world.it")
 end
 
 function love.update(dt)

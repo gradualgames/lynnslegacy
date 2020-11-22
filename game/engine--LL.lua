@@ -4329,3 +4329,25 @@ function touched_bound_box(c, v)
 --
 -- End Function
 end
+
+-- Sub LLMusic_Start( songName As String )
+function LLMusic_Start(songName)
+--
+--   Dim As uinteger ret
+--
+--   #ifdef ll_audio
+--
+--     ret = BASS_MusicLoad ( 0, songName, 0, 0, BASS_MUSIC_AUTOFREE Or BASS_SAMPLE_LOOP, 44100 )
+--
+--     If bass_channelplay( ret, 0 ) <> 0 Then
+--       llg( sng ) = ret
+--
+--     End If
+--
+--   #endif
+--
+-- End Sub
+  music = love.audio.newSource(songName, "stream")
+  music:setLooping(true)
+  music:play()
+end
