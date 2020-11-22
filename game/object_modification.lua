@@ -272,3 +272,15 @@ function __cripple(this)
   return 0
 -- End Function
 end
+
+-- Function __gen_frame ( this As _char_type Ptr ) As Integer Static
+function __gen_frame(this)
+--
+--   this->animControl[this->current_anim].rate = ( Rnd * ( this->high_frame - this->low_frame ) ) + this->low_frame
+  this.animControl[this.current_anim].rate = (math.random() * (this.high_frame - this.low_frame)) + this.low_frame
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
