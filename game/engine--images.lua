@@ -59,7 +59,7 @@ function LLSystem_ImageLoad(fileName)
   --file and associated .col file if it exists.
   local imageHeader = create_LLSystem_ImageHeader()
   --Load binary data of the .spr file all at once.
-  local blob = loadBlob(fileName)
+  local blob = loadBlob(fileName:lower())
   if blob then
     imageHeader.x = readInt(blob)
     --log.debug("imageHeader.x: "..imageHeader.x)

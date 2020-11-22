@@ -27,7 +27,7 @@ function love.load()
   --Load map data
   ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
 
-  ll_global.this_room.i = 2
+  ll_global.this_room.i = 4
 
   --NOTE: Not certain if we will keep this structure,
   --but in the original source code, init_splash would show the splash
@@ -55,9 +55,6 @@ function love.load()
   ll_global.this_room.cx = 0
   ll_global.this_room.cy = 0
 
-  --FIXME: Not a ported variable, just used for now
-  speed = 4
-
   --Variables not related to the Lynn's Legacy engine
   bhist = {}
   dbgrects = {}
@@ -70,22 +67,6 @@ function love.update(dt)
   updateBHist("x")
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
-    -- if love.keyboard.isDown("up") then
-    --   ll_global.hero.coords.y = ll_global.hero.coords.y - speed
-    -- end
-    --
-    -- if love.keyboard.isDown("down") then
-    --   ll_global.hero.coords.y = ll_global.hero.coords.y + speed
-    -- end
-    --
-    -- if love.keyboard.isDown("right") then
-    --   ll_global.hero.coords.x = ll_global.hero.coords.x + speed
-    -- end
-    --
-    -- if love.keyboard.isDown("left") then
-    --   ll_global.hero.coords.x = ll_global.hero.coords.x - speed
-    -- end
-
     accumulator = accumulator - tickPeriod
   end
   local loops = love.window.getVSync() and 4 or 1
