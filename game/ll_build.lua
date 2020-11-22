@@ -189,7 +189,13 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
 end
 
 function LLSystem_LoadMap(fileName)
-  return load_mapV(fileName)
+  local map = load_mapV(fileName)
+  map.imageHeader = getImageHeader(map.tileSetFileName)
+  map.imageHeader.spriteBatches = {}
+  map.imageHeader.spriteBatches[0] = imageToSpriteBatch(map.imageHeader.image)
+  map.imageHeader.spriteBatches[1] = imageToSpriteBatch(map.imageHeader.image)
+  map.imageHeader.spriteBatches[2] = imageToSpriteBatch(map.imageHeader.image)
+  return map
 end
 
 --Loads a Lynn's Legacy .map file. Assumes it is an uncompressed .map file.
@@ -425,6 +431,7 @@ function load_mapV(fileName)
       log.debug("entry.reserved: "..entry.reserved)
       entry.seq = {}
       load_seqV(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
+      map.entry[loopEntries] = entry
     end
 
     --TODO: There is some post processing here running a function

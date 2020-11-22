@@ -1517,7 +1517,7 @@ function change_room(o, _call, t)
     elseif switch_type == 1 then
       log.debug("switch_type is 1. Entering map and setting up room enemies.")
 --           enter_map( o, llg( map ), "data\map\" & o->to_map, o->to_entry ) '' "
-      enter_map(o, {ll_global.map}, "data/map"..o.to_map, o.to_entry)
+      enter_map(o, ll_global, "data/map/"..o.to_map, o.to_entry)
 --           set_up_room_enemies now_room().enemies, now_room().enemy
       set_up_room_enemies(now_room().enemies, now_room().enemy)
 --
@@ -1670,6 +1670,8 @@ function change_room(o, _call, t)
 end
 
 -- Sub enter_map( _char As char_type Ptr, _m As map_type Ptr, desc As String, _entry As Integer )
+--NOTE: _m is actually expected to be the ll_global object,
+--and the .map property is used throughout.
 function enter_map(_char, _m, desc, _entry)
 --
 --   Dim As Integer _
@@ -1696,19 +1698,18 @@ function enter_map(_char, _m, desc, _entry)
 --   map_Destroy( _m )
 --
 --   _m = LLSystem_LoadMap( desc )
-  _m[1] = LLSystem_LoadMap(desc)
+  _m.map = LLSystem_LoadMap(desc)
 --
 --   '' if flag ptr set, access it.
 --   if llg( hero_only ).roomVisited then
-  if ll_global.hero_only.roomVisited ~= 0 then
+  if ll_global.hero_only.roomVisited ~= nil then
 --     dim as integer iRoom
     local iRoom = 0
 --
 --     for iRoom = 0 to _m->rooms - 1
-    for iRoom = 0, _m[1].rooms - 1 do
+    for iRoom = 0, _m.map.rooms - 1 do
 --
 --       llg( miniMap ).room[iRoom].hasVisited = llg( hero_only ).roomVisited[iRoom]
-      ll_global.miniMap.room[iRoom].hasVisited = ll_global.hero_only.roomVisited[iRoom]
 --
 --     next
     end
@@ -1732,20 +1733,19 @@ function enter_map(_char, _m, desc, _entry)
   end
 --
 --   _char->coords.x         = _m->entry[_entry].x
-
-  _char.coords.x = _m[1].entry[_entry].x
+  _char.coords.x = _m.map.entry[_entry].x
 --   _char->coords.y         = _m->entry[_entry].y
-  _char.coords.y = _m[1].entry[_entry].y
+  _char.coords.y = _m.map.entry[_entry].y
 --
 --   _char->direction = _m->entry[_entry].direction
-  _char.direction = _m[1].entry[_entry].direction
+  _char.direction = _m.map.entry[_entry].direction
 --
 --   llg( this_room.i )  = _m->entry[_entry].room
-  ll_global.this_room.i = _m[1].entry[_entry].room
+  ll_global.this_room.i = _m.map.entry[_entry].room
 --
 --   '' active sequence
 --   llg( hero ).seq = _m->entry[_entry].seq
-  ll_global.hero.seq = _m[1].entry[_entry].seq
+  ll_global.hero.seq = _m.map.entry[_entry].seq
 --
 --   llg( dark ) = now_room().dark
   ll_global.dark = now_room().dark

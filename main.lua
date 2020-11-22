@@ -26,11 +26,6 @@ function love.load()
 
   --Load map data
   ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
-  ll_global.map.imageHeader = getImageHeader(ll_global.map.tileSetFileName)
-  ll_global.map.imageHeader.spriteBatches = {}
-  ll_global.map.imageHeader.spriteBatches[0] = imageToSpriteBatch(ll_global.map.imageHeader.image)
-  ll_global.map.imageHeader.spriteBatches[1] = imageToSpriteBatch(ll_global.map.imageHeader.image)
-  ll_global.map.imageHeader.spriteBatches[2] = imageToSpriteBatch(ll_global.map.imageHeader.image)
 
   ll_global.this_room.i = 2
 

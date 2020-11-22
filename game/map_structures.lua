@@ -1,6 +1,69 @@
 require("game/image_structures")
 require("game/sequence_structures")
 
+-- Type _LL_MiniMapRoomDoorType
+function create_LL_MiniMapRoomDoorType()
+  local roomdoor = {}
+--
+--   As vector_Integer location
+  roomdoor.location = create_vector()
+--
+--   As Integer id '' Enum LLMINI_DOORTYPES
+  roomdoor.id = 0
+--
+--   As Integer codes
+  roomdoor.codes = 0
+--   As Integer Ptr code
+  roomdoor.code = {}
+--
+  return roomdoor
+-- End Type
+end
+-- Type LL_MiniMapRoomDoorType As _LL_MiniMapRoomDoorType
+--
+
+--
+-- Type _LL_MiniMapRoomType
+function create_LL_MiniMapRoomType()
+--
+  local room = {}
+--   As vector_Integer location
+  room.location = create_vector()
+--
+--   As Integer floor
+  room.floor = 0
+--
+--   As Integer doors
+  room.doors = 0
+--   door As LL_MiniMapRoomDoorType Ptr
+  room.door = create_LL_MiniMapRoomDoorType()
+--
+--   As Byte hasVisited
+  room.hasVisited = 0
+--
+  return room
+-- End Type
+end
+
+-- Type _LL_MiniMapType
+function create_LL_MiniMapType()
+  local minimap = {}
+--
+--   rooms As Integer
+  minimap.rooms = 0
+--   room As LL_MiniMapRoomType Ptr
+  minimap.room = create_LL_MiniMapRoomType()
+--
+--   As vector_Integer camera, location
+  minimap.camera = create_vector()
+  minimap.location = create_vector()
+
+--
+  return minimap
+-- End Type
+-- Type LL_MiniMapType As _LL_MiniMapType
+end
+
 -- Type teleport_type
 function create_teleport_type()
 --

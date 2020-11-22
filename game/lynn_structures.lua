@@ -70,6 +70,12 @@ function create_main_char_type()
 --   healingImage as LLSystem_ImageHeader ptr
 --
 --   roomVisited as byte ptr
+  --NOTE: I do not understand where this is initially allocated nor how many
+  --entries there ought to be.
+  main_char_type.roomVisited = {}
+  for i = 0, 255 do
+    main_char_type.roomVisited[i] = 0
+  end
 --
 --   healthdummy( 3 ) as integer
 --   maxhealthdummy( 3 ) as integer

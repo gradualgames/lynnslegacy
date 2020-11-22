@@ -167,6 +167,7 @@ function create_ll_system()
   --   box_entity As _char_type Ptr
   --
   --   miniMap As LL_MiniMapType
+  ll_system.miniMap = create_LL_MiniMapType()
   --
   --   tilesDisabled As Integer
   --
