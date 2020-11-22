@@ -9,17 +9,9 @@ Q. Since the source code is still available, and FreeBASIC is still maintained a
 
 A. That's a very good question. I have spent quite a lot of time trying to do this. I actually was able to get the game to compile with the win32 version of the FreeBASIC compiler, but then it crashes very soon after the splash screen. At the same time, I simply enjoy making game engines and working with frameworks like Love2D, so it seemed like a more pleasant, if longer path, towards getting the game running. Plus, as far as I can tell, FreeBASIC cannot work in fullscreen with crisp pixels anymore, so I would have had to roll my own solution for this either way. At the end of the day, the project exists for my pleasure in programming and my desire to preserve the game.
 
-The project is in its very early stages. It can currently:
-
-- Simulate a 320x200 graphics mode with a 256 color palette.
-- Load palette, sprites, maps and music of the game
-- Partially load enemy xml
-- One map is loaded and all gcopter enemies and healthguy can move around.
-- Lynn can walk around and kill enemies and pick up health.
+The project is in fairly early stages, but some gameplay has been implemented.
 
 This is a Love2D project. So to work on it, you will need to install LÖVE: https://love2d.org/ The language is Lua.
-
-The current goal is to get most functionality for the first hard coded map working. This includes being able to talk to the health guy and buy health upgrades, use the game menu and use the save game feature with the save point. After that, the goal will be to implement teleports and sequences, which are responsible for moving to different maps and for scripted cut scenes.
 
 The original FreeBASIC source code and win32 installer is included in the repository for convenience.
 
