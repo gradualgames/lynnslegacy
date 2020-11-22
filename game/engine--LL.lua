@@ -852,14 +852,17 @@ function hero_main()
     ll_global.hero.fade_time = .003
 --
 --       .funcs.current_func[.death_state] += .funcs.func[.death_state][.funcs.current_func[.death_state]]( VarPtr( llg( hero ) ) )
-    with0.funcs.current_func[with0.death_state] = with0.funcs.current_func[with0.death_state] + with0.funcs.func[with0.death_state][with0.funcs.current_func[with0.death_state]](ll_global.hero)
---
---       If ( .funcs.current_func[.death_state] = .funcs.func_count[.death_state] ) Then
-    if (with0.funcs.current_func[with0.death_state] == with0.funcs.func_count[with0.death_state]) then
---         '' lynn called back
---         jump_to_title()
---
---       End If
+    local func = with0.funcs.func[with0.death_state][with0.funcs.current_func[with0.death_state]]
+    if func ~= nil then
+      with0.funcs.current_func[with0.death_state] = with0.funcs.current_func[with0.death_state] + func(ll_global.hero)
+  --
+  --       If ( .funcs.current_func[.death_state] = .funcs.func_count[.death_state] ) Then
+      if (with0.funcs.current_func[with0.death_state] == with0.funcs.func_count[with0.death_state]) then
+  --         '' lynn called back
+  --         jump_to_title()
+  --
+  --       End If
+      end
     end
 --
 --     End If

@@ -27,7 +27,7 @@ function love.load()
   --Load map data
   ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
 
-  ll_global.this_room.i = 4
+  ll_global.this_room.i = 2
 
   --NOTE: Not certain if we will keep this structure,
   --but in the original source code, init_splash would show the splash

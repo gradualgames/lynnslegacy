@@ -1,9 +1,5 @@
-function __fade_to_black(this)
-  return 1
-end
-
 -- Function __fade_to_black ( this As _char_type Ptr ) As Integer
-function __fade_to_black_impl(this)
+function __fade_to_black(this)
   log.debug("__fade_to_black called.")
 --
 --   Dim As Integer cols, r, g, b, blackened, p
