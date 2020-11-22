@@ -1475,8 +1475,6 @@ function change_room(o, _call, t)
 --             #EndIf
 --
 --             del_room_enemies now_room().enemies, now_room().enemy
-        now_room().enemy = {}
-        now_room().enemies = 0
 --             del_room_enemies now_room().temp_enemies, Varptr( now_room().temp_enemy( 0 ) )
 --
 --             #IfDef LL_LOGROOMCHANGE

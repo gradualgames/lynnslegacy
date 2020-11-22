@@ -34,9 +34,7 @@ function create_e_funcs()
   return e_funcs
 end
 
-function create_Object()
-  local object = {}
-  -- Type char_type
+function init_object(object)
   --
   --
   --   dmg As ll_entity_damage
@@ -180,7 +178,6 @@ function create_Object()
   --
   --
   --   id                    As String
-  object.id = ""
   --
   --   impassable            As Integer
   object.impassable = 0
@@ -347,9 +344,7 @@ function create_Object()
   --
   --
   --   x_origin              As Integer
-  object.x_origin = 0
   --   y_origin              As Integer
-  object.y_origin = 0
   --
   --   yet_spawned           As Integer
   --
@@ -578,6 +573,12 @@ function create_Object()
   object.reserved_5 = 0
   --   reserved_6            As Integer
   --
+end
+
+function create_Object()
+  local object = {}
+  -- Type char_type
+  init_object(object)
   -- End Type
   return object
 end

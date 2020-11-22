@@ -22,6 +22,9 @@ function LLSystem_CopyNewObject(objectCopy)
 --
 --   LLSystem_ObjectDeepCopy( objectCopy, *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( objectCopy.id ) ) )
 --
+  init_object(objectCopy)
+  objectCopy.coords.x = objectCopy.x_origin
+  objectCopy.coords.y = objectCopy.y_origin
   LLSystem_ObjectDeepCopy(objectCopy, nil)
 --
 -- End Sub
