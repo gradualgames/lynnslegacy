@@ -298,6 +298,7 @@ function init_object(object)
   --   sticky_chase          As Integer
   --
   --   strength              As Integer
+  object.strength = 0
   --
   --
   --

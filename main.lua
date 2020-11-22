@@ -27,7 +27,7 @@ function love.load()
   --Load map data
   ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
 
-  ll_global.this_room.i = 1
+  ll_global.this_room.i = 4
 
   --NOTE: Not certain if we will keep this structure,
   --but in the original source code, init_splash would show the splash
@@ -45,7 +45,7 @@ function love.load()
   set_up_room_enemies(now_room().enemies, now_room().enemy)
   --log.level = "fatal"
 
-  ll_global.hero.coords.x = 220
+  ll_global.hero.coords.x = 320
   ll_global.hero.coords.y = 100
 
   --Hard-code Lynn's weapon to the sapling for now.
