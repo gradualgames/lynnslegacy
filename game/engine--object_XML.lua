@@ -251,11 +251,4 @@ function LLSystem_ObjectFromXML(enemy)
   enemy.perimeter.x = enemy.real_x
   enemy.perimeter.y = enemy.real_y
 
-  --TODO: Find out where Lynn's Legacy actually resets these
-  --values. They are used while loading XML, but are clearly
-  --reset before actual play begins.
-  enemy.current_anim = 0
-  enemy.funcs.active_state = 0
-  enemy.funcs.current_func[enemy.funcs.active_state] = 0
-
 end

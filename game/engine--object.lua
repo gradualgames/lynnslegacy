@@ -366,11 +366,16 @@ function LLSystem_ObjectLoad(objectLoad)
   --   Next
   --
   --   objectLoad.funcs.active_state = 0
+  objectLoad.funcs.active_state = 0
   --   objectLoad.current_anim = 0
+  objectLoad.current_anim = 0
   --   objectLoad.frame = 0
+  objectLoad.frame = 0
   --
   --   objectLoad.maxhp = objectLoad.hp
+  objectLoad.maxhp = objectLoad.hp
   --   objectLoad.switch_room = -1
+  objectLoad.switch_room = -1
   --
   --   LLObject_UniqueCheck( objectLoad )
   LLObject_UniqueCheck(objectLoad)
