@@ -578,7 +578,7 @@ function blit_enemy_loot()
         end
 --
 --             If conf Then
-        if conf then
+        if conf ~= 0 then
 --
 --               Select Case .dropped
 --

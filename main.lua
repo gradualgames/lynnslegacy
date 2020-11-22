@@ -27,7 +27,7 @@ function love.load()
   --Load map data
   ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
 
-  ll_global.this_room.i = 2
+  ll_global.this_room.i = 1
 
   --NOTE: Not certain if we will keep this structure,
   --but in the original source code, init_splash would show the splash
@@ -45,7 +45,7 @@ function love.load()
   set_up_room_enemies(now_room().enemies, now_room().enemy)
   --log.level = "fatal"
 
-  ll_global.hero.coords.x = 320
+  ll_global.hero.coords.x = 220
   ll_global.hero.coords.y = 100
 
   --Hard-code Lynn's weapon to the sapling for now.
@@ -93,18 +93,18 @@ function love.update(dt)
   local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
     timer = love.timer.getTime()
-    log.level = "debug"
+    --log.level = "debug"
     enemy_main()
-    log.level = "fatal"
-    log.level = "debug"
+    --log.level = "fatal"
+    --log.level = "debug"
     hero_main()
-    log.level = "fatal"
+    --log.level = "fatal"
   end
 end
 
 function love.draw()
   startDrawing()
-  log.level = "debug"
+  --log.level = "debug"
   blit_scene()
 
   for key, dbgrect in pairs(dbgrects) do
@@ -117,7 +117,7 @@ function love.draw()
   -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
   -- love.graphics.rectangle("fill", x, y, w, h)
 
-  log.level = "fatal"
+  --log.level = "fatal"
   doneDrawing()
 end
 
