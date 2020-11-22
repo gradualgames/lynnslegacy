@@ -189,6 +189,11 @@ function LLSystem_ObjectFromXML(enemy)
       if convertedValue == nil then
         log.debug("Attribute string value: "..text)
         enemy[attribute] = text
+        local enum = _G[text]
+        if enum then
+          log.debug("Attribute was an enum, replacing with value: "..enum)
+          enemy[attribute] = enum
+        end
       else
         log.debug("Attribute number value: "..text)
         enemy[attribute] = convertedValue
