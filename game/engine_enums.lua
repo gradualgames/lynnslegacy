@@ -357,6 +357,13 @@ OV_FACE = 1
 --
 -- End Enum
 
+-- Enum LL_SEQUENCE_FLAGS
+--
+--   SF_BOX = 1024
+SF_BOX = 1024
+--
+-- End Enum
+
 -- Enum LL_DAMAGE_FLAGS
 --
 --   DF_NO_DAMAGE

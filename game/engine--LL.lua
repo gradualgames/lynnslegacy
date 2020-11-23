@@ -6,6 +6,60 @@ require("game/macros")
 require("game/utils")
 require("game/utility")
 
+-- Sub ll_main_entry()
+function ll_main_entry()
+--
+--
+--   enter_map( Varptr( llg( hero ) ), llg( map ), llg( start_map ), llg( start_entry ) )
+  --Load map data
+  log.level = "debug"
+  ll_global.map = LLSystem_LoadMap("data/map/title.map")
+  log.level = "fatal"
+
+  ll_global.this_room.i = 0
+--
+--   With llg( map )->room[llg( this_room.i )]
+--
+--     set_up_room_enemies( .enemies, .enemy )
+--
+--   End With
+  --log.level = "debug"
+  set_up_room_enemies(now_room().enemies, now_room().enemy)
+  --log.level = "fatal"
+--   llg( seq ) = llg( hero ).seq
+--   llg( hero ).seq = 0
+--   llg( song ) = llg( map )->room[llg( this_room.i )].song
+--
+--
+--   If llg( map )->isDungeon <> 0 Then
+--     llg( minimap ).room[llg( this_room ).i].hasVisited = -1
+--
+--   End If
+--
+  ll_global.hero.coords.x = 100
+  ll_global.hero.coords.y = 100
+
+  --Hard-code Lynn's weapon to the sapling for now.
+  ll_global.hero_only.weapon = 0
+
+  ll_global.current_cam = ll_global.hero
+  ll_global.this_room.cx = 0
+  ll_global.this_room.cy = 0
+  ll_global.song = now_room().song
+--
+--   LLMusic_Start( *music_strings( llg( song ) ) )
+  LLMusic_Start(music_strings[ll_global.song])
+--
+--                                                                                                                                               antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--                                                                                                                                               antiHackASSIGN( LL_Global.hero_only.weaponDummy, LL_Global.hero_only.has_weapon )
+--                                                                                                                                               antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--                                                                                                                                               antiHackASSIGN2( LL_Global.hero_only.itemDummy, LL_Global.hero_only.hasItem )
+--                                                                                                                                               antiHackASSIGN2( LL_Global.hero_only.outfitDummy, LL_Global.hero_only.hasCostume )
+--                                                                                                                                               antiHackASSIGN( LL_Global.hero_only.maxhealthDummy, LL_Global.hero.maxhp )
+--
+-- End Sub
+end
+
 -- Sub engine_init()
 function engine_init()
 --
@@ -4277,6 +4331,209 @@ function LLObject_IncrementProjectiles(char)
   end
 --
 --   End With
+--
+-- End Sub
+end
+
+-- Sub play_sequence ( _seq As sequence_type Ptr )
+function play_sequence(_seq)
+  log.debug("play_sequence called.")
+  log.debug("_seq: "..(_seq and "exists" or "nil"))
+--
+--
+--   If _seq = 0 Then Exit Sub
+  if _seq == nil then return end
+--
+--   #Define activeEntity _seq->ent[.active_ent]
+--
+--   Static box_IsInited As Integer
+  if box_IsInited == nil then box_IsInited = false end
+--
+--   llg( dbgstring ) = Str( box_IsInited )
+--
+--   llg( do_hud ) = 0
+  ll_global.do_hud = 0
+--
+--   Assert( _seq->Command )
+--
+--   Dim As Integer do_ents
+  local do_ents = 0
+--
+--   For do_ents = 0 To _seq->Command[_seq->current_command].ents - 1
+  log.debug("_seq.Command: "..(_seq.Command and "exists" or "nil"))
+  log.debug("_seq.current_command: ".._seq.current_command)
+  log.debug("_seq.Command[_seq.current_command]: "..(_seq.Command[_seq.current_command] and "exists" or "nil"))
+  for do_ents = 0, _seq.Command[_seq.current_command].ents - 1 do
+--     '' cycle through current command's entities
+--
+--     Assert( _seq->Command[_seq->current_command].ent )
+--
+--     With _seq->Command[_seq->current_command].ent[do_ents]
+    local with0 = _seq.Command[_seq.current_command].ent[do_ents]
+--       '' set up a jump loop, for do_ents
+--       If .active_ent = SF_BOX Then
+    if with0.active_ent == SF_BOX then
+--         '' this isn't any old char_type
+--         If box_IsInited = FALSE Then
+      if box_IsInited == false then
+--           '' box has not been initialized; lock
+--
+--           box_IsInited = TRUE
+        box_IsInited = true
+--           destroy_box( Varptr( llg( t_rect ) ) )
+--
+-- '          clear llg( t_rect ), 0, len( boxcontrol_type )
+--
+--           llg( t_rect ) = make_box( .text, .free_to_move, .text_color, .box_invis, .auto_box, .mod_x, .mod_y, .text_speed )
+--
+--         End If
+      end
+--
+--       Else
+    else
+--         '' not a box
+--         sequence_AssignEntityData( *activeEntity, _seq->Command[_seq->current_command].ent[do_ents] )
+      sequence_AssignEntityData(activeEntity, _seq.Command[_seq.current_command].ent[do_ents])
+--
+--         If .water_align <> 0 Then
+      if with0.water_align ~= 0 then
+--           '' flag to loop the backround is set
+--           If llg( hero ).coords.y = 2000 Then
+        if ll_global.hero.coords.y == 2000 then
+--             '' top boundary of water hit
+--             Dim As Integer change_ents
+          local change_ents = 0
+--
+--             For change_ents = 0 To _seq->Command[_seq->current_command].ents - 1
+          for change_ents = 0, _seq.Command[_seq.current_command].ents - 1 do
+--               '' cycle through entities to be adjusted
+--               With _seq->Command[_seq->current_command].ent[change_ents]
+            local with1 = _seq.Command[_seq.current_command].ent[change_ents]
+--
+--                 If .active_ent <> SF_BOX Then
+            if with1.active_ent ~= SF_BOX then
+--                   '' bad pointer mojo
+--                   If activeEntity->no_cam = FALSE Then
+              if activeEntity.no_cam == false then
+--                     '' entity is camera relative, shift it
+--                     activeEntity->coords.y += 5376
+                activeEntity.coords.y = activeEntity.coords.y + 5376
+--
+--                   End If
+              end
+--
+--                 End If
+            end
+--
+--               End With
+--
+--             Next
+          end
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--         If activeEntity->return_trig Then
+      if activeEntity.return_trig then
+--           '' this entity called back already
+--           Continue For
+        goto continue
+--
+--         End If
+      end
+--
+--         '' **************************************************************************
+--         '' do the entities function           ***************************************
+--         .ent_func += activeEntity->funcs.func[.ent_state][.ent_func] ( activeEntity )
+--         ''                                    ***************************************
+--         '' **************************************************************************
+      with0.ent_func = with0.ent_func + activeEntity.funcs.func[with0.ent_state][with0.ent_func](activeEntity)
+--
+--
+--         '' Stuff that gets set in entities' functions
+--         '' #########
+--                     If sequence_ExitCondition( activeEntity ) Then
+      if sequence_ExitCondition(activeEntity) then
+--
+--                       box_IsInited = FALSE
+        box_IsInited = false
+--                       Exit Sub
+        return
+--
+--                     End If
+      end
+--
+--                     If activeEntity->state_shift <> 0 Then
+      if activeEntity.state_shift ~= 0 then
+--                       '' Just a hack for the menu, as far as I can see.
+--                       .ent_state = activeEntity->state_shift
+        with0.ent_state = activeEntity.state_shift
+--                       .ent_func = 0
+        with0.ent_func = 0
+--
+--                       activeEntity->state_shift = 0
+        activeEntity.state_shift = 0
+--
+--                     End If
+      end
+--         '' #########
+--
+--
+--         If .ent_func = activeEntity->funcs.func_count[.ent_state] Then
+      if with0.ent_func == activeEntity.funcs.func_count[with0.ent_state] then
+--           '' Overflow
+--           .ent_func = 0
+        with0.ent_func = 0
+--
+--         End If
+      end
+--
+--
+--
+--       End If
+    end
+--
+--       If sequence_isCommandProgressing( *_seq, do_ents ) Then
+    if sequence_isCommandProgressing(_seq, do_ents) then
+--         '' all entities called back
+--
+--         sequence_CommandIncrement( *_seq )
+      sequence_CommandIncrement(_seq)
+--         box_IsInited = FALSE
+      box_IsInited = false
+--
+--         Exit For
+      break
+--
+--       End If
+    end
+--
+--     End With
+--
+  ::continue::
+--   Next
+  end
+--
+--   If _seq->current_command = _seq->commands Then
+  if _seq.current_command == _seq.commands then
+--
+--     sequence_FullReset( *_seq )
+    sequence_FullReset(_seq)
+--
+--     _seq = 0
+    _seq = 0
+--     llg( hero ).chap = 0
+    ll_global.hero.chap = 0
+--     llg( do_hud ) = -1
+    ll_global.do_hud = -1
+--
+--
+--   End If
+  end
+--
 --
 -- End Sub
 end

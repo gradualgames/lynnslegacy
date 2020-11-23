@@ -25,15 +25,6 @@ function love.load()
 
   ll_global = create_ll_system()
 
-  --Load map data
-  ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
-
-  ll_global.this_room.i = 0
-
-  --NOTE: Not certain if we will keep this structure,
-  --but in the original source code, init_splash would show the splash
-  --screen but also load all assets, including sound. We might refactor
-  --this later.
   --log.level = "debug"
   init_splash()
   --log.level = "fatal"
@@ -42,24 +33,11 @@ function love.load()
   engine_init()
   --log.level = "fatal"
 
-  --log.level = "debug"
-  set_up_room_enemies(now_room().enemies, now_room().enemy)
-  --log.level = "fatal"
+  log.level = "debug"
+  ll_main_entry()
+  log.level = "fatal"
 
-  ll_global.hero.coords.x = 100
-  ll_global.hero.coords.y = 100
-
-  --Hard-code Lynn's weapon to the sapling for now.
-  ll_global.hero_only.weapon = 0
-
-  ll_global.current_cam = ll_global.hero
-  ll_global.this_room.cx = 0
-  ll_global.this_room.cy = 0
-  ll_global.song = now_room().song
-
-  LLMusic_Start(music_strings[ll_global.song])
-
-  --Variables not related to the Lynn's Legacy engine
+  --Variables not related to the original codebase
   bhist = {}
   dbgrects = {}
 end
@@ -77,6 +55,9 @@ function love.update(dt)
     --log.level = "debug"
     enemy_main()
     --log.level = "fatal"
+    log.level = "debug"
+    --play_sequence(ll_global.seq)
+    log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"
