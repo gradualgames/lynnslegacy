@@ -20,7 +20,7 @@ function LLSystem_ObjectFromXML(enemy)
 --                       If objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] Then
 --                         objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
   local function inc_func()
-    log.debug("inc_func called.")
+    --log.debug("inc_func called.")
     enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + 1
     -- log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
     -- log.debug("enemy.funcs.func_count[enemy.funcs.active_state]: "..enemy.funcs.func_count[enemy.funcs.active_state])
@@ -33,14 +33,14 @@ function LLSystem_ObjectFromXML(enemy)
   local function install_func(funcName)
     local func = _G[funcName]
     if func then
-      log.debug("Installing func: "..funcName)
+      --log.debug("Installing func: "..funcName)
       func_drop(_G[funcName])
       inc_func()
     else
-      log.debug("Installing no-op func for: "..funcName)
+      --log.debug("Installing no-op func for: "..funcName)
       func_drop(
         function()
-          log.debug("TODO: Implement: "..funcName)
+          --log.debug("TODO: Implement: "..funcName)
           return 0
         end)
       inc_func()
@@ -74,7 +74,7 @@ function LLSystem_ObjectFromXML(enemy)
         -- End Select
         end
       elseif path[3] == "filename" then
-        log.debug(" Processing sprite/filename: "..text)
+        --log.debug(" Processing sprite/filename: "..text)
         local fixedFileName = string.gsub(text, "\\", "/")
         enemy.anim[enemy.current_anim] = getImageHeader(fixedFileName)
         enemy.animControl[enemy.current_anim] = create_LLObject_ImageHeader()
@@ -84,21 +84,21 @@ function LLSystem_ObjectFromXML(enemy)
           enemy.animControl[enemy.current_anim].frame[i] = create_LLObject_FrameControl()
         end
       elseif path[3] == "dir_frames" then
-        log.debug( " Processing sprite/dir_frames: "..text)
+        --log.debug( " Processing sprite/dir_frames: "..text)
         enemy.animControl[enemy.current_anim].dir_frames = tonumber(text)
       elseif path[3] == "rate" then
-        log.debug( " Processing sprite/rate: "..text)
+        --log.debug( " Processing sprite/rate: "..text)
         enemy.animControl[enemy.current_anim].rate = tonumber(text)
       elseif path[3] == "x_off" then
-        log.debug( " Processing sprite/x_off: "..text)
+        --log.debug( " Processing sprite/x_off: "..text)
         enemy.animControl[enemy.current_anim].x_off = tonumber(text)
       elseif path[3] == "y_off" then
-        log.debug( " Processing sprite/y_off: "..text)
+        --log.debug( " Processing sprite/y_off: "..text)
         enemy.animControl[enemy.current_anim].y_off = tonumber(text)
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then
-        log.debug(" proc_id text: "..text)
+        --log.debug(" proc_id text: "..text)
 --
 --           #Define LLObject_ProcIDLoad(__Proc_ID__) _
 --             Case ###__Proc_ID__: objectLoad.##__Proc_ID__ = objectLoad.funcs.active_state
@@ -124,7 +124,7 @@ function LLSystem_ObjectFromXML(enemy)
         --use the proc_id text directly from the xml to set it to the value of the
         --current active state, which is what is being done above.
         enemy[text] = enemy.funcs.active_state
-        log.debug(" active_state is: "..enemy[text])
+        --log.debug(" active_state is: "..enemy[text])
       elseif path[3] == "func" then
         enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 1
         local funcName = "__"..text
@@ -132,7 +132,7 @@ function LLSystem_ObjectFromXML(enemy)
       elseif path[3] == "block_macro" then
         if text == "dead_block" then
           enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 6
-          log.debug("Installing functions for block_macro 'dead_block'")
+          --log.debug("Installing functions for block_macro 'dead_block'")
           -- func_drop = CPtr( Any Ptr, @__make_dead        ): inc_func
           install_func("__make_dead")
           -- func_drop = CPtr( Any Ptr, @__active_anim_dead ): inc_func
@@ -147,7 +147,7 @@ function LLSystem_ObjectFromXML(enemy)
           install_func("__infinity")
         elseif text == "dead_drop_block" then
           enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 7
-          log.debug("Installing functions for block_macro 'dead_drop_block'")
+          --log.debug("Installing functions for block_macro 'dead_drop_block'")
           -- func_drop = CPtr( Any Ptr, @__make_dead        ): inc_func
           install_func("__make_dead")
           -- func_drop = CPtr( Any Ptr, @__active_anim_dead ): inc_func
@@ -164,7 +164,7 @@ function LLSystem_ObjectFromXML(enemy)
           install_func("__infinity")
         elseif text == "fire_block" then
           enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 3
-          log.debug("Installing functions for block_macro 'fire_block'")
+          --log.debug("Installing functions for block_macro 'fire_block'")
           -- func_drop = CPtr( Any Ptr, @__do_flyback       ): inc_func
           install_func("__do_flyback")
           -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
@@ -173,7 +173,7 @@ function LLSystem_ObjectFromXML(enemy)
           install_func("__return_idle")
         elseif text == "ice_block" then
           enemy.funcs.func_count[enemy.funcs.active_state] = enemy.funcs.func_count[enemy.funcs.active_state] + 3
-          log.debug("Installing functions for block_macro 'ice_block'")
+          --log.debug("Installing functions for block_macro 'ice_block'")
           -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
           install_func("__second_pause")
           -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
@@ -184,18 +184,18 @@ function LLSystem_ObjectFromXML(enemy)
       end
     elseif #path == 2 then
       local attribute = path[2]
-      log.debug("Found attribute: "..attribute)
+      --log.debug("Found attribute: "..attribute)
       local convertedValue = tonumber(text)
       if convertedValue == nil then
-        log.debug("Attribute string value: "..text)
+        --log.debug("Attribute string value: "..text)
         enemy[attribute] = text
         local enum = _G[text]
         if enum then
-          log.debug("Attribute was an enum, replacing with value: "..enum)
+          --log.debug("Attribute was an enum, replacing with value: "..enum)
           enemy[attribute] = enum
         end
       else
-        log.debug("Attribute number value: "..text)
+        --log.debug("Attribute number value: "..text)
         enemy[attribute] = convertedValue
       end
     end
@@ -204,11 +204,11 @@ function LLSystem_ObjectFromXML(enemy)
   local startElement = function(name, nsURI, nsPrefix)
     table.insert(path, name)
     if name == "sprite" then
-      log.debug("Processing sprite tag.")
+      --log.debug("Processing sprite tag.")
       enemy.current_anim = enemy.anims
       enemy.anims = enemy.anims + 1
     elseif name == "fp" then
-      log.debug("Processing fp tag.")
+      --log.debug("Processing fp tag.")
       --NOTE: This chunk comes from a select statement higher up
       --in the FB code that performs allocation and counting. It
       --makes more sense here due to how we are processing the xml.
@@ -234,7 +234,7 @@ function LLSystem_ObjectFromXML(enemy)
   local closeElement = function(name, nsURI)
     table.remove(path)
     if name == "fp" then
-      log.debug("fp tag closed, resetting current_func for that state.")
+      --log.debug("fp tag closed, resetting current_func for that state.")
       enemy.funcs.current_func[enemy.funcs.active_state] = 0
     end
   end

@@ -945,7 +945,7 @@ end
 
 -- Sub shift_pal()
 function shift_pal()
-  log.debug("shift_pal called.")
+  -- log.debug("shift_pal called.")
 --
 --
 --   Dim As Integer cols, jmper, res( 255 )

@@ -587,7 +587,7 @@ function hero_main()
             --completely ignoring the key configuration system or porting it. We will
             --add our own key configuration system much later on in development.
             if bpressed("x") then
-              log.debug("Pressed attack key.")
+              --log.debug("Pressed attack key.")
               atk_key_in_sub()
             end
 --
@@ -1165,9 +1165,7 @@ end
 function change_room(o, _call, t)
   _call = _call and _call or 0
   t = t and t or 0
-  log.debug("change_room called.")
-  log.debug("_call: ".._call)
-  log.debug("t: "..t)
+  -- log.debug("change_room called.")
 --
 --   Static As Integer switch_type, switch_state
   if switch_type == nil and switch_state == nil then
@@ -1176,7 +1174,7 @@ function change_room(o, _call, t)
 --
 --   If _call <> 0 Then
   if _call ~= 0 then
-    log.debug("_call was not zero. Exiting change_room.")
+    --log.debug("_call was not zero. Exiting change_room.")
 --     switch_type = t
     switch_type = t
 --     switch_state = 0
@@ -1196,7 +1194,7 @@ function change_room(o, _call, t)
 --
 --     Case 0
   if switch_state == 0 then
-    log.debug("switch_state is 0")
+    --log.debug("switch_state is 0")
 --       '' lynn invincible
 --
 --       Dim As Integer all_momentum
@@ -1214,13 +1212,15 @@ function change_room(o, _call, t)
 --
 --         Case 0
     if switch_type == 0 then
+      log.debug("switch_type 0")
 --
 --           With llg( map )->room[now_room().teleport[o->switch_room].to_room]
-      log.debug("o.switch_room: "..o.switch_room)
-      log.debug("now_room().teleport[o.switch_room].to_room: "..now_room().teleport[o.switch_room].to_room)
-      log.debug("#ll_global.map.room: "..#ll_global.map.room)
+      --log.debug("o.switch_room: "..o.switch_room)
+      --log.debug("now_room().teleport[o.switch_room].to_room: "..now_room().teleport[o.switch_room].to_room)
+      --log.debug("#ll_global.map.room: "..#ll_global.map.room)
       local with0 = ll_global.map.room[now_room().teleport[o.switch_room].to_room]
 --
+      log.debug("with0.song_changes: "..with0.song_changes)
 --             If .song_changes Then
       if with0.song_changes ~= 0 then
 --
@@ -1396,9 +1396,7 @@ function change_room(o, _call, t)
         for cols = 0, 255 do
 --
 --             Palette Get cols, r, g, b
-          r = palette[cols][0]
-          g = palette[cols][1]
-          b = palette[cols][2]
+          r, g, b = palette_get_255(cols)
 --
 --             If r > hi_r Then
           if r > hi_r then
@@ -1452,14 +1450,14 @@ function change_room(o, _call, t)
 --
 --     Case 2
   elseif switch_state == 2 then
-    log.debug("switch_state is 2")
+    --log.debug("switch_state is 2")
 --       '' switch thing! (either or)
 --
 --       Select Case switch_type
 --
 --         Case 0
     if switch_type == 0 then
-      log.debug("switch_type is 0, positioning hero.")
+      --log.debug("switch_type is 0, positioning hero.")
 --
 --           llg( seq ) = 0
       ll_global.seq = nil
@@ -1518,7 +1516,7 @@ function change_room(o, _call, t)
 --
 --         Case 1
     elseif switch_type == 1 then
-      log.debug("switch_type is 1. Entering map and setting up room enemies.")
+      --log.debug("switch_type is 1. Entering map and setting up room enemies.")
 --           enter_map( o, llg( map ), "data\map\" & o->to_map, o->to_entry ) '' "
       enter_map(o, ll_global, "data/map/"..o.to_map, o.to_entry)
 --           set_up_room_enemies now_room().enemies, now_room().enemy
@@ -1545,8 +1543,8 @@ function change_room(o, _call, t)
 --         llg( song ) = llg( song_wait )
       ll_global.song = ll_global.song_wait
 --
-      --TODO: Actually start the new song...
 --         LLMusic_Start( *music_strings( llg( song ) ) )
+      LLMusic_Start(music_strings[ll_global.song])
 --
 --       End If
     end
@@ -1578,7 +1576,7 @@ function change_room(o, _call, t)
 --
 --     Case 3
   elseif switch_state == 3 then
-    log.debug("switch_state is 3")
+    --log.debug("switch_state is 3")
 --
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Start fade up" )
@@ -1619,7 +1617,7 @@ function change_room(o, _call, t)
 --
 --     Case 4
   elseif switch_state == 4 then
-    log.debug("switch_state is 4")
+    --log.debug("switch_state is 4")
 --       '' make lynn vulnerable
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Make vulnerable" )
@@ -1632,7 +1630,7 @@ function change_room(o, _call, t)
 --
 --     Case 5
   elseif switch_state == 5 then
-    log.debug("switch_state is 5, finalize the change room state sequence.")
+    --log.debug("switch_state is 5, finalize the change room state sequence.")
 --       '' final anything :)
 --
 --       llg( seq ) = o->seq
@@ -2025,7 +2023,7 @@ function act_enemies(enemies)
   --
   --           If  .hurt <> 0 Then
           if enemy.hurt ~= 0 then
-            log.debug("This enemy is showing damage effects")
+            --log.debug("This enemy is showing damage effects")
   --             '' this enemy is showing damage effects
   --
   --             If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
@@ -2036,7 +2034,7 @@ function act_enemies(enemies)
   --
   --               If  .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
               if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
-                log.debug("The enemy called back (damage is done)")
+                --log.debug("The enemy called back (damage is done)")
   --                 '' the enemy called back (damage is done)
   --
   --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
@@ -2386,7 +2384,7 @@ function act_enemies(enemies)
   --
   --           If  .dmg.id <> 0 Then
           if enemy.dmg.id ~= 0 then
-            log.debug("Enemy was hit by lynn.")
+            --log.debug("Enemy was hit by lynn.")
   --             '' enemy was hit by lynn
   --
   --             __flashy( Varptr( _enemy[do_stuff] ) )
@@ -4333,8 +4331,22 @@ function touched_bound_box(c, v)
 -- End Function
 end
 
+-- Sub LLMusic_SetVolume( volumeDesired As Integer )
+function LLMusic_SetVolume(volume)
+--
+--   #IfDef ll_audio
+--
+--     bass_setconfig( BASS_CONFIG_GVOL_MUSIC, volumeDesired )
+  ll_global.sng:setVolume(volume)
+--
+--   #EndIf
+--
+-- End Sub
+end
+
 -- Sub LLMusic_Start( songName As String )
 function LLMusic_Start(songName)
+  log.debug("LLMusic_Start: "..songName)
 --
 --   Dim As uinteger ret
 --
@@ -4350,7 +4362,7 @@ function LLMusic_Start(songName)
 --   #endif
 --
 -- End Sub
-  music = love.audio.newSource(songName, "stream")
-  music:setLooping(true)
-  music:play()
+  ll_global.sng = love.audio.newSource(songName, "stream")
+  ll_global.sng:setLooping(true)
+  ll_global.sng:play()
 end

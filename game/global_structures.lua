@@ -75,7 +75,9 @@ function create_ll_system()
   ll_system.snd = {}
   --
   --     sng  As uInteger
-  ll_system.sng = 0
+  --NOTE: We are going to directly use this to store the
+  --love2d Source object for music.
+  ll_system.sng = nil
   --
   --
   --   #EndIf

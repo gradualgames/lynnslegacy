@@ -6,6 +6,7 @@ require("game/engine--LL")
 require("game/engine--gfx_LL")
 require("game/ll_build")
 require("game/global_structures")
+require("game/utility")
 
 log = require("lib/log/log")
 log.usecolor = false
@@ -59,7 +60,8 @@ function love.load()
   bhist = {}
   dbgrects = {}
 
-  LLMusic_Start("data/music/world.it")
+  ll_global.song = 23
+  LLMusic_Start(music_strings[ll_global.song])
 end
 
 function love.update(dt)
