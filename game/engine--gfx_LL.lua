@@ -508,7 +508,7 @@ function blit_enemy_loot()
 --
 --
 --   Dim As Integer enemy_loot, conf
-  local enemy_loot, conf = 0, 0
+  local enemy_loot, conf = 0, false
 --   Dim As vector_pair origin, target
   local origin, target = create_vector_pair(), create_vector_pair()
 --
@@ -578,7 +578,7 @@ function blit_enemy_loot()
         end
 --
 --             If conf Then
-        if conf ~= 0 then
+        if conf then
 --
 --               Select Case .dropped
 --

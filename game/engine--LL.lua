@@ -276,12 +276,12 @@ function check_teleports(_char, _tele, num_tele)
 --     target.v.y = _tele[tele_check].h
     target.v.y = _tele[tele_check].h
 
-    table.insert(dbgrects, {
-      c = .05,
-      x = target.u.x - ll_global.this_room.cx,
-      y = target.u.y - ll_global.this_room.cy,
-      w = target.v.x,
-      h = target.v.y})
+    -- table.insert(dbgrects, {
+    --   c = .05,
+    --   x = target.u.x - ll_global.this_room.cx,
+    --   y = target.u.y - ll_global.this_room.cy,
+    --   w = target.v.x,
+    --   h = target.v.y})
 --
 --     If check_bounds( origin, target ) = 0 Then
     if check_bounds(origin, target) == 0 then
@@ -4346,7 +4346,6 @@ end
 
 -- Sub LLMusic_Start( songName As String )
 function LLMusic_Start(songName)
-  log.debug("LLMusic_Start: "..songName)
 --
 --   Dim As uinteger ret
 --
