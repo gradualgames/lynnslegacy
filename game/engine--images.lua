@@ -28,12 +28,12 @@ function loadPalette(fileName)
 
   if paletteBlob then
     local palette, masterPalette = {}, {}
-    for x = 0,255 do
-      local b,g,r = readByte(paletteBlob),
-              readByte(paletteBlob),
-              readByte(paletteBlob)
-      masterPalette[x] = {[0] = r / 255, g / 255, b /255}
-      palette[x] = masterPalette[x]
+    for x = 0, 255 do
+      local b,g,r = readByte(paletteBlob) / 255,
+              readByte(paletteBlob) / 255,
+              readByte(paletteBlob) / 255
+      masterPalette[x] = {[0] = r, g, b}
+      palette[x] = {[0] = r, g, b}
     end
     return masterPalette, palette
   else

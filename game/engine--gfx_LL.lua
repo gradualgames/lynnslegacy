@@ -942,3 +942,39 @@ function hud_BlitMain(this)
 --
 -- End Sub
 end
+
+-- Sub shift_pal()
+function shift_pal()
+  log.debug("shift_pal called.")
+--
+--
+--   Dim As Integer cols, jmper, res( 255 )
+  local cols, jmper = 0, 0
+--
+--   For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--     For jmper = 0 To 16 Step 8
+--
+--       res( cols ) Or= Int(                                              _
+--                            (                                            _
+--                              ( 5 - ( llg( dark ) * .66 ) ) / 5          _
+--                            ) *                                          _
+--                              (                                          _
+--                                ( fb_Global.display.pal[cols] Shr jmper ) And &hff _
+--                              )                                          _
+--                          ) Shl( jmper )
+    palette[cols][0] = ((5 - ( ll_global.dark * .66)) / 5) * (masterPalette[cols][0])
+    palette[cols][1] = ((5 - ( ll_global.dark * .66)) / 5) * (masterPalette[cols][1])
+    palette[cols][2] = ((5 - ( ll_global.dark * .66)) / 5) * (masterPalette[cols][2])
+--
+--     Next
+--
+--   Next
+  end
+--
+--   Palette Using res
+--
+--
+-- End Sub
+end
