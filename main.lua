@@ -55,8 +55,9 @@ function love.load()
   ll_global.current_cam = ll_global.hero
   ll_global.this_room.cx = 0
   ll_global.this_room.cy = 0
+  ll_global.song = now_room().song
 
-  LLMusic_Start(music_strings[now_room().song])
+  LLMusic_Start(music_strings[ll_global.song])
 
   --Variables not related to the Lynn's Legacy engine
   bhist = {}
