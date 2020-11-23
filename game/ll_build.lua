@@ -198,6 +198,17 @@ function LLSystem_LoadMap(fileName)
   return map
 end
 
+-- Sub load_entrypoint()
+function load_entrypoint()
+--
+--   llg( start_map ) = "data\map\title.map"
+  ll_global.start_map = "data/map/title.map"
+--   llg( start_entry ) = 0
+  ll_global.start_entry = 0
+--
+-- End Sub
+end
+
 --Loads a Lynn's Legacy .map file. Assumes it is an uncompressed .map file.
 --The original set of files were zlib compressed. I ran them through the
 --offzip utility to decompress them.

@@ -11,11 +11,10 @@ function ll_main_entry()
 --
 --
 --   enter_map( Varptr( llg( hero ) ), llg( map ), llg( start_map ), llg( start_entry ) )
-  --Load map data
   log.level = "debug"
-  ll_global.map = LLSystem_LoadMap("data/map/title.map")
+  enter_map(ll_global.hero, ll_global, ll_global.start_map, ll_global.start_entry)
   log.level = "fatal"
-
+  --Load map data
   ll_global.this_room.i = 0
 --
 --   With llg( map )->room[llg( this_room.i )]
@@ -27,8 +26,11 @@ function ll_main_entry()
   set_up_room_enemies(now_room().enemies, now_room().enemy)
   --log.level = "fatal"
 --   llg( seq ) = llg( hero ).seq
+  ll_global.seq = ll_global.hero.seq
 --   llg( hero ).seq = 0
+  ll_global.hero.seq = nil
 --   llg( song ) = llg( map )->room[llg( this_room.i )].song
+  ll_global.song = ll_global.map.room[ll_global.this_room.i].song
 --
 --
 --   If llg( map )->isDungeon <> 0 Then
@@ -45,7 +47,6 @@ function ll_main_entry()
   ll_global.current_cam = ll_global.hero
   ll_global.this_room.cx = 0
   ll_global.this_room.cy = 0
-  ll_global.song = now_room().song
 --
 --   LLMusic_Start( *music_strings( llg( song ) ) )
   LLMusic_Start(music_strings[ll_global.song])
@@ -143,22 +144,28 @@ function engine_init()
 --
 --
 --   echo_print( "determining entry point" )
+  log.debug("determining entry point")
 --   load_entrypoint()
+  load_entrypoint()
 --
 --
 --   echo_print( "map: " & llg( start_map ) )
 --
 --
 --   echo_print( "constructing main object" )
+  log.debug("constructing main object")
 --   ctor_hero( Varptr( llg( hero ) ) )
   ctor_hero(ll_global.hero)
 --
 --   llg( do_hud ) = -1
+  ll_global.do_hud = -1
 --
 --   llg( current_cam ) = Varptr( llg( hero ) )
+  ll_global.current_cam = hero
 --
 --
 --   echo_print( "loading menu and HUD gfx" )
+  log.debug("loading menu and HUD gfx")
 --   load_status_images( Varptr( llg( savImages ) ) )
 --   load_hud( Varptr( llg( hud ) ) )
   load_hud(ll_global.hud)
