@@ -28,7 +28,7 @@ function love.load()
   --Load map data
   ll_global.map = LLSystem_LoadMap("data/map/forest_fall.map")
 
-  ll_global.this_room.i = 2
+  ll_global.this_room.i = 0
 
   --NOTE: Not certain if we will keep this structure,
   --but in the original source code, init_splash would show the splash
@@ -46,7 +46,7 @@ function love.load()
   set_up_room_enemies(now_room().enemies, now_room().enemy)
   --log.level = "fatal"
 
-  ll_global.hero.coords.x = 320
+  ll_global.hero.coords.x = 100
   ll_global.hero.coords.y = 100
 
   --Hard-code Lynn's weapon to the sapling for now.
@@ -56,12 +56,11 @@ function love.load()
   ll_global.this_room.cx = 0
   ll_global.this_room.cy = 0
 
+  LLMusic_Start(music_strings[now_room().song])
+
   --Variables not related to the Lynn's Legacy engine
   bhist = {}
   dbgrects = {}
-
-  ll_global.song = 23
-  LLMusic_Start(music_strings[ll_global.song])
 end
 
 function love.update(dt)
