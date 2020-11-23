@@ -56,7 +56,9 @@ end
 
 --Loads a sequence from an already loaded map binary blob.
 function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
-
+  log.level = "debug"
+  log.debug("numSeqs: "..numSeqs)
+  log.level = "fatal"
   -- For 0 to seqs - 1 do
   for grabSeq = 0, numSeqs - 1 do
 
@@ -189,7 +191,10 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
 end
 
 function LLSystem_LoadMap(fileName)
+  log.debug("LLSystem_LoadMap called.")
   local map = load_mapV(fileName)
+  log.debug("map.entry[0].seq: "..(map.entry[0].seq and "exists" or "nil"))
+  log.debug("map.entry[0].seq.Command: "..(map.entry[0].seq.Command and "exists" or "nil"))
   map.imageHeader = getImageHeader(map.tileSetFileName)
   map.imageHeader.spriteBatches = {}
   map.imageHeader.spriteBatches[0] = imageToSpriteBatch(map.imageHeader.image)
@@ -306,6 +311,7 @@ function load_mapV(fileName)
       log.debug("room.seq_here: "..room.seq_here)
 
       room.seq = {}
+      room.seqi = 0
 
       load_seqV(mapBlob, room.seq_here, room.seq, "room", roomIndex)
 
@@ -338,6 +344,7 @@ function load_mapV(fileName)
         enemy.reserved_5 = readInt(mapBlob)
         log.debug("enemy.reserved_5: "..enemy.reserved_5)
         enemy.seq = {}
+        enemy.seqi = 0
         load_seqV(mapBlob, enemy.seq_here, enemy.seq, "enemy", enemyIndex)
 
         enemy.spawn_cond = readInt(mapBlob)
@@ -441,6 +448,7 @@ function load_mapV(fileName)
       entry.reserved = readStringL(mapBlob, 84)
       log.debug("entry.reserved: "..entry.reserved)
       entry.seq = {}
+      entry.seqi = 0
       load_seqV(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
       map.entry[loopEntries] = entry
     end

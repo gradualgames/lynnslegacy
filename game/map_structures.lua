@@ -132,6 +132,11 @@ function create_room_type()
   room_type.seq_here = 0
 --   seq As sequence_type Ptr
   room_type.seq = {}
+  --NOTE: We introduce seqi because seq was basically a pointer
+  --to the current sequence in an allocated array of sequences. We
+  --can't operate that way with Lua, so we need to have this index
+  --alongside seq.
+  room_type.seqi = 0
 --
 --   #IfDef list_type
 --     manage_mem As list_type Ptr
@@ -178,7 +183,12 @@ function create_map_entry_type()
 --   seq_here As Integer
   map_entry_type.seq_here = 0
 --   seq As sequence_type Ptr
-  map_entry_type.seq = create_sequence_type()
+  map_entry_type.seq = {}
+  --NOTE: We introduce seqi because seq was basically a pointer
+  --to the current sequence in an allocated array of sequences. We
+  --can't operate that way with Lua, so we need to have this index
+  --alongside seq.
+  map_entry_type.seqi = 0
 --
 --   reserved( 20 ) As Integer
   map_entry_type.reserved = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}

@@ -376,6 +376,11 @@ function init_object(object)
   --     sel_seq               As Integer
   --     seq                   As sequence_type Ptr
   object.seq = {}
+  --NOTE: We introduce seqi because seq was basically a pointer
+  --to the current sequence in an allocated array of sequences. We
+  --can't operate that way with Lua, so we need to have this index
+  --alongside seq.
+  object.seqi = 0
   --     seq_here              As Integer
   object.seq_here = 0
   --     seq_paused            As Integer

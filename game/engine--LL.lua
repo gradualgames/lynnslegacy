@@ -27,8 +27,10 @@ function ll_main_entry()
   --log.level = "fatal"
 --   llg( seq ) = llg( hero ).seq
   ll_global.seq = ll_global.hero.seq
+  ll_global.seqi = ll_global.hero.seqi
 --   llg( hero ).seq = 0
   ll_global.hero.seq = nil
+  ll_global.hero.seqi = 0
 --   llg( song ) = llg( map )->room[llg( this_room.i )].song
   ll_global.song = ll_global.map.room[ll_global.this_room.i].song
 --
@@ -1522,6 +1524,7 @@ function change_room(o, _call, t)
 --
 --           llg( seq ) = 0
       ll_global.seq = nil
+      ll_global.seqi = 0
 --
 --           llg( hero ).coords.x = now_room().teleport[o->switch_room].dx
       ll_global.hero.coords.x = now_room().teleport[o.switch_room].dx
@@ -1565,6 +1568,7 @@ function change_room(o, _call, t)
         if now_room().seq ~= nil then
 --               o->seq = now_room().seq
           o.seq = now_room().seq
+          o.seqi = now_room().seqi
 --
 --             End If
         end
@@ -1696,9 +1700,11 @@ function change_room(o, _call, t)
 --
 --       llg( seq ) = o->seq
     ll_global.seq = o.seq
+    ll_global.seqi = o.seqi
 --
 --       o->seq = 0
     o.seq = nil
+    o.seqi = 0
 --
 --       o->switch_room = -1
     o.switch_room = -1
@@ -1808,6 +1814,9 @@ function enter_map(_char, _m, desc, _entry)
 --   '' active sequence
 --   llg( hero ).seq = _m->entry[_entry].seq
   ll_global.hero.seq = _m.map.entry[_entry].seq
+  ll_global.hero.seqi = _m.map.entry[_entry].seqi
+  log.debug("_entry: ".._entry)
+  log.debug("ll_global.hero.seq.Command: "..(ll_global.hero.seq.Command and "exists" or "nil"))
 --
 --   llg( dark ) = now_room().dark
   ll_global.dark = now_room().dark
