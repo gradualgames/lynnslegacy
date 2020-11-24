@@ -230,11 +230,6 @@ end
 function LLSystem_LoadMap(fileName)
   log.debug("LLSystem_LoadMap called.")
   local map = load_mapV(fileName)
-  map.imageHeader = getImageHeader(map.tileSetFileName)
-  map.imageHeader.spriteBatches = {}
-  map.imageHeader.spriteBatches[0] = imageToSpriteBatch(map.imageHeader.image)
-  map.imageHeader.spriteBatches[1] = imageToSpriteBatch(map.imageHeader.image)
-  map.imageHeader.spriteBatches[2] = imageToSpriteBatch(map.imageHeader.image)
   return map
 end
 
@@ -266,11 +261,16 @@ function load_mapV(fileName)
     log.debug("map.entries: "..map.entries)
     map.rooms = readInt(mapBlob)
     log.debug("map.rooms: "..map.rooms)
-    --FIXME: No spot in original structure
-    --for the file name, just the tile set itself after
-    --being loaded...
-    map.tileSetFileName = readString(mapBlob)
-    log.debug("map.tileSetFileName: "..map.tileSetFileName)
+
+    --NOTE: Load the tileset and set up sprite batches for
+    --map specific 3 layer handling.
+    map.tileset_filename = readString(mapBlob)
+    log.debug("map.tileset_filename: "..map.tileset_filename)
+    map.tileset = getImageHeader(map.tileset_filename)
+    map.tileset.spriteBatches = {}
+    map.tileset.spriteBatches[0] = imageToSpriteBatch(map.tileset.image)
+    map.tileset.spriteBatches[1] = imageToSpriteBatch(map.tileset.image)
+    map.tileset.spriteBatches[2] = imageToSpriteBatch(map.tileset.image)
 
     map.room = {}
 

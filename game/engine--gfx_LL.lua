@@ -130,11 +130,11 @@ function blit_room()
   -- If llg( tilesDisabled ) = FALSE Then
   --   '' bottom layers
   --   LLEngine_BlitLayer( 0 )
-  layoutLayer(camera, now_room(), 0, ll_global.map.imageHeader, ll_global.map.imageHeader.spriteBatches[0])
-  love.graphics.draw(ll_global.map.imageHeader.spriteBatches[0])
+  layoutLayer(camera, now_room(), 0, ll_global.map.tileset, ll_global.map.tileset.spriteBatches[0])
+  love.graphics.draw(ll_global.map.tileset.spriteBatches[0])
   --   LLEngine_BlitLayer( 1 )
-  layoutLayer(camera, now_room(), 1, ll_global.map.imageHeader, ll_global.map.imageHeader.spriteBatches[1])
-  love.graphics.draw(ll_global.map.imageHeader.spriteBatches[1])
+  layoutLayer(camera, now_room(), 1, ll_global.map.tileset, ll_global.map.tileset.spriteBatches[1])
+  love.graphics.draw(ll_global.map.tileset.spriteBatches[1])
   --
   -- End If
   --
@@ -158,8 +158,8 @@ function blit_room()
   --
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
-  layoutLayer(camera, now_room(), 2, ll_global.map.imageHeader, ll_global.map.imageHeader.spriteBatches[2])
-  love.graphics.draw(ll_global.map.imageHeader.spriteBatches[2])
+  layoutLayer(camera, now_room(), 2, ll_global.map.tileset, ll_global.map.tileset.spriteBatches[2])
+  love.graphics.draw(ll_global.map.tileset.spriteBatches[2])
   --
   -- End If
   --
