@@ -216,6 +216,7 @@ function init_object(object)
   --   mad_walk_speed        As Double
   --
   --   mod_lock              As Integer
+  object.mod_lock = 0
   --   momentum              As dir_type
   object.momentum = create_dir_type()
   --   momentum_history      As dir_type
@@ -263,6 +264,7 @@ function init_object(object)
   --
   --
   --   return_trig           As Integer
+  object.return_trig = 0
   --
   --   shifty                As Integer
   --   shifty_lock           As Integer
@@ -373,7 +375,9 @@ function init_object(object)
   --     chap                  As Integer
   object.chap = 0
   --     dest_x                As Integer
+  object.dest_x = 0
   --     dest_y                As Integer
+  object.dest_y = 0
   --
   --     sel_seq               As Integer
   --     seq                   As sequence_type Ptr
@@ -386,7 +390,9 @@ function init_object(object)
   --     seq_here              As Integer
   object.seq_here = 0
   --     seq_paused            As Integer
+  object.seq_paused = 0
   --     seq_release           As Integer
+  object.seq_release = 0
   --
   --
   --

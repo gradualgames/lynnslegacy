@@ -4460,6 +4460,8 @@ end
 --
 -- Sub sequence_AssignEntityData( ByRef charData As char_type, ByRef commandData As command_data )
 function sequence_AssignEntityData(charData, commandData)
+  log.debug("sequence_AssignEntityData called.")
+  log.debug("with0.abs_y: "..commandData.abs_y)
 --
 --   With commandData
   local with0 = commandData
@@ -4660,6 +4662,7 @@ end
 --
 -- Private Sub sequence_CommandIncrement( resetSequence As sequence_type )
 function sequence_CommandIncrement(resetSequence)
+  log.debug("sequence_CommandIncrement called.")
 --
 --   #Define activeEntity resetSequence.ent[.active_ent]
 --NOTE: Lua has no macros so we have to just search replace
@@ -4710,6 +4713,7 @@ end
 --
 -- Function sequence_isCommandProgressing( thisSequence As sequence_type, currentEntity As Integer )
 function sequence_isCommandProgressing(thisSequence, currentEntity)
+  log.debug("sequence_isCommandProgressing called.")
 --
 --   #Define activeEntity thisSequence.ent[.active_ent]
 --NOTE: Lua has no macros so we have to just search replace
@@ -4733,12 +4737,14 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 --
 --         If .active_ent <> SF_BOX Then
     if with1.active_ent ~= SF_BOX then
+      log.debug("active_ent not SF_BOX")
 --           '' Entity called back
 --           command_isProgressing And= ( activeEntity->return_trig <> 0 )
       command_isProgressing = command_isProgressing and (thisSequence.ent[with1.active_ent].return_trig ~= 0)
 --
 --         Else
     else
+      log.debug("active_ent is SF_BOX")
 --           '' Box called back
 --           command_isProgressing And= ( llg( t_rect ).activated = FALSE )
       command_isProgressing = command_isProgressing and (ll_global.t_rect.activated == 0)
@@ -4792,6 +4798,7 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 --   End With
 --
 --   Function = command_isProgressing
+  log.debug("command_isProgressing: "..(command_isProgressing and "true" or "false"))
   return command_isProgressing
 --
 -- End Function
@@ -4865,6 +4872,7 @@ function play_sequence(_seq)
 --
 --         If .water_align <> 0 Then
       if with0.water_align ~= 0 then
+        log.debug("Looping background...")
 --           '' flag to loop the backround is set
 --           If llg( hero ).coords.y = 2000 Then
         if ll_global.hero.coords.y == 2000 then
@@ -4882,7 +4890,7 @@ function play_sequence(_seq)
             if with1.active_ent ~= SF_BOX then
 --                   '' bad pointer mojo
 --                   If activeEntity->no_cam = FALSE Then
-              if _seq.ent[with1.active_ent].no_cam == false then
+              if _seq.ent[with1.active_ent].no_cam == 0 then
 --                     '' entity is camera relative, shift it
 --                     activeEntity->coords.y += 5376
                 _seq.ent[with1.active_ent].coords.y = _seq.ent[with1.active_ent].coords.y + 5376
@@ -4905,7 +4913,7 @@ function play_sequence(_seq)
       end
 --
 --         If activeEntity->return_trig Then
-      if _seq.ent[with0.active_ent].return_trig then
+      if _seq.ent[with0.active_ent].return_trig ~= 0 then
 --           '' this entity called back already
 --           Continue For
         goto continue
@@ -4918,12 +4926,12 @@ function play_sequence(_seq)
 --         .ent_func += activeEntity->funcs.func[.ent_state][.ent_func] ( activeEntity )
 --         ''                                    ***************************************
 --         '' **************************************************************************
-      log.debug("with0.ent_func: "..with0.ent_func)
-      log.debug("with0.active_ent: "..with0.active_ent)
-      log.debug("with0.ent_state: "..with0.ent_state)
-      log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
-      log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
-      log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
+      -- log.debug("with0.ent_func: "..with0.ent_func)
+      -- log.debug("with0.active_ent: "..with0.active_ent)
+      -- log.debug("with0.ent_state: "..with0.ent_state)
+      -- log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
+      -- log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
+      -- log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
       with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --
 --
