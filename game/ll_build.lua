@@ -285,11 +285,9 @@ function load_mapV(fileName)
       room.parallax = readInt(mapBlob)
       log.debug("room.parallax: "..room.parallax)
       if room.parallax ~= 0 then
-        --FIXME: paraFileName is not defined in
-        --the original struct. We will probably be loading
-        --the parallax image directly, here.
-        room.paraFileName = readString(mapBlob)
-        log.debug("room.paraFileName: "..room.paraFileName)
+        room.para_filename = readString(mapBlob)
+        log.debug("room.para_filename: "..room.para_filename)
+        room.para_img = getImageHeader(room.para_filename)
       end
       room.dark = readInt(mapBlob)
       log.debug("room.dark: "..room.dark)

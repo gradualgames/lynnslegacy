@@ -177,6 +177,7 @@ function create_ll_system()
   ll_system.miniMap = create_LL_MiniMapType()
   --
   --   tilesDisabled As Integer
+  ll_system.tilesDisabled = 0
   --
   -- End Type
   return ll_system

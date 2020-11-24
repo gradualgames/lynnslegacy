@@ -80,14 +80,19 @@ end
 
 function blit_room()
   -- If llg( tilesDisabled ) = FALSE Then
+  if ll_global.tilesDisabled == 0 then
   --   If now_room().parallax <> 0 Then
+    if now_room().parallax ~= 0 then
   --   '' this room uses parallax
   --
   --      Put( 0 - ( llg( this_room ).cx \ 12 ), 0 - ( llg( this_room ).cy \ 12 ) ), @now_room().para_img->image[0]
+      love.graphics.draw(now_room().para_img.image, 0 - math.floor(ll_global.this_room.cx / 12), 0 - math.floor(ll_global.this_room.cy / 12))
   --
   --   End If
+    end
   --
   -- End If
+  end
   --
   -- Dim As mat_int on_tile, on_offset, optimization_matrix_2
   -- Dim As Integer save_tile_calcs, save_y_calcs, tile_blit_x, tile_blit_y
