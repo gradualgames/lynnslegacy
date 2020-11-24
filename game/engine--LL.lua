@@ -4857,10 +4857,10 @@ function play_sequence(_seq)
     else
 --         '' not a box
 --         sequence_AssignEntityData( *activeEntity, _seq->Command[_seq->current_command].ent[do_ents] )
-      log.debug("_seq.ent: "..(_seq.ent and "exists" or "nil"))
-      log.debug("_seq.ent[0]: "..(_seq.ent[0] and "exists" or "nil"))
-      log.debug("with0.active_ent: "..with0.active_ent)
-      log.debug("activeEntity: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
+      -- log.debug("_seq.ent: "..(_seq.ent and "exists" or "nil"))
+      -- log.debug("_seq.ent[0]: "..(_seq.ent[0] and "exists" or "nil"))
+      -- log.debug("with0.active_ent: "..with0.active_ent)
+      -- log.debug("activeEntity: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
       sequence_AssignEntityData(_seq.ent[with0.active_ent], _seq.Command[_seq.current_command].ent[do_ents])
 --
 --         If .water_align <> 0 Then
@@ -4918,6 +4918,12 @@ function play_sequence(_seq)
 --         .ent_func += activeEntity->funcs.func[.ent_state][.ent_func] ( activeEntity )
 --         ''                                    ***************************************
 --         '' **************************************************************************
+      log.debug("with0.ent_func: "..with0.ent_func)
+      log.debug("with0.active_ent: "..with0.active_ent)
+      log.debug("with0.ent_state: "..with0.ent_state)
+      log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
+      log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
+      log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
       with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --
 --

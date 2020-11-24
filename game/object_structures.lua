@@ -294,6 +294,7 @@ function init_object(object)
   object.star_weak = 0
   --
   --   state_shift           As Integer
+  object.state_shift = 0
   --
   --   sticky_chase          As Integer
   --
