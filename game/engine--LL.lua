@@ -4928,9 +4928,9 @@ function play_sequence(_seq)
 --         '' **************************************************************************
       -- log.debug("with0.ent_func: "..with0.ent_func)
       -- log.debug("with0.active_ent: "..with0.active_ent)
-      -- log.debug("with0.ent_state: "..with0.ent_state)
+      log.debug("with0.ent_state: "..with0.ent_state)
       -- log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
-      -- log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
+      log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
       -- log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
       with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --
