@@ -669,37 +669,41 @@ function blit_object(enemy)
 
 end
 
-function blit_object_ex(enemy)
+function blit_object_ex(this)
   -- With *( this )
+  local with0 = this
   --
   --   Dim As Integer f_opt, x_opt, y_opt
+  local f_opt, x_opt, y_opt = 0, 0, 0
   --
   --
   --     x_opt = .coords.x
-  local x_opt = enemy.coords.x
+  x_opt = with0.coords.x
   --     y_opt = .coords.y
-  local y_opt = enemy.coords.y
+  y_opt = with0.coords.y
   --
   --     If .no_cam = 0 Then
+  if with0.no_cam == 0 then
   --
   --       x_opt -= llg( this_room ).cx
-  x_opt = x_opt - ll_global.this_room.cx
+    x_opt = x_opt - ll_global.this_room.cx
   --       y_opt -= llg( this_room ).cy
-  y_opt = y_opt - ll_global.this_room.cy
+    y_opt = y_opt - ll_global.this_room.cy
   --
   --     End If
+  end
   --
   --     f_opt = .frame
-  local f_opt = enemy.frame
+  f_opt = with0.frame
   --log.debug("f_opt: "..f_opt)
   --
   --     With *( .anim[.current_anim] )
   --
   --       x_opt -= this->animControl[this->current_anim].x_off
-  x_opt = x_opt - enemy.animControl[enemy.current_anim].x_off
+  x_opt = x_opt - this.animControl[this.current_anim].x_off
   --log.debug("x_opt: "..x_opt)
   --       y_opt -= this->animControl[this->current_anim].y_off
-  y_opt = y_opt - enemy.animControl[enemy.current_anim].y_off
+  y_opt = y_opt - this.animControl[this.current_anim].y_off
   --log.debug("y_off: "..enemy.animControl[enemy.current_anim].y_off)
   --log.debug("y_opt: "..y_opt)
   --log.debug("enemy.animControl[enemy.current_anim].dir_frames: "..enemy.animControl[enemy.current_anim].dir_frames)
@@ -707,16 +711,16 @@ function blit_object_ex(enemy)
   --       f_opt *= .arraysize
   --
   --       If LLObject_IgnoreDirectional( this ) = 0 Then
-  if LLObject_IgnoreDirectional(enemy) == 0 then
+  if LLObject_IgnoreDirectional(this) == 0 then
   --         f_opt += this->direction * ( this->animControl[this->current_anim].dir_frames * .arraysize )
-    f_opt = f_opt + enemy.direction * enemy.animControl[enemy.current_anim].dir_frames
+    f_opt = f_opt + this.direction * this.animControl[this.current_anim].dir_frames
   --
   --       End If
   end
   --
   --       Put( x_opt, y_opt ), varptr( .image[f_opt] ), Trans
 
-  local anim = enemy.anim[enemy.current_anim]
+  local anim = with0.anim[with0.current_anim]
   love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
   --love.graphics.draw(anim.image, x_opt, y_opt)
 --love.graphics.draw(animation.image, animation.quads[animation.frame], screenX, screenY)

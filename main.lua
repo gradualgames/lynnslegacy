@@ -66,7 +66,7 @@ end
 
 function love.draw()
   startDrawing()
-  --log.level = "debug"
+  log.level = "debug"
   blit_scene()
 
   for key, dbgrect in pairs(dbgrects) do
@@ -79,7 +79,7 @@ function love.draw()
   -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
   -- love.graphics.rectangle("fill", x, y, w, h)
 
-  --log.level = "fatal"
+  log.level = "fatal"
   doneDrawing()
 end
 

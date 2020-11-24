@@ -236,6 +236,7 @@ function init_object(object)
   --   n_silver              As Integer
   --
   --   no_cam                As Integer
+  object.no_cam = 0
   --
   --   num                   As Integer
   object.num = 0
