@@ -11,9 +11,7 @@ function ll_main_entry()
 --
 --
 --   enter_map( Varptr( llg( hero ) ), llg( map ), llg( start_map ), llg( start_entry ) )
-  log.level = "debug"
   enter_map(ll_global.hero, ll_global, ll_global.start_map, ll_global.start_entry)
-  log.level = "fatal"
   --Load map data
   ll_global.this_room.i = 0
 --
@@ -1816,7 +1814,8 @@ function enter_map(_char, _m, desc, _entry)
   ll_global.hero.seq = _m.map.entry[_entry].seq
   ll_global.hero.seqi = _m.map.entry[_entry].seqi
   log.debug("_entry: ".._entry)
-  log.debug("ll_global.hero.seq.Command: "..(ll_global.hero.seq.Command and "exists" or "nil"))
+  log.debug("ll_global.hero.seqi: "..ll_global.hero.seqi)
+  log.debug("ll_global.hero.seq.Command: "..(ll_global.hero.seq[ll_global.hero.seqi].Command and "exists" or "nil"))
 --
 --   llg( dark ) = now_room().dark
   ll_global.dark = now_room().dark
@@ -4351,6 +4350,391 @@ function LLObject_IncrementProjectiles(char)
 -- End Sub
 end
 
+-- Private Sub sequence_LoadGame( savedInfo As ll_saving_data Ptr )
+--
+--   '' only called from play_sequence
+--
+--   llg( hero ).hp              = savedInfo->hp
+--   llg( hero ).maxhp           = savedInfo->maxhp
+--
+--   llg( hero ).money           = savedInfo->gold
+--   llg( hero_only ).has_weapon = savedInfo->weapon
+-- '  llg( hero_only ).has_item   = savedInfo->item
+--   memcpy( @llg( hero_only ).hasItem(0), @savedInfo->hasItem(0), 6 * len( integer ) )
+--
+--   llg( hero_only ).has_bar    = savedInfo->bar
+--
+--   llg( hero ).key             = savedInfo->key
+--   llg( hero_only ).b_key      = savedInfo->b_key
+--
+--   llg( hero ).to_map          = savedInfo->map
+--   llg( hero ).to_entry        = savedInfo->entry
+--
+--   llg( hero_only ).weapon     = llg( hero_only ).has_weapon
+--
+--   MemCpy( Varptr( llg( hero_only ).hasCostume( 0 ) ), Varptr( savedInfo->hasCostume( 0 ) ), 9 )
+--   llg( hero_only ).isWearing = savedInfo->isWearing
+--
+--
+--   '            '' hack
+--   '            llg( hero ).to_map = "icefield.map"
+--   '            llg( hero ).to_entry = 1
+--   '            llg( hero_only ).hasCostume( 1 ) = -1
+--   '            llg( hero_only ).hasCostume( 2 ) = -1
+--   '            llg( hero_only ).hasCostume( 3 ) = -1
+--   '            llg( hero ).to_map          = "arx.map"
+--
+--   '' :::::::::::::::::::::::::::::::::::::
+--
+--   Select Case llg( hero_only ).isWearing
+--
+--     Case 0
+--       set_regular()
+--
+--     Case 1
+--       set_cougar()
+--
+--     Case 2
+--       set_lynnity()
+--
+--     Case 3
+--       set_ninja()
+--
+--     Case 4
+--       set_bikini()
+--
+--     Case 5
+--       set_rknight()
+--
+--
+--   End Select
+--
+--
+--   MemCpy( llg( now ), Varptr( savedInfo->happen( 0 ) ), LL_EVENTS_MAX )
+--
+--
+--   llg( hero_only ).has_weapon = llg( hero_only ).weapon' + 1
+--
+--   llg( hero ).switch_room = -2
+--
+--   #IfDef ll_audio
+--     BASS_ChannelStop( now_room().enemy[5].playing_handle )
+--
+--   #EndIf
+--
+--
+--   change_room( 0, -1, 1 )
+--
+--
+--   llg( hero ).fade_time = .003
+--
+--   llg( hero_only ).action_lock = 0
+--   llg( hero ).chap = 0
+--   llg( hero ).menu_sel = 0
+--
+--   dim iRooms as integer
+--
+--   if savedInfo->rooms <> 0 then
+--     llg( hero_only ).roomVisited = callocate( savedInfo->rooms )
+--
+--     for iRooms = 0 to savedInfo->rooms - 1
+--       llg( hero_only ).roomVisited[iRooms] = savedInfo->hasVisited[iRooms]
+--
+--     next
+--
+--   end if
+--
+--   hold_key( sc_enter )
+--
+--   antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--   antiHackASSIGN( LL_Global.hero_only.weaponDummy, LL_Global.hero_only.has_weapon )
+--   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--   antiHackASSIGN2( LL_Global.hero_only.itemDummy, LL_Global.hero_only.hasItem )
+--   antiHackASSIGN2( LL_Global.hero_only.outfitDummy, LL_Global.hero_only.hasCostume )
+--   antiHackASSIGN( LL_Global.hero_only.maxhealthDummy, LL_Global.hero.maxhp )
+--
+--
+-- End Sub
+--
+--
+--
+-- Sub sequence_AssignEntityData( ByRef charData As char_type, ByRef commandData As command_data )
+function sequence_AssignEntityData(charData, commandData)
+--
+--   With commandData
+  local with0 = commandData
+--
+--     If charData.mod_lock = 0 Then
+  if charData.mod_lock == 0 then
+--
+--       If .seq_pause <> 0 Then
+    if with0.seq_pause ~= 0 then
+--
+--         charData.seq_paused =  1
+      charData.seq_paused = 1
+--
+--       End If
+    end
+--
+--       charData.mod_lock = 1
+    charData.mod_lock = 1
+--
+--     End If
+  end
+--
+--     If .modify_direction <> 0 Then
+  if with0.modify_direction ~= 0 then
+--
+--       charData.direction =  ( .reserved_1 - 1 )
+    charData.direction = (with0.reserved_1 - 1)
+--
+--     End If
+  end
+--
+--     If .free_to_move = 0 Then
+  if with0.free_to_move == 0 then
+--
+--       llg( hero_only ).action_lock = -1
+    ll_global.hero_only.action_lock = -1
+--
+--     End If
+  end
+--
+--     If .abs_x <> 0 Then
+  if with0.abs_x ~= 0 then
+--       charData.coords.x =  ( .abs_x )
+    chrData.coords.x = (with0.abs_x)
+--
+--     End If
+  end
+--
+--     If .abs_y <> 0 Then
+  if with0.abs_y ~= 0 then
+--       charData.coords.y =  ( .abs_y )
+    charData.coords.y = (with0.abs_y)
+--
+--     End If
+  end
+--
+--     if .fadeTime then
+  if with0.fadeTime ~= 0 then
+--       charData.fade_time =  ( .fadeTime )
+    charData.fade_time = (with0.fadeTime)
+--
+--     end if
+  end
+--
+--
+--     If .display_hud <> 0 Then
+  if with0.display_hud ~= 0 then
+--
+--       llg( do_hud ) = -1
+    ll_global.do_hud = -1
+--
+--     End If
+  end
+--
+--
+--     '' fill entity with settings stored in the sequence structure
+--     charData.dest_x = .dest_x
+  charData.dest_x = with0.dest_x
+--     charData.dest_y = .dest_y
+  charData.dest_y = with0.dest_y
+--
+--
+--     If .jump_count <> 0 Then
+  if with0.jump_count ~= 0 then
+--
+--       charData.jump_count = .jump_count
+    charData.jump_count = with0.jump_count
+--
+--     End If
+  end
+--
+--     charData.chap = .chap
+  charData.chap = with0.chap
+--
+--     If .walk_speed <> 0 Then
+  if with0.walk_speed ~= 0 then
+--
+--       charData.walk_speed = .walk_speed
+    charData.walk_speed = with0.walk_speed
+--
+--     End If
+  end
+--
+--   End With
+--
+-- End Sub
+end
+--
+-- Sub sequence_FullReset( resetSequence As sequence_type )
+--   '' last command executed
+--   Dim As Integer commandDismantle, entDismantle
+--
+--   #Define activeEntity resetSequence.ent[.active_ent]
+--
+--   With resetSequence
+--
+--     For commandDismantle = 0 To .commands - 1
+--       '' command iter.
+--       With .Command[commandDismantle]
+--
+--         For entDismantle = 0 To .ents - 1
+--           '' command ent iter.
+--           With .ent[entDismantle]
+--
+--             If .active_ent <> SF_BOX Then
+--               '' reset command ents' status
+--               activeEntity->mod_lock = 0
+--               activeEntity->seq_paused = 0
+--               activeEntity->return_trig = 0
+--
+--             End If
+--
+--             .ent_func = 0
+--
+--           End With
+--
+--         Next
+--
+--       End With
+--
+--     Next
+--
+--     .current_command = 0
+--
+--     llg( hero_only ).action_lock = 0
+--
+--   End With
+--
+-- End Sub
+--
+--
+-- Private Function sequence_ExitCondition( activeChar As char_type Ptr )
+--
+--   If llg( hero_only ).dropoutSequence Then
+--     '' the map change flag was set
+--     llg( hero_only ).dropoutSequence = FALSE
+--     If llg( hero ).switch_room <> -1 Then
+--       '' switch room, clear seq
+--       sequence_FullReset( *llg( seq ) )
+--       llg( seq ) = 0
+--
+--     End If
+--     Return TRUE
+--
+--   End If
+--
+--   If llg( hero_only ).isLoading Then
+--     '' Loading a saved game
+--     sequence_LoadGame( activeChar->save( activeChar->menu_sel ).link )
+--
+--     sequence_FullReset( *llg( seq ) )
+--     llg( seq ) = 0
+--     Return TRUE
+--
+--   End If
+--
+-- End Function
+--
+--
+--
+-- Private Sub sequence_CommandIncrement( resetSequence As sequence_type )
+--
+--   #Define activeEntity resetSequence.ent[.active_ent]
+--
+--   Dim As Integer reset_ents
+--
+--   With resetSequence
+--
+--     For reset_ents = 0 To .Command[.current_command].ents - 1
+--       '' cycle through command entities
+--       With .Command[.current_command].ent[reset_ents]
+--
+--         If .active_ent <> SF_BOX Then
+--           '' Working with a char_type
+--           activeEntity->return_trig = 0
+--           activeEntity->jump_counter = 0
+--           .ent_state = .hold_state
+--           .ent_func = 0
+--
+--         End If
+--
+--       End With
+--
+--     Next
+--
+--     '' increment command
+--     .current_command += 1
+--
+--   End With
+--
+-- End Sub
+--
+--
+--
+-- Function sequence_isCommandProgressing( thisSequence As sequence_type, currentEntity As Integer )
+--
+--   #Define activeEntity thisSequence.ent[.active_ent]
+--
+--   '' Check through for completion
+--   Dim As Integer check_ents, command_isProgressing
+--
+--   With thisSequence
+--
+--     '' Prime the pump
+--     command_isProgressing = TRUE
+--     For check_ents = 0 To .Command[.current_command].ents - 1
+--       '' cycle thru the entity callbacks
+--       With .Command[.current_command].ent[check_ents]
+--
+--         If .active_ent <> SF_BOX Then
+--           '' Entity called back
+--           command_isProgressing And= ( activeEntity->return_trig <> 0 )
+--
+--         Else
+--           '' Box called back
+--           command_isProgressing And= ( llg( t_rect ).activated = FALSE )
+--
+--         End If
+--
+--       End With
+--
+--     Next
+--
+--     With .Command[.current_command].ent[currentEntity]
+--
+--       If .carries_all Then
+--         '' This command ent takes precedence
+--         If .active_ent <> SF_BOX Then
+--
+--           If activeEntity->return_trig = 1 Then
+--             '' Its actor called back
+--             command_isProgressing = TRUE
+--
+--           End If
+--
+--         Else
+--
+--           If llg( t_rect ).activated = FALSE Then
+--
+--             command_isProgressing = TRUE
+--
+--           End If
+--
+--         End If
+--
+--       End If
+--
+--     End With
+--
+--   End With
+--
+--   Function = command_isProgressing
+--
+-- End Function
+
 -- Sub play_sequence ( _seq As sequence_type Ptr )
 function play_sequence(_seq)
   log.debug("play_sequence called.")
@@ -4361,6 +4745,8 @@ function play_sequence(_seq)
   if _seq == nil then return end
 --
 --   #Define activeEntity _seq->ent[.active_ent]
+  --NOTE: Lua has no macros so we have to just search replace
+  --and use the correct with0/with1 local: _seq.ent[with0.active_ent]
 --
 --   Static box_IsInited As Integer
   if box_IsInited == nil then box_IsInited = false end
@@ -4409,7 +4795,11 @@ function play_sequence(_seq)
     else
 --         '' not a box
 --         sequence_AssignEntityData( *activeEntity, _seq->Command[_seq->current_command].ent[do_ents] )
-      sequence_AssignEntityData(activeEntity, _seq.Command[_seq.current_command].ent[do_ents])
+      log.debug("_seq.ent: "..(_seq.ent and "exists" or "nil"))
+      log.debug("_seq.ent[0]: "..(_seq.ent[0] and "exists" or "nil"))
+      log.debug("with0.active_ent: "..with0.active_ent)
+      log.debug("activeEntity: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
+      sequence_AssignEntityData(_seq.ent[with0.active_ent], _seq.Command[_seq.current_command].ent[do_ents])
 --
 --         If .water_align <> 0 Then
       if with0.water_align ~= 0 then
@@ -4430,10 +4820,10 @@ function play_sequence(_seq)
             if with1.active_ent ~= SF_BOX then
 --                   '' bad pointer mojo
 --                   If activeEntity->no_cam = FALSE Then
-              if activeEntity.no_cam == false then
+              if _seq.ent[with1.active_ent].no_cam == false then
 --                     '' entity is camera relative, shift it
 --                     activeEntity->coords.y += 5376
-                activeEntity.coords.y = activeEntity.coords.y + 5376
+                _seq.ent[with1.active_ent].coords.y = _seq.ent[with1.active_ent].coords.y + 5376
 --
 --                   End If
               end
@@ -4453,7 +4843,7 @@ function play_sequence(_seq)
       end
 --
 --         If activeEntity->return_trig Then
-      if activeEntity.return_trig then
+      if _seq.ent[with0.active_ent].return_trig then
 --           '' this entity called back already
 --           Continue For
         goto continue
@@ -4466,13 +4856,13 @@ function play_sequence(_seq)
 --         .ent_func += activeEntity->funcs.func[.ent_state][.ent_func] ( activeEntity )
 --         ''                                    ***************************************
 --         '' **************************************************************************
-      with0.ent_func = with0.ent_func + activeEntity.funcs.func[with0.ent_state][with0.ent_func](activeEntity)
+      with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --
 --
 --         '' Stuff that gets set in entities' functions
 --         '' #########
 --                     If sequence_ExitCondition( activeEntity ) Then
-      if sequence_ExitCondition(activeEntity) then
+      if sequence_ExitCondition(_seq.ent[with0.active_ent]) then
 --
 --                       box_IsInited = FALSE
         box_IsInited = false
@@ -4483,15 +4873,15 @@ function play_sequence(_seq)
       end
 --
 --                     If activeEntity->state_shift <> 0 Then
-      if activeEntity.state_shift ~= 0 then
+      if _seq.ent[with0.active_ent].state_shift ~= 0 then
 --                       '' Just a hack for the menu, as far as I can see.
 --                       .ent_state = activeEntity->state_shift
-        with0.ent_state = activeEntity.state_shift
+        with0.ent_state = _seq.ent[with0.active_ent].state_shift
 --                       .ent_func = 0
         with0.ent_func = 0
 --
 --                       activeEntity->state_shift = 0
-        activeEntity.state_shift = 0
+        _seq.ent[with0.active_ent].state_shift = 0
 --
 --                     End If
       end
@@ -4499,7 +4889,7 @@ function play_sequence(_seq)
 --
 --
 --         If .ent_func = activeEntity->funcs.func_count[.ent_state] Then
-      if with0.ent_func == activeEntity.funcs.func_count[with0.ent_state] then
+      if with0.ent_func == _seq.ent[with0.active_ent].funcs.func_count[with0.ent_state] then
 --           '' Overflow
 --           .ent_func = 0
         with0.ent_func = 0

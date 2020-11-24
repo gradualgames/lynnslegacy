@@ -15,13 +15,13 @@ end
 --Reads a 4 byte integer from a binary blob, advancing the offset
 --in the blob by 4.
 function readInt(blob)
-    return blob:u32()
+    return blob:s32()
 end
 
 --Reads a 2 byte integer from a binary blob, advancing the offset
 --in the blob by 2.
 function readShort(blob)
-    return blob:u16()
+    return blob:s16()
 end
 
 --Reads a double precision floating point value from a binary blob.

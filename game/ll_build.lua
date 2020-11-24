@@ -54,11 +54,48 @@ function ctor_hero(l)
 -- End Function
 end
 
+-- Sub seq_id( seqs As Integer, s As sequence_type Ptr, e As char_type Ptr )
+function seq_id(seqs, s, e)
+--
+--   Dim As Integer grab_seq, loop_ents
+  local grab_seq, loop_ents = 0, 0
+--
+--   For grab_seq = 0 To seqs - 1
+  for grab_seq = 0, seqs - 1 do
+--
+--     For loop_ents = 0 To s[grab_seq].ents - 1
+    for loop_ents = 0, s[grab_seq].ents - 1 do
+--
+    log.debug("s[grab_seq].ent_code[loop_ents]: "..s[grab_seq].ent_code[loop_ents])
+--       If s[grab_seq].ent_code[loop_ents] = -1 Then
+      if s[grab_seq].ent_code[loop_ents] == -1 then
+--
+--         s[grab_seq].ent[loop_ents] = @llg( hero )
+        s[grab_seq].ent[loop_ents] = ll_global.hero
+--
+--       Else
+      else
+        log.debug("Getting entity for sequence ent array.")
+--
+--         s[grab_seq].ent[loop_ents] = @e[s[grab_seq].ent_code[loop_ents]]
+        s[grab_seq].ent[loop_ents] = e[s[grab_seq].ent_code[loop_ents]]
+--
+--       End If
+      end
+--
+--     Next
+    end
+--
+--   Next
+  end
+--
+-- End Sub
+end
+
 --Loads a sequence from an already loaded map binary blob.
 function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
-  log.level = "debug"
   log.debug("numSeqs: "..numSeqs)
-  log.level = "fatal"
+  log.debug("seqType: "..seqType)
   -- For 0 to seqs - 1 do
   for grabSeq = 0, numSeqs - 1 do
 
@@ -193,8 +230,6 @@ end
 function LLSystem_LoadMap(fileName)
   log.debug("LLSystem_LoadMap called.")
   local map = load_mapV(fileName)
-  log.debug("map.entry[0].seq: "..(map.entry[0].seq and "exists" or "nil"))
-  log.debug("map.entry[0].seq.Command: "..(map.entry[0].seq.Command and "exists" or "nil"))
   map.imageHeader = getImageHeader(map.tileSetFileName)
   map.imageHeader.spriteBatches = {}
   map.imageHeader.spriteBatches[0] = imageToSpriteBatch(map.imageHeader.image)
@@ -413,14 +448,14 @@ function load_mapV(fileName)
       --upper bound plus one. To read the data correctly, we add one
       --to this number of elements (see the readC call below).
 
-      room.roomElem = room.x * (room.y + 1) + 1
-      log.debug("roomElem: "..room.roomElem)
+      room.room_elem = room.x * (room.y + 1) + 1
+      log.debug("room_elem: "..room.room_elem)
 
       log.debug("Offset prior to reading layer data: "..offset(mapBlob))
 
       for getNCpy = 0, 2 do
 
-        local layer = readC(readShort, mapBlob, room.roomElem + 1)
+        local layer = readC(readShort, mapBlob, room.room_elem + 1)
         log.debug("Read layer data.")
         room.layout[getNCpy] = layer
         --function readC(readF, blob, count)
@@ -443,19 +478,64 @@ function load_mapV(fileName)
       log.debug("entry.room: "..entry.room)
       entry.direction = readByte(mapBlob)
       log.debug("entry.direction: "..entry.direction)
-      entry.seqHere = readInt(mapBlob)
-      log.debug("entry.seqHere: "..entry.seqHere)
+      entry.seq_here = readInt(mapBlob)
+      log.debug("entry.seq_here: "..entry.seq_here)
       entry.reserved = readStringL(mapBlob, 84)
       log.debug("entry.reserved: "..entry.reserved)
       entry.seq = {}
       entry.seqi = 0
-      load_seqV(mapBlob, entry.seqHere, entry.seq, "entry", loopEntries)
+      load_seqV(mapBlob, entry.seq_here, entry.seq, "entry", loopEntries)
       map.entry[loopEntries] = entry
     end
 
-    --TODO: There is some post processing here running a function
-    --called seq_id. For the purposes of loading a map file and getting
-    --interesting data out of it, we don't need to transcribe that right now.
+    -- For loop_rooms = 0 To lmap->rooms- 1
+    for loop_rooms = 0, map.rooms - 1 do
+    --
+    --   With lmap->room[loop_rooms]
+      local with0 = map.room[loop_rooms]
+    --
+    --     seq_id( .seq_here, _
+    --             .seq, _
+    --             .enemy )
+      seq_id(with0.seq_here, with0.seq, with0.enemy)
+    --
+    --     For loop_enemies = 0 To .enemies - 1
+      for loop_enemies = 0, with0.enemies - 1 do
+    --
+    --       With .enemy[loop_enemies]
+        local with1 = with0.enemy[loop_enemies]
+    --
+    --         seq_id( .seq_here, _
+    --                 .seq, _
+    --                 lmap->room[loop_rooms].enemy )
+        seq_id(with1.seq_here, with1.seq, map.room[loop_rooms].enemy)
+    --
+    --       End With
+    --
+    --     Next
+      end
+    --
+    --   End With
+    --
+    -- Next
+    end
+    --
+    -- For loop_entries = 0 To lmap->entries - 1
+    for loop_entries = 0, map.entries - 1 do
+      log.debug("Running seq_id on map entry: "..loop_entries)
+    --
+    --   With lmap->entry[loop_entries]
+      local with0 = map.entry[loop_entries]
+    --
+    --     seq_id( .seq_here, _
+    --             .seq, _
+    --             lmap->room[.room].enemy )
+      seq_id(with0.seq_here, with0.seq, map.room[with0.room].enemy)
+    --
+    --   End With
+    --
+    -- Next
+    end
 
   end
 
