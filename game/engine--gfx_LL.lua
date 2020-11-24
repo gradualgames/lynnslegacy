@@ -41,6 +41,7 @@ function blit_scene()
   --   '' chapter screen is not up
   --   update_cam( llg( current_cam ) )
   update_cam(ll_global.current_cam)
+  --   blit_room()
   blit_room()
   --
   -- Else
@@ -57,10 +58,12 @@ function blit_scene()
   -- End If
   --
   -- If llg( do_hud ) <> 0 Then
+  if ll_global.do_hud ~= 0 then
   --   blit_hud()
-  blit_hud()
+    blit_hud()
   --
   -- End If
+  end
   --
   -- blit_box( varptr( llg( t_rect ) ) )
   --
@@ -288,92 +291,120 @@ function blit_y_sorted()
   --
   -- Next
   end
-  --FIXME: For now, we're just going to blit the hero separately. Eventually
-  --we will want to port or rewrite the full sorting implementation in this
-  --function
-  --blit_object(ll_global.hero)
 end
 
-function blit_enemy(enemy)
+function blit_enemy(_enemy)
   -- With _enemy
+  local with0 = _enemy
   --
   --   Dim As Integer temp_x_cam, temp_y_cam
+  local temp_x_cam, temp_y_cam = 0, 0
   --
   --   temp_x_cam = 0
+  temp_x_cam = 0
   --   temp_y_cam = 0
+  temp_y_cam = 0
   --
   --   If .no_cam = 0 Then
+  if with0.no_cam == 0 then
   --
   --     '' this object is not camera relative
   --     temp_x_cam = llg( this )_room.cx
+    temp_x_cam = ll_global.this_room.cx
   --     temp_y_cam = llg( this )_room.cy
+    temp_y_cam = ll_global.this_room.cy
   --
   --   End If
+  end
   --
   --   If llg( hero ).menu_sel <> 0 Then
+  if ll_global.hero.menu_sel ~= 0 then
   --       '' menu showing
   --
   --     If .unique_id = u_menu Or .unique_id = u_savepoint Then
+    if with0.unique_id == u_menu or with0.unique_id == u_savepoint then
   --       '' the menu is the active "enemy"
   --
   --       llg( box_entity ) = Varptr( _enemy )
+      ll_global.box_entity = _enemy
   --
   --
   --     End If
+    end
   --
   --
   --   Else
+  else
   --     '' no menu
   --
   --     llg( box_entity ) = 0
+    ll_global.box_entity = 0
   --
   --     If .projectile Then
+    if with0.projectile ~= nil then
   --
   --       If .projectile->overChar = FALSE Then
+      if with0.projectile.overChar == 0 then
   --         '' this enemy's projectiles are under it.
   --         blit_enemy_proj( Varptr( _enemy ) )
+
+        blit_enemy_proj(_enemy)
   --
   --       End If
+      end
   --
   --     End If
+    end
   --
   --
   --
   --     If Not ( .unique_id = u_menu ) Then
+    if not (with0.unique_id == u_menu) then
   --       '' put the enemy on screen
   --
   --       blit_object( VarPtr( _enemy ) )
-  blit_object(enemy)
+      blit_object(_enemy)
   --
   --     End If
+    end
   --
   --
   --     If .projectile Then
+    if with0.projectile ~= nil then
   --
   --       If .projectile->overChar Then
+      if with0.projectile.overChar ~= 0 then
   --         '' this enemy's projectiles are over it.
   --         blit_enemy_proj( Varptr( _enemy ) )
+        blit_enemy_proj(_enemy)
   --
   --       End If
+      end
   --
   --     End If
+    end
   --
   --
   --
   --     If .grult_proj_trig <> 0 Then
+    if with0.gult_proj_trig ~= 0 then
   --
   --       Put( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
   --
   --     End If
+    end
   --
   --     If .anger_proj_trig <> 0 Then
+    if with0.anger_proj_trig ~= 0 then
   --
   --       Put( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
   --
   --     End If
+    end
   --
   --
   --     If .cur_expl > 0 Then
+    if with0.cur_expl > 0 then
   --
   --       Dim As Integer px, py, pf, pa, do_expl
   --
@@ -403,8 +434,10 @@ function blit_enemy(enemy)
   --       Next
   --
   --     End If
+    end
   --
   --   End If
+  end
   --
   -- End With
 end
