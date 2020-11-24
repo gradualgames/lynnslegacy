@@ -4612,31 +4612,49 @@ end
 --
 --
 -- Private Function sequence_ExitCondition( activeChar As char_type Ptr )
+function sequence_ExitCondition(activeChar)
 --
 --   If llg( hero_only ).dropoutSequence Then
+  if ll_global.hero_only.dropoutSequence ~= 0 then
 --     '' the map change flag was set
 --     llg( hero_only ).dropoutSequence = FALSE
+    ll_global.hero_only.dropoutSequence = 0
 --     If llg( hero ).switch_room <> -1 Then
+    if ll_global.hero.switch_room ~= -1 then
 --       '' switch room, clear seq
 --       sequence_FullReset( *llg( seq ) )
+      sequence_FullReset(ll_global.seq)
 --       llg( seq ) = 0
+      ll_global.seq = nil
+      ll_global.seqi = 0
 --
 --     End If
+    end
 --     Return TRUE
+    return true
 --
 --   End If
+  end
 --
 --   If llg( hero_only ).isLoading Then
+  if ll_global.hero_only.isLoading ~= 0 then
 --     '' Loading a saved game
 --     sequence_LoadGame( activeChar->save( activeChar->menu_sel ).link )
+    sequence_LoadGame(activeChar.save[activeChar.menu_sel].link)
 --
 --     sequence_FullReset( *llg( seq ) )
+    sequence_FullReset(ll_global.seq)
 --     llg( seq ) = 0
+    ll_global.seq = nil
+    ll_global.seqi = 0
 --     Return TRUE
+    return true
 --
 --   End If
+  end
 --
 -- End Function
+end
 --
 --
 --
@@ -4675,65 +4693,93 @@ end
 --
 --
 -- Function sequence_isCommandProgressing( thisSequence As sequence_type, currentEntity As Integer )
+function sequence_isCommandProgressing(thisSequence, currentEntity)
 --
 --   #Define activeEntity thisSequence.ent[.active_ent]
+--NOTE: Lua has no macros so we have to just search replace
+--and use the correct with0/with1 local: thisSequence.ent[with0.active_ent]
 --
 --   '' Check through for completion
 --   Dim As Integer check_ents, command_isProgressing
+  local check_ents, command_isProgressing = 0, false
 --
 --   With thisSequence
+  local with0 = thisSequence
 --
 --     '' Prime the pump
 --     command_isProgressing = TRUE
+  command_isProgressing = true
 --     For check_ents = 0 To .Command[.current_command].ents - 1
+  for check_ents = 0, with0.Command[with0.current_command].ents - 1 do
 --       '' cycle thru the entity callbacks
 --       With .Command[.current_command].ent[check_ents]
+    local with1 = with0.Command[with0.current_command].ent[check_ents]
 --
 --         If .active_ent <> SF_BOX Then
+    if with1.active_ent ~= SF_BOX then
 --           '' Entity called back
 --           command_isProgressing And= ( activeEntity->return_trig <> 0 )
+      command_isProgressing = command_isProgressing and (thisSequence.ent[with1.active_ent].return_trig ~= 0)
 --
 --         Else
+    else
 --           '' Box called back
 --           command_isProgressing And= ( llg( t_rect ).activated = FALSE )
+      command_isProgressing = command_isProgressing and (ll_global.t_rect.activated == 0)
 --
 --         End If
+    end
 --
 --       End With
 --
 --     Next
+  end
 --
 --     With .Command[.current_command].ent[currentEntity]
+  local with1 = with0.Command[with0.current_command].ent[currentEntity]
 --
 --       If .carries_all Then
+  if with1.carries_all ~= 0 then
 --         '' This command ent takes precedence
 --         If .active_ent <> SF_BOX Then
+    if with1.active_ent ~= SF_BOX then
 --
 --           If activeEntity->return_trig = 1 Then
+      if thisSequence.ent[with1.active_ent].return_trig == 1 then
 --             '' Its actor called back
 --             command_isProgressing = TRUE
+        command_isProgressing = true
 --
 --           End If
+      end
 --
 --         Else
+    else
 --
 --           If llg( t_rect ).activated = FALSE Then
+      if ll_global.t_rect.activated == 0 then
 --
 --             command_isProgressing = TRUE
+        command_isProgressing = true
 --
 --           End If
+      end
 --
 --         End If
+    end
 --
 --       End If
+  end
 --
 --     End With
 --
 --   End With
 --
 --   Function = command_isProgressing
+  return command_isProgressing
 --
 -- End Function
+end
 
 -- Sub play_sequence ( _seq As sequence_type Ptr )
 function play_sequence(_seq)
