@@ -4659,36 +4659,52 @@ end
 --
 --
 -- Private Sub sequence_CommandIncrement( resetSequence As sequence_type )
+function sequence_CommandIncrement(resetSequence)
 --
 --   #Define activeEntity resetSequence.ent[.active_ent]
+--NOTE: Lua has no macros so we have to just search replace
+--and use the correct with0/with1 local: resetSequence.ent[with0.active_ent]
 --
 --   Dim As Integer reset_ents
+  local reset_ents = 0
 --
 --   With resetSequence
+  local with0 = resetSequence
 --
 --     For reset_ents = 0 To .Command[.current_command].ents - 1
+  for reset_ents = 0, with0.Command[with0.current_command].ents - 1 do
 --       '' cycle through command entities
 --       With .Command[.current_command].ent[reset_ents]
+    local with1 = with0.Command[with0.current_command].ent[reset_ents]
 --
 --         If .active_ent <> SF_BOX Then
+    if with1.active_ent ~= SF_BOX then
 --           '' Working with a char_type
 --           activeEntity->return_trig = 0
+      resetSequence.ent[with1.active_ent].return_trig = 0
 --           activeEntity->jump_counter = 0
+      resetSequence.ent[with1.active_ent].jump_counter = 0
 --           .ent_state = .hold_state
+      with1.ent_state = with1.hold_state
 --           .ent_func = 0
+      with1.ent_func = 0
 --
 --         End If
+    end
 --
 --       End With
 --
 --     Next
+  end
 --
 --     '' increment command
 --     .current_command += 1
+  with0.current_command = with0.current_command + 1
 --
 --   End With
 --
 -- End Sub
+end
 --
 --
 --
