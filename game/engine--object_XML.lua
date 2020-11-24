@@ -33,14 +33,14 @@ function LLSystem_ObjectFromXML(enemy)
   local function install_func(funcName)
     local func = _G[funcName]
     if func then
-      --log.debug("Installing func: "..funcName)
+      log.debug("Installing func: "..funcName)
       func_drop(_G[funcName])
       inc_func()
     else
-      --log.debug("Installing no-op func for: "..funcName)
+      log.debug("Installing no-op func for: "..funcName)
       func_drop(
         function()
-          --log.debug("TODO: Implement: "..funcName)
+          log.debug("TODO: Implement: "..funcName)
           return 0
         end)
       inc_func()

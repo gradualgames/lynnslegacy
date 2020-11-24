@@ -31,6 +31,7 @@ end
 
 -- Function __return_idle ( this As _char_type Ptr ) As Integer
 function __return_idle(this)
+  log.debug("__return_idle called.")
 --
 --
 --   this->funcs.current_func[this->funcs.active_state] = 0
