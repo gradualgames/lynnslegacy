@@ -3501,11 +3501,14 @@ function check_against(o, othr, check, d)
 --
 --       calc_positions( o, m, check_fields2 )
       calc_positions(o[0], m, check_fields2)
+
 --       calc_positions( Varptr( othr[check] ), n, check_fields )
       calc_positions(othr[check], n, check_fields)
 --
 --
 --       If check_bounds( m, n ) = 0 Then
+      -- log.debug("othr[check].id: "..othr[check].id)
+      -- log.debug("othr[check].coords.x: "..othr[check].coords.x)
       if check_bounds(m, n) == 0 then
 
         -- table.insert(dbgrects, {

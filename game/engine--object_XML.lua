@@ -253,7 +253,7 @@ function LLSystem_ObjectFromXML(enemy)
 
   --Some attributes have different names from xml when they become part of
   --an enemy.
-  enemy.perimeter.x = enemy.real_x
-  enemy.perimeter.y = enemy.real_y
+  if enemy.real_x ~= nil then enemy.perimeter.x = enemy.real_x end
+  if enemy.real_y ~= nil then enemy.perimeter.y = enemy.real_y end
 
 end

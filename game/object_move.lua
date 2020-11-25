@@ -161,6 +161,46 @@ function __copter_path(this)
 --
 end
 
+-- Function __tile_up ( this As _char_type Ptr ) As Integer
+function __tile_up(this)
+--
+--
+--
+--   If this->walk_hold = 0 Then
+  if this.walk_hold == 0 then
+--
+--
+--     this->direction = 0
+    this.direction = 0
+--
+--     Dim As Integer p
+    local p = 0
+--
+--     For p = 0 To 15
+    for p = 0, 15 do
+--       move_object( this )
+      move_object(this)
+--
+--     Next
+    end
+--
+--
+--     this->walk_hold = Timer + this->walk_speed
+    this.walk_hold = timer + this.walk_speed
+--
+--   End If
+  end
+--
+--   If Timer >= this->walk_hold Then this->walk_hold = 0
+  if timer >= this.walk_hold then this.walk_hold = 0 end
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 function __walk(this)
   --log.debug("__walk called.")
 
@@ -352,7 +392,7 @@ function __momentum_move(this)
 --
 --
 --     If movement <> 0 Then
-  if movement ~=0 then
+  if movement ~= 0 then
 --       .walk_hold = Timer + .walk_speed
     this.walk_hold = timer + this.walk_speed
 --

@@ -14,6 +14,33 @@ function __make_vulnerable(this)
 -- End Function
 end
 
+-- Function __make_visible ( this As _char_type Ptr ) As Integer
+function __make_visible(this)
+--
+--   this->invisible = 0
+  this.invisible = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
+-- Function __make_invisible ( this As _char_type Ptr ) As Integer
+function __make_invisible(this)
+--
+--
+--   this->invisible = 1
+  this.invisible = 1
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __make_invincible ( this As _char_type Ptr ) As Integer
 function __make_invincible(this)
 --

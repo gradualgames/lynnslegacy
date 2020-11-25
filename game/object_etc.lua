@@ -64,3 +64,22 @@ function __drop(this)
 --
 -- End Function
 end
+
+-- Function __return_trig ( this As _char_type Ptr ) As Integer
+function __return_trig(this)
+--
+--
+--   this->return_trig = 1
+  this.return_trig = 1
+--
+-- '  ? "HO"
+-- '  reveal()
+-- '  sleep
+--
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
