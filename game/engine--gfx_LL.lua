@@ -169,9 +169,12 @@ function blit_room()
   -- End If
   --
   -- If llg( box_entity ) <> 0 Then
+  if ll_global.box_entity ~= 0 then
   --   __handle_menu( llg( box_entity ) )
+    __handle_menu(ll_global.box_entity)
   --
   -- End If
+  end
 end
 
 function blit_y_sorted()
