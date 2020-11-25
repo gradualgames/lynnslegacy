@@ -2581,12 +2581,12 @@ function move_object(o, only_looking, moment, recurring)
   only_looking = only_looking or 0
   moment = moment or 1
   recurring = recurring or 0
-  --log.debug("move_object called.")
-  --log.debug("moment: "..moment)
+  log.debug("move_object called.")
+  log.debug("moment: "..moment)
     -- Dim As Integer mx, my '' holds open axes
   local mx, my = 0, 0
 
-  --log.debug("o.direction: "..o.direction)
+  log.debug("o.direction: "..o.direction)
     --
     -- Select Case o->direction
     --
@@ -2594,22 +2594,22 @@ function move_object(o, only_looking, moment, recurring)
   if o.direction == 0 then
     --
     --
+    log.debug("o.coords.y: "..o.coords.y)
+    log.debug("o.unstoppable_by_screen: "..o.unstoppable_by_screen)
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
-    if o.coords.y > 0 or o.unstoppable_by_screen then
-      --log.debug("o.coords.y: "..o.coords.y)
-      --log.debug("o.unstoppable_by_screen: "..o.unstoppable_by_screen)
+    if o.coords.y > 0 or (o.unstoppable_by_screen ~= 0) then
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 0, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
-        --log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
-        --log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
+        log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
+        log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         local cae = check_against_entities(0, o)
-        --log.debug("cae: "..cae)
-        --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
+        log.debug("cae: "..cae)
+        log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
         if cae ~= 1 or (o.unstoppable_by_object ~= 0) then
           --log.debug("check_against_entities(0, o): "..(check_against_entities(0, o) and "true" or "false"))
           --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
