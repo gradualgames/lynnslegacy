@@ -409,6 +409,58 @@ function __momentum_move(this)
 -- End Function
 end
 
+-- Function __move_up ( this As _char_type Ptr ) As Integer
+function __move_up(this)
+--
+--
+--
+--   If this->walk_hold = 0 Then
+  if this.walk_hold == 0 then
+--
+--
+--     this->direction = 0
+    this.direction = 0
+--
+--     move_object( this )
+    move_object(this)
+--
+--     If LLObject_IncrementFrame( this ) <> 0 Then
+    if LLObject_IncrementFrame(this) ~= 0 then
+--
+--       this->frame = 0
+      this.frame = 0
+--       this->frame_hold = Timer + this->animControl[this->current_anim].rate
+      this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--       '' reset rate?
+--     End If
+    end
+--
+--     this->walk_hold = Timer + this->walk_speed
+    this.walk_hold = timer + this.walk_speed
+--
+--
+--     Return 1
+    return 1
+--
+--
+--   Else
+  else
+--
+--
+--     If Timer >= this->walk_hold Then this->walk_hold = 0
+    if timer >= this.walk_hold then this.walk_hold = 0 end
+--
+--
+--   End If
+  end
+--
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __do_flyback ( this As _char_type Ptr ) As Integer
 function __do_flyback(this)
 --

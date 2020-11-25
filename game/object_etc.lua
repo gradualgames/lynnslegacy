@@ -7,18 +7,25 @@ function __do_menu(this)
 --
 --
 --     If .menu_lock Then
+  if with0.menu_lock ~= 0 then
 --       '' if enter was pressed
 --
 --       If Not MultiKey ( sc_enter ) Then
+    if not love.keyboard.isDown("return") then
 --         '' let go of enter
 --
 --         If .menu_sel = 0 Then
+      if with0.menu_sel == 0 then
 --           '' menu off
 --           llg( hero ).menu_sel = 0
+        ll_global.hero.menu_sel = 0
 --           .return_trig = 1
+        with0.return_trig = 1
 --           Exit Function
+        return 0
 --
 --         End If
+      end
 --
 --         If .menu_sel = 1 Then
 --           '' menu off
@@ -33,11 +40,14 @@ function __do_menu(this)
 --
 --
 --         .menu_lock = 0
+      with0.menu_lock = 0
 --
 --
 --       End If
+    end
 --
 --     End If
+  end
 --
 --
 --
@@ -111,6 +121,7 @@ function __do_menu(this)
 --     End If
 --
 --     If MultiKey( sc_enter ) Then
+  if love.keyboard.isDown("return") then
 --
 --       If .menu_sel = 2 Then
 --
@@ -119,8 +130,10 @@ function __do_menu(this)
 --       End If
 --
 --       .menu_lock = 1
+    with0.menu_lock = 1
 --
 --     End If
+  end
 --
 --
 --   End With
