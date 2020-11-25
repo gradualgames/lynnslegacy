@@ -163,6 +163,7 @@ end
 
 -- Function __tile_up ( this As _char_type Ptr ) As Integer
 function __tile_up(this)
+  log.debug("__tile_up called on: "..this.id)
 --
 --
 --

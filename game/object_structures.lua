@@ -407,7 +407,9 @@ function init_object(object)
   --     melt                  As Integer
   --
   --     menu_lock             As Integer
+  object.menu_lock = 0
   --     menu_sel              As Integer
+  object.menu_sel = 0
   --
   --     mini_boss             As Integer
   --
@@ -480,7 +482,7 @@ function init_object(object)
   --     proj_style As LLPROJECTILE_STYLES
   object.proj_style = 0
   --     projectile As ll_entity_projectile Ptr
-  object.projectile = create_ll_entity_projectile()
+  object.projectile = nil
   --
   --
   --
@@ -499,6 +501,7 @@ function init_object(object)
   --
   --
   --   cur_expl              As Integer
+  object.cur_expl = 0
   --
   --   explosions            As Integer
   --
