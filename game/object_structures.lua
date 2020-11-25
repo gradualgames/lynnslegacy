@@ -193,10 +193,15 @@ function init_object(object)
   object.is_pushing = 0
   --
   --   jump_count            As Integer
+  object.jump_count = 0
   --   jump_counter          As Integer
+  object.jump_counter = 0
   --   jump_lock             As Integer
+  object.jump_lock = 0
   --   jump_time             As Double
+  object.jump_time = 0.0
   --   jump_timer            As Double
+  object.jump_timer = 0.0
   --
   --   key                   As Integer
   --   key_door              As Integer
