@@ -38,15 +38,11 @@ function ll_main_entry()
 --
 --   End If
 --
-  ll_global.hero.coords.x = 100
-  ll_global.hero.coords.y = 100
-
   --Hard-code Lynn's weapon to the sapling for now.
   ll_global.hero_only.weapon = 0
 
   ll_global.current_cam = ll_global.hero
-  ll_global.this_room.cx = 0
-  ll_global.this_room.cy = 0
+
 --
 --   LLMusic_Start( *music_strings( llg( song ) ) )
   LLMusic_Start(music_strings[ll_global.song])

@@ -33,9 +33,9 @@ function love.load()
   engine_init()
   --log.level = "fatal"
 
-  log.level = "debug"
+  --log.level = "debug"
   ll_main_entry()
-  log.level = "fatal"
+  --log.level = "fatal"
 
   --Variables not related to the original codebase
   bhist = {}
@@ -52,21 +52,21 @@ function love.update(dt)
   local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
     timer = love.timer.getTime()
-    log.level = "debug"
+    --log.level = "debug"
     enemy_main()
-    log.level = "fatal"
-    log.level = "debug"
+    --log.level = "fatal"
+    --log.level = "debug"
     play_sequence(ll_global.seq[ll_global.seqi])
-    log.level = "fatal"
-    log.level = "debug"
+    --log.level = "fatal"
+    --log.level = "debug"
     hero_main()
-    log.level = "fatal"
+    --log.level = "fatal"
   end
 end
 
 function love.draw()
   startDrawing()
-  log.level = "debug"
+  --log.level = "debug"
   blit_scene()
 
   for key, dbgrect in pairs(dbgrects) do
@@ -79,7 +79,7 @@ function love.draw()
   -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
   -- love.graphics.rectangle("fill", x, y, w, h)
 
-  log.level = "fatal"
+  --log.level = "fatal"
   doneDrawing()
 end
 
