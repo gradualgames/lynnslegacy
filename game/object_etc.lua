@@ -47,44 +47,59 @@ function __do_menu(this)
 --
 --
 --     If MultiKey ( sc_right ) Then
+  if love.keyboard.isDown("right") then
 --
 --
 --       If .walk_hold = 0 Then
+    if with0.walk_hold == 0 then
 --
 --
 --         .menu_sel += 1
+      with0.menu_sel = with0.menu_sel + 1
 --         If .menu_sel = 3 Then .menu_sel = 0
+      if with0.menu_sel == 3 then with0.menu_sel = 0 end
 --
 --
 --         .walk_hold = Timer + .walk_speed
+      with0.walk_hold = timer + with0.walk_speed
 --
 --
 --
 --       End If
+    end
 --
 --     ElseIf MultiKey ( sc_left ) Then
+  elseif love.keyboard.isDown("left") then
 --
 --
 --       If .walk_hold = 0 Then
+    if with0.walk_hold == 0 then
 --
 --
 --         .menu_sel -= 1
+      with0.menu_sel = with0.menu_sel - 1
 --         If .menu_sel = -1 Then .menu_sel = 2
+      if with0.menu_sel == -1 then with0.menu_sel = 2 end
 --
 --
 --         .walk_hold = Timer + .walk_speed
+      with0.walk_hold = timer + with0.walk_speed
 --
 --
 --
 --       End If
+    end
 --
 --     Else
+  else
 --
 --
 --       .walk_hold = 0
+    with0.walk_hold = 0
 --
 --
 --     End If
+  end
 --
 --
 --     If Timer >= .walk_hold Then .walk_hold = 0
