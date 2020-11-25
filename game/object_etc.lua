@@ -339,6 +339,7 @@ function __handle_menu(this)
 --   End With
 --
 --   Return 0
+  return 0
 --
 -- End Function
 end
