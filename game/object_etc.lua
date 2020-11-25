@@ -224,13 +224,18 @@ function __handle_menu(this)
 --         Scope
 --
 --           Dim As Integer menu_sels
+    local menu_sels = 0
 --
 --             For menu_sels = 0 To 2
+    for menu_sels = 0, 2 do
 --               '' isn't that such beautiful?
 --
 --               Put( 64 * ( menu_sels + 1 ), 96 ), @.anim[menu_sels * 2 + 1 + ( Abs( .menu_sel = menu_sels ) )]->image[0], Trans
+      local offs = (with0.menu_sel == menu_sels) and 1 or 0
+      love.graphics.draw(with0.anim[menu_sels * 2 + 1 + offs].image, 64 * (menu_sels + 1), 96)
 --
 --             Next
+    end
 --
 --         End Scope
 --
