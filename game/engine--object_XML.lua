@@ -1,4 +1,5 @@
 require("game/cache")
+require("game/engine_enums")
 require("game/object_etc")
 require("game/object_time")
 require("game/object--gfx")
@@ -183,6 +184,14 @@ function LLSystem_ObjectFromXML(enemy)
           install_func("__return_idle")
         end
       end
+    elseif path[2] == "snd" then
+      if path[3] == "index" then
+        log.debug("Processing index tag.")
+        -- #Define LLObject_SoundLoad(__Sound__) _
+        --   Case ###__Sound__: objectLoad.sound[objectLoad.sounds - 1] = __Sound__
+        enemy.sound[enemy.sounds - 1] = _G[text]
+        log.debug("Looked up value: "..enemy.sound[enemy.sounds - 1].." for sound name: "..text)
+      end
     elseif #path == 2 then
       local attribute = path[2]
       --log.debug("Found attribute: "..attribute)
@@ -229,6 +238,9 @@ function LLSystem_ObjectFromXML(enemy)
       enemy.funcs.func_count[enemy.funcs.active_state] = 0
       enemy.funcs.current_func[enemy.funcs.active_state] = 0
       enemy.funcs.states = enemy.funcs.states + 1
+    elseif name == "snd" then
+      log.debug("Processing snd tag.")
+      enemy.sounds = enemy.sounds + 1
     end
   end
 

@@ -4,8 +4,10 @@ function __play_sound(this)
 --
 --
 --   With *this
+  local with0 = this
 --
 --     .playing_handle = play_sample( llg( snd )[.sound[.chap]], .vol[.chap] )
+  with0.playing_handle = ll_global.snd[with0.sound[with0.chap]]:play()
 --
 --   End With
 --

@@ -281,7 +281,9 @@ function init_object(object)
   object.song_fade_count = 0
   --
   --   sound                 As Integer Ptr
+  object.sound = {}
   --   sounds                As Integer
+  object.sounds = 0
   --
   --   spawn_x               As Integer
   --   spawn_y               As Integer
