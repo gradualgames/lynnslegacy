@@ -232,6 +232,114 @@ function __flash(this)
 -- End Function
 end
 
+-- Function __flash_down( this As _char_type Ptr ) As Integer
+function __flash_down(this)
+--
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   Static As Integer col_Get
+  if col_Get == nil then col_Get = 0 end
+--   Static As palette_Data col_Store( 255 ), col_Inc( 255 )
+  if col_Store == nil then col_Store = {} end
+  if col_Inc == nil then col_Inc = {} end
+--
+--
+--   If col_Get = 0 Then
+  if col_Get == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       With col_Inc( cols )
+      if col_Inc[cols] == nil then col_Inc[cols] = {} end
+      local with0 = col_Inc[cols]
+--
+--         .b = ( 255 - ( ( ( fb_Global.display.pal[cols] Shr 16 ) And &hFF ) Shl 2 ) ) / 16
+--         .g = ( 255 - ( ( ( fb_Global.display.pal[cols] Shr 8  ) And &hFF ) Shl 2 ) ) / 16
+--         .r = ( 255 - ( ( ( fb_Global.display.pal[cols]        ) And &hFF ) Shl 2 ) ) / 16
+      with0.b = (255 - (((masterPalette[cols][0])) * 255)) / 16
+      with0.g = (255 - (((masterPalette[cols][1])) * 255)) / 16
+      with0.r = (255 - (((masterPalette[cols][2])) * 255)) / 16
+--
+--       End With
+--
+--       With col_Store( cols )
+      if col_Store[cols] == nil then col_Store[cols] = {} end
+      local with1 = col_Store[cols]
+--
+--         .r = 255
+--         .g = 255
+--         .b = 255
+      with1.r = 255
+      with1.g = 255
+      with1.b = 255
+--
+--       End With
+--
+--     Next
+    end
+--
+--     col_Get = -1
+    col_Get = -1
+--
+--   End If
+  end
+--
+--
+--   For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--     With col_Store( cols )
+    local with0 = col_Store[cols]
+--
+--       Palette cols, CInt( .r ), CInt( .g ), CInt( .b )
+    palette[cols][0] = math.floor(with0.r) / 255
+    palette[cols][1] = math.floor(with0.g) / 255
+    palette[cols][2] = math.floor(with0.b) / 255
+--
+--       .r -= col_Inc( cols ).r
+    with0.r = with0.r - col_Inc[cols].r
+--       .g -= col_Inc( cols ).g
+    with0.g = with0.g - col_Inc[cols].g
+--       .b -= col_Inc( cols ).b
+    with0.b = with0.b - col_Inc[cols].b
+--
+--     End With
+--
+--   Next
+  end
+--
+--   this->fade_count += 1
+  this.fade_count = this.fade_count + 1
+--
+--
+--   If this->fade_count = 16 Then
+  if this.fade_count == 16 then
+--
+--     shift_pal()
+    shift_pal()
+--
+--     this->fade_count= 0
+    this.fade_count = 0
+--     col_Get = 0
+    col_Get = 0
+--
+--
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
+
 -- Function __fade_up_to_color ( this As _char_type Ptr ) As Integer
 function __fade_up_to_color(this)
   --log.debug("__fade_up_to_color called.")
