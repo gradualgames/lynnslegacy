@@ -1,3 +1,21 @@
+-- Type songFading_type
+function create_songFading_type()
+--
+  local songFading_type = {}
+--   pulse As Double
+  songFading_type.pulse = 0.0
+--   pulseLength As Double
+  songFading_type.pulseLength = 0.0
+--
+--   travelled As Integer
+  songFading_type.travelled = 0
+--
+--
+--
+  return songFading_type
+-- End Type
+end
+
 function create_main_char_type()
   local main_char_type = {}
 -- Type main_char_type
@@ -55,6 +73,7 @@ function create_main_char_type()
 --   quakeViolence As Integer
 --
 --   songFade As songFading_type Ptr
+  main_char_type.songFade = nil
 --
 --   healTimer as double
 --

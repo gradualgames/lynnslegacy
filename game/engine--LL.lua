@@ -942,9 +942,12 @@ function hero_main()
 --   decay_crazy()
 --
 --   If llg( hero_only ).songFade <> NULL Then
+  if ll_global.hero_only.songFade ~= nil then
 --     LLMusic_Fade()
+    LLMusic_Fade()
 --
 --   End If
+  end
 --
 --
 -- End Sub
@@ -5075,7 +5078,20 @@ function LLMusic_SetVolume(volume)
 --   #IfDef ll_audio
 --
 --     bass_setconfig( BASS_CONFIG_GVOL_MUSIC, volumeDesired )
-  ll_global.sng:setVolume(volume)
+  ll_global.sng:setVolume(volume / 100)
+--
+--   #EndIf
+--
+-- End Sub
+end
+
+-- Sub LLMusic_Stop()
+function LLMusic_Stop()
+--
+--   #IfDef ll_audio
+--
+--     bass_channelstop( llg( sng ) )
+  ll_global.sng:stop()
 --
 --   #EndIf
 --
@@ -5102,4 +5118,49 @@ function LLMusic_Start(songName)
   ll_global.sng = love.audio.newSource(songName, "stream")
   ll_global.sng:setLooping(true)
   ll_global.sng:play()
+end
+
+-- Sub LLMusic_Fade()
+function LLMusic_Fade()
+--
+--   Const As Integer slices = 64
+  local slices = 64
+--
+--   If Timer > llg( hero_only ).songFade->pulse Then
+  if timer > ll_global.hero_only.songFade.pulse then
+--
+--     Dim As Double tmp_val
+    local tmp_val = 0.0
+--     tmp_val = ( slices - llg( hero_only ).songFade->travelled )
+    tmp_val = (slices - ll_global.hero_only.songFade.travelled)
+--     tmp_val *= 1.5625 '' ( 100 / 64 )
+    tmp_val = (tmp_val * 1.5625)
+--
+--     LLMusic_SetVolume( CInt( tmp_val ) )
+    LLMusic_SetVolume(tmp_val)
+--
+--     llg( hero_only ).songFade->travelled += 1
+    ll_global.hero_only.songFade.travelled = ll_global.hero_only.songFade.travelled + 1
+--
+--     llg( hero_only ).songFade->pulse = Timer + llg( hero_only ).songFade->pulseLength
+    ll_global.hero_only.songFade.pulse = timer + ll_global.hero_only.songFade.pulseLength
+--
+--   End If
+  end
+--
+--   If llg( hero_only ).songFade->travelled = slices Then
+  if ll_global.hero_only.songFade.travelled == slices then
+--
+--     LLMusic_Stop()
+    LLMusic_Stop()
+--     LLMusic_SetVolume( 100 )
+    LLMusic_SetVolume(100)
+--
+--     clean_Deallocate( llg( hero_only ).songFade )
+    ll_global.hero_only.songFade = nil
+--
+--   End If
+  end
+--
+-- End Sub
 end

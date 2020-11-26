@@ -1,6 +1,5 @@
 -- Function __play_sound ( this As _char_type Ptr ) As Integer
 function __play_sound(this)
-  log.level = "debug"
   log.debug("__play_sound called on "..this.id)
 --
 --
@@ -14,7 +13,6 @@ function __play_sound(this)
 --
 --   End With
 --
-  log.level = "fatal"
 --   Return 1
   return 1
 --

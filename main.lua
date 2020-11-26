@@ -25,13 +25,13 @@ function love.load()
 
   ll_global = create_ll_system()
 
-  --log.level = "debug"
+  log.level = "debug"
   init_splash()
-  --log.level = "fatal"
+  log.level = "fatal"
 
-  --log.level = "debug"
+  log.level = "debug"
   engine_init()
-  --log.level = "fatal"
+  log.level = "fatal"
 
   log.level = "debug"
   ll_main_entry()

@@ -692,8 +692,7 @@ function blit_object(this)
 --
 --         If this->animControl[this->current_anim].frame[handShake].sound_lock = 0 Then
       if this.animControl[this.current_anim].frame[handShake].sound_lock == 0 then
-        log.level = "debug"
-        log.debug("play frame sound for: "..this.id)
+        --log.debug("play frame sound for: "..this.id)
 --
 --           Dim As Integer iifCalc
 --           iifCalc = Int( Rnd * 30 ) + 70
@@ -706,7 +705,6 @@ function blit_object(this)
         this.animControl[this.current_anim].frame[handShake].sound_lock = -1
 --
 --         End If
-        log.level = "fatal"
       end
 --
 --       End If

@@ -371,3 +371,17 @@ function __handle_menu(this)
 --
 -- End Function
 end
+
+-- Function __fade_music_out( this As char_type Ptr ) As Integer
+function __fade_music_out(this)
+--
+--   llg( hero_only ).songFade = CAllocate( Len( songFading_type ) )
+  ll_global.hero_only.songFade = create_songFading_type()
+--   llg( hero_only ).songFade->pulseLength = ( 4 / 64 )
+  ll_global.hero_only.songFade.pulseLength = (4 / 64)
+--
+--   Function = 1
+  return 1
+--
+-- End Function
+end
