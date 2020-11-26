@@ -363,6 +363,7 @@ function init_object(object)
   --
   --
   --   vol As Integer Ptr
+  object.vol = {}
   --   sample_fade_lock As Integer
   --   sample_vol_store As Integer
   --

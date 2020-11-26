@@ -191,6 +191,10 @@ function LLSystem_ObjectFromXML(enemy)
         --   Case ###__Sound__: objectLoad.sound[objectLoad.sounds - 1] = __Sound__
         enemy.sound[enemy.sounds - 1] = _G[text]
         log.debug("Looked up value: "..enemy.sound[enemy.sounds - 1].." for sound name: "..text)
+      elseif path[3] == "vol" then
+        log.debug("Processing vol tag.")
+        -- objectLoad.vol[objectLoad.sounds - 1] =  Val( thr->dat.s )
+        enemy.vol[enemy.sounds - 1] = tonumber(text) / 100
       end
     elseif #path == 2 then
       local attribute = path[2]
