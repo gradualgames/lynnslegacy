@@ -33,9 +33,9 @@ function love.load()
   engine_init()
   --log.level = "fatal"
 
-  --log.level = "debug"
+  log.level = "debug"
   ll_main_entry()
-  --log.level = "fatal"
+  log.level = "fatal"
 
   --Variables not related to the original codebase
   bhist = {}

@@ -97,6 +97,36 @@ function LLSystem_ObjectFromXML(enemy)
       elseif path[3] == "y_off" then
         --log.debug( " Processing sprite/y_off: "..text)
         enemy.animControl[enemy.current_anim].y_off = tonumber(text)
+      elseif path[3] == "sound" then
+        log.debug( " Processing sprite/sound: "..text)
+        -- With objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame]
+        local with0 = enemy.anim[enemy.current_anim].frame[enemy.frame]
+        --
+        --   #macro LLObject_FrameSoundLoad(__FrameSound__)
+        --
+        --     Case ###__FrameSound__
+        --
+        --       dim as integer iterateSounds, holdFrame
+        local iterateSounds, holdFrame = 0, 0
+        --
+        --       holdFrame = objectLoad.frame
+        holdFrame = enemy.frame
+        --
+        --       for iterateSounds = 0 to iif( objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].uni_sound, 3, 0 )
+        for iterateSounds = 0, ((enemy.anim[enemy.current_anim].frame[enemy.frame].uni_sound ~= 0) and 3 or 0) do
+        --
+        --         objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].sound = __FrameSound__
+          enemy.anim[enemy.current_anim].frame[enemy.frame].sound = _G[text]
+        --         objectLoad.frame += objectLoad.animControl[objectLoad.current_anim].dir_frames
+          enemy.frame = enemy.frame + enemy.animControl[enemy.current_anim].dir_frames
+        --
+        --       next
+        end
+        --
+        --       objectLoad.frame = holdFrame
+        enemy.frame = holdFrame
+        --
+        --   #endmacro
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then
@@ -218,7 +248,7 @@ function LLSystem_ObjectFromXML(enemy)
   local startElement = function(name, nsURI, nsPrefix)
     table.insert(path, name)
     if name == "sprite" then
-      --log.debug("Processing sprite tag.")
+      log.debug("Processing sprite tag.")
       enemy.current_anim = enemy.anims
       enemy.anims = enemy.anims + 1
     elseif name == "fp" then

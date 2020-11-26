@@ -39,11 +39,7 @@ function LLObject_IncrementFrame(this)
     --log.debug("this.animControl[this.current_anim].frame: "..type(this.animControl[this.current_anim].frame))
     --log.debug("#this.animControl[this.current_anim].frame: "..#this.animControl[this.current_anim].frame)
     --log.debug("this.animControl[this.current_anim].frame[frameTransfer]: "..type(this.animControl[this.current_anim].frame[frameTransfer]))
-
-    --TODO: Re-introduce this line when we start porting the sound code. We are not populating
-    --the frames array of the animation control object yet, but this is the only line that uses it
-    --in this particular function.
-    --this.animControl[this.current_anim].frame[frameTransfer].sound_lock = 0
+    this.animControl[this.current_anim].frame[frameTransfer].sound_lock = 0
   --     .frame += 1
     this.frame = this.frame + 1
   --     If .frame = IIf( LLObject_IgnoreDirectional( this ), .anim[.current_anim]->frames, .animControl[.current_anim].dir_frames ) Then

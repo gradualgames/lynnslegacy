@@ -673,35 +673,49 @@ function blit_enemy_loot()
 -- End Sub
 end
 
-function blit_object(enemy)
+function blit_object(this)
 --   With *this
+  local with0 = this
 --
 --
 --   If .invisible = 0 Then
-  if enemy.invisible == 0 then
+  if this.invisible == 0 then
 --
 --     dim as integer handShake
 --     handShake = LLObject_CalculateFrame( this[0] )
+    local handShake = LLObject_CalculateFrame(this)
 --     With .anim[.current_anim]->frame[handShake]
+    local with1 = with0.anim[with0.current_anim].frame[handShake]
 --
 --       If .sound <> 0 Then
+    if with1.sound ~= 0 then
 --
 --         If this->animControl[this->current_anim].frame[handShake].sound_lock = 0 Then
+      if this.animControl[this.current_anim].frame[handShake].sound_lock == 0 then
+        log.level = "debug"
+        log.debug("play frame sound for: "..this.id)
 --
 --           Dim As Integer iifCalc
 --           iifCalc = Int( Rnd * 30 ) + 70
+        local iifCalc = (math.floor(math.random() * 30) + 70) / 100
 --
 --           play_sample( llg( snd )[.sound], IIf( .vol <> 0, .vol, iifCalc  ) )
+        --ll_global.snd[with1.sound]:setVolume((with1.vol ~= 0) and with1.vol or iifCalc)
+        ll_global.snd[with1.sound]:play()
 --           this->animControl[this->current_anim].frame[handShake].sound_lock = -1
+        this.animControl[this.current_anim].frame[handShake].sound_lock = -1
 --
 --         End If
+        log.level = "fatal"
+      end
 --
 --       End If
+    end
 --
 --     End With
 --
 --     blit_object_ex( this )
-    blit_object_ex(enemy)
+    blit_object_ex(this)
 --
 --   End If
   end
