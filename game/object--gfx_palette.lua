@@ -186,6 +186,52 @@ function __fade_to_red(this)
 -- End Function
 end
 
+-- Function __flash ( this As _char_type Ptr ) As Integer
+function __flash(this)
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--
+--   For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--
+--     Palette cols, Rgb( 63, 63, 63 )
+    palette_set_63(cols, rgb(63, 63, 63))
+--
+--   Next
+  end
+--
+--   static as double blehTimer
+  if blehTimer == nil then blehTimer = 0.0 end
+--
+--   if blehTimer = 0 then
+  if blehTimer == 0.0 then
+--     blehTimer = timer + .125
+    blehTimer = timer + .125
+--
+--   end if
+  end
+--
+--   if timer > blehTimer then
+  if timer > blehTimer then
+--     blehTimer = 0
+    blehTimer = 0
+--     return 1
+    return 1
+--
+--   end if
+  end
+--
+--
+--
+--   Return 0
+  return 0
+--
+-- End Function
+end
+
 -- Function __fade_up_to_color ( this As _char_type Ptr ) As Integer
 function __fade_up_to_color(this)
   --log.debug("__fade_up_to_color called.")
