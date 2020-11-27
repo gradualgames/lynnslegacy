@@ -144,6 +144,36 @@ function __do_menu(this)
 -- End Function
 end
 
+-- Function __change_map ( this As _char_type Ptr ) As Integer
+function __change_map(this)
+--
+--   llg( hero_only ).dropoutSequence = TRUE
+  ll_global.hero_only.dropoutSequence = true
+--
+--   llg( hero ).switch_room = this->chap
+  ll_global.hero.switch_room = this.chap
+--
+--   llg( hero ).to_map = now_room().teleport[llg( hero ).switch_room].to_map
+  ll_global.hero.to_map = now_room().teleport[ll_global.hero.switch_room].to_map
+--   llg( hero ).to_entry = now_room().teleport[llg( hero ).switch_room].to_room
+  ll_global.hero.to_entry = now_room().teleport[ll_global.hero.switch_room].to_room
+--
+--   change_room( 0, -1, 1 )
+  change_room(0, -1, 1)
+--
+--   llg( hero ).fade_time = .003
+  ll_global.hero.fade_time = .003
+--   llg( hero ).seq = 0
+  ll_global.hero.seq = nil
+  ll_global.hero.seqi = 0
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __drop ( this As _char_type Ptr ) As Integer
 function __drop(this)
   log.debug("__drop called.")

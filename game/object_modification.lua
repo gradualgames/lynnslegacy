@@ -239,6 +239,38 @@ function __dir_down(this)
 -- End Function
 end
 
+-- Function __chapter_1_off ( this As _char_type Ptr ) As Integer
+function __chapter_1_off(this)
+--
+--
+--   llg( do_chap ) = 0
+  ll_global.do_chap = 0
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
+-- Function __chapter_1_on ( this As _char_type Ptr ) As Integer
+function __chapter_1_on(this)
+--
+--
+--   llg( do_chap ) = 1
+  ll_global.do_chap = 1
+--
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __cripple ( this As _char_type Ptr ) As Integer
 function __cripple(this)
 --

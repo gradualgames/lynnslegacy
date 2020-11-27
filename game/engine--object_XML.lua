@@ -42,9 +42,7 @@ function LLSystem_ObjectFromXML(enemy)
       log.debug("Installing no-op func for: "..funcName)
       func_drop(
         function(this)
-          log.level = "debug"
           log.debug("TODO: Implement: "..funcName.." for: "..this.id)
-          log.level = "fatal"
           return 0
         end)
       inc_func()
