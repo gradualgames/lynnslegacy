@@ -4573,46 +4573,64 @@ function sequence_AssignEntityData(charData, commandData)
 end
 --
 -- Sub sequence_FullReset( resetSequence As sequence_type )
+function sequence_FullReset(resetSequence)
 --   '' last command executed
 --   Dim As Integer commandDismantle, entDismantle
+  local commandDismantle, entDismantle = 0, 0
 --
 --   #Define activeEntity resetSequence.ent[.active_ent]
 --
 --   With resetSequence
+  local with0 = resetSequence
 --
 --     For commandDismantle = 0 To .commands - 1
+  for commandDismantle = 0, with0.commands - 1 do
 --       '' command iter.
 --       With .Command[commandDismantle]
+    local with1 = with0.Command[commandDismantle]
 --
 --         For entDismantle = 0 To .ents - 1
+    for entDismantle = 0, with1.ents - 1 do
 --           '' command ent iter.
 --           With .ent[entDismantle]
+      local with2 = with1.ent[entDismantle]
 --
 --             If .active_ent <> SF_BOX Then
+      if with2.active_ent ~= SF_BOX then
 --               '' reset command ents' status
 --               activeEntity->mod_lock = 0
+        resetSequence.ent[with2.active_ent].mod_lock = 0
 --               activeEntity->seq_paused = 0
+        resetSequence.ent[with2.active_ent].seq_paused = 0
 --               activeEntity->return_trig = 0
+        resetSequence.ent[with2.active_ent].return_trig = 0
 --
 --             End If
+      end
 --
 --             .ent_func = 0
+      with2.ent_func = 0
 --
 --           End With
 --
 --         Next
+    end
 --
 --       End With
 --
 --     Next
+  end
 --
 --     .current_command = 0
+  with0.current_command = 0
 --
 --     llg( hero_only ).action_lock = 0
+  ll_global.hero_only.action_lock = 0
 --
 --   End With
 --
 -- End Sub
+end
 --
 --
 -- Private Function sequence_ExitCondition( activeChar As char_type Ptr )
@@ -4627,7 +4645,7 @@ function sequence_ExitCondition(activeChar)
     if ll_global.hero.switch_room ~= -1 then
 --       '' switch room, clear seq
 --       sequence_FullReset( *llg( seq ) )
-      sequence_FullReset(ll_global.seq)
+      sequence_FullReset(ll_global.seq[ll_global.seqi])
 --       llg( seq ) = 0
       ll_global.seq = nil
       ll_global.seqi = 0
@@ -4647,7 +4665,7 @@ function sequence_ExitCondition(activeChar)
     sequence_LoadGame(activeChar.save[activeChar.menu_sel].link)
 --
 --     sequence_FullReset( *llg( seq ) )
-    sequence_FullReset(ll_global.seq)
+    sequence_FullReset(ll_global.seq[ll_global.seqi])
 --     llg( seq ) = 0
     ll_global.seq = nil
     ll_global.seqi = 0

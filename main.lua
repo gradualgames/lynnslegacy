@@ -56,7 +56,9 @@ function love.update(dt)
     enemy_main()
     --log.level = "fatal"
     log.level = "debug"
-    play_sequence(ll_global.seq[ll_global.seqi])
+    if ll_global.seq ~= nil then
+      play_sequence(ll_global.seq[ll_global.seqi])
+    end
     log.level = "fatal"
     --log.level = "debug"
     hero_main()
