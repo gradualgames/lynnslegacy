@@ -57,3 +57,16 @@ function __play_sound(this)
 --
 -- End Function
 end
+
+-- Function __set_vol_fade ( this As _char_type Ptr ) As Integer
+function __set_vol_fade(this)
+--
+--   this->vol_fade_trig = -1
+  this.vol_fade_trig = -1
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
