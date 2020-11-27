@@ -186,6 +186,99 @@ function __fade_to_red(this)
 -- End Function
 end
 
+-- Function __fade_to_white ( this As _char_type Ptr ) As Integer
+function __fade_to_white(this)
+--
+--
+--   Dim As Integer cols, r, g, b, p, allwhite
+  local cols, r, g, b, p, allwhite = 0, 0, 0, 0 ,0, 0
+--
+--   If this->fade_timer = 0 Then
+  if this.fade_timer == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--
+--       Palette Get cols, r, g, b
+      r, g, b = palette_get_255(cols)
+--
+--       If r <> 255 Then r += 4
+      if r ~= 255 then r = r + 4 end
+--       If g <> 255 Then g + =4
+      if g ~= 255 then g = g + 4 end
+--       If  b <> 255 Then b += 4
+      if b ~= 255 then b = b + 4 end
+--
+--       If r > 255 Then r = 255
+      if r > 255 then r = 255 end
+--       If g > 255 Then g = 255
+      if g > 255 then g = 255 end
+--       If b > 255 Then b = 255
+      if b > 255 then b = 255 end
+--
+--         p = Rgb ( b \ 4, g \ 4, r \ 4  )
+      p = rgb(math.floor(r / 4), math.floor(g / 4), math.floor(b / 4))
+--
+--
+--       Palette cols, p
+      palette_set_63(cols, p)
+--
+--     Next
+    end
+--
+--     allwhite = 1
+    allwhite = true
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       Palette Get cols, r, g, b
+      r, g, b = palette_get_255(cols)
+--
+--       allwhite And = ( ( r >= 250 ) And ( g >= 250 ) And ( b >= 250 ) )
+      allwhite = allwhite and ((r >= 250) and (g >= 250) and (b >= 250))
+--
+--
+--     Next
+    end
+--
+--     this->fade_timer = Timer + this->fade_time
+    this.fade_timer = timer + this.fade_time
+--
+--   Else
+  else
+--
+--     If Timer >= this->fade_timer Then this->fade_timer = 0
+    if timer >= this.fade_timer then this.fade_timer = 0 end
+--
+--   End If
+  end
+--
+--   If allwhite <> 0 Then
+  if allwhite == true then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       Palette cols, Rgb( 63, 63, 63 )
+      palette_set_63(cols, rgb(63, 63, 63))
+--
+--     Next
+    end
+--
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--
+  return 0
+--
+-- End Function
+end
+
 -- Function __flash ( this As _char_type Ptr ) As Integer
 function __flash(this)
 --
