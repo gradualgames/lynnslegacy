@@ -38,24 +38,30 @@ end
 
 function blit_scene()
   -- If llg( do_chap ) = 0 Then
+  if ll_global.do_chap == 0 then
   --   '' chapter screen is not up
   --   update_cam( llg( current_cam ) )
-  update_cam(ll_global.current_cam)
+    update_cam(ll_global.current_cam)
   --   blit_room()
-  blit_room()
+    blit_room()
   --
   -- Else
+  else
   --   '' display a chapter screen
   --
   --   select case as const llg( hero ).chap
   --   '' allows me to hack black screens!
   --
   --     case 2
+      if ll_global.hero.chap == 2 then
   --       Put ( 88, 28 ), llg( hero ).anim[llg( hero ).chap]->image
+        love.graphics.draw(ll_global.hero.anim[ll_global.hero.chap].image, 88, 28)
+      end
   --
   --   end select
   --
   -- End If
+  end
   --
   -- If llg( do_hud ) <> 0 Then
   if ll_global.do_hud ~= 0 then

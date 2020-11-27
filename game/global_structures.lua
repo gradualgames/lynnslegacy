@@ -162,6 +162,7 @@ function create_ll_system()
   --   cheeat As zString Ptr
   --
   --   do_chap As Integer
+  ll_system.do_chap = 0
   --
   --   catch_dbg As Integer
   --
