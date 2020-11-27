@@ -258,6 +258,7 @@ function init_object(object)
   object.money = 0
   --
   --   moveBackwards         As Integer
+  object.moveBackwards = 0
   --
   --   moving                As Integer
   object.moving = 0

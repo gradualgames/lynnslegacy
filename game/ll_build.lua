@@ -154,8 +154,8 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
         commandData.dest_y = readShort(mapBlob)
         log.debug("commandData.dest_y: "..commandData.dest_y)
         -- Load .dest_x Short
-        commandData.dest_y = readShort(mapBlob)
-        log.debug("commandData.dest_y: "..commandData.dest_y)
+        commandData.dest_x = readShort(mapBlob)
+        log.debug("commandData.dest_x: "..commandData.dest_x)
         -- Load .abs_x Short
         commandData.abs_x = readShort(mapBlob)
         log.debug("commandData.abs_x: "..commandData.abs_x)

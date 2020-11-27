@@ -327,6 +327,127 @@ function __walk(this)
 --
 end
 
+-- Function __home ( this As _char_type Ptr ) As Integer
+function __home(this)
+--
+--
+--   #Macro back_move()
+  local function back_move()
+--
+--     If this->moveBackwards <> 0 Then
+    if this.moveBackwards ~= 0 then
+--
+--       this->direction += 2
+      this.direction = this.direction + 2
+--       this->direction And= 3
+      this.direction = bit.band(this.direction, 3)
+--
+--     End If
+    end
+--
+--   #EndMacro
+  end
+--
+--   Dim As Integer x_home, y_home, x_move, y_move
+  local x_home, y_home, x_move, y_move = 0, 0, 0, 0
+--
+--   this->moving = 0
+  this.moving = 0
+--
+--   If this->walk_hold = 0 Then
+  if this.walk_hold == 0 then
+--
+--     x_home = this->dest_x
+    x_home = this.dest_x
+--     y_home = this->dest_y
+    y_home = this.dest_y
+--
+--     If ( y_home ) > ( this->coords.y ) Then y_move = 1 Else If  ( y_home ) < ( this->coords.y ) Then y_move = -1
+    if (y_home) > (this.coords.y) then y_move = 1 elseif (y_home) < (this.coords.y) then y_move = -1 end
+--
+--     If y_move = -1 Then this->direction = 0
+    if y_move == -1 then this.direction = 0 end
+--     If y_move = 1 Then this->direction = 2
+    if y_move == 1 then this.direction = 2 end
+--
+--     If y_move <> 0 Then
+    if y_move ~= 0 then
+--       move_object( this )
+      move_object(this)
+--       back_move()
+      back_move()
+--
+--     End If
+    end
+--
+--     If ( x_home ) > ( this->coords.x ) Then x_move = 1 Else If  ( x_home ) < ( this->coords.x ) Then x_move = -1
+    if (x_home) > (this.coords.x) then x_move = 1 elseif (x_home) < (this.coords.x) then x_move = -1 end
+--
+--     If x_move = -1 Then this->direction = 3
+    if x_move == -1 then this.direction = 3 end
+--     If x_move = 1 Then this->direction = 1
+    if x_move == 1 then this.direction = 1 end
+--
+--     If x_move <> 0 Then
+    if x_move ~= 0 then
+--       move_object( this )
+      move_object(this)
+--       back_move()
+      back_move()
+--
+--     End If
+    end
+--
+--     If ( this->coords.x = x_home ) And ( this->coords.y = y_home ) Then
+    if (this.coords.x == x_home) and (this.coords.y == y_home) then
+--
+--       this->walk_hold = 0
+      this.walk_hold = 0
+--
+--       this->frame = 0
+      this.frame = 0
+--       this->moving = 0
+      this.moving = 0
+--       this->frame = 0
+      this.frame = 0
+--       Return 1
+      return 1
+--
+--     End If
+    end
+--
+--     this->walk_hold = Timer + this->walk_speed
+    this.walk_hold = timer + this.walk_speed
+--
+--   End If
+  end
+--
+--   If Timer >= this->walk_hold Then
+  if timer >= this.walk_hold then
+--
+--     this->walk_hold = 0
+    this.walk_hold = 0
+--
+--   End If
+  end
+--
+--   If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+--
+--     this->frame = 0
+    this.frame = 0
+--     this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--     '' reset rate?
+--   End If
+  end
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __momentum_move ( this As _char_type Ptr ) As Integer
 function __momentum_move(this)
   --log.debug("__momentum_move called.")
