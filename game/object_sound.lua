@@ -15,6 +15,25 @@ function __stop_sound(this)
 -- End Function
 end
 
+-- Function __kill_song ( this As _char_type Ptr ) As Integer
+function __kill_song(this)
+--
+--
+--   this->fade_out = 0
+  this.fade_out = 0
+--
+--   this->song_fade_count = 0
+  this.song_fade_count = 0
+--
+--   LLMusic_Stop()
+  LLMusic_Stop()
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __play_sound ( this As _char_type Ptr ) As Integer
 function __play_sound(this)
   log.debug("__play_sound called on "..this.id)
