@@ -415,31 +415,44 @@ function blit_enemy(_enemy)
     if with0.cur_expl > 0 then
   --
   --       Dim As Integer px, py, pf, pa, do_expl
+      local px, py, pf, pa, do_expl = 0, 0, 0, 0, 0, 0
   --
   --       For do_expl = 0 To .cur_expl - 1
+      for do_expl = 0, with0.cur_expl - 1 do
   --         '' cycle through active explosions
   --
   --         With .explosion( do_expl )
+        local with1 = with0.explosion[do_expl]
   --
   --           px = .x
+        px = with1.x
   --           py = .y
+        py = with1.y
   --           pf = .frame
+        pf = with1.frame
   --           pa = .alive
+        pa = with1.alive
   --
   --         End With
   --
   --         If pa <> 0 Then
+        if pa ~= 0 then
   --           '' this explosion is animating
   --
   --           With *( .anim[.expl_anim] )
+          local with1 = with0.anim[with0.expl_anim]
   --
   --             Put ( px - temp_x_cam, py - temp_y_cam ), @.image[pf * ( .arraysize )], Trans
+          love.graphics.draw(with1.image, with1.quads[pf], px - temp_x_cam, py - temp_y_cam)
+
   --
   --           End With
   --
   --         End If
+        end
   --
   --       Next
+      end
   --
   --     End If
     end

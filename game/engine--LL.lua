@@ -2580,12 +2580,12 @@ function move_object(o, only_looking, moment, recurring)
   only_looking = only_looking or 0
   moment = moment or 1
   recurring = recurring or 0
-  log.debug("move_object called.")
-  log.debug("moment: "..moment)
+  --log.debug("move_object called.")
+  --log.debug("moment: "..moment)
     -- Dim As Integer mx, my '' holds open axes
   local mx, my = 0, 0
 
-  log.debug("o.direction: "..o.direction)
+  --log.debug("o.direction: "..o.direction)
     --
     -- Select Case o->direction
     --
@@ -2593,22 +2593,22 @@ function move_object(o, only_looking, moment, recurring)
   if o.direction == 0 then
     --
     --
-    log.debug("o.coords.y: "..o.coords.y)
-    log.debug("o.unstoppable_by_screen: "..o.unstoppable_by_screen)
+    --log.debug("o.coords.y: "..o.coords.y)
+    --log.debug("o.unstoppable_by_screen: "..o.unstoppable_by_screen)
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
     if o.coords.y > 0 or (o.unstoppable_by_screen ~= 0) then
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 0, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
-        log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
-        log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
+        --log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
+        --log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         local cae = check_against_entities(0, o)
-        log.debug("cae: "..cae)
-        log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
+        --log.debug("cae: "..cae)
+        --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
         if cae ~= 1 or (o.unstoppable_by_object ~= 0) then
           --log.debug("check_against_entities(0, o): "..(check_against_entities(0, o) and "true" or "false"))
           --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
@@ -4462,8 +4462,8 @@ end
 --
 -- Sub sequence_AssignEntityData( ByRef charData As char_type, ByRef commandData As command_data )
 function sequence_AssignEntityData(charData, commandData)
-  log.debug("sequence_AssignEntityData called.")
-  log.debug("with0.abs_y: "..commandData.abs_y)
+  --log.debug("sequence_AssignEntityData called.")
+  --log.debug("with0.abs_y: "..commandData.abs_y)
 --
 --   With commandData
   local with0 = commandData
@@ -4664,7 +4664,7 @@ end
 --
 -- Private Sub sequence_CommandIncrement( resetSequence As sequence_type )
 function sequence_CommandIncrement(resetSequence)
-  log.debug("sequence_CommandIncrement called.")
+  --log.debug("sequence_CommandIncrement called.")
 --
 --   #Define activeEntity resetSequence.ent[.active_ent]
 --NOTE: Lua has no macros so we have to just search replace
@@ -4715,7 +4715,7 @@ end
 --
 -- Function sequence_isCommandProgressing( thisSequence As sequence_type, currentEntity As Integer )
 function sequence_isCommandProgressing(thisSequence, currentEntity)
-  log.debug("sequence_isCommandProgressing called.")
+  --log.debug("sequence_isCommandProgressing called.")
 --
 --   #Define activeEntity thisSequence.ent[.active_ent]
 --NOTE: Lua has no macros so we have to just search replace
@@ -4739,14 +4739,14 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 --
 --         If .active_ent <> SF_BOX Then
     if with1.active_ent ~= SF_BOX then
-      log.debug("active_ent not SF_BOX")
+      --log.debug("active_ent not SF_BOX")
 --           '' Entity called back
 --           command_isProgressing And= ( activeEntity->return_trig <> 0 )
       command_isProgressing = command_isProgressing and (thisSequence.ent[with1.active_ent].return_trig ~= 0)
 --
 --         Else
     else
-      log.debug("active_ent is SF_BOX")
+      --log.debug("active_ent is SF_BOX")
 --           '' Box called back
 --           command_isProgressing And= ( llg( t_rect ).activated = FALSE )
       command_isProgressing = command_isProgressing and (ll_global.t_rect.activated == 0)
@@ -4800,7 +4800,7 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 --   End With
 --
 --   Function = command_isProgressing
-  log.debug("command_isProgressing: "..(command_isProgressing and "true" or "false"))
+  --log.debug("command_isProgressing: "..(command_isProgressing and "true" or "false"))
   return command_isProgressing
 --
 -- End Function
@@ -4808,8 +4808,8 @@ end
 
 -- Sub play_sequence ( _seq As sequence_type Ptr )
 function play_sequence(_seq)
-  log.debug("play_sequence called.")
-  log.debug("_seq: "..(_seq and "exists" or "nil"))
+  --log.debug("play_sequence called.")
+  --log.debug("_seq: "..(_seq and "exists" or "nil"))
 --
 --
 --   If _seq = 0 Then Exit Sub
@@ -4833,9 +4833,9 @@ function play_sequence(_seq)
   local do_ents = 0
 --
 --   For do_ents = 0 To _seq->Command[_seq->current_command].ents - 1
-  log.debug("_seq.Command: "..(_seq.Command and "exists" or "nil"))
-  log.debug("_seq.current_command: ".._seq.current_command)
-  log.debug("_seq.Command[_seq.current_command]: "..(_seq.Command[_seq.current_command] and "exists" or "nil"))
+  --log.debug("_seq.Command: "..(_seq.Command and "exists" or "nil"))
+  --log.debug("_seq.current_command: ".._seq.current_command)
+  --log.debug("_seq.Command[_seq.current_command]: "..(_seq.Command[_seq.current_command] and "exists" or "nil"))
   for do_ents = 0, _seq.Command[_seq.current_command].ents - 1 do
 --     '' cycle through current command's entities
 --
@@ -4874,7 +4874,7 @@ function play_sequence(_seq)
 --
 --         If .water_align <> 0 Then
       if with0.water_align ~= 0 then
-        log.debug("Looping background...")
+        --log.debug("Looping background...")
 --           '' flag to loop the backround is set
 --           If llg( hero ).coords.y = 2000 Then
         if ll_global.hero.coords.y == 2000 then
@@ -4930,9 +4930,9 @@ function play_sequence(_seq)
 --         '' **************************************************************************
       -- log.debug("with0.ent_func: "..with0.ent_func)
       -- log.debug("with0.active_ent: "..with0.active_ent)
-      log.debug("with0.ent_state: "..with0.ent_state)
+      --log.debug("with0.ent_state: "..with0.ent_state)
       -- log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
-      log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
+      --log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
       -- log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
       with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --

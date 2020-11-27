@@ -1,5 +1,31 @@
 require("game/matrices")
 
+-- Type mat_expl
+function create_mat_expl()
+--
+  local mat_expl = {}
+--   As Integer x, y
+  mat_expl.x = 0
+  mat_expl.y = 0
+--
+--   frame As Integer
+  mat_expl.frame = 0
+--   frame_hold As Double
+  mat_expl.frame_hold = 0.0
+--   alive As Integer
+  mat_expl.alive = 0
+--   sound As Integer
+  mat_expl.sound = 0
+  --NOTE: Cloning the explosion sample for every explosion for
+  --concurrent playback. This is not part of original LL source code.
+  if ll_global ~= nil then
+    mat_expl.sound_source = ll_global.snd[sound_explosion]:clone()
+  end
+--
+  return mat_expl
+-- End Type
+end
+
 function create_dir_type()
   -- Type dir_type
   local dir_type = {}
@@ -120,6 +146,7 @@ function init_object(object)
   --
   --
   --   isBoss As Integer
+  object.isBoss = 0
   --   lose_time             As Integer
   --
   --
@@ -512,14 +539,23 @@ function init_object(object)
   object.cur_expl = 0
   --
   --   explosions            As Integer
+  object.explosions = 0
   --
   --   expl_delay            As Double
+  object.expl_delay = 0.0
   --   expl_timer            As Double
+  object.expl_timer = 0.0
   --   expl_x_off            As Integer
+  object.expl_x_off = 0
   --   expl_x_size           As Integer
+  object.expl_x_size = 0
   --   expl_y_off            As Integer
+  object.expl_y_off = 0
   --   expl_y_size           As Integer
+  object.expl_y_size = 0
   --   explosion( 63 )       As mat_expl
+  object.explosion = {}
+  for i = 0, 63 do object.explosion[i] = create_mat_expl() end
   --
   --
   --
