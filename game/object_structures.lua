@@ -115,6 +115,7 @@ function init_object(object)
   --
   --   '' needs a simple explosion display
   --   fireworks             As Integer
+  object.fireworks = 0
   --
   --   fire_weak             As Integer
   --
