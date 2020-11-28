@@ -241,6 +241,22 @@ function __drop(this)
 -- End Function
 end
 
+-- Function __set_happen ( this As _char_type Ptr ) As Integer
+function __set_happen(this)
+--
+--
+--   llg( now )[this->chap] = Not 0
+  ll_global.now[this.chap] = -1
+--
+--
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __return_trig ( this As _char_type Ptr ) As Integer
 function __return_trig(this)
 --
