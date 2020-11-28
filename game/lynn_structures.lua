@@ -68,7 +68,7 @@ function create_main_char_type()
   main_char_type.isLoading = 0
 --
 --   dropoutSequence As Integer
-  main_char_type.dropoutSequence = 0
+  main_char_type.dropoutSequence = false
 --
 --   quakeViolence As Integer
 --

@@ -4637,10 +4637,10 @@ end
 function sequence_ExitCondition(activeChar)
 --
 --   If llg( hero_only ).dropoutSequence Then
-  if ll_global.hero_only.dropoutSequence ~= 0 then
+  if ll_global.hero_only.dropoutSequence == true then
 --     '' the map change flag was set
 --     llg( hero_only ).dropoutSequence = FALSE
-    ll_global.hero_only.dropoutSequence = 0
+    ll_global.hero_only.dropoutSequence = false
 --     If llg( hero ).switch_room <> -1 Then
     if ll_global.hero.switch_room ~= -1 then
 --       '' switch room, clear seq
@@ -4825,9 +4825,13 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 end
 
 -- Sub play_sequence ( _seq As sequence_type Ptr )
-function play_sequence(_seq)
+--NOTE: We change how we process sequences by passing in
+--the parent table of the sequence, so that we can reset it from
+--within this function.
+function play_sequence(_seqParent)
   --log.debug("play_sequence called.")
-  --log.debug("_seq: "..(_seq and "exists" or "nil"))
+  if _seqParent.seq == nil then return end
+  local _seq = _seqParent.seq[_seqParent.seqi]
 --
 --
 --   If _seq = 0 Then Exit Sub
@@ -4948,9 +4952,9 @@ function play_sequence(_seq)
 --         '' **************************************************************************
       -- log.debug("with0.ent_func: "..with0.ent_func)
       -- log.debug("with0.active_ent: "..with0.active_ent)
-      --log.debug("with0.ent_state: "..with0.ent_state)
+      -- log.debug("with0.ent_state: "..with0.ent_state)
       -- log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
-      --log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
+      -- log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
       -- log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
       with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --
@@ -5026,7 +5030,8 @@ function play_sequence(_seq)
     sequence_FullReset(_seq)
 --
 --     _seq = 0
-    _seq = 0
+    _seqParent.seq = nil
+    _seqParent.seqi = 0
 --     llg( hero ).chap = 0
     ll_global.hero.chap = 0
 --     llg( do_hud ) = -1
