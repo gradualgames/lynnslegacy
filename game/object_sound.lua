@@ -1,3 +1,15 @@
+-- Function __fade_off ( this As _char_type Ptr ) As Integer
+function __fade_off(this)
+--
+--   llg( song_fade ) = 0
+  ll_global.song_fade = 0
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __stop_sound ( this As _char_type Ptr ) As Integer
 function __stop_sound(this)
 --

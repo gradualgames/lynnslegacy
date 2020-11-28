@@ -1,3 +1,40 @@
+-- Function __half_second_pause ( this As _char_type Ptr ) As Integer
+function __half_second_pause(this)
+  log.debug("__half_second_pause called on: "..this.id)
+--
+--   this->frame = 0
+  this.frame = 0
+--
+--
+--
+--
+--   If this->pause = 0 Then
+  if this.pause == 0 then
+--
+--     this->pause = Timer + .5
+    this.pause = timer + .5
+--
+--
+--   End If
+  end
+--
+--   If Timer >= this->pause Then
+  if timer >= this.pause then
+--     this->pause = 0
+    this.pause = 0
+--
+--     Return 1
+    return 1
+--
+--
+--   End If
+  end
+--
+--
+  return 0
+-- End Function
+end
+
 function __second_pause(this)
   --log.debug("__second_pause called.")
   if this.pause == 0 then
