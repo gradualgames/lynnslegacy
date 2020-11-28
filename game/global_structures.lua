@@ -1,3 +1,4 @@
+require("game/box_structures")
 require("game/object_structures")
 require("game/lynn_structures")
 require("game/map_structures")
@@ -61,6 +62,7 @@ function create_ll_system()
   ll_system.hud = create_load_hudImage()
   --
   --   t_rect As boxcontrol_type
+  ll_system.t_rect = create_boxcontrol_type()
   --
   --   #IfDef ll_audio
   --     snds As Integer
