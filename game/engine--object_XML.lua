@@ -98,35 +98,66 @@ function LLSystem_ObjectFromXML(enemy)
         --log.debug( " Processing sprite/y_off: "..text)
         enemy.animControl[enemy.current_anim].y_off = tonumber(text)
       elseif path[3] == "sound" then
-        log.debug( " Processing sprite/sound: "..text)
-        -- With objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame]
-        local with0 = enemy.anim[enemy.current_anim].frame[enemy.frame]
-        --
-        --   #macro LLObject_FrameSoundLoad(__FrameSound__)
-        --
-        --     Case ###__FrameSound__
-        --
-        --       dim as integer iterateSounds, holdFrame
-        local iterateSounds, holdFrame = 0, 0
-        --
-        --       holdFrame = objectLoad.frame
-        holdFrame = enemy.frame
-        --
-        --       for iterateSounds = 0 to iif( objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].uni_sound, 3, 0 )
-        for iterateSounds = 0, ((enemy.anim[enemy.current_anim].frame[enemy.frame].uni_sound ~= 0) and 3 or 0) do
-        --
-        --         objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].sound = __FrameSound__
-          enemy.anim[enemy.current_anim].frame[enemy.frame].sound = _G[text]
-        --         objectLoad.frame += objectLoad.animControl[objectLoad.current_anim].dir_frames
-          enemy.frame = enemy.frame + enemy.animControl[enemy.current_anim].dir_frames
-        --
-        --       next
+          -- Case "frame"
+        if path[4] == "frame" then
+          --   objectLoad.frame = Val( thr->dat.s )
+          enemy.frame = tonumber(text)
+          -- Case "uni_sound"
+        elseif path[4] == "uni_sound" then
+            -- objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].uni_sound = Val( thr->dat.s )
+          enemy.anim[enemy.current_anim].frame[enemy.frame].uni_sound = tonumber(text)
+          -- Case "index"
+        elseif path[4] == "index" then
+          log.debug( " Processing sprite/sound: "..text)
+          -- With objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame]
+          local with0 = enemy.anim[enemy.current_anim].frame[enemy.frame]
+          --
+          --   #macro LLObject_FrameSoundLoad(__FrameSound__)
+          --
+          --     Case ###__FrameSound__
+          --
+          --       dim as integer iterateSounds, holdFrame
+          local iterateSounds, holdFrame = 0, 0
+          --
+          --       holdFrame = objectLoad.frame
+          holdFrame = enemy.frame
+          --
+          --       for iterateSounds = 0 to iif( objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].uni_sound, 3, 0 )
+          for iterateSounds = 0, ((enemy.anim[enemy.current_anim].frame[enemy.frame].uni_sound ~= 0) and 3 or 0) do
+          --
+          --         objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].sound = __FrameSound__
+            enemy.anim[enemy.current_anim].frame[enemy.frame].sound = _G[text]
+          --         objectLoad.frame += objectLoad.animControl[objectLoad.current_anim].dir_frames
+            enemy.frame = enemy.frame + enemy.animControl[enemy.current_anim].dir_frames
+          --
+          --       next
+          end
+          --
+          --       objectLoad.frame = holdFrame
+          enemy.frame = holdFrame
+          --
+          --   #endmacro
+        elseif path[4] == "vol" then
+          -- dim as integer iterateSounds, holdFrame
+          local iterateSounds, holdFrame = 0, 0
+          --
+          --  holdFrame = objectLoad.frame
+          holdFrame = enemy.frame
+          --
+          --  for iterateSounds = 0 to iif( objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].uni_sound, 3, 0 )
+          for iterateSounds = 0, iif(enemy.anim[enemy.current_anim].frame[enemy.frame].uni_sound, 3, 0) do
+          --
+          --    objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].vol = Val( thr->dat.s )
+            enemy.anim[enemy.current_anim].frame[enemy.frame].vol = tonumber(text)
+          --    objectLoad.frame += objectLoad.animControl[objectLoad.current_anim].dir_frames
+            enemy.frame = enemy.frame + enemy.animControl[enemy.current_anim].dir_frames
+          --
+          --  next
+          end
+          --
+          --  objectLoad.frame = holdFrame
+          enemy.frame = holdFrame
         end
-        --
-        --       objectLoad.frame = holdFrame
-        enemy.frame = holdFrame
-        --
-        --   #endmacro
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then

@@ -718,7 +718,7 @@ function blit_object(this)
         local iifCalc = (math.floor(math.random() * 30) + 70) / 100
 --
 --           play_sample( llg( snd )[.sound], IIf( .vol <> 0, .vol, iifCalc  ) )
-        --ll_global.snd[with1.sound]:setVolume((with1.vol ~= 0) and with1.vol or iifCalc)
+        ll_global.snd[with1.sound]:setVolume((with1.vol ~= 0) and (with1.vol / 100) or iifCalc)
         ll_global.snd[with1.sound]:play()
 --           this->animControl[this->current_anim].frame[handShake].sound_lock = -1
         this.animControl[this.current_anim].frame[handShake].sound_lock = -1
