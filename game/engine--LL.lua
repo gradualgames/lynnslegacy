@@ -5055,11 +5055,18 @@ function touched_frame_face(c, v)
 --
 --   With *( c )
 --
+  --NOTE: Pulled this frame_check assignment up to blit_enemy_loot.
+  --This function is only used from that location. .frame was used to
+  --decide whether to call touched_bound_box or touched_frame_face based
+  --on how many faces the frame has. Problem is, .frame_check and .frame
+  --can be out of sync in some cases. So we use .frame_check all the way
+  --up to blit_enemy_loot so it is not out of sync. I THINK that this was
+  --a bug in the original code that worked by coincidence most of the time,
+  --but I am leaving this note here just in case I effed something up.
 --     .frame_check = LLObject_CalculateFrame( c[0] )
-  c.frame_check = LLObject_CalculateFrame(c)
 --
 --     For face_check = 0 To .anim[.current_anim]->frame[.frame].faces - 1
-  for face_check = 0, c.anim[c.current_anim].frame[c.frame].faces - 1 do
+  for face_check = 0, c.anim[c.current_anim].frame[c.frame_check].faces - 1 do
 --
 --       origin = LLO_VPE( c, OV_FACE, face_check )
     origin = LLO_VPE(c, OV_FACE, face_check)

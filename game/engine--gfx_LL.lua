@@ -622,8 +622,18 @@ function blit_enemy_loot()
 --             target.v.y = 8
         target.v.y = 8
 --
+        --NOTE: Pulled this frame_check assignment up to blit_enemy_loot.
+        --from touched_frame_face.
+        --This function is only used from that location. .frame was used to
+        --decide whether to call touched_bound_box or touched_frame_face based
+        --on how many faces the frame has. Problem is, .frame_check and .frame
+        --can be out of sync in some cases. So we use .frame_check all the way
+        --up to blit_enemy_loot so it is not out of sync. I THINK that this was
+        --a bug in the original code that worked by coincidence most of the time,
+        --but I am leaving this note here just in case I effed something up.
+        ll_global.hero.frame_check = LLObject_CalculateFrame(ll_global.hero)
 --             If llg( hero ).anim[llg( hero ).current_anim]->frame[llg( hero ).frame].faces = 0 Then
-        if ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame].faces == 0 then
+        if ll_global.hero.anim[ll_global.hero.current_anim].frame[ll_global.hero.frame_check].faces == 0 then
 --
 --               conf = ( touched_bound_box( varptr( llg( hero ) ), target ) <> -1 )
           conf = (touched_bound_box(ll_global.hero, target) ~= -1)
