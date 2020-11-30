@@ -4507,7 +4507,7 @@ function sequence_AssignEntityData(charData, commandData)
 --     If .abs_x <> 0 Then
   if with0.abs_x ~= 0 then
 --       charData.coords.x =  ( .abs_x )
-    chrData.coords.x = (with0.abs_x)
+    charData.coords.x = (with0.abs_x)
 --
 --     End If
   end
