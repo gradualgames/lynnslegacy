@@ -127,18 +127,22 @@ function create_command_data()
   command_data.reserved_11 = 0
 --
 --
+  return command_data
 -- End Type
+end
 --
 --
 -- Type command_type
+function create_command_type()
 --
+  local command_type = {}
 --   ents As Integer
-  command_data.ents = 0
+  command_type.ents = 0
 --   ent As command_data Ptr
-  command_data.ent = {}
+  command_type.ent = {}
 --
 --
-  return command_data
+  return command_type
 -- End Type
 end
 --

@@ -127,7 +127,7 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
     -- For loop_commands is 0 to commands - 1 do
     for loopCommands = 0, sequence.commands - 1 do
 
-      local command = create_command_data()
+      local command = create_command_type()
       -- load .ents Integer
       command.ents = readInt(mapBlob)
       log.debug("command.ents: "..command.ents)
