@@ -27,3 +27,28 @@ function bitstring(n)
   end
   return bstring
 end
+
+function printentdata()
+  if ll_global.seq ~= nil and ll_global.seqi ~= nil and ll_global.seq[ll_global.seqi] ~= nil then
+    log.debug("Full readout of all ents in the seq.")
+    if ll_global.seq[ll_global.seqi].ent ~= nil then
+      for k,v in pairs(ll_global.seq[ll_global.seqi].ent) do
+        for ek,ev in pairs(v) do
+          if type(ev) ~= "table" then
+            log.debug("seq ent key: "..ek.." seq value: "..ev)
+          end
+        end
+      end
+    end
+    log.debug("Full readout of all commands and entities.")
+    for ck,cv in pairs(ll_global.seq[ll_global.seqi].Command) do
+      for k,v in pairs(cv.ent) do
+        for ek,ev in pairs(v) do
+          if type(ev) ~= "table" then
+            log.debug("command ent key: "..ek.." command value: "..ev)
+          end
+        end
+      end
+    end
+  end
+end

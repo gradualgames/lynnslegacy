@@ -144,6 +144,9 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
         -- Load .ent_state Integer
         commandData.ent_state = readInt(mapBlob)
         log.debug("commandData.ent_state: "..commandData.ent_state)
+        -- Set .hold_state to match .ent_state so commands can be reset
+        commandData.hold_state = commandData.ent_state
+        log.debug("commandData.hold_state: "..commandData.hold_state)
         -- Load .text String
         commandData.text = readString(mapBlob)
         log.debug("commandData.text: "..commandData.text)

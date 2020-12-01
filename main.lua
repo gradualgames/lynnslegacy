@@ -25,17 +25,17 @@ function love.load()
 
   ll_global = create_ll_system()
 
-  log.level = "debug"
+  --log.level = "debug"
   init_splash()
-  log.level = "fatal"
+  --log.level = "fatal"
 
-  log.level = "debug"
+  --log.level = "debug"
   engine_init()
-  log.level = "fatal"
+  --log.level = "fatal"
 
-  log.level = "debug"
+  --log.level = "debug"
   ll_main_entry()
-  log.level = "fatal"
+  --log.level = "fatal"
 
   --Variables not related to the original codebase
   bhist = {}
@@ -52,13 +52,13 @@ function love.update(dt)
   local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
     timer = love.timer.getTime()
-    --timer = timer + .1
+    --timer = timer + .005
     --log.level = "debug"
     enemy_main()
     --log.level = "fatal"
-    log.level = "debug"
+    --log.level = "debug"
     play_sequence(ll_global)
-    log.level = "fatal"
+    --log.level = "fatal"
     --log.level = "debug"
     hero_main()
     --log.level = "fatal"
@@ -67,9 +67,9 @@ end
 
 function love.draw()
   startDrawing()
-  log.level = "debug"
+  --log.level = "debug"
   blit_scene()
-  log.level = "fatal"
+  --log.level = "fatal"
 
   for key, dbgrect in pairs(dbgrects) do
     local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
