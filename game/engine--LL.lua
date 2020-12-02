@@ -234,6 +234,11 @@ function set_up_room_enemies(enemies, enemy)
     --
     --           oldid = enemy[setup].id
     --
+    --NOTE: When we port this code, we'll have to do this:
+    --save old id
+    --Change id to "data/object/null.xml"
+    --call LLSystem_CopyNewObject
+    --Change id back to old id.
     --           LLSystem_ObjectDeepCopy( enemy[setup], *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( "data\object\null.xml" ) ) )
     --           enemy[setup].id = oldid
     --
@@ -1812,9 +1817,6 @@ function enter_map(_char, _m, desc, _entry)
 --   llg( hero ).seq = _m->entry[_entry].seq
   ll_global.hero.seq = _m.map.entry[_entry].seq
   ll_global.hero.seqi = _m.map.entry[_entry].seqi
-  log.debug("_entry: ".._entry)
-  log.debug("ll_global.hero.seqi: "..ll_global.hero.seqi)
-  log.debug("ll_global.hero.seq.Command: "..(ll_global.hero.seq[ll_global.hero.seqi].Command and "exists" or "nil"))
 --
 --   llg( dark ) = now_room().dark
   ll_global.dark = now_room().dark

@@ -68,6 +68,7 @@ function init_object(object)
   --
   --
   --   internalState as integer
+  object.internalState = 0
   --
   --   animating             As Integer
   object.animating = 0
@@ -75,7 +76,9 @@ function init_object(object)
   object.anims = 0
   --
   --   hp                    As Integer
+  object.hp = 0
   --   maxhp                 As Integer
+  object.maxhp = 0
   --
   --   anim                  As LLSystem_ImageHeader Ptr Ptr
   object.anim = {}
@@ -94,7 +97,9 @@ function init_object(object)
   object.d_silver = 0
   --
   --   ice_weak              As Integer
+  object.ice_weak = 0
   --   total_dead            As Integer
+  object.total_dead = 0
   --   dead_sound            As Integer
   object.dead_sound = 0
   --   dead_sound_vol        As Integer
@@ -103,21 +108,28 @@ function init_object(object)
   object.dead_hold = 0.0
   --
   --   degree                As Double
+  object.degree = 0.0
   --   sway                  As Double
+  object.sway = 0.0
   --   swaying               As Integer
+  object.swaying = 0
   --
   --
   --   diag_chase            As Integer
+  object.diag_chase = 0
   --   diag_thrust           As Integer
+  object.diag_thrust = 0
   --   direction             As Integer
   object.direction = 0
   --   far_reset_delay       As Double
+  object.far_reset_delay = 0.0
   --
   --   '' needs a simple explosion display
   --   fireworks             As Integer
   object.fireworks = 0
   --
   --   fire_weak             As Integer
+  object.fire_weak = 0
   --
   --
   --   frame                 As Integer
@@ -125,15 +137,19 @@ function init_object(object)
   --   frame_hold            As Double
   object.frame_hold = 0
   --   high_frame            As Double
+  object.high_frame = 0.0
   --   low_frame             As Double
+  object.low_frame = 0.0
   --
   --
   --   froggy                As Integer
+  object.froggy = 0
   --
   --   funcs                 As e_funcs
   object.funcs = create_e_funcs()
   --
   --   thrust                As Integer
+  object.thrust = 0
   --
   --   switch_room           As Integer
   object.switch_room = -1
@@ -149,10 +165,13 @@ function init_object(object)
   --   isBoss As Integer
   object.isBoss = 0
   --   lose_time             As Integer
+  object.lose_time = 0
   --
   --
   --   grult_proj_trig       As Integer
+  object.grult_proj_trig = 0
   --   anger_proj_trig       As Integer
+  object.anger_proj_trig = 0
   --
   --
   --     '' states!!
@@ -194,6 +213,7 @@ function init_object(object)
   --
   --
   --   hit                   As Integer
+  object.hit = 0
   --
   --   hit_sound             As Integer
   object.hit_sound = 0
@@ -206,6 +226,7 @@ function init_object(object)
   --
   --
   --   id                    As String
+  object.id = ""
   --
   --   impassable            As Integer
   object.impassable = 0
@@ -232,21 +253,28 @@ function init_object(object)
   object.jump_timer = 0.0
   --
   --   key                   As Integer
+  object.key = 0
   --   key_door              As Integer
+  object.key_door = 0
   --
   --   last_cycle_ice         As Integer
   object.last_cycle_ice = 0
   --
   --   light_sensitive       As Integer
+  object.light_sensitive = 0
   --
   --   line_lock             As Integer
+  object.line_lock = 0
   --   line_sight            As Integer
+  object.line_sight = 0
   --
   --   mace_weak             As Integer
   object.mace_weak = 0
   --
   --   mad                   As Integer
+  object.mad = 0
   --   mad_walk_speed        As Double
+  object.mad_walk_speed = 0.0
   --
   --   mod_lock              As Integer
   object.mod_lock = 0
@@ -266,9 +294,12 @@ function init_object(object)
   --
   --
   --   must_align            As Integer
+  object.must_align = 0
   --
   --   n_gold                As Integer
+  object.n_gold = 0
   --   n_silver              As Integer
+  object.n_silver = 0
   --
   --   no_cam                As Integer
   object.no_cam = 0
@@ -285,13 +316,16 @@ function init_object(object)
   --   pause                 As Single
   object.pause = 0
   --   pause_hold            As Integer
+  object.pause_hold = 0
   --
   --   placed                As Integer                        '0 = norm, pos = top, neg = bottom
   object.placed = 0
   --
   --   pushable              As Integer
+  object.pushable = 0
   --
   --   radius                As Double
+  object.radius = 0.0
   --
   --
   --
@@ -301,10 +335,14 @@ function init_object(object)
   object.return_trig = 0
   --
   --   shifty                As Integer
+  object.shifty = 0
   --   shifty_lock           As Integer
+  object.shifty_lock = 0
   --   shifty_state          As Integer
+  object.shifty_state = 0
   --
   --   slide_hold            As Double
+  object.slide_hold = 0.0
   --
   --   song_fade_count       As Integer
   object.song_fade_count = 0
@@ -315,7 +353,9 @@ function init_object(object)
   object.sounds = 0
   --
   --   spawn_x               As Integer
+  object.spawn_x = 0
   --   spawn_y               As Integer
+  object.spawn_y = 0
   --
   --   spawn_h               As uShort
   object.spawn_h = 0
@@ -328,6 +368,7 @@ function init_object(object)
   object.is_d_set = 0
   --
   --   spawns_id             As String
+  object.spawns_id = ""
   --
   --   star_weak             As Integer
   object.star_weak = 0
@@ -336,6 +377,7 @@ function init_object(object)
   object.state_shift = 0
   --
   --   sticky_chase          As Integer
+  object.sticky_chase = 0
   --
   --   strength              As Integer
   object.strength = 0
@@ -343,13 +385,18 @@ function init_object(object)
   --
   --
   --   to_entry              As Integer
+  object.to_entry = 0
   --   to_map                As String
+  object.to_map = ""
   --
   --   torch                 As Integer
+  object.torch = 0
   --
   --   touch_sequence        As Integer
+  object.touch_sequence = 0
   --
   --   trigger               As Integer
+  object.trigger = 0
   --
   --   uni_directional       As Integer
   object.uni_directional = 0
@@ -364,13 +411,19 @@ function init_object(object)
   object.unstoppable_by_screen = 0
   --
   --   vision_field          As Integer
+  object.vision_field = 0
   --   side_vision As Integer
+  object.side_vision = 0
   --
   --
   --   vol_fade              As Integer
+  object.vol_fade = 0
   --   vol_fade_lock         As Double
+  object.vol_fade_lock = 0.0
   --   vol_fade_time         As Double
+  object.vol_fade_time = 0.0
   --   vol_fade_trig         As Integer
+  object.vol_fade_trig = 0
   --
   --   walk_buffer           As Integer
   object.walk_buffer = 0
@@ -385,16 +438,21 @@ function init_object(object)
   --
   --
   --   x_origin              As Integer
+  object.x_origin = 0
   --   y_origin              As Integer
+  object.y_origin = 0
   --
   --   yet_spawned           As Integer
+  object.yet_spawned = 0
   --
   --
   --
   --   vol As Integer Ptr
   object.vol = {}
   --   sample_fade_lock As Integer
+  object.sample_fade_lock = 0
   --   sample_vol_store As Integer
+  object.sample_vol_store = 0
   --
   --   #IfDef ll_audio
   --     playing_handle As hchannel
@@ -409,6 +467,7 @@ function init_object(object)
   --   '' sequence crap
   --   '' ==========================
   --     action_sequence       As Integer
+  object.action_sequence = 0
   --     chap                  As Integer
   object.chap = 0
   --     dest_x                As Integer
@@ -417,6 +476,7 @@ function init_object(object)
   object.dest_y = 0
   --
   --     sel_seq               As Integer
+  object.sel_seq = 0
   --     seq                   As sequence_type Ptr
   object.seq = {}
   --NOTE: We introduce seqi because seq was basically a pointer
@@ -438,10 +498,12 @@ function init_object(object)
   --   '' ==========================
   --
   --     elite                 As Integer
+  object.elite = 0
   --     frame_check           As Integer
   object.frame_check = 0
   --
   --     melt                  As Integer
+  object.melt = 0
   --
   --     menu_lock             As Integer
   object.menu_lock = 0
@@ -449,14 +511,19 @@ function init_object(object)
   object.menu_sel = 0
   --
   --     mini_boss             As Integer
+  object.mini_boss = 0
   --
   --     orb_hac               As Integer
+  object.orb_hac = 0
   --
   --     read_lock             As Integer
+  object.read_lock = 0
   --
   --     reset_delay           As Double
+  object.reset_delay = 0.0
   --
   --     stun_return_trig      As Integer
+  object.stun_return_trig = 0
   --
   --
   --   '' ==========================
@@ -464,6 +531,7 @@ function init_object(object)
   --   '' ==========================
   --
   --     save                 ( 3 )   As save_dat
+  object.save = {[0] = 0, 0, 0}
   --
   --     coords As Vector
   object.coords = create_vector()
@@ -512,8 +580,11 @@ function init_object(object)
   --
   --
   --     spawn_wait_trig As Integer
+  object.spawn_wait_trig = 0
   --     spawn_kill_trig As Integer
+  object.spawn_kill_trig = 0
   --     spawn_active_trig As Integer
+  object.spawn_active_trig = 0
   --
   --
   --     proj_style As LLPROJECTILE_STYLES
@@ -630,11 +701,15 @@ function init_object(object)
   --
   --
   --   reserved_2            As Integer
+  object.reserved_2 = 0
   --   reserved_3            As Integer
+  object.reserved_3 = 0
   --   reserved_4            As Integer
+  object.reserved_4 = 0
   --   reserved_5            As Integer
   object.reserved_5 = 0
   --   reserved_6            As Integer
+  object.reserved_6 = 0
   --
 end
 

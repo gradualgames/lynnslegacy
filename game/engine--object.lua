@@ -1,31 +1,141 @@
 require("game/engine--object_XML")
 require("game/engine_enums")
 
---NOTE: Both LLSystem_CopyNewObject
---and LLSystem_ObjectDeepCopy call through to
---LLSystem_ObjectLoad. This is not how the original engine was
---architected. In the original engine, LLSystem_ObjectLoad
---was called to cache all object types from xml when the program
---started up. Then, these two functions are used to clone those
---prototypes in memory. In how we implemented things, LLSystem_ObjectLoad
---calls through to lazy loading/caching xml files in memory, effectively
---creating new, deep copies of objects. It's another way of implementing
---the same thing. There are other requirements satisfied by these two
---objects like loading "drop" objects so we are just forwarding calls
---to LLSystem_ObjectLoad from these two functions and then doing those
---other needed bits of bookkeeping. So this is probably the most significant
---departure from the original code, and at the moment I do not know how this
---will shake out. Hopefully we can get away with it. :)
+--NOTE: One of the most significant departures from the original
+--codebase is how object data is loaded and cached. In the original
+--codebase, all object XML was loaded into template objects which were
+--then deep copied. In our system, all xml files themselves get parsed
+--and cached, and when we want a deep copy we actually call the xml loading
+--system to get the copy. This is done in place of all of the property and
+--pointer loading code. But the basic structure of loading new objects is
+--preserved so that we preserve information such as the id, x_origin,
+--y_origin and other initial state information that is loaded into objects
+--when maps are loaded. So there's no source and destination parameter,
+--just destination because we always know the object id from when the
+--map is loaded. The "source" is really just the xml which we know from
+--the id when we perform the deep copy. There are only two spots where
+--deep copies are made in the original code: Here where a new object is
+--loaded, and also some special code in set_up_room_enemies which replaces
+--an object with the contents of null.xml, but we can simulate that logic
+--(see comments in set_up_room_enemies). There's nowhere in the original
+--code that I can find where a "deep copy" is made of an object whose
+--state has been mutating during gameplay---it is really onhly ever copying
+--the original data in xml files. I am fairly confident that we are logically
+--doing the same things in the same order.
 
 -- Sub LLSystem_CopyNewObject( objectCopy As char_type )
 function LLSystem_CopyNewObject(objectCopy)
 --
 --   LLSystem_ObjectDeepCopy( objectCopy, *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( objectCopy.id ) ) )
+  LLSystem_ObjectDeepCopy(objectCopy)
+-- End Sub
+end
+
+-- Private Sub LLSystem_ObjectShallowCopy( d As _char_type, s As _char_type )
+function LLSystem_ObjectShallowCopy(d)
 --
-  init_object(objectCopy)
-  objectCopy.coords.x = objectCopy.x_origin
-  objectCopy.coords.y = objectCopy.y_origin
-  LLSystem_ObjectDeepCopy(objectCopy, nil)
+--
+-- ' id as string
+-- ' spawns_id as string
+-- ' to_map as string
+  local id, spawns_id, to_map = d.id, d.spawns_id, d.to_map
+--
+--   MemCpy( Varptr( d ), Varptr( s ), Len( _char_type ) )
+-- '  d = s '' same.... but no warning =).
+--
+--   Clear d.id       , 0, Len( String )
+--   Clear d.spawns_id, 0, Len( String )
+--   Clear d.to_map   , 0, Len( String )
+  init_object(d)
+--
+--   d.id = s.id
+  d.id = id
+--   d.spawns_id = s.spawns_id
+  d.spawns_id = spawns_id
+--   d.to_map = s.to_map
+  d.to_map = to_map
+--
+--   Assert( diffAddress( id ) )
+--   Assert( diffAddress( spawns_id ) )
+--   Assert( diffAddress( to_map ) )
+--
+-- End Sub
+end
+--
+--
+-- Private Sub LLSystem_ObjectInitialCopy( d As _char_type, s As _char_type )
+function LLSystem_ObjectInitialCopy(d)
+--
+--
+--   Dim As Integer x_origin, y_origin, direction, chap, seq_here, ori_dir
+  local x_origin, y_origin, direction, chap, seq_here, ori_dir = 0, 0, 0, 0, 0, 0
+--
+--   Dim As Integer spawn_cond
+  local spawn_cond = 0
+--
+--   Dim As sequence_type Ptr seq
+  local seq = {}
+--
+--   Dim As LLObject_ConditionalSpawn Ptr spawn_info
+  local spawn_info = {}
+--
+--
+--   x_origin = d.x_origin
+  x_origin = d.x_origin
+--   y_origin = d.y_origin
+  y_origin = d.y_origin
+--   direction = d.direction
+  direction = d.direction
+--
+--   chap = d.chap
+  chap = d.chap
+--
+--   seq_here = d.seq_here
+  seq_here = d.seq_here
+--   seq = d.seq
+  seq = d.seq
+--
+--   spawn_cond = d.spawn_cond
+  spawn_cond = d.spawn_cond
+--   spawn_info = d.spawn_info
+  spawn_info = d.spawn_info
+--
+--   ori_dir = d.ori_dir
+  ori_dir = d.ori_dir
+--
+--
+--   LLSystem_ObjectShallowCopy( d, s )
+  LLSystem_ObjectShallowCopy(d)
+--
+--
+--   d.x_origin = x_origin
+  d.x_origin = x_origin
+--   d.y_origin = y_origin
+  d.y_origin = y_origin
+--   d.direction = direction
+  d.direction = direction
+--
+--   d.coords.x = x_origin
+  d.coords.x = x_origin
+--   d.coords.y = y_origin
+  d.coords.y = y_origin
+--
+--   d.chap = chap
+  d.chap = chap
+--
+--   d.seq_here = seq_here
+  d.seq_here = seq_here
+--   d.seq = seq
+  d.seq = seq
+--
+--   d.spawn_cond = spawn_cond
+  d.spawn_cond = spawn_cond
+--   d.spawn_info = spawn_info
+  d.spawn_info = spawn_info
+--
+--   d.ori_dir = ori_dir
+  d.ori_dir = ori_dir
+--
 --
 -- End Sub
 end
@@ -33,7 +143,6 @@ end
 -- Sub LLSystem_ObjectDeepCopy( d As _char_type, s As _char_type )
 function LLSystem_ObjectDeepCopy(d, s)
 --
-  LLSystem_ObjectLoad(d)
 --
 -- ' id as string
 -- ' spawns_id as string
@@ -53,6 +162,7 @@ function LLSystem_ObjectDeepCopy(d, s)
 --
 --
 --   LLSystem_ObjectInitialCopy( d, s )
+  LLSystem_ObjectInitialCopy(d)
 --
 --   copy_Pointer( sound, s.sounds, Integer )
 --   Assert( diffAlloc( sound ) )
@@ -118,6 +228,9 @@ function LLSystem_ObjectDeepCopy(d, s)
 --
 --   Next
 --
+  --NOTE: All of the deep copy code above is simulated here by loading
+  --directly from cached XML.
+  LLSystem_ObjectLoad(d)
 --
 --   d.drop = CAllocate( Len( _char_type ) )
   d.drop = create_Object()
@@ -386,4 +499,5 @@ function LLSystem_ObjectLoad(objectLoad)
   --
   --
   --   Return 1
+  return 1
 end
