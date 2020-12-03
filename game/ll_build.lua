@@ -346,7 +346,7 @@ function load_mapV(fileName)
       room.seq_here = readInt(mapBlob)
       log.debug("room.seq_here: "..room.seq_here)
 
-      room.seq = {}
+      room.seq = room.seq_here > 0 and {} or nil
       room.seqi = 0
 
       load_seqV(mapBlob, room.seq_here, room.seq, "room", roomIndex)
@@ -379,7 +379,7 @@ function load_mapV(fileName)
         log.debug("enemy.is_d_set: "..enemy.is_d_set)
         enemy.reserved_5 = readInt(mapBlob)
         log.debug("enemy.reserved_5: "..enemy.reserved_5)
-        enemy.seq = {}
+        enemy.seq = enemy.seq_here > 0 and {} or nil
         enemy.seqi = 0
         load_seqV(mapBlob, enemy.seq_here, enemy.seq, "enemy", enemyIndex)
 
@@ -483,7 +483,7 @@ function load_mapV(fileName)
       log.debug("entry.seq_here: "..entry.seq_here)
       entry.reserved = readStringL(mapBlob, 84)
       log.debug("entry.reserved: "..entry.reserved)
-      entry.seq = {}
+      entry.seq = entry.seq_here > 0 and {} or nil
       entry.seqi = 0
       load_seqV(mapBlob, entry.seq_here, entry.seq, "entry", loopEntries)
       map.entry[loopEntries] = entry

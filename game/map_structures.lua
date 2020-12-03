@@ -131,7 +131,7 @@ function create_room_type()
 --   seq_here As Integer
   room_type.seq_here = 0
 --   seq As sequence_type Ptr
-  room_type.seq = {}
+  room_type.seq = nil
   --NOTE: We introduce seqi because seq was basically a pointer
   --to the current sequence in an allocated array of sequences. We
   --can't operate that way with Lua, so we need to have this index
@@ -183,7 +183,7 @@ function create_map_entry_type()
 --   seq_here As Integer
   map_entry_type.seq_here = 0
 --   seq As sequence_type Ptr
-  map_entry_type.seq = {}
+  map_entry_type.seq = nil
   --NOTE: We introduce seqi because seq was basically a pointer
   --to the current sequence in an allocated array of sequences. We
   --can't operate that way with Lua, so we need to have this index

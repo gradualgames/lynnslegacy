@@ -130,7 +130,7 @@ function create_ll_system()
   ll_system.song_wait = 0
   --
   --   seq As sequence_type Ptr
-  ll_system.seq = {}
+  ll_system.seq = nil
   --NOTE: We introduce seqi because seq was basically a pointer
   --to the current sequence in an allocated array of sequences. We
   --can't operate that way with Lua, so we need to have this index
