@@ -28,10 +28,10 @@ function create_boxpointer_type()
 --   box As LLSystem_ImageHeader Ptr' box itself.
   boxpointer_type.box = create_LLSystem_ImageHeader()
 --   Next As LLSystem_ImageHeader Ptr' the flashy arrow.
-  boxpointer_type.next = create_LLSystem_ImageHeader()
+  boxpointer_type.Next = create_LLSystem_ImageHeader()
 --
 --   row As String Ptr' the text, broken into formatted lines.
-  boxpointer_type.row = ""
+  boxpointer_type.row = {}
 --
   return boxpointer_type
 -- End Type

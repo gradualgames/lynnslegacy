@@ -67,3 +67,14 @@ end
 --
 -- Sub atk_key_out_sub( ip As Integer Ptr, op As Integer Ptr )
 -- End Sub
+
+-- Sub conf_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
+function conf_key_in_sub(ip, op)
+--
+--
+--   llg( hero )_only.action = 1
+  ll_global.hero_only.action = 1
+--
+--
+-- End Sub
+end

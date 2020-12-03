@@ -1,3 +1,12 @@
+-- Enum box_jumps
+--
+--   box_kill_switch = 1
+box_kill_switch = 1
+--   box_jump_back = 0
+box_jump_back = 0
+--
+-- End Enum
+
 --Enum MO_FLAGS
 
 MO_JUST_CHECKING = -1
@@ -419,3 +428,14 @@ PROJECTILE_SUN = 8
 PROJECTILE_TRACK = 9
 --
 -- End Enum
+
+-- enum BOXSTUFF
+--
+--   TEXTBOX_REGULAR
+TEXTBOX_REGULAR = 0
+--   TEXTBOX_CONFIRMATION
+TEXTBOX_CONFIRMATION = 1
+--   TEXTBOX_SHUTDOWN
+TEXTBOX_SHUTDOWN = 2
+--
+-- end enum

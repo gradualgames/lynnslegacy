@@ -240,7 +240,7 @@ end
 function load_entrypoint()
 --
 --   llg( start_map ) = "data\map\title.map"
-  ll_global.start_map = "data/map/title.map"
+  ll_global.start_map = "data/map/forest_fall.map"
 --   llg( start_entry ) = 0
   ll_global.start_entry = 0
 --
@@ -570,6 +570,386 @@ function load_hud(h)
   h.img[8] = getImageHeader("data/pictures/hud/materials3.spr")
 --
 --   End With
+--
+-- End Sub
+end
+
+-- Function make_box( txt As String, a_lock As Integer, clr As Short, invis As Short, auto As Double, x As Short, y As Short, spd As Integer ) As boxcontrol_type
+function make_box(txt, a_lock, clr, invis, auto, x, y, spd)
+  log.debug("make_box called.")
+--
+--   Dim As boxcontrol_type box
+  local box = create_boxcontrol_type()
+--   Dim As boxcontrol_type Ptr b = @box
+  local b = box
+--
+--     box.ptrs.box  = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\textbox.spr"  ) )
+  box.ptrs.box = getImageHeader("data/pictures/textbox.spr")
+--     box.ptrs.Next = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\textdown.spr" ) )
+  box.ptrs.Next = getImageHeader("data/pictures/textdown.spr")
+--     'box.ptrs.mask = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\emptybox.spr" ) )
+--
+--   init_box( txt, b )
+  init_box(txt, b)
+--
+--   b->layout.speed = .021813
+  b.layout.speed = .021813
+--
+--   If a_lock = 0 Then
+  if a_lock == 0 then
+--
+--     llg( hero_only ).action_lock = -1
+    ll_global.hero_only.action_lock = -1
+--
+--
+--   End If
+  end
+--
+--   b->internal.lastFG = llg( fontFG )
+  b.internal.lastFG = ll_global.fontFG
+--
+--   If clr <> 0 Then
+  if clr ~= 0 then
+--
+--     dim as integer shake
+    local shake = 0
+--     shake = clr
+    shake = clr
+--     __set_font_fg( cast( any ptr, shake ) )
+--
+--   End If
+  end
+--
+--
+--   If invis <> 0 Then
+  if invis ~= 0 then
+--
+--     b->layout.invis = -1
+    b.layout.invis = -1
+--
+--   End If
+  end
+--
+--   If auto <> 0 Then
+  if auto ~= 0 then
+--
+--     b->internal.auto = -1
+    b.internal.auto = -1
+--     b->internal.autosleep = auto
+    b.internal.autosleep = auto
+--
+--   End If
+  end
+--
+--
+--   If x <> 0 Then
+  if x ~= 0 then
+--
+--     b->layout.x_loc = x
+    b.layout.x_loc = x
+--
+--   End If
+  end
+--
+--   If y <> 0 Then
+  if y ~= 0 then
+--
+--     b->layout.y_loc = y
+    b.layout.y_loc = y
+--
+--   End If
+  end
+--
+--   If spd <> 0 Then
+  if spd ~= 0 then
+--
+--     if spd = conf_Box then
+    if spd == conf_Box then
+--       b->internal.confBox = TRUE
+      b.internal.confBox = true
+--
+--     else
+    else
+--       b->layout.speed = spd / 1000
+      b.layout.speed = spd / 1000
+--
+--     end if
+    end
+--
+--   End If
+  end
+--
+--
+--
+--   b->activated = TRUE
+  b.activated = 1
+--   b->internal.state = TEXTBOX_REGULAR
+  b.internal.state = TEXTBOX_REGULAR
+
+  log.debug("b.layout.speed: "..b.layout.speed)
+--
+--   Return box
+  return box
+--
+-- End Function
+end
+
+-- private function parseText( textToParse as string ) as string
+function parseText(textToParse)
+--
+--   dim as string res
+  local res = ""
+--   dim as integer c
+  local c = 1
+--
+--   do
+  repeat
+--
+--     if textToParse[c] = asc( "{" ) then
+    if textToParse:sub(c, c) == '{' then
+--       '' special token
+--       dim as string tok
+      local tok = ""
+--       dim as integer c2
+      local c2 = 1
+--
+--       do
+      repeat
+--
+--         tok += " "
+        tok = tok.." "
+--
+--         tok[c2] = textToParse[c + c2]
+        tok = replace_char(c2, tok, textToParse:sub(c + c2, c + c2))
+--
+--         c2 += 1
+        c2 = c2 + 1
+--         if tok[c2-1] = asc( "}" ) then exit do
+        if tok:sub(c2 - 1, c2 - 1) == '}' then break end
+--
+--       loop
+      until false
+--
+--       if ucase( tok ) = "{HEALTHPRICE}" then
+      if tok:upper() == "{HEALTHPRICE}" then
+--         res += str( healthFormula )
+        res = res..healthFormula()
+--
+--       end if
+      end
+--
+--       if ucase( tok ) = "{HEALTHNOW}" then
+      if tok:upper() == "{HEALTHNOW}" then
+--         res += str( llg( hero ).maxhp )
+        res = res..ll_global.hero.maxhp
+--
+--       end if
+      end
+--
+--       if ucase( tok ) = "{HEALTHUP}" then
+      if tok:upper() == "{HEALTHUP}" then
+--         res += str( llg( hero ).maxhp + 1 )
+        res = res..(ll_global.hero.maxhp + 1)
+--
+--       end if
+      end
+--
+--       if ucase( tok ) = "{NEWLINE}" then
+      if tok:upper() == "{NEWLINE}" then
+--         res += "{NEWLINE}"
+        res = res.."{NEWLINE}"
+--
+--       end if
+      end
+--
+--       c += c2
+      c = c + c2
+--
+--     end if
+    end
+--
+--     res += chr( textToParse[c] )
+    res = res..textToParse:sub(c, c)
+--     c += 1
+    c = c + 1
+--
+--     if c = len( textToParse ) then exit do
+    if c == (#textToParse + 1) then break end
+--
+--   loop
+  until false
+--
+--   return res
+  return res
+--
+-- end function
+end
+
+-- Sub init_box( ByVal text As String, b As boxcontrol_type Ptr )
+function init_box(text, b)
+--
+--   dim as string tempBuffer
+  local tempBuffer = ""
+--
+--   tempBuffer = parseText( text )
+  tempBuffer = parseText(text)
+  log.debug("tempBuffer: "..tempBuffer)
+--
+--   Redim As String words( 0 ), lines( 0 )
+  local words, lines = {}, {}
+--
+--   Scope
+--
+--     Dim As Integer word_num, parse_loc
+  local word_num, parse_loc = 0, 0
+--     Dim As Integer p_char
+  local p_char = 0
+--
+--       For parse_loc = 0 To Len( tempBuffer ) - 1
+  for parse_loc = 1, #tempBuffer do
+--
+--         Redim Preserve words( word_num )
+--
+--         p_char = tempBuffer[parse_loc]
+    p_char = tempBuffer:sub(parse_loc, parse_loc)
+--
+--         words( word_num ) += Chr( p_char )
+    words[word_num] = (words[word_num] and words[word_num] or "")..p_char
+--         If p_char = Asc( " " ) Then word_num += 1
+    if p_char == " " then word_num = word_num + 1 end
+--
+--       Next
+  end
+--
+--   End Scope
+--
+--
+--   Scope
+--
+--     Dim As String msgline
+  local msgline = ""
+--     Dim As Integer wordindex, lineindex
+  local wordindex, lineindex = 0, 0
+--     Dim As Integer getoutflag
+  local getoutflag = 0
+--
+--       Do
+  repeat
+--
+--         If wordindex - 1 <> UBound( words ) Then
+    if wordindex - 1 ~= #words then
+--           '' not past the last word
+--
+--           If ( Len( msgline ) + Len( words( wordindex ) ) < 36 ) and ( words( wordindex ) <> "{NEWLINE} " ) Then
+      if (#msgline + #words[wordindex] < 36) and (words[wordindex] ~= "{NEWLINE} ") then
+--             '' the message length is less than 36 if we add this word
+--
+--             msgline += words( wordindex )
+        msgline = msgline..words[wordindex]
+--             wordindex += 1
+        wordindex = wordindex + 1
+--
+--           Else
+      else
+--             '' the message would exceed box width, start a new line
+--             if words( wordindex ) = "{NEWLINE} " then
+        if words[wordindex] == "{NEWLINE} " then
+--               wordindex += 1
+          wordindex = wordindex + 1
+--
+--             end if
+        end
+--
+--             Redim Preserve lines( lineindex )
+--
+--             lines( lineindex ) = msgline
+        lines[lineindex] = msgline
+--             lineindex += 1
+        lineindex = lineindex + 1
+--
+--             msgline = ""
+        msgline = ""
+--
+--           End If
+      end
+--
+--         Else
+    else
+--           '' past the last word... close it up.
+--
+--           Redim Preserve lines( lineindex )
+--
+--           lines( lineindex ) = msgline
+      lines[lineindex] = msgline
+--           getoutflag = Not 0
+      getoutflag = -1
+--
+--
+--         End If
+    end
+--
+--       Loop Until getoutflag
+  until getoutflag ~= 0
+--
+--
+--   End Scope
+--
+--
+--   b->internal.numoflines = UBound( lines ) + 1
+  b.internal.numoflines = #lines + 1
+--
+--   b->ptrs.row = CAllocate( ( b->internal.numoflines ) * Len( String ) )
+  b.ptrs.row = {}
+--
+--
+--   Scope
+--
+--     Dim As Integer stuff_lines
+  local stuff_lines = 0
+--     Dim As Integer leng, diff
+  local leng, diff = 0, 0
+--
+--     For stuff_lines = 0 To b->internal.numoflines - 1
+  log.debug("b.internal.numoflines: "..b.internal.numoflines)
+  for stuff_lines = 0, b.internal.numoflines - 1 do
+--
+--       leng = Len( lines( stuff_lines ) )
+    leng = #lines[stuff_lines]
+--       diff = 38 - leng
+    diff = 38 - leng
+    log.debug("leng: "..leng)
+    log.debug("diff: "..diff)
+--
+--
+--       Scope
+--
+--         Dim As uByte lin_msg( 36 )
+    local lin_msg = "                                     "
+--         MemSet( @lin_msg( 0 ), 0, 37 ) '' <---- ?? fb doesn't clear it...
+--
+--         Dim As Integer put_ch
+    local put_ch = 1
+--
+--           For put_ch = 0 To leng - 1
+    for put_ch = 1, leng do
+--
+--             lin_msg( put_ch + ( diff \ 2 ) ) = lines( stuff_lines )[put_ch]
+      lin_msg = replace_char(put_ch + math.floor(diff / 2), lin_msg, lines[stuff_lines]:sub(put_ch, put_ch))
+--
+--           Next
+    end
+--
+--           b->ptrs.row[stuff_lines] = cva( @lin_msg( 0 ), 37 )
+    b.ptrs.row[stuff_lines] = lin_msg
+    log.debug("b.ptrs.row[stuff_lines]: "..b.ptrs.row[stuff_lines])
+--
+--       End Scope
+--
+--     Next
+  end
+--
+--   End Scope
+--
 --
 -- End Sub
 end

@@ -28,6 +28,10 @@ function bitstring(n)
   return bstring
 end
 
+function replace_char(pos, str, r)
+    return str:sub(1, pos-1) .. r .. str:sub(pos+1)
+end
+
 function printentdata()
   if ll_global.seq ~= nil and ll_global.seqi ~= nil and ll_global.seq[ll_global.seqi] ~= nil then
     log.debug("Full readout of all ents in the seq.")

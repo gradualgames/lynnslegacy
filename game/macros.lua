@@ -96,3 +96,8 @@ end
 
 LLO_VPE = LLObject_VectorPairEx
 LLO_VP = LLObject_VectorPair
+
+--#define healthFormula ( 50 + ( ( llg( hero ).maxhp - 6 ) * 5 ) )
+function healthFormula()
+  return (50 + ((ll_global.hero.maxhp - 6) * 5))
+end

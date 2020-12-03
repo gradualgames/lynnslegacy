@@ -72,7 +72,11 @@ function init_snd()
 --   llg( snd )  [sound_mace_2]          = load_sample( "mace2.ogg"            )
   ll_global.snd[sound_mace_2] = love.audio.newSource("data/sounds/mace2.ogg", "static")
 --   llg( snd )  [sound_texttemp]        = load_sample( "texttemp.ogg"         )
-  ll_global.snd[sound_texttemp] = love.audio.newSource("data/sounds/texttemp.ogg", "static")
+  ll_global.snd[sound_texttemp] = {}
+  ll_global.snd[sound_texttemp][0] = love.audio.newSource("data/sounds/texttemp.ogg", "static")
+  for i = 1, 3 do
+    ll_global.snd[sound_texttemp][i] = ll_global.snd[sound_texttemp][0]:clone()
+  end
 --   llg( snd )  [sound_torchlight]      = load_sample( "torchlight.ogg"       )
   ll_global.snd[sound_torchlight] = love.audio.newSource("data/sounds/torchlight.ogg", "static")
 --   llg( snd )  [sound_gulls2]          = load_sample( "gulls2.ogg"           )

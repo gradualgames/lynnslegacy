@@ -38,9 +38,6 @@ function ll_main_entry()
 --
 --   End If
 --
-  --Hard-code Lynn's weapon to the sapling for now.
-  ll_global.hero_only.weapon = 0
-
   ll_global.current_cam = ll_global.hero
 
 --
@@ -172,8 +169,11 @@ function engine_init()
 --
 --   '' 15, 241
 --   llg( font ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\llfont.spr" ) )
+  ll_global.font = getImageHeader("data/pictures/llfont.spr")
 --   llg( fontFG ) = 15
+  ll_global.fontFG = 15
 --   llg( fontBG ) = 241
+  ll_global.fontBG = 241
 --
 --
 --
@@ -558,6 +558,10 @@ function hero_main()
 --     bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
 --
 --   End With
+  if bpressed("space") then
+    log.debug("Pressed space key.")
+    conf_key_in_sub()
+  end
 --
 --   If llg( hero ).vol_fade_trig <> 0 Then
 --     '' projectile triggered
@@ -613,7 +617,7 @@ function hero_main()
 --
 --     If llg( hero_only ).action_lock = 0 Then
   if ll_global.hero_only.action_lock == 0 then
-    --log.debug("action lock was 0")
+    log.debug("action lock was 0")
 --       '' lynn can do actions
 --
 --       If llg( hero_only ).attacking = 0 Then
@@ -4878,10 +4882,13 @@ function play_sequence(_seqParent)
 --           box_IsInited = TRUE
         box_IsInited = true
 --           destroy_box( Varptr( llg( t_rect ) ) )
+        ll_global.t_rect = nil
 --
 -- '          clear llg( t_rect ), 0, len( boxcontrol_type )
 --
 --           llg( t_rect ) = make_box( .text, .free_to_move, .text_color, .box_invis, .auto_box, .mod_x, .mod_y, .text_speed )
+        log.debug(with0.text)
+        ll_global.t_rect = make_box(with0.text, with0.free_to_move, with0.text_color, with0.box_invis, with0.auto_box, with0.mod_x, with0.mod_y, with0.text_speed)
 --
 --         End If
       end

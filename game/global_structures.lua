@@ -1,4 +1,5 @@
 require("game/box_structures")
+require("game/image_structures")
 require("game/object_structures")
 require("game/lynn_structures")
 require("game/map_structures")
@@ -28,7 +29,10 @@ function create_ll_system()
   --
   --
   --   as integer fontBG, fontFG
+  ll_system.fontBG = 0
+  ll_system.fongFG = 0
   --   font as LLSystem_ImageHeader Ptr
+  ll_system.font = create_LLSystem_ImageHeader()
   --
   --   locationChanged as integer
   --

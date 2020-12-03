@@ -36,6 +36,39 @@ function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
 
 end
 
+-- sub graphicalString( printString as string, byval x as integer, byval y as integer, byval col as integer = 15 )
+function graphicalString(printString, x, y, col)
+  local col = col and col or 15
+--
+--   dim as integer letterIteration
+  local letterIteration = 1
+--
+--   for letterIteration = 0 to len( printString ) - 1
+  for letterIteration = 1, #printString do
+--
+--     put( x, y ), varptr( llg( font )->image[llg( font )->arraysize * printString[letterIteration]] ), trans
+    love.graphics.draw(ll_global.font.image, ll_global.font.quads[string.byte(printString, letterIteration)], x, y)
+--
+--     x += 8
+    x = x + 8
+--
+--     if printString[letterIteration] = 10 then
+    if string.byte(printString, letterIteration) == 10 then
+--       y += 16
+      y = y + 16
+--       x = 0
+      x = 0
+--
+--     end if
+    end
+--
+--
+--   next
+  end
+--
+-- end sub
+end
+
 function blit_scene()
   -- If llg( do_chap ) = 0 Then
   if ll_global.do_chap == 0 then
@@ -72,6 +105,7 @@ function blit_scene()
   end
   --
   -- blit_box( varptr( llg( t_rect ) ) )
+  blit_box(ll_global.t_rect)
   --
   --
   -- handle_MiniMap()
@@ -305,6 +339,436 @@ function blit_y_sorted()
   --
   -- Next
   end
+end
+
+-- Sub blit_box( t_box As boxcontrol_type Ptr )
+function blit_box(t_box)
+--
+--
+--
+--   Dim As Integer lup, s_a_d
+  local lup, s_a_d = 0, 0
+--
+--     With *t_box
+  local with0 = t_box
+--
+--   #define currentChar() .ptrs.row[.internal.current_line][.internal.opcount]
+  local function currentChar()
+    return with0.ptrs.row[with0.internal.current_line]:byte(with0.internal.opcount)
+  end
+--
+--   #macro text_sound()
+  local function text_sound()
+--
+--     If .internal.sound = 0 Then
+    if with0.internal.sound == 0 then
+--
+--       If currentChar() <> 0 Then
+      if currentChar() ~= 0 then
+
+--
+--         If currentChar() <> 32 Then
+        if currentChar() ~= 32 then
+--
+--           play_sample( llg( snd )[sound_texttemp], 25 )
+          ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:setVolume(.25)
+          ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:play()
+--
+--           .internal.sound = -1
+          with0.internal.sound = -1
+--
+--         End If
+        end
+--
+--       End If
+      end
+--
+--     End If
+    end
+--
+--   #endmacro
+  end
+--       If .internal.hold_box <> 0 Then
+  log.debug("with0.internal.hold_box: "..with0.internal.hold_box)
+  log.debug("with0.layout.invis: "..with0.layout.invis)
+  log.debug("with0.box: "..(with0.box and "exists" or "nil"))
+  if with0.internal.hold_box ~= 0 then
+--
+--         If .layout.invis = 0 Then
+    if with0.layout.invis == 0 then
+--           Put( .layout.x_loc, .layout.y_loc ), .ptrs.box->image, Trans
+      love.graphics.draw(with0.ptrs.box.image, with0.layout.x_loc, with0.layout.y_loc)
+--
+--         End If
+    end
+--
+--
+--       End If
+  end
+--
+--       If Timer > .internal.hold_box Then
+  if timer > with0.internal.hold_box then
+--         .internal.hold_box = 0
+    with0.internal.hold_box = 0
+--
+--       End If
+  end
+--
+--
+--       If .activated Then
+  if with0.activated ~= 0 then
+--         '' box active
+--         If llg( hero )_only.action Then
+    if ll_global.hero_only.action ~= 0 then
+--           '' pressed space
+--           If .internal.state <> TEXTBOX_CONFIRMATION Then
+      if with0.internal.state ~= TEXTBOX_CONFIRMATION then
+--             '' not waitin..
+--             With .internal'
+        local with1 = with0.internal
+--
+--               Do
+        repeat
+--                 '' jump to the end of this "page"
+--                 If .current_line = ( .numoflines - 1 ) Then
+          if with1.current_line == (with1.numoflines - 1) then
+--                   .jump_switch = box_kill_switch
+            with1.jump_switch = box_kill_switch
+--                   Exit Do
+            break
+--
+--                 End If
+          end
+--
+--                 If ( .current_line And 3 ) = 3 Then
+          if bit.band(with1.current_line, 3) == 3 then
+--                   Exit Do
+            break
+--
+--                 End If
+          end
+--
+--                 .current_line += 1
+          with1.current_line = with1.current_line + 1
+--
+--               Loop
+        until false
+--
+--               .opcount = Len( t_box->ptrs.row[.current_line] ) - 1
+        with1.opcount = #t_box.ptrs.row[with1.current_line] - 1
+--               .state = TEXTBOX_CONFIRMATION
+        with1.state = TEXTBOX_CONFIRMATION
+--
+--             End With
+--
+--             llg( hero_only ).action = 0
+        ll_global.hero_only.action = 0
+--
+--           End If
+      end
+--
+--         End If
+    end
+--
+--         If Not .layout.invis Then Put(.layout.x_loc, .layout.y_loc), @.ptrs.box->image[0], Trans
+    if with0.layout.invis == 0 then
+      love.graphics.draw(with0.ptrs.box.image, with0.layout.x_loc, with0.layout.y_loc)
+    end
+--
+--         Select Case as const .internal.state
+--
+--           Case TEXTBOX_REGULAR
+    if with0.internal.state == TEXTBOX_REGULAR then
+--
+--             top_rows( t_box )
+      top_rows(t_box)
+--             current_row( t_box )
+      current_row(t_box)
+--
+--             text_sound()
+      text_sound()
+--
+--             If .internal.opcount = Len( .ptrs.row[.internal.current_line] ) Then
+      if with0.internal.opcount == #with0.ptrs.row[with0.internal.current_line] then
+--               '' current char is at the end of the current line.
+--               If .internal.current_line = ( .internal.numoflines - 1 ) Then
+        if with0.internal.current_line == (with0.internal.numoflines - 1) then
+--                 '' last line of the message
+--
+--                 .internal.opcount -= 1
+          with0.internal.opcount = with0.internal.opcount - 1
+--                 .internal.state = TEXTBOX_CONFIRMATION
+          with0.internal.state = TEXTBOX_CONFIRMATION
+--                 .internal.jump_switch = box_kill_switch
+          with0.internal.jump_switch = box_kill_switch
+--
+--               else
+        else
+--
+--                 If ( .internal.current_line And 3 ) = 3 Then
+          if bit.band(with0.internal.current_line, 3) == 3 then
+--                   '' last line of the page
+--                   .internal.opcount -= 1
+            with0.internal.opcount = with0.internal.opcount - 1
+--                   .internal.state = TEXTBOX_CONFIRMATION
+            with0.internal.state = TEXTBOX_CONFIRMATION
+--                   .internal.jump_switch = box_jump_back
+            with0.internal.jump_switch = box_jump_back
+--
+--                 else
+          else
+--
+--                   .internal.opcount = 0
+            with0.internal.opcount = 0
+--                   .internal.current_line += 1
+            with0.internal.current_line = with0.internal.current_line + 1
+--
+--                 End If
+          end
+--
+--               End If
+        end
+--
+--             End If
+      end
+--
+--
+--           Case TEXTBOX_CONFIRMATION
+    elseif with0.internal.state == TEXTBOX_CONFIRMATION then
+--
+--             top_rows( t_box )
+      top_rows(t_box)
+--             current_row( t_box )
+      current_row(t_box)
+--
+--             If .internal.confBox = TRUE Then
+      if with0.internal.confBox == true then
+        log.debug("confBox is true")
+--
+--               dim as integer fg
+--
+--               fg = llg( fontFG )
+--
+--
+--               if .selected = 0 then
+--
+--                 __set_font_fg( cast( any ptr, 92 ) )
+--
+--               end if
+--
+--               graphicalString( "Yes", _
+--                                .layout.x_loc + 9 + ( 10 shl 3 ), _
+--                                .layout.y_loc + 8 + ( 3 Shl 4 ), _
+--                                .internal.txtcolor _
+--                              )
+--
+--               if .selected = 0 then
+--
+--                 __set_font_fg( cast( any ptr, fg ) )
+--                 if multikey( sc_right ) then
+--
+--                   .selected = 1
+--
+--                 end if
+--
+--
+--               end if
+--
+--
+--               if .selected = 1 then
+--
+--                 __set_font_fg( cast( any ptr, 92 ) )
+--
+--               end if
+--               graphicalString( "No", _
+--                                .layout.x_loc + 9 + ( 26 shl 3 ), _
+--                                .layout.y_loc + 8 + ( 3 Shl 4 ), _
+--                                .internal.txtcolor _
+--                              )
+--
+--               if .selected = 1 then
+--
+--                 __set_font_fg( cast( any ptr, fg ) )
+--                 if multikey( sc_left ) then
+--
+--                   .selected = 0
+--
+--                 end if
+--
+--               end if
+--
+--               If multikey( sc_enter ) Then
+--
+--                 .internal.state = TEXTBOX_SHUTDOWN
+--
+--               End If
+--
+--             else
+      else
+--
+--
+--               If .internal.flashbox = TRUE then
+        if with0.internal.flashbox == true then
+          log.debug("flashbox is true")
+--
+--                 If( .layout.invis = FALSE ) Then
+          if (with0.layout.invis == 0) then
+--
+--                   Put (.layout.x_loc + 304, .layout.y_loc + 64 ), .ptrs.next->image, Trans
+            love.graphics.draw(with0.ptrs.Next.image, with0.layout.x_loc + 304, with0.layout.y_loc + 64)
+--
+--                 End If
+          end
+--
+--               End if
+        end
+--
+--               If Timer >= .internal.flashhook Then
+        if timer >= with0.internal.flashhook then
+--
+--                 .internal.flashhook = Timer + .18
+          with0.internal.flashhook = timer + .18
+--                 .internal.flashbox = iif( .internal.flashbox = FALSE, TRUE, FALSE )
+          with0.internal.flashbox = iif(with0.internal.flashbox == false, true, false)
+--
+--               End If
+        end
+--
+--               If .internal.auto = TRUE Then
+        if with0.internal.auto ~= 0 then
+--
+--                 If .internal.autohook = NULL Then
+          if with0.internal.autohook == 0 then
+--                   .internal.autohook = Timer + .internal.autosleep
+            with0.internal.autohook = timer + with0.internal.autosleep
+--
+--                 End If
+          end
+--
+--                 If Timer >= .internal.autohook Then
+          if timer >= with0.internal.autohook then
+--                   .internal.state = TEXTBOX_SHUTDOWN
+            with0.internal.state = TEXTBOX_SHUTDOWN
+--                   .internal.autohook = NULL
+            with0.internal.autohook = 0
+--
+--                 End If
+          end
+--
+--
+--               End If
+        end
+--
+--               If llg( hero_only ).action Then
+        if ll_global.hero_only.action ~= 0 then
+--
+--                 Select Case as const .internal.jump_switch
+--
+--                   Case box_kill_switch
+          if with0.internal.jump_switch == box_kill_switch then
+--                     .internal.state = TEXTBOX_SHUTDOWN
+            with0.internal.state = TEXTBOX_SHUTDOWN
+--
+--                   Case box_jump_back
+          elseif with0.internal.jump_switch == box_jump_back then
+--                     .internal.state = TEXTBOX_REGULAR
+            with0.internal.state = TEXTBOX_REGULAR
+--                     .internal.current_line += 1
+            with0.internal.current_line = with0.internal.current_line + 1
+--                     .internal.opcount = 0
+            with0.internal.opcount = 0
+--
+--                 End Select
+          end
+--
+--               End If
+        end
+--
+--             End If
+      end
+--
+--           Case TEXTBOX_SHUTDOWN
+    elseif with0.internal.state == TEXTBOX_SHUTDOWN then
+--
+--             .activated = FALSE
+      with0.activated = 0
+--             .internal.hold_box = Timer + .03
+      with0.internal.hold_box = timer + .03
+--             __set_font_fg( cast( any ptr, llg( t_rect ).internal.lastFG ) )
+--
+--         End Select
+    end
+--
+--         If .internal.state <> TEXTBOX_CONFIRMATION Then
+    if with0.internal.state ~= TEXTBOX_CONFIRMATION then
+--
+--           If Timer > .layout._timer Then
+      if timer > with0.layout._timer then
+--             .internal.opcount += 1
+        with0.internal.opcount = with0.internal.opcount + 1
+--
+--             .internal.sound = 0
+        with0.internal.sound = 0
+--             .layout._timer = Timer + .layout.speed
+        with0.layout._timer = timer + with0.layout.speed
+--
+--           End If
+      end
+--
+--           dim as integer destroySpace
+      local destroySpace = 0
+--
+      local function seekChar(__x__)
+        local index = with0.internal.opcount + __x__
+        return with0.ptrs.row[with0.internal.current_line]:sub(index, index)
+      end
+--           do
+      repeat
+--             #define seekChar(__x__) .ptrs.row[.internal.current_line][.internal.opcount + __x__]
+--
+--             if destroySpace + .internal.opcount = Len( .ptrs.row[.internal.current_line] ) then
+        if destroySpace + with0.internal.opcount == #with0.ptrs.row[with0.internal.current_line] then
+--               '' hit the end of the line
+--               exit do
+          break
+--
+--             end if
+        end
+--
+--             if( seekChar( destroySpace ) <> 0 ) then
+        if (seekChar(destroySpace) ~= 0) then
+--
+--               if( seekChar( destroySpace ) <> 32 ) then
+          if (seekChar(destroySpace) ~= ' ') then
+--                 '' regular char, increment
+--                 exit do
+            break
+--
+--               end if
+          end
+--
+--             end if
+        end
+--
+--             destroySpace += 1
+        destroySpace = destroySpace + 1
+--
+--           loop
+      until false
+--
+--           .internal.opcount += destroySpace
+      with0.internal.opcount = with0.internal.opcount + destroySpace
+      log.debug("with0.internal.opcount: "..with0.internal.opcount)
+--
+--         End If
+    end
+--
+--       End If
+  end
+--
+--     End With
+--
+-- End Sub
 end
 
 function blit_enemy(_enemy)
@@ -749,6 +1213,76 @@ function blit_object(this)
 --
 -- End With
 
+end
+
+-- Sub top_rows( b As boxcontrol_type Ptr )
+function top_rows(b)
+  --log.debug("top_rows called.")
+--
+--
+--   Dim As Integer line_loop, b_opt
+  local line_loop, b_opt = 0, 0
+--
+--     For line_loop = 1 To b->internal.current_line And 3
+  log.debug("bit.band(b.internal.current_line, 3): "..bit.band(b.internal.current_line, 3))
+  for line_loop = 1, bit.band(b.internal.current_line, 3) do
+--
+--       b_opt = b->internal.current_line - line_loop
+    b_opt = b.internal.current_line - line_loop
+--
+--       graphicalString( _
+--                        b->ptrs.row[b_opt], _
+--                        b->layout.x_loc + 9, _
+--                        b->layout.y_loc + 8 + ( ( b_opt And 3 ) Shl 4 ), _
+--                        b->internal.txtcolor _
+--                      )
+    graphicalString(b.ptrs.row[b_opt],
+                    b.layout.x_loc + 9,
+                    b.layout.y_loc + 8 + ((b_opt % 4) * 16),
+                    b.internal.txtcolor)
+
+    log.debug(b.ptrs.row[b_opt])
+--     Next
+  end
+--
+--
+-- End Sub
+end
+--
+--
+-- Sub current_row( b As boxcontrol_type Ptr )
+function current_row(b)
+--
+--   static as string bufferString
+--   bufferString = "                                    "
+  local bufferString = "                                    "
+--
+--   dim as integer i
+--   for i = 0 to 35
+--     bufferString[i] = asc( " " )
+--
+--   next
+--
+--   for i = 0 to b->internal.opcount
+  for i = 0, b.internal.opcount do
+--     bufferString[i] = b->ptrs.row[b->internal.current_line][i]
+    bufferString = replace_char(i, bufferString, b.ptrs.row[b.internal.current_line]:sub(i, i))
+--
+--   next
+  end
+--
+--   graphicalString( bufferString, _
+--                    b->layout.x_loc + 9, _
+--                    b->layout.y_loc + 8 + ( ( b->internal.current_line And 3 ) Shl 4 ), _
+--                    b->internal.txtcolor _
+--                  )
+  graphicalString(bufferString,
+                  b.layout.x_loc + 9,
+                  b.layout.y_loc + 8 + ((b.internal.current_line % 4) * 16),
+                  b.internal.txtcolor)
+  log.debug("bufferString: "..bufferString)
+--
+-- End Sub
 end
 
 function blit_object_ex(this)

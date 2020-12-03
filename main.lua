@@ -45,6 +45,7 @@ end
 function love.update(dt)
   dbgrects = {}
   updateBHist("x")
+  updateBHist("space")
   accumulator = accumulator + dt
   if accumulator >= tickPeriod then
     accumulator = accumulator - tickPeriod
@@ -56,12 +57,12 @@ function love.update(dt)
     --log.level = "debug"
     enemy_main()
     --log.level = "fatal"
-    --log.level = "debug"
+    log.level = "debug"
     play_sequence(ll_global)
-    --log.level = "fatal"
-    --log.level = "debug"
+    log.level = "fatal"
+    log.level = "debug"
     hero_main()
-    --log.level = "fatal"
+    log.level = "fatal"
   end
 end
 
