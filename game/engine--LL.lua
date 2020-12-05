@@ -1368,6 +1368,122 @@ function LLObject_ActionSequence(o)
 -- End Sub
 end
 
+-- Sub LLObject_CheckSpawn( o As char_type Ptr )
+function LLObject_CheckSpawn(o)
+--
+--   Dim As Integer op, i, res, do_stuff
+  local op, i, res, do_stuff = 0, 0, 0, 0
+--
+--   With *( o )
+  local with0 = o
+--
+--     If .spawn_kill_trig = 0 Then
+  if with0.spawn_kill_trig == 0 then
+--
+--       If .spawn_wait_trig = 0 Then
+    if with0.spawn_wait_trig == 0 then
+--
+--         If .spawn_info->wait_n <> 0 Then
+--
+--           res = -1
+--           For i = 0 To .spawn_info->wait_n - 1
+--
+--             op = ( llg( now )[.spawn_info->wait_spawn[i].code_index] <> 0 )
+--             If .spawn_info->wait_spawn[i].code_state = 0 Then
+--               op = Not op
+--
+--             End If
+--
+--             res And= op
+--
+--           Next
+--
+--           If res <> 0 Then
+--             '' all conditions met
+--
+--             do_stuff = .num
+--
+--             LLSystem_CopyNewObject( *o )
+--
+--             .num = do_stuff
+--             .spawn_wait_trig = -1
+--
+--           End If
+--
+--         End If
+--
+--       End If
+    end
+--
+--       If .spawn_info->kill_n <> 0 Then
+    if with0.spawn_info.kill_n ~= 0 then
+--
+--         res = -1
+      res = -1
+--         For i = 0 To .spawn_info->kill_n - 1
+      for i = 0, with0.spawn_info.kill_n - 1 do
+--
+--           op = ( llg( now )[.spawn_info->kill_spawn[i].code_index] <> 0 )
+        op = (ll_global.now[with0.spawn_info.kill_spawn[i].code_index] ~= 0 and -1 or 0)
+--           If .spawn_info->kill_spawn[i].code_state = 0 Then
+        if with0.spawn_info.kill_spawn[i].code_state == 0 then
+--             op = Not op
+          op = bit.bnot(op)
+--
+--           End If
+        end
+--
+--           res And= op
+        res = bit.band(res, op)
+--
+--         Next
+      end
+--
+--         If res <> 0 Then
+      if res ~= 0 then
+--           '' all conditions met
+--
+--           __make_dead  ( o )
+        __make_dead(o)
+--           __cripple  ( o )
+        __cripple(o)
+--           .seq_release = 0
+        with0.seq_release = 0
+--
+--           .spawn_kill_trig = -1
+        with0.spawn_kill_trig = -1
+--
+--           if .unique_id = u_biglarva then
+        if with0.unique_id == u_biglarva then
+--             LLObject_ShiftState( o, 3 )
+          LLObject_ShiftState(o, 3)
+--
+--           end if
+        end
+--
+--           if .unique_id = u_ghut then
+        if with0.unique_id == u_ghut then
+--             LLObject_ShiftState( o, 3 )
+          LLObject_ShiftState(o, 3)
+--
+--           end if
+        end
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     End If
+  end
+--
+--   End With
+--
+--
+-- End Sub
+end
+
 function enemy_main()
   -- With now_room()
   --
@@ -2571,9 +2687,12 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .spawn_cond <> 0 Then
+          if with0.spawn_cond ~= 0 then
   --             LLObject_CheckSpawn( Varptr( _enemy[do_stuff] ) )
+            LLObject_CheckSpawn(_enemy[do_stuff])
   --
   --           End If
+          end
   --
   --           If .unique_id = u_gbutton Then
   --
