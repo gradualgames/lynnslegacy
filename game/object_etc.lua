@@ -455,6 +455,41 @@ function __handle_menu(this)
 -- End Function
 end
 
+-- Function __after_moenia_townspeople( this As char_type Ptr ) As Integer
+function __after_moenia_townspeople(this)
+--
+--   If llg( now )[199] <> 0 Then
+  if ll_global.now[199] ~= 0 then
+--
+--     LLObject_ShiftState( this, this->reset_state )
+    LLObject_ShiftState(this, this.reset_state)
+--     Return 0
+    return 0
+--
+--
+--   End If
+  end
+--
+--   If this->shifty_lock = 0 Then
+  if this.shifty_lock == 0 then
+--
+--     this->coords.x = 800
+    this.coords.x = 800
+--     this->coords.y = 800
+    this.coords.y = 800
+--
+--     this->shifty_lock = -1
+    this.shifty_lock = -1
+--
+--   End If
+  end
+--
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __fade_music_out( this As char_type Ptr ) As Integer
 function __fade_music_out(this)
 --
