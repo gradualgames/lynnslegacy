@@ -5343,7 +5343,7 @@ function is_facing(o, o2)
   if o.direction == 0 then
 --
 --       If o->coords.y >=  ( o2->coords.y +  ( o2->perimeter.y - 1 )  )  And  ( o->coords.x >=  ( o2->coords.x -  ( o->perimeter.x - 1 )  )  Or  ( o->coords.x <=  (  ( o2->coords.x + o2->perimeter.x )  +  ( o->perimeter.x - 1 )  )  )  )  Then
-    if o.coords.y >= (o2.coords.y + (o.perimeter.y - 1)) and (o.coords.x >= (o2.coords.x - (o.perimeter.x - 1)) or (o.coords.x <= ((o2.coords.x + o2.perimeter.x) + (o.perimeter.x - 1)))) then
+    if o.coords.y >= (o2.coords.y + (o2.perimeter.y - 1)) and (o.coords.x >= (o2.coords.x - (o.perimeter.x - 1)) or (o.coords.x <= ((o2.coords.x + o2.perimeter.x) + (o.perimeter.x - 1)))) then
 --         facing = 0
       facing = 0
 --
