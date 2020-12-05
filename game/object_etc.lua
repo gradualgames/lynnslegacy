@@ -11,7 +11,7 @@ function __do_menu(this)
 --       '' if enter was pressed
 --
 --       If Not MultiKey ( sc_enter ) Then
-    if not love.keyboard.isDown("return") then
+    if not love.keyboard.isDown("space") then
 --         '' let go of enter
 --
 --         If .menu_sel = 0 Then
@@ -121,7 +121,7 @@ function __do_menu(this)
 --     End If
 --
 --     If MultiKey( sc_enter ) Then
-  if love.keyboard.isDown("return") then
+  if love.keyboard.isDown("space") then
 --
 --       If .menu_sel = 2 Then
 --
