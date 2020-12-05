@@ -848,3 +848,25 @@ function __stop_grip(this)
 -- End Function
 --
 end
+
+-- Function __move_backwards( this As _char_type Ptr ) As Integer
+function __move_backwards(this)
+--
+--   this->moveBackwards = -1
+  this.moveBackwards = -1
+--   Return 1
+  return 1
+--
+-- End Function
+end
+--
+-- Function __move_normal( this As _char_type Ptr ) As Integer
+function __move_normal(this)
+--
+--   this->moveBackwards = 0
+  this.moveBackwards = 0
+--   Return 1
+  return 1
+--
+-- End Function
+end
