@@ -388,7 +388,7 @@ function load_mapV(fileName)
 
         if enemy.spawn_cond ~= 0 then
 
-          enemy.spawn_info = {}
+          enemy.spawn_info = create_LLObject_ConditionalSpawn()
           enemy.spawn_info.wait_n = readInt(mapBlob)
           log.debug("enemy.spawn_info.wait_n: "..enemy.spawn_info.wait_n)
           enemy.spawn_info.wait_spawn = {}

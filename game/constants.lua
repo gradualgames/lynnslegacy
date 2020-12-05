@@ -1,0 +1,3 @@
+TRUE = -1
+FALSE = 0
+LL_EVENTS_MAX = 4096

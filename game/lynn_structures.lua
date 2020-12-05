@@ -27,6 +27,7 @@ function create_main_char_type()
 --   attacking As Integer
   main_char_type.attacking = 0
 --   b_key As Integer
+  main_char_type.b_key = 0
 --   crazy_points As Integer
   main_char_type.crazy_points = 0
 --   crazy_cache As Integer

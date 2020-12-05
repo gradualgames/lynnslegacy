@@ -1,3 +1,4 @@
+require("game/constants")
 require("game/box_structures")
 require("game/image_structures")
 require("game/object_structures")
@@ -60,7 +61,7 @@ function create_ll_system()
   --   do_hud As Integer
   --
   --   now As Byte Ptr
-  ll_system.now = {}
+  ll_system.now = nil
   --
   --   hud As load_hudImage
   ll_system.hud = create_load_hudImage()

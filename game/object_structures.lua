@@ -540,7 +540,7 @@ function init_object(object)
   --     spawn_cond As Integer
   object.spawn_cond = 0
   --     spawn_info As LLObject_ConditionalSpawn Ptr
-  object.spawn_info = {}
+  object.spawn_info = create_LLObject_ConditionalSpawn()
   --
   --     perimeter As Vector
   object.perimeter = create_vector()
@@ -847,5 +847,54 @@ function create_ll_entity_damage()
   ll_entity_damage.specific = 0
 --
   return ll_entity_damage
+-- End Type
+end
+
+-- '' Spawn switch struct:
+-- ''
+-- Type LLObject_SpawnSwitch
+function create_LLObject_SpawnSwitch()
+--
+  local switch = {}
+--   '' LL_Global.Now[]
+--   code_index As uShort
+  switch.code_index = 0
+--   ''
+--   '' LL_Global.Now[code_index] <> 0
+--   code_state As Integer
+  switch.code_state = 0
+--
+  return switch
+-- End Type
+end
+--
+--
+-- '' Spawn information struct:
+-- ''
+-- '' Spawning info is held in this struct. This struct contains
+-- '' spawn "switches" to determine if a conditionally spawned
+-- '' object is due to be spawned/terminated.
+-- ''
+-- Type LLObject_ConditionalSpawn
+function create_LLObject_ConditionalSpawn()
+--
+  local spawn = {}
+--   wait_n     As Integer
+  spawn.wait_n = 0
+--   wait_spawn As LLObject_SpawnSwitch Ptr
+  spawn.wait_spawn = create_LLObject_SpawnSwitch()
+
+--
+--   kill_n     As Integer
+  spawn.kill_n = 0
+--   kill_spawn As LLObject_SpawnSwitch Ptr
+  spawn.kill_spawn = create_LLObject_SpawnSwitch()
+--
+--   active_n     As Integer
+  spawn.active_n = 0
+--   active_spawn As LLObject_SpawnSwitch Ptr
+  spawn.active_spawn = create_LLObject_SpawnSwitch()
+--
+  return spawn
 -- End Type
 end

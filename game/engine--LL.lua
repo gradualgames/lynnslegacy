@@ -1,5 +1,6 @@
 require("game/audio")
 require("game/binary_objects")
+require("game/constants")
 require("game/engine--object")
 require("game/engine--object_damage")
 require("game/macros")
@@ -127,6 +128,9 @@ function engine_init()
   --big table of values used throughout the game with hard-coded
   --indices, no need to pre-allocate since we just use Lua tables.
   ll_global.now = {}
+  for i = 0, LL_EVENTS_MAX - 1 do
+    ll_global.now[i] = 0
+  end
 --
 --
 --   echo_print( "setting screen pages" )
@@ -1218,62 +1222,100 @@ end
 function LLObject_TouchSequence(o)
 --
 --   Dim As Integer touching, stuff, res, op, i
+  local touching, stuff, res, op, i = 0, 0, 0, 0, 0
 --
 --   With *( o )
+  local with0 = o
 --
 --     touching = LLObject_isTouching( llg( hero ), o[0] )
+  touching = LLObject_isTouching(ll_global.hero, o)
 --
 --     stuff = -1
+  stuff = -1
 --
 --     stuff And= ( .dead = 0 )
+  stuff = bit.band(stuff, (with0.dead == 0) and -1 or 0)
 --
 --     stuff And= ( .seq_release = 0 )
+  stuff = bit.band(stuff, (with0.seq_release == 0) and -1 or 0)
 --     '' no sequence lock
 --     stuff And= ( ( .unique_id = u_keydoor ) Imp ( llg( hero ).key <> 0 ) )
+  stuff = bit.band(stuff, imp(with0.unique_id == u_keydoor and -1 or 0, ll_global.hero.key ~= 0 and -1 or 0))
 --     '' if its a key door, then if you have a key..
 --     stuff And= ( ( .unique_id = u_fkeydoor ) Imp ( llg( hero_only ).b_key <> 0 ) )
+  stuff = bit.band(stuff, imp(with0.unique_id == u_fkeydoor and -1 or 0, ll_global.hero_only.b_key ~= 0 and -1 or 0))
 --     '' if its a fkey door, then if you have a fkey..
 --
 --     If stuff Then
+  if stuff ~= 0 then
+    --log.debug("stuff nonzero")
 --
 --       If touching = 0 Then
+    if touching == 0 then
+      --log.debug("touching is 0")
 --
 --         If .spawn_cond <> 0 Then
+      if with0.spawn_cond ~= 0 then
+        --log.debug("with0.spawn_cond nonzero")
 --
 --           If .spawn_info->active_n <> 0 Then
+        if with0.spawn_info.active_n ~= 0 then
+          --log.debug("with0.spawn_info.active_n nonzero")
 --
 --             res = -1
+          res = -1
 --             For i = 0 To .spawn_info->active_n - 1
+          for i = 0, with0.spawn_info.active_n - 1 do
 --
 --               op = ( llg( now )[.spawn_info->active_spawn[i].code_index] <> 0 )
+            op = ll_global.now[with0.spawn_info.active_spawn[i].code_index] ~= 0 and -1 or 0
+            log.debug("op: "..op)
 --               If .spawn_info->active_spawn[i].code_state = 0 Then
+            if with0.spawn_info.active_spawn[i].code_state == 0 then
 --                 op = Not op
+              op = bit.bnot(op)
 --
 --               End If
+            end
 --
 --               res And= op
+            res = bit.band(res, op)
 --
 --             Next
+          end
 --
 --           Else
+        else
 --             res = -1
+          res = -1
 --
 --           End If
+        end
 --
 --         Else
+      else
 --           res = -1
+        res = -1
 --
 --         End If
+      end
 --
 --         If res <> 0 Then
+      log.debug("res: "..res)
+      if res ~= 0 then
 --           '' all conditions met
 --           llg( seq ) = .seq + .sel_seq
+        ll_global.seq = with0.seq
+        ll_global.seqi = with0.sel_seq
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --     End If
+  end
 --
 --   End With
 --
