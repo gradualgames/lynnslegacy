@@ -22,6 +22,28 @@ function LLObject_IsWithin(object)
   return true
 end
 
+-- #Define LLObject_isTouching(__CHR_X__,__CHR_Y__)                                                     _
+function LLObject_isTouching(__CHR_X__, __CHR_Y__)
+--                                                                                                      _
+--     (                                                                                                _
+  return (
+--       check_bounds(                                                                                  _
+    check_bounds(
+--                     LLObject_VectorPair( Varptr( __CHR_X__ ) ),                                      _
+      LLObject_VectorPair(__CHR_X__),
+--                     Type <vector_pair> (                                                             _
+--                                          V2_Subtract( __CHR_Y__.coords,    Type <vector> ( 1, 1 ) ), _
+          {u = V2_Subtract(__CHR_Y__.coords, {x = 1, y = 1}),
+--                                          V2_Add     ( __CHR_Y__.perimeter, Type <vector> ( 2, 2 ) )  _
+           v = V2_Add(__CHR_Y__.perimeter, {x = 2, y = 2})}
+--                                        )                                                             _
+--                   )                                                                                  _
+      )
+--     )
+  )
+end
+
+
 function quad_calc(x, y)
 -- #Define quad_calc(x,y)                          _
 --                                                 _

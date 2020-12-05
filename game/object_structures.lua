@@ -468,6 +468,7 @@ function init_object(object)
   --   '' ==========================
   --     action_sequence       As Integer
   object.action_sequence = 0
+  --and should not be initialized to something invalid.
   --     chap                  As Integer
   object.chap = 0
   --     dest_x                As Integer

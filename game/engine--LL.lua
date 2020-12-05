@@ -617,7 +617,7 @@ function hero_main()
 --
 --     If llg( hero_only ).action_lock = 0 Then
   if ll_global.hero_only.action_lock == 0 then
-    log.debug("action lock was 0")
+    --log.debug("action lock was 0")
 --       '' lynn can do actions
 --
 --       If llg( hero_only ).attacking = 0 Then
@@ -1214,12 +1214,124 @@ function hero_continue_movement(mn)
 -- End Sub
 end
 
+-- Sub LLObject_TouchSequence( o As char_type Ptr )
+function LLObject_TouchSequence(o)
+--
+--   Dim As Integer touching, stuff, res, op, i
+--
+--   With *( o )
+--
+--     touching = LLObject_isTouching( llg( hero ), o[0] )
+--
+--     stuff = -1
+--
+--     stuff And= ( .dead = 0 )
+--
+--     stuff And= ( .seq_release = 0 )
+--     '' no sequence lock
+--     stuff And= ( ( .unique_id = u_keydoor ) Imp ( llg( hero ).key <> 0 ) )
+--     '' if its a key door, then if you have a key..
+--     stuff And= ( ( .unique_id = u_fkeydoor ) Imp ( llg( hero_only ).b_key <> 0 ) )
+--     '' if its a fkey door, then if you have a fkey..
+--
+--     If stuff Then
+--
+--       If touching = 0 Then
+--
+--         If .spawn_cond <> 0 Then
+--
+--           If .spawn_info->active_n <> 0 Then
+--
+--             res = -1
+--             For i = 0 To .spawn_info->active_n - 1
+--
+--               op = ( llg( now )[.spawn_info->active_spawn[i].code_index] <> 0 )
+--               If .spawn_info->active_spawn[i].code_state = 0 Then
+--                 op = Not op
+--
+--               End If
+--
+--               res And= op
+--
+--             Next
+--
+--           Else
+--             res = -1
+--
+--           End If
+--
+--         Else
+--           res = -1
+--
+--         End If
+--
+--         If res <> 0 Then
+--           '' all conditions met
+--           llg( seq ) = .seq + .sel_seq
+--
+--         End If
+--
+--       End If
+--
+--     End If
+--
+--   End With
+--
+-- End Sub
+end
+
+-- Sub LLObject_ActionSequence( o As char_type Ptr )
+function LLObject_ActionSequence(o)
+--
+  log.debug("LLObject_ActionSequence called on: "..o.id)
+--
+--   Dim As Integer facing, touching
+  local facing, touching = 0, 0
+--   Dim As vector_pair origin, target
+  local origin, target = create_vector_pair(), create_vector_pair()
+--
+--   With *( o )
+  local with0 = o
+--
+--     facing = is_facing( VarPtr( llg( hero ) ), o )
+  facing = is_facing(ll_global.hero, o)
+--     touching = LLObject_isTouching( llg( hero ), o[0] )
+  touching = LLObject_isTouching(ll_global.hero, o)
+--
+--     If facing = 0 And touching = 0 Then
+  if facing == 0 and touching == 0 then
+    log.debug("facing: "..facing.." touching: "..touching)
+--
+--       If .seq_release = 0 Then
+    if with0.seq_release == 0 then
+--
+--         If .dead = 0 Then
+      if with0.dead == 0 then
+--
+--           llg( seq ) = .seq + .sel_seq
+        ll_global.seq = with0.seq
+        ll_global.seqi = with0.sel_seq
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     End If
+  end
+--
+--   End With
+--
+-- End Sub
+end
+
 function enemy_main()
   -- With now_room()
   --
   --   If .enemies > 0 Then
   --     act_enemies( .enemies, .enemy )
-  act_enemies(now_room().enemy)
+  act_enemies(now_room().enemies, now_room().enemy)
   --
   --   End If
   --   If .temp_enemies > 0 Then
@@ -1869,25 +1981,25 @@ function hero_attack(hr)
 -- End Sub
 end
 
-function act_enemies(enemies)
+function act_enemies(_enemies, _enemy)
   -- Dim As Integer do_stuff
   --
   -- For do_stuff = 0 To _enemies - 1
-  for do_stuff = 0, #enemies - 1 do
+  for do_stuff = 0, _enemies - 1 do
   --
   --
   --   With _enemy[do_stuff]
-    local enemy = enemies[do_stuff]
+    local with0 = _enemy[do_stuff]
 
     -- table.insert(dbgrects, {
     --   c = .01,
-    --   x = enemy.coords.x - ll_global.this_room.cx,
-    --   y = enemy.coords.y - ll_global.this_room.cy,
+    --   x = with0.coords.x - ll_global.this_room.cx,
+    --   y = with0.coords.y - ll_global.this_room.cy,
     --   w = 16,
     --   h = 16})
   --
   --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
-    if LLObject_IsWithin(enemy) then
+    if LLObject_IsWithin(with0) then
   --
   --       If ( .seq_paused <> 0 ) And ( llg( seq ) <> 0 ) Then
       --TODO: Actually port the above if statement once we understand the sequence system.
@@ -2032,7 +2144,7 @@ function act_enemies(enemies)
             -- NOTE: The only place this function is called, the count _enemies is passed
             -- in as 1, and the current enemy in act_enemies is passed in as _enemy. Therefore,
             -- we are simplifying this to just pass the enemy in to begin with and eliminate the loop.
-            LLObject_MAINAttack(enemy, ll_global.hero)
+            LLObject_MAINAttack(with0, ll_global.hero)
   --
   --           End If
           end
@@ -2071,21 +2183,21 @@ function act_enemies(enemies)
   --           End If
   --
   --           If .on_ice = 0 Then
-          if enemy.on_ice == 0 then
+          if with0.on_ice == 0 then
   --             __stop_grip( Varptr( _enemy[do_stuff] ) )
-            __stop_grip(enemy)
+            __stop_grip(with0)
   --
   --           End If
           end
   --
   --
   --           If .walk_hold = 0 Then
-          if enemy.walk_hold == 0 then
+          if with0.walk_hold == 0 then
   --
   --             If .walk_steps = 0 Then
-            if enemy.walk_steps == 0 then
+            if with0.walk_steps == 0 then
   --               __momentum_move ( Varptr( _enemy[do_stuff] ) )
-              __momentum_move(enemy)
+              __momentum_move(_enemy[do_stuff])
   --
   --             End If
             end
@@ -2096,55 +2208,55 @@ function act_enemies(enemies)
   --
   --
   --           If  .hurt <> 0 Then
-          if enemy.hurt ~= 0 then
+          if with0.hurt ~= 0 then
             --log.debug("This enemy is showing damage effects")
   --             '' this enemy is showing damage effects
   --
   --             If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
-            if (enemy.unique_id == u_dyssius) or (enemy.unique_id == u_steelstrider) then
+            if (with0.unique_id == u_dyssius) or (with0.unique_id == u_steelstrider) then
   --
   --             Else
             else
   --
   --               If  .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
-              if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
+              if with0.funcs.current_func[with0.funcs.active_state] == with0.funcs.func_count[with0.funcs.active_state] then
                 --log.debug("The enemy called back (damage is done)")
   --                 '' the enemy called back (damage is done)
   --
   --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
-                LLObject_ShiftState(enemy, enemy.reset_state)
+                LLObject_ShiftState(_enemy[do_stuff], with0.reset_state)
   --
   --                 If .unique_id = u_ferus Then
-                if enemy.unique_id == u_ferus then
+                if with0.unique_id == u_ferus then
   --
   --                   LLObject_ClearProjectiles( _enemy[do_stuff] )
-                  LLObject_ClearProjectiles(enemy)
+                  LLObject_ClearProjectiles(with0)
   --                   .radius = Timer
-                  enemy.radius = timer
+                  with0.radius = timer
   --
   --
   --                 End If
                 end
   --
   --                 If .unique_id = u_grult Then
-                if enemy.unique_id == u_grult then
+                if with0.unique_id == u_grult then
   --
   --                   LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .stun_state )
-                  LLObject_ShiftState(enemy, enemy.stun_state)
+                  LLObject_ShiftState(with0, with0.stun_state)
   --                   .funcs.current_func[.funcs.active_state] = 2
-                  enemy.funcs.current_func[enemy.funcs.active_state] = 2
+                  with0.funcs.current_func[with0.funcs.active_state] = 2
   --
   --                 End If
                 end
   --
   --                 LLObject_ClearDamage( Varptr( _enemy[do_stuff] ) )
-                LLObject_ClearDamage(enemy)
+                LLObject_ClearDamage(with0)
   --                 .flash_count = 0
-                enemy.flash_count = 0
+                with0.flash_count = 0
   --                 .flash_timer = 0
-                enemy.flash_timer = 0
+                with0.flash_timer = 0
   --                 .invisible = 0
-                enemy.invisible = 0
+                with0.invisible = 0
   --
   --
   --               End If
@@ -2157,53 +2269,53 @@ function act_enemies(enemies)
           end
   --
   --           If .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
-          if enemy.funcs.current_func[enemy.funcs.active_state] == enemy.funcs.func_count[enemy.funcs.active_state] then
+          if with0.funcs.current_func[with0.funcs.active_state] == with0.funcs.func_count[with0.funcs.active_state] then
   --             '' if function block reaches end, return to beginning.
   --
   --             .funcs.current_func[.funcs.active_state] = 0
-            enemy.funcs.current_func[enemy.funcs.active_state] = 0
+            with0.funcs.current_func[with0.funcs.active_state] = 0
   --
   --           End If
           end
   --
   --
   --           If .dead = 0 Then
-          if enemy.dead == 0 then
+          if with0.dead == 0 then
   --             '' entity is not dead
   --
   --             If .hp <= 0 Then
-            if enemy.hp <= 0 then
+            if with0.hp <= 0 then
   --               '' entity is below the hp limit (marked for death)
   --
   --
   --
   --               If .dead_sound <> 0 Then
-              if enemy.dead_sound ~= 0 then
+              if with0.dead_sound ~= 0 then
   --                 play_sample( llg( snd )[.dead_sound] )
-                ll_global.snd[enemy.dead_sound]:play()
+                ll_global.snd[with0.dead_sound]:play()
   --
   --               End If
               end
   --
   --               LLObject_ShiftState( Varptr( _enemy[do_stuff] ), _enemy[do_stuff].death_state )
-              LLObject_ShiftState(enemy, enemy.death_state)
+              LLObject_ShiftState(with0, with0.death_state)
   --
   --             End If
             end
   --
   --             If .dead = 0 Then
-            if enemy.dead == 0 then
+            if with0.dead == 0 then
   --               If .froggy <> 0 Then
-              if enemy.froggy ~= 0 then
+              if with0.froggy ~= 0 then
   --                 '' this entity can become mad
   --
   --
   --                 If ( .mad = 0 ) Then
-                if (enemy.mad == 0) then
+                if (with0.mad == 0) then
   --                   '' entity is not mad
   --
   --                   If ( .funcs.active_state < .reset_state ) Then
-                  if (enemy.funcs.active_state < enemy.reset_state) then
+                  if (with0.funcs.active_state < with0.reset_state) then
   --
   --                     '' entity is not resetting
   --
@@ -2221,7 +2333,7 @@ function act_enemies(enemies)
               end
   --
   --               If .mad <> 0 Then
-              if enemy.mad ~= 0 then
+              if with0.mad ~= 0 then
   --                 '' entity is mad
   --
                 --TODO: Port proximity logic.
@@ -2284,36 +2396,50 @@ function act_enemies(enemies)
   --
   --
   --           If llg( seq ) = 0 Then
+            if ll_global.seq == nil then
   --             '' no sequence happening already
   --
   --
   --             If llg( hero ).switch_room = -1 Then
+              if ll_global.hero.switch_room == -1 then
   --
   --               If .action_sequence <> 0 Then
+                if with0.action_sequence ~= 0 then
+                  --log.debug("action_sequence nonzero on: "..with0.id)
   --                 '' ths entity loads a sequence when you action it
   --
   --                 If llg( hero_only ).action <> 0 Then
+                  if ll_global.hero_only.action ~= 0 then
+                    --log.debug("Hero trying to action something.")
   --
   --                   LLObject_ActionSequence( Varptr( _enemy[do_stuff] ) )
+                    LLObject_ActionSequence(_enemy[do_stuff])
   --
   --                 End If
+                  end
   --
   --
   --               End If
+                end
   --
   --
   --
   --
   --               If .touch_sequence <> 0 Then
+                if with0.touch_sequence ~= 0 then
   --                 '' ths entity loads a sequence when you touch it
   --
   --                 LLObject_TouchSequence( Varptr( _enemy[do_stuff] ) )
+                  LLObject_TouchSequence(with0)
   --
   --               End If
+                end
   --
   --             End If
+              end
   --
   --           End If
+            end
   --
   --
   --           If .grult_proj_trig <> 0 Then
@@ -2457,19 +2583,19 @@ function act_enemies(enemies)
   --           End If
   --
   --           If  .dmg.id <> 0 Then
-          if enemy.dmg.id ~= 0 then
+          if with0.dmg.id ~= 0 then
             --log.debug("Enemy was hit by lynn.")
   --             '' enemy was hit by lynn
   --
   --             __flashy( Varptr( _enemy[do_stuff] ) )
-            __flashy(enemy)
+            __flashy(with0)
   --
   --           End If
           end
   --
   --
   --           If Timer > .walk_hold Then .walk_hold = 0
-          if timer > enemy.walk_hold then enemy.walk_hold = 0 end
+          if timer > with0.walk_hold then with0.walk_hold = 0 end
   --
   --
   --
@@ -2517,9 +2643,9 @@ function act_enemies(enemies)
         --log.debug("enemy.id: "..enemy.id)
         --log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
         --log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
-        local result = enemy.funcs.func[enemy.funcs.active_state][enemy.funcs.current_func[enemy.funcs.active_state]](enemy)
+        local result = with0.funcs.func[with0.funcs.active_state][with0.funcs.current_func[with0.funcs.active_state]](with0)
         --log.debug("result: "..(result and result or "nil"))
-        enemy.funcs.current_func[enemy.funcs.active_state] = enemy.funcs.current_func[enemy.funcs.active_state] + result
+        with0.funcs.current_func[with0.funcs.active_state] = with0.funcs.current_func[with0.funcs.active_state] + result
 --NOTE: The above line should be ported to Lua first as it is what actually performs the function execution.
   --
   --       End If
@@ -5202,4 +5328,88 @@ function LLMusic_Fade()
   end
 --
 -- End Sub
+end
+
+-- Function is_facing( o As _char_type Ptr, o2 As _char_type Ptr ) As Integer
+function is_facing(o, o2)
+--
+--
+--   Dim As Integer facing
+  local facing = 0
+--
+--   Select Case o->direction
+--
+--     Case 0
+  if o.direction == 0 then
+--
+--       If o->coords.y >=  ( o2->coords.y +  ( o2->perimeter.y - 1 )  )  And  ( o->coords.x >=  ( o2->coords.x -  ( o->perimeter.x - 1 )  )  Or  ( o->coords.x <=  (  ( o2->coords.x + o2->perimeter.x )  +  ( o->perimeter.x - 1 )  )  )  )  Then
+    if o.coords.y >= (o2.coords.y + (o.perimeter.y - 1)) and (o.coords.x >= (o2.coords.x - (o.perimeter.x - 1)) or (o.coords.x <= ((o2.coords.x + o2.perimeter.x) + (o.perimeter.x - 1)))) then
+--         facing = 0
+      facing = 0
+--
+--       Else
+    else
+--         facing = -1
+      facing = -1
+--
+--       End If
+    end
+--
+--     Case 2
+  elseif o.direction == 2 then
+--
+--       If o->coords.y +  ( llg( map )->tileset->y - 1 )  <=   ( o2->coords.y )  And  ( o->coords.x >=  ( o2->coords.x -  ( llg( map )->tileset->x - 1 )  )  Or  ( o->coords.x <=  (  ( o2->coords.x + o2->perimeter.x )  +  ( llg( map )->tileset->x - 1 )  )  )  )  Then
+    if o.coords.y + (ll_global.map.tileset.y - 1) <= (o2.coords.y) and (o.coords.x >= (o2.coords.x  - (ll_global.map.tileset.x - 1)) or (o.coords.x <= (( o2.coords.x + o2.perimeter.x) + (ll_global.map.tileset.x - 1)))) then
+--         facing = 0
+      facing = 0
+--
+--       Else
+    else
+--         facing = -1
+      facing = -1
+--
+--       End If
+    end
+--
+--     Case 3
+  elseif o.direction == 3 then
+--
+--       If o->coords.x >=  ( o2->coords.x +  ( o2->perimeter.x - 1 )  )  And  ( o->coords.y >=  ( o2->coords.y ) Or ( o->coords.y <=  ( o2->coords.y + o2->perimeter.y ) ) )  Then
+    if o.coords.x >= (o2.coords.x + (o2.perimeter.x - 1)) and (o.coords.y >= (o2.coords.y) or (o.coords.y <= (o2.coords.y + o2.perimeter.y))) then
+--         facing = 0
+      facing = 0
+--
+--       Else
+    else
+--         facing = -1
+      facing = -1
+--
+--       End If
+    end
+--
+--     Case 1
+  elseif o.direction == 1 then
+--
+--       If o->coords.x +  ( llg( map )->tileset->x - 1 )  <=  ( o2->coords.x )  And  ( o->coords.y >=  ( o2->coords.y )  Or  ( o->coords.y <=  (  ( o2->coords.y + o2->perimeter.y )  )  )  )  Then
+    if o.coords.x + (ll_global.map.tileset.x - 1) <= (o2.coords.x ) and (o.coords.y >= (o2.coords.y) or (o.coords.y <= ((o2.coords.y + o2.perimeter.y)))) then
+--         facing = 0
+      facing = 0
+--
+--       Else
+    else
+--         facing = -1
+      facing = -1
+--
+--       End If
+    end
+--
+--
+--   End Select
+  end
+--
+--   Return facing
+  return facing
+--
+--
+-- End Function
 end

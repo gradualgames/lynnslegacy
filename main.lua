@@ -54,9 +54,9 @@ function love.update(dt)
   for u = 1, loops do
     timer = love.timer.getTime()
     --timer = timer + .005
-    --log.level = "debug"
+    log.level = "debug"
     enemy_main()
-    --log.level = "fatal"
+    log.level = "fatal"
     log.level = "debug"
     play_sequence(ll_global)
     log.level = "fatal"
