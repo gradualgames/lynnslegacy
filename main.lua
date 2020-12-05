@@ -16,10 +16,7 @@ function love.load()
   initializeScreen()
   computeScale()
   initializePaletteShader()
-  tickPeriod = 1/60
-  accumulator = 0.0
-  timer = love.timer.getTime()
-
+  initializeTimer()
   imageHeaderCache = {}
   objectXmlCache = {}
 
@@ -46,13 +43,8 @@ function love.update(dt)
   dbgrects = {}
   updateBHist("x")
   updateBHist("space")
-  accumulator = accumulator + dt
-  if accumulator >= tickPeriod then
-    accumulator = accumulator - tickPeriod
-  end
-  local loops = love.window.getVSync() and 4 or 1
   for u = 1, loops do
-    timer = love.timer.getTime()
+    timerUpdate()
     --timer = timer + .005
     log.level = "debug"
     enemy_main()
@@ -112,6 +104,18 @@ function love.keypressed(key, scancode, isrepeat)
       fullscreen = false
     end
     computeScale()
+  end
+end
+
+function initializeTimer()
+  timer = love.timer.getTime()
+  if love.window.getVSync() == 1 then
+    loops = 16
+    timerInc = 1 / (loops * 60)
+    timerUpdate = function() timer = timer + timerInc end
+  else
+    loops = 1
+    timerUpdate = function() timer = love.timer.getTime() end
   end
 end
 
