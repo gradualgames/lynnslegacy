@@ -490,6 +490,19 @@ function __after_moenia_townspeople(this)
 -- End Function
 end
 
+-- Function __set_camera( this As char_type Ptr ) As Integer
+function __set_camera(this)
+--
+--
+--   llg( current_cam ) = this
+  ll_global.current_cam = this
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __fade_music_out( this As char_type Ptr ) As Integer
 function __fade_music_out(this)
 --
