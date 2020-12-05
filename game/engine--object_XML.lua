@@ -1,4 +1,3 @@
-require("game/cache")
 require("game/engine_enums")
 require("game/object_etc")
 require("game/object_time")
