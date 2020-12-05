@@ -4783,7 +4783,8 @@ function sequence_AssignEntityData(charData, commandData)
   if with0.modify_direction ~= 0 then
 --
 --       charData.direction =  ( .reserved_1 - 1 )
-    charData.direction = (with0.reserved_1 - 1)
+    --NOTE: Removed .reserved_1 because it is a union with .modify_direction
+    charData.direction = (with0.modify_direction - 1)
 --
 --     End If
   end

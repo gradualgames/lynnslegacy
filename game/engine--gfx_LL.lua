@@ -389,9 +389,9 @@ function blit_box(t_box)
 --   #endmacro
   end
 --       If .internal.hold_box <> 0 Then
-  log.debug("with0.internal.hold_box: "..with0.internal.hold_box)
-  log.debug("with0.layout.invis: "..with0.layout.invis)
-  log.debug("with0.box: "..(with0.box and "exists" or "nil"))
+  --log.debug("with0.internal.hold_box: "..with0.internal.hold_box)
+  --log.debug("with0.layout.invis: "..with0.layout.invis)
+  --log.debug("with0.box: "..(with0.box and "exists" or "nil"))
   if with0.internal.hold_box ~= 0 then
 --
 --         If .layout.invis = 0 Then
@@ -609,7 +609,7 @@ function blit_box(t_box)
 --
 --               If .internal.flashbox = TRUE then
         if with0.internal.flashbox == true then
-          log.debug("flashbox is true")
+          --log.debug("flashbox is true")
 --
 --                 If( .layout.invis = FALSE ) Then
           if (with0.layout.invis == 0) then
@@ -1224,7 +1224,7 @@ function top_rows(b)
   local line_loop, b_opt = 0, 0
 --
 --     For line_loop = 1 To b->internal.current_line And 3
-  log.debug("bit.band(b.internal.current_line, 3): "..bit.band(b.internal.current_line, 3))
+  --log.debug("bit.band(b.internal.current_line, 3): "..bit.band(b.internal.current_line, 3))
   for line_loop = 1, bit.band(b.internal.current_line, 3) do
 --
 --       b_opt = b->internal.current_line - line_loop
@@ -1241,7 +1241,7 @@ function top_rows(b)
                     b.layout.y_loc + 8 + ((b_opt % 4) * 16),
                     b.internal.txtcolor)
 
-    log.debug(b.ptrs.row[b_opt])
+    --log.debug(b.ptrs.row[b_opt])
 --     Next
   end
 --
@@ -1280,7 +1280,7 @@ function current_row(b)
                   b.layout.x_loc + 9,
                   b.layout.y_loc + 8 + ((b.internal.current_line % 4) * 16),
                   b.internal.txtcolor)
-  log.debug("bufferString: "..bufferString)
+  --log.debug("bufferString: "..bufferString)
 --
 -- End Sub
 end
@@ -1337,12 +1337,7 @@ function blit_object_ex(this)
   --       Put( x_opt, y_opt ), varptr( .image[f_opt] ), Trans
 
   local anim = with0.anim[with0.current_anim]
-  if anim.quads[f_opt] ~= nil then
-    love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
-  else
-    log.debug("No quad for: "..with0.id)
-    log.debug("frame: "..f_opt)
-  end
+  love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
   --love.graphics.draw(anim.image, x_opt, y_opt)
 
 

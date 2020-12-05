@@ -77,16 +77,16 @@ function create_command_data()
 --   abs_y As Short
   command_data.abs_y = 0
 --   Union
+  --NOTE: Removed .reserved_1 because it is a union with .modify_direction
 --     reserved_1       As Integer ''direction...
-  command_data.reserved_1 = 0
 --     modify_direction As Integer
   command_data.modify_direction = 0
 --
 --   End Union
 --
 --   Union
+  --NOTE: Removed .reserved_2 because it is a union with .seq_pause
 --     reserved_2 As Integer '' paused
-  command_data.reserved_2 = 0
 --     seq_pause  As Integer '' paused
   command_data.seq_pause = 0
 --
@@ -99,14 +99,14 @@ function create_command_data()
 --
 --
 --   Union
+--NOTE: Removed .reserved_5 because it is a union with .free_to_move
 --     reserved_5 As Integer '' action-lock
-  command_data.reserved_5 = 0
 --     free_to_move As Integer
   command_data.free_to_move = 0
 --   End Union
 --   Union
+--NOTE: Removed .reserved_6 because it is a union with .display_hud
 --     reserved_6 As Integer '' hud display
-  command_data.reserved_6 = 0
 --     display_hud As Integer
   command_data.display_hud = 0
 --   End Union
