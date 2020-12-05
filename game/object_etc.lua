@@ -241,6 +241,43 @@ function __drop(this)
 -- End Function
 end
 
+-- Function __give_weapon ( this As _char_type Ptr ) As Integer
+function __give_weapon(this)
+--
+--
+-- '  ? llg( hero_only ).weapon
+-- '  ? llg( hero_only ).has_weapon
+-- '  reveal()
+-- '  Sleep
+-- '
+--
+--   llg( hero_only ).has_weapon += 1
+  ll_global.hero_only.has_weapon = ll_global.hero_only.has_weapon + 1
+--
+-- '  Select Case llg( hero_only ).has_weapon
+-- '
+-- '    Case 1
+--       llg( hero_only ).weapon = llg( hero_only ).has_weapon
+  ll_global.hero_only.weapon = ll_global.hero_only.has_weapon
+--
+-- '    Case 2
+-- '      llg( hero_only ).weapon = 1
+-- '
+-- '    Case 3
+-- '      llg( hero_only ).weapon = 2
+-- '
+-- '  End Select
+--
+--   antiHackASSIGN( LL_Global.hero_only.weaponDummy, LL_Global.hero_only.has_weapon )
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __set_happen ( this As _char_type Ptr ) As Integer
 function __set_happen(this)
 --

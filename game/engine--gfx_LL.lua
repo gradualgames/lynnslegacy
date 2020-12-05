@@ -1337,9 +1337,13 @@ function blit_object_ex(this)
   --       Put( x_opt, y_opt ), varptr( .image[f_opt] ), Trans
 
   local anim = with0.anim[with0.current_anim]
-  love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
+  if anim.quads[f_opt] ~= nil then
+    love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
+  else
+    log.debug("No quad for: "..with0.id)
+    log.debug("frame: "..f_opt)
+  end
   --love.graphics.draw(anim.image, x_opt, y_opt)
---love.graphics.draw(animation.image, animation.quads[animation.frame], screenX, screenY)
 
 
   --

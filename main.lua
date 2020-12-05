@@ -68,9 +68,9 @@ end
 
 function love.draw()
   startDrawing()
-  --log.level = "debug"
+  log.level = "debug"
   blit_scene()
-  --log.level = "fatal"
+  log.level = "fatal"
 
   for key, dbgrect in pairs(dbgrects) do
     local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
