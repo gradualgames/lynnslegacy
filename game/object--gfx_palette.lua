@@ -325,6 +325,120 @@ function __flash(this)
 -- End Function
 end
 
+-- Function __fade_down_to_color( this As _char_type Ptr ) As Integer
+function __fade_down_to_color(this)
+--
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   Static As Integer col_Get
+  if col_Get == nil then col_Get = 0 end
+--   Static As palette_Data col_Store( 255 ), col_Inc( 255 )
+  if col_Store == nil then col_Store = {} end
+  if col_Inc == nil then col_Inc = {} end
+--
+--
+--   If col_Get = 0 Then
+  if col_Get == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       With col_Inc( cols )
+      col_Inc[cols] = {}
+--
+--         .b = ( 255 - ( ( ( fb_Global.display.pal[cols] Shr 16 ) And &hFF ) Shl 2 ) ) / 64
+      col_Inc[cols][0] = (255 - (((masterPalette[cols][0] * 63)) * 4)) / 64
+--         .g = ( 255 - ( ( ( fb_Global.display.pal[cols] Shr 8  ) And &hFF ) Shl 2 ) ) / 64
+      col_Inc[cols][1] = (255 - (((masterPalette[cols][1] * 63)) * 4)) / 64
+--         .r = ( 255 - ( ( ( fb_Global.display.pal[cols]        ) And &hFF ) Shl 2 ) ) / 64
+      col_Inc[cols][2] = (255 - (((masterPalette[cols][2] * 63)) * 4)) / 64
+--
+--       End With
+--
+--       With col_Store( cols )
+      col_Store[cols] = {}
+--
+--         .r = 255
+      col_Store[cols][0] = 255
+--         .g = 255
+      col_Store[cols][1] = 255
+--         .b = 255
+      col_Store[cols][2] = 255
+--
+--       End With
+--
+--     Next
+    end
+--
+--     col_Get = -1
+    col_Get = -1
+--
+--   End If
+  end
+--
+--   If this->fade_timer = 0 Then
+  if this.fade_timer == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       With col_Store( cols )
+--
+--         Palette cols, CInt( .r ), CInt( .g ), CInt( .b )
+      palette[cols][0] = col_Store[cols][0] / 255
+      palette[cols][1] = col_Store[cols][1] / 255
+      palette[cols][2] = col_Store[cols][2] / 255
+--
+--         .r -= col_Inc( cols ).r
+      col_Store[cols][0] = col_Store[cols][0] - col_Inc[cols][0]
+--         .g -= col_Inc( cols ).g
+      col_Store[cols][1] = col_Store[cols][1] - col_Inc[cols][1]
+--         .b -= col_Inc( cols ).b
+      col_Store[cols][2] = col_Store[cols][2] - col_Inc[cols][2]
+--
+--       End With
+--
+--     Next
+    end
+--
+--     this->fade_count += 1
+    this.fade_count = this.fade_count + 1
+--     this->fade_timer = Timer + this->fade_time
+    this.fade_timer = timer + this.fade_time
+--
+--   End If
+  end
+--
+--   If Timer >= this->fade_timer Then this->fade_timer = 0
+  if timer >= this.fade_timer then this.fade_timer = 0 end
+--
+--   If this->fade_count = 64 Then
+  if this.fade_count == 64 then
+--
+--     shift_pal()
+    shift_pal()
+--
+--     this->fade_count= 0
+    this.fade_count = 0
+--     col_Get = 0
+    col_Get = 0
+--
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
+
 -- Function __flash_down( this As _char_type Ptr ) As Integer
 function __flash_down(this)
 --
