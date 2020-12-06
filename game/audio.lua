@@ -192,3 +192,59 @@ function init_snd()
 --
 -- End Sub
 end
+
+-- Sub check_env_sounds()
+function check_env_sounds()
+--
+--   Static As hchannel ret
+--   Dim As Integer env_ver, check_env
+  local env_ver, check_env = 0, 0
+--   env_ver = 0
+  env_ver = 0
+--
+--   For check_env = 0 To now_room().enemies - 1
+  for check_env = 0, now_room().enemies - 1 do
+--
+--     With now_room().enemy[check_env]
+    local with0 = now_room().enemy[check_env]
+--       If .unique_id = u_static Then
+    if with0.unique_id == u_static then
+--
+--         If .dead <> 0 Then Continue For
+      if with0.dead ~= 0 then goto continue end
+--
+--         If check_bounds( llo_vp( Varptr( llg( hero ) ) ),  llo_vp( Varptr( now_room().enemy[check_env] ) ) ) = 0 Then
+      if check_bounds(LLO_VP(ll_global.hero), LLO_VP(now_room().enemy[check_env])) == 0 then
+--           env_ver = -1
+        env_ver = -1
+--
+--           If BASS_ChannelIsActive( ret ) = 0 Then
+--             ret = play_sample( llg( snd )[sound_greystatic], 50 )
+        ll_global.snd[sound_greystatic]:setVolume(.5)
+        ll_global.snd[sound_greystatic]:play()
+--
+--           End If
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     End With
+--
+--   Next
+  ::continue::
+  end
+--
+--   If env_ver = 0 Then
+--     BASS_ChannelStop( ret )
+--
+--   End If
+  if env_ver == 0 then
+    ll_global.snd[sound_greystatic]:stop()
+  end
+--
+--
+-- End Sub
+end

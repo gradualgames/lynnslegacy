@@ -948,6 +948,7 @@ function hero_main()
 --
 --   #IfDef ll_audio
 --     check_env_sounds()
+  check_env_sounds()
 --
 --   #EndIf
 --
