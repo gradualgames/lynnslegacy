@@ -1,3 +1,15 @@
+-- Type mat_int
+function create_mat_int()
+--
+  local mat_int = {}
+--   As Integer x, y
+  mat_int.x = 0
+  mat_int.y = 0
+--
+  return mat_int
+-- End Type
+end
+
 music_strings = {
 -- Dim Shared As zString Ptr music_strings( 25 ) => _
 --   { _

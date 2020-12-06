@@ -4,6 +4,7 @@ require("game/constants")
 require("game/engine--object")
 require("game/engine--object_damage")
 require("game/macros")
+require("game/object_control")
 require("game/utils")
 require("game/utility")
 
@@ -2481,6 +2482,7 @@ function act_enemies(_enemies, _enemy)
                     --TODO: Port proximity detection. Don't know what this is yet.
   --                     '' implicit proximity detection
   --                     .funcs.active_state = in_proximity( Varptr( _enemy[do_stuff] ) )
+                    with0.funcs.active_state = in_proximity(_enemy[do_stuff])
   --
   --                   End If
                   end
