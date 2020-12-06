@@ -169,22 +169,6 @@ function __counted_jump_2(this)
 -- End Function
 end
 
--- Function __return_reset ( this As _char_type Ptr ) As Integer
-function __return_reset(this)
-  log.debug("__return_reset called.")
---
---   this->funcs.current_func[this->funcs.active_state] = 0
-  this.funcs.current_func[this.funcs.active_state] = 0
---
---   this->funcs.active_state = this->reset_state
-  this.funcs.active_state = this.reset_state
---
---   Return 0
-  return 0
---
--- End Function
-end
-
 -- Function __return_idle ( this As _char_type Ptr ) As Integer
 function __return_idle(this)
   -- log.debug("__return_idle called on "..this.id)
@@ -201,6 +185,39 @@ function __return_idle(this)
 --   Return 0
   return 0
 --
+--
+-- End Function
+end
+
+-- Function __return_jump_npc( this As _char_type Ptr ) As Integer
+function __return_jump_npc(this)
+--
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--
+--   this->funcs.active_state = this->jump_state
+  this.funcs.active_state = this.jump_state
+--
+--   return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
+-- Function __return_reset ( this As _char_type Ptr ) As Integer
+function __return_reset(this)
+  log.debug("__return_reset called.")
+--
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--
+--   this->funcs.active_state = this->reset_state
+  this.funcs.active_state = this.reset_state
+--
+--   Return 0
+  return 0
 --
 -- End Function
 end
