@@ -2479,7 +2479,6 @@ function act_enemies(_enemies, _enemy)
   --
   --                     '' entity is not resetting
   --
-                    --TODO: Port proximity detection. Don't know what this is yet.
   --                     '' implicit proximity detection
   --                     .funcs.active_state = in_proximity( Varptr( _enemy[do_stuff] ) )
                     with0.funcs.active_state = in_proximity(_enemy[do_stuff])
@@ -2497,9 +2496,9 @@ function act_enemies(_enemies, _enemy)
               if with0.mad ~= 0 then
   --                 '' entity is mad
   --
-                --TODO: Port proximity logic.
   --                 '' see if its far enough to get a reset
   --                 .funcs.active_state = out_proximity( Varptr( _enemy[do_stuff] ) )
+                with0.funcs.active_state = out_proximity(_enemy[do_stuff])
   --
   --               End If
               end
