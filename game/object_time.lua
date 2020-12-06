@@ -1,3 +1,22 @@
+-- Function __poll_action ( this As _char_type Ptr ) As Integer
+function __poll_action(this)
+--
+--
+--   'set_debug()
+--
+--   If llg( hero ).switch_room = -1 Then
+  if ll_global.hero.switch_room == -1 then
+--     If ( llg( hero )_only.action <> 0 ) Then Return 1
+    if ll_global.hero_only.action ~= 0 then return 1 end
+--
+--   End If
+  end
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __half_second_pause ( this As _char_type Ptr ) As Integer
 function __half_second_pause(this)
   log.debug("__half_second_pause called on: "..this.id)
