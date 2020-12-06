@@ -265,8 +265,18 @@ function initializeTimer()
   timer = love.timer.getTime()
   if love.window.getVSync() == 1 then
     loops = 16
-    timerInc = 1 / (loops * 60)
-    timerUpdate = function() timer = timer + timerInc end
+    timerUpdate = function()
+      --Assume FPS is 60, but if the system starts to detect FPS
+      --greater than 60, recalculate timerInc to compensate so the
+      --game can still run at the correct speed on faster monitors.
+      local fps = love.timer.getFPS()
+      if fps > 60 then
+        timerInc = 1 / (loops * fps)
+      else
+        timerInc = 1 / (loops * 60)
+      end
+      timer = timer + timerInc
+    end
   else
     loops = 1
     timerUpdate = function() timer = love.timer.getTime() end
