@@ -161,6 +161,76 @@ function __copter_path(this)
 --
 end
 
+-- Function __make_face ( this As _char_type Ptr ) As Integer
+function __make_face(this)
+--
+--
+--   Dim As vector more, move
+  local more, move = create_vector(), create_vector()
+--   Dim As vector_pair target, origin
+  local target, origin = create_vector_pair(), create_vector_pair()
+--
+--   target = LLObject_VectorPair( @llg( hero ) )
+  target = LLObject_VectorPair(ll_global.hero)
+--   origin = LLObject_VectorPair( this )
+  origin = LLObject_VectorPair(this)
+--
+--   more = V2_Absolute( V2_Subtract( V2_Midpoint( target ), V2_Midpoint( origin ) ) )
+  more = V2_Absolute(V2_Subtract(V2_Midpoint(target), V2_Midpoint(origin)))
+--
+--
+--
+--   If more.x >= more.y Then
+  if more.x >= more.y then
+--
+--     If target.u.x > origin.u.x Then
+    if target.u.x > origin.u.x then
+--       move.x = 1
+      move.x = 1
+--
+--     ElseIf target.u.x < origin.u.x Then
+    elseif target.u.x < origin.u.x then
+--       move.x = -1
+      move.x = -1
+--
+--     End If
+    end
+--
+--     If move.x = -1 Then this->direction = 3
+    if move.x == -1 then this.direction = 3 end
+--     If move.x =  1 Then this->direction = 1
+    if move.x == 1 then this.direction = 1 end
+--
+--   Else
+  else
+--
+--     If target.u.y > origin.u.y Then
+    if target.u.y > origin.u.y then
+--       move.y = 1
+      move.y = 1
+--
+--     ElseIf target.u.y < origin.u.y Then
+    elseif target.u.y < origi.u.y then
+--       move.y = -1
+      move.y = -1
+--
+--     End If
+    end
+--
+--     If move.y = -1 Then this->direction = 0
+    if move.y == -1 then this.direction = 0 end
+--     If move.y = 1 Then this->direction = 2
+    if move.y == 1 then this.direction = 2 end
+--
+--   End If
+  end
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __tile_up ( this As _char_type Ptr ) As Integer
 function __tile_up(this)
   --log.debug("__tile_up called on: "..this.id)

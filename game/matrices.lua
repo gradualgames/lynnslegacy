@@ -119,6 +119,22 @@ function V2_MidPoint(m)
 --
 -- End Function
 end
+--NOTE: In general I follow the exact casing of everything in the
+--original FreeBASIC source. So I don't lose my mind, I'm just aliasing
+--this function with casing differences...
+V2_Midpoint = V2_MidPoint
+
+-- Function V2_Absolute( v As vector ) As vector
+function V2_Absolute(v)
+--
+--   Function = Type( Abs( v.x ), Abs( v.y ) )
+  local result = create_vector()
+  result.x = math.abs(v.x)
+  result.y = math.abs(v.y)
+  return result
+--
+-- End Function
+end
 
 -- Function V2_DotProduct( v As vector, v2 As vector ) As Double
 function V2_DotProduct(v, v2)
