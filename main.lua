@@ -264,20 +264,25 @@ end
 function initializeTimer()
   timer = love.timer.getTime()
   if love.window.getVSync() == 1 then
+    --When the timer is driven by a vsync update rather
+    --than a fast-as-possible update, 16 loops over the game
+    --logic appears to be enough to slice up the timer with
+    --enough resolution to get the same behavior as a fast-
+    --as-possible update.
     loops = 16
+    --Assume FPS is 60, but if the system starts to detect FPS
+    --greater than 60, recalculate timerInc to compensate so the
+    --game can still run at the correct speed on faster monitors.
+    timerInc = 1 / (loops * 60)
     timerUpdate = function()
-      --Assume FPS is 60, but if the system starts to detect FPS
-      --greater than 60, recalculate timerInc to compensate so the
-      --game can still run at the correct speed on faster monitors.
       local fps = love.timer.getFPS()
-      if fps > 60 then
-        timerInc = 1 / (loops * fps)
-      else
-        timerInc = 1 / (loops * 60)
-      end
+      if fps > 60 then timerInc = 1 / (loops * fps) end
       timer = timer + timerInc
     end
   else
+    --When vsync is off, the update function is running as fast
+    --as possible so there is no need to loop over the game logic
+    --more than once and the timer is just global seconds elapsed.
     loops = 1
     timerUpdate = function() timer = love.timer.getTime() end
   end
