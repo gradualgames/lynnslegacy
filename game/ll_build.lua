@@ -4,6 +4,9 @@ require("game/object_structures")
 -- Function ctor_hero( l As char_type Ptr = 0 ) As char_type Ptr
 function ctor_hero(l)
 --
+  --NOTE: The ability of the function to factory a new hero
+  --object and return it was never used, so we do not port the logic here.
+  --all we do is set up the hero object that is passed in.
 --   Dim As Integer pass
 --
 --   If l = 0 Then
@@ -22,10 +25,11 @@ function ctor_hero(l)
 --
 --     LLSystem_CopyNewObject( *l )
   --log.level = "debug"
-  LLSystem_ObjectLoad(l)
+  LLSystem_CopyNewObject(l)
   --log.level = "fatal"
 --
 --     l->dead_sound = sound_lynn_die
+  l.dead_sound = sound_lynn_die
 --
 --     .num = -1
   l.num = -1
@@ -41,10 +45,15 @@ function ctor_hero(l)
   ll_global.hero_only.has_weapon = -1
 --
 --     llg( hero_only ).hasCostume( 0 ) = -1
+  ll_global.hero_only.hasCostume[0] = -1
 --     llg( hero ).fade_time = .003
+  ll_global.hero.fade_time = .003
 --
 --   End With
 --
+  --NOTE: The ability of the function to factory a new hero
+  --object and return it was never used, so we do not port the logic here.
+  --all we do is set up the hero object that is passed in.
 --   If pass <> 0 Then
 --     Return l
 --

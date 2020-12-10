@@ -931,6 +931,7 @@ function hero_main()
       if (with0.funcs.current_func[with0.death_state] == with0.funcs.func_count[with0.death_state]) then
   --         '' lynn called back
   --         jump_to_title()
+        jump_to_title()
   --
   --       End If
       end
@@ -2010,6 +2011,103 @@ function change_room(o, _call, t)
 --
 --   End Select
   end
+--
+--
+-- End Sub
+end
+
+-- Sub jump_to_title()
+function jump_to_title()
+--
+--
+--   Dim As Integer lx, ly, ld, i
+  local lx, ly, ld, i = 0, 0, 0, 0
+--
+--
+--   now_room().teleports += 1
+  now_room().teleports = now_room().teleports + 1
+--   now_room().teleport = Reallocate( now_room().teleport, now_room().teleports *  Len( teleport_type ) )
+--   MemSet( Varptr( now_room().teleport[now_room().teleports - 1] ), 0, Len( teleport_type ) )
+  now_room().teleport[now_room().teleports - 1] = create_teleport_type()
+--
+--   now_room().teleport[now_room().teleports - 1].to_map = "title.map"
+  now_room().teleport[now_room().teleports - 1].to_map = "title.map"
+--   now_room().teleport[now_room().teleports - 1].to_room = 0
+  now_room().teleport[now_room().teleports - 1].to_room = 0
+--   now_room().teleport[now_room().teleports - 1].to_song = 20
+  now_room().teleport[now_room().teleports - 1].to_song = 20
+--
+--   change_room( 0, -1, 1 )
+  change_room(0, -1, 1)
+--
+--   lx = llg( hero ).coords.x
+  lx = ll_global.hero.coords.x
+--   ly = llg( hero ).coords.y
+  ly = ll_global.hero.coords.y
+--   ld = llg( hero ).direction
+  ld = ll_global.hero.direction
+--
+--   ctor_hero( Varptr( llg( hero ) ) )
+  ctor_hero(ll_global.hero)
+--
+--   llg( hero ).coords.x = lx
+  ll_global.hero.coords.x = lx
+--   llg( hero ).coords.y = ly
+  ll_global.hero.coords.y = ly
+--   llg( hero ).direction = ld
+  ll_global.hero.direction = ld
+--
+--   llg( hero ).fade_time = .003
+  ll_global.hero.fade_time = .003
+--   llg( hero ).walk_speed = .009
+  ll_global.hero.walk_speed = .009
+--
+--   llg( hero_only ).invisibleEntry = 1
+  ll_global.hero_only.invisibleEntry = 1
+--   llg( hero_only ).selected_item = 0
+  ll_global.hero_only.selected_item = 0
+--
+--   For i = 0 To 8
+  for i = 0, 8 do
+--     llg( hero_only ).hasCostume(i) = FALSE
+    ll_global.hero_only.hasCostume[i] = FALSE
+--
+--   Next
+  end
+--   For i = 0 To 5
+  for i = 0, 5 do
+--     llg( hero_only ).hasItem(i) = FALSE
+    ll_global.hero_only.hasItem[i] = FALSE
+--
+--   Next
+  end
+--   llg( hero_only ).hasCostume(0) = -1
+  ll_global.hero_only.hasCostume[0] = -1
+--   llg( hero_only ).isWearing = 0
+  ll_global.hero_only.isWearing = 0
+--
+--   llg( hero ).switch_room = now_room().teleports - 1
+  ll_global.hero.switch_room = now_room().teleports - 1
+--
+--   llg( hero ).to_map = now_room().teleport[llg( hero ).switch_room].to_map
+  ll_global.hero.to_map = now_room().teleport[ll_global.hero.switch_room].to_map
+--   llg( hero ).to_entry = now_room().teleport[llg( hero ).switch_room].to_room
+  ll_global.hero.to_entry = now_room().teleport[ll_global.hero.switch_room].to_room
+--
+--   MemSet( llg( now ), 0, LL_EVENTS_MAX )
+--   llg( do_hud ) = 0
+  ll_global.do_hud = 0
+--
+--   llg( xxyxx ) = 0
+  ll_global.xxyxx = 0
+--
+--
+--   antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--   antiHackASSIGN( LL_Global.hero_only.weaponDummy, LL_Global.hero_only.has_weapon )
+--   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--   antiHackASSIGN2( LL_Global.hero_only.itemDummy, LL_Global.hero_only.hasItem )
+--   antiHackASSIGN2( LL_Global.hero_only.outfitDummy, LL_Global.hero_only.hasCostume )
+--   antiHackASSIGN( LL_Global.hero_only.maxhealthDummy, LL_Global.hero.maxhp )
 --
 --
 -- End Sub

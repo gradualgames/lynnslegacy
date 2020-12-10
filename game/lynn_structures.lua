@@ -59,6 +59,7 @@ function create_main_char_type()
   main_char_type.invisibleEntry = 0
 --
 --   hasCostume( 8 ) As Byte
+  main_char_type.hasCostume = {[0] = 0, 0, 0, 0, 0, 0, 0, 0}
 --   isWearing As Integer
   main_char_type.isWearing = 0
 --
