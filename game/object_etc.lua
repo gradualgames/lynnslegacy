@@ -144,6 +144,165 @@ function __do_menu(this)
 -- End Function
 end
 
+-- Function __do_menu_save ( this As _char_type Ptr ) As Integer
+function __do_menu_save(this)
+--
+--
+--   llg( hero ).menu_sel = 2
+  ll_global.hero.menu_sel = 2
+--   llg( do )_hud = 0
+  ll_global.do_hud = 0
+--
+--   llg( hero )_only.action_lock = -1
+  ll_global.hero_only.action_lock = -1
+--
+--
+--   If ( this->menu_lock <> 0 ) Then
+  if (this.menu_lock ~= 0) then
+--
+--     If Not MultiKey ( sc_escape ) Then
+    if love.keyboard.isDown("escape") ~= true then
+--
+--
+--       this->menu_lock = 0
+      this.menu_lock = 0
+--       this->menu_sel = 0
+      this.menu_sel = 0
+--
+--       this->read_lock = 0
+      this.read_lock = 0
+--
+--       llg( hero ).menu_sel = 0
+      ll_global.hero.menu_sel = 0
+--       llg( do )_hud = -1
+      ll_global.do_hud = -1
+--
+--       llg( hero )_only.action_lock = 0
+      ll_global.hero_only.action_lock = 0
+--
+--
+--       Return -2
+      return -2
+--
+--     End If
+    end
+--
+--   End If
+  end
+--
+--   Dim op As Integer
+  local op = 0
+--
+--   If this->read_lock = 0 Then
+  if this.read_lock == 0 then
+--
+--
+--     this->save( 0 ).link = LLSystem_ReadSaveFile( "ll_save1.sav" )
+--     this->save( 1 ).link = LLSystem_ReadSaveFile( "ll_save2.sav" )
+--     this->save( 2 ).link = LLSystem_ReadSaveFile( "ll_save3.sav" )
+--     this->save( 3 ).link = LLSystem_ReadSaveFile( "ll_save4.sav" )
+--
+--     this->read_lock = -1
+    this.read_lock = -1
+--
+--   End If
+  end
+--
+--
+--
+--
+--   If MultiKey ( sc_down ) Then
+  if love.keyboard.isDown("down") then
+--
+--
+--     If this->walk_hold = 0 Then
+    if this.walk_hold == 0 then
+--
+--
+--       this->menu_sel += 1
+      this.menu_sel = this.menu_sel + 1
+--       If this->menu_sel = 4 Then this->menu_sel = 0
+      if this.menu_sel == 4 then this.menu_sel = 0 end
+--
+--
+--       this->walk_hold = Timer + this->walk_speed
+      this.walk_hold = timer + this.walk_speed
+--
+--
+--
+--     End If
+    end
+--
+--   ElseIf MultiKey ( sc_up ) Then
+  elseif love.keyboard.isDown("up") then
+--
+--
+--     If this->walk_hold = 0 Then
+    if this.walk_hold == 0 then
+--
+--
+--       this->menu_sel -= 1
+      this.menu_sel = this.menu_sel - 1
+--       If this->menu_sel = -1 Then this->menu_sel = 3
+      if this.menu_sel == -1 then this.menu_sel = 3 end
+--
+--
+--       this->walk_hold = Timer + this->walk_speed
+      this.walk_hold = timer + this.walk_speed
+--
+--
+--
+--     End If
+    end
+--
+--   Else
+  else
+--
+--
+--     this->walk_hold = 0
+    this.walk_hold = 0
+--
+--
+--   End If
+  end
+--
+--
+--   If Timer >= this->walk_hold Then this->walk_hold = 0
+  if timer >= this.walk_hold then this.walk_hold = 0 end
+--
+--
+--
+--   If MultiKey( sc_enter ) Then
+  if love.keyboard.isDown("return") then
+--
+--     Dim flr As String
+    local flr = ""
+--     flr = Str( this->menu_sel + 1 )
+    flr = ""..(this.menu_sel + 1)
+--
+--     LLSystem_WriteSaveFile( "ll_save" + flr + ".sav", this->chap )
+--
+--     this->read_lock = 0
+    this.read_lock = 0
+--
+--   End If
+  end
+--
+--   If MultiKey( sc_escape ) Then
+  if love.keyboard.isDown("escape") then
+--     this->menu_lock = 1
+    this.menu_lock = 1
+--
+--   End If
+  end
+--
+--
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __change_map ( this As _char_type Ptr ) As Integer
 function __change_map(this)
 --
@@ -357,12 +516,16 @@ function __handle_menu(this)
 --         Scope
 --
 --           Dim As Integer menu_sels, m_opt
+    local menu_sels, m_opt = 0
 --
 --             For menu_sels = 0 To 3
+    for menu_sels = 0, 3 do
 --               m_opt = ( menu_sels * 50 )
+      m_opt = (menu_sels * 50)
 --
 --               '' more beauty...
 --               Put( 0, menu_sels * 50 ), @.anim[menu_sels * 2 + 7 + ( Abs( .menu_sel = menu_sels ) )]->image[0], Trans
+      love.graphics.draw(with0.anim[menu_sels * 2 + 7 + (with0.menu_sel == menu_sels and 0 or 1)].image, 0, menu_sels * 50)
 --
 --
 --               If .save( menu_sels ).link <> 0 Then
@@ -441,6 +604,7 @@ function __handle_menu(this)
 --
 --
 --             Next
+  end
 --
 --         End Scope
 --

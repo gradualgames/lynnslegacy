@@ -249,7 +249,7 @@ end
 function load_entrypoint()
 --
 --   llg( start_map ) = "data\map\title.map"
-  ll_global.start_map = "data/map/title.map"
+  ll_global.start_map = "data/map/forest_fall.map"
 --   llg( start_entry ) = 0
   ll_global.start_entry = 0
 --

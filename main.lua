@@ -78,7 +78,7 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  if key == "escape" then
+  if key == "q" then
      love.event.quit()
   end
 
