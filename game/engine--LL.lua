@@ -2260,14 +2260,14 @@ function act_enemies(_enemies, _enemy)
     if LLObject_IsWithin(with0) then
   --
   --       If ( .seq_paused <> 0 ) And ( llg( seq ) <> 0 ) Then
-      --TODO: Actually port the above if statement once we understand the sequence system.
-      if false then
+      if (with0.seq_paused ~= 0) and (ll_global.seq ~= nil) then
   --
   --       Else
       else
   --
   --
   --         .seq_paused = 0
+        with0.seq_paused = 0
   --
   --
   --         if .unique_id = u_healthguy then
@@ -2277,7 +2277,7 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --         If .unique_id <> u_sparkle Then
-        if true then
+        if with0.unique_id ~= u_sparkle then
   --
   --           Dim As vector_pair target, origin
   --
@@ -2290,14 +2290,19 @@ function act_enemies(_enemies, _enemy)
   --           End If
   --
   --           If llg( hero ).menu_sel <> 0 Then
+          if ll_global.hero.menu_sel ~= 0 then
   --
   --             If ( .unique_id <> u_savepoint ) And ( .unique_id <> u_menu ) Then
+            if (with0.unique_id ~= u_savepoint) and (with0.unique_id ~= u_menu) then
   --
   --               Continue For
+              goto continue
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --
   --           .last_cycle_ice = .on_ice
@@ -2918,6 +2923,7 @@ function act_enemies(_enemies, _enemy)
   --   End With
   --
   -- Next
+    ::continue::
   end
   --
   -- If _enemy = Varptr( now_room().temp_enemy( 0 ) ) Then
