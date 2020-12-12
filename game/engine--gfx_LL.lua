@@ -3,37 +3,37 @@ require("game/macros")
 --Updates a room using the tile indices from the room to arrange
 --the spritebatch for drawing, based on an image header.
 function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
-
-  spriteBatch:clear()
-  local topLeftMapX = math.floor(ll_global.this_room.cx / imageHeader.x)
-  local topLeftMapY = math.floor(ll_global.this_room.cy / imageHeader.y)
-  local topLeftScreenX = -(ll_global.this_room.cx % imageHeader.x)
-  local topLeftScreenY = -(ll_global.this_room.cy % imageHeader.y)
-  local mapX = topLeftMapX
-  local mapY = topLeftMapY
-  local screenX = topLeftScreenX
-  local screenY = topLeftScreenY
-  for y = 1, 14 do
-    mapX = topLeftMapX
-    screenX = topLeftScreenX
-    for x = 1, 21 do
-      if mapX >= 0 and mapX < room.x and
-         mapY >= 0 and mapY < room.y then
-        local tileIndex = bit.band(room.layout[layer][room.x * mapY + mapX + 1], 0xff)
-        local quad = love.graphics.newQuad(
-          imageHeader.x * tileIndex, 0,
-          imageHeader.x, imageHeader.y,
-          imageHeader.x * imageHeader.frames, imageHeader.y)
-        spriteBatch:add(quad, screenX, screenY)
+  if drawing then
+    spriteBatch:clear()
+    local topLeftMapX = math.floor(ll_global.this_room.cx / imageHeader.x)
+    local topLeftMapY = math.floor(ll_global.this_room.cy / imageHeader.y)
+    local topLeftScreenX = -(ll_global.this_room.cx % imageHeader.x)
+    local topLeftScreenY = -(ll_global.this_room.cy % imageHeader.y)
+    local mapX = topLeftMapX
+    local mapY = topLeftMapY
+    local screenX = topLeftScreenX
+    local screenY = topLeftScreenY
+    for y = 1, 14 do
+      mapX = topLeftMapX
+      screenX = topLeftScreenX
+      for x = 1, 21 do
+        if mapX >= 0 and mapX < room.x and
+           mapY >= 0 and mapY < room.y then
+          local tileIndex = bit.band(room.layout[layer][room.x * mapY + mapX + 1], 0xff)
+          local quad = love.graphics.newQuad(
+            imageHeader.x * tileIndex, 0,
+            imageHeader.x, imageHeader.y,
+            imageHeader.x * imageHeader.frames, imageHeader.y)
+          spriteBatch:add(quad, screenX, screenY)
+        end
+        mapX = mapX + 1
+        screenX = screenX + imageHeader.x
       end
-      mapX = mapX + 1
-      screenX = screenX + imageHeader.x
+      mapY = mapY + 1
+      screenY = screenY + imageHeader.y
     end
-    mapY = mapY + 1
-    screenY = screenY + imageHeader.y
+    spriteBatch:flush()
   end
-  spriteBatch:flush()
-
 end
 
 -- sub graphicalString( printString as string, byval x as integer, byval y as integer, byval col as integer = 15 )
@@ -47,7 +47,7 @@ function graphicalString(printString, x, y, col)
   for letterIteration = 1, #printString do
 --
 --     put( x, y ), varptr( llg( font )->image[llg( font )->arraysize * printString[letterIteration]] ), trans
-    love.graphics.draw(ll_global.font.image, ll_global.font.quads[string.byte(printString, letterIteration)], x, y)
+    draw(ll_global.font.image, ll_global.font.quads[string.byte(printString, letterIteration)], x, y)
 --
 --     x += 8
     x = x + 8
@@ -88,7 +88,7 @@ function blit_scene()
   --     case 2
       if ll_global.hero.chap == 2 then
   --       Put ( 88, 28 ), llg( hero ).anim[llg( hero ).chap]->image
-        love.graphics.draw(ll_global.hero.anim[ll_global.hero.chap].image, 88, 28)
+        draw(ll_global.hero.anim[ll_global.hero.chap].image, 88, 28)
       end
   --
   --   end select
@@ -126,7 +126,7 @@ function blit_room()
   --   '' this room uses parallax
   --
   --      Put( 0 - ( llg( this_room ).cx \ 12 ), 0 - ( llg( this_room ).cy \ 12 ) ), @now_room().para_img->image[0]
-      love.graphics.draw(now_room().para_img.image, 0 - math.floor(ll_global.this_room.cx / 12), 0 - math.floor(ll_global.this_room.cy / 12))
+      draw(now_room().para_img.image, 0 - math.floor(ll_global.this_room.cx / 12), 0 - math.floor(ll_global.this_room.cy / 12))
   --
   --   End If
     end
@@ -176,10 +176,10 @@ function blit_room()
   --   '' bottom layers
   --   LLEngine_BlitLayer( 0 )
   layoutLayer(camera, now_room(), 0, ll_global.map.tileset, ll_global.map.tileset.spriteBatches[0])
-  love.graphics.draw(ll_global.map.tileset.spriteBatches[0])
+  draw(ll_global.map.tileset.spriteBatches[0])
   --   LLEngine_BlitLayer( 1 )
   layoutLayer(camera, now_room(), 1, ll_global.map.tileset, ll_global.map.tileset.spriteBatches[1])
-  love.graphics.draw(ll_global.map.tileset.spriteBatches[1])
+  draw(ll_global.map.tileset.spriteBatches[1])
   --
   -- End If
   --
@@ -204,7 +204,7 @@ function blit_room()
   --     '' top layer
   --   LLEngine_BlitLayer( 2 )
   layoutLayer(camera, now_room(), 2, ll_global.map.tileset, ll_global.map.tileset.spriteBatches[2])
-  love.graphics.draw(ll_global.map.tileset.spriteBatches[2])
+  draw(ll_global.map.tileset.spriteBatches[2])
   --
   -- End If
   --
@@ -397,7 +397,7 @@ function blit_box(t_box)
 --         If .layout.invis = 0 Then
     if with0.layout.invis == 0 then
 --           Put( .layout.x_loc, .layout.y_loc ), .ptrs.box->image, Trans
-      love.graphics.draw(with0.ptrs.box.image, with0.layout.x_loc, with0.layout.y_loc)
+      draw(with0.ptrs.box.image, with0.layout.x_loc, with0.layout.y_loc)
 --
 --         End If
     end
@@ -472,7 +472,7 @@ function blit_box(t_box)
 --
 --         If Not .layout.invis Then Put(.layout.x_loc, .layout.y_loc), @.ptrs.box->image[0], Trans
     if with0.layout.invis == 0 then
-      love.graphics.draw(with0.ptrs.box.image, with0.layout.x_loc, with0.layout.y_loc)
+      draw(with0.ptrs.box.image, with0.layout.x_loc, with0.layout.y_loc)
     end
 --
 --         Select Case as const .internal.state
@@ -615,7 +615,7 @@ function blit_box(t_box)
           if (with0.layout.invis == 0) then
 --
 --                   Put (.layout.x_loc + 304, .layout.y_loc + 64 ), .ptrs.next->image, Trans
-            love.graphics.draw(with0.ptrs.Next.image, with0.layout.x_loc + 304, with0.layout.y_loc + 64)
+            draw(with0.ptrs.Next.image, with0.layout.x_loc + 304, with0.layout.y_loc + 64)
 --
 --                 End If
           end
@@ -913,7 +913,7 @@ function blit_enemy(_enemy)
           local with1 = with0.anim[with0.expl_anim]
   --
   --             Put ( px - temp_x_cam, py - temp_y_cam ), @.image[pf * ( .arraysize )], Trans
-          love.graphics.draw(with1.image, with1.quads[pf], px - temp_x_cam, py - temp_y_cam)
+          draw(with1.image, with1.quads[pf], px - temp_x_cam, py - temp_y_cam)
 
   --
   --           End With
@@ -1075,7 +1075,7 @@ function blit_enemy_loot()
 --
 --             Put ( .drop->coords.x - llg( this )_room.cx, .drop->coords.y - llg( this )_room.cy ), .drop->anim[.dropped - 1]->image, Trans
         local anim = enemy.drop.anim[enemy.dropped - 1]
-        love.graphics.draw(anim.image, anim.quads[0], enemy.drop.coords.x - ll_global.this_room.cx, enemy.drop.coords.y - ll_global.this_room.cy)
+        draw(anim.image, anim.quads[0], enemy.drop.coords.x - ll_global.this_room.cx, enemy.drop.coords.y - ll_global.this_room.cy)
 --
 --             target.u.x = .drop->coords.x
         target.u.x = enemy.drop.coords.x
@@ -1337,8 +1337,8 @@ function blit_object_ex(this)
   --       Put( x_opt, y_opt ), varptr( .image[f_opt] ), Trans
 
   local anim = with0.anim[with0.current_anim]
-  love.graphics.draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
-  --love.graphics.draw(anim.image, x_opt, y_opt)
+  draw(anim.image, anim.quads[f_opt], x_opt, y_opt)
+  --draw(anim.image, x_opt, y_opt)
 
 
   --
@@ -1418,7 +1418,7 @@ function blit_hud(e)
 --
 --     '' dollar sign
 --     Put( 275, 8 ), @llg( hud ).img(2)->image[0], Trans
-  love.graphics.draw(ll_global.hud.img[2].image, ll_global.hud.img[2].quads[0], 275, 8)
+  draw(ll_global.hud.img[2].image, ll_global.hud.img[2].quads[0], 275, 8)
 --
 --     if .money < 0 then
   if with0.money < 0 then
@@ -1459,7 +1459,7 @@ function blit_hud(e)
   for nums = 0, 2 do
 --
 --           Put ( 289 + ( nums Shl 3 ), 8 ), @llg( hud ).img(3)->image[( mny[nums] - 48 ) * llg( hud ).img(3)->arraysize], Trans
-    love.graphics.draw(ll_global.hud.img[3].image, ll_global.hud.img[3].quads[mny:byte(nums + 1) - 48], 289 + nums * 8, 8)
+    draw(ll_global.hud.img[3].image, ll_global.hud.img[3].quads[mny:byte(nums + 1) - 48], 289 + nums * 8, 8)
 -- '          Put ( 289 + ( nums * 8 ), 8 ), @llg( hud ).img(3).image[( mny[nums] - 48 ) * llg( hud ).img(3).arraysize], Trans
 --
 --         Next
@@ -1537,17 +1537,17 @@ function hud_BlitMain(this)
 --         If ( .hp  > p )Then
     if this.hp > p then
 --           Put( x_opt, y_opt ), varptr( llg( hud ).img(0)->image[0] ), Trans
-      love.graphics.draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[0], x_opt, y_opt)
+      draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[0], x_opt, y_opt)
 --
 --         ElseIf (.maxhp ) > p Then
     elseif this.maxhp > p then
 --           Put( x_opt, y_opt ), varptr( llg( hud ).img(0)->image[34] ), Trans
-      love.graphics.draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[1], x_opt, y_opt)
+      draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[1], x_opt, y_opt)
 --
 --         Else
     else
 --           Put( x_opt, y_opt ), varptr( llg( hud ).img(0)->image[68] ), Trans
-      love.graphics.draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[2], x_opt, y_opt)
+      draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[2], x_opt, y_opt)
 --
 --         End If
     end

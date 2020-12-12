@@ -15,6 +15,7 @@ function love.load()
   initializePaletteShader()
   initializeTimer()
   initCache()
+  initDraw()
 
   ll_global = create_ll_system()
 
@@ -37,10 +38,10 @@ end
 
 function love.update(dt)
   dbgrects = {}
-  updateBHist("x")
-  updateBHist("space")
-  updateBHist("return")
   for u = 1, loops do
+    updateBHist("x")
+    updateBHist("space")
+    updateBHist("return")
     timerUpdate()
     --timer = timer + .005
     log.level = "debug"
@@ -52,12 +53,24 @@ function love.update(dt)
     log.level = "debug"
     play_sequence(ll_global)
     log.level = "fatal"
+
+    --log.level = "debug"
+    --NOTE: We have to call blit_scene during the update loop
+    --because some state updates are done here that work in tandem
+    --with the main game state update. To allow the game to work with
+    --vsync on, we had to run the state updates multiple times per frame,
+    --but only perform drawing operations once, so we had to introduce
+    --this system to be able to turn off all love2d drawing calls.
+    drawing = false
+    blit_scene()
+    --log.level = "fatal"
   end
 end
 
 function love.draw()
   startDrawing()
   log.level = "debug"
+  drawing = true
   blit_scene()
   log.level = "fatal"
 
@@ -299,5 +312,16 @@ function updateBHist(key)
   else
     table.remove(bhist[key], 1)
     table.insert(bhist[key], love.keyboard.isDown(key))
+  end
+end
+
+function initDraw()
+  --Allows us to temporarily make all drawing no-op if needed
+  drawing = true
+  draw = function(...)
+    if drawing then
+      local params = {...}
+      love.graphics.draw(unpack(params))
+    end
   end
 end

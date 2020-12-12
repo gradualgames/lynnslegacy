@@ -490,7 +490,7 @@ function __handle_menu(this)
 --
 --
 --         Put( 32, 32 ), @.anim[0]->image[0], Trans
-    love.graphics.draw(with0.anim[0].image, 32, 32)
+    draw(with0.anim[0].image, 32, 32)
 --
 --         Scope
 --
@@ -503,7 +503,7 @@ function __handle_menu(this)
 --
 --               Put( 64 * ( menu_sels + 1 ), 96 ), @.anim[menu_sels * 2 + 1 + ( Abs( .menu_sel = menu_sels ) )]->image[0], Trans
       local offs = (with0.menu_sel == menu_sels) and 1 or 0
-      love.graphics.draw(with0.anim[menu_sels * 2 + 1 + offs].image, 64 * (menu_sels + 1), 96)
+      draw(with0.anim[menu_sels * 2 + 1 + offs].image, 64 * (menu_sels + 1), 96)
 --
 --             Next
     end
@@ -526,7 +526,7 @@ function __handle_menu(this)
 --
 --               '' more beauty...
 --               Put( 0, menu_sels * 50 ), @.anim[menu_sels * 2 + 7 + ( Abs( .menu_sel = menu_sels ) )]->image[0], Trans
-      love.graphics.draw(with0.anim[menu_sels * 2 + 7 + (with0.menu_sel == menu_sels and 0 or 1)].image, 0, menu_sels * 50)
+      draw(with0.anim[menu_sels * 2 + 7 + (with0.menu_sel == menu_sels and 0 or 1)].image, 0, menu_sels * 50)
 --
 --
 --               If .save( menu_sels ).link <> 0 Then
