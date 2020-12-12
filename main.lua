@@ -10,10 +10,9 @@ log.usecolor = false
 log.level = "fatal"
 
 function love.load()
-  initializeScreen()
-  computeScale()
-  initializePaletteShader()
-  initializeTimer()
+  initScreen()
+  initPaletteShader()
+  initTimer()
   initCache()
   initDraw()
 
@@ -107,7 +106,7 @@ end
 --Initializes the window, sets up some defaults and
 --initializes the main drawing canvas, which is a 320x200
 --canvas to simulate SCREEN 13.
-function initializeScreen()
+function initScreen()
   love.window.setTitle("Lynn's Legacy")
   love.window.setMode(640, 400, {resizable=true, minwidth=320, minheight=200})
   love.window.setVSync(1)
@@ -127,6 +126,34 @@ function initializeScreen()
   }
   scaleOption = 1
   canvas = love.graphics.newCanvas(320,200)
+  computeScale()
+end
+
+function initTimer()
+  timer = love.timer.getTime()
+  if love.window.getVSync() == 1 then
+    --When the timer is driven by a vsync update rather
+    --than a fast-as-possible update, 16 loops over the game
+    --logic appears to be enough to slice up the timer with
+    --enough resolution to get the same behavior as a fast-
+    --as-possible update.
+    loops = 16
+    --Assume FPS is 60, but if the system starts to detect FPS
+    --greater than 60, recalculate timerInc to compensate so the
+    --game can still run at the correct speed on faster monitors.
+    timerInc = 1 / (loops * 60)
+    timerUpdate = function()
+      local fps = love.timer.getFPS()
+      if fps > 60 then timerInc = 1 / (loops * fps) end
+      timer = timer + timerInc
+    end
+  else
+    --When vsync is off, the update function is running as fast
+    --as possible so there is no need to loop over the game logic
+    --more than once and the timer is just global seconds elapsed.
+    loops = 4
+    timerUpdate = function() timer = love.timer.getTime() end
+  end
 end
 
 --Initializes our global palette, paletteCanvas and
@@ -136,23 +163,27 @@ end
 --pixel is a color. Then, all graphics that are loaded from spritesheets
 --are converted such that the red component is an index into this palette
 --texture.
-function initializePaletteShader()
+function initPaletteShader()
   masterPalette, palette = loadPalette("data/palette/ll.pal")
   paletteCanvas = paletteToCanvas(palette)
   shader = love.graphics.newShader("shader/palette_shader.fs")
   shader:send("paletteTexture", paletteCanvas)
 end
 
-function retrieveDimensions()
-  screenWidth, screenHeight = love.graphics.getDimensions()
-  canvasWidth, canvasHeight = canvas:getDimensions()
+function initCache()
+  imageHeaderCache = {}
+  objectXmlCache = {}
 end
 
---Computes how the main canvas should be scaled based on the dimensions
---of the current screen. This is intended to be used at startup and
---when toggling between windowed and full screen modes.
-function computeScale()
-  scaleOptions[scaleOption]()
+function initDraw()
+  --Allows us to temporarily make all drawing no-op if needed
+  drawing = true
+  draw = function(...)
+    if drawing then
+      local params = {...}
+      love.graphics.draw(unpack(params))
+    end
+  end
 end
 
 --Should be called before drawing anything to the main canvas.
@@ -183,37 +214,40 @@ function doneDrawing()
   love.graphics.setShader()
 end
 
-function initCache()
-  imageHeaderCache = {}
-  objectXmlCache = {}
+function retrieveDimensions()
+  screenWidth, screenHeight = love.graphics.getDimensions()
+  canvasWidth, canvasHeight = canvas:getDimensions()
+end
+
+--Computes how the main canvas should be scaled based on the dimensions
+--of the current screen. This is intended to be used at startup and
+--when toggling between windowed and full screen modes.
+function computeScale()
+  scaleOptions[scaleOption]()
 end
 
 --Returns a loaded imageHeader from the global imageHeaderCache
 --cache, or, if there is no image header for the specified file
 --name, loads the image header.
 function getImageHeader(fileName)
-
   local imageHeader = imageHeaderCache[fileName]
   if not imageHeader then
     imageHeader = LLSystem_ImageLoad(fileName)
     imageHeaderCache[fileName] = imageHeader
   end
   return imageHeader
-
 end
 
 --Returns a loaded xml object from the global objects xml
 --cache, or, if there is no xml obect for the specified file
 --name, loads it.
 function getObjectXml(fileName)
-
   local objectXml = objectXmlCache[fileName]
   if not objectXml then
     objectXml = love.filesystem.read(fileName)
     objectXmlCache[fileName] = objectXml
   end
   return objectXml
-
 end
 
 --Converts an image to a sprite batch.
@@ -243,9 +277,7 @@ end
 --loading the file, nil is returned. The palette file stores rgb triplets
 --as b,g,r (backwards), and this is taken care of by this function.
 function loadPalette(fileName)
-
   local paletteBlob = loadBlob(fileName)
-
   if paletteBlob then
     local palette, masterPalette = {}, {}
     for x = 0, 255 do
@@ -259,34 +291,6 @@ function loadPalette(fileName)
   else
     return nil
   end
-
-end
-
-function initializeTimer()
-  timer = love.timer.getTime()
-  if love.window.getVSync() == 1 then
-    --When the timer is driven by a vsync update rather
-    --than a fast-as-possible update, 16 loops over the game
-    --logic appears to be enough to slice up the timer with
-    --enough resolution to get the same behavior as a fast-
-    --as-possible update.
-    loops = 16
-    --Assume FPS is 60, but if the system starts to detect FPS
-    --greater than 60, recalculate timerInc to compensate so the
-    --game can still run at the correct speed on faster monitors.
-    timerInc = 1 / (loops * 60)
-    timerUpdate = function()
-      local fps = love.timer.getFPS()
-      if fps > 60 then timerInc = 1 / (loops * fps) end
-      timer = timer + timerInc
-    end
-  else
-    --When vsync is off, the update function is running as fast
-    --as possible so there is no need to loop over the game logic
-    --more than once and the timer is just global seconds elapsed.
-    loops = 4
-    timerUpdate = function() timer = love.timer.getTime() end
-  end
 end
 
 function bpressed(key)
@@ -299,16 +303,5 @@ function updateBHist(key)
   else
     table.remove(bhist[key], 1)
     table.insert(bhist[key], love.keyboard.isDown(key))
-  end
-end
-
-function initDraw()
-  --Allows us to temporarily make all drawing no-op if needed
-  drawing = true
-  draw = function(...)
-    if drawing then
-      local params = {...}
-      love.graphics.draw(unpack(params))
-    end
   end
 end
