@@ -36,7 +36,9 @@ function love.load()
   dbgrects = {}
 end
 
-function love.update(dt)
+function love.draw()
+  startDrawing()
+
   dbgrects = {}
   for u = 1, loops do
     updateBHist("x")
@@ -44,35 +46,20 @@ function love.update(dt)
     updateBHist("return")
     timerUpdate()
     --timer = timer + .005
-    log.level = "debug"
-    enemy_main()
-    log.level = "fatal"
-    log.level = "debug"
-    hero_main()
-    log.level = "fatal"
-    log.level = "debug"
-    play_sequence(ll_global)
-    log.level = "fatal"
-
     --log.level = "debug"
-    --NOTE: We have to call blit_scene during the update loop
-    --because some state updates are done here that work in tandem
-    --with the main game state update. To allow the game to work with
-    --vsync on, we had to run the state updates multiple times per frame,
-    --but only perform drawing operations once, so we had to introduce
-    --this system to be able to turn off all love2d drawing calls.
-    drawing = false
+    enemy_main()
+    --log.level = "fatal"
+    --log.level = "debug"
+    hero_main()
+    --log.level = "fatal"
+    --log.level = "debug"
+    play_sequence(ll_global)
+    --log.level = "fatal"
+
+    drawing = u == loops
     blit_scene()
     --log.level = "fatal"
   end
-end
-
-function love.draw()
-  startDrawing()
-  log.level = "debug"
-  drawing = true
-  blit_scene()
-  log.level = "fatal"
 
   for key, dbgrect in pairs(dbgrects) do
     local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
@@ -297,7 +284,7 @@ function initializeTimer()
     --When vsync is off, the update function is running as fast
     --as possible so there is no need to loop over the game logic
     --more than once and the timer is just global seconds elapsed.
-    loops = 1
+    loops = 4
     timerUpdate = function() timer = love.timer.getTime() end
   end
 end
