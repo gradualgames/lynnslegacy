@@ -1,3 +1,4 @@
+require("lib/blob")
 require("game/audio")
 require("game/binary_objects")
 require("game/constants")
@@ -1304,7 +1305,6 @@ function LLObject_TouchSequence(o)
       end
 --
 --         If res <> 0 Then
-      log.debug("res: "..res)
       if res ~= 0 then
 --           '' all conditions met
 --           llg( seq ) = .seq + .sel_seq
@@ -1482,6 +1482,119 @@ function LLObject_CheckSpawn(o)
   end
 --
 --   End With
+--
+--
+-- End Sub
+end
+
+-- Sub LLSystem_WriteSaveFile( saveName As String, entry As Integer )
+function LLSystem_WriteSaveFile(saveName, entry)
+--
+--   '' Routine type: Procedure
+--   ''
+--   '' Writes information from the global "hero"
+--   '' structure into a compressed savefile.
+--
+--
+--   '' Implementation:
+--   ''
+--   ''
+--   '' Open VFile handle.
+--   Dim As Integer openVFile
+--   ''
+--   '' Iterate through the "now" array
+--   Dim As Integer i
+--   ''
+--   '' Buffer to save compressed file.
+--   Redim As uByte saveMemory( 0 )
+--
+--
+--   ''
+--   '' Get a valid VFile handle.
+--   openVFile = VFile_FreeFile()
+  local blob = BlobWriter()
+--   ''
+--   '' "Open" the buffer as a VFile
+--   VFile_Open( saveMemory(), openVFile )
+--
+--     '' Write the savegame information.
+--
+--     VFile_Put openVFile, , llg( hero ).hp
+  blob:write(ll_global.hero.hp)
+--     VFile_Put openVFile, , llg( hero ).maxhp
+  blob:write(ll_global.hero.maxhp)
+--
+--     VFile_Put openVFile, , llg( hero ).money
+  blob:write(ll_global.hero.money)
+--     VFile_Put openVFile, , llg( hero_only ).has_weapon
+  blob:write(ll_global.hero_only.has_weapon)
+--
+--     VFile_Put openVFile, , VF_Array( llg( hero_only ).hasItem )
+  blob:write(ll_global.hero_only.hasItem)
+--     VFile_Put openVFile, , llg( hero_only ).has_bar
+  blob:write(ll_global.hero_only.has_bar)
+--
+--     VFile_Put openVFile, , VF_Array( llg( hero_only ).hasCostume )
+  blob:write(ll_global.hero_only.hasCostume)
+--     VFile_Put openVFile, , llg( hero_only ).isWearing
+  blob:write(ll_global.hero_only.isWearing)
+--
+--
+--     VFile_Put openVFile, , llg( hero ).key
+  blob:write(ll_global.hero.key)
+--     VFile_Put openVFile, , llg( hero_only ).b_key
+  blob:write(ll_global.hero_only.b_key)
+--
+--     VFile_Put openVFile, , kfp( llg( map )->filename )
+  blob:write(ll_global.map.filename)
+--     VFile_Put openVFile, , entry
+  blob:write(entry)
+--
+--     VFile_Put openVFile, , Type <VFile_vector> ( llg( now ), LL_EVENTS_MAX, -1 )
+  blob:write(ll_global.now)
+--
+--     dim as integer roomsHere, iterRooms
+  local roomsHere, iterRooms = 0, 0
+--     roomsHere = llg( map )->rooms
+  roomsHere = ll_global.map.rooms
+--
+--     if llg( map )->isDungeon then
+  if ll_global.map.isDungeon ~= 0 then
+--       VFile_Put openVFile, , roomsHere
+    blob:write(roomsHere)
+--
+--       for iterRooms = 0 to roomsHere - 1
+    for iterRooms = 0, roomsHere - 1 do
+--         VFile_Put openVFile, , llg( miniMap ).room[iterRooms].hasVisited
+      blob:write(ll_global.miniMap.room[iterRooms].hasVisited)
+--
+--       next
+    end
+--
+--     else
+  else
+--       roomsHere = 0
+    roomsHere = 0
+--       VFile_Put openVFile, , roomsHere
+    blob:write(roomsHere)
+--
+--     end if
+  end
+--
+--
+--
+--
+--
+--     VFile_Save( openVFile, saveMemory() )
+  log.debug("Save directory: "..love.filesystem.getSaveDirectory())
+  log.debug("Writing save file: "..saveName)
+  love.filesystem.write(saveName, blob:tostring())
+--     zLib_Compress( saveMemory(), saveName, 9 )
+--
+--
+--
+--   '' "Close" the VFile.
+--   VFile_Close( openVFile )
 --
 --
 -- End Sub

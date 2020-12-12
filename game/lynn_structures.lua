@@ -36,6 +36,7 @@ function create_main_char_type()
   main_char_type.crazy_dcache = 0
 --
 --   has_bar As Integer
+  main_char_type.has_bar = 0
 --   has_item As Integer
   main_char_type.has_item = 0
 --   hasItem( 5 ) as integer

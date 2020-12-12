@@ -273,7 +273,7 @@ function __do_menu_save(this)
 --
 --
 --   If MultiKey( sc_enter ) Then
-  if love.keyboard.isDown("return") then
+  if bpressed("return") then
 --
 --     Dim flr As String
     local flr = ""
@@ -281,6 +281,7 @@ function __do_menu_save(this)
     flr = ""..(this.menu_sel + 1)
 --
 --     LLSystem_WriteSaveFile( "ll_save" + flr + ".sav", this->chap )
+    LLSystem_WriteSaveFile("ll_save"..flr..".sav", this.chap)
 --
 --     this->read_lock = 0
     this.read_lock = 0

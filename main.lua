@@ -39,6 +39,7 @@ function love.update(dt)
   dbgrects = {}
   updateBHist("x")
   updateBHist("space")
+  updateBHist("return")
   for u = 1, loops do
     timerUpdate()
     --timer = timer + .005
@@ -46,10 +47,10 @@ function love.update(dt)
     enemy_main()
     log.level = "fatal"
     log.level = "debug"
-    play_sequence(ll_global)
+    hero_main()
     log.level = "fatal"
     log.level = "debug"
-    hero_main()
+    play_sequence(ll_global)
     log.level = "fatal"
   end
 end
