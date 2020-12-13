@@ -124,10 +124,13 @@ function __do_menu(this)
   if love.keyboard.isDown("space") then
 --
 --       If .menu_sel = 2 Then
+    if with0.menu_sel == 2 then
 --
 --         End
+      love.event.quit()
 --
 --       End If
+    end
 --
 --       .menu_lock = 1
     with0.menu_lock = 1
