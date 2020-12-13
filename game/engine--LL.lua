@@ -1510,7 +1510,7 @@ function LLSystem_ReadSaveFile(saveName)
 --
 --
 --   If Dir( saveName ) <> "" Then
-  if love.filesystem.exists(saveName) then
+  if love.filesystem.getInfo(saveName) then
 --     '' The file exists, but i'm way too damn lazy to check
 --     '' if its valid or not.
 --     ''
@@ -2157,7 +2157,7 @@ function change_room(o, _call, t)
 --       If llg( hero_only ).isLoading Then
     if ll_global.hero_only.isLoading ~= 0 then
 --         llg( hero_only ).isLoading = FALSE
-      ll_global.hero_only.isLoading = false
+      ll_global.hero_only.isLoading = FALSE
 --         llg( do_hud ) = -1
       ll_global.do_hud = -1
 --
@@ -2235,7 +2235,7 @@ function change_room(o, _call, t)
 --
 --     Case 5
   elseif switch_state == 5 then
-    --log.debug("switch_state is 5, finalize the change room state sequence.")
+    log.debug("switch_state is 5, finalize the change room state sequence.")
 --       '' final anything :)
 --
 --       llg( seq ) = o->seq
@@ -5014,6 +5014,7 @@ end
 
 -- Private Sub sequence_LoadGame( savedInfo As ll_saving_data Ptr )
 function sequence_LoadGame(savedInfo)
+  log.debug("sequence_LoadGame called.")
 --
 --   '' only called from play_sequence
 --
