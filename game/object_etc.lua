@@ -28,15 +28,22 @@ function __do_menu(this)
       end
 --
 --         If .menu_sel = 1 Then
+      if with0.menu_sel == 1 then
 --           '' menu off
 --           llg( hero ).menu_sel = 2
+        ll_global.hero.menu_sel = 2
 --           .menu_sel = 0
+        with0.menu_sel = 0
 --           .state_shift = 2
+        with0.state_shift = 2
 --           .menu_lock = 0
+        with0.menu_lock = 0
 --           Exit Function
+        return 0
 --
 --
 --         End If
+      end
 --
 --
 --         .menu_lock = 0
@@ -146,6 +153,144 @@ function __do_menu(this)
 --
 --   Return 0
   return 0
+--
+-- End Function
+end
+
+-- Function __do_menu_continue ( this As _char_type Ptr ) As Integer
+function __do_menu_continue(this)
+--
+--
+--
+--   If ( this->menu_lock <> 0 ) Then
+  if (this.menu_lock ~= 0) then
+--
+--     If Not MultiKey ( sc_escape ) Then
+    if not love.keyboard.isDown("escape") then
+--
+--       this->menu_lock = 0
+      this.menu_lock = 0
+--       this->menu_sel = 0
+      this.menu_sel = 0
+--
+--       this->read_lock = 0
+      this.read_lock = 0
+--       this->state_shift = 1
+      this.state_shift = 1
+--
+--
+--     End If
+    end
+--
+--   End If
+  end
+--
+--   Dim As Integer i
+  local i = 0
+--
+--   If this->read_lock = 0 Then
+  if this.read_lock == 0 then
+--
+--
+--     this->save( 0 ).link = LLSystem_ReadSaveFile( "ll_save1.sav" )
+--     this->save( 1 ).link = LLSystem_ReadSaveFile( "ll_save2.sav" )
+--     this->save( 2 ).link = LLSystem_ReadSaveFile( "ll_save3.sav" )
+--     this->save( 3 ).link = LLSystem_ReadSaveFile( "ll_save4.sav" )
+--
+--     this->read_lock = -1
+    this.read_lock = -1
+--
+--   End If
+  end
+--
+--
+--
+--
+--   If MultiKey ( sc_down ) Then
+  if love.keyboard.isDown("down") then
+--
+--
+--     If this->walk_hold = 0 Then
+    if this.walk_hold == 0 then
+--
+--
+--       this->menu_sel += 1
+      this.menu_sel = this.menu_sel + 1
+--       If this->menu_sel = 4 Then this->menu_sel = 0
+      if this.menu_sel == 4 then this.menu_sel = 0 end
+--
+--
+--       this->walk_hold = Timer + this->walk_speed
+      this.walk_hold = timer + this.walk_speed
+--
+--
+--
+--     End If
+    end
+--
+--   ElseIf MultiKey ( sc_up ) Then
+  elseif love.keyboard.isDown("up") then
+--
+--
+--     If this->walk_hold = 0 Then
+    if this.walk_hold == 0 then
+--
+--
+--       this->menu_sel -= 1
+      this.menu_sel = this.menu_sel - 1
+--       If this->menu_sel = -1 Then this->menu_sel = 3
+      if this.menu_sel == -1 then this.menu_sel = 3 end
+--
+--
+--       this->walk_hold = Timer + this->walk_speed
+      this.walk_hold = timer + this.walk_speed
+--
+--
+--
+--     End If
+    end
+--
+--   Else
+  else
+--
+--
+--     this->walk_hold = 0
+    this.walk_hold = 0
+--
+--
+--   End If
+  end
+--
+--
+--   If Timer >= this->walk_hold Then this->walk_hold = 0
+  if timer >= this.walk_hold then this.walk_hold = 0 end
+--
+--
+--
+--   If MultiKey( sc_enter ) Then
+  if love.keyboard.isDown("return") then
+--
+--     If this->save( this->menu_sel ).link <> NULL Then
+--
+--       llg( hero_only ).isLoading = TRUE
+--
+--     End If
+--
+--   End If
+  end
+--
+--   If MultiKey( sc_escape ) Then
+  if love.keyboard.isDown("escape") then
+--     this->menu_lock = 1
+    this.menu_lock = 1
+--
+--   End If
+  end
+--
+--
+--   Return 0
+  return 0
+--
 --
 -- End Function
 end
