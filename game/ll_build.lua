@@ -280,9 +280,9 @@ function load_mapV(fileName)
     log.debug("map.tileset_filename: "..map.tileset_filename)
     map.tileset = getImageHeader(map.tileset_filename)
     map.tileset.spriteBatches = {}
-    map.tileset.spriteBatches[0] = imageToSpriteBatch(map.tileset.image)
-    map.tileset.spriteBatches[1] = imageToSpriteBatch(map.tileset.image)
-    map.tileset.spriteBatches[2] = imageToSpriteBatch(map.tileset.image)
+    map.tileset.spriteBatches[0] = love.graphics.newSpriteBatch(map.tileset.image)
+    map.tileset.spriteBatches[1] = love.graphics.newSpriteBatch(map.tileset.image)
+    map.tileset.spriteBatches[2] = love.graphics.newSpriteBatch(map.tileset.image)
 
     map.room = {}
 

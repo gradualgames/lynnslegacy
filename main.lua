@@ -11,10 +11,11 @@ log.level = "fatal"
 
 function love.load()
   initScreen()
+  initScale()
   initPaletteShader()
+  initDraw()
   initTimer()
   initCache()
-  initDraw()
 
   ll_global = create_ll_system()
 
@@ -74,7 +75,7 @@ function love.draw()
 end
 
 function love.resize(w, h)
-  computeScale()
+  scaleOptions[scaleOption]()
 end
 
 function love.keypressed(key, scancode, isrepeat)
@@ -87,7 +88,7 @@ function love.keypressed(key, scancode, isrepeat)
     if scaleOption > #scaleOptions then
       scaleOption = 1
     end
-    computeScale()
+    scaleOptions[scaleOption]()
   end
 
   if (love.keyboard.isDown("ralt") and key == "return") or
@@ -99,7 +100,7 @@ function love.keypressed(key, scancode, isrepeat)
       love.window.setFullscreen(false, "desktop")
       fullscreen = false
     end
-    computeScale()
+    scaleOptions[scaleOption]()
   end
 end
 
@@ -112,21 +113,21 @@ function initScreen()
   love.window.setVSync(1)
   love.mouse.setVisible(false)
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
-  scaleOptions = {
+  canvas = love.graphics.newCanvas(320,200)
+end
+
+function initScale()
+  scaleOptions = {}
+  table.insert(scaleOptions,
     function()
       retrieveDimensions()
       scale = math.min(screenWidth / canvasWidth, screenHeight / canvasHeight)
-    end,
-    function() scale = 1 end,
-    function() scale = 2 end,
-    function() scale = 3 end,
-    function() scale = 4 end,
-    function() scale = 5 end,
-    function() scale = 6 end
-  }
+    end)
+  for s = 1, 6 do
+    table.insert(scaleOptions, function() scale = s end)
+  end
   scaleOption = 1
-  canvas = love.graphics.newCanvas(320,200)
-  computeScale()
+  scaleOptions[scaleOption]()
 end
 
 function initTimer()
@@ -211,13 +212,6 @@ function retrieveDimensions()
   canvasWidth, canvasHeight = canvas:getDimensions()
 end
 
---Computes how the main canvas should be scaled based on the dimensions
---of the current screen. This is intended to be used at startup and
---when toggling between windowed and full screen modes.
-function computeScale()
-  scaleOptions[scaleOption]()
-end
-
 --Returns a loaded imageHeader from the global imageHeaderCache
 --cache, or, if there is no image header for the specified file
 --name, loads the image header.
@@ -240,11 +234,6 @@ function getObjectXml(fileName)
     objectXmlCache[fileName] = objectXml
   end
   return objectXml
-end
-
---Converts an image to a sprite batch.
-function imageToSpriteBatch(image)
-  return love.graphics.newSpriteBatch(image)
 end
 
 --Creates a palette canvas from a 256 color palette. The 256 color palette
