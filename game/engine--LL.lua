@@ -694,128 +694,128 @@ function hero_main()
       end
 --
 --       End If
-  end
+    end
 --
 --       If .walk_hold = 0 Then
-  if with0.walk_hold == 0 then
+    if with0.walk_hold == 0 then
 --
 --         '' walk_hold timer is initialized
 --         If .dead = 0 Then
-    if with0.dead == 0 then
+      if with0.dead == 0 then
 --
 --           If llg( hero_only ).attacking <> 0 Then
-      if ll_global.hero_only.attacking ~= 0 then
+        if ll_global.hero_only.attacking ~= 0 then
 --
 --             If .on_ice <> 0 Then
-        if with0.on_ice ~= 0 then
+          if with0.on_ice ~= 0 then
 --               __momentum_move( VarPtr( llg( hero ) ) )
-          __momentum_move(ll_global.hero)
+            __momentum_move(ll_global.hero)
 
 --
 --             End If
-        end
+          end
 --
 --           Else
-      else
+        else
 -- '            llg( hero ).momentum.i( llg( hero ).direction ) *= 2
 --             __momentum_move( VarPtr( llg( hero ) ) )
-        __momentum_move(ll_global.hero)
+          __momentum_move(ll_global.hero)
 --
 --           End If
-      end
+        end
 --
 --         End If
-    end
+      end
 --
 --       End If
-  end
+    end
 --
 --
 --       hero_continue_movement( VarPtr( llg( hero ) ) )
-  hero_continue_movement(ll_global.hero)
+    hero_continue_movement(ll_global.hero)
 --
 --       If ( .on_ice <> 0 ) Then
-  if with0.on_ice ~= 0 then
+    if with0.on_ice ~= 0 then
     --log.debug("ll_global.hero.on_ice: "..ll_global.hero.on_ice)
     --log.debug("Hero is on ice, calling __calc_slide.")
 --
 --         __calc_slide( VarPtr( llg( hero ) ) )
-    __calc_slide(ll_global.hero)
+      __calc_slide(ll_global.hero)
 --
 --
 --       Else
-  else
+    else
     --log.debug("Hero is on not on ice, calling __stop_grip.")
 --         __stop_grip( VarPtr( llg( hero ) ) )
-    __stop_grip(ll_global.hero)
+      __stop_grip(ll_global.hero)
 --
 --       End If
-  end
+    end
 --
 --
 --       .moving Or = ( .is_psfing <> 0 )
-  if with0.is_psfing ~= 0 then
-    with0.moving = 1
-  end
+    if with0.is_psfing ~= 0 then
+      with0.moving = 1
+    end
 --       .moving Or = ( .is_pushing <> 0 )
-  if with0.is_pushing ~= 0 then
-    with0.moving = 1
-  end
+    if with0.is_pushing ~= 0 then
+      with0.moving = 1
+    end
 --
 --
 --       If .moving <> 0 Then
-  if with0.moving ~= 0 then
+    if with0.moving ~= 0 then
 --         '' lynn's moving
 --
 --         If LLObject_IncrementFrame( varptr( llg( hero ) ) ) <> 0 Then
-    if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
+      if LLObject_IncrementFrame(ll_global.hero) ~= 0 then
 --           llg( hero ).frame = 0
-      ll_global.hero.frame = 0
+        ll_global.hero.frame = 0
 --           llg( hero ).frame_hold = Timer + llg( hero ).animControl[llg( hero ).current_anim].rate
-      ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
+        ll_global.hero.frame_hold = timer + ll_global.hero.animControl[ll_global.hero.current_anim].rate
 --
 --         End If
-    end
+      end
 --
 --       Else
-  else
+    else
 --         '' lynn isn't moving
 --
 --         If .dead = 0 Then
-    if with0.dead == 0 then
+      if with0.dead == 0 then
 --           '' lynn's alive
 --
 --           If llg( hero_only ).attacking  = 0 Then
-      if ll_global.hero_only.attacking == 0 then
+        if ll_global.hero_only.attacking == 0 then
 --
 --             If .frame <> 0 Then
-        if with0.frame ~= 0 then
+          if with0.frame ~= 0 then
 --               '' lynn frame not zero, reset
 --
 --               __reset_frame( VarPtr( llg( hero ) ) )
-          __reset_frame(ll_global.hero)
+            __reset_frame(ll_global.hero)
 --
 --
 --             End If
-        end
+          end
 --
 --           End If
-      end
+        end
 --
 --         End If
-    end
+      end
 --
 --       End If
-  end
+    end
 --
 --
 --       If llg( hero ).switch_room = -1 Then
-  if ll_global.hero.switch_room == -1 then
+    if ll_global.hero.switch_room == -1 then
 --         llg( hero ).switch_room = check_against_teles( llg( hero ) )
-    ll_global.hero.switch_room = check_against_teles(ll_global.hero)
+      ll_global.hero.switch_room = check_against_teles(ll_global.hero)
 --
 --       End If
-  end
+    end
 --
 --
 --     End If
