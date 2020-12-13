@@ -9,8 +9,6 @@ Q. Since the source code is still available, and FreeBASIC is still maintained a
 
 A. That's a very good question. I have spent quite a lot of time trying to do this. I actually was able to get the game to compile with the win32 version of the FreeBASIC compiler, but then it crashes very soon after the splash screen. At the same time, I simply enjoy making game engines and working with frameworks like Love2D, so it seemed like a more pleasant, if longer path, towards getting the game running. Plus, as far as I can tell, FreeBASIC cannot work in fullscreen with crisp pixels anymore, so I would have had to roll my own solution for this either way. At the end of the day, the project exists for my pleasure in programming and my desire to preserve the game.
 
-The project is in fairly early stages, but some gameplay has been implemented.
-
 This is a Love2D project. So to work on it, you will need to install LÖVE: https://love2d.org/ The language is Lua.
 
 The original FreeBASIC source code and win32 installer is included in the repository for convenience.
