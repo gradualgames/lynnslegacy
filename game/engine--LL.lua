@@ -1500,7 +1500,7 @@ function LLSystem_ReadSaveFile(saveName)
 --   ''
 --   '' pointer to the returned structure. (if any)
 --   Dim As ll_saving_data Ptr res
-  local res = create_ll_saving_data()
+  local res = nil
 --   ''
 --   '' Open VFile handle.
 --   Dim As Integer openVFile
@@ -1516,6 +1516,7 @@ function LLSystem_ReadSaveFile(saveName)
 --     ''
 --     '' Initialize a structure to fill and return
 --     res = CAllocate( Len( ll_saving_data ) )
+    res = create_ll_saving_data()
 --     ''
 --     '' Decompress the file into the buffer.
 --     zLib_DeCompress( saveName, saveMemory() )
