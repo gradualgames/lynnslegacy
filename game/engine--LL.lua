@@ -925,17 +925,15 @@ function hero_main()
 --
 --       .funcs.current_func[.death_state] += .funcs.func[.death_state][.funcs.current_func[.death_state]]( VarPtr( llg( hero ) ) )
     local func = with0.funcs.func[with0.death_state][with0.funcs.current_func[with0.death_state]]
-    if func ~= nil then
-      with0.funcs.current_func[with0.death_state] = with0.funcs.current_func[with0.death_state] + func(ll_global.hero)
+    with0.funcs.current_func[with0.death_state] = with0.funcs.current_func[with0.death_state] + func(ll_global.hero)
   --
   --       If ( .funcs.current_func[.death_state] = .funcs.func_count[.death_state] ) Then
-      if (with0.funcs.current_func[with0.death_state] == with0.funcs.func_count[with0.death_state]) then
+    if (with0.funcs.current_func[with0.death_state] == with0.funcs.func_count[with0.death_state]) then
   --         '' lynn called back
   --         jump_to_title()
-        jump_to_title()
+      jump_to_title()
   --
   --       End If
-      end
     end
 --
 --     End If
@@ -1690,8 +1688,8 @@ function LLSystem_WriteSaveFile(saveName, entry)
   blob:write(ll_global.hero_only.b_key)
 --
 --     VFile_Put openVFile, , kfp( llg( map )->filename )
-  log.debug("Saving filename: "..ll_global.map.filename)
-  blob:write(ll_global.map.filename)
+  log.debug("Saving filename: "..string.gsub(ll_global.map.filename, "data/map/", ""))
+  blob:write(string.gsub(ll_global.map.filename, "data/map/", ""))
 --     VFile_Put openVFile, , entry
   log.debug("Saving entry: "..entry)
   blob:write(entry)
@@ -5015,29 +5013,47 @@ function LLObject_IncrementProjectiles(char)
 end
 
 -- Private Sub sequence_LoadGame( savedInfo As ll_saving_data Ptr )
+function sequence_LoadGame(savedInfo)
 --
 --   '' only called from play_sequence
 --
 --   llg( hero ).hp              = savedInfo->hp
+  ll_global.hero.hp = savedInfo.hp
 --   llg( hero ).maxhp           = savedInfo->maxhp
+  ll_global.hero.maxhp = savedInfo.maxhp
 --
 --   llg( hero ).money           = savedInfo->gold
+  ll_global.hero.money = savedInfo.gold
 --   llg( hero_only ).has_weapon = savedInfo->weapon
+  ll_global.hero_only.has_weapon = savedInfo.weapon
 -- '  llg( hero_only ).has_item   = savedInfo->item
 --   memcpy( @llg( hero_only ).hasItem(0), @savedInfo->hasItem(0), 6 * len( integer ) )
+  for k, v in pairs(savedInfo.hasItem) do
+    ll_global.hero_only.hasItem[k] = v
+  end
 --
 --   llg( hero_only ).has_bar    = savedInfo->bar
+  ll_global.hero_only.has_bar = savedInfo.bar
 --
 --   llg( hero ).key             = savedInfo->key
+  ll_global.hero.key = savedInfo.key
 --   llg( hero_only ).b_key      = savedInfo->b_key
+  ll_global.hero_only.b_key = savedInfo.b_key
 --
 --   llg( hero ).to_map          = savedInfo->map
+  ll_global.hero.to_map = savedInfo.map
 --   llg( hero ).to_entry        = savedInfo->entry
+  ll_global.hero.to_entry = savedInfo.entry
 --
 --   llg( hero_only ).weapon     = llg( hero_only ).has_weapon
+  ll_global.hero_only.weapon = ll_global.hero_only.has_weapon
 --
 --   MemCpy( Varptr( llg( hero_only ).hasCostume( 0 ) ), Varptr( savedInfo->hasCostume( 0 ) ), 9 )
+  for k, v in pairs(savedInfo.hasCostume) do
+    ll_global.hero_only.hasCostume[k] = v
+  end
 --   llg( hero_only ).isWearing = savedInfo->isWearing
+  ll_global.hero_only.isWearing = savedInfo.isWearing
 --
 --
 --   '            '' hack
@@ -5075,11 +5091,16 @@ end
 --
 --
 --   MemCpy( llg( now ), Varptr( savedInfo->happen( 0 ) ), LL_EVENTS_MAX )
+  for i = 0, LL_EVENTS_MAX - 1 do
+    ll_global.now[i] = savedInfo.happen[i]
+  end
 --
 --
 --   llg( hero_only ).has_weapon = llg( hero_only ).weapon' + 1
+  ll_global.hero_only.has_weapon = ll_global.hero_only.weapon
 --
 --   llg( hero ).switch_room = -2
+  ll_global.hero.switch_room = -2
 --
 --   #IfDef ll_audio
 --     BASS_ChannelStop( now_room().enemy[5].playing_handle )
@@ -5088,25 +5109,36 @@ end
 --
 --
 --   change_room( 0, -1, 1 )
+  change_room(0, -1, 1)
 --
 --
 --   llg( hero ).fade_time = .003
+  ll_global.hero.fade_time = .003
 --
 --   llg( hero_only ).action_lock = 0
+  ll_global.hero_only.action_lock = 0
 --   llg( hero ).chap = 0
+  ll_global.hero.chap = 0
 --   llg( hero ).menu_sel = 0
+  ll_global.hero.menu_sel = 0
 --
 --   dim iRooms as integer
+  local iRooms = 0
 --
 --   if savedInfo->rooms <> 0 then
+  if savedInfo.rooms ~= 0 then
 --     llg( hero_only ).roomVisited = callocate( savedInfo->rooms )
 --
 --     for iRooms = 0 to savedInfo->rooms - 1
+    for iRooms = 0, savedInfo.rooms - 1 do
 --       llg( hero_only ).roomVisited[iRooms] = savedInfo->hasVisited[iRooms]
+      ll_global.hero_only.roomVisited[iRooms] = savedInfo.hasVisited[iRooms]
 --
 --     next
+    end
 --
 --   end if
+  end
 --
 --   hold_key( sc_enter )
 --
@@ -5119,6 +5151,7 @@ end
 --
 --
 -- End Sub
+end
 --
 --
 --
