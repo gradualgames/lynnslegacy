@@ -1,5 +1,77 @@
 require("game/matrices")
 
+-- '' In this system, instead of having full
+-- '' structures and one elemnt of the structure unset if not active,
+-- '' the public structure only has one elemnt, a pointer
+-- '' to the rest of the data, if link = 0 then inactive, else
+-- '' access mem at link for more information.
+-- ''
+-- '' ----------
+-- ''           \-/
+--                 Type ll_saving_data
+function create_ll_saving_data()
+--
+  local data = {}
+--                   hp     As Integer
+  data.hp = 0
+--                   maxhp  As Integer
+  data.maxhp = 0
+--
+--                   gold   As Integer
+  data.gold = 0
+--                   weapon As Integer
+  data.weapon = 0
+--                   item   As Integer
+  data.item = 0
+--                   hasItem( 5 ) as integer
+  data.hasItem = {[0] = 0, 0, 0, 0, 0}
+--                   bar    As Integer
+  data.bar = 0
+--
+--                   hasCostume( 8 ) As Byte
+  data.hasCostume = {[0] = 0, 0, 0, 0, 0, 0, 0, 0}
+--                   isWearing As Integer
+  data.isWearing = 0
+--
+--                   key    As Integer
+  data.key = 0
+--                   b_key  As Integer
+  data.b_key = 0
+--
+--
+--                   map    As String
+  data.map = ""
+--                   entry  As Integer
+  data.entry = 0
+--
+--                   happen( 4095 ) As uByte
+  data.happen = {}
+  for i = 0, 4095 do
+    data.happen[i] = 0
+  end
+--
+--                   hasVisited as ubyte ptr
+  data.hasVisited = {}
+--                   rooms as integer
+  data.rooms = 0
+--
+  return data
+--                 End Type
+end
+--
+--                 Type save_dat
+function create_save_dat()
+--
+  local save_dat = {}
+--                   link As ll_saving_data Ptr
+  save_dat.link = create_ll_saving_data()
+--
+  return save_dat
+--                 End Type
+end
+-- ''           /-\
+-- '' ----------
+
 -- Type mat_expl
 function create_mat_expl()
 --
@@ -532,7 +604,7 @@ function init_object(object)
   --   '' ==========================
   --
   --     save                 ( 3 )   As save_dat
-  object.save = {[0] = 0, 0, 0}
+  object.save = {[0] = create_save_dat(), create_save_dat(), create_save_dat(), create_save_dat()}
   --
   --     coords As Vector
   object.coords = create_vector()

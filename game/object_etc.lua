@@ -193,9 +193,13 @@ function __do_menu_continue(this)
 --
 --
 --     this->save( 0 ).link = LLSystem_ReadSaveFile( "ll_save1.sav" )
+    this.save[0].link = LLSystem_ReadSaveFile("ll_save1.sav")
 --     this->save( 1 ).link = LLSystem_ReadSaveFile( "ll_save2.sav" )
+    this.save[1].link = LLSystem_ReadSaveFile("ll_save2.sav")
 --     this->save( 2 ).link = LLSystem_ReadSaveFile( "ll_save3.sav" )
+    this.save[2].link = LLSystem_ReadSaveFile("ll_save3.sav")
 --     this->save( 3 ).link = LLSystem_ReadSaveFile( "ll_save4.sav" )
+    this.save[3].link = LLSystem_ReadSaveFile("ll_save4.sav")
 --
 --     this->read_lock = -1
     this.read_lock = -1
@@ -271,10 +275,13 @@ function __do_menu_continue(this)
   if love.keyboard.isDown("return") then
 --
 --     If this->save( this->menu_sel ).link <> NULL Then
+    if this.save[this.menu_sel].link ~= nil then
 --
 --       llg( hero_only ).isLoading = TRUE
+      ll_global.hero_only.isLoading = TRUE
 --
 --     End If
+    end
 --
 --   End If
   end

@@ -1487,6 +1487,140 @@ function LLObject_CheckSpawn(o)
 -- End Sub
 end
 
+-- Function LLSystem_ReadSaveFile( saveName As String ) As ll_saving_data Ptr
+function LLSystem_ReadSaveFile(saveName)
+--
+--   '' Routine type: Constructor ( ll_saving_data )
+--   ''
+--   '' Only returns a structure if saveName contains a file.
+--   '' NO INTEGRITY CHECK IS DONE, if you edit the save file and it crashes
+--   '' don't come crying to me.
+--
+--
+--   '' Implementation:
+--   ''
+--   ''
+--   '' pointer to the returned structure. (if any)
+--   Dim As ll_saving_data Ptr res
+  local res = create_ll_saving_data()
+--   ''
+--   '' Open VFile handle.
+--   Dim As Integer openVFile
+--   ''
+--   '' Buffer to load decompressed file.
+--   Dim As uByte saveMemory()
+--
+--
+--   If Dir( saveName ) <> "" Then
+  if love.filesystem.exists(saveName) then
+--     '' The file exists, but i'm way too damn lazy to check
+--     '' if its valid or not.
+--     ''
+--     '' Initialize a structure to fill and return
+--     res = CAllocate( Len( ll_saving_data ) )
+--     ''
+--     '' Decompress the file into the buffer.
+--     zLib_DeCompress( saveName, saveMemory() )
+--     ''
+--     '' Get a valid VFile handle.
+--     openVFile = VFile_FreeFile()
+--     ''
+--     '' "Open" the buffer as a VFile
+--     VFile_Open( saveMemory(), openVFile )
+    local blob = loadBlob(saveName)
+--
+--       With *( res )
+    local with0 = res
+--
+--         '' Read the savegame information.
+--
+--         VFile_Get openVFile, , .hp
+    with0.hp = blob:read()
+    log.debug("loaded hp: "..with0.hp)
+--         VFile_Get openVFile, , .maxhp
+    with0.maxhp = blob:read()
+    log.debug("loaded maxhp: "..with0.maxhp)
+--
+--         VFile_Get openVFile, , .gold
+    with0.gold = blob:read()
+    log.debug("loaded gold: "..with0.gold)
+--         VFile_Get openVFile, , .weapon
+    with0.weapon = blob:read()
+    log.debug("loaded weapon: "..with0.weapon)
+--         VFile_Get openVFile, , VF_Array( .hasItem )
+    with0.hasItem = blob:read()
+    log.debug("loaded hasItem table.")
+-- '        VFile_Get openVFile, , .item
+--         VFile_Get openVFile, , .bar
+    with0.bar = blob:read()
+    log.debug("loaded bar: "..with0.bar)
+--
+--         VFile_Get openVFile, , VF_Array( .hasCostume )
+    with0.hasCostume = blob:read()
+    log.debug("loaded hasCostume table.")
+--         VFile_Get openVFile, , .isWearing
+    with0.isWearing = blob:read()
+    log.debug("loaded isWearing: "..with0.isWearing)
+--
+--         VFile_Get openVFile, , .key
+    with0.key = blob:read()
+    log.debug("loaded key: "..with0.key)
+--         VFile_Get openVFile, , .b_key
+    with0.b_key = blob:read()
+    log.debug("loaded b_key: "..with0.b_key)
+--
+--         VFile_Get openVFile, , .map
+    with0.map = blob:read()
+    log.debug("loaded map filename: "..with0.map)
+--         VFile_Get openVFile, , .entry
+    with0.entry = blob:read()
+    log.debug("loaded entry: "..with0.entry)
+--
+--         VFile_Get openVFile, , VF_Array( .happen )
+    with0.happen = blob:read()
+    log.debug("loaded happen table.")
+--
+--         VFile_Get openVFile, , .rooms
+    with0.rooms = blob:read()
+    log.debug("loaded rooms: "..with0.rooms)
+--
+--         if .rooms <> 0 then
+    if with0.rooms ~= 0 then
+--
+--           .hasVisited = callocate( len( ubyte ) * /' <- Unecessary, lol '/ .rooms )
+      with0.hasVisited = {}
+--           dim as integer iterRoomy
+      local iterRoomy = 0
+--
+--           for iterRoomy = 0 to .rooms - 1
+      for iterRoomy = 0, with0.rooms - 1 do
+--             VFile_Get openVFile, , .hasVisited[iterRoomy]
+        with0.hasVisited[iterRoomy] = blob:read()
+        log.debug("loaded hasVisited: "..with0.hasVisited[iterRoomy].." for room: "..iterRoomy)
+--
+--           next
+      end
+--
+--         end if
+    end
+--
+--       End With
+--
+--
+--     '' "Close" the VFile.
+--     VFile_Close( openVFile )
+--
+--   End If
+  end
+--
+--
+--   Return res
+  return res
+--
+--
+-- End Function
+end
+
 -- Sub LLSystem_WriteSaveFile( saveName As String, entry As Integer )
 function LLSystem_WriteSaveFile(saveName, entry)
 --
@@ -1520,37 +1654,50 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --     '' Write the savegame information.
 --
 --     VFile_Put openVFile, , llg( hero ).hp
+  log.debug("Saving hp: "..ll_global.hero.hp)
   blob:write(ll_global.hero.hp)
 --     VFile_Put openVFile, , llg( hero ).maxhp
+  log.debug("Saving maxhp: "..ll_global.hero.maxhp)
   blob:write(ll_global.hero.maxhp)
 --
 --     VFile_Put openVFile, , llg( hero ).money
+  log.debug("Saving money: "..ll_global.hero.money)
   blob:write(ll_global.hero.money)
 --     VFile_Put openVFile, , llg( hero_only ).has_weapon
+  log.debug("Saving has_weapon: "..ll_global.hero_only.has_weapon)
   blob:write(ll_global.hero_only.has_weapon)
 --
 --     VFile_Put openVFile, , VF_Array( llg( hero_only ).hasItem )
+  log.debug("Saving hasItem table.")
   blob:write(ll_global.hero_only.hasItem)
 --     VFile_Put openVFile, , llg( hero_only ).has_bar
+  log.debug("Saving has_bar: "..ll_global.hero_only.has_bar)
   blob:write(ll_global.hero_only.has_bar)
 --
 --     VFile_Put openVFile, , VF_Array( llg( hero_only ).hasCostume )
+  log.debug("Saving hasCostume table.")
   blob:write(ll_global.hero_only.hasCostume)
 --     VFile_Put openVFile, , llg( hero_only ).isWearing
+  log.debug("Saving isWearing: "..ll_global.hero_only.isWearing)
   blob:write(ll_global.hero_only.isWearing)
 --
 --
 --     VFile_Put openVFile, , llg( hero ).key
+  log.debug("Saving key: "..ll_global.hero.key)
   blob:write(ll_global.hero.key)
 --     VFile_Put openVFile, , llg( hero_only ).b_key
+  log.debug("Saving b_key: "..ll_global.hero_only.b_key)
   blob:write(ll_global.hero_only.b_key)
 --
 --     VFile_Put openVFile, , kfp( llg( map )->filename )
+  log.debug("Saving filename: "..ll_global.map.filename)
   blob:write(ll_global.map.filename)
 --     VFile_Put openVFile, , entry
+  log.debug("Saving entry: "..entry)
   blob:write(entry)
 --
 --     VFile_Put openVFile, , Type <VFile_vector> ( llg( now ), LL_EVENTS_MAX, -1 )
+  log.debug("Saving now table.")
   blob:write(ll_global.now)
 --
 --     dim as integer roomsHere, iterRooms
@@ -1561,11 +1708,13 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --     if llg( map )->isDungeon then
   if ll_global.map.isDungeon ~= 0 then
 --       VFile_Put openVFile, , roomsHere
+    log.debug("Saving roomsHere: "..roomsHere)
     blob:write(roomsHere)
 --
 --       for iterRooms = 0 to roomsHere - 1
     for iterRooms = 0, roomsHere - 1 do
 --         VFile_Put openVFile, , llg( miniMap ).room[iterRooms].hasVisited
+      log.debug("Saving hasVisited: "..ll_global.miniMap.room[iterRooms].hasVisited.." for room: "..iterRooms)
       blob:write(ll_global.miniMap.room[iterRooms].hasVisited)
 --
 --       next
@@ -1576,6 +1725,7 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --       roomsHere = 0
     roomsHere = 0
 --       VFile_Put openVFile, , roomsHere
+    log.debug("Saving roomsHere: "..roomsHere)
     blob:write(roomsHere)
 --
 --     end if
