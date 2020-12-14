@@ -272,7 +272,7 @@ function __do_menu_continue(this)
 --
 --
 --   If MultiKey( sc_enter ) Then
-  if love.keyboard.isDown("return") then
+  if bpressed("space") then
 --
 --     If this->save( this->menu_sel ).link <> NULL Then
     if this.save[this.menu_sel].link ~= nil then
@@ -431,7 +431,7 @@ function __do_menu_save(this)
 --
 --
 --   If MultiKey( sc_enter ) Then
-  if bpressed("return") then
+  if bpressed("space") then
 --
 --     Dim flr As String
     local flr = ""
