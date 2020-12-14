@@ -16,6 +16,7 @@ function love.load()
   initDraw()
   initTimer()
   initCache()
+  initInput()
 
   ll_global = create_ll_system()
 
@@ -32,7 +33,6 @@ function love.load()
   --log.level = "fatal"
 
   --Variables not related to the original codebase
-  bhist = {}
   dbgrects = {}
 end
 
@@ -41,9 +41,7 @@ function love.draw()
 
   dbgrects = {}
   for u = 1, loops do
-    updateBHist("x")
-    updateBHist("space")
-    updateBHist("return")
+    updateBHist()
     timerUpdate()
     --timer = timer + .005
     log.level = "debug"
@@ -179,6 +177,11 @@ function initDraw()
   end
 end
 
+function initInput()
+  buttons = {"x", "space", "return"}
+  bhist = {}
+end
+
 --Should be called before drawing anything to the main canvas.
 function startDrawing()
   love.graphics.setCanvas(canvas)
@@ -278,11 +281,13 @@ function bpressed(key)
   return bhist[key] and bhist[key][1] == false and bhist[key][2] == true
 end
 
-function updateBHist(key)
-  if bhist[key] == nil then
-    bhist[key] = {false, love.keyboard.isDown(key)}
-  else
-    table.remove(bhist[key], 1)
-    table.insert(bhist[key], love.keyboard.isDown(key))
+function updateBHist()
+  for k, key in pairs(buttons) do
+    if bhist[key] == nil then
+      bhist[key] = {false, love.keyboard.isDown(key)}
+    else
+      table.remove(bhist[key], 1)
+      table.insert(bhist[key], love.keyboard.isDown(key))
+    end
   end
 end
