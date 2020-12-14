@@ -156,7 +156,7 @@ end
 --texture.
 function initPaletteShader()
   masterPalette, palette = loadPalette("data/palette/ll.pal")
-  paletteCanvas = paletteToCanvas(palette)
+  paletteCanvas = love.graphics.newCanvas(256,1)
   shader = love.graphics.newShader("shader/palette_shader.fs")
   shader:send("paletteTexture", paletteCanvas)
 end
@@ -237,22 +237,6 @@ function getObjectXml(fileName)
     objectXmlCache[fileName] = objectXml
   end
   return objectXml
-end
-
---Creates a palette canvas from a 256 color palette. The 256 color palette
---is expected to be a table of 3 entry tables, where each 3 entry table is an
---rgb triplet expected to express each component as a floating point number
---between 0 and 1 inclusive.
-function paletteToCanvas(palette)
-  local paletteCanvas = love.graphics.newCanvas(256,1)
-  love.graphics.setCanvas(paletteCanvas)
-  for x = 0,255 do
-    local r,g,b = palette[x][0],palette[x][1],palette[x][2]
-    love.graphics.setColor(r,g,b)
-    love.graphics.points(x + .5, .5)
-  end
-  love.graphics.setCanvas()
-  return paletteCanvas
 end
 
 --Loads a palette file and returns a table with all of the rgb triplets
