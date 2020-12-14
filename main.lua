@@ -201,10 +201,10 @@ function doneDrawing()
   love.graphics.push()
   --Move to the appropiate top left corner.
   retrieveDimensions()
-  love.graphics.translate(math.floor(
-    (screenWidth - canvasWidth * scale) / 2),
+  love.graphics.translate(
+    math.floor((screenWidth - canvasWidth * scale) / 2),
     math.floor((screenHeight - canvasHeight * scale) / 2))
-  love.graphics.scale(scale,scale)
+  love.graphics.scale(scale, scale)
   love.graphics.draw(canvas)
   love.graphics.pop()
   love.graphics.setShader()
