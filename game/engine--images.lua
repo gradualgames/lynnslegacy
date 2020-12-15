@@ -51,7 +51,7 @@ function LLSystem_ImageLoad(fileName)
           local bt = readByte(blob)
           local alpha = 1
           if bt == 0 then alpha = 0 end
-          table.insert(monochromeRedFrameImage.pixels, {x,y, bt/255, 0, 0, alpha})
+          table.insert(monochromeRedFrameImage.pixels, {x, y, bt / 255, 0, 0, alpha})
           byteCount = byteCount + 1
         end
       end
