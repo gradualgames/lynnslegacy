@@ -1,3 +1,4 @@
+require("game/constants")
 require("game/macros")
 
 --Updates a room using the tile indices from the room to arrange
@@ -542,12 +543,15 @@ function blit_box(t_box)
       current_row(t_box)
 --
 --             If .internal.confBox = TRUE Then
-      if with0.internal.confBox == true then
+      log.debug("confBox: "..with0.internal.confBox)
+      if with0.internal.confBox == TRUE then
         log.debug("confBox is true")
 --
 --               dim as integer fg
+        local fg = 0
 --
 --               fg = llg( fontFG )
+        fg = ll_global.fontFG
 --
 --
 --               if .selected = 0 then
@@ -561,47 +565,70 @@ function blit_box(t_box)
 --                                .layout.y_loc + 8 + ( 3 Shl 4 ), _
 --                                .internal.txtcolor _
 --                              )
+        graphicalString("Yes",
+                        with0.layout.x_loc + 9 + bit.lshift(10, 3),
+                        with0.layout.y_loc + 8 + bit.lshift(3, 4),
+                        with0.internal.txtcolor)
 --
 --               if .selected = 0 then
+        if with0.selected == 0 then
 --
 --                 __set_font_fg( cast( any ptr, fg ) )
 --                 if multikey( sc_right ) then
+          if bpressed("right") then
 --
 --                   .selected = 1
+            with0.selected = 1
 --
 --                 end if
+          end
 --
 --
 --               end if
+        end
 --
 --
 --               if .selected = 1 then
+        if with0.selected == 1 then
 --
 --                 __set_font_fg( cast( any ptr, 92 ) )
 --
 --               end if
+        end
 --               graphicalString( "No", _
 --                                .layout.x_loc + 9 + ( 26 shl 3 ), _
 --                                .layout.y_loc + 8 + ( 3 Shl 4 ), _
 --                                .internal.txtcolor _
 --                              )
+        graphicalString("No",
+                        with0.layout.x_loc + 9 + bit.lshift(26, 3),
+                        with0.layout.y_loc + 8 + bit.lshift(3, 4),
+                        with0.internal.txtcolor)
 --
 --               if .selected = 1 then
+        if with0.selected == 1 then
 --
 --                 __set_font_fg( cast( any ptr, fg ) )
 --                 if multikey( sc_left ) then
+          if bpressed("left") then
 --
 --                   .selected = 0
+            with0.selected = 0
 --
 --                 end if
+          end
 --
 --               end if
+        end
 --
 --               If multikey( sc_enter ) Then
+        if bpressed("space") then
 --
 --                 .internal.state = TEXTBOX_SHUTDOWN
+          with0.internal.state = TEXTBOX_SHUTDOWN
 --
 --               End If
+        end
 --
 --             else
       else

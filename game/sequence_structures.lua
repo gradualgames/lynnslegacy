@@ -45,9 +45,8 @@ function create_command_data()
 --
 --   Union
 --     water_align As Integer
-  command_data.water_align = 0
+  command_data.water_align_union_text_speed = 0
 --     text_speed As Integer
-  command_data.text_speed = 0
 --
 --   End Union
 --

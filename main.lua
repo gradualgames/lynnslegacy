@@ -44,19 +44,20 @@ function love.draw()
     updateBHist()
     timerUpdate()
     --timer = timer + .005
-    log.level = "debug"
+    --log.level = "debug"
     enemy_main()
-    log.level = "fatal"
-    log.level = "debug"
+    --log.level = "fatal"
+    --log.level = "debug"
     hero_main()
-    log.level = "fatal"
+    --log.level = "fatal"
     log.level = "debug"
     play_sequence(ll_global)
     log.level = "fatal"
 
+    log.level = "debug"
     drawing = u == loops
     blit_scene()
-    --log.level = "fatal"
+    log.level = "fatal"
   end
 
   for key, dbgrect in pairs(dbgrects) do

@@ -5580,7 +5580,7 @@ function play_sequence(_seqParent)
 --
 --           llg( t_rect ) = make_box( .text, .free_to_move, .text_color, .box_invis, .auto_box, .mod_x, .mod_y, .text_speed )
         log.debug(with0.text)
-        ll_global.t_rect = make_box(with0.text, with0.free_to_move, with0.text_color, with0.box_invis, with0.auto_box, with0.mod_x, with0.mod_y, with0.text_speed)
+        ll_global.t_rect = make_box(with0.text, with0.free_to_move, with0.text_color, with0.box_invis, with0.auto_box, with0.mod_x, with0.mod_y, with0.water_align_union_text_speed)
 --
 --         End If
       end
@@ -5596,7 +5596,7 @@ function play_sequence(_seqParent)
       sequence_AssignEntityData(_seq.ent[with0.active_ent], _seq.Command[_seq.current_command].ent[do_ents])
 --
 --         If .water_align <> 0 Then
-      if with0.water_align ~= 0 then
+      if with0.water_align_union_text_speed ~= 0 then
         --log.debug("Looping background...")
 --           '' flag to loop the backround is set
 --           If llg( hero ).coords.y = 2000 Then

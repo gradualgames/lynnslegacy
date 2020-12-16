@@ -1,3 +1,4 @@
+require("game/constants")
 require("game/map_structures")
 require("game/object_structures")
 
@@ -190,8 +191,8 @@ function load_seqV(mapBlob, numSeqs, seqs, seqType, seqIndex)
         commandData.jump_count = readInt(mapBlob)
         log.debug("commandData.jump_count: "..commandData.jump_count)
         -- Load .water_align Integer
-        commandData.water_align = readInt(mapBlob)
-        log.debug("commandData.water_align: "..commandData.water_align)
+        commandData.water_align_union_text_speed = readInt(mapBlob)
+        log.debug("commandData.water_align_union_text_speed: "..commandData.water_align_union_text_speed)
         -- Load .chap Integer
         commandData.chap = readInt(mapBlob)
         log.debug("commandData.chap: "..commandData.chap)
@@ -671,11 +672,12 @@ function make_box(txt, a_lock, clr, invis, auto, x, y, spd)
 --
 --   If spd <> 0 Then
   if spd ~= 0 then
+    log.debug("spd was: "..spd)
 --
 --     if spd = conf_Box then
     if spd == conf_Box then
 --       b->internal.confBox = TRUE
-      b.internal.confBox = true
+      b.internal.confBox = TRUE
 --
 --     else
     else
