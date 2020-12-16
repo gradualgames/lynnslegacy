@@ -29,7 +29,7 @@ function bitstring(n)
 end
 
 function replace_char(pos, str, r)
-    return str:sub(1, pos-1) .. r .. str:sub(pos+1)
+    return str:sub(1, pos-1)..r..str:sub(pos+1)
 end
 
 function printentdata()

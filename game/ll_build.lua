@@ -720,24 +720,23 @@ function parseText(textToParse)
 --       dim as string tok
       local tok = ""
 --       dim as integer c2
-      local c2 = 1
+      local c2 = 0
 --
 --       do
       repeat
 --
 --         tok += " "
-        tok = tok.." "
 --
 --         tok[c2] = textToParse[c + c2]
-        tok = replace_char(c2, tok, textToParse:sub(c + c2, c + c2))
+        local char = textToParse:sub(c + c2, c + c2)
+        tok = tok..char
 --
 --         c2 += 1
         c2 = c2 + 1
 --         if tok[c2-1] = asc( "}" ) then exit do
-        if tok:sub(c2 - 1, c2 - 1) == '}' then break end
 --
 --       loop
-      until false
+      until char == '}'
 --
 --       if ucase( tok ) = "{HEALTHPRICE}" then
       if tok:upper() == "{HEALTHPRICE}" then
