@@ -174,12 +174,22 @@ function engine_init()
 --
 --
 --   '' 15, 241
+  --NOTE: We deviated from how font recolorization works in
+  --the original code. fontBG is never used, only fontFG is.
+  --These values are colors. 15 is white (I recall this from DOS VGA
+  --palette actually). 92 is yellow in the Lynn's Legacy palette.
+  --The original code recolors the font pixel by pixel on the fly.
+  --It is the only usage of font recolorization in the entire game.
+  --I didn't feel like fully porting the pixel by pixel recolorization
+  --code, so instead I made a small change to how we load images allowing
+  --specification of an original and a replacement color. Then we can build
+  --a white font and a yellow font and assign as needed.
 --   llg( font ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\llfont.spr" ) )
-  ll_global.font = getImageHeader("data/pictures/llfont.spr")
 --   llg( fontFG ) = 15
-  ll_global.fontFG = 15
 --   llg( fontBG ) = 241
-  ll_global.fontBG = 241
+  ll_global.fontWhite = LLSystem_ImageLoad("data/pictures/llfont.spr")
+  ll_global.fontYellow = LLSystem_ImageLoad("data/pictures/llfont.spr", 15, 92)
+  ll_global.font = ll_global.fontWhite
 --
 --
 --

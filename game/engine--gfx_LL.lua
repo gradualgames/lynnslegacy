@@ -548,17 +548,21 @@ function blit_box(t_box)
         log.debug("confBox is true")
 --
 --               dim as integer fg
-        local fg = 0
+        local fg = nil
 --
 --               fg = llg( fontFG )
-        fg = ll_global.fontFG
+        fg = ll_global.font
 --
 --
---               if .selected = 0 then
+        if with0.selected == 0 then
 --
 --                 __set_font_fg( cast( any ptr, 92 ) )
+--               if .selected = 0 then
+          --NOTE: See engine_init for how we are addressing font colors.
+          ll_global.font = ll_global.fontYellow
 --
 --               end if
+        end
 --
 --               graphicalString( "Yes", _
 --                                .layout.x_loc + 9 + ( 10 shl 3 ), _
@@ -574,6 +578,7 @@ function blit_box(t_box)
         if with0.selected == 0 then
 --
 --                 __set_font_fg( cast( any ptr, fg ) )
+          ll_global.font = fg
 --                 if multikey( sc_right ) then
           if bpressed("right") then
 --
@@ -592,6 +597,8 @@ function blit_box(t_box)
         if with0.selected == 1 then
 --
 --                 __set_font_fg( cast( any ptr, 92 ) )
+          --NOTE: See engine_init for how we are addressing font colors.
+          ll_global.font = ll_global.fontYellow
 --
 --               end if
         end
@@ -609,6 +616,7 @@ function blit_box(t_box)
         if with0.selected == 1 then
 --
 --                 __set_font_fg( cast( any ptr, fg ) )
+          ll_global.font = fg
 --                 if multikey( sc_left ) then
           if bpressed("left") then
 --

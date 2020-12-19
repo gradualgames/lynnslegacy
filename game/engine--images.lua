@@ -13,7 +13,7 @@ require("game/image_structures")
 --a simple Lua table. This data can be processed by a platform specific function
 --later for transforming into a usable sprite object for display on the screen,
 --but this function should never have to be modified for any future ports.
-function LLSystem_ImageLoad(fileName)
+function LLSystem_ImageLoad(fileName, oc, rc)
   --Create a table that can contain everything in the .spr
   --file and associated .col file if it exists.
   local imageHeader = create_LLSystem_ImageHeader()
@@ -49,6 +49,9 @@ function LLSystem_ImageLoad(fileName)
       for y = 0, monochromeRedFrameImage.frameHeight - 1 do
         for x = 0, monochromeRedFrameImage.frameWidth - 1 do
           local bt = readByte(blob)
+          if bt == oc then
+            bt = rc
+          end
           local alpha = 1
           if bt == 0 then alpha = 0 end
           table.insert(monochromeRedFrameImage.pixels, {x, y, bt / 255, 0, 0, alpha})
