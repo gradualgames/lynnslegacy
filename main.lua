@@ -179,7 +179,7 @@ function initDraw()
 end
 
 function initInput()
-  buttons = {"x", "space", "return"}
+  buttons = {"x", "up", "right", "down", "left", "space", "return"}
   bhist = {}
 end
 
