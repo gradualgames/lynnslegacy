@@ -5345,10 +5345,10 @@ end
 function sequence_ExitCondition(activeChar)
 --
 --   If llg( hero_only ).dropoutSequence Then
-  if ll_global.hero_only.dropoutSequence == true then
+  if ll_global.hero_only.dropoutSequence == TRUE then
 --     '' the map change flag was set
 --     llg( hero_only ).dropoutSequence = FALSE
-    ll_global.hero_only.dropoutSequence = false
+    ll_global.hero_only.dropoutSequence = FALSE
 --     If llg( hero ).switch_room <> -1 Then
     if ll_global.hero.switch_room ~= -1 then
 --       '' switch room, clear seq

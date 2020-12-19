@@ -1,3 +1,5 @@
+require("game/constants")
+
 -- Function __do_menu ( this As _char_type Ptr ) As Integer
 function __do_menu(this)
 --
@@ -466,7 +468,7 @@ end
 function __change_map(this)
 --
 --   llg( hero_only ).dropoutSequence = TRUE
-  ll_global.hero_only.dropoutSequence = true
+  ll_global.hero_only.dropoutSequence = TRUE
 --
 --   llg( hero ).switch_room = this->chap
   ll_global.hero.switch_room = this.chap
@@ -836,6 +838,42 @@ function __fade_music_out(this)
 --
 --   Function = 1
   return 1
+--
+-- End Function
+end
+
+-- Function __translate_result( this As char_type Ptr ) As Integer
+function __translate_result(this)
+--
+--   sequence_FullReset( *llg( seq ) )
+  sequence_FullReset(ll_global.seq[ll_global.seqi])
+--
+--   select case llg( t_rect ).selected
+--
+--     case 0
+  if ll_global.t_rect.selected == 0 then
+--       llg( seq ) = this->seq + this->dest_x
+    ll_global.seqi = this.seqi + this.dest_x
+--       this->dest_x = 0
+    this.dest_x = 0
+--
+--     case 1
+  elseif ll_global.t_rect.selected == 1 then
+--       llg( seq ) = this->seq + this->dest_y
+    ll_global.seqi = this.seqi + this.dest_y
+--       this->dest_y = 0
+    this.dest_y = 0
+--
+--   End Select
+  end
+--
+--
+--   llg( hero_only ).dropoutSequence = TRUE
+  ll_global.hero_only.dropoutSequence = TRUE
+--
+--   Function = 0
+  return 0
+--
 --
 -- End Function
 end

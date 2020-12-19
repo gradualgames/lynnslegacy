@@ -1,3 +1,5 @@
+require("game/constants")
+
 -- Type songFading_type
 function create_songFading_type()
 --
@@ -71,7 +73,7 @@ function create_main_char_type()
   main_char_type.isLoading = 0
 --
 --   dropoutSequence As Integer
-  main_char_type.dropoutSequence = false
+  main_char_type.dropoutSequence = FALSE
 --
 --   quakeViolence As Integer
 --
