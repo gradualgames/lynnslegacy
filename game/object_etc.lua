@@ -829,6 +829,33 @@ function __set_camera(this)
 -- End Function
 end
 
+-- Function __healthguy_branch( this As char_type Ptr ) As Integer
+function __healthguy_branch(this)
+--
+--
+--   if llg( hero ).money < healthFormula then
+  if ll_global.hero.money < healthFormula() then
+--     this->sel_seq = 2
+    this.sel_seq = 2
+--
+--   end if
+  end
+--
+--   if llg( hero ).maxhp = 30 then
+  if ll_global.hero.maxhp == 30 then
+--     this->sel_seq = 1
+    this.sel_seq = 1
+--
+--   end if
+  end
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __fade_music_out( this As char_type Ptr ) As Integer
 function __fade_music_out(this)
 --

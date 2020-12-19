@@ -1552,6 +1552,7 @@ function LLSystem_ReadSaveFile(saveName)
 --
 --         VFile_Get openVFile, , .gold
     with0.gold = blob:read()
+    --with0.gold = 100
     log.debug("loaded gold: "..with0.gold)
 --         VFile_Get openVFile, , .weapon
     with0.weapon = blob:read()
@@ -2543,9 +2544,12 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --         if .unique_id = u_healthguy then
+        if with0.unique_id == u_healthguy then
   --           __healthguy_branch( Varptr( _enemy[do_stuff] ) )
+          __healthguy_branch(_enemy[do_stuff])
   --
   --         end if
+        end
   --
   --
   --         If .unique_id <> u_sparkle Then
