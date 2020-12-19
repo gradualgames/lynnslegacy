@@ -1,4 +1,5 @@
 require("game/constants")
+require("game/macros")
 
 -- Function __do_menu ( this As _char_type Ptr ) As Integer
 function __do_menu(this)
@@ -838,6 +839,25 @@ function __fade_music_out(this)
 --
 --   Function = 1
   return 1
+--
+-- End Function
+end
+
+-- Function __buy_health( this As char_type Ptr ) As Integer
+function __buy_health(this)
+--
+--   dim as integer hPrice = healthFormula
+  local hPrice = healthFormula()
+--
+--   llg( hero ).money -= hPrice
+  ll_global.hero.money = ll_global.hero.money - hPrice
+--   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--   llg( hero ).maxhp += 1
+  ll_global.hero.maxhp = ll_global.hero.maxhp + 1
+--   antiHackASSIGN( LL_Global.hero_only.maxhealthDummy, LL_Global.hero.maxhp )
+--   Function = 1
+  return 1
+--
 --
 -- End Function
 end

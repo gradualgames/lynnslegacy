@@ -240,3 +240,22 @@ function __return_reset(this)
 --
 -- End Function
 end
+
+-- Function __return_reset_npc ( this As _char_type Ptr ) As Integer
+function __return_reset_npc(this)
+--
+--
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--
+--   this->funcs.active_state = this->reset_state
+  this.funcs.active_state = this.reset_state
+--
+--
+--   return 1
+  return 1
+--
+--
+--
+-- End Function
+end
