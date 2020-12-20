@@ -36,6 +36,10 @@ function LLSystem_ObjectFromXML(objectLoad)
     if func then
       log.debug("Installing func: "..funcName)
       func_drop(_G[funcName])
+      -- func_drop(function(this)
+      --   log.debug("Called: "..funcName.." on: "..this.id)
+      --   return _G[funcName](this)
+      -- end)
       inc_func()
     else
       log.debug("Installing no-op func for: "..funcName)

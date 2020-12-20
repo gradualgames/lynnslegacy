@@ -116,6 +116,7 @@ function __if_all_dead(this)
 --   End If
   end
 --
+  return 0
 -- End Function
 end
 
