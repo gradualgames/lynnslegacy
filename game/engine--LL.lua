@@ -2920,11 +2920,14 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .pushable <> 0 Then
+            if with0.pushable ~= 0 then
   --             '' the entity is pushable
   --
   --             __push ( Varptr( _enemy[do_stuff] ) )
+              __push(_enemy[do_stuff])
   --
   --           End If
+            end
   --
   --           If .vol_fade_trig <> 0 Then
   --             '' projectile triggered

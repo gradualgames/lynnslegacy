@@ -68,6 +68,136 @@ function __randomize_path(this)
 -- End Function
 end
 
+-- Function __push ( this As _char_type Ptr ) As Integer
+function __push(this)
+  log.debug("__push called on: "..this.id)
+--
+--     Dim As Integer x_opt, y_opt
+  local x_opt, y_opt = 0, 0
+--
+--
+--       Select Case llg( hero ).direction
+--
+--         Case 0
+  if ll_global.hero.direction == 0 then
+--           y_opt = -1
+    y_opt = -1
+--
+--         Case 1
+  elseif ll_global.hero.direction == 1 then
+--           x_opt = 1
+    x_opt = 1
+--
+--         Case 2
+  elseif ll_global.hero.direction == 2 then
+--           y_opt = 1
+    y_opt = 1
+--
+--         Case 3
+  elseif ll_global.hero.direction == 3 then
+--           x_opt = -1
+    x_opt = -1
+--
+--
+--       End Select
+  end
+--
+--     Dim As vector_pair main_char, rock
+  local main_char, rock = create_vector_pair(), create_vector_pair()
+--
+--     main_char.u.x = llg( hero ).coords.x + x_opt
+  main_char.u.x = ll_global.hero.coords.x + x_opt
+--     main_char.u.y = llg( hero ).coords.y + y_opt
+  main_char.u.y = ll_global.hero.coords.y + y_opt
+--     main_char.v.x = llg( hero ).perimeter.x
+  main_char.v.x = ll_global.hero.perimeter.x
+--     main_char.v.y = llg( hero ).perimeter.y
+  main_char.v.y = ll_global.hero.perimeter.y
+--
+--     rock.u.x = this->coords.x
+  rock.u.x = this.coords.x
+--     rock.u.y = this->coords.y
+  rock.u.y = this.coords.y
+--     rock.v.x = this->perimeter.x
+  rock.v.x = this.perimeter.x
+--     rock.v.y = this->perimeter.y
+  rock.v.y = this.perimeter.y
+--
+--     If check_bounds( main_char, rock ) = 0 Then
+  if check_bounds(main_char, rock) == 0 then
+--
+--       If MultiKey( llg( dir_hint )[llg( hero ).direction] ) <> 0 Then
+    if bpressed(ll_global.dir_hint[ll_global.hero.direction]) then
+--
+--         llg( hero ).is_pushing = llg( hero.direction ) + 1
+      ll_global.hero.is_pushing = ll_global.hero.direction + 1
+--
+--       End If
+    end
+--
+--
+--       If this->walk_hold = 0 Then
+    if this.walk_hold == 0 then
+--
+--         this->direction = llg( hero ).direction
+      this.direction = ll_global.hero.direction
+--
+--         If llg( hero.on_ice ) <> 0 Then
+      if ll_global.hero.on_ice ~= 0 then
+--           this->momentum.i( this->direction ) = 1
+        this.momentum.i[this.direction] = 1
+--
+--         Else
+      else
+--           this->momentum.i( this->direction ) = 1
+        this.momentum.i[this.direction] = 1
+--
+--         End If
+      end
+--
+--
+--         move_object( this )
+      move_object(this)
+--
+--
+--         this->walk_hold = Timer + this->walk_speed
+      this.walk_hold = timer + this.walk_speed
+--
+--
+--
+--
+--       End If
+    end
+--
+--
+--       If Timer >= this->walk_hold Then
+    if timer >= this.walk_hold then
+--
+--
+--         this->walk_hold = 0
+      this.walk_hold = 0
+--
+--       End If
+    end
+--
+--
+--     Else
+  else
+--
+--
+--
+--     End If
+  end
+--
+--
+--     Return 0
+  return 0
+--
+--
+--
+-- End Function
+end
+
 -- Function __calc_slide ( this As _char_type Ptr ) As Integer
 function __calc_slide(this)
 --

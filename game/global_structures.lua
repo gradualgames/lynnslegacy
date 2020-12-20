@@ -57,6 +57,7 @@ function create_ll_system()
   --   savImages As load_savImage
   --
   --   dir_hint As Byte Ptr
+  ll_system.dir_hint = {[0] = "up", "right", "down", "left"}
   --
   --   do_hud As Integer
   --
