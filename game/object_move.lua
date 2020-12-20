@@ -231,6 +231,21 @@ function __make_face(this)
 -- End Function
 end
 
+-- Function __bat_path ( this As _char_type Ptr ) As Integer
+function __bat_path(this)
+--
+--   this->walk_buffer = this->walk_length
+  this.walk_buffer = this.walk_length
+--   this->direction = Int ( Rnd * 4 ) + 4
+  this.direction = math.floor(math.random() * 4) + 4
+--
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __tile_up ( this As _char_type Ptr ) As Integer
 function __tile_up(this)
   --log.debug("__tile_up called on: "..this.id)

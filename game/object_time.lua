@@ -1,3 +1,5 @@
+require("game/utils")
+
 -- Function __poll_action ( this As _char_type Ptr ) As Integer
 function __poll_action(this)
 --
@@ -255,6 +257,17 @@ function __return_reset_npc(this)
 --   return 1
   return 1
 --
+--
+--
+-- End Function
+end
+
+-- Function __cond_jump ( this As _char_type Ptr ) As Integer Static
+function __cond_jump(this)
+--
+--
+--   Return IIf( ( Int ( Rnd * 2 ) ) < 1, -1, 1 )
+  return iif(math.floor(math.random() * 2) < 1, -1, 1)
 --
 --
 -- End Function
