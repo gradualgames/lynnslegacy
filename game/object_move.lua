@@ -340,7 +340,7 @@ function __make_face(this)
       move.y = 1
 --
 --     ElseIf target.u.y < origin.u.y Then
-    elseif target.u.y < origi.u.y then
+    elseif target.u.y < origin.u.y then
 --       move.y = -1
       move.y = -1
 --
