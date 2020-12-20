@@ -562,6 +562,21 @@ function __drop(this)
 -- End Function
 end
 
+-- Function __give_key ( this As _char_type Ptr ) As Integer
+function __give_key(this)
+--
+--   llg( hero ).key += 1
+  ll_global.hero.key = ll_global.hero.key + 1
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __give_weapon ( this As _char_type Ptr ) As Integer
 function __give_weapon(this)
 --

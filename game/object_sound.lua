@@ -46,6 +46,18 @@ function __kill_song(this)
 -- End Function
 end
 
+-- Function __play_dead_sound ( this As _char_type Ptr ) As Integer
+function __play_dead_sound(this)
+--
+--   play_sample( llg( snd )[this->dead_sound] )
+  ll_global.snd[this.dead_sound]:play()
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __play_sound ( this As _char_type Ptr ) As Integer
 function __play_sound(this)
   log.debug("__play_sound called on "..this.id)
