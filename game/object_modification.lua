@@ -1,5 +1,17 @@
 require("game/engine_enums")
 
+-- Function __up_face ( this As _char_type Ptr ) As Integer
+function __up_face(this)
+--
+--   this->direction = 0
+  this.direction = 0
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __make_vulnerable ( this As _char_type Ptr ) As Integer
 function __make_vulnerable(this)
 --

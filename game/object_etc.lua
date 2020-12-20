@@ -577,6 +577,23 @@ function __give_b_key(this)
 -- End Function
 end
 
+-- Function __give_item ( this As _char_type Ptr ) As Integer
+function __give_item(this)
+--
+--
+-- '  llg( hero_only ).has_item += 1
+--   llg( hero_only ).hasItem( this->chap ) = TRUE
+  ll_global.hero_only.hasItem[this.chap] = TRUE
+--   antiHackASSIGN2( LL_Global.hero_only.itemDummy, LL_Global.hero_only.hasItem )
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __give_key ( this As _char_type Ptr ) As Integer
 function __give_key(this)
 --

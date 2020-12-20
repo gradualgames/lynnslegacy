@@ -315,6 +315,37 @@ function __return_reset_npc(this)
 -- End Function
 end
 
+-- Function __timed_jump ( this As _char_type Ptr ) As Integer
+function __timed_jump(this)
+--
+--
+--   If this->jump_timer = 0 Then
+  if this.jump_timer == 0 then
+--     this->jump_timer += this->jump_time + Timer
+    this.jump_timer = this.jump_time + timer
+--
+--   End If
+  end
+--
+--   If Timer >= this->jump_timer Then
+  if timer >= this.jump_timer then
+--     this->jump_timer = 0
+    this.jump_timer = 0
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--
+--   Return -1
+  return -1
+--
+--
+--
+-- End Function
+end
+
 -- Function __cond_jump ( this As _char_type Ptr ) As Integer Static
 function __cond_jump(this)
 --
