@@ -1,4 +1,5 @@
 require("game/constants")
+require("game/engine_enums")
 require("game/macros")
 
 --Updates a room using the tile indices from the room to arrange
@@ -857,7 +858,7 @@ function blit_enemy(_enemy)
     if with0.projectile ~= nil then
   --
   --       If .projectile->overChar = FALSE Then
-      if with0.projectile.overChar == 0 then
+      if with0.projectile.overChar == FALSE then
   --         '' this enemy's projectiles are under it.
   --         blit_enemy_proj( Varptr( _enemy ) )
 
@@ -966,6 +967,90 @@ function blit_enemy(_enemy)
   end
   --
   -- End With
+end
+
+-- Sub blit_enemy_proj( _enemy As char_type Ptr )
+function blit_enemy_proj(_enemy)
+--
+--   Dim As Integer show_proj
+  local show_proj = 0
+--
+--   With *_enemy
+  local with0 = _enemy
+--
+--     Select Case .proj_style
+--
+--       Case PROJECTILE_ORB, PROJEcTILE_BEAM
+  if with0.proj_style == PROJECTILE_ORB or with0.proj_style == PROJECTILE_BEAM then
+--
+--         If .projectile->invisible = 0 Then
+    if with0.projectile.invisible == 0 then
+--           '' this projectile is visible
+--           If .projectile->coords[0].x <> 0 Or .projectile->coords[0].y <> 0 Then
+      if with0.projectile.coords[0].x ~= 0 or with0.projectile.coords[0].y ~= 0 then
+--             '' this projectile is active
+--             If .proj_style = PROJECTILE_ORB Then
+        if with0.proj_style == PROJECTILE_ORB then
+--               '' the projectile is uni-directional
+--               If ( .projectile->travelled <> 1 ) Then
+          if (with0.projectile.travelled ~= 1) then
+--                 '' projectile->travelled has incremented at least twice (once, kind of <.<)
+--                 Put ( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
+            --draw(with0.projectile.coords[0].x - ll_global.this_room.cx, with0.projectile.coords[0].y - ll_global.this_room.cy, with0.anim[with0.proj_anim].image[with0.projectile.travelled % with0.anim[with0.proj_anim].frames) * (with0.anim[with0.proj_anim].arraysize)])
+--
+--               End If
+          end
+--
+--             ElseIf .proj_style = PROJECTILE_BEAM Then
+        elseif with0.proj_style == PROJECTILE_BEAM then
+--               '' this projectile changes based on direction
+--               If ( .projectile->travelled <> 1 ) Or ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
+          if (with0.projectile.travelled ~= 1) or (with0.unique_id == u_dyssius) or (with0.unique_id == u_steelstrider) then
+--                 '' projectile->travelled has incremented at least twice (once, kind of <.<), disregarded for boss 2
+--                 For show_proj = 0 To 1
+            for show_proj = 0, 1 do
+--
+--                   Put ( .projectile->coords[show_proj].x - llg( this )_room.cx, .projectile->coords[show_proj].y - llg( this )_room.cy  ), @.anim[.proj_anim]->image[( .projectile->direction And 1 ) * .anim[.proj_anim]->arraysize], Trans
+              draw(with0.anim[with0.proj_anim].image[bit.band(with0.projectile.direction, 1) * with0.anim[with0.proj_anim].arraysize], with0.projectile.coords[show_proj].x - ll_global.this_room.cx, with0.projectile.coords[show_proj].y - ll_global.this_room.cy)
+--
+--                 Next
+            end
+--
+--               End If
+          end
+--
+--             End If
+        end
+--
+--           End If
+      end
+--
+--         End If
+    end
+--
+--       Case Else ' PROJECTILE_CROSS, PROJECTILE_DIAGONAL, PROJECTILE_8WAY, PROJECTILE_SCHIZO, PROJECTILE_SPIRAL, PROJECTILE_SUN
+  else
+--
+--         For show_proj = 0 To .projectile->projectiles - 1
+--           '' cycle thru the projectiles
+--           If .projectile->coords[show_proj].x <> 0 Or .projectile->coords[show_proj].y <> 0  Then
+--             '' this projectile is active
+--             If .projectile->invisible = 0 Then
+--               '' this projectile is visible
+--               Put ( .projectile->coords[show_proj].x - llg( this )_room.cx, .projectile->coords[show_proj].y - llg( this )_room.cy  ), @.anim[.proj_anim]->image[(.projectile->travelled Mod .anim[.proj_anim]->frames ) * ( .anim[.proj_anim]->arraysize )], Trans
+--
+--             End If
+--
+--           End If
+--
+--         Next
+--
+--     End Select
+  end
+--
+--   End With
+--
+-- End Sub
 end
 
 -- Function sort_index( ary() As char_type Ptr, bank As char_type Ptr Ptr, bank_size As Integer Ptr, banks As Integer ) As Integer Static

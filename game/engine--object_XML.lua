@@ -260,6 +260,44 @@ function LLSystem_ObjectFromXML(objectLoad)
         -- objectLoad.vol[objectLoad.sounds - 1] =  Val( thr->dat.s )
         objectLoad.vol[objectLoad.sounds - 1] = tonumber(text) / 100
       end
+    elseif path[2] == "proj_style" then
+      objectLoad.proj_style = _G[text]
+      objectLoad.projectile = create_ll_entity_projectile()
+      if objectLoad.proj_style == PROJECTILE_FIREBALL then
+        objectLoad.projectile.projectiles = 1
+      elseif objectLoad.proj_style == PROJECTILE_ORB then
+        objectLoad.projectile.projectiles = 2
+      elseif objectLoad.proj_style == PROJECTILE_BEAM then
+        objectLoad.projectile.projectiles = 2
+      elseif objectLoad.proj_style == PROJECTILE_DIAGONAL then
+        objectLoad.projectile.projectiles = 4
+      elseif objectLoad.proj_style == PROJECTILE_CROSS then
+        objectLoad.projectile.projectiles = 4
+      elseif objectLoad.proj_style == PROJECTILE_8WAY then
+        objectLoad.projectile.projectiles = 8
+      elseif objectLoad.proj_style == PROJECTILE_SCHIZO then
+        objectLoad.projectile.projectiles = 24
+      elseif objectLoad.proj_style == PROJECTILE_SPIRAL then
+        objectLoad.projectile.projectiles = 8
+      elseif objectLoad.proj_style == PROJECTILE_SUN then
+        objectLoad.projectile.projectiles = 128
+      elseif objectLoad.proj_style == PROJECTILE_TRACK then
+        objectLoad.projectile.projectiles = 1
+      end
+      objectLoad.projectile.coords = {}
+      for i = 0, objectLoad.projectile.projectiles - 1 do
+        objectLoad.projectile.coords[i] = create_vector()
+      end
+    elseif path[2] == "proj_invis" then
+      objectLoad.projectile.invisible = tonumber(text)
+    elseif path[2] == "proj_dur" then
+      objectLoad.projectile.length = tonumber(text)
+    elseif path[2] == "proj_over" then
+      objectLoad.projectile.overChar = tonumber(text)
+    elseif path[2] == "proj_sound" then
+      objectLoad.projectile.sound = tonumber(text)
+    elseif path[2] == "proj_str" then
+      objectLoad.projectile.strength = tonumber(text)
     elseif #path == 2 then
       local attribute = path[2]
       --log.debug("Found attribute: "..attribute)
