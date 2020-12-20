@@ -2269,7 +2269,6 @@ function change_room(o, _call, t)
 --       If llg( map )->isDungeon <> 0 Then
     if ll_global.map.isDungeon ~= 0 then
 --         llg( minimap ).room[llg( this_room ).i].hasVisited = -1
-      ll_global.minimap.room[ll_global.this_room.i].hasVisited = -1
 --
 --       End If
     end

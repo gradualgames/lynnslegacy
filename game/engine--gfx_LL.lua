@@ -1436,20 +1436,28 @@ function blit_hud(e)
 --
 --
 --     If llg( map )->isDungeon Then
+  if ll_global.map.isDungeon ~= 0 then
 --       '' regular key
 --
 --       If llg( hero_only ).b_key <> 0 Then
+    if ll_global.hero_only.b_key ~= 0 then
 --         Put( 8, 164 ), llg( hud ).img(6)->image, Trans
+      draw(ll_global.hud.img[6].image, ll_global.hud.img[6].quads[0], 8, 164)
 --
 --       End If
+    end
 --
 --       For key_Put = 0 To llg( hero ).key - 1
+    for key_Put = 0, ll_global.hero.key - 1 do
 --
 --         Put( 8 + (key_Put * 8) , 180 ), llg( hud ).img(5)->image, Trans
+      draw(ll_global.hud.img[5].image, ll_global.hud.img[5].quads[0], 8 + (key_Put * 8), 180)
 --
 --       Next
+    end
 --
 --     End If
+  end
 --
 --     '' dollar sign
 --     Put( 275, 8 ), @llg( hud ).img(2)->image[0], Trans

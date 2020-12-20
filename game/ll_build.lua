@@ -270,6 +270,79 @@ function load_mapV(fileName)
 
     map.filename = readString(mapBlob)
     log.debug("map.filename: "..map.filename)
+
+    -- If Instr( lmap->filename, "moenia" ) <> 0 Then
+    if map.filename:find("moenia") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Moenia"
+      ll_global.dungeonName = "Moenia"
+    --
+    -- End If
+    end
+    --
+    -- If Instr( lmap->filename, "gelidus" ) <> 0 Then
+    if map.filename:find("gelidus") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Gelidus"
+      ll_global.dungeonName = "Gelidus"
+    --
+    -- End If
+    end
+    --
+    -- If Instr( lmap->filename, "icefield" ) <> 0 Then
+    if map.filename:find("icefield") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Ice Field"
+      ll_global.dungeonName = "Ice Field"
+    --
+    -- End If
+    end
+    --
+    -- If Instr( lmap->filename, "ignia" ) <> 0 Then
+    if map.filename:find("ignia") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Ignia"
+      ll_global.dungeonName = "Ignia"
+    --
+    -- End If
+    end
+    --
+    -- If Instr( lmap->filename, "arx" ) <> 0 Then
+    if map.filename:find("arx") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Arx"
+      ll_global.dungeonName = "Arx"
+    --
+    -- End If
+    end
+    --
+    -- If Instr( lmap->filename, "nerme" ) <> 0 Then
+    if map.filename:find("nerme") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Nerme"
+      ll_global.dungeonName = "Nerme"
+    --
+    -- End If
+    end
+    --
+    -- If Instr( lmap->filename, "divius" ) <> 0 Then
+    if map.filename:find("divius") then
+    --   lmap->isDungeon = -1
+      map.isDungeon = -1
+    --   llg( dungeonName ) = "Divius"
+      ll_global.dungeonName = "Divius"
+    --
+    -- End If
+    end
+    --
+    -- '' add checks for all dungeons here
+
     map.entries = readInt(mapBlob)
     log.debug("map.entries: "..map.entries)
     map.rooms = readInt(mapBlob)
