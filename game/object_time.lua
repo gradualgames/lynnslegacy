@@ -146,6 +146,32 @@ function __if_all_dead(this)
 -- End Function
 end
 
+-- Function __check_b_key ( this As _char_type Ptr ) As Integer
+function __check_b_key(this)
+--
+--
+--
+--   If llg( hero_only ).b_key = 0 Then
+  if ll_global.hero_only.b_key == 0 then
+--
+--     this->return_trig = 1
+    this.return_trig = 1
+--     Return 0
+    return 0
+--
+--   End If
+  end
+--
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 function __second_pause(this)
   --log.debug("__second_pause called.")
   if this.pause == 0 then
