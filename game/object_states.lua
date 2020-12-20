@@ -18,3 +18,17 @@ function __infinity(this)
 --
 -- End Function
 end
+
+-- Function __trigger_projectile ( this As _char_type Ptr ) As Integer
+function __trigger_projectile(this)
+--
+--
+--   this->projectile->active = this->proj_style
+  this.projectile.active = this.proj_style
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
