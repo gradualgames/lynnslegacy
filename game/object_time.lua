@@ -19,6 +19,32 @@ function __poll_action(this)
 -- End Function
 end
 
+-- Function __check_key ( this As _char_type Ptr ) As Integer
+function __check_key(this)
+--
+--   If llg( hero ).key = 0 Then
+  if ll_global.hero.key == 0 then
+--
+--     this->return_trig = 1
+    this.return_trig = 1
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--   llg( hero ).key -= 1
+  ll_global.hero.key = ll_global.hero.key - 1
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __half_second_pause ( this As _char_type Ptr ) As Integer
 function __half_second_pause(this)
   log.debug("__half_second_pause called on: "..this.id)
