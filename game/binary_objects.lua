@@ -1,5 +1,95 @@
 require("game/engine_enums")
 
+-- Sub act_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
+function act_key_in_sub(ip, op)
+--
+--
+--
+--   '' note: this is only utilized if item is 1 or 2
+--
+--
+--
+--   llg( hero_only ).attacking = -1
+  ll_global.hero_only.attacking = -1
+--
+--
+--
+--   '' decide which func to play
+--
+--   Select Case llg( hero_only ).selected_item
+--
+--
+--
+--     Case 1
+  if ll_global.hero_only.selected_item == 1 then
+--       '' flare powder func
+--       llg( hero ).attack_state = 8
+    ll_global.hero.attack_state = 8
+--       llg( hero_only ).powder = llg( hero_only ).selected_item
+    ll_global.hero_only.powder = ll_global.hero_only.selected_item
+--
+--
+--     Case 2
+  elseif ll_global.hero_only.selected_item == 2 then
+--       '' ice powder func
+--       llg( hero ).attack_state = 9
+--       llg( hero_only ).powder = llg( hero_only ).selected_item
+--
+--
+--     Case 3, 4
+  elseif ll_global.hero_only.selected_item == 3 or ll_global.hero_only.selected_item == 4 then
+--       '' bridge, idol
+--       llg( seq ) = llg( hero_only ).specialSequence
+--       llg( hero_only ).attacking = 0
+--
+--     Case 5
+  elseif ll_global.hero_only.selected_item == 5 then
+--       '' adrenaline boost
+--       if llg( hero_only ).adrenaline = 0 then
+--         if llg( hero ).hp > 3 then
+--           llg( hero_only ).adrenaline = timer + 6
+--           llg( hero ).hp -= 3
+--           antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--
+--         end if
+--
+--       end if
+--
+--       llg( hero_only ).attacking = 0
+--
+--
+--     Case 6
+  elseif ll_global.hero_only.selected_item == 6 then
+--       '' healage
+--       if llg( hero_only ).healing = 0 then
+--         if llg( hero ).hp < llg( hero ).maxhp then
+--           if llg( hero ).money > 1 then
+--             llg( hero ).hp += 1
+--             llg( hero ).money -= 2
+--             antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--             antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--
+--             llg( hero_only ).healing = -1
+--             play_sample( llg( snd )[sound_heal], 80 )
+--
+--           end if
+--         end if
+--       end if
+--
+--       llg( hero_only ).attacking = 0
+--
+--     Case Else
+  else
+--       '' return quietly
+--       llg( hero_only ).attacking = 0
+    ll_global.hero_only.attacking = 0
+--
+--   End Select
+  end
+--
+-- End Sub
+end
+
 -- Sub atk_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
 function atk_key_in_sub(ip, op)
   --log.debug("atk_key_in_sub called.")

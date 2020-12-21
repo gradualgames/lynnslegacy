@@ -671,14 +671,18 @@ function hero_main()
 --                 bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
 --
 --               End With
+            --NOTE: We are wiring up hard-coded keys directly to their callbacks, here,
+            --completely ignoring the key configuration system or porting it. We will
+            --add our own key configuration system much later on in development.
+            if bpressed("z") then
+              --log.debug("Pressed attack key.")
+              act_key_in_sub()
+            end
 --
 --               With llg( atk_key )
 --                 bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
 --
 --               End With
-            --NOTE: We are wiring up hard-coded keys directly to their callbacks, here,
-            --completely ignoring the key configuration system or porting it. We will
-            --add our own key configuration system much later on in development.
             if bpressed("x") then
               --log.debug("Pressed attack key.")
               atk_key_in_sub()

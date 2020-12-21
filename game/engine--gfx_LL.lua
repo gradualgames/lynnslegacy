@@ -1491,6 +1491,7 @@ function blit_hud(e)
 --     scope
 --
 --       if llg( hero_only ).selected_item = 3 then
+  if ll_global.hero.selected_item == 3 then
 --
 --
 --         if llg( hero_only ).has_weapon = 2 then
@@ -1511,9 +1512,12 @@ function blit_hud(e)
 --         end if
 --
 --       else
+  else
 --         Put( 132, 8 ), @llg( hud ).img(1)->image[llg( hero_only ).selected_item * llg( hud ).img(1)->arraysize], Trans
+    draw(ll_global.hud.img[1].image, ll_global.hud.img[1].quads[ll_global.hero_only.selected_item], 132, 8)
 --
 --       end if
+  end
 --
 --       '' selected item
 --

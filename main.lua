@@ -42,13 +42,13 @@ function love.draw()
   dbgrects = {}
   for u = 1, loops do
     updateBHist()
-    timerUpdate()
-    --timer = timer + .005
+    --timerUpdate()
+    timer = timer + .005
     log.level = "debug"
     enemy_main()
     log.level = "fatal"
     log.level = "debug"
-    --ll_global.hero.hp = 2
+    ll_global.hero.hp = 3
     hero_main()
     log.level = "fatal"
     log.level = "debug"
@@ -180,7 +180,7 @@ function initDraw()
 end
 
 function initInput()
-  buttons = {"x", "up", "right", "down", "left", "space", "return"}
+  buttons = {"x", "z", "up", "right", "down", "left", "space", "return"}
   bhist = {}
 end
 
