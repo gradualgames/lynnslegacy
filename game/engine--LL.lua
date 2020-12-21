@@ -1881,9 +1881,12 @@ function enemy_main()
   --
   --   End If
   --   If .temp_enemies > 0 Then
+  if now_room().temp_enemies > 0 then
   --     act_enemies( .temp_enemies, Varptr( .temp_enemy( 0 ) ) )
+    act_enemies(now_room().temp_enemies, now_room().temp_enemy)
   --
   --   End If
+  end
   --
   -- End With
 end

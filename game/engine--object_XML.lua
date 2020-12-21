@@ -60,6 +60,7 @@ function LLSystem_ObjectFromXML(objectLoad)
     -- for key, value in pairs(path) do
     --   log.debug(value)
     -- end
+    text = string.gsub(text, "\\", "/")
     if path[2] == "sprite" then
       if path[3] == "anim_id" then
         -- Select Case LCase( thr->dat.s )
@@ -80,8 +81,7 @@ function LLSystem_ObjectFromXML(objectLoad)
         end
       elseif path[3] == "filename" then
         --log.debug(" Processing sprite/filename: "..text)
-        local fixedFileName = string.gsub(text, "\\", "/")
-        objectLoad.anim[objectLoad.current_anim] = getImageHeader(fixedFileName)
+        objectLoad.anim[objectLoad.current_anim] = getImageHeader(text)
         objectLoad.animControl[objectLoad.current_anim] = create_LLObject_ImageHeader()
         --NOTE: In the original code, the animControl.frame array is filled
         --with blank frames, we need to do the same here.

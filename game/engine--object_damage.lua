@@ -1491,7 +1491,7 @@ function LLObject_MAINDamage(hr)
 --         If ( hr->dmg.id = 0 ) Then
   if hr.dmg.id == 0 then
 --           LLObject_ObjectDamage( .temp_enemies, @.temp_enemy( 0 ), hr, DF_TEMP_ENEMY )
-    LLObject_ObjectDamage(with0.temp_enemies, with0.temp_enemy[0], hr, DF_TEMP_ENEMY)
+    LLObject_ObjectDamage(with0.temp_enemies, with0.temp_enemy, hr, DF_TEMP_ENEMY)
 --
 --         End If
   end

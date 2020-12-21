@@ -946,6 +946,41 @@ function __handle_menu(this)
 -- End Function
 end
 
+-- Function __make_enemy ( this As _char_type Ptr ) As Integer
+function __make_enemy(this)
+--
+--   If now_room().temp_enemies <> MAX_TEMP_ENEMIES Then
+  if now_room().temp_enemies ~= MAX_TEMP_ENEMIES then
+--
+--
+--
+--     now_room().temp_enemy( now_room().temp_enemies ).id = this->spawns_id
+    now_room().temp_enemy[now_room().temp_enemies] = create_Object()
+    log.debug("this.spawns_id: "..this.spawns_id)
+    now_room().temp_enemy[now_room().temp_enemies].id = this.spawns_id
+--
+--     LLSystem_CopyNewObject( now_room().temp_enemy( now_room().temp_enemies ) )
+    LLSystem_CopyNewObject(now_room().temp_enemy[now_room().temp_enemies])
+--
+--     now_room().temp_enemy( now_room().temp_enemies ).coords.y = this->spawn_y + this->coords.y
+    now_room().temp_enemy[now_room().temp_enemies].coords.y = this.spawn_y + this.coords.y
+--     now_room().temp_enemy( now_room().temp_enemies ).coords.x = this->spawn_x + this->coords.x
+    now_room().temp_enemy[now_room().temp_enemies].coords.x = this.spawn_x + this.coords.x
+--
+--     now_room().temp_enemies += 1
+    now_room().temp_enemies = now_room().temp_enemies + 1
+--
+--
+--   End If
+  end
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __after_moenia_townspeople( this As char_type Ptr ) As Integer
 function __after_moenia_townspeople(this)
 --
