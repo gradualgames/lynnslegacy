@@ -1,5 +1,126 @@
 require("game/palette")
 
+-- Function __big_color_up ( this As _char_type Ptr ) As Integer
+function __big_color_up(this)
+--
+--   llg( dark ) = 1
+  ll_global.dark = 1
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   shift_pal()
+  shift_pal()
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+--
+--
+--
+-- Function __color_down ( this As _char_type Ptr ) As Integer
+function __color_down(this)
+--
+--   If llg( dark ) < 5 Then
+  if ll_global.dark < 5 then
+--     If now_room().dark <> 0 Then
+    if now_room().dark ~= 0 then
+--       llg( dark ) += 1
+      ll_global.dark = ll_global.dark + 1
+--
+--     End If
+    end
+--
+--   End If
+  end
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--
+--   shift_pal()
+  shift_pal()
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+--
+--
+--
+-- Function __color_off ( this As _char_type Ptr ) As Integer
+function __color_off(this)
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--
+--     Palette cols, 0
+    palette[cols][0] = 0
+    palette[cols][1] = 0
+    palette[cols][2] = 0
+
+--
+--   Next
+  end
+--
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+--
+--
+-- Function __color_on ( this As _char_type Ptr ) As Integer
+function __color_on(this)
+--
+--
+--   Palette Using fb_Global.display.pal
+  for cols = 0, 255 do
+    palette[cols][0] = masterPalette[cols][0]
+    palette[cols][1] = masterPalette[cols][1]
+    palette[cols][2] = masterPalette[cols][2]
+  end
+--
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+--
+--
+--
+-- Function __color_up ( this As _char_type Ptr ) As Integer
+function __color_up(this)
+--
+--   If llg( dark ) > 0 Then llg( dark ) -= 1
+  if ll_global.dark > 0 then ll_global.dark = ll_global.dark - 1 end
+--
+--   shift_pal()
+  shift_pal()
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __fade_to_black ( this As _char_type Ptr ) As Integer
 function __fade_to_black(this)
   --log.debug("__fade_to_black called.")

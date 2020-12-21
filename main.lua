@@ -48,8 +48,10 @@ function love.draw()
     enemy_main()
     log.level = "fatal"
     log.level = "debug"
-    --ll_global.hero.hp = 3
-    --ll_global.hero_only.selected_item = 1
+    ll_global.hero.hp = 3
+    ll_global.hero.key = 1
+    ll_global.hero_only.b_key = 1
+    ll_global.hero_only.selected_item = 1
     hero_main()
     log.level = "fatal"
     log.level = "debug"
@@ -264,8 +266,20 @@ function loadPalette(fileName)
   end
 end
 
+function bdown(key)
+  return bhist[key] and bhist[key][2] == true
+end
+
+function bup(key)
+  return bhist[key] and bhist[key][2] == false
+end
+
 function bpressed(key)
   return bhist[key] and bhist[key][1] == false and bhist[key][2] == true
+end
+
+function breleased(key)
+  return bhist[key] and bhist[key][1] == true and bhist[key][2] == false
 end
 
 function updateBHist()

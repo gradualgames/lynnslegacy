@@ -675,8 +675,9 @@ function hero_main()
             --completely ignoring the key configuration system or porting it. We will
             --add our own key configuration system much later on in development.
             if bpressed("z") then
-              --log.debug("Pressed attack key.")
               act_key_in_sub()
+            end
+            if bup("z") then
               act_key_out_sub()
             end
 --
@@ -685,8 +686,9 @@ function hero_main()
 --
 --               End With
             if bpressed("x") then
-              --log.debug("Pressed attack key.")
               atk_key_in_sub()
+            end
+            if bup("x") then
               atk_key_out_sub()
             end
 --
@@ -3236,10 +3238,13 @@ function act_enemies(_enemies, _enemy)
   --           End If
   --
   --           If .unique_id = u_ltorch Then
+          if with0.unique_id == u_ltorch then
   --
   --             LLObject_TorchModify( Varptr( _enemy[do_stuff] ) )
+            LLObject_TorchModify(_enemy[do_stuff])
   --
   --           End If
+          end
   --
   --           If  .dmg.id <> 0 Then
           if with0.dmg.id ~= 0 then
@@ -6084,6 +6089,86 @@ function touched_bound_box(c, v)
   return check_bounds(LLObject_VectorPair(c), v)
 --
 -- End Function
+end
+
+-- Sub LLObject_TorchModify( o As char_type Ptr )
+function LLObject_TorchModify(o)
+--
+--
+--
+--   Dim As Integer chk
+--   Dim As vector res
+--
+--   With *( o )
+--
+--     For chk = 0 To now_room().enemies -1
+--
+--       If now_room().enemy[chk].dead = 0 Then
+--
+--         Select Case As Const now_room().enemy[chk].unique_id
+--
+--           Case u_eguard, u_bguard, u_tguard, u_cguard, u_bshape, u_gshape
+--
+--             res = V2_Absolute( _
+--                                V2_Subtract(                                                                                                     _
+--                                             V2_MidPoint( Type <vector_pair> ( .coords, .perimeter ) ),                                          _
+--                                             V2_MidPoint( Type <vector_pair> ( now_room().enemy[chk].coords, now_room().enemy[chk].perimeter ) ) _
+--                                           )                                                                                                     _
+--                              )
+--
+--         End Select
+--
+--         Select Case As Const now_room().enemy[chk].unique_id
+--
+--           Case u_eguard, u_bguard, u_tguard, u_cguard
+--
+--             If res.x < .vision_field Then
+--               If res.y < .vision_field Then
+--
+--                 .current_anim = 3 '' LOW TORCH
+--                 Exit Sub
+--
+--               End If
+--
+--             End If
+--
+--
+--           Case u_bshape
+--
+--             If res.x < .vision_field Then
+--               If res.y < .vision_field Then
+--
+--                 .current_anim = 1 '' RED TORCH
+--                 Exit Sub
+--
+--               End If
+--
+--             End If
+--
+--           Case u_gshape
+--
+--             If res.x < .vision_field Then
+--               If res.y < .vision_field Then
+--
+--                 .current_anim = 2 '' GREEN TORCH
+--                 Exit Sub
+--
+--               End If
+--
+--             End If
+--
+--         End Select
+--
+--       End If
+--
+--     Next
+--
+--   .current_anim = 0 '' nothing special.
+--
+--   End With
+--
+--
+-- End Sub
 end
 
 -- Sub LLMusic_SetVolume( volumeDesired As Integer )
