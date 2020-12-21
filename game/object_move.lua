@@ -291,6 +291,141 @@ function __copter_path(this)
 --
 end
 
+-- Function __make_align ( this As _char_type Ptr ) As Integer
+function __make_align(this)
+--
+--   With *this
+  local with0 = this
+--
+--     Dim As Integer dir_hold
+  local dir_hold = 0
+--
+--     Dim As Integer hx, hy, ex, ey
+  local hx, hy, ex, ey = 0, 0, 0, 0
+--         hx = llg( hero.coords.x ) + ( llg( hero.perimeter.x ) \ 2 )
+  hx = ll_global.hero.coords.x + math.floor(ll_global.hero.perimeter.x / 2)
+--         hy = llg( hero.coords.y ) + ( llg( hero.perimeter.y ) \ 2 )
+  hy = ll_global.hero.coords.y + math.floor(ll_global.hero.perimeter.y / 2)
+--         ex = ( .coords.x ) + ( .perimeter.x ) \ 2
+  ex = (with0.coords.x) + math.floor(with0.perimeter.x / 2)
+--         ey = ( .coords.y ) + ( .perimeter.y ) \ 2
+  ey = (with0.coords.y) + math.floor(with0.perimeter.y / 2)
+--
+--
+--     If ( ( _
+       if ((
+--          ( Abs( _
+            (math.abs(
+--                 hy - ey _
+                   hy - ey
+--               ) < 48 _
+                 ) < 48
+--          ) _
+            )
+--          And _
+            and
+--          ( Abs( _
+            (math.abs(
+--                 hx - ex _
+                   hx - ex
+--               ) < 8 _
+                 ) < 8
+--          ) _
+            )
+--        ) _
+          )
+--        Or _
+          or
+--        ( _
+          (
+--          ( Abs( _
+            (math.abs(
+--                 hx - ex _
+                   hx - ex
+--               ) < 48 _
+                 ) < 48
+--          ) _
+            )
+--          And _
+            and
+--          ( Abs( _
+            (math.abs(
+--                 hy - ey _
+                   hy - ey
+--               ) < 8 _
+                 ) < 8
+--          ) _
+            )
+--        ) ) Then
+          )) then
+--
+--
+--     Else
+  else
+--
+--       dir_hold = .direction
+    dir_hold = with0.direction
+--
+--       If .walk_hold = 0 Then
+    if with0.walk_hold == 0 then
+--
+--         If ( hx ) < ( ex ) Then
+      if (hx) < (ex) then
+--           .direction = 3
+        with0.direction = 3
+--           move_object( this )
+        move_object(this)
+--
+--         ElseIf ( hx ) > ( ex ) Then
+      elseif (hx) > (ex) then
+--           .direction = 1
+        with0.direction = 1
+--           move_object( this )
+        move_object(this)
+--
+--         End If
+      end
+--
+--         If ( hy ) < ( ey ) Then
+      if (hy) < (ey) then
+--           .direction = 0
+        with0.direction = 0
+--           move_object( this )
+        move_object(this)
+--
+--         ElseIf ( hy ) > ( ey ) Then
+      elseif (hy) > (ey) then
+--           .direction = 2
+        with0.direction = 2
+--           move_object( this )
+        move_object(this)
+--
+--         End If
+      end
+--
+--         .walk_hold = Timer + ( .walk_speed )
+      with0.walk_hold = timer + (with0.walk_speed)
+--
+--       End If
+    end
+--
+--       If Timer >= .walk_hold Then .walk_hold = 0
+    if timer >= with0.walk_hold then with0.walk_hold = 0 end
+--       .direction = dir_hold
+    with0.direction = dir_hold
+--
+--     End If
+  end
+--
+--   End With
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __make_face ( this As _char_type Ptr ) As Integer
 function __make_face(this)
 --

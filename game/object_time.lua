@@ -187,6 +187,37 @@ function __second_pause(this)
   return 0
 end
 
+-- Function __timed_jump_2 ( this As _char_type Ptr ) As Integer
+function __timed_jump_2(this)
+--
+--
+--   If this->jump_timer = 0 Then
+  if this.jump_timer == 0 then
+--     this->jump_timer += this->jump_time + Timer
+    this.jump_timer = this.jump_time + timer
+--
+--   End If
+  end
+--
+--   If Timer >= this->jump_timer Then
+  if timer >= this.jump_timer then
+--     this->jump_timer = 0
+    this.jump_timer = 0
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--
+--   Return -2
+  return -2
+--
+--
+--
+-- End Function
+end
+
 -- Function __counted_jump ( this As _char_type Ptr ) As Integer
 function __counted_jump(this)
 --
