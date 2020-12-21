@@ -677,6 +677,7 @@ function hero_main()
             if bpressed("z") then
               --log.debug("Pressed attack key.")
               act_key_in_sub()
+              act_key_out_sub()
             end
 --
 --               With llg( atk_key )
@@ -686,6 +687,7 @@ function hero_main()
             if bpressed("x") then
               --log.debug("Pressed attack key.")
               atk_key_in_sub()
+              atk_key_out_sub()
             end
 --
 --               dir_keys()

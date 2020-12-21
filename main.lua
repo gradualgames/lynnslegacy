@@ -49,6 +49,7 @@ function love.draw()
     log.level = "fatal"
     log.level = "debug"
     --ll_global.hero.hp = 3
+    --ll_global.hero_only.selected_item = 1
     hero_main()
     log.level = "fatal"
     log.level = "debug"

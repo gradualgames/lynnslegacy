@@ -90,6 +90,17 @@ function act_key_in_sub(ip, op)
 -- End Sub
 end
 
+-- Sub act_key_out_sub( ip As Integer Ptr, op As Integer Ptr )
+function act_key_out_sub(ip, op)
+--
+--
+--   llg( hero_only ).powder = 0
+  ll_global.hero_only.powder = 0
+--
+--
+-- End Sub
+end
+
 -- Sub atk_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
 function atk_key_in_sub(ip, op)
   --log.debug("atk_key_in_sub called.")
@@ -156,7 +167,9 @@ end
 --
 --
 -- Sub atk_key_out_sub( ip As Integer Ptr, op As Integer Ptr )
+function atk_key_out_sub(ip, op)
 -- End Sub
+end
 
 -- Sub conf_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
 function conf_key_in_sub(ip, op)
