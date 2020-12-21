@@ -623,6 +623,16 @@ function load_mapV(fileName)
 
   end
 
+  -- If lmap->isDungeon <> 0 Then
+  if map.isDungeon ~= 0 then
+  --   llg( minimap ) = LLMiniMap_LoadMiniMap( kfe( lmap->filename ) & ".mni", lmap->rooms )
+    --NOTE: Beware of case insensitivity. miniMap is spelled in camel case
+    --everywhere else!
+    ll_global.miniMap = LLMiniMap_LoadMiniMap(string.sub(map.filename, 1, #map.filename - 4)..".mni", map.rooms)
+  --
+  -- End If
+  end
+
   return map
 
 end
@@ -1035,4 +1045,96 @@ function init_box(text, b)
 --
 --
 -- End Sub
+end
+
+-- Function LLMiniMap_LoadMiniMap( fileName As String, rooms As Integer ) As LL_MiniMapType
+function LLMiniMap_LoadMiniMap(fileName, rooms)
+--
+--
+--   Dim As LL_MiniMapType res
+  local res = create_LL_MiniMapType()
+--
+--   Dim As Integer ff = FreeFile
+  local ff = 0
+--
+--   Dim As Integer i, j, k
+  local i, j, k = 0, 0, 0
+--
+--   Open fileName For Binary As #ff
+  ff = loadBlob(fileName)
+--
+--     With res
+  local with0 = res
+--
+--       .room = CAllocate( rooms * Len( LL_MiniMapRoomType ) )
+--       For i = 0 To rooms - 1
+  for i = 0, rooms - 1 do
+--
+--         With .room[i]
+    with0.room[i] = create_LL_MiniMapRoomType()
+    local with1 = with0.room[i]
+--
+--           Get #ff, , .location.x
+    with1.location.x = readInt(ff)
+--           Get #ff, , .location.y
+    with1.location.y = readInt(ff)
+--           Get #ff, , .floor
+    with1.floor = readInt(ff)
+--
+--           Get #ff, , .doors
+    with1.doors = readInt(ff)
+--
+--           .door = CAllocate( .doors * Len( LL_MiniMapRoomDoorType ) )
+    with1.door = {}
+--           For j = 0 To .doors - 1
+    for j = 0, with1.doors - 1 do
+--
+--             With .door[j]
+      with1.door[j] = create_LL_MiniMapRoomDoorType()
+      local with2 = with1.door[j]
+--
+--               Get #ff, , .location.x
+      with2.location.x = readInt(ff)
+--               Get #ff, , .location.y
+      with2.location.y = readInt(ff)
+--               Get #ff, , .codes
+      with2.codes = readInt(ff)
+--
+--               If .codes > 0 Then
+      if with2.codes > 0 then
+--
+--                 .code = CAllocate( .codes * Len( Integer ) )
+        with2.code = {}
+--                 For k = 0 To .codes - 1
+        for k = 0, with2.codes - 1 do
+--                   Get #ff, , .code[k]
+          with2.code[k] = readInt(ff)
+--
+--                 Next
+        end
+--
+--               End If
+      end
+--
+--               Get #ff, , .id
+      with2.id = readInt(ff)
+--
+--             End With
+--
+--           Next
+    end
+--
+--         End With
+--
+--       Next
+  end
+--
+--     End With
+--
+--   Close #ff
+--
+--   Return res
+  return res
+--
+-- End Function
 end

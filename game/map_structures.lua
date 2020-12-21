@@ -36,7 +36,7 @@ function create_LL_MiniMapRoomType()
 --   As Integer doors
   room.doors = 0
 --   door As LL_MiniMapRoomDoorType Ptr
-  room.door = create_LL_MiniMapRoomDoorType()
+  room.door = {}
 --
 --   As Byte hasVisited
   room.hasVisited = 0
@@ -52,7 +52,7 @@ function create_LL_MiniMapType()
 --   rooms As Integer
   minimap.rooms = 0
 --   room As LL_MiniMapRoomType Ptr
-  minimap.room = create_LL_MiniMapRoomType()
+  minimap.room = {}
 --
 --   As vector_Integer camera, location
   minimap.camera = create_vector()
