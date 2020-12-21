@@ -1485,6 +1485,7 @@ function blit_hud(e)
 --     hud_BlitMain( e )
   hud_BlitMain(e)
 --     hud_BlitEnemies()
+  hud_BlitEnemies()
 --
 --
 --     scope
@@ -1686,6 +1687,155 @@ function hud_BlitMain(this)
 --
 --
 --   End With
+--
+--
+-- End Sub
+end
+
+-- Function hud_IsShowing( this As char_type Ptr ) As Integer
+function hud_IsShowing(this)
+--
+--   With *( this )
+  local with0 = this
+--
+--     Dim As Integer dmgd, dying, hpgone, nodead, elit, flick, no_change, show_enemies
+  local dmgd, dying, hpgone, nodead, elit, flick, no_change, show_enemies = 0, 0, 0, 0, 0, 0, 0, 0
+--
+--       dmgd   = .dmg.id <> 0
+  dmgd = with0.dmg.id ~= 0
+--       dying  = ( .dead = -1 ) And ( ( .unique_id <> u_boss5_right ) And ( .unique_id <> u_boss5_left ) And ( .unique_id <> u_boss5_down ) )
+  dying = ((with0.dead == -1) and ((with0.unique_id ~= u_boss5_right) and (with0.unique_id ~= u_boss5_left) and (with0.unique_id ~= boss5_down)))
+--       flick  = .invisible = 0
+  flick = with0.invisible == 0
+--       hpgone = .hp <= 0
+  hpgone = with0.hp <= 0
+--       nodead = .total_dead = 0
+  nodead = with0.total_dead == 0
+--
+--       elit   = ( ( .unique_id = u_core ) Imp llg( now )[725] ) And ( .isBoss )' Or ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Or ( .unique_id = u_anger ) Or ( .unique_id = u_sterach ) Or ( .unique_id = u_divine )Or ( .unique_id = u_divine_bug )
+  elit = (imp((with0.unique_id == u_core) and -1 or 0, ll_global.now[725]) ~= 0) and (with0.isBoss ~= 0)
+-- '      elit   = ( .unique_id = u_grult ) Or ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Or ( .unique_id = u_anger ) Or ( .unique_id = u_sterach ) Or ( .unique_id = u_divine )Or ( .unique_id = u_divine_bug )
+--       no_change = llg( hero.switch_room ) = -1
+  no_change = ll_global.hero.switch_room == -1
+--
+--       show_enemies = -1
+  show_enemies = true
+--       show_enemies And= ( Not ( .unique_id = u_hotrock ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_hotrock))
+--       show_enemies And= ( Not ( .unique_id = u_coldrock ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_coldrock))
+--       show_enemies And= ( Not ( .unique_id = u_bush ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_bush))
+--       show_enemies And= ( Not ( .unique_id = u_crate ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_crate))
+--       show_enemies And= ( Not ( .unique_id = u_crate_health ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_crate_health))
+--       show_enemies And= ( Not ( .unique_id = u_greyrock ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_greyrock))
+--       show_enemies And= ( Not ( .unique_id = u_bombrock ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_bombrock))
+--       show_enemies And= ( Not ( .unique_id = u_beetle ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_beetle))
+--       show_enemies And= ( Not ( .unique_id = u_charger ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_charger))
+--       show_enemies And= ( Not ( .unique_id = u_swordie ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_swordie))
+--       show_enemies And= ( Not ( .unique_id = u_antiwall ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_antiwall))
+--       show_enemies And= ( Not ( .unique_id = u_antiwall2 ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_antiwall2))
+--       show_enemies And= ( Not ( .unique_id = u_goldblock ) )
+  show_enemies = show_enemies and (not (with0.unique_id == u_goldblock))
+-- '      show_enemies And= ( Not ( .unique_id =  ) )
+--
+--
+--       Return ( ( ( dmgd Or elit Or ( dying And flick And hpgone ) ) And nodead And no_change ) And show_enemies )
+  return (((dmgd or elit or (dying and flick and hpgone)) and nodead and no_change) and show_enemies)
+--
+--   End With
+--
+--
+-- End Function
+end
+
+-- Sub hud_BlitEnemy( this As char_type Ptr, ctr As Integer )
+function hud_BlitEnemy(this, ctr)
+--
+--   With *( this )
+  local with0 = this
+--
+--     Dim As Integer p, x_opt, y_opt
+  local p, x_opt, y_opt = 0, 0, 0
+--
+--       For p = 0 To 59
+  for p = 0, 59 do
+--
+--         x_opt = ( ( p Mod 15 ) Shl 3 ) + 8
+    x_opt = bit.lshift((p % 15), 3) + 8
+--         y_opt = ( ( p  \  15 ) Shl 3 ) + 8
+    y_opt = bit.lshift(math.floor(p / 15), 3) + 8
+--
+--         If ( .hp ) > p Then
+    if (with0.hp) > p then
+--           Put( x_opt + ( 146 ), y_opt + ( ctr Shl 4 ) ), varptr( llg( hud ).img(0)->image[0] ), Trans
+      draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[0], x_opt + 146, y_opt + bit.lshift(ctr, 4))
+--
+--         ElseIf ( .maxhp ) > p Then
+    elseif (with0.maxhp) > p then
+--           Put( x_opt + ( 146 ), y_opt + ( ctr Shl 4 ) ), varptr( llg( hud ).img(0)->image[34] ), Trans
+      draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[1], x_opt + 146, y_opt + bit.lshift(ctr, 4))
+--
+--         Else
+    else
+--
+--         End If
+    end
+--
+--       Next
+  end
+--
+--   End With
+--
+--
+-- End Sub
+end
+--
+--
+-- Sub hud_BlitEnemies() Static
+function hud_BlitEnemies()
+--
+--
+--   Dim As Integer ctr, dmg_by
+  local ctr, dmg_by = 0, 0
+--
+--   ctr = 0
+  ctr = 0
+--   For dmg_by = 0 To ll_current_room( enemies ) - 1
+  for dmg_by = 0, now_room().enemies - 1 do
+--
+--     If LLObject_IsWithin( Varptr( ll_current_room( enemy[dmg_by] ) ) ) = 0 Then
+    if LLObject_IsWithin(now_room().enemy[dmg_by]) == 0 then
+--       Continue For
+      goto continue
+--
+--     End If
+    end
+--
+--
+--     If hud_IsShowing( Varptr( ll_current_room( enemy[dmg_by] ) ) ) Then
+    if hud_IsShowing(now_room().enemy[dmg_by]) then
+--       hud_BlitEnemy( Varptr( ll_current_room( enemy[dmg_by] ) ), ctr )
+      hud_BlitEnemy(now_room().enemy[dmg_by], ctr)
+--
+--       ctr += 1
+      ctr = ctr + 1
+--
+--     End If
+    end
+--
+  ::continue::
+--   Next
+  end
 --
 --
 -- End Sub
