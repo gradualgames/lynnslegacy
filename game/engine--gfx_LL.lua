@@ -997,6 +997,7 @@ function blit_enemy_proj(_enemy)
 --                 '' projectile->travelled has incremented at least twice (once, kind of <.<)
 --                 Put ( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
             --draw(with0.projectile.coords[0].x - ll_global.this_room.cx, with0.projectile.coords[0].y - ll_global.this_room.cy, with0.anim[with0.proj_anim].image[with0.projectile.travelled % with0.anim[with0.proj_anim].frames) * (with0.anim[with0.proj_anim].arraysize)])
+            draw(with0.anim[with0.proj_anim].image, with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames], with0.projectile.coords[0].x - ll_global.this_room.cx, with0.projectile.coords[0].y - ll_global.this_room.cy)
 --
 --               End If
           end
