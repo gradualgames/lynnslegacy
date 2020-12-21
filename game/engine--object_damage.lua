@@ -288,7 +288,7 @@ function LLObject_DeriveHurt(h)
 --
 --
 --     Case DF_ROOM_ENEMY Or DF_PROJ
-  elseif h.dmg.id == DF_ROOM_ENEMY or h.dmg.id == DF_PROJ then
+  elseif h.dmg.id == bit.bor(DF_ROOM_ENEMY, DF_PROJ) then
 --
 --       With now_room().enemy[h->dmg.index]
 --
@@ -1294,7 +1294,7 @@ function LLObject_ProjectileDamage(_objects, _object, h)
 --                     If h->dmg.id = 0 Then
                 if h.dmg.id == 0 then
 --                       h->dmg.id       = DF_ROOM_ENEMY Or DF_PROJ
-                  h.dmg.id = bit.band(DF_ROOM_ENEMY, DF_PROJ)
+                  h.dmg.id = bit.bor(DF_ROOM_ENEMY, DF_PROJ)
 --                       h->dmg.index    = do_stuff
                   h.dmg.index = do_stuff
 --                       h->dmg.specific = chk_proj
