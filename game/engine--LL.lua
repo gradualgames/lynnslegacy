@@ -5522,7 +5522,7 @@ function sequence_AssignEntityData(charData, commandData)
 --     charData.dest_x = .dest_x
   charData.dest_x = with0.dest_x
 --     charData.dest_y = .dest_y
-  charData.dest_y = with0.dest_y
+  charData.dest_y = with0.dest_y_box_invis
 --
 --
 --     If .jump_count <> 0 Then
@@ -5861,7 +5861,7 @@ function play_sequence(_seqParent)
 --
 --           llg( t_rect ) = make_box( .text, .free_to_move, .text_color, .box_invis, .auto_box, .mod_x, .mod_y, .text_speed )
         log.debug(with0.text)
-        ll_global.t_rect = make_box(with0.text, with0.free_to_move, with0.text_color, with0.box_invis, with0.auto_box, with0.mod_x, with0.mod_y, with0.water_align_union_text_speed)
+        ll_global.t_rect = make_box(with0.text, with0.free_to_move, with0.text_color, with0.dest_y_box_invis, with0.auto_box, with0.mod_x, with0.mod_y, with0.water_align_union_text_speed)
 --
 --         End If
       end

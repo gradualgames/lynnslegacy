@@ -60,9 +60,8 @@ function create_command_data()
 --   End Union
 --   Union
 --     dest_y    As Short
-  command_data.dest_y = 0
+  command_data.dest_y_box_invis = 0
 --     box_invis As Short
-  command_data.box_invis = 0
 --   End Union
 --
 --   nocam       As Integer
