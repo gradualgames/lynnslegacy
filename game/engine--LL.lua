@@ -2889,14 +2889,19 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .projectile Then
+          if with0.projectile ~= 0 then
   --             If .projectile->active <> 0 Then
+            if with0.projectile.active ~= 0 then
   --               '' projectile triggered
   --
   --               __do_proj ( Varptr( _enemy[do_stuff] ) )
+              __do_proj(_enemy[do_stuff])
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --           If .unique_id = u_ferus Then
   --
@@ -2919,14 +2924,14 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .pushable <> 0 Then
-            if with0.pushable ~= 0 then
+          if with0.pushable ~= 0 then
   --             '' the entity is pushable
   --
   --             __push ( Varptr( _enemy[do_stuff] ) )
-              __push(_enemy[do_stuff])
+            __push(_enemy[do_stuff])
   --
   --           End If
-            end
+          end
   --
   --           If .vol_fade_trig <> 0 Then
   --             '' projectile triggered
@@ -2937,50 +2942,50 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If llg( seq ) = 0 Then
-            if ll_global.seq == nil then
+          if ll_global.seq == nil then
   --             '' no sequence happening already
   --
   --
   --             If llg( hero ).switch_room = -1 Then
-              if ll_global.hero.switch_room == -1 then
+            if ll_global.hero.switch_room == -1 then
   --
   --               If .action_sequence <> 0 Then
-                if with0.action_sequence ~= 0 then
+              if with0.action_sequence ~= 0 then
                   --log.debug("action_sequence nonzero on: "..with0.id)
   --                 '' ths entity loads a sequence when you action it
   --
   --                 If llg( hero_only ).action <> 0 Then
-                  if ll_global.hero_only.action ~= 0 then
+                if ll_global.hero_only.action ~= 0 then
                     --log.debug("Hero trying to action something.")
   --
   --                   LLObject_ActionSequence( Varptr( _enemy[do_stuff] ) )
-                    LLObject_ActionSequence(_enemy[do_stuff])
+                  LLObject_ActionSequence(_enemy[do_stuff])
   --
   --                 End If
-                  end
+                end
   --
   --
   --               End If
-                end
+              end
   --
   --
   --
   --
   --               If .touch_sequence <> 0 Then
-                if with0.touch_sequence ~= 0 then
+              if with0.touch_sequence ~= 0 then
   --                 '' ths entity loads a sequence when you touch it
   --
   --                 LLObject_TouchSequence( Varptr( _enemy[do_stuff] ) )
-                  LLObject_TouchSequence(with0)
+                LLObject_TouchSequence(with0)
   --
   --               End If
-                end
-  --
-  --             End If
               end
   --
-  --           End If
+  --             End If
             end
+  --
+  --           End If
+          end
   --
   --
   --           If .grult_proj_trig <> 0 Then
@@ -4801,28 +4806,183 @@ end
 
 -- Sub LLObject_ClearProjectiles( char As char_type )
 function LLObject_ClearProjectiles(char)
-  log.debug("Implement LLObject_ClearProjectiles.")
 --
 --   if char.projectile = 0 then exit sub
+  if char.projectile == 0 then return end
 --
 --   Dim As Integer numOfProjectiles, incre
+  local numOfProjectiles, incre = 0, 0
 --
 --   With char
+  local with0 = char
 --
 --     For incre = 0 To .projectile->projectiles - 1
+  for incre = 0, with0.projectile.projectiles - 1 do
 --       .projectile->coords[incre] = Type <vector> ( 0, 0 )
+    with0.projectile.coords[incre] = create_vector()
 --
 --     Next
+  end
 --     .projectile->plock = 0
+  with0.projectile.plock = 0
 --     .projectile->active = 0
+  with0.projectile.active = 0
 --     .projectile->refreshTime = 0
+  with0.projectile.refreshTime = 0
 --     .projectile->saveDirection = 0
+  with0.projectile.saveDirection = 0
 --     .projectile->travelled = 0
+  with0.projectile.travelled = 0
 --     .projectile->sound = 0
+  with0.projectile.sound = 0
 --
 --   End With
 --
 --
+--
+-- End Sub
+end
+
+-- Sub LLObject_InitializeProjectiles( char As char_type )
+function LLObject_InitializeProjectiles(char)
+--
+--
+--   With char
+  local with0 = char
+--
+--
+--     Dim As Integer beamModification
+  local beamModification = 0
+--     beamModification = IIf( .proj_style = PROJECTILE_BEAM, 2, 1 )
+  beamModification = iif(with0.proj_style == PROJECTILE_BEAM, 2, 1)
+--
+--     Select Case As Const .unique_id
+--
+--       Case u_boss5_left
+  if with0.unique_id == u_boss5_left then
+--         .projectile->direction = 3
+    with0.projectile.direction = 3
+--
+--       Case u_boss5_right
+  elseif with0.unique_id == u_boss5_right then
+--         .projectile->direction = 1
+    with0.projectile.direction = 1
+--
+--       Case u_boss5_down
+  elseif with0.unique_id == u_boss5_down then
+--         .projectile->direction = 2
+    with0.projectile.direction = 2
+--
+--       Case u_statue
+  elseif with0.unique_id == u_statue then
+--         .projectile->direction = 2
+    with0.projectile.direction = 2
+--
+--       Case Else
+  else
+--
+--         If .projectile->saveDirection = 0 Then
+    if with0.projectile.saveDirection == 0 then
+--           .projectile->direction = .direction
+      with0.projectile.direction = with0.direction
+--           .projectile->saveDirection = -1
+      with0.projectile.saveDirection = -1
+--
+--         End If
+    end
+--
+--     End Select
+  end
+--
+--     Select Case As Const .unique_id
+--
+--       '' Soooo close... anim needs vectors
+--       '' .projectile->coords[0] = V2_Subtract( V2_Add( .coords, V2_Scale( .perimeter, .5 ) ), V2_Scale( .anim[.proj_anim]->coords, .5 ) )
+--
+--       Case u_boss5_left, u_boss5_right
+  if with0.unique_id == u_boss5_left or with0.unique_id == u_boss5_right then
+--         .projectile->coords[0].x = ( .coords.x + .perimeter.x \ 2 ) - ( .anim[.proj_anim]->x \ 2 )
+    with0.projectile.coords[0].x = (with0.coords.x + math.floor(with0.perimeter.x / 2)) - math.floor(with0.anim[with0.proj_anim].x / 2)
+--         .projectile->coords[0].y = ( .coords.y + .perimeter.y \ 2 ) - 3
+    with0.projectile.coords[0].y = (with0.coords.y + math.floor(with0.perimeter.y / 2)) - 3
+--
+--       Case Else
+  else
+--
+--         Dim As Integer i
+    local i = 0
+--
+--
+--         .projectile->startVector.x = ( .coords.x + .perimeter.x \ 2 ) - ( .anim[.proj_anim]->x \ 2 )
+    with0.projectile.startVector.x = (with0.coords.x + math.floor(with0.perimeter.x / 2)) - math.floor(with0.anim[with0.proj_anim].x / 2)
+--         .projectile->startVector.y = ( .coords.y + .perimeter.y \ 2 ) - ( .anim[.proj_anim]->y \ 2 )
+    with0.projectile.startVector.y = (with0.coords.y + math.floor(with0.perimeter.y / 2)) - math.floor(with0.anim[with0.proj_anim].y / 2)
+--
+--         For i = 0 To .projectile->projectiles - 1
+    for i = 0, with0.projectile.projectiles - 1 do
+--           .projectile->coords[i] = .projectile->startVector
+      with0.projectile.coords[i] = with0.projectile.startVector:clone()
+--
+--         Next
+    end
+--
+--     End Select
+  end
+--
+--     Select Case As Const .proj_style
+--
+--       Case PROJECTILE_BEAM
+  if with0.proj_style == PROJECTILE_BEAM then
+--
+--         Select Case As Const .projectile->direction
+--
+--           Case 0
+    if with0.projectile.direction == 0 then
+--
+--             .projectile->coords[1].x = .projectile->coords[0].x
+      with0.projectile.coords[1].x = with0.projectile.coords[0].x
+--             .projectile->coords[1].y = .projectile->coords[0].y - ( 8 * beamModification )
+      with0.projectile.coords[1].y = with0.projectile.coords[0].y - (8 * beamModification)
+--
+--           Case 1
+    elseif with0.projectile.direction == 1 then
+--
+--             .projectile->coords[1].x = .projectile->coords[0].x + ( 8 * beamModification )
+      with0.projectile.coords[1].x = with0.projectile.coords[0].x + (8 * beamModification)
+--             .projectile->coords[1].y = .projectile->coords[0].y
+      with0.projectile.coords[1].y = with0.projectile.coords[0].y
+--
+--           Case 2
+    elseif with0.projectile.direction == 2 then
+--
+--             .projectile->coords[1].x = .projectile->coords[0].x
+      with0.projectile.coords[1].x = with0.projectile.coords[0].x
+--             .projectile->coords[1].y = .projectile->coords[0].y + ( 8 * beamModification )
+      with0.projectile.coords[1].y = with0.projectile.coords[0].y + (8 * beamModification)
+--
+--           Case 3
+    elseif with0.projectile.direction == 3 then
+--
+--             .projectile->coords[1].x = .projectile->coords[0].x - ( 8 * beamModification )
+      with0.projectile.coords[1].x = with0.projectile.coords[0].x - (8 * beamModification)
+--             .projectile->coords[1].y = .projectile->coords[0].y
+      with0.projectile.coords[1].y = with0.projectile.coords[0].y
+--
+--         End Select
+    end
+--
+--
+--       Case PROJECTILE_DIAGONAL
+--       Case PROJECTILE_CROSS
+--       Case PROJECTILE_8WAY
+--       Case PROJECTILE_FIREBALL
+--       Case PROJECTILE_SPIRAL
+--
+--
+--     End Select
+  end
+--
+--   End With
 --
 -- End Sub
 end
@@ -4843,20 +5003,17 @@ function LLObject_IncrementProjectiles(char)
 --           Case 0: .projectile->coords[0].y -= 8
     if with0.projectile.direction == 0 then
       with0.projectile.coords[0].y = with0.projectile.coords[0].y - 8
-    end
 --
 --           Case 1: .projectile->coords[0].x += 8
-    if with0.projectile.direction == 1 then
+    elseif with0.projectile.direction == 1 then
       with0.projectile.coords[0].x = with0.projectile.coords[0].x + 8
-    end
 --
 --           Case 2: .projectile->coords[0].y += 8
-    if with0.projectile.direction == 2 then
+    elseif with0.projectile.direction == 2 then
       with0.projectile.coords[0].y = with0.projectile.coords[0].y + 8
-    end
 --
 --           Case 3: .projectile->coords[0].x -= 8
-    if with0.projectile.direction == 3 then
+    elseif with0.projectile.direction == 3 then
       with0.projectile.coords[0].x = with0.projectile.coords[0].x - 8
     end
 --
@@ -4869,7 +5026,7 @@ function LLObject_IncrementProjectiles(char)
     local tempVector = create_vector()
 --
 --         tempVector = .projectile->coords[0]
-    tempVector = with0.projectile.coords[0]
+    tempVector = with0.projectile.coords[0]:clone()
 --
 --         .projectile->coords[0] = .projectile->coords[1]
     with0.projectile.coords[0] = with0.projectile.coords[1]:clone()

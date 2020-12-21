@@ -1,8 +1,12 @@
+function clone_vector(vector)
+  return {x = vector.x, y = vector.y, clone = clone_vector}
+end
+
 function create_vector()
   local vector = {}
   vector.x = 0
   vector.y = 0
-  vector.clone = function(vector) return {x=vector.x, y=vector.y} end
+  vector.clone = clone_vector
   return vector
 end
 
@@ -97,7 +101,7 @@ end
 function V2_Add(hi, lo)
 --
 --   Function = Type( hi.x + lo.x, hi.y + lo.y )
-  return {x = hi.x + lo.x, y = hi.y + lo.y}
+  return {x = hi.x + lo.x, y = hi.y + lo.y, clone = clone_vector}
 --
 -- End Function
 end
@@ -106,7 +110,7 @@ end
 function V2_Subtract(hi, lo)
 --
 --   Function = Type( hi.x - lo.x, hi.y - lo.y )
-  return {x = hi.x - lo.x, y = hi.y - lo.y}
+  return {x = hi.x - lo.x, y = hi.y - lo.y, clone = clone_vector}
 --
 -- End Function
 end
@@ -149,7 +153,7 @@ end
 function V2_Scale(v, k)
 --
 --   Function = Type( v.x * k, v.y * k )
-  return {x = v.x * k, y = v.y *k}
+  return {x = v.x * k, y = v.y * k, clone = clone_vector}
 --
 -- End Function
 end

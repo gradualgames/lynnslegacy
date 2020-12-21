@@ -1,6 +1,108 @@
 require("game/constants")
 require("game/macros")
 
+-- Function __do_proj( this As _char_type Ptr ) As Integer
+function __do_proj(this)
+--
+--
+--   With *this
+  local with0 = this
+--
+--     If .dead Then
+  if with0.dead ~= 0 then
+--
+--       If ( Not ( .unique_id = u_ibug ) ) And ( Not ( .unique_id = u_fbug ) ) Then
+    if (not (with0.unique_id == u_ibug)) and (not (with0.unique_id == u_fbug)) then
+--         LLObject_ClearProjectiles( *this )
+      LLObject_ClearProjectiles(this)
+--
+--         Return 1
+      return 1
+--
+--       End If
+    end
+--
+--     End If
+  end
+--
+--     If .projectile->refreshTime = 0 Then
+  if with0.projectile.refreshTime == 0 then
+--
+--       If .proj_style = PROJECTILE_BEAM Then
+    if with0.proj_style == PROJECTILE_BEAM then
+--
+--         If .projectile->sound = 0 Then
+      if with0.projectile.sound == 0 then
+--
+--           play_sample( llg( snd )[sound_beam] )
+        ll_global.snd[sound_beam]:play()
+--           .projectile->sound = -1
+        with0.projectile.sound = -1
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--       If .projectile->travelled = 0 Then
+    if with0.projectile.travelled == 0 then
+--         LLObject_InitializeProjectiles( *this )
+      LLObject_InitializeProjectiles(this)
+--
+--       Else
+    else
+--         LLObject_IncrementProjectiles( *this )
+      LLObject_IncrementProjectiles(this)
+--
+--       End If
+    end
+--
+--       .projectile->travelled += 1
+    with0.projectile.travelled = with0.projectile.travelled + 1
+--
+--       If .projectile->travelled >= .projectile->length Then
+    if with0.projectile.travelled >= with0.projectile.length then
+--
+--         LLObject_ClearProjectiles( *this )
+      LLObject_ClearProjectiles(this)
+--         If this->unique_id = u_divine_ball Then
+      if this.unique_id == u_divine_ball then
+--           Dim As Integer i
+        local i = 0
+--
+--           For i = 0 To now_room().enemy[20].anim[0]->frame[0].faces - 1
+        for i = 0, now_room().enemy[20].anim[0].frame[0].faces - 1 do
+--             now_room().enemy[20].anim[0]->frame[0].face[i].invincible = 0
+          now_room().enemy[20].anim[0].frame[0].face[i].invincible = 0
+--
+--           Next
+        end
+--
+--         End If
+      end
+--
+--
+--
+--       End If
+    end
+--
+--       .projectile->refreshTime = Timer + .animControl[.proj_anim].rate
+    with0.projectile.refreshTime = timer + with0.animControl[with0.proj_anim].rate
+--
+--     End If
+  end
+--
+--     If Timer >= .projectile->refreshTime Then .projectile->refreshTime = 0
+  if timer >= with0.projectile.refreshTime then with0.projectile.refreshTime = 0 end
+--
+--   End With
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __do_menu ( this As _char_type Ptr ) As Integer
 function __do_menu(this)
 --

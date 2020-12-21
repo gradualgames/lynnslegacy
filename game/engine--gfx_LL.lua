@@ -1011,7 +1011,7 @@ function blit_enemy_proj(_enemy)
             for show_proj = 0, 1 do
 --
 --                   Put ( .projectile->coords[show_proj].x - llg( this )_room.cx, .projectile->coords[show_proj].y - llg( this )_room.cy  ), @.anim[.proj_anim]->image[( .projectile->direction And 1 ) * .anim[.proj_anim]->arraysize], Trans
-              draw(with0.anim[with0.proj_anim].image[bit.band(with0.projectile.direction, 1) * with0.anim[with0.proj_anim].arraysize], with0.projectile.coords[show_proj].x - ll_global.this_room.cx, with0.projectile.coords[show_proj].y - ll_global.this_room.cy)
+              draw(with0.anim[with0.proj_anim].image, with0.anim[with0.proj_anim].quads[bit.band(with0.projectile.direction, 1)], with0.projectile.coords[show_proj].x - ll_global.this_room.cx, with0.projectile.coords[show_proj].y - ll_global.this_room.cy)
 --
 --                 Next
             end
