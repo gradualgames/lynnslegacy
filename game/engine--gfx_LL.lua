@@ -1475,7 +1475,7 @@ function blit_hud(e)
   e = e or ll_global.hero
 --
 --   Static As Double ll_low_health
-  local ll_low_health = 0.0
+  if ll_low_health == nil then ll_low_health = 0.0 end
 --   Dim As Integer key_Put
   local key_Put = 0
 --
@@ -1599,47 +1599,71 @@ function blit_hud(e)
 --
 --
 --     If .hp <= int( llg( hero ).maxhp / 3 ) Then
+  if with0.hp <= math.floor(ll_global.hero.maxhp / 3) then
 --
 --       If ll_low_health = 0 Then
+    if ll_low_health == 0 then
 --
 --         play_sample( llg( snd )[sound_lowhealth] )
+      ll_global.snd[sound_lowhealth]:play()
 --
 --
 --
 --         ll_low_health = Timer + 1.5
+      ll_low_health = timer + 1.5
 --
 --         If .hp <= cint( llg( hero ).maxhp / 6.5 ) Then
+      if with0.hp <= math.floor(ll_global.hero.maxhp / 6.5) then
 --           ll_low_health = Timer + .75
+        ll_low_health = timer + .75
 --
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --     End If
+  end
 --
 --
 --     If Timer > ll_low_health Then
+  if timer > ll_low_health then
 --       ll_low_health = 0
+    ll_low_health = 0
 --
 --     End If
+  end
 --
 --     if llg( hero_only ).adrenaline = NULL then
+  if ll_global.hero_only.adrenaline == NULL then
 --       Put( 12, 24 ), llg( hud ).img(4)->image, Trans
+    draw(ll_global.hud.img[4].image, 12, 24)
 --
 --       Dim As Integer crazy_Ceiling = llg( hero_only ).crazy_points
+    local crazy_Ceiling = ll_global.hero_only.crazy_points
 --       If crazy_Ceiling > 100 Then
+    if crazy_Ceiling > 100 then
 --         crazy_Ceiling = 100
+      crazy_Ceiling = 100
 --
 --       End If
+    end
 --       '' 15, 27
 --       If ( llg( hero_only ).crazy_points ) > 0 Then
+    if (ll_global.hero_only.crazy_points) > 0 then
 --
 --         Line( 15, 27 )-( 15 + ( crazy_Ceiling ), 30 ), 26, bf
+      love.graphics.setColor(26 / 255, 0, 0, 1.0)
+      love.graphics.rectangle("fill", 15, 27, crazy_Ceiling, 4)
+      love.graphics.setColor(1, 1, 1, 1)
 --
 --       End If
+    end
 --
 --     end if
+  end
 --
 --   End With
 --

@@ -517,25 +517,36 @@ function hero_main()
 --
 --
 --   static as integer adrenalineState
+  if adrenalineState == nil then adrenalineState = 0 end
 --   if llg( hero_only ).adrenaline <> NULL then
   if ll_global.hero_only.adrenaline ~= 0.0 then
 --
 --     select case as const adrenalineState
 --
 --       case 0
+    if adrenalineState == 0 then
 --         adrenalineState += __flash( @llg( hero ) )
+      adrenalineState = adrenalineState + __flash(ll_global.hero)
 --
 --       case 1
+    elseif adrenalineState == 1 then
 --         adrenalineState += __flash_down( @llg( hero ) )
+      adrenalineState = adrenalineState + __flash_down(ll_global.hero)
 --
 --     end select
+    end
 --
 --     if timer > llg( hero_only ).adrenaline then
+    if timer > ll_global.hero_only.adrenaline then
 --       llg( hero_only ).adrenaline = NULL
+      ll_global.hero_only.adrenaline = NULL
 --       adrenalineState = 0
+      adrenalineState = 0
 --       llg( hero_only ).crazy_points = 0
+      ll_global.hero_only.crazy_points = 0
 --
 --     end if
+    end
 --
 --   end if
   end
@@ -964,7 +975,9 @@ function hero_main()
 --   #EndIf
 --
 --   cache_crazy()
+  cache_crazy()
 --   decay_crazy()
+  decay_crazy()
 --
 --   If llg( hero_only ).songFade <> NULL Then
   if ll_global.hero_only.songFade ~= nil then
@@ -973,6 +986,97 @@ function hero_main()
 --
 --   End If
   end
+--
+--
+-- End Sub
+end
+
+-- Private Sub cache_crazy()
+function cache_crazy()
+--
+--   Static As Double cache_delay = .01, cache_wait
+  if cache_delay == nil then cache_delay = .01 end
+  if cache_wait == nil then cache_wait = 0 end
+--
+--   If cache_wait = 0 Then
+  if cache_wait == 0 then
+--
+--     If llg( hero_only ).crazy_cache > 0 Then
+    if ll_global.hero_only.crazy_cache > 0 then
+--       llg( hero_only ).crazy_points += 1
+      ll_global.hero_only.crazy_points = ll_global.hero_only.crazy_points + 1
+--       llg( hero_only ).crazy_cache -= 1
+      ll_global.hero_only.crazy_cache = ll_global.hero_only.crazy_cache - 1
+--
+--     End If
+    end
+--
+--     If llg( hero_only ).crazy_dcache > 0 Then
+    if ll_global.hero_only.crazy_dcache > 0 then
+--       llg( hero_only ).crazy_points -= 1
+      ll_global.hero_only.crazy_points = ll_global.hero_only.crazy_points - 1
+--       llg( hero_only ).crazy_dcache -= 1
+      ll_global.hero_only.crazy_dcache = ll_global.hero_only.crazy_dcache - 1
+--
+--     End If
+    end
+--
+--
+--     cache_wait = Timer + cache_delay
+    cache_wait = timer + cache_delay
+--
+--
+--
+--   End If
+  end
+--
+--   If Timer > cache_wait Then cache_wait = 0
+  if timer > cache_wait then cache_wait = 0 end
+--
+--
+--
+--
+-- End Sub
+end
+--
+-- Sub decay_crazy()
+function decay_crazy()
+--
+--   Static As Double crazy_decay = .3, crazy_delay
+  if crazy_decay == nil then crazy_decay = .3 end
+  if crazy_delay == nil then crazy_delay = 0 end
+--
+--   If crazy_delay = 0 Then
+  if crazy_delay == 0 then
+--
+--     crazy_delay = Timer + crazy_decay
+    crazy_delay = timer + crazy_decay
+--
+--
+--     If llg( hero_only ).crazy_points > 0 Then
+    if ll_global.hero_only.crazy_points > 0 then
+--
+--       If llg( hero_only ).crazy_points > 105 Then
+      if ll_global.hero_only.crazy_points > 105 then
+--         llg( hero_only ).crazy_points = 105
+        ll_global.hero_only.crazy_points = 105
+--
+--       End If
+      end
+--
+--       llg( hero_only ).crazy_dcache += 1
+      ll_global.hero_only.crazy_dcache = ll_global.hero_only.crazy_dcache + 1
+--
+--
+--     End If
+    end
+--
+--
+--   End If
+  end
+--
+--   If Timer > crazy_delay Then crazy_delay = 0
+  if timer > crazy_delay then crazy_delay = 0 end
 --
 --
 -- End Sub

@@ -86,9 +86,6 @@ function create_main_char_type()
 --
 --   adrenaline as double
   main_char_type.adrenaline = 0.0
-  --NOTE: adrenalineState was originally a static variable within the hero_main
-  --function in engine-LL.bas. Moved it in here instead.
-  main_char_type.adrenalineState = 0
 --
 --   healing as integer
 --   healingFrame as integer

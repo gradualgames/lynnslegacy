@@ -1,4 +1,5 @@
 TRUE = -1
 FALSE = 0
+NULL = 0
 conf_Box = 65536
 LL_EVENTS_MAX = 4096
