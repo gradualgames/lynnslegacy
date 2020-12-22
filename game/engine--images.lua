@@ -116,7 +116,7 @@ function LLSystem_ImageLoad(fileName, oc, rc)
   --
   --   o = FreeFile
   --   If Open( kfe( .filename ) + ".col", For Binary Access Read, As o ) = 0 Then
-  if love.filesystem.getInfo(colFileName).type == "file" then
+  if love.filesystem.getInfo(colFileName) then
     local blob = loadBlob(colFileName)
     if blob then
       --log.debug("Collision file exists: "..colFileName)
