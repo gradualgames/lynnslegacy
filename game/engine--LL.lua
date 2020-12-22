@@ -1541,33 +1541,49 @@ function LLObject_CheckSpawn(o)
     if with0.spawn_wait_trig == 0 then
 --
 --         If .spawn_info->wait_n <> 0 Then
+      if with0.spawn_info.wait_n ~= 0 then
 --
 --           res = -1
+        res = -1
 --           For i = 0 To .spawn_info->wait_n - 1
+        for i = 0, with0.spawn_info.wait_n - 1 do
 --
 --             op = ( llg( now )[.spawn_info->wait_spawn[i].code_index] <> 0 )
+          op = (ll_global.now[with0.spawn_info.wait_spawn[i].code_index] ~= 0) and -1 or 0
 --             If .spawn_info->wait_spawn[i].code_state = 0 Then
+          if with0.spawn_info.wait_spawn[i].code_state == 0 then
 --               op = Not op
+            op = bit.bnot(op)
 --
 --             End If
+          end
 --
 --             res And= op
+          res = bit.band(res, op)
 --
 --           Next
+        end
 --
 --           If res <> 0 Then
+        if res ~= 0 then
 --             '' all conditions met
 --
 --             do_stuff = .num
+          do_stuff = with0.num
 --
 --             LLSystem_CopyNewObject( *o )
+          LLSystem_CopyNewObject(o)
 --
 --             .num = do_stuff
+          with0.num = do_stuff
 --             .spawn_wait_trig = -1
+          with0.spawn_wait_trig = -1
 --
 --           End If
+        end
 --
 --         End If
+      end
 --
 --       End If
     end

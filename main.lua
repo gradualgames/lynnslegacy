@@ -42,13 +42,13 @@ function love.draw()
   dbgrects = {}
   for u = 1, loops do
     updateBHist()
-    timerUpdate()
-    --timer = timer + .005
+    --timerUpdate()
+    timer = timer + .005
     log.level = "debug"
     enemy_main()
     log.level = "fatal"
     log.level = "debug"
-    -- ll_global.hero.hp = 3
+    ll_global.hero.hp = 3
     -- ll_global.hero.key = 1
     -- ll_global.hero_only.b_key = 1
     -- ll_global.hero_only.selected_item = 1
