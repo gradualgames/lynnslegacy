@@ -202,31 +202,46 @@ end
 function __calc_slide(this)
 --
 --   Dim As Double  thingo
+  local thingo = 0.0
 --   thingo = Abs( Log( .01 ) )
+  thingo = math.abs(math.log(.01))
 --   thingo /= 100
+  thingo = thingo / 100
 --   thingo *= 5
+  thingo = thingo * 5
 --
 --   Dim As Double SLIDE_CONSTANT = .01 - ( .01 * thingo )
+  local SLIDE_CONSTANT = .01 - (.01 * thingo)
 --
 --   If this->slide_hold = 0 Then
+  if this.slide_hold == 0 then
 --
 --
 --     Dim As Integer all_momentum
+    local all_momentum = 0
 --
 --
 --       For all_momentum = 0 To 7
+    for all_momentum = 0, 7 do
 --
 --
 --         this->momentum.i( all_momentum ) -= .01
+      this.momentum.i[all_momentum] = this.momentum.i[all_momentum] - .01
 --         If this->momentum.i( all_momentum ) < 0 Then this->momentum.i( all_momentum ) = 0
+      if this.momentum.i[all_momentum] < 0 then this.momentum.i[all_momentum] = 0 end
 --
 --       Next
+
+    end
 --
 --       this->slide_hold = Timer + SLIDE_CONSTANT '' !!!!
+    this.slide_hold = timer + SLIDE_CONSTANT
 --
 --   End If
+  end
 --
 --   If Timer >= this->slide_hold Then this->slide_hold = 0
+  if timer >= this.slide_hold then this.slide_hold = 0 end
 --
 --   Return 0
   return 0

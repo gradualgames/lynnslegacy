@@ -1,4 +1,5 @@
 require("game/engine--etc")
+require("game/utils")
 
 --#Define now_room() llg( map )->room[llg( this_room ).i]
 function now_room()
@@ -54,13 +55,29 @@ function quad_calc(x, y)
 -- '' #EndDefine quad_calc
 end
 
+-- #Define tile_char_on(c)                                                                                                 _
+function tile_char_on(c)
+--                                                                                                                         _
+--   IIf( c.coords.y > -1, ( ( c.coords.y + ( c.perimeter.y \ 2 ) ) \ llg( map )->tileset->y ) * ll_current_room( x ), 0 ) _
+  return iif(c.coords.y > -1, math.floor((c.coords.y + math.floor(c.perimeter.y / 2)) / ll_global.map.tileset.y) * now_room().x, 0)
+--   +                                                                                                                     _
+    +
+--   IIf( c.coords.x > -1, ( ( c.coords.x + ( c.perimeter.x \ 2 ) ) \ llg( map )->tileset->x ), 0 )
+         iif(c.coords.x > -1, math.floor((c.coords.x + math.floor(c.perimeter.x / 2)) / ll_global.map.tileset.x), 0)
+--
+-- '' #EndDefine tile_char_on
+end
+
 -- #Define check_ice(c)
 function check_ice(c)
 --                                                                       _
 --   If Bit( ll_current_room( layout[0][tile_char_on( c )] ), 8 ) Then : _
+  if testbit(now_room().layout[0][tile_char_on(c)], 8) then
 --     c.on_ice = -1                                                   : _
+    c.on_ice = -1
 --                                                                     : _
 --   End If
+  end
 --
 -- '' #EndDefine check_ice
 end

@@ -649,9 +649,9 @@ function hero_main()
   --log.debug("walk speed: "..ll_global.hero.walk_speed)
   if with0.on_ice == 0 then
 -- --       .coords.x = Int( .coords.x )
---     ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
+     ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
 -- --       .coords.y = Int( .coords.y )
---     ll_global.hero.coords.y = math.floor(ll_global.hero.coords.y)
+     ll_global.hero.coords.y = math.floor(ll_global.hero.coords.y)
 -- --
 --     End If
   end
@@ -2890,9 +2890,12 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           .last_cycle_ice = .on_ice
+          with0.last_cycle_ice = with0.on_ice
   --           .on_ice = 0
+          with0.on_ice = 0
   --
   --           check_ice( _enemy[do_stuff] )
+          check_ice(_enemy[do_stuff])
   --
   --
   --           If .unique_id = u_core Then
@@ -3024,10 +3027,13 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If ( .on_ice <> 0 ) Then
+          if (with0.on_ice ~= 0) then
   --
   --             __calc_slide( Varptr( _enemy[do_stuff] ) )
+            __calc_slide(_enemy[do_stuff])
   --
   --           End If
+          end
   --
   --           If .on_ice = 0 Then
           if with0.on_ice == 0 then
