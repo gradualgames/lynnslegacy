@@ -1758,7 +1758,7 @@ function LLSystem_ReadSaveFile(saveName)
 --
 --
 --   If Dir( saveName ) <> "" Then
-  if love.filesystem.getInfo(saveName) then
+  if love.filesystem.getInfo(saveName).type == "file" then
 --     '' The file exists, but i'm way too damn lazy to check
 --     '' if its valid or not.
 --     ''
