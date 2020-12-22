@@ -1169,3 +1169,16 @@ function __translate_result(this)
 --
 -- End Function
 end
+
+-- Function __set_song( this As char_type Ptr ) As Integer
+function __set_song(this)
+--
+--   llg( song ) = this->chap
+  ll_global.song = this.chap
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end

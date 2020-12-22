@@ -172,6 +172,38 @@ function __check_b_key(this)
 -- End Function
 end
 
+-- Function __q_second_pause ( this As _char_type Ptr ) As Integer
+function __q_second_pause(this)
+--
+--
+--
+--   If this->pause = 0 Then
+  if this.pause == 0 then
+--
+--     this->pause = Timer + .25
+    this.pause = timer + .25
+--
+--
+--   End If
+  end
+--
+--   If Timer >= this->pause Then
+  if timer >= this.pause then
+--     this->pause = 0
+    this.pause = 0
+--
+--     Return 1
+    return 1
+--
+--
+--   End If
+  end
+--
+  return 0
+--
+-- End Function
+end
+
 function __second_pause(this)
   --log.debug("__second_pause called.")
   if this.pause == 0 then

@@ -1,4 +1,5 @@
 require("game/palette")
+require("game/utility")
 
 -- Function __fade_off ( this As _char_type Ptr ) As Integer
 function __fade_off(this)
@@ -73,6 +74,25 @@ function __play_sound(this)
   ll_global.snd[with0.sound[with0.chap]]:setVolume(vol and vol or 1)
   with0.playing_handle = ll_global.snd[with0.sound[with0.chap]]
   with0.playing_handle:play()
+--
+--   End With
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
+-- Function __play_song ( this As _char_type Ptr ) As Integer
+function __play_song(this)
+--
+--   With *this
+  local with0 = this
+--
+--     LLMusic_Start( *music_strings( .chap ) )
+  LLMusic_Start(music_strings[with0.chap])
 --
 --   End With
 --
