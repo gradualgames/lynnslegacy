@@ -8,9 +8,11 @@ function LLObject_VectorPair(o)
   local res = create_vector_pair()
 --
 --    res.u =  o->coords
-  res.u = o.coords:clone()
+  res.u.x = o.coords.x
+  res.u.y = o.coords.y
 --    res.v = o->perimeter
-  res.v = o.perimeter:clone()
+  res.v.x = o.perimeter.x
+  res.v.y = o.perimeter.y
 --
 --    Return res
   return res
@@ -34,15 +36,18 @@ function LLObject_VectorPairEx(o, op, par)
 --
 --     Return Type <vector_pair> ( o->coords, o->perimeter )
     local vector_pair = create_vector_pair()
-    vector_pair.u = o.coords:clone()
-    vector_pair.v = o.perimeter:clone()
+    vector_pair.u.x = o.coords.x
+    vector_pair.u.y = o.coords.y
+    vector_pair.v.x = o.perimeter.x
+    vector_pair.v.y = o.perimeter.y
     return vector_pair
 --
 --   Case OV_FACE
   elseif op == OV_FACE then
 --
 --     res.u = o->coords
-    res.u = o.coords:clone()
+    res.u.x = o.coords.x
+    res.u.y = o.coords.y
 --     With o->animControl[o->current_anim]
 --       res.u.x -= .x_off
     res.u.x = res.u.x - o.animControl[o.current_anim].x_off

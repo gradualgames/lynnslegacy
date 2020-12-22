@@ -376,9 +376,11 @@ function check_teleports(_char, _tele, num_tele)
     local origin, target = create_vector_pair(), create_vector_pair()
 --
 --     origin.u = _char.coords
-    origin.u = _char.coords:clone()
+    origin.u.x = _char.coords.x
+    origin.u.y = _char.coords.y
 --     origin.v = _char.perimeter
-    origin.v = _char.perimeter:clone()
+    origin.v.x = _char.perimeter.x
+    origin.v.y = _char.perimeter.y
 --
 --     target.u.x = _tele[tele_check].x
     target.u.x = _tele[tele_check].x
@@ -1393,7 +1395,8 @@ function LLObject_GrabItems(o)
     origin = LLO_VP(ll_global.hero)
 --
 --       target.u = .coords
-    target.u = with0.coords:clone()
+    target.u.x = with0.coords.x
+    target.u.y = with0.coords.y
 --       target.v.x = 8
     target.v.x = 8
 --       target.v.y = 8
@@ -2022,9 +2025,11 @@ function LLObject_CheckGTorchLit(this)
       origin.v.y = this.anim[this.proj_anim].y
 --
 --         target.u = now_room().enemy[chk].coords
-      target.u = now_room().enemy[chk].coords:clone()
+      target.u.x = now_room().enemy[chk].coords.x
+      target.u.y = now_room().enemy[chk].coords.y
 --         target.v = now_room().enemy[chk].perimeter
-      target.v = now_room().enemy[chk].perimeter:clone()
+      target.v.x = now_room().enemy[chk].perimeter.x
+      target.v.y = now_room().enemy[chk].perimeter.y
 --
 --
 --
@@ -4536,7 +4541,8 @@ function check_against(o, othr, check, d)
 --       m.u = V2_Add( o->coords, opty )
       m.u = V2_Add(o[0].coords, opty)
 --       n.u = othr[check].coords
-      n.u = othr[check].coords:clone()
+      n.u.x = othr[check].coords.x
+      n.u.y = othr[check].coords.y
 --
 --       calc_positions( o, m, check_fields2 )
       calc_positions(o[0], m, check_fields2)
@@ -4666,7 +4672,8 @@ function calc_positions(obj, v, _face)
   if with0.faces == 0 then
 --
 --       v.v = obj->perimeter
-    v.v = obj.perimeter:clone()
+    v.v.x = obj.perimeter.x
+    v.v.y = obj.perimeter.y
 --
 --     Else
   else
@@ -5279,7 +5286,8 @@ function LLObject_InitializeProjectiles(char)
 --         For i = 0 To .projectile->projectiles - 1
     for i = 0, with0.projectile.projectiles - 1 do
 --           .projectile->coords[i] = .projectile->startVector
-      with0.projectile.coords[i] = with0.projectile.startVector:clone()
+      with0.projectile.coords[i].x = with0.projectile.startVector.x
+      with0.projectile.coords[i].y = with0.projectile.startVector.y
 --
 --         Next
     end
@@ -5384,10 +5392,12 @@ function LLObject_IncrementProjectiles(char)
     local tempVector = create_vector()
 --
 --         tempVector = .projectile->coords[0]
-    tempVector = with0.projectile.coords[0]:clone()
+    tempVector.x = with0.projectile.coords[0].x
+    tempVector.y = with0.projectile.coords[0].y
 --
 --         .projectile->coords[0] = .projectile->coords[1]
-    with0.projectile.coords[0] = with0.projectile.coords[1]:clone()
+    with0.projectile.coords[0].x = with0.projectile.coords[1].x
+    with0.projectile.coords[0].y = with0.projectile.coords[1].y
 --         .projectile->coords[1] = V2_Add( .projectile->coords[1], V2_Subtract( .projectile->coords[1], tempVector ) )
     with0.projectile.coords[1] = V2_Add(with0.projectile.coords[1], V2_Subtract(with0.projectile.coords[1], tempVector))
 

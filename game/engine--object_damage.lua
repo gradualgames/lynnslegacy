@@ -1195,16 +1195,19 @@ function LLObject_ProjectileDamage(_objects, _object, h)
           for chk_proj = 0, with0.projectile.projectiles - 1 do
 --
 --               origin.u = .projectile->coords[chk_proj]
-            origin.u = with0.projectile.coords[chk_proj]:clone()
+            origin.u.x = with0.projectile.coords[chk_proj].x
+            origin.u.y = with0.projectile.coords[chk_proj].y
 --               origin.v.x = .anim[.proj_anim]->x
             origin.v.x = with0.anim[with0.proj_anim].x
 --               origin.v.y = .anim[.proj_anim]->y
             origin.v.y = with0.anim[with0.proj_anim].y
 --
 --               target.u = h->coords
-            target.u = h.coords:clone()
+            target.u.x = h.coords.x
+            target.u.y = h.coords.y
 --               target.v = h->perimeter
-            target.v = h.perimeter:clone()
+            target.v.x = h.perimeter.x
+            target.v.y = h.perimeter.y
 --
 --               If check_bounds( origin, target ) = 0 Then
             if check_bounds(origin, target) == 0 then
@@ -1258,11 +1261,13 @@ function LLObject_ProjectileDamage(_objects, _object, h)
 --
 --                       Swap .projectile->coords[0], .projectile->coords[1]
                   --save a
-                  local c0 = with0.projectile.coords[0]:clone()
+                  local x0, y0 = with0.projectile.coords[0].x, with0.projectile.coords[0].y
                   --a = b
-                  with0.projectile.coords[0] = with0.projectile.coords[1]:clone()
+                  with0.projectile.coords[0].x = with0.projectile.coords[1].x
+                  with0.projectile.coords[0].y = with0.projectile.coords[1].y
                   --b = saved a
-                  with0.projectile.coords[1] = c0:clone()
+                  with0.projectile.coords[1].x = x0
+                  with0.projectile.coords[1].y = y0
 --
 --                       LLObject_IncrementProjectiles( _object[do_stuff] )
                   LLObject_IncrementProjectiles(_object[do_stuff])
