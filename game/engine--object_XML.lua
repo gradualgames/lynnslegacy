@@ -1,4 +1,5 @@
 require("game/engine_enums")
+require("game/object_boss")
 require("game/object_etc")
 require("game/object_time")
 require("game/object--gfx")

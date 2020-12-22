@@ -1,3 +1,8 @@
+--#Define chance_Percent(x) ( ( Rnd * 100 ) < x )
+function chance_Percent(x)
+  return (math.random() * 100) < x
+end
+
 -- Type mat_int
 function create_mat_int()
 --

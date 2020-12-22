@@ -5,6 +5,7 @@ require("game/constants")
 require("game/engine--object")
 require("game/engine--object_damage")
 require("game/macros")
+require("game/object_boss")
 require("game/object_control")
 require("game/utils")
 require("game/utility")
@@ -1922,6 +1923,51 @@ function LLSystem_WriteSaveFile(saveName, entry)
 -- End Sub
 end
 
+-- Sub LLObject_CheckGTorchLit( this As char_type Ptr )
+function LLObject_CheckGTorchLit(this)
+--
+--     Dim As Integer chk
+--     For chk = 0 To now_room().enemies -1
+--
+--       If now_room().enemy[chk].unique_id = u_gtorch Then
+--         '' its a special torch
+--
+--         Dim As vector_pair origin, target
+--         origin.u.x = this->projectile->coords[0].x
+--         origin.u.y = this->projectile->coords[0].y
+--         origin.v.x = this->anim[this->proj_anim]->x
+--         origin.v.y = this->anim[this->proj_anim]->y
+--
+--         target.u = now_room().enemy[chk].coords
+--         target.v = now_room().enemy[chk].perimeter
+--
+--
+--
+--
+--         If check_bounds( origin, target ) = 0 Then
+--
+--           With now_room().enemy[chk]
+--
+--             '' hit, trigger torch
+--             If .funcs.active_state = 0 Then
+--               .jump_timer = 0
+--
+--               LLObject_ShiftState( Varptr( now_room().enemy[chk] ), .hit_state )
+--               LLObject_ClearProjectiles( now_room().enemy[0] )
+--
+--             End If
+--
+--           End With
+--
+--         End If
+--
+--       End If
+--
+--     Next
+--
+-- End Sub
+end
+
 function enemy_main()
   -- With now_room()
   --
@@ -3157,14 +3203,18 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .grult_proj_trig <> 0 Then
+          if with0.grult_proj_trig ~= 0 then
   --
   --
   --             '' projectile triggered (concurrent functionality)
   --             __do_grult_proj ( Varptr( _enemy[do_stuff] ) )
+            __do_grult_proj(_enemy[do_stuff])
   --
   --             LLObject_CheckGTorchLit( Varptr( _enemy[do_stuff] ) )
+            LLObject_CheckGTorchLit(_enemy[do_stuff])
   --
   --           End If
+          end
   --
   --
   --           If .anger_proj_trig <> 0 Then
@@ -3173,72 +3223,105 @@ function act_enemies(_enemies, _enemy)
   --           End If
   --
   --           If .unique_id = u_grult Then
+          if with0.unique_id == u_grult then
   --
   -- '              If .funcs.active_state <> .stun_state Then
   --             If .funcs.active_state = 0 Or ( .funcs.active_state = .proj_state )Then
+            if with0.funcs.active_state == 0 or (with0.funcs.active_state == with0.proj_state) then
   --
   --
   --               If llg( dark ) <> 4 Then
+              if ll_global.dark ~= 4 then
   --                 '' stunned
   --
   --                 .stun_return_trig = 0
+                with0.stun_return_trig = 0
   --                 LLObject_ClearProjectiles( _enemy[do_stuff] )
+                LLObject_ClearProjectiles(_enemy[do_stuff])
   --                 .fly_timer = 0
+                with0.fly_timer = 0
   --                 .fly_count = 0
+                with0.fly_count = 0
   --                 .grult_proj_trig = 0
+                with0.grult_proj_trig = 0
   --
   --
   --                 .jump_counter = 0
+                with0.jump_counter = 0
   --
   --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .stun_state )
+                LLObject_ShiftState(_enemy[do_stuff], with0.stun_state)
   --
   --               End If
+              end
   --
   --             Else'If (.funcs.active_state = .stun_state) Or (.funcs.active_state = .hit_state) Then
+            else
   --
   --
   --               If (.stun_return_trig = 0) Then
+              if (with0.stun_return_trig == 0) then
   --
   -- '                    If now_room().dark = 4 Then
   --                 If llg( dark ) = 4 Then
+                if ll_global.dark == 4 then
   --                   .stun_return_trig = 1
+                  with0.stun_return_trig = 1
   --
   --                 End If
+                end
   --                   '' un-stunned!
   --
   --                 If .stun_return_trig = 1 Then
+                if with0.stun_return_trig == 1 then
   --
   --                   If .dead = 0 Then
+                  if with0.dead == 0 then
   --
   --                     .jump_counter = 0
+                    with0.jump_counter = 0
   --
   --                     .hurt = 0
+                    with0.hurt = 0
   --
   --
   --                     LLObject_ClearDamage( Varptr( _enemy[do_stuff] ) )
+                    LLObject_ClearDamage(_enemy[do_stuff])
   --
   --                     .fly_count = 0
+                    with0.fly_count = 0
   --                     .fly_timer = 0
+                    with0.fly_timer = 0
   --                     .flash_timer = 0
+                    with0.flash_timer = 0
   --                     .invisible = 0
+                    with0.invisible = 0
   --                     .mad =  0
+                    with0.mad = 0
   --
   --                     .invincible = -1
+                    with0.invincible = -1
   --
   --                     LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
+                    LLObject_ShiftState(_enemy[do_stuff], with0.reset_state)
   --
   --
   --
   --
   --                   End If
+                  end
   --
   --                 End If
+                end
   --
   --               End If
+              end
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --
   --

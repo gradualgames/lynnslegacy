@@ -42,8 +42,8 @@ function love.draw()
   dbgrects = {}
   for u = 1, loops do
     updateBHist()
-    --timerUpdate()
-    timer = timer + .005
+    timerUpdate()
+    --timer = timer + .005
     log.level = "debug"
     enemy_main()
     log.level = "fatal"
