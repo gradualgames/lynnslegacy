@@ -145,7 +145,6 @@ end
 --
 -- Function __do_circle ( this As _char_type Ptr ) As Integer
 function __do_circle(this)
-  log.debug("__do_circle called on: "..this.id)
 --
 --   If this->walk_hold = 0 Then
   if this.walk_hold == 0 then

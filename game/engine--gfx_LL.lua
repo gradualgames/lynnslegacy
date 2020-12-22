@@ -1033,18 +1033,25 @@ function blit_enemy_proj(_enemy)
   else
 --
 --         For show_proj = 0 To .projectile->projectiles - 1
+    for show_proj = 0, with0.projectile.projectiles - 1 do
 --           '' cycle thru the projectiles
 --           If .projectile->coords[show_proj].x <> 0 Or .projectile->coords[show_proj].y <> 0  Then
+      if with0.projectile.coords[show_proj].x ~= 0 or with0.projectile.coords[show_proj].y ~= 0 then
 --             '' this projectile is active
 --             If .projectile->invisible = 0 Then
+        if with0.projectile.invisible == 0 then
 --               '' this projectile is visible
 --               Put ( .projectile->coords[show_proj].x - llg( this )_room.cx, .projectile->coords[show_proj].y - llg( this )_room.cy  ), @.anim[.proj_anim]->image[(.projectile->travelled Mod .anim[.proj_anim]->frames ) * ( .anim[.proj_anim]->arraysize )], Trans
+          draw(with0.anim[with0.proj_anim].image, with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames], with0.projectile.coords[show_proj].x - ll_global.this_room.cx, with0.projectile.coords[show_proj].y - ll_global.this_room.cy)
 --
 --             End If
+        end
 --
 --           End If
+      end
 --
 --         Next
+    end
 --
 --     End Select
   end
