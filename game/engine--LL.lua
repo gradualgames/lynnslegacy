@@ -1927,43 +1927,63 @@ end
 function LLObject_CheckGTorchLit(this)
 --
 --     Dim As Integer chk
+  local chk = 0
 --     For chk = 0 To now_room().enemies -1
+  for chk = 0, now_room().enemies - 1 do
 --
 --       If now_room().enemy[chk].unique_id = u_gtorch Then
+    if now_room().enemy[chk].unique_id == u_gtorch then
 --         '' its a special torch
 --
 --         Dim As vector_pair origin, target
+      local origin, target = create_vector_pair(), create_vector_pair()
 --         origin.u.x = this->projectile->coords[0].x
+      origin.u.x = this.projectile.coords[0].x
 --         origin.u.y = this->projectile->coords[0].y
+      origin.u.y = this.projectile.coords[0].y
 --         origin.v.x = this->anim[this->proj_anim]->x
+      origin.v.x = this.anim[this.proj_anim].x
 --         origin.v.y = this->anim[this->proj_anim]->y
+      origin.v.y = this.anim[this.proj_anim].y
 --
 --         target.u = now_room().enemy[chk].coords
+      target.u = now_room().enemy[chk].coords:clone()
 --         target.v = now_room().enemy[chk].perimeter
+      target.v = now_room().enemy[chk].perimeter:clone()
 --
 --
 --
 --
 --         If check_bounds( origin, target ) = 0 Then
+      if check_bounds(origin, target) == 0 then
 --
 --           With now_room().enemy[chk]
+        local with0 = now_room().enemy[chk]
 --
 --             '' hit, trigger torch
 --             If .funcs.active_state = 0 Then
+        if with0.funcs.active_state == 0 then
 --               .jump_timer = 0
+          with0.jump_timer = 0
 --
 --               LLObject_ShiftState( Varptr( now_room().enemy[chk] ), .hit_state )
+          LLObject_ShiftState(now_room().enemy[chk], with0.hit_state)
 --               LLObject_ClearProjectiles( now_room().enemy[0] )
+          LLObject_ClearProjectiles(now_room().enemy[0])
 --
 --             End If
+        end
 --
 --           End With
 --
 --         End If
+      end
 --
 --       End If
+    end
 --
 --     Next
+  end
 --
 -- End Sub
 end

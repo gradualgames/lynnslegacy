@@ -668,6 +668,26 @@ function __flash_down(this)
 -- End Function
 end
 
+-- Function __big_color_down ( this As _char_type Ptr ) As Integer
+function __big_color_down(this)
+--
+--   llg( dark ) = 4
+  ll_global.dark = 4
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   shift_pal()
+  shift_pal()
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __fade_up_to_color ( this As _char_type Ptr ) As Integer
 function __fade_up_to_color(this)
   --log.debug("__fade_up_to_color called.")

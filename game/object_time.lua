@@ -294,6 +294,42 @@ function __return_idle(this)
 -- End Function
 end
 
+-- Function __return_jump( this As _char_type Ptr ) As Integer
+function __return_jump(this)
+--
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--
+--   this->funcs.active_state = this->jump_state
+  this.funcs.active_state = this.jump_state
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
+--
+--
+-- Function __return_jump_1( this As _char_type Ptr ) As Integer
+function __return_jump_1(this)
+--
+--   this->funcs.current_func[this->funcs.active_state] = 0
+  this.funcs.current_func[this.funcs.active_state] = 0
+--
+--   this->funcs.active_state = this->jump_state
+  this.funcs.active_state = this.jump_state
+--
+--   this->funcs.current_func[this->funcs.active_state] = 1
+  this.funcs.current_func[this.funcs.active_state] = 1
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
+
 -- Function __return_jump_npc( this As _char_type Ptr ) As Integer
 function __return_jump_npc(this)
 --
@@ -307,6 +343,20 @@ function __return_jump_npc(this)
   return 1
 --
 --
+--
+-- End Function
+end
+
+-- Function __return_jump_back ( this As _char_type Ptr ) As Integer
+function __return_jump_back(this)
+--
+-- '  this->funcs.current_func = this->jumpstate + 2
+--   LLObject_ShiftState( this, this->jump_state )
+  LLObject_ShiftState(this, this.jump_state)
+--   this->funcs.current_func[this->funcs.active_state] = 1
+  this.funcs.current_func[this.funcs.active_state] = 1
+--   Return 0
+  return 0
 --
 -- End Function
 end
