@@ -2467,6 +2467,7 @@ function change_room(o, _call, t)
       ll_global.song = ll_global.song_wait
 --
 --         LLMusic_Start( *music_strings( llg( song ) ) )
+      log.debug("Playing ll_global.song: "..ll_global.song)
       LLMusic_Start(music_strings[ll_global.song])
 --
 --       End If
@@ -6451,9 +6452,12 @@ function LLMusic_Start(songName)
 --   #endif
 --
 -- End Sub
-  ll_global.sng = love.audio.newSource(songName, "stream")
-  ll_global.sng:setLooping(true)
-  ll_global.sng:play()
+  if love.filesystem.getInfo(songName).type == "file" then
+    log.debug("Playing song: "..songName)
+    ll_global.sng = love.audio.newSource(songName, "stream")
+    ll_global.sng:setLooping(true)
+    ll_global.sng:play()
+  end
 end
 
 -- Sub LLMusic_Fade()

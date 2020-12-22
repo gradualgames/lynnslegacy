@@ -48,7 +48,7 @@ function love.draw()
     enemy_main()
     log.level = "fatal"
     log.level = "debug"
-    ll_global.hero.hp = 3
+    -- ll_global.hero.hp = 3
     -- ll_global.hero.key = 1
     -- ll_global.hero_only.b_key = 1
     -- ll_global.hero_only.selected_item = 1
