@@ -1377,6 +1377,81 @@ function hero_continue_movement(mn)
 -- End Sub
 end
 
+-- Sub LLObject_GrabItems( o As char_type Ptr )
+function LLObject_GrabItems(o)
+--
+--   With *( o )
+  local with0 = o
+--     If .dead = 0 Then
+  if with0.dead == 0 then
+--       '' hasn't been picked up, or it didn't spawn yet
+--
+--       Dim As vector_pair origin, target
+    local origin, target = create_vector_pair(), create_vector_pair()
+--
+--       origin = LLO_VP( VarPtr( llg( hero ) ) )
+    origin = LLO_VP(ll_global.hero)
+--
+--       target.u = .coords
+    target.u = with0.coords:clone()
+--       target.v.x = 8
+    target.v.x = 8
+--       target.v.y = 8
+    target.v.y = 8
+--
+--       If check_bounds( origin, target ) = 0 Then
+    if check_bounds(origin, target) == 0 then
+--
+--         Select Case .dropped
+--
+--           Case 1
+      if with0.dropped == 1 then
+--             If llg( hero ).hp < llg( hero ).maxhp Then llg( hero ).hp += 1
+        if ll_global.hero.hp < ll_global.hero.maxhp then ll_global.hero.hp = ll_global.hero.hp + 1 end
+--             antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--             play_sample( llg( snd )[sound_healthgrab] )
+          ll_global.snd[sound_healthgrab]:play()
+--
+--           Case 2
+      elseif with0.dropped == 2 then
+--             llg( hero ).money += ( .n_gold * 5 )
+        ll_global.hero.money = ll_global.hero.money + (with0.n_gold * 5)
+--             antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--             play_sample( llg( snd )[sound_cashget], 0 )
+        ll_global.snd[sound_cashget]:play()
+--
+--           Case 3
+      elseif with0.dropped == 3 then
+--             llg( hero ).money += ( .n_silver )
+        ll_global.hero.money = ll_global.hero.money + (with0.n_silver)
+--             antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--             play_sample( llg( snd )[sound_cashget], 0 )
+        ll_global.snd[sound_cashget]:play()
+--
+--
+--         End Select
+      end
+--
+--         .dropped = 0
+      with0.dropped = 0
+--
+--         __make_dead ( o )
+      __make_dead(o)
+--         __cripple   ( o )
+      __cripple(o)
+--
+--
+--       End If
+    end
+--
+--     End If
+  end
+--
+--   End With
+--
+-- End Sub
+end
+
 -- Sub LLObject_TouchSequence( o As char_type Ptr )
 function LLObject_TouchSequence(o)
 --
@@ -3390,11 +3465,14 @@ function act_enemies(_enemies, _enemy)
   --           End If
   --
   --           If ( .unique_id = u_gold ) Or ( .unique_id = u_silver ) Or ( .unique_id = u_health ) Then
+          if (with0.unique_id == u_gold) or (with0.unique_id == u_silver) or (with0.unique_id == u_health) then
   --             '' this is loot to pick up
   --
   --             LLObject_GrabItems( Varptr( _enemy[do_stuff] ) )
+            LLObject_GrabItems(_enemy[do_stuff])
   --
   --           End If
+          end
   --
   --           If .unique_id = u_ltorch Then
           if with0.unique_id == u_ltorch then

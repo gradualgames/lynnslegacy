@@ -679,6 +679,21 @@ function __give_b_key(this)
 -- End Function
 end
 
+-- Function __drop_b_key ( this As _char_type Ptr ) As Integer
+function __drop_b_key(this)
+--
+--
+--   llg( hero_only ).b_key = 0
+  ll_global.hero_only.b_key = 0
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __give_item ( this As _char_type Ptr ) As Integer
 function __give_item(this)
 --
@@ -785,6 +800,21 @@ function __set_happen(this)
 --
 --   llg( now )[this->chap] = Not 0
   ll_global.now[this.chap] = -1
+--
+--
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
+-- Function __invis_entry ( this As _char_type Ptr ) As Integer
+function __invis_entry(this)
+--
+--   llg( hero_only ).invisibleEntry = -1
+  ll_global.hero_only.invisibleEntry = -1
 --
 --
 --
