@@ -6451,9 +6451,11 @@ function LLMusic_Start(songName)
 --   #endif
 --
 -- End Sub
-  ll_global.sng = love.audio.newSource(songName, "stream")
-  ll_global.sng:setLooping(true)
-  ll_global.sng:play()
+  if songName ~= "" and love.filesystem.getInfo(songName) then
+    ll_global.sng = love.audio.newSource(songName, "stream")
+    ll_global.sng:setLooping(true)
+    ll_global.sng:play()
+  end
 end
 
 -- Sub LLMusic_Fade()
