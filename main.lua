@@ -1,3 +1,5 @@
+PROF_CAPTURE = true
+prof = require("jprof")
 require("game/engine--images")
 require("game/engine--LL")
 require("game/engine--gfx_LL")
@@ -37,6 +39,8 @@ function love.load()
 end
 
 function love.draw()
+  --prof.enabled(true)
+  --prof.push("frame")
   startDrawing()
 
   dbgrects = {}
@@ -44,24 +48,32 @@ function love.draw()
     updateBHist()
     timerUpdate()
     --timer = timer + .005
-    --log.level = "debug"
+    log.level = "debug"
+    --prof.push("enemy_main")
     enemy_main()
-    --log.level = "fatal"
-    --log.level = "debug"
+    --prof.pop("enemy_main")
+    log.level = "fatal"
+    log.level = "debug"
     --ll_global.hero.hp = 3
     -- ll_global.hero.key = 1
     -- ll_global.hero_only.b_key = 1
     -- ll_global.hero_only.selected_item = 1
+    --prof.push("hero_main")
     hero_main()
-    --log.level = "fatal"
-    --log.level = "debug"
+    --prof.pop("hero_main")
+    log.level = "fatal"
+    log.level = "debug"
+    --prof.push("play_sequence")
     play_sequence(ll_global)
-    --log.level = "fatal"
+    --prof.pop("play_sequence")
+    log.level = "fatal"
 
-    --log.level = "debug"
+    log.level = "debug"
+    --prof.push("blit_scene")
     drawing = u == loops
     blit_scene()
-    --log.level = "fatal"
+    --prof.pop("blit_scene")
+    log.level = "fatal"
   end
 
   for key, dbgrect in pairs(dbgrects) do
@@ -73,8 +85,9 @@ function love.draw()
   -- local x, y, w, h = ll_global.hero.coords.x - ll_global.this_room.cx, ll_global.hero.coords.y - ll_global.this_room.cy, 16, 16
   -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
   -- love.graphics.rectangle("fill", x, y, w, h)
-
   doneDrawing()
+  --prof.pop("frame")
+  --prof.enabled(false)
 end
 
 function love.resize(w, h)
@@ -105,6 +118,10 @@ function love.keypressed(key, scancode, isrepeat)
     end
     scaleOptions[scaleOption]()
   end
+end
+
+function love.quit()
+  prof.write("prof.mpack")
 end
 
 --Initializes the window, sets up some defaults and
