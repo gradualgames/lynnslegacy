@@ -318,3 +318,115 @@ function in_proximity(this)
 --
 -- End Function
 end
+
+-- Function LLObject_SpawnKill( o As char_type Ptr ) As Integer
+function LLObject_SpawnKill(o)
+--
+--
+--     Dim As Integer op, res, i
+  local op, res, i = 0, 0, 0
+--
+--     With *( o )
+  local with0 = o
+--
+--       If .spawn_kill_trig = 0 Then
+  if with0.spawn_kill_trig == 0 then
+--
+--         If .spawn_info->kill_n <> 0 Then
+    if with0.spawn_info.kill_n ~= 0 then
+--
+--           res = -1
+      res = -1
+--           For i = 0 To .spawn_info->kill_n - 1
+      for i = 0, with0.spawn_info.kill_n - 1 do
+--
+--             op = ( llg( now )[.spawn_info->kill_spawn[i].code_index] <> 0 )
+        op = (ll_global.now[with0.spawn_info.kill_spawn[i].code_index] ~= 0) and -1 or 0
+--
+--             If .spawn_info->kill_spawn[i].code_state = 0 Then
+        if with0.spawn_info.kill_spawn[i].code_state == 0 then
+--               op = Not op
+          op = bit.bnot(op)
+--
+--             End If
+        end
+--
+--             res And= op
+        res = bit.band(res, op)
+--
+--           Next
+      end
+--
+--           Return res
+
+      return res
+--
+--         End If
+    end
+--
+--       End If
+  end
+--
+--     End With
+--
+--
+--
+  return 0
+--
+-- End Function
+end
+
+-- Function LLObject_SpawnWait( o As char_type Ptr ) As Integer
+function LLObject_SpawnWait(o)
+--
+--
+--     Dim As Integer op, res, i
+  local op, res, i = 0, 0, 0
+--
+--     With *( o )
+  local with0 = o
+--
+--       If .spawn_wait_trig = 0 Then
+  if with0.spawn_wait_trig == 0 then
+--
+--         If .spawn_info->wait_n <> 0 Then
+    if with0.spawn_info.wait_n ~= 0 then
+--
+--           res = -1
+      res = -1
+--           For i = 0 To .spawn_info->wait_n - 1
+      for i = 0, with0.spawn_info.wait_n - 1 do
+--
+--             op = ( llg( now )[.spawn_info->wait_spawn[i].code_index] <> 0 )
+        op = (ll_global.now[with0.spawn_info.wait_spawn[i].code_index] ~= 0) and -1 or 0
+--
+--             If .spawn_info->wait_spawn[i].code_state = 0 Then
+        if with0.spawn_info.wait_spawn[i].code_state == 0 then
+--               op = Not op
+          op = bit.bnot(op)
+--
+--             End If
+        end
+--
+--             res And= op
+        res = bit.band(res, op)
+--
+--           Next
+      end
+--
+--           Return res
+      return res
+--
+--         End If
+    end
+--
+--       End If
+  end
+--
+--     End With
+--
+--
+  return 0
+--
+-- End Function
+end

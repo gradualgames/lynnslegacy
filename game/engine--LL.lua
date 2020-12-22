@@ -235,87 +235,121 @@ function set_up_room_enemies(enemies, enemy)
     local with0 = enemy[setup]
     --
     --     If .spawn_cond <> 0 Then
+    if with0.spawn_cond ~= 0 then
     --
     --       If .spawn_info->wait_n > 0 Then
+      if with0.spawn_info.wait_n > 0 then
     --
     --         If LLObject_SpawnWait( Varptr( enemy[setup] ) ) <> 0 Then
+        if LLObject_SpawnWait(enemy[setup]) ~= 0 then
     --
     --           '' done waiting
     --
     --           LLSystem_CopyNewObject( enemy[setup] )
-    LLSystem_CopyNewObject(with0)
+          LLSystem_CopyNewObject(with0)
     --
     --         Else
+        else
     --           Dim As String oldid
     --
     --           oldid = enemy[setup].id
+          local oldid = enemy[setup].id
     --
-    --NOTE: When we port this code, we'll have to do this:
-    --save old id
-    --Change id to "data/object/null.xml"
-    --call LLSystem_CopyNewObject
-    --Change id back to old id.
     --           LLSystem_ObjectDeepCopy( enemy[setup], *LLSystem_ObjectDeref( LLSystem_ObjectDerefName( "data\object\null.xml" ) ) )
+          enemy[setup].id = "data/object/null.xml"
+          LLSystem_CopyNewObject(enemy[setup])
     --           enemy[setup].id = oldid
+          enemy[setup].id = oldid
     --
     --         End If
+        end
     --
     --       Else
+      else
     --
     --         LLSystem_CopyNewObject( enemy[setup] )
+        LLSystem_CopyNewObject(enemy[setup])
     --
     --       End If
+      end
     --
     --     Else
+    else
     --
     --     '' if regular then spawn
     --       LLSystem_CopyNewObject( enemy[setup] )
+      LLSystem_CopyNewObject(enemy[setup])
     --
     --     End If
+    end
     --
     --     '' setting a couple last vars
     --     .num = setup
     with0.num = setup
     --
     --     If .spawn_cond <> 0 Then
+    if with0.spawn_cond ~= 0 then
     --
     --       If LLObject_SpawnKill( Varptr( enemy[setup] ) ) <> 0 Then
+      if LLObject_SpawnKill(enemy[setup]) ~= 0 then
     --         '' all conditions met to kill
     --
     --         __make_dead  ( Varptr( enemy[setup] ) )
+        __make_dead(enemy[setup])
     --         __cripple  ( Varptr( enemy[setup] ) )
+        __cripple(enemy[setup])
     --
     --         If(                                     _
+        if(
     --             ( .unique_id = u_chest         ) Or _
+          (with0.unique_id == u_chest) or
     --             ( .unique_id = u_bluechest     ) Or _
+          (with0.unique_id == u_bluechest) or
     --             ( .unique_id = u_bluechestitem ) Or _
+          (with0.unique_id == u_bluechestitem) or
     --             ( .unique_id = u_ghut          ) Or _
+          (with0.unique_id == u_ghut) or
     --             ( .unique_id = u_button        ) Or _
+          (with0.unique_id == u_button) or
     --             ( .unique_id = u_gbutton       )    _
+          (with0.unique_id == u_gbutton)
     --           ) Then
+          ) then
     --           .current_anim = 1
+          with0.current_anim = 1
     --
     --         End If
+        end
     --
     --
     --         .seq_release = 0
+        with0.seq_release = 0
     --
     --         .spawn_kill_trig = -1
+        with0.spawn_kill_trig = -1
     --
     --
     --         if .unique_id = u_biglarva then
+        if with0.unique_id == u_biglarva then
     --           LLObject_ShiftState( Varptr( enemy[setup] ), 3 )
+          LLObject_ShiftState(enemy[setup], 3)
     --
     --         end if
+        end
     --
     --         if .unique_id = u_ghut then
+        if with0.unique_id == u_ghut then
     --           LLObject_ShiftState( Varptr( enemy[setup] ), 3 )
+          LLObject_ShiftState(enemy[setup], 3)
     --
     --         end if
+        end
     --
     --       End If
+      end
     --
     --     End If
+    end
     --
     --   End With
     --
@@ -2482,6 +2516,9 @@ function jump_to_title()
   ll_global.hero.to_entry = now_room().teleport[ll_global.hero.switch_room].to_room
 --
 --   MemSet( llg( now ), 0, LL_EVENTS_MAX )
+  for i = 0, LL_EVENTS_MAX - 1 do
+    ll_global.now[i] = 0
+  end
 --   llg( do_hud ) = 0
   ll_global.do_hud = 0
 --
