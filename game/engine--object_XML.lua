@@ -375,5 +375,8 @@ function LLSystem_ObjectFromXML(objectLoad)
   --an objectLoad.
   if objectLoad.real_x ~= nil then objectLoad.perimeter.x = objectLoad.real_x end
   if objectLoad.real_y ~= nil then objectLoad.perimeter.y = objectLoad.real_y end
+  --Case sensitivity made this necessary. The code always refers to isBoss
+  --but xml has it all lowercase as isboss.
+  if objectLoad.isboss ~= nil then objectLoad.isBoss = objectLoad.isboss end
 
 end

@@ -764,6 +764,21 @@ function __off_happen(this)
 -- End Function
 end
 
+-- Function __play_seq ( this As _char_type Ptr ) As Integer
+function __play_seq(this)
+--
+--   llg( seq ) = this->seq + this->sel_seq
+  ll_global.seq = this.seq
+  ll_global.seqi = this.seqi + this.sel_seq
+--
+--
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __set_happen ( this As _char_type Ptr ) As Integer
 function __set_happen(this)
 --

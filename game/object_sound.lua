@@ -1,3 +1,5 @@
+require("game/palette")
+
 -- Function __fade_off ( this As _char_type Ptr ) As Integer
 function __fade_off(this)
 --
@@ -73,6 +75,47 @@ function __play_sound(this)
   with0.playing_handle:play()
 --
 --   End With
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
+-- Function __set_fade ( this As _char_type Ptr ) As Integer
+function __set_fade(this)
+--
+--
+--   Dim As Integer hi_r, cols, r, g, b
+  local hi_r, cols, r, g, b = 0, 0, 0, 0, 0
+--
+--
+--     For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--       Palette Get cols, r, g, b
+    r, g, b = palette_get_255(cols)
+--
+--       If r > hi_r Then
+    if r > hi_r then
+--         hi_r = r
+      hi_r = r
+--
+--       End If
+    end
+--
+--     Next
+  end
+--
+--     this->fade_out = hi_r \ 4
+  this.fade_out = math.floor(hi_r / 4)
+--
+--   llg( song_fade ) = -1
+  ll_global.song_fade = -1
+--
+--
 --
 --   Return 1
   return 1
