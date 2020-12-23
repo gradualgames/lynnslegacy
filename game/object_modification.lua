@@ -75,6 +75,15 @@ function __make_dead(this)
 --
 --     If ( .unique_id <> u_charger ) And ( .unique_id <> u_ferus ) Then
   if (this.unique_id ~= u_charger) and (this.unique_id ~= u_ferus) then
+    --NOTE: This is an alternative attempted workaround for the ice bug
+    --crash. My belief is that when the ice bug dies, it was a directional
+    --object and we have edge cases where we try to look up frames that do
+    --not exist. Below this we set direction to 0 but my suspicion is that
+    --there are some edge cases that last for a single frame which might
+    --set the direction back to something invalid during the death animation
+    --which is a uni directional animation. So let's try this for a while and
+    --see if the crash goes away.
+    this.uni_directional = -1
 --       .direction = 0
     this.direction = 0
 --       .animating = 1
