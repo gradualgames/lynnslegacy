@@ -1,5 +1,5 @@
-PROF_CAPTURE = true
-prof = require("jprof")
+--PROF_CAPTURE = true
+--prof = require("jprof")
 require("game/engine--images")
 require("game/engine--LL")
 require("game/engine--gfx_LL")
