@@ -96,7 +96,9 @@ function __do_grult_proj(this)
 --         If projLock = 0 Then
       if projLock == 0 then
 --           this->fly = V2_CalcFlyback( V2_MidPoint( LLO_VP( Varptr( llg( hero ) ) ) ), V2_MidPoint( grultProjectile ) )
-        this.fly = V2_CalcFlyback(V2_MidPoint(LLO_VP(ll_global.hero)), V2_MidPoint(grultProjectile))
+        local fly = V2_CalcFlyback(V2_MidPoint(LLO_VP(ll_global.hero)), V2_MidPoint(grultProjectile))
+        this.fly.x = fly.x
+        this.fly.y = fly.y
 --
 --         End If
       end

@@ -444,10 +444,12 @@ function LLObject_DeriveHurt(h)
 --                                         V2_MidPoint( LLObject_VectorPair( h ) ), _
 --                                         V2_MidPoint( LLObject_VectorPair( Varptr( llg( hero ) ) ) ) _
 --                                       )
-            h.fly = V2_CalcFlyback(
+            local fly = V2_CalcFlyback(
                                     V2_MidPoint(LLObject_VectorPair(h)),
                                     V2_MidPoint(LLObject_VectorPair(ll_global.hero))
                                   )
+            h.fly.x = fly.x
+            h.fly.y = fly.y
 --
 --               LLObject_ClearDamage( h )
             LLObject_ClearDamage(h)
@@ -496,10 +498,12 @@ function LLObject_DeriveHurt(h)
 --                                        V2_MidPoint( LLObject_VectorPair( h ) ), _
 --                                        V2_MidPoint( LLObject_VectorPair( Varptr( llg( hero ) ) ) ) _
 --                                      )
-            h.fly = V2_CalcFlyback(
+            local fly = V2_CalcFlyback(
                                     V2_MidPoint(LLObject_VectorPair(h)),
                                     V2_MidPoint(LLObject_VectorPair(ll_global.hero))
                                   )
+            h.fly.x = fly.x
+            h.fly.y = fly.y
 
 --               LLObject_ClearDamage( h )
             LLObject_ClearDamage(h)
@@ -998,7 +1002,8 @@ function LLObject_ProcessHurt(h)
     if (h.unique_id ~= u_anger) and (h.unique_id ~= u_grult) then
 --       '' his fireballs are affected by fly_?, and he doesn't fly back.
 --       h->fly = flyback
-      h.fly = flyback
+      h.fly.x = flyback.x
+      h.fly.y = flyback.y
 --
 --     End If
     end

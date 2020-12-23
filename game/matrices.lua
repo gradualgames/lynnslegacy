@@ -128,7 +128,10 @@ end
 function V2_Subtract(hi, lo)
 --
 --   Function = Type( hi.x - lo.x, hi.y - lo.y )
-  return {x = hi.x - lo.x, y = hi.y - lo.y}
+  local result = get_next_vector()
+  result.x = hi.x - lo.x
+  result.y = hi.y - lo.y
+  return result
 --
 -- End Function
 end
@@ -171,7 +174,10 @@ end
 function V2_Scale(v, k)
 --
 --   Function = Type( v.x * k, v.y * k )
-  return {x = v.x * k, y = v.y * k}
+  local result = get_next_vector()
+  result.x = v.x * k
+  result.y = v.y * k
+  return result
 --
 -- End Function
 end
