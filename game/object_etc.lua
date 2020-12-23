@@ -694,6 +694,35 @@ function __drop_b_key(this)
 -- End Function
 end
 
+-- Function __bridge_chasm ( this As _char_type Ptr ) As Integer
+function __bridge_chasm(this)
+--
+--
+--   If llg( now )[357] <> 0 Then
+  if ll_global.now[357] ~= 0 then
+--
+--
+--     LLObject_ShiftState( this, this->reset_state )
+    LLObject_ShiftState(this, this.reset_state)
+--     this->impassable = 0
+    this.impassable = 0
+--     Return 0
+    return 0
+--
+--
+--
+--   End If
+  end
+-- '  llg( hero_only ).b_key = 0
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __give_item ( this As _char_type Ptr ) As Integer
 function __give_item(this)
 --

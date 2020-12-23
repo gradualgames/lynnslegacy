@@ -123,6 +123,10 @@ function love.keypressed(key, scancode, isrepeat)
     end
     scaleOptions[scaleOption]()
   end
+
+  if love.keyboard.isDown("h") then
+    ll_global.hero.hp = 6
+  end
 end
 
 function love.quit()
