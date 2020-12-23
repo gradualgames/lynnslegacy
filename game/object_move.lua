@@ -103,7 +103,7 @@ function __push(this)
   end
 --
 --     Dim As vector_pair main_char, rock
-  local main_char, rock = create_vector_pair(), create_vector_pair()
+  local main_char, rock = get_next_vector_pair(), get_next_vector_pair()
 --
 --     main_char.u.x = llg( hero ).coords.x + x_opt
   main_char.u.x = ll_global.hero.coords.x + x_opt
@@ -448,7 +448,7 @@ function __make_face(this)
 --   Dim As vector more, move
   local more, move = get_next_vector(), get_next_vector()
 --   Dim As vector_pair target, origin
-  local target, origin = create_vector_pair(), create_vector_pair()
+  local target, origin = get_next_vector_pair(), get_next_vector_pair()
 --
 --   target = LLObject_VectorPair( @llg( hero ) )
   target = LLObject_VectorPair(ll_global.hero)

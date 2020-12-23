@@ -21,6 +21,7 @@ function love.load()
   initCache()
   initInput()
   init_vector_pool()
+  init_vector_pair_pool()
 
   ll_global = create_ll_system()
 
@@ -48,6 +49,7 @@ function love.draw()
   dbgrects = {}
   for u = 1, loops do
     reset_vector_pool()
+    reset_vector_pair_pool()
     updateBHist()
     timerUpdate()
     --timer = timer + .005

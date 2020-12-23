@@ -80,7 +80,7 @@ function __do_grult_proj(this)
       end
 --
 --       Dim As vector_pair grultProjectile
-      local grultProjectile = create_vector_pair()
+      local grultProjectile = get_next_vector_pair()
 --       With this->projectile->coords[0]
       local with0 = this.projectile.coords[0]
 --

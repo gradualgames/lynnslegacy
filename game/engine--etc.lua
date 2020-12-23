@@ -5,7 +5,7 @@ require("game/matrices")
 function LLObject_VectorPair(o)
 --
 --    Dim As vector_pair res
-  local res = create_vector_pair()
+  local res = get_next_vector_pair()
 --
 --    res.u =  o->coords
   res.u.x = o.coords.x
@@ -27,7 +27,7 @@ function LLObject_VectorPairEx(o, op, par)
   local par = par and par or 0
 --
 --   Dim As vector_pair res
-  local res = create_vector_pair()
+  local res = get_next_vector_pair()
 --
 --   Select Case op
 --
@@ -35,7 +35,7 @@ function LLObject_VectorPairEx(o, op, par)
   if op == OV_ONEBOX then
 --
 --     Return Type <vector_pair> ( o->coords, o->perimeter )
-    local vector_pair = create_vector_pair()
+    local vector_pair = get_next_vector_pair()
     vector_pair.u.x = o.coords.x
     vector_pair.u.y = o.coords.y
     vector_pair.v.x = o.perimeter.x

@@ -23,7 +23,7 @@ function LLObject_MAINAttack(_enemy, hr)
 --   Dim As Integer hero_faces, check_fields
   local hero_faces, check_fields = 0, 0
 --   Dim As vector_pair origin, target
-  local origin, target = create_vector_pair(), create_vector_pair()
+  local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --     For enemy_collide = 0 To _enemies - 1
   --NOTE: This loops only once, this function is only ever called once
@@ -738,7 +738,7 @@ function LLObject_ProcessHurt(h)
 --   Dim As vector flyback
   local flyback = get_next_vector()
 --   Dim As vector_pair origin, target
-  local origin, target = create_vector_pair(), create_vector_pair()
+  local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --   If h->hp > 0 Then
   if h.hp > 0 then
@@ -1172,7 +1172,7 @@ function LLObject_ProjectileDamage(_objects, _object, h)
   local chk_proj, do_stuff = 0, 0
 --
 --   Dim As vector_pair origin, target
-  local origin, target = create_vector_pair(), create_vector_pair()
+  local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --   For do_stuff = 0 To _objects - 1
   for do_stuff = 0, _objects - 1 do
@@ -1368,7 +1368,7 @@ function LLObject_ObjectDamage(_enemies, _enemy, hr, e_type)
 --   Dim As Integer enemy_collide, check_fields
   local enemy_collide, check_fields = 0, 0
 --   Dim As vector_pair origin
-  local origin = create_vector_pair()
+  local origin = get_next_vector_pair()
 --
 --   For enemy_collide = 0 To _enemies - 1
   for enemy_collide = 0, _enemies - 1 do

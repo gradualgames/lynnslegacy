@@ -1162,7 +1162,7 @@ function blit_enemy_loot()
 --   Dim As Integer enemy_loot, conf
   local enemy_loot, conf = 0, false
 --   Dim As vector_pair origin, target
-  local origin, target = create_vector_pair(), create_vector_pair()
+  local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --
 --     For enemy_loot = 0 To now_room().enemies - 1

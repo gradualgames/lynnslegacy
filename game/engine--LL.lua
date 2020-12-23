@@ -373,7 +373,7 @@ function check_teleports(_char, _tele, num_tele)
   for tele_check = 0, num_tele - 1 do
 --
 --     Dim As vector_pair origin, target
-    local origin, target = create_vector_pair(), create_vector_pair()
+    local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --     origin.u = _char.coords
     origin.u.x = _char.coords.x
@@ -1389,7 +1389,7 @@ function LLObject_GrabItems(o)
 --       '' hasn't been picked up, or it didn't spawn yet
 --
 --       Dim As vector_pair origin, target
-    local origin, target = create_vector_pair(), create_vector_pair()
+    local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --       origin = LLO_VP( VarPtr( llg( hero ) ) )
     origin = LLO_VP(ll_global.hero)
@@ -1566,7 +1566,7 @@ function LLObject_ActionSequence(o)
 --   Dim As Integer facing, touching
   local facing, touching = 0, 0
 --   Dim As vector_pair origin, target
-  local origin, target = create_vector_pair(), create_vector_pair()
+  local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --
 --   With *( o )
   local with0 = o
@@ -2014,7 +2014,7 @@ function LLObject_CheckGTorchLit(this)
 --         '' its a special torch
 --
 --         Dim As vector_pair origin, target
-      local origin, target = create_vector_pair(), create_vector_pair()
+      local origin, target = get_next_vector_pair(), get_next_vector_pair()
 --         origin.u.x = this->projectile->coords[0].x
       origin.u.x = this.projectile.coords[0].x
 --         origin.u.y = this->projectile->coords[0].y
@@ -4468,7 +4468,7 @@ function check_against(o, othr, check, d)
 --   Dim As Vector opty
   local opty = get_next_vector()
 --   Dim As vector_pair m, n
-  local m, n = create_vector_pair(), create_vector_pair()
+  local m, n = get_next_vector_pair(), get_next_vector_pair()
 --   Dim As Integer faces, faces2
   local faces, faces2 = 0, 0
 --   Dim As Integer check_fields, check_fields2
@@ -5518,7 +5518,7 @@ function LLObject_IncrementProjectiles(char)
       if with0.projectile.plock == 0 then
 --
 --             Dim As vector_pair thisProjectile
-        local thisProjectile = create_vector_pair()
+        local thisProjectile = get_next_vector_pair()
 --
 --             With .projectile->coords[0]
         local with1 = with0.projectile.coords[0]
@@ -6291,7 +6291,7 @@ end
 function touched_frame_face(c, v)
 --
 --   Dim As vector_pair origin
-  local origin = create_vector_pair()
+  local origin = get_next_vector_pair()
 --   Dim As Integer face_check
   local face_check = 0
 --
