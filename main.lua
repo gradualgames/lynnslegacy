@@ -124,8 +124,17 @@ function love.keypressed(key, scancode, isrepeat)
     scaleOptions[scaleOption]()
   end
 
+  --h is for refilling hp for testing
   if love.keyboard.isDown("h") then
     ll_global.hero.hp = 6
+  end
+
+  --i is for cycling items for testing
+  if love.keyboard.isDown("i") then
+    ll_global.hero_only.selected_item = ll_global.hero_only.selected_item + 1
+    if ll_global.hero_only.selected_item > 2 then
+      ll_global.hero_only.selected_item = 1
+    end
   end
 end
 

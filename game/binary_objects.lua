@@ -33,7 +33,9 @@ function act_key_in_sub(ip, op)
   elseif ll_global.hero_only.selected_item == 2 then
 --       '' ice powder func
 --       llg( hero ).attack_state = 9
+    ll_global.hero.attack_state = 9
 --       llg( hero_only ).powder = llg( hero_only ).selected_item
+    ll_global.hero_only.powder = ll_global.hero_only.selected_item
 --
 --
 --     Case 3, 4
