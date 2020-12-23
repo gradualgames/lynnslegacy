@@ -32,7 +32,7 @@ end
 
 function init_vector_pair_pool()
   vector_pair_pool = {}
-  for i = 1, 4096 do
+  for i = 1, 65536 do
     vector_pair_pool[i] = create_vector_pair()
   end
   vector_pair_pool_index = 1
