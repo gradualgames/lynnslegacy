@@ -1965,8 +1965,16 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --       for iterRooms = 0 to roomsHere - 1
     for iterRooms = 0, roomsHere - 1 do
 --         VFile_Put openVFile, , llg( miniMap ).room[iterRooms].hasVisited
-      log.debug("Saving hasVisited: "..ll_global.miniMap.room[iterRooms].hasVisited.." for room: "..iterRooms)
-      blob:write(ll_global.miniMap.room[iterRooms].hasVisited)
+      --FIXME: icefield.mni does not exist. So when the player tries to save
+      --the game from that map, the following crashes because the minimap has
+      --no rooms. I vaguely recall perhaps the original game crashing when that
+      --save point is used; we should confirm if this is the case and revisit this.
+      if ll_global.miniMap.room[iterRooms] ~= nil then
+        log.debug("Saving hasVisited: "..ll_global.miniMap.room[iterRooms].hasVisited.." for room: "..iterRooms)
+        blob:write(ll_global.miniMap.room[iterRooms].hasVisited)
+      else
+        blob:write(0)
+      end
 --
 --       next
     end
