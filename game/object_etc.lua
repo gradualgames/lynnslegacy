@@ -1101,6 +1101,21 @@ function __healthguy_branch(this)
 -- End Function
 end
 
+-- Function __give_gold_amount( this As char_type Ptr ) As Integer
+function __give_gold_amount(this)
+--
+--
+--   llg( hero ).money += this->chap
+  ll_global.hero.money = ll_global.hero.money + this.chap
+--   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __fade_music_out( this As char_type Ptr ) As Integer
 function __fade_music_out(this)
 --
