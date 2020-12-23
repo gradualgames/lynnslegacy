@@ -17,10 +17,26 @@ function LLObject_CalculateFrame(this)
   end
 end
 
+-- #Define obj_XInBound(__THISCHAR__) _
+function obj_XInBound(__THISCHAR__)
+--   ( Abs( IIf( (__THISCHAR__)->no_cam = 0, llg( this_room ).cx, 0 ) + 160 - (__THISCHAR__)->coords.x ) < ( 200 + (__THISCHAR__)->anim[(__THISCHAR__)->current_anim]->x ) )
+  return math.abs(iif(__THISCHAR__.no_cam == 0, ll_global.this_room.cx, 0) + 160 - __THISCHAR__.coords.x) < (200 + __THISCHAR__.anim[__THISCHAR__.current_anim].x)
+end
+--
+-- #Define obj_YInBound(__THISCHAR__) _
+function obj_YInBound(__THISCHAR__)
+--   ( Abs( IIf( (__THISCHAR__)->no_cam = 0, llg( this_room ).cy, 0 ) + 100 - (__THISCHAR__)->coords.y ) < ( 150 + (__THISCHAR__)->anim[(__THISCHAR__)->current_anim]->y ) )
+  return math.abs(iif(__THISCHAR__.no_cam == 0, ll_global.this_room.cy, 0) + 100 - __THISCHAR__.coords.y) < (150 + __THISCHAR__.anim[__THISCHAR__.current_anim].y)
+end
+--
+-- #Define obj_NoProjectile(__THISCHAR__) ( (__THISCHAR__)->proj_style = 0 )
+function obj_NoProjectile(__THISCHAR__)
+  return __THISCHAR__.proj_style == 0
+end
+
 --#Define LLObject_IsWithin(__THISCHAR__) ( iif( (__THISCHAR__)->isBoss, -1, IIf( obj_NoProjectile(__THISCHAR__), IIf( obj_XInBound(__THISCHAR__) And obj_YInBound(__THISCHAR__), -1, 0 ), -1 ) ) )
-function LLObject_IsWithin(object)
-  --TODO: Actually port this when it becomes relevant.
-  return true
+function LLObject_IsWithin(__THISCHAR__)
+  return iif(__THISCHAR__.isBoss ~= 0, -1, iif(obj_NoProjectile(__THISCHAR__), iif(obj_XInBound(__THISCHAR__) and obj_YInBound(__THISCHAR__), -1, 0), -1))
 end
 
 -- #Define LLObject_isTouching(__CHR_X__,__CHR_Y__)                                                     _

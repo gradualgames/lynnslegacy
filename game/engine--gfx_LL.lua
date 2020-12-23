@@ -330,7 +330,7 @@ function blit_y_sorted()
   for _blit_em = 0, ac - 1 do
   --
   --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
-    if LLObject_IsWithin(y_sort[0][_blit_em + 1]) then
+    if LLObject_IsWithin(y_sort[0][_blit_em + 1]) ~= 0 then
   --
   --     blit_enemy( *y_sort( _blit_em ) )
       local enemy = y_sort[0][_blit_em + 1]

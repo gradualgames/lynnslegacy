@@ -2843,7 +2843,7 @@ function act_enemies(_enemies, _enemy)
     --   h = 16})
   --
   --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
-    if LLObject_IsWithin(with0) then
+    if LLObject_IsWithin(with0) ~= 0 then
   --
   --       If ( .seq_paused <> 0 ) And ( llg( seq ) <> 0 ) Then
       if (with0.seq_paused ~= 0) and (ll_global.seq ~= nil) then
@@ -3691,7 +3691,7 @@ function move_object(o, only_looking, moment, recurring)
   if o.direction == 1 then
     --
     --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then '' mul tileX
-    if o.coords.x < (now_room().x * 16) - o.perimeter.x or o.unstoppable_by_screen then
+    if o.coords.x < (now_room().x * 16) - o.perimeter.x or (o.unstoppable_by_screen ~= 0) then
     --
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
@@ -3733,7 +3733,7 @@ function move_object(o, only_looking, moment, recurring)
   if o.direction == 2 then
     --
     --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then '' mul tileY
-    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
+    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen ~= 0) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 2, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
@@ -3770,7 +3770,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --     If o->coords.x > 0 Or ( o->unstoppable_by_screen ) Then
-    if o.coords.x > 0 or o.unstoppable_by_screen then
+    if o.coords.x > 0 or (o.unstoppable_by_screen ~= 0) then
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
@@ -3809,7 +3809,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
-    if o.coords.y > 0 or (o.unstoppable_by_screen) then
+    if o.coords.y > 0 or (o.unstoppable_by_screen ~= 0) then
     --
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
@@ -3844,7 +3844,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --     If o->coords.x > 0 Or ( o->unstoppable_by_screen ) Then
-    if o.coords.x > 0 or (o.unstoppable_by_screen) then
+    if o.coords.x > 0 or (o.unstoppable_by_screen ~= 0) then
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
@@ -3883,7 +3883,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
-    if o.coords.y > 0 or (o.unstoppable_by_screen) then
+    if o.coords.y > 0 or (o.unstoppable_by_screen ~= 0) then
     --
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
@@ -3917,7 +3917,7 @@ function move_object(o, only_looking, moment, recurring)
     end
     --
     --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then '' mul tileX
-    if o.coords.x < (now_room().x * 16) - o.perimeter.x or o.unstoppable_by_screen then
+    if o.coords.x < (now_room().x * 16) - o.perimeter.x or (o.unstoppable_by_screen ~= 0) then
     --
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
@@ -3959,7 +3959,7 @@ function move_object(o, only_looking, moment, recurring)
     --
     --
     --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then '' mul tileY
-    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
+    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen ~= 0) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 2, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
@@ -3991,7 +3991,7 @@ function move_object(o, only_looking, moment, recurring)
     end
     --
     --     If o->coords.x < ( now_room().x Shl 4 ) - o->perimeter.x Or ( o->unstoppable_by_screen ) Then '' mul tileX
-    if o.coords.x < (now_room().x * 16) - o.perimeter.x or o.unstoppable_by_screen then
+    if o.coords.x < (now_room().x * 16) - o.perimeter.x or (o.unstoppable_by_screen ~= 0) then
     --
     --       '' object "x" is smaller than right bound, or is not stopped by physical bounds.
     --
@@ -4032,7 +4032,7 @@ function move_object(o, only_looking, moment, recurring)
   if o.direction == 7 then
     --
     --     If o->coords.y < ( now_room().y Shl 4 ) - o->perimeter.y Or ( o->unstoppable_by_screen ) Then '' mul tileY
-    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen) then
+    if o.coords.y < (now_room().y * 16) - o.perimeter.y or (o.unstoppable_by_screen ~= 0) then
     --
     --       If check_walk( o, 2, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 2, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
@@ -4063,7 +4063,7 @@ function move_object(o, only_looking, moment, recurring)
     end
     --
     --     If o->coords.x > 0 Or ( o->unstoppable_by_screen ) Then
-    if o.coords.x > 0 or (o.unstoppable_by_screen) then
+    if o.coords.x > 0 or (o.unstoppable_by_screen ~= 0) then
     --
     --
     --       If check_walk( o, 3, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
@@ -4110,9 +4110,12 @@ function check_walk(o, d, psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
+  if (o.coords.x < 0) or (o.coords.y < 0) or ((o.coords.x + o.perimeter.x) > bit.lshift(now_room().x, 4)) or ((o.coords.y + o.perimeter.y) > bit.lshift(now_room().y, 4)) then
   --     Return FALSE
+    return false
   --
   --   End If
+  end
   --
   --
   --   Dim As Integer x_offset_2, y_offset_2, x_tile_2, y_tile_2, quads_x, quads_y, x_aligned, y_aligned
