@@ -126,7 +126,7 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function love.quit()
-  prof.write("prof.mpack")
+  --prof.write("prof.mpack")
 end
 
 --Initializes the window, sets up some defaults and
