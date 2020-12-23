@@ -4466,7 +4466,7 @@ function check_against(o, othr, check, d)
 --   Function = 0
 --
 --   Dim As Vector opty
-  local opty = create_vector()
+  local opty = get_next_vector()
 --   Dim As vector_pair m, n
   local m, n = create_vector_pair(), create_vector_pair()
 --   Dim As Integer faces, faces2
@@ -5184,7 +5184,8 @@ function LLObject_ClearProjectiles(char)
 --     For incre = 0 To .projectile->projectiles - 1
   for incre = 0, with0.projectile.projectiles - 1 do
 --       .projectile->coords[incre] = Type <vector> ( 0, 0 )
-    with0.projectile.coords[incre] = create_vector()
+    with0.projectile.coords[incre].x = 0
+    with0.projectile.coords[incre].y = 0
 --
 --     Next
   end
@@ -5389,7 +5390,7 @@ function LLObject_IncrementProjectiles(char)
   elseif with0.proj_style == PROJECTILE_BEAM then
 --
 --         Dim As vector tempVector
-    local tempVector = create_vector()
+    local tempVector = get_next_vector()
 --
 --         tempVector = .projectile->coords[0]
     tempVector.x = with0.projectile.coords[0].x
@@ -5530,7 +5531,6 @@ function LLObject_IncrementProjectiles(char)
 --             End With
 --
 --             thisProjectile.v = Type <vector> ( .anim[.proj_anim]->x, .anim[.proj_anim]->y )
-        thisProjectile.v = create_vector()
         thisProjectile.v.x = with0.anim[with0.proj_anim].x
         thisProjectile.v.y = with0.anim[with0.proj_anim].y
 --

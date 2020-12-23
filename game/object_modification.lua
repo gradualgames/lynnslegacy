@@ -126,7 +126,8 @@ function __make_dead(this)
   end
 --
 --     .fly = Type <vector> ( 0, 0 )
-  this.fly = create_vector()
+  this.fly.x = 0
+  this.fly.y = 0
 --
 --     If ( Not ( .unique_id = u_ibug ) ) And ( Not ( .unique_id = u_fbug ) ) And ( Not ( .unique_id = u_boss5_down ) ) And ( Not ( .unique_id = u_boss5_left ) ) And ( Not ( .unique_id = u_boss5_right ) ) Then
   if (not (this.unique_id == u_ibug)) and (not (this.unique_id == u_fbug)) and (not (this.unique_id == u_boss5_down)) and (not (this.unique_id == u_boss5_left)) and (not (this.unique_id == u_boss5_right)) then

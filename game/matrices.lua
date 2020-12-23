@@ -7,9 +7,29 @@ end
 
 function create_vector_pair()
   local vector_pair = {}
-  vector_pair.u = create_vector()
-  vector_pair.v = create_vector()
+  vector_pair.u = get_next_vector()
+  vector_pair.v = get_next_vector()
   return vector_pair
+end
+
+function init_vector_pool()
+  vector_pool = {}
+  for i = 1, 65536 do
+    vector_pool[i] = create_vector()
+  end
+  vector_pool_index = 1
+end
+
+function get_next_vector()
+  local vector = vector_pool[vector_pool_index]
+  vector.x = 0
+  vector.y = 0
+  vector_pool_index = vector_pool_index + 1
+  return vector
+end
+
+function reset_vector_pool()
+  vector_pool_index = 1
 end
 
 -- Function check_bounds ( m As vector_pair, n As vector_pair ) As Integer
@@ -17,7 +37,7 @@ function check_bounds(m, n)
 --
 --
 --   Dim As vector touching
-  local touching = create_vector()
+  local touching = get_next_vector()
 --
 --
 --   If m.u.x + m.v.x > n.u.x Then
@@ -96,7 +116,10 @@ end
 function V2_Add(hi, lo)
 --
 --   Function = Type( hi.x + lo.x, hi.y + lo.y )
-  return {x = hi.x + lo.x, y = hi.y + lo.y}
+  local result = get_next_vector()
+  result.x = hi.x + lo.x
+  result.y = hi.y + lo.y
+  return result
 --
 -- End Function
 end
@@ -127,7 +150,7 @@ V2_Midpoint = V2_MidPoint
 function V2_Absolute(v)
 --
 --   Function = Type( Abs( v.x ), Abs( v.y ) )
-  local result = create_vector()
+  local result = get_next_vector()
   result.x = math.abs(v.x)
   result.y = math.abs(v.y)
   return result

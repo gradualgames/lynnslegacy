@@ -4,6 +4,7 @@ require("game/engine--images")
 require("game/engine--LL")
 require("game/engine--gfx_LL")
 require("game/ll_build")
+require("game/matrices")
 require("game/global_structures")
 require("game/utility")
 
@@ -19,6 +20,7 @@ function love.load()
   initTimer()
   initCache()
   initInput()
+  init_vector_pool()
 
   ll_global = create_ll_system()
 
@@ -45,6 +47,7 @@ function love.draw()
 
   dbgrects = {}
   for u = 1, loops do
+    reset_vector_pool()
     updateBHist()
     timerUpdate()
     --timer = timer + .005

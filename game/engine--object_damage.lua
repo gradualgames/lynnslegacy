@@ -732,7 +732,7 @@ function LLObject_ProcessHurt(h)
 --
 --
 --   Dim As vector flyback
-  local flyback = create_vector()
+  local flyback = get_next_vector()
 --   Dim As vector_pair origin, target
   local origin, target = create_vector_pair(), create_vector_pair()
 --

@@ -446,7 +446,7 @@ function __make_face(this)
 --
 --
 --   Dim As vector more, move
-  local more, move = create_vector(), create_vector()
+  local more, move = get_next_vector(), get_next_vector()
 --   Dim As vector_pair target, origin
   local target, origin = create_vector_pair(), create_vector_pair()
 --

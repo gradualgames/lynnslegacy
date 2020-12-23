@@ -90,7 +90,6 @@ function __do_grult_proj(this)
       grultProjectile.u.y = with0.y
 --
 --         grultProjectile.v = Type <vector> ( 4, 4 )
-      grultProjectile.v = create_vector()
       grultProjectile.v.x = 4
       grultProjectile.v.y = 4
 --
