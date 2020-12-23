@@ -9,8 +9,8 @@ function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
     spriteBatch:clear()
     local topLeftMapX = math.floor(ll_global.this_room.cx / imageHeader.x)
     local topLeftMapY = math.floor(ll_global.this_room.cy / imageHeader.y)
-    local topLeftScreenX = -(ll_global.this_room.cx % imageHeader.x)
-    local topLeftScreenY = -(ll_global.this_room.cy % imageHeader.y)
+    local topLeftScreenX = -math.floor(ll_global.this_room.cx % imageHeader.x)
+    local topLeftScreenY = -math.floor(ll_global.this_room.cy % imageHeader.y)
     local mapX = topLeftMapX
     local mapY = topLeftMapY
     local screenX = topLeftScreenX
@@ -1422,17 +1422,17 @@ function blit_object_ex(this)
   --
   --
   --     x_opt = .coords.x
-  x_opt = with0.coords.x
+  x_opt = math.floor(with0.coords.x)
   --     y_opt = .coords.y
-  y_opt = with0.coords.y
+  y_opt = math.floor(with0.coords.y)
   --
   --     If .no_cam = 0 Then
   if with0.no_cam == 0 then
   --
   --       x_opt -= llg( this_room ).cx
-    x_opt = x_opt - ll_global.this_room.cx
+    x_opt = x_opt - math.floor(ll_global.this_room.cx)
   --       y_opt -= llg( this_room ).cy
-    y_opt = y_opt - ll_global.this_room.cy
+    y_opt = y_opt - math.floor(ll_global.this_room.cy)
   --
   --     End If
   end
