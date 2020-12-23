@@ -5401,17 +5401,21 @@ function LLObject_IncrementProjectiles(char)
   elseif with0.proj_style == PROJECTILE_BEAM then
 --
 --         Dim As vector tempVector
-    local tempVector = get_next_vector()
+    local tempVector0 = get_next_vector()
+    local tempVector1 = get_next_vector()
 --
 --         tempVector = .projectile->coords[0]
-    tempVector.x = with0.projectile.coords[0].x
-    tempVector.y = with0.projectile.coords[0].y
+    tempVector0.x = with0.projectile.coords[0].x
+    tempVector0.y = with0.projectile.coords[0].y
 --
 --         .projectile->coords[0] = .projectile->coords[1]
     with0.projectile.coords[0].x = with0.projectile.coords[1].x
     with0.projectile.coords[0].y = with0.projectile.coords[1].y
 --         .projectile->coords[1] = V2_Add( .projectile->coords[1], V2_Subtract( .projectile->coords[1], tempVector ) )
-    with0.projectile.coords[1] = V2_Add(with0.projectile.coords[1], V2_Subtract(with0.projectile.coords[1], tempVector))
+
+    tempVector1 = V2_Add(with0.projectile.coords[1], V2_Subtract(with0.projectile.coords[1], tempVector0))
+    with0.projectile.coords[1].x = tempVector1.x
+    with0.projectile.coords[1].y = tempVector1.y
 
 --
 --       Case PROJECTILE_DIAGONAL
@@ -5546,7 +5550,9 @@ function LLObject_IncrementProjectiles(char)
         thisProjectile.v.y = with0.anim[with0.proj_anim].y
 --
 --             .projectile->flightPath = V2_CalcFlyback( V2_MidPoint( LLO_VP( Varptr( llg( hero ) ) ) ), V2_MidPoint( thisProjectile ) )
-        with0.projectile.flightPath = V2_CalcFlyback(V2_MidPoint(LLO_VP(ll_global.hero)), V2_MidPoint(thisProjectile))
+        local tempVector = V2_CalcFlyback(V2_MidPoint(LLO_VP(ll_global.hero)), V2_MidPoint(thisProjectile))
+        with0.projectile.flightPath.x = tempVector.x
+        with0.projectile.flightPath.y = tempVector.y
 --
 --           End If
       end
@@ -5555,7 +5561,9 @@ function LLObject_IncrementProjectiles(char)
     end
 --
 --        .projectile->coords[0] = V2_Add( .projectile->coords[0], .projectile->flightPath )
-    with0.projectile.coords[0] = V2_Add(with0.projectile.coords[0], with0.projectile.flightPath)
+    local tempVector = V2_Add(with0.projectile.coords[0], with0.projectile.flightPath)
+    with0.projectile.coords[0].x = tempVector.x
+    with0.projectile.coords[0].y = tempVector.y
 --
 --     End Select
   end

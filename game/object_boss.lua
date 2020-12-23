@@ -109,7 +109,9 @@ function __do_grult_proj(this)
     end
 --
 --     this->projectile->coords[0] = V2_Add( this->projectile->coords[0], this->fly )
-    this.projectile.coords[0] = V2_Add(this.projectile.coords[0], this.fly)
+    local tempVector = V2_Add(this.projectile.coords[0], this.fly)
+    this.projectile.coords[0].x = tempVector.x
+    this.projectile.coords[0].y = tempVector.y
 --
 --
 --     this->fly_timer = Timer + this->fly_speed
