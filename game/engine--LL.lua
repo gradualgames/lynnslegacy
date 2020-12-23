@@ -4522,7 +4522,7 @@ function check_against(o, othr, check, d)
 --     With .anim[.current_anim]->frame[.frame_check]:
   local with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
 --       faces  = IIf( .faces = 0, 0, .faces -1 ):
-  faces = with1.faces == 0 and 0 or with1.faces - 1
+  faces = (with1 == nil or with1.faces == 0) and 0 or with1.faces - 1
 --     End With:
 --   End With
 
@@ -4531,7 +4531,7 @@ function check_against(o, othr, check, d)
 --     With .anim[.current_anim]->frame[.frame_check]:
   with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
 --       faces2 = IIf( .faces = 0, 0, .faces -1 ):
-  faces2 = with1.faces == 0 and 0 or with1.faces - 1
+  faces2 = (with1 == nil or with1.faces == 0) and 0 or with1.faces - 1
 --     End With:
 --   End With
 --
