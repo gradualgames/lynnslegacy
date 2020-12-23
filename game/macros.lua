@@ -72,7 +72,7 @@ end
 function check_ice(c)
 --                                                                       _
 --   If Bit( ll_current_room( layout[0][tile_char_on( c )] ), 8 ) Then : _
-  if testbit(now_room().layout[0][tile_char_on(c)], 8) ~= 0 then
+  if testbit(now_room().layout[0][tile_char_on(c) + 1], 8) ~= 0 then
 --     c.on_ice = -1                                                   : _
     c.on_ice = -1
 --                                                                     : _
