@@ -804,6 +804,7 @@ function create_LLObject_FrameConcurrent()
   --   origin As vector
   frameConcurrent.origin = create_vector()
   -- End Type
+  return frameConcurrent
 end
 
 function create_LLObject_FrameControl()
@@ -812,7 +813,7 @@ function create_LLObject_FrameControl()
   --   sound_lock As Integer
   frameControl.sound_lock = 0
   --   concurrent As LLObject_FrameConcurrent Ptr
-  frameControl.concurrent = create_LLObject_FrameConcurrent()
+  frameControl.concurrent = {}
   --   concurrents As Integer
   frameControl.concurrents = 0
   --   As Double rate, rateMad

@@ -304,7 +304,8 @@ function blit_y_sorted()
   --         With .animControl[.current_anim].frame[.frame].concurrent[it]
         local with1 = with0.animControl[with0.current_anim].frame[with0.frame].concurrent[it]
   --           srt_Char( srt_Num - 1 ) = .char
-        srt_Char[srt_Num - 1] = with1.char
+        log.debug("with1: "..(with1 and "exists" or "nil"))
+        srt_Char[srt_Num - 1] = {[0] = with1.char}
   --
   --         End With
   --

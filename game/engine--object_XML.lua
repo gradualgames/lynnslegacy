@@ -162,6 +162,106 @@ function LLSystem_ObjectFromXML(objectLoad)
           --  objectLoad.frame = holdFrame
           objectLoad.frame = holdFrame
         end
+      elseif path[3] == "concurrent" then
+        -- Select Case LCase( x->key )
+        --
+        --   Case "frame"
+        if path[4] == "frame" then
+        --
+        --     #IfDef LL_OBJECTLOADPROGRESS
+        --       LLSystem_Log( "Setting up concurrent on frame " & thr->dat.s & ".", "objectload.txt" )
+        --
+        --     #EndIf
+        --
+        --     objectLoad.frame = Val( LCase( thr->dat.s ) )
+          objectLoad.frame = tonumber(text)
+        --
+        --     With objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+          local with0 = objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+        --       .concurrents += 1
+          with0.concurrents = with0.concurrents + 1
+        --
+        --       #IfDef LL_OBJECTLOADPROGRESS
+        --         LLSystem_Log( "Reallocating concurrent array.", "objectload.txt" )
+        --
+        --       #EndIf
+        --
+        --       .concurrent = Reallocate( .concurrent, .concurrents * Len( LLObject_FrameConcurrent ) )
+        --
+        --       #IfDef LL_OBJECTLOADPROGRESS
+        --         If .concurrent = 0 Then
+        --           LLSystem_Log( "Concurrent array: No memory to form!", "objectload.txt" )
+        --
+        --         End If
+        --
+        --         LLSystem_Log( "Initializing concurrent array.", "objectload.txt" )
+        --
+        --       #EndIf
+        --
+        --       MemSet( @.concurrent[.concurrents - 1], 0, Len( LLObject_FrameConcurrent ) )
+          with0.concurrent[with0.concurrents - 1] = create_LLObject_FrameConcurrent()
+        --
+        --       #IfDef LL_OBJECTLOADPROGRESS
+        --         LLSystem_Log( "Initialized concurrent array.", "objectload.txt" )
+        --
+        --       #EndIf
+        --
+        --     End With
+        --
+        --   Case "x"
+        elseif path[4] == "x" then
+        --
+        --     #IfDef LL_OBJECTLOADPROGRESS
+        --       LLSystem_Log( "Setting up concurrent's x.", "objectload.txt" )
+        --
+        --     #EndIf
+        --
+        --     With objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+          local with0 = objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+        --       .concurrent[.concurrents - 1].origin.x = Val( LCase( thr->dat.s ) )
+          with0.concurrent[with0.concurrents - 1].origin.x = tonumber(text)
+        --
+        --     End With
+        --
+        --   Case "y"
+        elseif path[4] == "y" then
+        --
+        --     #IfDef LL_OBJECTLOADPROGRESS
+        --       LLSystem_Log( "Setting up concurrent's y.", "objectload.txt" )
+        --
+        --     #EndIf
+        --
+        --     With objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+          local with0 = objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+        --       .concurrent[.concurrents - 1].origin.y = Val( LCase( thr->dat.s ) )
+          with0.concurrent[with0.concurrents - 1].origin.y = tonumber(text)
+        --
+        --     End With
+        --
+        --   Case "id"
+        elseif path[4] == "id" then
+        --
+        --     #IfDef LL_OBJECTLOADPROGRESS
+        --       LLSystem_Log( "Setting up concurrent's object.", "objectload.txt" )
+        --
+        --     #EndIf
+        --
+        --     With objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+          local with0 = objectLoad.animControl[objectLoad.current_anim].frame[objectLoad.frame]
+        --       .concurrent[.concurrents - 1].char = CAllocate( Len( char_type ) )
+          with0.concurrent[with0.concurrents - 1].char = create_Object()
+        --       .concurrent[.concurrents - 1].char->id = LCase( thr->dat.s )
+          with0.concurrent[with0.concurrents - 1].char.id = text
+        --
+        --     End With
+          --NOTE: The original codebase deferred actually loading the XML of concurrent
+          --objects until deep copies are performed from a cache. In this codebase,
+          --we cache xml and re-load the xml any time a "deep copy" is made, so we
+          --load the concurrent xml right here instead.
+          LLSystem_CopyNewObject(with0.concurrent[with0.concurrents - 1].char)
+        --
+        -- End Select
+        end
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then

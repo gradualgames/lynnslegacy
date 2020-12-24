@@ -3520,11 +3520,14 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --             If .animControl[.current_anim].frame[.frame].concurrents <> 0 Then
+          if with0.animControl[with0.current_anim].frame[with0.frame].concurrents ~= 0 then
   --
   --               LLEngine_ExecuteConcurrents( Varptr( _enemy[do_stuff] ) )
+            LLEngine_ExecuteConcurrents(_enemy[do_stuff])
   --
   --
   --             End If
+          end
   --
   --           If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
           if (with0.unique_id == u_dyssius) or (with0.unique_id == u_steelstrider) then
@@ -6379,6 +6382,52 @@ function touched_bound_box(c, v)
   return check_bounds(LLObject_VectorPair(c), v)
 --
 -- End Function
+end
+
+-- Sub LLEngine_ExecuteConcurrents( o As char_type Ptr )
+function LLEngine_ExecuteConcurrents(o)
+--
+--   Dim As Integer i
+  local i = 0
+--
+--   With *( o )
+  local with0 = o
+--
+--     For i = 0 To .animControl[.current_anim].frame[.frame].concurrents - 1
+  for i = 0, with0.animControl[with0.current_anim].frame[with0.frame].concurrents - 1 do
+--
+--       With .animControl[.current_anim].frame[.frame].concurrent[i]
+    local with1 = with0.animControl[with0.current_anim].frame[with0.frame].concurrent[i]
+--
+--         act_enemies( 1, .char )
+    act_enemies(1, {[0] = with1.char})
+--
+--         .char->coords = V2_Add(                                               _
+    local temp_vector = V2_Add(
+--                                 o->coords,                                    _
+                                o.coords,
+--                                 V2_Subtract(                                  _
+                                V2_Subtract(
+--                                              .origin,                         _
+                                              with1.origin,
+--                                              V2_Scale( .char->perimeter, .5 ) _
+                                              V2_Scale(with1.char.perimeter, .5)
+--                                            )                                  _
+                                            )
+--                               )
+                              )
+    with1.char.coords.x = temp_vector.x
+    with1.char.coords.y = temp_vector.y
+--
+--       End With
+--
+--     Next
+  end
+--
+--   End With
+--
+--
+-- End Sub
 end
 
 -- Sub LLObject_TorchModify( o As char_type Ptr )
