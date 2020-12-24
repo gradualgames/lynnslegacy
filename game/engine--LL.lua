@@ -2742,7 +2742,6 @@ function handle_pause_menu()
 --               SetMouse , , 1
 --
 --               llg( menu ).selectedItem = 18
-              ll_global.menu.selectedItem = 18
 --               Get( 0, 0 )-( 319, 199 ), llg( menu_ScreenSave )
 --               Flip
               coroutine.yield()

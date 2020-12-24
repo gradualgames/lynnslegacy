@@ -44,9 +44,9 @@ end
 
 function love.draw()
   startDrawing()
-  log.debug(coroutine_resume(main_crt))
-  if coroutine.status(main_crt) == "dead" then
-    error("Main coroutine died.")
+  local success, result = coroutine.resume(main_crt)
+  if not success then
+    error(debug.traceback(main_crt, result))
   end
   doneDrawing()
 end
@@ -154,14 +154,6 @@ function main()
     --prof.enabled(false)
     coroutine.yield()
   until false
-end
-
-function coroutine_resume(co)
-  local output = {coroutine.resume(co)}
-  if output[1] == false then
-    return false, output[2], debug.traceback(co)
-  end
-  return unpack(output)
 end
 
 --Initializes the window, sets up some defaults and
