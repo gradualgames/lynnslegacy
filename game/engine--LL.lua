@@ -2748,7 +2748,6 @@ function handle_pause_menu()
 --               llg( menu ).selectedItem = 18
 --               Get( 0, 0 )-( 319, 199 ), llg( menu_ScreenSave )
 --               Flip
-              coroutine.yield()
 --               Put( 0, 0 ), llg( menu_ScreenSave )
 --
 --               Do
@@ -2778,6 +2777,7 @@ function handle_pause_menu()
                 end
 --
 --                 Put( 0, 0 ), llg( menu_ScreenSave )
+                love.graphics.draw(savedCanvas)
 --                 If menu_Input() Then
 --                   Exit Do
 --

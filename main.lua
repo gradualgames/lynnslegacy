@@ -161,11 +161,12 @@ end
 --canvas to simulate SCREEN 13.
 function initScreen()
   love.window.setTitle("Lynn's Legacy")
-  love.window.setMode(640, 400, {resizable=true, minwidth=320, minheight=200})
+  love.window.setMode(640, 400, {resizable = true, minwidth = 320, minheight = 200})
   love.window.setVSync(1)
   love.mouse.setVisible(false)
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
-  canvas = love.graphics.newCanvas(320,200)
+  canvas = love.graphics.newCanvas(320, 200)
+  savedCanvas = love.graphics.newCanvas(320, 200)
 end
 
 function initScale()
@@ -262,6 +263,9 @@ function doneDrawing()
   love.graphics.draw(canvas)
   love.graphics.pop()
   love.graphics.setShader()
+  love.graphics.setCanvas(savedCanvas)
+  love.graphics.draw(canvas)
+  love.graphics.setCanvas()
 end
 
 function retrieveDimensions()
