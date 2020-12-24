@@ -2707,6 +2707,138 @@ function jump_to_title()
 -- End Sub
 end
 
+-- Sub handle_pause_menu()
+function handle_pause_menu()
+--
+--   Static As Integer esc_Hold, end_Hold
+  if esc_Hold == nil then esc_Hold = 0 end
+  if end_Hold == nil then end_Hold = 0 end
+--
+--   If end_Hold <> 0 Then
+  if end_Hold ~= 0 then
+--     If MultiKey( sc_escape ) = 0  Then end_Hold = 0
+    if love.keyboard.isDown("escape") == false then end_Hold = 0 end
+--
+--   End If
+  end
+--
+--   If llg( hero_only ).attacking = 0 Then
+  if ll_global.hero_only.attacking == 0 then
+--     If llg( hero ).switch_room = -1 Then
+    if ll_global.hero.switch_room == -1 then
+--       If llg( seq ) = 0 Then
+      if ll_global.seq == nil then
+--         If llg( hero ).menu_sel = 0 Then
+        if ll_global.hero.menu_sel == 0 then
+--           If llg( hero ).dead = 0 Then
+          if ll_global.hero.dead == 0 then
+--
+--             If MultiKey( sc_escape ) And ( end_Hold = 0 ) Then
+            if love.keyboard.isDown("escape") and (end_Hold == 0) then
+--               esc_Hold = -1
+              esc_Hold = -1
+--
+--
+--               SetMouse , , 1
+--
+--               llg( menu ).selectedItem = 18
+              ll_global.menu.selectedItem = 18
+--               Get( 0, 0 )-( 319, 199 ), llg( menu_ScreenSave )
+--               Flip
+              coroutine.yield()
+--               Put( 0, 0 ), llg( menu_ScreenSave )
+--
+--               Do
+              repeat
+--
+--
+--                 Dim As Integer mx, my
+--
+--                 mx = fb_Global.mouse.x
+--                 my = fb_Global.mouse.y
+--
+--                 fb_GetMouse()
+--                 fb_GetKey()
+--
+--                 llg( locationChanged ) And= 0
+--                 If ( fb_Global.mouse.x <> mx ) Or ( fb_Global.mouse.y <> my ) Then
+--                   llg( locationChanged ) = Not 0
+--
+--                 End If
+--
+--                 If MultiKey( sc_escape ) = 0 Then
+                if love.keyboard.isDown("escape") == false then
+                  log.debug("Setting esc_Hold to 0.")
+--                   esc_Hold = 0
+                  esc_Hold = 0
+--
+--                 End If
+                end
+--
+--                 Put( 0, 0 ), llg( menu_ScreenSave )
+--                 If menu_Input() Then
+--                   Exit Do
+--
+--                 End If
+--
+--                 menu_Blit()
+                menu_Blit()
+--                 '' pause menu
+--
+--                 fb_ScreenRefresh()
+--                 Sleep 1
+--
+--                 If MultiKey( sc_escape ) Then
+                if love.keyboard.isDown("escape") == true then
+--
+--                   If esc_Hold = 0 Then
+                  if esc_Hold == 0 then
+                    log.debug("Setting esc_Hold to -1, exiting menu loop.")
+--                     end_Hold = -1
+                    end_Hold = -1
+--                     Exit Do
+                    break
+--
+--                   End If
+                  end
+--
+--                 End If
+                end
+--
+--                 If fb_WindowKill() Then
+--                   End
+--
+--                 End If
+--
+--               Loop
+                coroutine.yield()
+              until false
+--
+--               Flip
+--               Put( 0, 0 ), llg( menu_ScreenSave )
+--
+--             End If
+            end
+--
+--           End If
+          end
+--
+--         End If
+        end
+--
+--       End If
+      end
+--
+--     End If
+    end
+--
+--   End If
+  end
+--
+--
+-- End Sub
+end
+
 -- Sub enter_map( _char As char_type Ptr, _m As map_type Ptr, desc As String, _entry As Integer )
 --NOTE: _m is actually expected to be the ll_global object,
 --and the .map property is used throughout.

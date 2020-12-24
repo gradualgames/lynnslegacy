@@ -115,6 +115,7 @@ function blit_scene()
   -- LLEngine_MouseVanish()
   --
   -- handle_pause_menu()
+  handle_pause_menu()
   --
 	-- handle_fps()
   -- screenQuake()
@@ -1873,6 +1874,454 @@ function hud_BlitEnemies()
 --   Next
   end
 --
+--
+-- End Sub
+end
+
+-- Sub menu_Blit()
+function menu_Blit()
+--
+--   #Define menu_BlitImage(x,y,i) Put( x, y ), .img( i )->image, Trans
+--
+--   With llg( menu )
+--     With .menuimages
+--       Put( 0, 0 ), .img( menu_full_background )->image, Trans
+--
+--
+--       If llg( hero_only ).has_weapon >= 0 Then
+--         If llg( hero_only ).weapon = 0 Then
+--           menu_BlitImage( 18, 18, menu_sapling_select )
+--         Else
+--           menu_BlitImage( 18, 18, menu_sapling )
+--         End If
+--       Else
+--         menu_BlitImage( 18, 18, menu_blankspace )
+--       End If
+--
+--       If llg( hero_only ).has_weapon >= 1 Then
+--         If llg( hero_only ).weapon = 1 Then
+--           menu_BlitImage( 42, 18, menu_mace_select )
+--         Else
+--           menu_BlitImage( 42, 18, menu_mace )
+--         End If
+--       Else
+--         menu_BlitImage( 42, 18, menu_blankspace )
+--       End If
+--
+--       If llg( hero_only ).has_weapon >= 2 Then
+--         If llg( hero_only ).weapon = 2 Then
+--           menu_BlitImage( 66, 18, menu_star_select )
+--         Else
+--           menu_BlitImage( 66, 18, menu_star )
+--         End If
+--       Else
+--         menu_BlitImage( 66, 18, menu_blankspace )
+--       End If
+--
+--
+-- '      If llg( hero_only ).has_item > 0 Then
+--       If llg( hero_only ).hasItem( 0 ) Then
+--         If llg( hero_only ).selected_item = 1 Then
+--           menu_BlitImage( 18, 54, menu_flare_select )
+--         Else
+--           menu_BlitImage( 18, 54, menu_flare )
+--         End If
+--
+--       Else
+--         menu_BlitImage( 18, 54, menu_blankspace )
+--       End If
+--       If llg( hero_only ).hasItem( 1 ) Then
+--         If llg( hero_only ).selected_item = 2 Then
+--           menu_BlitImage( 42, 54, menu_ice_select )
+--         Else
+--           menu_BlitImage( 42, 54, menu_ice )
+--         End If
+--
+--       Else
+--         menu_BlitImage( 42, 54, menu_blankspace )
+--       End If
+--       If llg( hero_only ).hasItem( 2 ) Then
+--
+--         dim as integer currentBridge, currentBridgeSelect
+--
+--         currentBridge = menu_bridge
+--         currentBridgeSelect = menu_bridge_select
+--
+--
+--         if llg( hero_only ).has_weapon = 2 then
+--
+--           currentBridge = menu_blank
+--           currentBridgeSelect = menu_blank_select
+--
+--         elseif llg( now )[1206] then
+--           ''templewood
+--           currentBridge = menu_bridge3
+--           currentBridgeSelect = menu_bridge3_select
+--
+--         elseif llg( now )[470] then
+--
+--           currentBridge = menu_bridge2
+--           currentBridgeSelect = menu_bridge2_select
+--
+--         end if
+--
+--
+--
+--         If llg( hero_only ).selected_item = 3 Then
+--           menu_BlitImage( 66, 54, currentBridgeSelect )
+--         Else
+--           menu_BlitImage( 66, 54, currentBridge )
+--         End If
+--
+--       Else
+--         menu_BlitImage( 66, 54, menu_blankspace )
+--       End If
+--
+--       If llg( hero_only ).hasItem( 3 ) Then
+--
+--         dim as integer currentIdol, currentIdolSelect
+--
+--         currentIdol = menu_idol
+--         currentIdolSelect = menu_idol_select
+--
+--         if llg( now )[1212] then
+--
+--           currentIdol = menu_blank
+--           currentIdolSelect = menu_blank_select
+--
+--         end if
+--
+--
+--         If llg( hero_only ).selected_item = 4 Then
+--           menu_BlitImage( 18, 78, currentIdolSelect )
+--         Else
+--           menu_BlitImage( 18, 78, currentIdol )
+--         End If
+--
+--       Else
+--         menu_BlitImage( 18, 78, menu_blankspace )
+--       End If
+--       If llg( hero_only ).hasItem( 4 ) Then
+--
+--         If llg( hero_only ).selected_item = 5 Then
+--           menu_BlitImage( 42, 78, menu_regen_select )
+--         Else
+--           menu_BlitImage( 42, 78, menu_regen )
+--         End If
+--
+--       Else
+--         menu_BlitImage( 42, 78, menu_blankspace )
+--       End If
+--       If llg( hero_only ).hasItem( 5 ) Then
+--
+--         If llg( hero_only ).selected_item = 6 Then
+--           menu_BlitImage( 66, 78, menu_heal_select )
+--         Else
+--           menu_BlitImage( 66, 78, menu_heal )
+--         End If
+--
+--       Else
+--         menu_BlitImage( 66, 78, menu_blankspace )
+--       End If
+--
+--
+--
+--
+--       '' Outfits
+--
+--       If llg( hero_only ).hasCostume( 0 ) <> 0 Then
+--
+--         If llg( hero_only ).isWearing = 0 Then
+--           menu_BlitImage( 18, 121, menu_standard_select )
+--
+--         Else
+--           menu_BlitImage( 18, 121, menu_standard )
+--
+--         End If
+--
+--       Else
+--         menu_BlitImage( 18, 121, menu_blankspace )
+--
+--       End If
+--
+--       If llg( hero_only ).hasCostume( 1 ) <> 0 Then
+--
+--         If llg( hero_only ).isWearing = 1 Then
+--           menu_BlitImage( 42, 121, menu_cougar_select )
+--
+--         Else
+--           menu_BlitImage( 42, 121, menu_cougar )
+--
+--         End If
+--
+--       Else
+--         menu_BlitImage( 42, 121, menu_blankspace )
+--
+--       End If
+--
+--
+--       If llg( hero_only ).hasCostume( 2 ) <> 0 Then
+--
+--         If llg( hero_only ).isWearing = 2 Then
+--           menu_BlitImage( 66, 121, menu_lynnity_select )
+--
+--         Else
+--           menu_BlitImage( 66, 121, menu_lynnity )
+--
+--         End If
+--
+--       Else
+--         menu_BlitImage( 66, 121, menu_blankspace )
+--
+--       End If
+--
+--
+--       If llg( hero_only ).hasCostume( 3 ) <> 0 Then
+--
+--         If llg( hero_only ).isWearing = 3 Then
+--           menu_BlitImage( 18, 157, menu_ninja_select )
+--
+--         Else
+--           menu_BlitImage( 18, 157, menu_ninja )
+--
+--         End If
+--
+--       Else
+--         menu_BlitImage( 18, 157, menu_blankspace )
+--
+--       End If
+--
+--
+--       If llg( hero_only ).hasCostume( 4 ) <> 0 Then
+--
+--         If llg( hero_only ).isWearing = 4 Then
+--           menu_BlitImage( 42, 157, menu_bikini_select )
+--
+--         Else
+--           menu_BlitImage( 42, 157, menu_bikini )
+--
+--         End If
+--
+--       Else
+--         menu_BlitImage( 42, 157, menu_blankspace )
+--
+--       End If
+--
+--
+--       If llg( hero_only ).hasCostume( 5 ) <> 0 Then
+--
+--         If llg( hero_only ).isWearing = 5 Then
+--           menu_BlitImage( 66, 157, menu_rknight_select )
+--
+--         Else
+--           menu_BlitImage( 66, 157, menu_rknight )
+--
+--         End If
+--
+--       Else
+--         menu_BlitImage( 66, 157, menu_blankspace )
+--
+--       End If
+--
+--
+--
+--       '' Square Cursors
+--
+--
+--       Select Case As Const llg( menu ).selectedItem
+--         Case 0
+--
+--           If llg( hero_only ).has_weapon >= 0 Then
+--             graphicalString( llg( menu ).menuNames( menu_sapling_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 18, 18 , menu_square_cursor )
+--
+--         Case 1
+--
+--           If llg( hero_only ).has_weapon >= 1 Then
+--             graphicalString( llg( menu ).menuNames( menu_mace_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 42, 18 , menu_square_cursor )
+--
+--         Case 2
+--
+--           If llg( hero_only ).has_weapon >= 2 Then
+--             graphicalString( llg( menu ).menuNames( menu_star_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 66, 18 , menu_square_cursor )
+--
+--         Case 3
+--
+--           If llg( hero_only ).hasItem( 0 ) Then
+--             graphicalString( llg( menu ).menuNames( menu_flare_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 18, 54 , menu_square_cursor )
+--
+--         Case 4
+--
+--           If llg( hero_only ).hasItem( 1 ) Then
+--             graphicalString( llg( menu ).menuNames( menu_ice_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 42, 54 , menu_square_cursor )
+--
+--         Case 5
+--
+--           If llg( hero_only ).hasItem( 2 ) Then
+--
+--             if llg( hero_only ).has_weapon = 2 then
+--
+--               graphicalString( "Nothing left!", 134, 154, 114 )
+--
+--             elseif llg( now )[1206] then
+--               ''templewood
+--               graphicalString( "A sturdy rope.", 134, 154, 114 )
+--
+--             else
+--               graphicalString( llg( menu ).menuNames( menu_bridge_select ), 134, 154, 114 )
+--
+--             end if
+--
+--           End If
+--           menu_BlitImage( 66, 54 , menu_square_cursor )
+--
+--         Case 6
+--
+--
+--           If llg( hero_only ).hasItem( 3 ) Then
+--
+--             if llg( now )[1212] then
+--
+--               graphicalString( "Gave it away...", 134, 154, 114 )
+--
+--             else
+--               graphicalString( llg( menu ).menuNames( menu_idol_select ), 134, 154, 114 )
+--
+--             end if
+--
+--           End If
+--           menu_BlitImage( 18, 78 , menu_square_cursor )
+--
+--         Case 7
+--
+--           If llg( hero_only ).hasItem( 4 ) Then
+--             graphicalString( llg( menu ).menuNames( menu_regen_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 42, 78 , menu_square_cursor )
+--
+--         Case 8
+--
+--           If llg( hero_only ).hasItem( 5 ) Then
+--             graphicalString( llg( menu ).menuNames( menu_heal_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 66, 78 , menu_square_cursor )
+--
+--         Case 9
+--
+--           If llg( hero_only ).hasCostume(0) <> 0 Then
+--             graphicalString( llg( menu ).menuNames( menu_standard_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 18, 121, menu_square_cursor )
+--
+--         Case 10
+--
+--           If llg( hero_only ).hasCostume(1) <> 0 Then
+--             graphicalString( llg( menu ).menuNames( menu_cougar_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 42, 121, menu_square_cursor )
+--
+--         Case 11
+--
+--           If llg( hero_only ).hasCostume(2) <> 0 Then
+--             graphicalString( llg( menu ).menuNames( menu_lynnity_select ), 134, 154, 114 )
+--
+--           End If
+--
+--           menu_BlitImage( 66, 121, menu_square_cursor )
+--
+--         Case 12
+--
+--           If llg( hero_only ).hasCostume(3) <> 0 Then
+--
+--             graphicalString( llg( menu ).menuNames( menu_ninja_select ), 134, 154, 114 )
+--           End If
+--
+--           menu_BlitImage( 18, 157, menu_square_cursor )
+--
+--         Case 13
+--
+--           If llg( hero_only ).hasCostume(4) <> 0 Then
+--
+--             graphicalString( llg( menu ).menuNames( menu_bikini_select ), 134, 154, 114 )
+--           End If
+--
+--           menu_BlitImage( 42, 157, menu_square_cursor )
+--
+--         Case 14
+--
+--           If llg( hero_only ).hasCostume(5) <> 0 Then
+--
+--             graphicalString( llg( menu ).menuNames( menu_rknight_select ), 134, 154, 114 )
+--           End If
+--
+--           menu_BlitImage( 66, 157, menu_square_cursor )
+--
+-- '        Case 15
+-- '          If llg( hero_only ).hasCostume(6) <> 0 Then
+-- '            graphicalString( llg( menu ).menuNames( menu_sapling_select ), 134, 154, 114 )
+-- '          End If
+-- '          menu_BlitImage( 18, 162, menu_square_cursor )
+-- '        Case 16
+-- '          If llg( hero_only ).hasCostume(7) <> 0 Then
+-- '            graphicalString( llg( menu ).menuNames( menu_sapling_select ), 134, 154, 114 )
+-- '          End If
+-- '          menu_BlitImage( 42, 162, menu_square_cursor )
+-- '        Case 17
+-- '          If llg( hero_only ).hasCostume(8) <> 0 Then
+-- '            graphicalString( llg( menu ).menuNames( menu_sapling_select ), 134, 154, 114 )
+-- '          End If
+-- '          menu_BlitImage( 66, 162, menu_square_cursor )
+--
+--         Case 18
+--
+--           If llg( hero_only ).has_weapon >= 0 Then
+--             graphicalString( llg( menu ).menuNames( menu_resume_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 126, 54, menu_resume_select )
+--
+--         Case 19
+--
+--           If llg( hero_only ).has_weapon >= 0 Then
+--             graphicalString( llg( menu ).menuNames( menu_menu_select ), 134, 154, 114 )
+--
+--           End If
+--           menu_BlitImage( 126, 90, menu_menu_select )
+--
+--       End Select
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--     End With
+--
+--
+--   End With
 --
 -- End Sub
 end

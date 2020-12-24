@@ -22,6 +22,7 @@ function love.load()
   initInput()
   init_vector_pool()
   init_vector_pair_pool()
+  init_main()
 
   ll_global = create_ll_system()
 
@@ -42,57 +43,12 @@ function love.load()
 end
 
 function love.draw()
-  --prof.enabled(true)
-  --prof.push("frame")
   startDrawing()
-
-  dbgrects = {}
-  for u = 1, loops do
-    reset_vector_pool()
-    reset_vector_pair_pool()
-    updateBHist()
-    timerUpdate()
-    --timer = timer + .005
-    log.level = "debug"
-    --prof.push("enemy_main")
-    enemy_main()
-    --prof.pop("enemy_main")
-    log.level = "fatal"
-    log.level = "debug"
-    --ll_global.hero.hp = 3
-    -- ll_global.hero.key = 1
-    -- ll_global.hero_only.b_key = 1
-    -- ll_global.hero_only.selected_item = 1
-    --prof.push("hero_main")
-    hero_main()
-    --prof.pop("hero_main")
-    log.level = "fatal"
-    log.level = "debug"
-    --prof.push("play_sequence")
-    play_sequence(ll_global)
-    --prof.pop("play_sequence")
-    log.level = "fatal"
-
-    log.level = "debug"
-    --prof.push("blit_scene")
-    drawing = u == loops
-    blit_scene()
-    --prof.pop("blit_scene")
-    log.level = "fatal"
+  log.debug(coroutine_resume(main_crt))
+  if coroutine.status(main_crt) == "dead" then
+    error("Main coroutine died.")
   end
-
-  for key, dbgrect in pairs(dbgrects) do
-    local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
-    love.graphics.setColor(dbgrect.c, 0.0, 0.0, 1.0)
-    love.graphics.rectangle("fill", x, y, w, h)
-  end
-
-  -- local x, y, w, h = ll_global.hero.coords.x - ll_global.this_room.cx, ll_global.hero.coords.y - ll_global.this_room.cy, 16, 16
-  -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
-  -- love.graphics.rectangle("fill", x, y, w, h)
   doneDrawing()
-  --prof.pop("frame")
-  --prof.enabled(false)
 end
 
 function love.resize(w, h)
@@ -140,6 +96,72 @@ end
 
 function love.quit()
   --prof.write("prof.mpack")
+end
+
+function init_main()
+  main_crt = coroutine.create(main)
+end
+
+function main()
+  repeat
+    --prof.enabled(true)
+    --prof.push("frame")
+    dbgrects = {}
+    for u = 1, loops do
+      reset_vector_pool()
+      reset_vector_pair_pool()
+      updateBHist()
+      timerUpdate()
+      --timer = timer + .005
+      log.level = "debug"
+      --prof.push("enemy_main")
+      enemy_main()
+      --prof.pop("enemy_main")
+      log.level = "fatal"
+      log.level = "debug"
+      --ll_global.hero.hp = 3
+      -- ll_global.hero.key = 1
+      -- ll_global.hero_only.b_key = 1
+      -- ll_global.hero_only.selected_item = 1
+      --prof.push("hero_main")
+      hero_main()
+      --prof.pop("hero_main")
+      log.level = "fatal"
+      log.level = "debug"
+      --prof.push("play_sequence")
+      play_sequence(ll_global)
+      --prof.pop("play_sequence")
+      log.level = "fatal"
+
+      log.level = "debug"
+      --prof.push("blit_scene")
+      drawing = u == loops
+      blit_scene()
+      --prof.pop("blit_scene")
+      log.level = "fatal"
+    end
+
+    for key, dbgrect in pairs(dbgrects) do
+      local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
+      love.graphics.setColor(dbgrect.c, 0.0, 0.0, 1.0)
+      love.graphics.rectangle("fill", x, y, w, h)
+    end
+
+    -- local x, y, w, h = ll_global.hero.coords.x - ll_global.this_room.cx, ll_global.hero.coords.y - ll_global.this_room.cy, 16, 16
+    -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
+    -- love.graphics.rectangle("fill", x, y, w, h)
+    --prof.pop("frame")
+    --prof.enabled(false)
+    coroutine.yield()
+  until false
+end
+
+function coroutine_resume(co)
+  local output = {coroutine.resume(co)}
+  if output[1] == false then
+    return false, output[2], debug.traceback(co)
+  end
+  return unpack(output)
 end
 
 --Initializes the window, sets up some defaults and
