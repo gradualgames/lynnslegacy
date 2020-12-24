@@ -3527,34 +3527,52 @@ function act_enemies(_enemies, _enemy)
   --             End If
   --
   --           If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
+          if (with0.unique_id == u_dyssius) or (with0.unique_id == u_steelstrider) then
   --
   --             If .dead = 0 Then
+            if with0.dead == 0 then
   --
   --               If .sway <> 0 Then
+              if with0.sway ~= 0 then
   --
   --                 If Timer > .sway Then
+                if timer > with0.sway then
   --                   __dyssius_jump_slide( Varptr( _enemy[do_stuff] ) )
+                  __dyssius_jump_slide(_enemy[do_stuff])
   --                   .sway = 0
+                  with0.sway = 0
   --
   --                   .fly_count = 0
+                  with0.fly_count = 0
   --                   .fly_timer = 0
+                  with0.fly_timer = 0
   --                   .flash_timer = 0
+                  with0.flash_timer = 0
   --                   .invisible = 0
+                  with0.invisible = 0
   --                   .hurt = 0
+                  with0.hurt = 0
   --
   --                   If ( .projectile->coords[0].x <> 0 ) Or ( .projectile->coords[0].y <> 0 ) Then
+                  if (with0.projectile.coords[0].x ~= 0) or (with0.projectile.coords[0].y ~= 0) then
   --
   --                     LLObject_ClearProjectiles( _enemy[do_stuff] )
+                    LLObject_ClearProjectiles(_enemy[do_stuff])
   --
   --                   End If
+                  end
   --
   --                 End If
+                end
   --
   --               End If
+              end
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --         End If
         end
