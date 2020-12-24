@@ -1892,140 +1892,243 @@ function menu_Blit()
 --
 --
 --       If llg( hero_only ).has_weapon >= 0 Then
+  if ll_global.hero_only.has_weapon >= 0 then
 --         If llg( hero_only ).weapon = 0 Then
+    if ll_global.hero_only.weapon == 0 then
 --           menu_BlitImage( 18, 18, menu_sapling_select )
+      draw(with1.img[menu_sapling_select].image, 18, 18)
 --         Else
+    else
 --           menu_BlitImage( 18, 18, menu_sapling )
+      draw(with1.img[menu_sapling].image, 18, 18)
 --         End If
+    end
 --       Else
+  else
 --         menu_BlitImage( 18, 18, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 18, 18)
+
 --       End If
+  end
 --
 --       If llg( hero_only ).has_weapon >= 1 Then
+  if ll_global.hero_only.has_weapon >= 1 then
 --         If llg( hero_only ).weapon = 1 Then
+    if ll_global.hero_only.weapon == 1 then
 --           menu_BlitImage( 42, 18, menu_mace_select )
+      draw(with1.img[menu_mace_select].image, 42, 18)
 --         Else
+    else
 --           menu_BlitImage( 42, 18, menu_mace )
+      draw(with1.img[menu_mace].image, 42, 18)
 --         End If
+    end
 --       Else
+  else
+
 --         menu_BlitImage( 42, 18, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 42, 18)
 --       End If
+  end
 --
 --       If llg( hero_only ).has_weapon >= 2 Then
+  if ll_global.hero_only.has_weapon >= 2 then
 --         If llg( hero_only ).weapon = 2 Then
+    if ll_global.hero_only.weapon == 2 then
 --           menu_BlitImage( 66, 18, menu_star_select )
+      draw(with1.img[menu_star_select].image, 66, 18)
 --         Else
+    else
 --           menu_BlitImage( 66, 18, menu_star )
+      draw(with1.img[menu_star].image, 66, 18)
 --         End If
+    end
 --       Else
+  else
 --         menu_BlitImage( 66, 18, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 66, 18)
 --       End If
+  end
 --
 --
 -- '      If llg( hero_only ).has_item > 0 Then
 --       If llg( hero_only ).hasItem( 0 ) Then
+  if ll_global.hero_only.hasItem[0] ~= 0 then
 --         If llg( hero_only ).selected_item = 1 Then
+    if ll_global.hero_only.selected_item == 1 then
 --           menu_BlitImage( 18, 54, menu_flare_select )
+      draw(with1.img[menu_flare_select].image, 18, 54)
 --         Else
+    else
 --           menu_BlitImage( 18, 54, menu_flare )
+      draw(with1.img[menu_flare].image, 18, 54)
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 18, 54, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 18, 54)
 --       End If
+  end
 --       If llg( hero_only ).hasItem( 1 ) Then
+  if ll_global.hero_only.hasItem[1] ~= 0 then
 --         If llg( hero_only ).selected_item = 2 Then
+    if ll_global.hero_only.selected_item == 2 then
 --           menu_BlitImage( 42, 54, menu_ice_select )
+      draw(with1.img[menu_ice_select].image, 42, 54)
 --         Else
+    else
 --           menu_BlitImage( 42, 54, menu_ice )
+      draw(with1.img[menu_ice].image, 42, 54)
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 42, 54, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 42, 54)
 --       End If
+  end
 --       If llg( hero_only ).hasItem( 2 ) Then
+  if ll_global.hero_only.hasItem[2] ~= 0 then
 --
 --         dim as integer currentBridge, currentBridgeSelect
+    local currentBridge, currentBridgeSelect = 0, 0
 --
 --         currentBridge = menu_bridge
+    currentBridge = menu_bridge
 --         currentBridgeSelect = menu_bridge_select
+    currentBridgeSelect = menu_bridge_select
 --
 --
 --         if llg( hero_only ).has_weapon = 2 then
+    if ll_global.hero_only.has_weapon == 2 then
 --
 --           currentBridge = menu_blank
+      currentBridge = menu_blank
 --           currentBridgeSelect = menu_blank_select
+      currentBridgeSelect = menu_blank_select
 --
 --         elseif llg( now )[1206] then
+    elseif ll_global.now[1206] ~= 0 then
 --           ''templewood
 --           currentBridge = menu_bridge3
+      currentBridge = menu_bridge3
 --           currentBridgeSelect = menu_bridge3_select
+      currentBridgeSelect = menu_bridge3_select
 --
 --         elseif llg( now )[470] then
+    elseif ll_global.now[470] ~= 0 then
 --
 --           currentBridge = menu_bridge2
+      currentBridge = menu_bridge2
 --           currentBridgeSelect = menu_bridge2_select
+      currentBridgeSelect = menu_bridge2_select
 --
 --         end if
+    end
 --
 --
 --
 --         If llg( hero_only ).selected_item = 3 Then
+    if ll_global.hero_only.selected_item == 3 then
 --           menu_BlitImage( 66, 54, currentBridgeSelect )
+      draw(with1.img[currentBridgeSelect].image, 66, 54)
 --         Else
+    else
 --           menu_BlitImage( 66, 54, currentBridge )
+      draw(with1.img[currentBridge].image, 66, 54)
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 66, 54, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 66, 54)
 --       End If
+  end
 --
 --       If llg( hero_only ).hasItem( 3 ) Then
+  if ll_global.hero_only.hasItem[3] ~= 0 then
 --
 --         dim as integer currentIdol, currentIdolSelect
+    local currentIdol, currentIdolSelect = 0, 0
 --
 --         currentIdol = menu_idol
+    currentIdol = menu_idol
 --         currentIdolSelect = menu_idol_select
+    currentIdolSelect = menu_idol_select
 --
 --         if llg( now )[1212] then
+    if ll_global.now[1212] ~= 0 then
 --
 --           currentIdol = menu_blank
+      currentIdol = menu_blank
 --           currentIdolSelect = menu_blank_select
+      currentIdolSelect = menu_blank_select
 --
 --         end if
+    end
 --
 --
 --         If llg( hero_only ).selected_item = 4 Then
+    if ll_global.hero_only.selected_item == 4 then
 --           menu_BlitImage( 18, 78, currentIdolSelect )
+      draw(with1.img[currentIdolSelect].image, 18, 78)
 --         Else
+    else
 --           menu_BlitImage( 18, 78, currentIdol )
+      draw(with1.img[currentIdol].image, 17, 78)
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 18, 78, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 18, 78)
 --       End If
+  end
 --       If llg( hero_only ).hasItem( 4 ) Then
+  if ll_global.hero_only.hasItem[4] ~= 0 then
 --
 --         If llg( hero_only ).selected_item = 5 Then
+    if ll_global.hero_only.selected_item == 5 then
 --           menu_BlitImage( 42, 78, menu_regen_select )
+      draw(with1.img[menu_regen_select].image, 42, 78)
 --         Else
+    else
 --           menu_BlitImage( 42, 78, menu_regen )
+      draw(with1.img[menu_regen].image, 42, 78)
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 42, 78, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 42, 78)
 --       End If
+  end
 --       If llg( hero_only ).hasItem( 5 ) Then
+  if ll_global.hero_only.hasItem[5] ~= 0 then
 --
 --         If llg( hero_only ).selected_item = 6 Then
+    if ll_global.hero_only.selected_item == 6 then
 --           menu_BlitImage( 66, 78, menu_heal_select )
+      draw(with1.img[menu_heal_select].image, 66, 78)
 --         Else
+    else
 --           menu_BlitImage( 66, 78, menu_heal )
+      draw(with1.img[menu_heal].image, 66, 78)
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 66, 78, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 66, 78)
 --       End If
+  end
 --
 --
 --
@@ -2033,98 +2136,152 @@ function menu_Blit()
 --       '' Outfits
 --
 --       If llg( hero_only ).hasCostume( 0 ) <> 0 Then
+  if ll_global.hero_only.hasCostume[0] ~= 0 then
 --
 --         If llg( hero_only ).isWearing = 0 Then
+    if ll_global.hero_only.isWearing == 0 then
 --           menu_BlitImage( 18, 121, menu_standard_select )
+      draw(with1.img[menu_standard_select].image, 18, 121)
 --
 --         Else
+    else
 --           menu_BlitImage( 18, 121, menu_standard )
+      draw(with1.img[menu_standard].image, 18, 121)
 --
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 18, 121, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 18, 121)
 --
 --       End If
+  end
 --
 --       If llg( hero_only ).hasCostume( 1 ) <> 0 Then
+  if ll_global.hero_only.hasCostume[1] ~= 0 then
 --
 --         If llg( hero_only ).isWearing = 1 Then
+    if ll_global.hero_only.isWearing == 1 then
 --           menu_BlitImage( 42, 121, menu_cougar_select )
+      draw(with1.img[menu_cougar_select].image, 42, 121)
 --
 --         Else
+    else
 --           menu_BlitImage( 42, 121, menu_cougar )
+      draw(with1.img[menu_cougar].image, 42, 121)
 --
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 42, 121, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 42, 121)
 --
 --       End If
+  end
 --
 --
 --       If llg( hero_only ).hasCostume( 2 ) <> 0 Then
+  if ll_global.hero_only.hasCostume[2] ~= 0 then
 --
 --         If llg( hero_only ).isWearing = 2 Then
+    if ll_global.hero_only.isWearing == 2 then
 --           menu_BlitImage( 66, 121, menu_lynnity_select )
+      draw(with1.img[menu_lynnity_select].image, 66, 121)
 --
 --         Else
+    else
 --           menu_BlitImage( 66, 121, menu_lynnity )
+      draw(with1.img[menu_lynnity].image, 66, 121)
 --
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 66, 121, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 66, 121)
 --
 --       End If
+  end
 --
 --
 --       If llg( hero_only ).hasCostume( 3 ) <> 0 Then
+  if ll_global.hero_only.hasCostume[3] ~= 0 then
 --
 --         If llg( hero_only ).isWearing = 3 Then
+    if ll_global.hero_only.isWearing == 3 then
 --           menu_BlitImage( 18, 157, menu_ninja_select )
+      draw(with1.img[menu_ninja_select].image, 18, 157)
 --
 --         Else
+    else
 --           menu_BlitImage( 18, 157, menu_ninja )
+      draw(with1.img[menu_ninja].image, 18, 157)
 --
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 18, 157, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 18, 157)
 --
 --       End If
+  end
 --
 --
 --       If llg( hero_only ).hasCostume( 4 ) <> 0 Then
+  if ll_global.hero_only.hasCostume[4] ~= 0 then
 --
 --         If llg( hero_only ).isWearing = 4 Then
+    if ll_global.hero_only.isWearing == 4 then
 --           menu_BlitImage( 42, 157, menu_bikini_select )
+      draw(with1.img[menu_bikini_select].image, 42, 157)
 --
 --         Else
+    else
 --           menu_BlitImage( 42, 157, menu_bikini )
+      draw(with1.img[menu_bikini].image, 42, 157)
 --
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 42, 157, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 42, 157)
 --
 --       End If
+  end
 --
 --
 --       If llg( hero_only ).hasCostume( 5 ) <> 0 Then
+  if ll_global.hero_only.hasCostume[5] ~= 0 then
 --
 --         If llg( hero_only ).isWearing = 5 Then
+    if ll_global.hero_only.isWearing == 5 then
 --           menu_BlitImage( 66, 157, menu_rknight_select )
+      draw(with1.img[menu_rknight_select].image, 66, 157)
 --
 --         Else
+    else
 --           menu_BlitImage( 66, 157, menu_rknight )
+      draw(with1.img[menu_rknight].image, 66, 157)
 --
 --         End If
+    end
 --
 --       Else
+  else
 --         menu_BlitImage( 66, 157, menu_blankspace )
+    draw(with1.img[menu_blankspace].image, 66, 157)
 --
 --       End If
+  end
 --
 --
 --
