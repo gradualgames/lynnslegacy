@@ -1,4 +1,5 @@
 require("game/constants")
+require("game/engine_enums")
 require("game/box_structures")
 require("game/image_structures")
 require("game/object_structures")
@@ -21,6 +22,39 @@ function create_room_prop()
   --
   -- End Type
   return room_prop
+end
+
+-- Type load_menuImage
+function create_load_menuImage()
+--
+  local load_menuImage = {}
+--   img( menu_MAX ) As LLSystem_ImageHeader Ptr
+  load_menuImage.img = {}
+  for i = 0, menu_MAX - 1 do
+    load_menuImage.img[i] = create_LLSystem_ImageHeader()
+  end
+--
+  return load_menuImage
+-- End Type
+end
+
+-- Type ll_mainmenu
+function create_ll_mainmenu()
+--
+  local ll_mainmenu = {}
+--   selectedItem As Integer
+  ll_mainmenu.selectedItem = 0
+--   menuImages As load_menuImage
+  ll_mainmenu.menuImages = create_load_menuImage()
+--   menuNames( menu_MAX ) As String
+  ll_mainmenu.menuNames = {}
+  for i = 0, menu_MAX - 1 do
+    ll_mainmenu.menuNames[i] = ""
+  end
+--
+--
+  return ll_mainmenu
+-- End Type
 end
 
 function create_ll_system()
@@ -53,6 +87,7 @@ function create_ll_system()
   --   palx As Integer Ptr
   --
   --   menu As ll_mainmenu
+  ll_system.menu = create_ll_mainmenu()
   --
   --   savImages As load_savImage
   --

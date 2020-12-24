@@ -1884,8 +1884,11 @@ function menu_Blit()
 --   #Define menu_BlitImage(x,y,i) Put( x, y ), .img( i )->image, Trans
 --
 --   With llg( menu )
+  local with0 = ll_global.menu
 --     With .menuimages
+  local with1 = with0.menuImages
 --       Put( 0, 0 ), .img( menu_full_background )->image, Trans
+  draw(with1.img[menu_full_background].image, 0, 0)
 --
 --
 --       If llg( hero_only ).has_weapon >= 0 Then

@@ -373,6 +373,95 @@ SF_BOX = 1024
 --
 -- End Enum
 
+-- Enum ll_menu_gfx
+--
+--   menu_blankspace
+menu_blankspace = 0
+--   menu_bridge
+menu_bridge = 1
+--   menu_bridge_select
+menu_bridge_select = 2
+--   menu_bridge2
+menu_bridge2 = 3
+--   menu_bridge2_select
+menu_bridge2_select = 4
+--   menu_bridge3
+menu_bridge3 = 5
+--   menu_bridge3_select
+menu_bridge3_select = 6
+--   menu_blank
+menu_blank = 7
+--   menu_blank_select
+menu_blank_select = 8
+--   menu_flare
+menu_flare = 9
+--   menu_flare_select
+menu_flare_select = 10
+--   menu_full_background
+menu_full_background = 11
+--   menu_heal
+menu_heal = 12
+--   menu_heal_select
+menu_heal_select = 13
+--   menu_ice
+menu_ice = 14
+--   menu_ice_select
+menu_ice_select = 15
+--   menu_idol
+menu_idol = 16
+--   menu_idol_select
+menu_idol_select = 17
+--   menu_mace
+menu_mace = 18
+--   menu_mace_select
+menu_mace_select = 19
+--   menu_menu_select
+menu_menu_select = 20
+--   menu_regen
+menu_regen = 21
+--   menu_regen_select
+menu_regen_select = 22
+--   menu_resume_select
+menu_resume_select = 23
+--   menu_sapling
+menu_sapling = 24
+--   menu_sapling_select
+menu_sapling_select = 25
+--   menu_square_cursor
+menu_square_cursor = 26
+--   menu_star
+menu_star = 27
+--   menu_star_select
+menu_star_select = 28
+--   menu_cougar
+menu_cougar = 29
+--   menu_lynnity
+menu_lynnity = 30
+--   menu_ninja
+menu_ninja = 31
+--   menu_standard
+menu_standard = 32
+--   menu_cougar_select
+menu_cougar_select = 33
+--   menu_lynnity_select
+menu_lynnity_select = 34
+--   menu_ninja_select
+menu_ninja_select = 35
+--   menu_standard_select
+menu_standard_select = 36
+--   menu_bikini
+menu_bikini = 37
+--   menu_bikini_select
+menu_bikini_select = 38
+--   menu_rknight
+menu_rknight = 39
+--   menu_rknight_select
+menu_rknight_select = 40
+--   menu_MAX
+menu_MAX = 41
+--
+-- End Enum
+
 -- Enum LL_DAMAGE_FLAGS
 --
 --   DF_NO_DAMAGE

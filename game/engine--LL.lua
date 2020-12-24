@@ -171,6 +171,7 @@ function engine_init()
   load_hud(ll_global.hud)
 --
 --   load_menu()
+  load_menu()
 --   menu_StringInit()
 --
 --
@@ -2735,6 +2736,9 @@ function handle_pause_menu()
 --
 --             If MultiKey( sc_escape ) And ( end_Hold = 0 ) Then
             if love.keyboard.isDown("escape") and (end_Hold == 0) then
+              --NOTE: drawing is our global flag for turning on drawing for the
+              --current loop, not relevant to the original codebase.
+              drawing = true
 --               esc_Hold = -1
               esc_Hold = -1
 --
@@ -2767,7 +2771,6 @@ function handle_pause_menu()
 --
 --                 If MultiKey( sc_escape ) = 0 Then
                 if love.keyboard.isDown("escape") == false then
-                  log.debug("Setting esc_Hold to 0.")
 --                   esc_Hold = 0
                   esc_Hold = 0
 --
@@ -2792,7 +2795,6 @@ function handle_pause_menu()
 --
 --                   If esc_Hold = 0 Then
                   if esc_Hold == 0 then
-                    log.debug("Setting esc_Hold to -1, exiting menu loop.")
 --                     end_Hold = -1
                     end_Hold = -1
 --                     Exit Do

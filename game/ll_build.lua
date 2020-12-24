@@ -637,6 +637,88 @@ function load_mapV(fileName)
 
 end
 
+-- Sub load_menu()
+function load_menu()
+--
+--
+--     With llg( menu ).menuImages
+  local with0 = ll_global.menu.menuImages
+--       .img( menu_blankspace      ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\blankspace.spr"                    ) )
+  with0.img[menu_blankspace] = getImageHeader("data/pictures/menu/blankspace.spr")
+--       .img( menu_bridge          ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\bridge.spr"                        ) )
+--       .img( menu_bridge_select   ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\bridge_select.spr"                 ) )
+--       .img( menu_bridge2         ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\bridge2.spr"                       ) )
+--       .img( menu_bridge2_select  ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\bridge2_select.spr"                ) )
+--       .img( menu_bridge3         ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\bridge3.spr"                       ) )
+--       .img( menu_bridge3_select  ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\bridge3_select.spr"                ) )
+--       .img( menu_blank           ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\item_blank.spr"                    ) )
+--       .img( menu_blank_select    ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\item_blank_select.spr"             ) )
+--       .img( menu_flare           ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\flare.spr"                         ) )
+--       .img( menu_flare_select    ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\flare_select.spr"                  ) )
+--       .img( menu_full_background ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\full_background.spr"               ) )
+  with0.img[menu_full_background] = getImageHeader("data/pictures/menu/full_background.spr")
+--       .img( menu_heal            ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\heal.spr"                          ) )
+--       .img( menu_heal_select     ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\heal_select.spr"                   ) )
+--       .img( menu_ice             ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\ice.spr"                           ) )
+--       .img( menu_ice_select      ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\ice_select.spr"                    ) )
+--       .img( menu_idol            ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\idol.spr"                          ) )
+--       .img( menu_idol_select     ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\idol_select.spr"                   ) )
+--       .img( menu_mace            ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\mace.spr"                          ) )
+--       .img( menu_mace_select     ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\mace_select.spr"                   ) )
+--       .img( menu_menu_select     ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\menu_select.spr"                   ) )
+--       .img( menu_regen           ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\regen.spr"                         ) )
+--       .img( menu_regen_select    ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\regen_select.spr"                  ) )
+--       .img( menu_resume_select   ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\resume_select.spr"                 ) )
+--       .img( menu_sapling         ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\sapling.spr"                       ) )
+--       .img( menu_sapling_select  ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\sapling_select.spr"                ) )
+--       .img( menu_square_cursor   ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\square_cursor.spr"                 ) )
+--       .img( menu_star            ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\star.spr"                          ) )
+--       .img( menu_star_select     ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\menu\star_select.spr"                   ) )
+--       .img( menu_cougar          ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\cougar\icon.spr"           ) )
+--       .img( menu_lynnity         ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\lynnity\icon.spr"          ) )
+--       .img( menu_ninja           ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\ninja\icon.spr"            ) )
+--       .img( menu_standard        ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\icon.spr"                          ) )
+--       .img( menu_cougar_select   ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\cougar\icon_select.spr"    ) )
+--       .img( menu_lynnity_select  ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\lynnity\icon_select.spr"   ) )
+--       .img( menu_ninja_select    ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\ninja\icon_select.spr"     ) )
+--       .img( menu_standard_select ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\icon_select.spr"                   ) )
+--       .img( menu_bikini          ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\swimsuit\icon.spr"         ) )
+--       .img( menu_bikini_select   ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\swimsuit\icon_select.spr"  ) )
+--       .img( menu_rknight         ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\redknight\icon.spr"        ) )
+--       .img( menu_rknight_select  ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\outfits\redknight\icon_select.spr" ) )
+--
+--     End With
+--
+--     With llg( menu )
+--
+--       .menuNames( menu_bridge_select   ) = "Some old scraps."
+--       .menuNames( menu_flare_select    ) = "Flare Powder."
+--       .menuNames( menu_ice_select      ) = "Ice Powder."
+--       .menuNames( menu_idol_select     ) = "An ancient treasure."
+--       .menuNames( menu_regen_select    ) = "Adrenaline Booster."
+--       .menuNames( menu_heal_select     ) = "Healing Symbol."
+--
+--       .menuNames( menu_sapling_select  ) = "A small sapling."
+--       .menuNames( menu_mace_select     ) = "My old mace."
+--       .menuNames( menu_star_select     ) = "Handcrafted 0wnage."
+--
+--       .menuNames( menu_standard_select ) = "Normal outfit."
+--       .menuNames( menu_cougar_select   ) = "Mew..."
+--       .menuNames( menu_lynnity_select  ) = "Tight Leather."
+--       .menuNames( menu_ninja_select    ) = "..."
+--       .menuNames( menu_bikini_select   ) = "Not very practical..."
+--       .menuNames( menu_rknight_select  ) = "Regenerative power."
+--
+--       .menuNames( menu_menu_select     ) = "Back to title screen."
+--       .menuNames( menu_resume_select   ) = "Back to the game."
+--
+--     End With
+--
+--
+--
+-- End Sub
+end
+
 -- Sub load_hud( h As load_hudImage Ptr )
 function load_hud(h)
 --
