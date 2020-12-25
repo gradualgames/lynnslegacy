@@ -2608,6 +2608,488 @@ function change_room(o, _call, t)
 -- End Sub
 end
 
+-- Private Sub keyboardSelected()
+function keyboardSelected()
+--
+--   Const As Double key_Delay = .5
+  local key_Delay = .5
+--
+--   Dim As Integer key_up, key_right, key_down, key_left
+  local key_up, key_right, key_down, key_left = 0, 0, 0, 0
+--   Dim As Double hkey_up, hkey_right, hkey_down, hkey_left
+  local hkey_up, hkey_right, hkey_down, hkey_left = 0, 0, 0, 0
+--   Static As Double dkey_up, dkey_right, dkey_down, dkey_left
+  if dkey_up == nil then dkey_up = 0.0 end
+  if dkey_right == nil then dkey_right = 0.0 end
+  if dkey_down == nil then dkey_down = 0.0 end
+  if dkey_left == nil then dkey_left = 0.0 end
+--
+--
+--   key_up    = IIf( dkey_up    = 0, MultiKey( sc_up    ), 0 )
+  key_up = iif(dkey_up == 0, love.keyboard.isDown("up") and -1 or 0, 0)
+--   key_right = IIf( dkey_right = 0, MultiKey( sc_right ), 0 )
+  key_right = iif(dkey_right == 0, love.keyboard.isDown("right") and -1 or 0, 0)
+--   key_down  = IIf( dkey_down  = 0, MultiKey( sc_down  ), 0 )
+  key_down = iif(dkey_down == 0, love.keyboard.isDown("down") and -1 or 0, 0)
+--   key_left  = IIf( dkey_left  = 0, MultiKey( sc_left  ), 0 )
+  key_left = iif(dkey_left == 0, love.keyboard.isDown("left") and -1 or 0, 0)
+--
+--   If key_up    = 0 And MultiKey( sc_up    ) Then hkey_up = -1
+  if key_up == 0 and love.keyboard.isDown("up") then hkey_up = -1 end
+--   If key_right = 0 And MultiKey( sc_right ) Then hkey_right = -1
+  if key_right == 0 and love.keyboard.isDown("right") then hkey_right = -1 end
+--   If key_down  = 0 And MultiKey( sc_down  ) Then hkey_down = -1
+  if key_down == 0 and love.keyboard.isDown("down") then hkey_down = -1 end
+--   If key_left  = 0 And MultiKey( sc_left  ) Then hkey_left = -1
+  if key_left == 0 and love.keyboard.isDown("left") then hkey_left = -1 end
+--
+--
+--   Select Case As Const llg( menu ).selectedItem
+--
+--     Case 0
+  if ll_global.menu.selectedItem == 0 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 12
+    if key_up == -1 then ll_global.menu.selectedItem = 12 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 1
+    if key_right == -1 then ll_global.menu.selectedItem = 1 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 3
+    if key_down == -1 then ll_global.menu.selectedItem = 3 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 18
+    if key_left == -1 then ll_global.menu.selectedItem = 18 end
+--
+--     Case 1
+  elseif ll_global.menu.selectedItem == 1 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 13
+    if key_up == -1 then ll_global.menu.selectedItem = 13 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 2
+    if key_right == -1 then ll_global.menu.selectedItem = 2 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 4
+    if key_down == -1 then ll_global.menu.selectedItem = 4 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 0
+    if key_left == -1 then ll_global.menu.selectedItem = 0 end
+--
+--     Case 2
+  elseif ll_global.menu.selectedItem == 2 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 14
+    if key_up == -1 then ll_global.menu.selectedItem = 14 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 18
+    if key_right == -1 then ll_global.menu.selectedItem = 18 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 5
+    if key_down == -1 then ll_global.menu.selectedItem = 5 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 1
+    if key_left == -1 then ll_global.menu.selectedItem = 1 end
+--
+--     Case 3
+  elseif ll_global.menu.selectedItem == 3 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 0
+    if key_up == -1 then ll_global.menu.selectedItem = 0 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 4
+    if key_right == -1 then ll_global.menu.selectedItem = 4 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 6
+    if key_down == -1 then ll_global.menu.selectedItem = 6 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 18
+    if key_left == -1 then ll_global.menu.selectedItem = 18 end
+--
+--     Case 4
+  elseif ll_global.menu.selectedItem == 4 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 1
+    if key_up == -1 then ll_global.menu.selectedItem = 1 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 5
+    if key_right == -1 then ll_global.menu.selectedItem = 5 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 7
+    if key_down == -1 then ll_global.menu.selectedItem = 7 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 3
+    if key_left == -1 then ll_global.menu.selectedItem = 3 end
+--
+--     Case 5
+  elseif ll_global.menu.selectedItem == 5 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 2
+    if key_up == -1 then ll_global.menu.selectedItem = 2 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 18
+    if key_right == -1 then ll_global.menu.selectedItem = 18 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 8
+    if key_down == -1 then ll_global.menu.selectedItem = 8 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 4
+    if key_left == -1 then ll_global.menu.selectedItem = 4 end
+--
+--     Case 6
+  elseif ll_global.menu.selectedItem == 6 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 3
+    if key_up == -1 then ll_global.menu.selectedItem = 3 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 7
+    if key_right == -1 then ll_global.menu.selectedItem = 7 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 9
+    if key_down == -1 then ll_global.menu.selectedItem = 9 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 19
+    if key_left == -1 then ll_global.menu.selectedItem = 19 end
+--
+--     Case 7
+  elseif ll_global.menu.selectedItem == 7 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 4
+    if key_up == -1 then ll_global.menu.selectedItem = 4 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 8
+    if key_right == -1 then ll_global.menu.selectedItem = 8 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 10
+    if key_down == -1 then ll_global.menu.selectedItem = 10 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 6
+    if key_left == -1 then ll_global.menu.selectedItem = 6 end
+--
+--     Case 8
+  elseif ll_global.menu.selectedItem == 8 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 5
+    if key_up == -1 then ll_global.menu.selectedItem = 5 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 19
+    if key_right == -1 then ll_global.menu.selectedItem = 19 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 11
+    if key_down == -1 then ll_global.menu.selectedItem = 11 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 7
+    if key_left == -1 then ll_global.menu.selectedItem = 7 end
+--
+--     Case 9
+  elseif ll_global.menu.selectedItem == 9 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 6
+    if key_up == -1 then ll_global.menu.selectedItem = 6 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 10
+    if key_right == -1 then ll_global.menu.selectedItem = 10 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 12
+    if key_down == -1 then ll_global.menu.selectedItem = 12 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 19
+    if key_left == -1 then ll_global.menu.selectedItem = 19 end
+--
+--     Case 10
+  elseif ll_global.menu.selectedItem == 10 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 7
+    if key_up == -1 then ll_global.menu.selectedItem = 7 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 11
+    if key_right == -1 then ll_global.menu.selectedItem = 11 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 13
+    if key_down == -1 then ll_global.menu.selectedItem = 13 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 9
+    if key_left == -1 then ll_global.menu.selectedItem = 9 end
+--
+--     Case 11
+  elseif ll_global.menu.selectedItem == 11 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 8
+    if key_up == -1 then ll_global.menu.selectedItem = 8 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 19
+    if key_right == -1 then ll_global.menu.selectedItem = 19 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 14
+    if key_down == -1 then ll_global.menu.selectedItem = 14 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 10
+    if key_left == -1 then ll_global.menu.selectedItem = 10 end
+--
+--     Case 12
+  elseif ll_global.menu.selectedItem == 12 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 9
+    if key_up == -1 then ll_global.menu.selectedItem = 9 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 13
+    if key_right == -1 then ll_global.menu.selectedItem = 13 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 0
+    if key_down == -1 then ll_global.menu.selectedItem = 0 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 14
+    if key_left == -1 then ll_global.menu.selectedItem = 14 end
+--
+--     Case 13
+  elseif ll_global.menu.selectedItem == 13 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 10
+    if key_up == -1 then ll_global.menu.selectedItem = 10 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 14
+    if key_right == -1 then ll_global.menu.selectedItem = 14 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 1
+    if key_down == -1 then ll_global.menu.selectedItem = 1 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 12
+    if key_left == -1 then ll_global.menu.selectedItem = 12 end
+--
+--     Case 14
+  elseif ll_global.menu.selectedItem == 14 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 11
+    if key_up == -1 then ll_global.menu.selectedItem = 11 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 12
+    if key_right == -1 then ll_global.menu.selectedItem = 12 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 2
+    if key_down == -1 then ll_global.menu.selectedItem = 2 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 13
+    if key_left == -1 then ll_global.menu.selectedItem = 13 end
+--
+-- '    Case 15
+-- '      If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 12
+-- '      If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 16
+-- '      If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 0
+-- '      If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 17
+-- '
+-- '    Case 16
+-- '      If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 13
+-- '      If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 17
+-- '      If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 1
+-- '      If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 15
+-- '
+-- '    Case 17
+-- '      If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 14
+-- '      If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 15
+-- '      If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 2
+-- '      If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 16
+-- '
+--     Case 18
+  elseif ll_global.menu.selectedItem == 18 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 19
+    if key_up == -1 then ll_global.menu.selectedItem = 19 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 3
+    if key_right == -1 then ll_global.menu.selectedItem = 3 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 19
+    if key_down == -1 then ll_global.menu.selectedItem = 19 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 5
+    if key_left == -1 then ll_global.menu.selectedItem = 5 end
+--
+--     Case 19
+  elseif ll_global.menu.selectedItem == 19 then
+--       If key_up    = ( Not 0 ) Then llg( menu ).selectedItem = 18
+    if key_up == -1 then ll_global.menu.selectedItem = 18 end
+--       If key_right = ( Not 0 ) Then llg( menu ).selectedItem = 6
+    if key_right == -1 then ll_global.menu.selectedItem = 6 end
+--       If key_down  = ( Not 0 ) Then llg( menu ).selectedItem = 18
+    if key_down == -1 then ll_global.menu.selectedItem = 18 end
+--       If key_left  = ( Not 0 ) Then llg( menu ).selectedItem = 8
+    if key_left == -1 then ll_global.menu.selectedItem = 8 end
+--
+--   End Select
+  end
+--
+--   #Define delayStopper(__DIREC__)             _
+--                                               _
+--     If hkey_##__DIREC__ = 0 Then             :_
+--                                              :_
+--       If key_##__DIREC__ = ( Not 0 ) Then    :_
+--         dkey_##__DIREC__ = Timer + key_Delay :_
+--                                              :_
+--       Else                                   :_
+--         dkey_##__DIREC__ = 0                 :_
+--                                              :_
+--       End If                                 :_
+--                                              :_
+--     End If
+--
+--   delayStopper( up )
+
+  if hkey_up == 0 then
+    if key_up == -1 then
+      dkey_up = timer + key_Delay
+    else
+      dkey_up = 0
+    end
+  end
+
+--   delayStopper( right )
+
+  if hkey_right == 0 then
+    if key_right == -1 then
+      dkey_right = timer + key_Delay
+    else
+      dkey_right = 0
+    end
+  end
+
+--   delayStopper( down )
+
+  if hkey_down == 0 then
+    if key_down == -1 then
+      dkey_down = timer + key_Delay
+    else
+      dkey_down = 0
+    end
+  end
+
+--   delayStopper( left )
+
+  if hkey_left == 0 then
+    if key_left == -1 then
+      dkey_left = timer + key_Delay
+    else
+      dkey_left = 0
+    end
+  end
+
+--
+--   If Timer > dkey_up    Then dkey_up = 0
+  if timer > dkey_up then dkey_up = 0 end
+--   If Timer > dkey_right Then dkey_right = 0
+  if timer > dkey_right then dkey_right = 0 end
+--   If Timer > dkey_down  Then dkey_down = 0
+  if timer > dkey_down then dkey_down = 0 end
+--   If Timer > dkey_left  Then dkey_left = 0
+  if timer > dkey_left then dkey_left = 0 end
+--
+--
+-- End Sub
+end
+
+-- Private Function handleKeybSelected()
+function handleKeybSelected()
+--
+--   Function = 0
+--
+--
+--   If MultiKey( llg( conf_key ).code ) Or MultiKey( sc_enter ) Then
+--
+--     Select Case As Const llg( menu ).selectedItem
+--
+--       Case 0
+--         If llg( hero_only ).has_weapon >= 0 Then
+--           llg( hero_only ).weapon = 0
+--
+--         End If
+--
+--       Case 1
+--         If llg( hero_only ).has_weapon >= 1 Then
+--           llg( hero_only ).weapon = 1
+--
+--         End If
+--
+--       Case 2
+--         If llg( hero_only ).has_weapon >= 2 Then
+--           llg( hero_only ).weapon = 2
+--
+--         End If
+--
+--       Case 3
+-- '        If llg( hero_only ).has_item >= 1 Then
+--         If llg( hero_only ).hasItem( 0 ) Then
+--           llg( hero_only ).selected_item = 1
+--
+--         End If
+--
+--       Case 4
+-- '        If llg( hero_only ).has_item >= 2 Then
+--         If llg( hero_only ).hasItem( 1 ) Then
+--           llg( hero_only ).selected_item = 2
+--
+--         End If
+--
+--       Case 5
+--         If llg( hero_only ).hasItem( 2 ) Then
+--           llg( hero_only ).selected_item = 3
+--
+--         End If
+--
+--       Case 6
+--         If llg( hero_only ).hasItem( 3 ) Then
+--           llg( hero_only ).selected_item = 4
+--
+--         End If
+--
+--       Case 7
+--         If llg( hero_only ).hasItem( 4 ) Then
+--           llg( hero_only ).selected_item = 5
+--
+--         End If
+--
+--       Case 8
+--         If llg( hero_only ).hasItem( 5 ) Then
+--           llg( hero_only ).selected_item = 6
+--
+--         End If
+--
+--       Case 9
+--         If llg( hero_only ).hasCostume( 0 ) <> 0 Then
+--           llg( hero_only ).isWearing = 0
+--           set_regular()
+--
+--         End If
+--
+--
+--       Case 10
+--         If llg( hero_only ).hasCostume( 1 ) <> 0 Then
+--           llg( hero_only ).isWearing = 1
+--           set_cougar()
+--
+--         End If
+--
+--
+--       Case 11
+--         If llg( hero_only ).hasCostume( 2 ) <> 0 Then
+--           llg( hero_only ).isWearing = 2
+--           set_lynnity()
+--
+--         End If
+--
+--       Case 12
+--         If llg( hero_only ).hasCostume( 3 ) <> 0 Then
+--           llg( hero_only ).isWearing = 3
+--           set_ninja()
+--
+--         End If
+--
+--       Case 13
+--         If llg( hero_only ).hasCostume( 4 ) <> 0 Then
+--           llg( hero_only ).isWearing = 4
+--           set_bikini()
+--
+--         End If
+--
+--       Case 14
+--         If llg( hero_only ).hasCostume( 5 ) <> 0 Then
+--           llg( hero_only ).isWearing = 5
+--           set_rknight()
+--
+--         End If
+--
+-- '      Case 15
+-- '        If llg( hero_only ).hasCostume( 6 ) <> 0 Then
+-- '          llg( hero_only ).isWearing = 6
+-- '
+-- '        End If
+-- '
+-- '      Case 16
+-- '        If llg( hero_only ).hasCostume( 7 ) <> 0 Then
+-- '          llg( hero_only ).isWearing = 7
+-- '
+-- '        End If
+-- '
+-- '      Case 17
+-- '        If llg( hero_only ).hasCostume( 8 ) <> 0 Then
+-- '          llg( hero_only ).isWearing = 8
+-- '
+-- '        End If
+-- '
+--       Case 18
+--         Return -1
+--
+--       Case 19
+--         jump_to_title()
+--         Return -1
+--
+--
+--     End Select
+--
+--   End If
+--
+--
+--
+-- End Function
+end
+
+-- Function menu_Input()
+function menu_Input()
+--
+--   If llg( locationChanged ) Then
+--
+--     Dim As Integer selected = mouseSelected()
+--     If selected <> -1 Then
+--       llg( menu ).selectedItem = selected
+--
+--     End If
+--
+--   End If
+--
+--   keyboardSelected()
+  keyboardSelected()
+
+--
+--   Return handleKeybSelected() or handleMouseSelected()
+  return 0
+--
+-- End Function
+end
+
 -- Sub jump_to_title()
 function jump_to_title()
 --
@@ -2752,6 +3234,7 @@ function handle_pause_menu()
 --
 --               Do
               repeat
+                timer = love.timer.getTime()
 --
 --
 --                 Dim As Integer mx, my
@@ -2779,9 +3262,12 @@ function handle_pause_menu()
 --                 Put( 0, 0 ), llg( menu_ScreenSave )
                 love.graphics.draw(savedCanvas)
 --                 If menu_Input() Then
+                if menu_Input() ~= 0 then
 --                   Exit Do
+                   break
 --
 --                 End If
+                end
 --
 --                 menu_Blit()
                 menu_Blit()

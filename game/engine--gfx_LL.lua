@@ -2313,7 +2313,7 @@ function menu_Blit()
 --           End If
     end
 --           menu_BlitImage( 42, 18 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 42, 18)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 42, 18)
 --
 --         Case 2
   elseif ll_global.menu.selectedItem == 2 then
@@ -2326,7 +2326,7 @@ function menu_Blit()
 --           End If
     end
 --           menu_BlitImage( 66, 18 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 66, 18)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 66, 18)
 --
 --         Case 3
   elseif ll_global.menu.selectedItem == 3 then
@@ -2339,7 +2339,7 @@ function menu_Blit()
 --           End If
     end
 --           menu_BlitImage( 18, 54 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 18, 54)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 18, 54)
 --
 --         Case 4
   elseif ll_global.menu.selectedItem == 4 then
@@ -2352,7 +2352,7 @@ function menu_Blit()
 --           End If
     end
 --           menu_BlitImage( 42, 54 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 42, 54)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 42, 54)
 --
 --         Case 5
   elseif ll_global.menu.selectedItem == 5 then
@@ -2383,7 +2383,7 @@ function menu_Blit()
 --           End If
     end
 --           menu_BlitImage( 66, 54 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 66, 54)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 66, 54)
 --
 --         Case 6
   elseif ll_global.menu.selectedItem == 6 then
@@ -2401,7 +2401,7 @@ function menu_Blit()
 --             else
       else
 --               graphicalString( llg( menu ).menuNames( menu_idol_select ), 134, 154, 114 )
-        graphicalString(ll_global.menu.menuNames[menu_idol_select].image, 134, 154, 114)
+        graphicalString(ll_global.menu.menuNames[menu_idol_select], 134, 154, 114)
 --
 --             end if
       end
@@ -2409,7 +2409,7 @@ function menu_Blit()
 --           End If
     end
 --           menu_BlitImage( 18, 78 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 18, 78)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 18, 78)
 --
 --         Case 7
   elseif ll_global.menu.selectedItem == 7 then
@@ -2417,12 +2417,12 @@ function menu_Blit()
 --           If llg( hero_only ).hasItem( 4 ) Then
     if ll_global.hero_only.hasItem[4] ~= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_regen_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_regen_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_regen_select], 134, 154, 114)
 --
 --           End If
     end
 --           menu_BlitImage( 42, 78 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 42, 78)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 42, 78)
 --
 --         Case 8
   elseif ll_global.menu.selectedItem == 8 then
@@ -2430,12 +2430,12 @@ function menu_Blit()
 --           If llg( hero_only ).hasItem( 5 ) Then
     if ll_global.hero_only.hasItem[5] ~= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_heal_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_heal_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_heal_select], 134, 154, 114)
 --
 --           End If
     end
 --           menu_BlitImage( 66, 78 , menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 66, 78)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 66, 78)
 --
 --         Case 9
   elseif ll_global.menu.selectedItem == 9 then
@@ -2443,12 +2443,12 @@ function menu_Blit()
 --           If llg( hero_only ).hasCostume(0) <> 0 Then
     if ll_global.hero_only.hasCostume[0] ~= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_standard_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_standard_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_standard_select], 134, 154, 114)
 --
 --           End If
     end
 --           menu_BlitImage( 18, 121, menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 18, 121)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 18, 121)
 --
 --         Case 10
   elseif ll_global.menu.selectedItem == 10 then
@@ -2456,12 +2456,12 @@ function menu_Blit()
 --           If llg( hero_only ).hasCostume(1) <> 0 Then
     if ll_global.hero_only.hasCostume[1] ~= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_cougar_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_cougar_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_cougar_select], 134, 154, 114)
 --
 --           End If
     end
 --           menu_BlitImage( 42, 121, menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 42, 121)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 42, 121)
 --
 --         Case 11
   elseif ll_global.menu.selectedItem == 11 then
@@ -2469,13 +2469,13 @@ function menu_Blit()
 --           If llg( hero_only ).hasCostume(2) <> 0 Then
     if ll_global.hero_only.hasCostume[2] ~= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_lynnity_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_lynnity_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_lynnity_select], 134, 154, 114)
 --
 --           End If
     end
 --
 --           menu_BlitImage( 66, 121, menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 66, 121)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 66, 121)
 --
 --         Case 12
   elseif ll_global.menu.selectedItem == 12 then
@@ -2484,12 +2484,12 @@ function menu_Blit()
     if ll_global.hero_only.hasCostume[3] ~= 0 then
 --
 --             graphicalString( llg( menu ).menuNames( menu_ninja_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_ninja_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_ninja_select], 134, 154, 114)
 --           End If
     end
 --
 --           menu_BlitImage( 18, 157, menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 18, 157)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 18, 157)
 --
 --         Case 13
   elseif ll_global.menu.selectedItem == 13 then
@@ -2498,12 +2498,12 @@ function menu_Blit()
     if ll_global.hero_only.hasCostume[4] ~= 0 then
 --
 --             graphicalString( llg( menu ).menuNames( menu_bikini_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_bikini_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_bikini_select], 134, 154, 114)
 --           End If
     end
 --
 --           menu_BlitImage( 42, 157, menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 42, 157)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 42, 157)
 --
 --         Case 14
   elseif ll_global.menu.selectedItem == 14 then
@@ -2512,12 +2512,12 @@ function menu_Blit()
     if ll_global.hero_only.hasCostume[5] ~= 0 then
 --
 --             graphicalString( llg( menu ).menuNames( menu_rknight_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_rknight_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_rknight_select], 134, 154, 114)
 --           End If
     end
 --
 --           menu_BlitImage( 66, 157, menu_square_cursor )
-    draw(with1.img[menu_square_cursor].image, 66, 157)
+    draw(with1.img[menu_square_cursor].image, with1.img[menu_square_cursor].quads[0], 66, 157)
 --
 -- '        Case 15
 -- '          If llg( hero_only ).hasCostume(6) <> 0 Then
@@ -2541,7 +2541,7 @@ function menu_Blit()
 --           If llg( hero_only ).has_weapon >= 0 Then
     if ll_global.hero_only.has_weapon >= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_resume_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_resume_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_resume_select], 134, 154, 114)
 --
 --           End If
     end
@@ -2554,7 +2554,7 @@ function menu_Blit()
 --           If llg( hero_only ).has_weapon >= 0 Then
     if ll_global.hero_only.has_weapon >= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_menu_select ), 134, 154, 114 )
-      graphicalString(ll_global.menu.menuNames[menu_menu_select].image, 134, 154, 114)
+      graphicalString(ll_global.menu.menuNames[menu_menu_select], 134, 154, 114)
 --
 --           End If
     end
