@@ -225,6 +225,229 @@ function engine_init()
 -- End Sub
 end
 
+-- #macro hUniSound(__CHAR__,__ANIM__,__FRAME__,__SOUND__)
+function hUniSound(__CHAR__, __ANIM__, __FRAME__, __SOUND__)
+--
+--   scope
+--
+--     dim as integer frameCrawl, frameIter
+  local frameCrawl, frameIter = 0, 0
+--     frameCrawl = __FRAME__
+  frameCrawl = __FRAME__
+--
+--     for frameIter = 0 to 3
+  for frameIter = 0, 3 do
+--
+--       __CHAR__##.anim[__ANIM__]->frame[frameCrawl].sound = __SOUND__
+    __CHAR__.anim[__ANIM__].frame[frameCrawl].sound = __SOUND__
+--
+--       frameCrawl += __CHAR__##.animControl[__ANIM__].dir_frames
+    frameCrawl = frameCrawl + __CHAR__.animControl[__ANIM__].dir_frames
+--
+--     next
+  end
+--
+--   end scope
+--
+-- #endmacro
+end
+--
+-- #macro hUniVol(__CHAR__,__ANIM__,__FRAME__,__VOL__)
+function hUniVol(__CHAR__, __ANIM__, __FRAME__, __VOL__)
+--
+--   scope
+--
+--     dim as integer frameCrawl, frameIter
+  local frameCrawl, frameIter = 0, 0
+--     frameCrawl = __FRAME__
+  frameCrawl = __FRAME__
+--
+--     for frameIter = 0 to 3
+  for frameIter = 0, 3 do
+--
+--       __CHAR__##.anim[__ANIM__]->frame[frameCrawl].vol = __VOL__
+    __CHAR__.anim[__ANIM__].frame[frameCrawl].vol = __VOL__
+--
+--       frameCrawl += __CHAR__##.animControl[__ANIM__].dir_frames
+    frameCrawl = frameCrawl + __CHAR__.animControl[__ANIM__].dir_frames
+--
+--     next
+  end
+--
+--   end scope
+--
+-- #endmacro
+end
+
+-- Private Sub set_regular()
+function set_regular()
+
+  ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/lynn24.spr"         )
+  ll_global.hero.animControl[0].rate = .08
+  ll_global.hero.anim[3] = getImageHeader( "data/pictures/char/lynnattack_NEW.spr" )
+  ll_global.hero.animControl[3].rate = .07
+  ll_global.hero.anim[4] = getImageHeader( "data/pictures/char/lynnattack_2.spr"   )
+  ll_global.hero.animControl[4].rate = .1
+  ll_global.hero.anim[5] = getImageHeader( "data/pictures/char/lynnattack_3.spr"   )
+  ll_global.hero.animControl[5].rate = .13
+  ll_global.hero.anim[6] = getImageHeader( "data/pictures/char/lynn_flare.spr"     )
+  ll_global.hero.animControl[6].rate = .07
+  ll_global.hero.anim[7] = getImageHeader( "data/pictures/char/lynn_ice.spr"       )
+  ll_global.hero.animControl[7].rate = .07
+  ll_global.hero.anim[8] = getImageHeader( "data/pictures/char/lynnfall.spr"       )
+  ll_global.hero.animControl[8].rate = .18
+  ll_global.hero.anim[12] = getImageHeader( "data/pictures/char/lynngetup.spr"       )
+  ll_global.hero.animControl[12].rate = .18
+
+end
+--
+-- Private Sub set_cougar()
+function set_cougar()
+
+  ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/outfits/cougar/walk.spr"   )
+  ll_global.hero.animControl[0].rate = .05
+  ll_global.hero.anim[6] = getImageHeader( "data/pictures/char/outfits/cougar/flare.spr"  )
+  ll_global.hero.animControl[6].rate = .07
+  ll_global.hero.anim[7] = getImageHeader( "data/pictures/char/outfits/cougar/ice.spr"    )
+  ll_global.hero.animControl[7].rate = .07
+  ll_global.hero.anim[8] = getImageHeader( "data/pictures/char/outfits/cougar/die.spr"    )
+  ll_global.hero.animControl[8].rate = .18
+  ll_global.hero.anim[12] = getImageHeader( "data/pictures/char/outfits/cougar/getup.spr" )
+  ll_global.hero.animControl[12].rate = .18
+
+  hUniSound( ll_global.hero, 6, 0, sound_flare )
+  hUniSound( ll_global.hero, 7, 0, sound_ice )
+-- End Sub
+end
+--
+-- Private Sub set_lynnity()
+function set_lynnity()
+
+  ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/outfits/lynnity/walk.spr"     )
+  ll_global.hero.animControl[0].rate = .08
+  ll_global.hero.anim[3] = getImageHeader( "data/pictures/char/outfits/lynnity/attack_1.spr" )
+  ll_global.hero.animControl[3].rate = .07
+  ll_global.hero.anim[4] = getImageHeader( "data/pictures/char/outfits/lynnity/attack_2.spr" )
+  ll_global.hero.animControl[4].rate = .1
+  ll_global.hero.anim[5] = getImageHeader( "data/pictures/char/outfits/lynnity/attack_3.spr" )
+  ll_global.hero.animControl[5].rate = .13
+  ll_global.hero.anim[6] = getImageHeader( "data/pictures/char/outfits/lynnity/flare.spr"    )
+  ll_global.hero.animControl[6].rate = .07
+  ll_global.hero.anim[7] = getImageHeader( "data/pictures/char/outfits/lynnity/ice.spr"      )
+  ll_global.hero.animControl[7].rate = .07
+  ll_global.hero.anim[8] = getImageHeader( "data/pictures/char/outfits/lynnity/die.spr"      )
+  ll_global.hero.animControl[8].rate = .18
+  ll_global.hero.anim[12] = getImageHeader( "data/pictures/char/outfits/lynnity/getup.spr"   )
+  ll_global.hero.animControl[12].rate = .18
+
+
+  hUniSound( ll_global.hero, 3, 0, sound_mace_0 )
+  hUniSound( ll_global.hero, 4, 0, sound_mace_1 )
+  hUniSound( ll_global.hero, 5, 0, sound_mace_2 )
+  hUniSound( ll_global.hero, 6, 0, sound_flare  )
+  hUniSound( ll_global.hero, 7, 0, sound_ice    )
+
+  hUniVol( ll_global.hero, 3, 0, 50 )
+  hUniVol( ll_global.hero, 4, 0, 50 )
+  hUniVol( ll_global.hero, 5, 0, 50 )
+
+
+-- End Sub
+end
+--
+-- Private Sub set_ninja()
+function set_ninja()
+
+  ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/outfits/ninja/walk.spr"     )
+  ll_global.hero.animControl[0].rate = .08
+  ll_global.hero.anim[3] = getImageHeader( "data/pictures/char/outfits/ninja/attack_1.spr" )
+  ll_global.hero.animControl[3].rate = .04
+  ll_global.hero.anim[4] = getImageHeader( "data/pictures/char/outfits/ninja/attack_2.spr" )
+  ll_global.hero.animControl[4].rate = .07
+  ll_global.hero.anim[5] = getImageHeader( "data/pictures/char/outfits/ninja/attack_3.spr" )
+  ll_global.hero.animControl[5].rate = .1
+  ll_global.hero.anim[6] = getImageHeader( "data/pictures/char/outfits/ninja/flare.spr"    )
+  ll_global.hero.animControl[6].rate = .07
+  ll_global.hero.anim[7] = getImageHeader( "data/pictures/char/outfits/ninja/ice.spr"      )
+  ll_global.hero.animControl[7].rate = .07
+  ll_global.hero.anim[8] = getImageHeader( "data/pictures/char/outfits/ninja/die.spr"      )
+  ll_global.hero.animControl[8].rate = .18
+  ll_global.hero.anim[12] = getImageHeader( "data/pictures/char/outfits/ninja/getup.spr"   )
+  ll_global.hero.animControl[12].rate = .18
+
+  hUniSound( ll_global.hero, 3, 0, sound_mace_0 )
+  hUniSound( ll_global.hero, 4, 0, sound_mace_1 )
+  hUniSound( ll_global.hero, 5, 0, sound_mace_2 )
+  hUniSound( ll_global.hero, 6, 0, sound_flare  )
+  hUniSound( ll_global.hero, 7, 0, sound_ice    )
+
+  hUniVol( ll_global.hero, 3, 0, 50 )
+  hUniVol( ll_global.hero, 4, 0, 50 )
+  hUniVol( ll_global.hero, 5, 0, 50 )
+
+
+-- End Sub
+end
+--
+-- Private Sub set_bikini()
+function set_bikini()
+
+  ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/outfits/swimsuit/walk.spr"     )
+  ll_global.hero.animControl[0].rate = .08
+  ll_global.hero.anim[3] = getImageHeader( "data/pictures/char/outfits/swimsuit/attack_1.spr" )
+  ll_global.hero.animControl[3].rate = .07
+  ll_global.hero.anim[4] = getImageHeader( "data/pictures/char/outfits/swimsuit/attack_2.spr" )
+  ll_global.hero.animControl[4].rate = .1
+  ll_global.hero.anim[5] = getImageHeader( "data/pictures/char/outfits/swimsuit/attack_3.spr" )
+  ll_global.hero.animControl[5].rate = .13
+  ll_global.hero.anim[6] = getImageHeader( "data/pictures/char/outfits/swimsuit/flare.spr"    )
+  ll_global.hero.animControl[6].rate = .07
+  ll_global.hero.anim[7] = getImageHeader( "data/pictures/char/outfits/swimsuit/ice.spr"      )
+  ll_global.hero.animControl[7].rate = .07
+  ll_global.hero.anim[8] = getImageHeader( "data/pictures/char/outfits/swimsuit/die.spr"      )
+  ll_global.hero.animControl[8].rate = .18
+  ll_global.hero.anim[12] = getImageHeader( "data/pictures/char/outfits/swimsuit/getup.spr"   )
+  ll_global.hero.animControl[12].rate = .18
+
+  hUniSound( ll_global.hero, 3, 0, sound_mace_0 )
+  hUniSound( ll_global.hero, 4, 0, sound_mace_1 )
+  hUniSound( ll_global.hero, 5, 0, sound_mace_2 )
+  hUniSound( ll_global.hero, 6, 0, sound_flare  )
+  hUniSound( ll_global.hero, 7, 0, sound_ice    )
+
+  hUniVol( ll_global.hero, 3, 0, 50 )
+  hUniVol( ll_global.hero, 4, 0, 50 )
+  hUniVol( ll_global.hero, 5, 0, 50 )
+
+
+-- End Sub
+end
+
+--Private Sub set_rknight()
+function set_rknight()
+
+  ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/outfits/redknight/walk.spr"     )
+  ll_global.hero.animControl[0].rate = .12
+  ll_global.hero.anim[6] = getImageHeader( "data/pictures/char/outfits/redknight/flare.spr"    )
+  ll_global.hero.animControl[6].rate = .07
+  ll_global.hero.anim[7] = getImageHeader( "data/pictures/char/outfits/redknight/ice.spr"      )
+  ll_global.hero.animControl[7].rate = .07
+  ll_global.hero.anim[8] = getImageHeader( "data/pictures/char/outfits/redknight/die.spr"      )
+  ll_global.hero.animControl[8].rate = .18
+  ll_global.hero.anim[12] = getImageHeader( "data/pictures/char/outfits/redknight/getup.spr"   )
+  ll_global.hero.animControl[12].rate = .18
+
+  hUniSound( ll_global.hero, 6, 0, sound_flare  )
+  hUniSound( ll_global.hero, 7, 0, sound_ice    )
+
+  hUniVol( ll_global.hero, 3, 0, 50 )
+  hUniVol( ll_global.hero, 4, 0, 50 )
+  hUniVol( ll_global.hero, 5, 0, 50 )
+
+
+-- End Sub
+end
+
 -- Loops over the enemies of the current room and spawns them
 function set_up_room_enemies(enemies, enemy)
     -- Dim As Integer setup
