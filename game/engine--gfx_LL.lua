@@ -2603,8 +2603,8 @@ function minimap_Blit()
 --
 --   Dim As Integer floor_Current, i, j, k, eventsAchieved
   local floor_Current, i, j, k, eventsAchieved = 0, 0, 0, 0, 0
---   floor_Current = llg( minimapFloor )
-  floor_Current = ll_global.minimapFloor
+--   floor_Current = llg( miniMapFloor )
+  floor_Current = ll_global.miniMapFloor
 --
 --   Dim As Integer gx, gy
   local gx, gy = 0, 0

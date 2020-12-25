@@ -6138,8 +6138,8 @@ function LLMiniMap_SizeX()
 --   For i = 0 To llg( map )->rooms - 1
   for i = 0, ll_global.map.rooms - 1 do
 --
---     If llg( miniMap ).room[i].floor <> llg( minimapFloor ) Then Continue For
-    if ll_global.miniMap.room[i].floor ~= ll_global.minimapFloor then goto continue end
+--     If llg( miniMap ).room[i].floor <> llg( miniMapFloor ) Then Continue For
+    if ll_global.miniMap.room[i].floor ~= ll_global.miniMapFloor then goto continue end
 --
 --     combine = llg( map )->room[i].x + llg( miniMap ).room[i].location.x
     combine = ll_global.map.room[i].x + ll_global.miniMap.room[i].location.x
@@ -6173,8 +6173,8 @@ function LLMiniMap_SizeY()
 --   For i = 0 To llg( map )->rooms - 1
   for i = 0, ll_global.map.rooms - 1 do
 --
---     If llg( miniMap ).room[i].floor <> llg( minimapFloor ) Then Continue For
-    if ll_global.miniMap.room[i].floor ~= ll_global.minimapFloor then goto continue end
+--     If llg( miniMap ).room[i].floor <> llg( miniMapFloor ) Then Continue For
+    if ll_global.miniMap.room[i].floor ~= ll_global.miniMapFloor then goto continue end
 --
 --     combine = llg( map )->room[i].y + llg( miniMap ).room[i].location.y
     combine = ll_global.map.room[i].y + ll_global.miniMap.room[i].location.y
@@ -6398,10 +6398,10 @@ function handle_MiniMap()
         if love.keyboard.isDown("[") then
 --           if roomd = 0 then
           if roomd == 0 then
---             if llg( minimapFloor ) > LLMiniMap_BottomFloor() then
-            if ll_global.minimapFloor > LLMiniMap_BottomFloor() then
---               llg( minimapFloor ) -= 1
-              ll_global.minimapFloor = ll_global.minimapFloor - 1
+--             if llg( miniMapFloor ) > LLMiniMap_BottomFloor() then
+            if ll_global.miniMapFloor > LLMiniMap_BottomFloor() then
+--               llg( miniMapFloor ) -= 1
+              ll_global.miniMapFloor = ll_global.miniMapFloor - 1
 --
 --             end if
             end
@@ -6422,10 +6422,10 @@ function handle_MiniMap()
         if love.keyboard.isDown("]") then
 --           if roomu = 0 then
           if roomu == 0 then
---             if llg( minimapFloor ) < LLMiniMap_TopFloor() then
-            if ll_global.minimapFloor < LLMiniMap_TopFloor() then
---               llg( minimapFloor ) += 1
-              ll_global.minimapFloor = ll_global.minimapFloor + 1
+--             if llg( miniMapFloor ) < LLMiniMap_TopFloor() then
+            if ll_global.miniMapFloor < LLMiniMap_TopFloor() then
+--               llg( miniMapFloor ) += 1
+              ll_global.miniMapFloor = ll_global.miniMapFloor + 1
 --
 --             end if
             end
@@ -6459,8 +6459,8 @@ function handle_MiniMap()
 --       Loop Until MultiKey( 1 )
       until bpressed("m")
 --
---       llg( minimapFloor ) = llg( miniMap ).room[llg( this_room ).i].floor
-      ll_global.minimapFloor = ll_global.miniMap.room[ll_global.this_room.i].floor
+--       llg( miniMapFloor ) = llg( miniMap ).room[llg( this_room ).i].floor
+      ll_global.miniMapFloor = ll_global.miniMap.room[ll_global.this_room.i].floor
 --
 --       hold_key( 1 )
 --
