@@ -2929,108 +2929,175 @@ function handleKeybSelected()
 --
 --
 --   If MultiKey( llg( conf_key ).code ) Or MultiKey( sc_enter ) Then
+  if love.keyboard.isDown("space") then
 --
 --     Select Case As Const llg( menu ).selectedItem
 --
 --       Case 0
+    if ll_global.menu.selectedItem == 0 then
 --         If llg( hero_only ).has_weapon >= 0 Then
+      if ll_global.hero_only.has_weapon >= 0 then
 --           llg( hero_only ).weapon = 0
+        ll_global.hero_only.weapon = 0
 --
 --         End If
+      end
 --
 --       Case 1
+    elseif ll_global.menu.selectedItem == 1 then
 --         If llg( hero_only ).has_weapon >= 1 Then
+      if ll_global.hero_only.has_weapon >= 1 then
 --           llg( hero_only ).weapon = 1
+        ll_global.hero_only.weapon = 1
 --
 --         End If
+      end
 --
 --       Case 2
+    elseif ll_global.menu.selectedItem == 2 then
 --         If llg( hero_only ).has_weapon >= 2 Then
+      if ll_global.hero_only.has_weapon >= 2 then
 --           llg( hero_only ).weapon = 2
+        ll_global.hero_onl.weapon = 2
 --
 --         End If
+      end
 --
 --       Case 3
+    elseif ll_global.menu.selectedItem == 3 then
 -- '        If llg( hero_only ).has_item >= 1 Then
 --         If llg( hero_only ).hasItem( 0 ) Then
+      if ll_global.hero_only.hasItem[0] ~= 0 then
 --           llg( hero_only ).selected_item = 1
+        ll_global.hero_only.selected_item = 1
 --
 --         End If
+      end
 --
 --       Case 4
+    elseif ll_global.menu.selectedItem == 4 then
 -- '        If llg( hero_only ).has_item >= 2 Then
 --         If llg( hero_only ).hasItem( 1 ) Then
+      if ll_global.hero_only.hasItem[1] ~= 0 then
 --           llg( hero_only ).selected_item = 2
+        ll_global.hero_only.selected_item = 2
 --
 --         End If
+      end
 --
 --       Case 5
+    elseif ll_global.menu.selectedItem == 5 then
 --         If llg( hero_only ).hasItem( 2 ) Then
+      if ll_global.hero_only.hasItem[2] ~= 0 then
 --           llg( hero_only ).selected_item = 3
+        ll_global.hero_only.selected_item = 3
 --
 --         End If
+      end
 --
 --       Case 6
+    elseif ll_global.menu.selectedItem == 6 then
 --         If llg( hero_only ).hasItem( 3 ) Then
+      if ll_global.hero_only.hasItem[3] ~= 0 then
 --           llg( hero_only ).selected_item = 4
+        ll_global.hero_only.selected_item = 4
 --
 --         End If
+      end
 --
 --       Case 7
+    elseif ll_global.menu.selectedItem == 7 then
 --         If llg( hero_only ).hasItem( 4 ) Then
+      if ll_global.hero_only.hasItem[4] ~= 0 then
 --           llg( hero_only ).selected_item = 5
+        ll_global.hero_only.selected_item = 5
 --
 --         End If
+      end
 --
 --       Case 8
+    elseif ll_global.menu.selectedItem == 8 then
 --         If llg( hero_only ).hasItem( 5 ) Then
+      if ll_global.hero_only.hasItem[5] ~= 0 then
 --           llg( hero_only ).selected_item = 6
+        ll_global.hero_only.selected_item = 6
 --
 --         End If
+      end
 --
 --       Case 9
+    elseif ll_global.menu.selectedItem == 9 then
 --         If llg( hero_only ).hasCostume( 0 ) <> 0 Then
+      if ll_global.hero_only.hasCostume[0] ~= 0 then
 --           llg( hero_only ).isWearing = 0
+        ll_global.hero_only.isWearing = 0
 --           set_regular()
+        set_regular()
 --
 --         End If
+      end
 --
 --
 --       Case 10
+    elseif ll_global.menu.selectedItem == 10 then
 --         If llg( hero_only ).hasCostume( 1 ) <> 0 Then
+      if ll_global.hero_only.hasCostume[1] ~= 0 then
 --           llg( hero_only ).isWearing = 1
+        ll_global.hero_only.isWearing = 1
 --           set_cougar()
+        set_cougar()
 --
 --         End If
+      end
 --
 --
 --       Case 11
+    elseif ll_global.menu.selectedItem == 11 then
 --         If llg( hero_only ).hasCostume( 2 ) <> 0 Then
+      if ll_global.hero_only.hasCostume[2] ~= 0 then
 --           llg( hero_only ).isWearing = 2
+        ll_global.hero_only.isWearing = 2
 --           set_lynnity()
+        set_lynnity()
 --
 --         End If
+      end
 --
 --       Case 12
+    elseif ll_global.menu.selectedItem == 12 then
 --         If llg( hero_only ).hasCostume( 3 ) <> 0 Then
+      if ll_global.hero_only.hasCostume[3] ~= 0 then
 --           llg( hero_only ).isWearing = 3
+        ll_global.hero_only.isWearing = 3
 --           set_ninja()
+        set_ninja()
 --
 --         End If
+      end
 --
 --       Case 13
+    elseif ll_global.menu.selectedItem == 13 then
 --         If llg( hero_only ).hasCostume( 4 ) <> 0 Then
+      if ll_global.hero_only.hasCostume[4] ~= 0 then
 --           llg( hero_only ).isWearing = 4
+        ll_global.hero_only.isWearing = 4
 --           set_bikini()
+        set_bikini()
 --
 --         End If
+      end
 --
 --       Case 14
+    elseif ll_global.menu.selectedItem == 14 then
 --         If llg( hero_only ).hasCostume( 5 ) <> 0 Then
+      if ll_global.hero_only.hasCostume[5] ~= 0 then
 --           llg( hero_only ).isWearing = 5
+        ll_global.hero_only.isWearing = 5
 --           set_rknight()
+        set_rknight()
 --
 --         End If
+      end
 --
 -- '      Case 15
 -- '        If llg( hero_only ).hasCostume( 6 ) <> 0 Then
@@ -3051,19 +3118,29 @@ function handleKeybSelected()
 -- '        End If
 -- '
 --       Case 18
+    elseif ll_global.menu.selectedItem == 18 then
+
 --         Return -1
+      return -1
 --
 --       Case 19
+    elseif ll_global.menu.selectedItem == 19 then
+
 --         jump_to_title()
+      jump_to_title()
 --         Return -1
+      return -1
 --
 --
 --     End Select
+    end
 --
 --   End If
+  end
 --
 --
 --
+  return 0
 -- End Function
 end
 
@@ -3085,7 +3162,7 @@ function menu_Input()
 
 --
 --   Return handleKeybSelected() or handleMouseSelected()
-  return 0
+  return handleKeybSelected()
 --
 -- End Function
 end
