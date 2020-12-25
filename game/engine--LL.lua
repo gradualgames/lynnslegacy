@@ -38,9 +38,12 @@ function ll_main_entry()
 --
 --
 --   If llg( map )->isDungeon <> 0 Then
+  if ll_global.map.isDungeon ~= 0 then
 --     llg( minimap ).room[llg( this_room ).i].hasVisited = -1
+    ll_global.miniMap.room[ll_global.this_room.i].hasVisited = -1
 --
 --   End If
+  end
 --
   ll_global.current_cam = ll_global.hero
 
@@ -2813,6 +2816,7 @@ function change_room(o, _call, t)
 --       If llg( map )->isDungeon <> 0 Then
     if ll_global.map.isDungeon ~= 0 then
 --         llg( minimap ).room[llg( this_room ).i].hasVisited = -1
+      ll_global.miniMap.room[ll_global.this_room.i].hasVisited = -1
 --
 --       End If
     end
@@ -3667,7 +3671,11 @@ function enter_map(_char, _m, desc, _entry)
 --     for iRoom = 0 to _m->rooms - 1
     for iRoom = 0, _m.map.rooms - 1 do
 --
+      if ll_global.miniMap.room[iRoom] == nil then
+        ll_global.miniMap.room[iRoom] = create_LL_MiniMapRoomType()
+      end
 --       llg( miniMap ).room[iRoom].hasVisited = llg( hero_only ).roomVisited[iRoom]
+      ll_global.miniMap.room[iRoom].hasVisited = ll_global.hero_only.roomVisited[iRoom]
 --
 --     next
     end
@@ -6117,6 +6125,350 @@ function init_splash()
 --
 --   Sleep 300, 1
 --
+--
+-- End Sub
+end
+
+-- Function LLMiniMap_SizeX()
+function LLMiniMap_SizeX()
+--
+--   Dim As Integer accumulateSizes, i, combine
+  local accumulateSizes, i, combine = 0, 0, 0
+--
+--   For i = 0 To llg( map )->rooms - 1
+  for i = 0, ll_global.map.rooms - 1 do
+--
+--     If llg( miniMap ).room[i].floor <> llg( minimapFloor ) Then Continue For
+    if ll_global.miniMap.room[i].floor ~= ll_global.minimapFloor then goto continue end
+--
+--     combine = llg( map )->room[i].x + llg( miniMap ).room[i].location.x
+    combine = ll_global.map.room[i].x + ll_global.miniMap.room[i].location.x
+--
+--     If combine > accumulateSizes Then
+    if combine > accumulateSizes then
+--       accumulateSizes = combine
+      accumulateSizes = combine
+--
+--     End If
+    end
+--
+    ::continue::
+--   Next
+  end
+--
+--   Return accumulateSizes
+  return accumulateSizes
+--
+--
+-- End Function
+end
+--
+--
+-- Function LLMiniMap_SizeY()
+function LLMiniMap_SizeY()
+--
+--   Dim As Integer accumulateSizes, i, combine
+  local accumulateSizes, i, combine = 0, 0, 0
+--
+--   For i = 0 To llg( map )->rooms - 1
+  for i = 0, ll_global.map.rooms - 1 do
+--
+--     If llg( miniMap ).room[i].floor <> llg( minimapFloor ) Then Continue For
+    if ll_global.miniMap.room[i].floor ~= ll_global.minimapFloor then goto continue end
+--
+--     combine = llg( map )->room[i].y + llg( miniMap ).room[i].location.y
+    combine = ll_global.map.room[i].y + ll_global.miniMap.room[i].location.y
+--
+--     If combine > accumulateSizes Then
+    if combine > accumulateSizes then
+--       accumulateSizes = combine
+      accumulateSizes = combine
+--
+--     End If
+    end
+--
+    ::continue::
+--   Next
+  end
+--
+--   Return accumulateSizes
+  return accumulateSizes
+--
+--
+-- End Function
+end
+--
+-- Function LLMiniMap_Floors()
+function LLMiniMap_Floors()
+--
+--   dim as integer iRoom, floorFound, iFloor
+  local iRoom, floorFound, iFloor = 0, 0, 0
+--   redim as integer floors( 0 )
+  local floors = {[0] = 0}
+--
+--   floors( 0 ) = 9999
+  floors[0] = 9999
+--
+--   dim as integer alreadyFound
+  local alreadyFound = 0
+--   for iRoom = 0 to llg( map )->rooms - 1
+  for iRoom = 0, ll_global.map.rooms - 1 do
+--     for iFloor = 0 to floorFound
+    for iFloor = 0, floorFound do
+--       if floors( iFloor ) = llg( miniMap ).room[iRoom].floor then
+      if floors[iFloor] == ll_global.miniMap.room[iRoom].floor then
+--         alreadyFound = TRUE
+        alreadyFound = TRUE
+--         exit for
+        break
+--       end if
+      end
+--
+--     next
+    end
+--
+--     if alreadyFound = FALSE then
+    if alreadyFound == FALSE then
+--       floors( floorFound ) = llg( miniMap ).room[iRoom].floor
+      floors[floorFound] = ll_global.miniMap.room[iRoom].floor
+--       floorFound += 1
+      floorFound = floorFound + 1
+--
+--       redim preserve floors( floorFound )
+--
+--       floors( floorFound ) = 9999
+      floors[floorFound] = 9999
+--
+--     end if
+    end
+--
+--
+--   next
+  end
+--
+--   return ubound( floors )
+  return #floors - 1
+--
+-- end function
+end
+--
+-- Function LLMiniMap_TopFloor()
+function LLMiniMap_TopFloor()
+--
+--   dim as uinteger tf = ( 2 ^ 31 )
+  local tf = math.pow(2, 31)
+--   dim as integer topFloor = tf, iRoom
+  local topFloor, iRoom = tf, 0
+--
+--   for iRoom = 0 to llg( map )->rooms - 1
+  for iRoom = 0, ll_global.map.rooms - 1 do
+--
+--     if llg( miniMap ).room[iRoom].floor > topFloor then
+    if ll_global.miniMap.room[iRoom].floor > topFloor then
+--       topFloor = llg( miniMap ).room[iRoom].floor
+      topFloor = ll_global.miniMap.room[iRoom].floor
+--
+--     end if
+    end
+--
+--   next
+  end
+--
+--   return topFloor
+  return topFloor
+--
+-- end function
+end
+--
+-- Function LLMiniMap_BottomFloor()
+function LLMiniMap_BottomFloor()
+--
+--   dim as integer bottomFloor = ( 2 ^ 31 ) - 1, iRoom
+  local bottomFloor, iRoom = math.pow(2, 31) - 1, 0
+--
+--   for iRoom = 0 to llg( map )->rooms - 1
+  for iRoom = 0, ll_global.map.rooms - 1 do
+--
+--     if llg( miniMap ).room[iRoom].floor < bottomFloor then
+    if ll_global.miniMap.room[iRoom].floor < bottomFloor then
+--       bottomFloor = llg( miniMap ).room[iRoom].floor
+      bottomFloor = ll_global.miniMap.room[iRoom].floor
+--
+--     end if
+    end
+--
+--   next
+  end
+--
+--   return bottomFloor
+  return bottomFloor
+--
+-- end function
+end
+--
+-- Sub LLMiniMap_UpdateCam( minimap_Local As LL_MiniMapType )
+function LLMiniMap_UpdateCam(minimap_Local)
+--
+--   With minimap_Local.camera
+  local with0 = minimap_Local.camera
+  log.debug("camera: "..(with0 and "exists" or "nil"))
+--
+--     If .x > ( LLMiniMap_SizeX() - 320 ) Then .x = ( LLMiniMap_SizeX() - 320 )
+  if with0.x > (LLMiniMap_SizeX() - 320) then with0.x = (LLMiniMap_SizeX() - 320) end
+--     If .x < 0 Then .x = 0
+  if with0.x < 0 then with0.x = 0 end
+--
+--     If .y > ( LLMiniMap_SizeY() - 160 ) Then .y = ( LLMiniMap_SizeY() - 160 )
+  if with0.y > (LLMiniMap_SizeY() - 160) then with0.y = (LLMiniMap_SizeY() - 160) end
+--     If .y < 0 Then .y = 0
+  if with0.y < 0 then with0.y = 0 end
+--
+--   End With
+--
+--
+-- End Sub
+end
+--
+--
+-- Sub handle_MiniMap()
+function handle_MiniMap()
+--
+--   static as double moveDelay, roomu, roomd
+  if moveDelay == nil then moveDelay = 0.0 end
+  if roomu == nil then roomu = 0.0 end
+  if roomd == nil then roomd = 0.0 end
+--
+--   If llg( map )->isDungeon <> 0 Then
+  if ll_global.map.isDungeon ~= 0 then
+--
+--     If MultiKey( sc_m ) Then
+    if bpressed("m") then
+--
+      drawing = true
+--
+--       llg( miniMap ).camera.x = ( llg( miniMap ).room[llg( this_room ).i].location.x + ( now_room().x Shr 1 ) ) - 160
+      ll_global.miniMap.camera.x = ll_global.miniMap.room[ll_global.this_room.i].location.x + bit.rshift(now_room().x, 1) - 160
+--       llg( miniMap ).camera.y = ( llg( miniMap ).room[llg( this_room ).i].location.y + ( now_room().y Shr 1 ) ) - 80
+      ll_global.miniMap.camera.y = ll_global.miniMap.room[ll_global.this_room.i].location.y + bit.rshift(now_room().y, 1) - 80
+--       llg( miniMapFloor ) = llg( miniMap ).room[llg( this_room ).i].floor
+      ll_global.miniMapFloor = ll_global.miniMap.room[ll_global.this_room.i].floor
+--
+--       Do
+      repeat
+        updateBHist()
+        timer = love.timer.getTime()
+--
+--         fb_GetKey()
+--
+--         if timer > moveDelay then
+        if timer > moveDelay then
+--
+--           If MultiKey( sc_up ) Then
+          if love.keyboard.isDown("up") then
+--             llg( miniMap ).camera.y -= 1
+            ll_global.miniMap.camera.y = ll_global.miniMap.camera.y - 1
+--           End If
+          end
+--           If MultiKey( sc_right ) Then
+          if love.keyboard.isDown("right") then
+--             llg( miniMap ).camera.x += 1
+            ll_global.miniMap.camera.x = ll_global.miniMap.camera.x + 1
+--           End If
+          end
+--           If MultiKey( sc_down ) Then
+          if love.keyboard.isDown("down") then
+--             llg( miniMap ).camera.y += 1
+            ll_global.miniMap.camera.y = ll_global.miniMap.camera.y + 1
+--           End If
+          end
+--           If MultiKey( sc_left ) Then
+          if love.keyboard.isDown("left") then
+--             llg( miniMap ).camera.x -= 1
+            ll_global.miniMap.camera.x = ll_global.miniMap.camera.x - 1
+--           End If
+          end
+--
+--           moveDelay = timer + .023
+          moveDelay = timer + .023
+--
+--         end if
+        end
+--
+--         If MultiKey( sc_leftbracket ) Then
+        if love.keyboard.isDown("[") then
+--           if roomd = 0 then
+          if roomd == 0 then
+--             if llg( minimapFloor ) > LLMiniMap_BottomFloor() then
+            if ll_global.minimapFloor > LLMiniMap_BottomFloor() then
+--               llg( minimapFloor ) -= 1
+              ll_global.minimapFloor = ll_global.minimapFloor - 1
+--
+--             end if
+            end
+--             roomd = -1
+            roomd = -1
+--
+--           end if
+          end
+--         else
+        else
+--           roomd = 0
+          roomd = 0
+--
+--         end if
+        end
+--
+--         If MultiKey( sc_rightbracket ) Then
+        if love.keyboard.isDown("]") then
+--           if roomu = 0 then
+          if roomu == 0 then
+--             if llg( minimapFloor ) < LLMiniMap_TopFloor() then
+            if ll_global.minimapFloor < LLMiniMap_TopFloor() then
+--               llg( minimapFloor ) += 1
+              ll_global.minimapFloor = ll_global.minimapFloor + 1
+--
+--             end if
+            end
+--             roomu = -1
+            roomu = -1
+--
+--           end if
+          end
+--         else
+        else
+--           roomu = 0
+          roomu = 0
+--
+--         end if
+        end
+--
+--         LLMiniMap_UpdateCam( llg( minimap ) )
+        LLMiniMap_UpdateCam(ll_global.miniMap)
+--         minimap_Blit()
+        minimap_Blit()
+--
+--         if fb_WindowKill() then
+--           end
+--
+--         end if
+--
+--
+--         fb_ScreenRefresh()
+        coroutine.yield()
+--
+--       Loop Until MultiKey( 1 )
+      until bpressed("m")
+--
+--       llg( minimapFloor ) = llg( miniMap ).room[llg( this_room ).i].floor
+      ll_global.minimapFloor = ll_global.miniMap.room[ll_global.this_room.i].floor
+--
+--       hold_key( 1 )
+--
+--     End If
+    end
+--
+--   End If
+  end
 --
 -- End Sub
 end

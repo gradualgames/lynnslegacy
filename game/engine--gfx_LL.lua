@@ -111,6 +111,7 @@ function blit_scene()
   --
   --
   -- handle_MiniMap()
+  handle_MiniMap()
   --
   -- LLEngine_MouseVanish()
   --
@@ -2578,6 +2579,273 @@ function menu_Blit()
 --
 --
 --   End With
+--
+-- End Sub
+end
+
+-- Sub minimap_Blit()
+function minimap_Blit()
+--
+--
+--   Static As Integer color_Current( 9 ) => {36, 38, 40, 41, 43, 44, 43, 41, 40, 38}, index_Current
+  if color_Current == nil then
+    color_Current = {[0] = 36, 38, 40, 41, 43, 44, 43, 41, 40, 38}
+  end
+  if index_Current == nil then index_Current = 0 end
+--   Static As Double shiftDelay = .05, shiftTimer
+  if shiftDelay == nil then shiftDelay = .05 end
+  if shiftTimer == nil then shiftTimer = 0 end
+--
+--   Const As Integer minimap_Offset = 20
+  local minimap_Offset = 20
+--   Const As Integer minimap_Size = 160
+  local minimap_Size = 160
+--
+--   Dim As Integer floor_Current, i, j, k, eventsAchieved
+  local floor_Current, i, j, k, eventsAchieved = 0, 0, 0, 0, 0
+--   floor_Current = llg( minimapFloor )
+  floor_Current = ll_global.minimapFloor
+--
+--   Dim As Integer gx, gy
+  local gx, gy = 0, 0
+--
+--   Dim As Integer roomX, roomY
+  local roomX, roomY = 0, 0
+--   Dim As Integer doorX, doorY
+  local doorX, doorY = 0, 0
+--
+--   gx = LLMiniMap_SizeX()
+  gx = LLMiniMap_SizeX()
+--   gy = LLMiniMap_SizeY()
+  gy = LLMiniMap_SizeY()
+--
+--   If gx < 320 Then
+  if gx < 320 then
+--     gx = ( 320 - gx ) Shr 1
+    gx = bit.rshift(320 - gx, 1)
+--
+--   Else
+  else
+--     gx = 0
+    gx = 0
+--
+--   End If
+  end
+--
+--   If gy < minimap_Size Then
+  if gy < minimap_Size then
+--     gy = ( minimap_Size - gy ) Shr 1
+    gy = bit.rshift(minimap_Size - gy, 1)
+--
+--   Else
+  else
+--     gy = 0
+    gy = 0
+--
+--   End If
+  end
+--
+--
+--   graphicalString( llg( dungeonName ), 160 - ( Len( llg( dungeonName ) ) Shl 2 ), 2 )
+  graphicalString(ll_global.dungeonName, 160 - bit.lshift(#ll_global.dungeonName, 2), 2)
+--
+--   View Screen( 0, 20 )-( 319, 179 )
+--   For i = 0 To llg( map )->rooms - 1
+  for i = 0, ll_global.map.rooms - 1 do
+--
+--
+--     With llg( minimap ).room[i]
+    local with0 = ll_global.miniMap.room[i]
+--
+--       If .hasVisited Then
+    if with0.hasVisited ~= 0 then
+--
+--         If .floor = floor_Current Then
+      if with0.floor == floor_Current then
+--
+--           roomX = gx + .location.x - llg( miniMap ).camera.x
+        roomX = gx + with0.location.x - ll_global.miniMap.camera.x
+--           roomY = gy + .location.y + minimap_Offset - llg( miniMap ).camera.y
+        roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
+--
+--           If i = llg( this_room ).i Then
+        if i == ll_global.this_room.i then
+--
+--             Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), color_Current( index_Current ), bf
+          love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
+          love.graphics.rectangle("fill", roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          love.graphics.setColor(1, 1, 1, 1)
+
+--             If shiftTimer = 0 Then
+          if shiftTimer == 0 then
+--
+--               index_Current += 1
+            index_Current = index_Current + 1
+--               If index_Current = 10 Then index_Current = 0
+            if index_Current == 10 then index_Current = 0 end
+--
+--               shiftTimer = Timer + shiftDelay
+            shiftTimer = timer + shiftDelay
+--
+--             End If
+          end
+--
+--             If Timer > shiftTimer Then shiftTimer = 0
+          if timer > shiftTimer then shiftTimer = 0 end
+--
+--           Else
+        else
+--             Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), 36, bf
+          love.graphics.setColor(36 / 255, 0, 0, 1.0)
+          love.graphics.rectangle("fill", roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          love.graphics.setColor(1, 1, 1, 1)
+--
+--           End If
+        end
+--           Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), 15, b
+        love.graphics.setColor(15 / 255, 0, 0, 1.0)
+        love.graphics.rectangle("line", roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+        love.graphics.setColor(1, 1, 1, 1)
+
+--
+--
+--
+--           For j = 0 To .doors - 1
+        for j = 0, with0.doors - 1 do
+--
+--             With .door[j]
+          local with1 = with0.door[j]
+--
+--               doorX = .location.x + roomX
+          doorX = with1.location.x + roomX
+--               doorY = .location.y + roomY
+          doorY = with1.location.y + roomY
+--
+--               If .codes = 0 Then
+          if with1.cords == 0 then
+--
+--                 Select Case .id
+--
+--                   Case DOOR_OPEN
+            if with1.id == DOOR_OPEN then
+--                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
+              love.graphics.setColor(36 / 255, 0, 0, 1.0)
+              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 1, 1)
+              love.graphics.setColor(1, 1, 1, 1)
+--
+--                   Case DOOR_STAIR
+            elseif with1.id == DOOR_STAIR then
+--                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 170, bf
+              love.graphics.setColor(170 / 255, 0, 0, 1.0)
+              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 1, 1)
+              love.graphics.setColor(1, 1, 1, 1)
+--
+--                 End Select
+            end
+--
+--               Else
+          else
+--
+--                 eventsAchieved = -1
+            eventsAchieved = -1
+--                 For k = 0 To .codes - 1
+            for k = 0, with1.codes - 1 do
+--
+--                   If .code[k] <> -1 Then
+              if with1.code[k] ~= -1 then
+--                     eventsAchieved And= ( llg( now )[.code[k]] <> 0 )
+                eventsAchieved = bit.band(eventsAchieved, (ll_global.now[with1.code[k]] ~= 0) and -1 or 0)
+--
+--                   Else
+              else
+--                     eventsAchieved = 0
+                eventsAchieved = 0
+--
+--                   End If
+              end
+--
+--                 Next
+            end
+--
+--                 If eventsAchieved <> 0 Then
+            if eventsAchieved ~= 0 then
+--                   Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
+              love.graphics.setColor(36 / 255, 0, 0, 1.0)
+              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+              love.graphics.setColor(1, 1, 1, 1)
+
+--
+--                 Else
+            else
+--
+--                   Select Case .id
+--
+--                     Case DOOR_LOCKED
+              if with1.id == DOOR_LOCKED then
+--                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 15, bf
+                love.graphics.setColor(15 / 255, 0, 0, 1.0)
+                love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+                love.graphics.setColor(1, 1, 1, 1)
+
+--
+--                     Case DOOR_BARRED
+              elseif with1.id == DOOR_BARRED then
+--                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 245, bf
+                love.graphics.setColor(245 / 255, 0, 0, 1.0)
+                love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+                love.graphics.setColor(1, 1, 1, 1)
+--
+--                     Case DOOR_FKEYLOCKED
+              elseif with1.id == DOOR_FKEYLOCKED then
+--                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 27, bf
+                love.graphics.setColor(27 / 255, 0, 0, 1.0)
+                love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+                love.graphics.setColor(1, 1, 1, 1)
+--
+--                   End Select
+              end
+--
+--                 End If
+            end
+--
+--               End If
+          end
+--
+--             End With
+--
+--           Next
+        end
+--
+--
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     End With
+--
+--   Next
+  end
+--   View Screen( 0, 0 )-( 319, 199 )
+--
+--   graphicalString( "Floor dn: [", 8, 182 )
+  graphicalString("Floor dn: [", 8, 182)
+--   If floor_Current > -1 Then
+  if floor_Current > -1 then
+--     graphicalString( "F" + Str( floor_Current + 1 ), 160 - ( Len( "F" + Str( floor_Current + 1 ) ) Shl 2 ), 182 )
+    graphicalString("F"..(floor_Current + 1), 160 - bit.lshift(#("F"..(floor_Current + 1)), 2), 182)
+--   Else
+  else
+--     graphicalString( "B" + Str( -floor_Current ), 160 - ( Len( "B" + Str( -floor_Current ) ) Shl 2 ), 182 )
+    graphicalString("B"..(-floor_Current), 160 - bit.lshift(#("B"..(-floor_Current)), 2), 182)
+--   End If
+  end
+--
+--   graphicalString( "Floor up: ]", 224, 182 )
+  graphicalString("Floor up: ]", 224, 182)
+--
 --
 -- End Sub
 end

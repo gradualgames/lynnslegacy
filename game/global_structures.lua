@@ -74,6 +74,7 @@ function create_ll_system()
   --   dbgString As String
   --
   --   minimapFloor as integer
+  ll_system.minimapFloor = 0
   --
   --   dungeonName As String
   --

@@ -34,9 +34,9 @@ function love.load()
   engine_init()
   --log.level = "fatal"
 
-  --log.level = "debug"
+  log.level = "debug"
   ll_main_entry()
-  --log.level = "fatal"
+  log.level = "fatal"
 
   --Variables not related to the original codebase
   dbgrects = {}
@@ -233,7 +233,19 @@ function initDraw()
 end
 
 function initInput()
-  buttons = {"x", "z", "up", "right", "down", "left", "space", "return"}
+  buttons = {
+    "m",
+    "[",
+    "]",
+    "x",
+    "z",
+    "up",
+    "right",
+    "down",
+    "left",
+    "space",
+    "return"
+  }
   bhist = {}
 end
 
