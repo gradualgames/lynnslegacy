@@ -1,4 +1,5 @@
 require("game/engine_enums")
+require("game/utility")
 
 -- Function __randomize_path ( this As _char_type Ptr ) As Integer
 function __randomize_path(this)
@@ -943,6 +944,303 @@ function __move_up(this)
 --
 --
   return 0
+-- End Function
+end
+
+-- Function __chase ( this As _char_type Ptr ) As Integer
+function __chase(this)
+--
+--
+--   Dim As Vector hero_middle, this_middle, more, polarity, axes
+  local hero_middle, this_middle, more, polarity, axes =
+    get_next_vector(), get_next_vector(), get_next_vector(), get_next_vector(), get_next_vector()
+--   Dim As Integer tmp_dir
+  local tmp_dir = 0
+--   Dim As Double sway_calc
+  local sway_calc = 0.0
+--
+--   hero_middle = V2_MidPoint( Type <vector_pair> ( llg( hero ).coords, llg( hero ).perimeter ) )
+  local temp_vector_pair = get_next_vector_pair()
+  temp_vector_pair.u.x = ll_global.hero.coords.x
+  temp_vector_pair.u.y = ll_global.hero.coords.y
+  temp_vector_pair.v.x = ll_global.hero.perimeter.x
+  temp_vector_pair.v.y = ll_global.hero.perimeter.y
+  hero_middle = V2_MidPoint(temp_vector_pair)
+--   this_middle = V2_MidPoint( Type <vector_pair> ( this->coords, this->perimeter ) )
+  temp_vector_pair.u.x = this.coords.x
+  temp_vector_pair.u.y = this.coords.y
+  temp_vector_pair.v.x = this.perimeter.x
+  temp_vector_pair.v.y = this.perimeter.y
+  this_middle = V2_MidPoint(temp_vector_pair)
+--
+--   With *this
+  local with0 = this
+--
+--     If .sway = 0 Then
+  if with0.sway == 0 then
+--
+--       .degree += 1
+    with0.degree = with0.degree + 1
+--       If .degree = 360 Then
+    if with0.degree == 360 then
+--         .degree = 0
+      with0.degree = 0
+--
+--       End If
+    end
+--
+--       .sway = Timer + .002
+    with0.sway = timer + .002
+--
+--     End If
+  end
+--     If Timer > .sway Then .sway = 0
+  if timer > with0.sway then with0.sway = 0 end
+--
+--     more = V2_Absolute( V2_Subtract( hero_middle, this_middle ) )
+  more = V2_Absolute(V2_Subtract(hero_middle, this_middle))
+--
+--     If .walk_hold = 0 Then
+  if with0.walk_hold == 0 then
+--
+--       If hero_middle.y > this_middle.y Then
+    if hero_middle.y > this_middle.y then
+--         polarity.y = 1
+      polarity.y = 1
+--
+--       ElseIf hero_middle.y < this_middle.y Then
+    elseif hero_middle.y < this_middle.y then
+--         polarity.y = -1
+      polarity.y = -1
+--
+--       End If
+    end
+--
+--       If hero_middle.x > this_middle.x Then
+    if hero_middle.x > this_middle.x then
+--         polarity.x = 1
+      polarity.x = 1
+--
+--       ElseIf hero_middle.x < this_middle.x Then
+    elseif hero_middle.x < this_middle.x then
+--         polarity.x = -1
+      polarity.x = -1
+--
+--       End If
+    end
+--
+--       If .swaying <> 0 Then Goto do_sway '' skip regular movement
+    local goto_do_sway = false
+    if with0.swaying ~= 0 then goto_do_sway = true end
+--
+--       Select Case polarity.x
+--
+--         Case 1
+    if not goto_do_sway then
+      if polarity.x == 1 then
+  --
+  --           Select Case polarity.y
+  --
+  --             Case 1
+        if polarity.y == 1 then
+  --               .direction = 6
+          with0.direction = 6
+  --
+  --             Case 0
+        elseif polarity.y == 0 then
+  --               .direction = 1
+          with0.direction = 1
+  --
+  --             Case -1
+        elseif polarity.y == -1 then
+  --               .direction = 5
+          with0.direction = 5
+  --
+  --           End Select
+        end
+  --
+  --         Case -1
+      elseif polarity.x == -1 then
+  --
+  --           Select Case polarity.y
+  --
+  --             Case 1
+        if polarity.y == 1 then
+  --               .direction = 7
+          with0.direction = 7
+  --
+  --             Case 0
+        elseif polarity.y == 0 then
+  --               .direction = 3
+          with0.direction = 3
+  --
+  --             Case -1
+        elseif polarity.y == -1 then
+  --               .direction = 4
+          with0.direction = 4
+  --
+  --           End Select
+        end
+  --
+  --         Case 0
+      elseif polarity.x == 0 then
+  --
+  --           Select Case polarity.y
+  --
+  --             Case 1
+        if polarity.y == 1 then
+  --               .direction = 2
+          with0.direction = 2
+  --
+  --             Case -1
+        elseif polarity.y == -1 then
+  --               .direction = 0
+          with0.direction = 0
+  --
+  --           End Select
+        end
+  --
+  --       End Select
+      end
+    end
+--
+--       If ( polarity.x = 0 ) And ( polarity.y = 0 ) Then
+    if (not goto_do_sway) and ((polarity.x == 0) and (polarity.y == 0)) then
+--       Else
+    else
+--
+--         If move_object( this ) = 0 Then
+      if goto_do_sway or (move_object(this) == 0) then
+--
+--           do_sway:
+        ::do_sway::
+--
+--           tmp_dir = .direction
+        tmp_dir = with0.direction
+--
+--           sway_calc = Sin( deg_2_rad( .degree ) )
+        sway_calc = math.sin(deg_2_rad(with0.degree))
+--
+--           If sway_calc > 0 Then
+        if sway_calc > 0 then
+--             .direction += 1
+          with0.direction = with0.direction + 1
+--
+--           ElseIf sway_calc < 0 Then
+        elseif sway_calc < 0 then
+--             .direction -= 1
+          with0.direction = with0.direction - 1
+--
+--           End If
+        end
+--           in_dir_small( .direction )
+        with0.direction = in_dir_small(with0.direction)
+-- '          .direction And= 3
+--
+--           move_object( this )
+        move_object(this)
+--           .direction = tmp_dir
+        with0.direction = tmp_dir
+--
+--           .swaying = -1
+        with0.swaying = -1
+--
+--           If move_object( this ) <> 0 Then
+        if move_object(this) ~= 0 then
+--            .swaying = 0
+          with0.swaying = 0
+--
+--           End If
+        end
+--
+--         End If
+      end
+--
+--
+--       End If
+    end
+--
+--
+--       in_dir_small( .direction )
+    with0.direction = in_dir_small(with0.direction)
+--       '.direction And= 3
+--
+--       .walk_hold = Timer + .mad_walk_speed
+    with0.walk_hold = timer + with0.mad_walk_speed
+--
+--        __make_face( this )
+    __make_face(this)
+--
+--       If LLObject_IncrementFrame( this ) <> 0 Then
+    if LLObject_IncrementFrame(this) ~= 0 then
+--
+--         this->frame = 0
+      this.frame = 0
+--         this->frame_hold = Timer + this->animControl[this->current_anim].rateMad
+      this.frame_hold = timer + this.animControl[this.current_anim].rateMad
+--
+--         '' reset rate?
+--       End If
+    end
+--
+--     End If
+  end
+--
+--     If Timer > .walk_hold Then .walk_hold = 0
+  if timer > with0.walk_hold then with0.walk_hold = 0 end
+--
+--
+--     If .thrust <> 0 Then
+  if with0.thrust ~= 0 then
+--
+--       If .diag_thrust <> 0 Then
+    if with0.diag_thrust ~= 0 then
+--
+--
+--         If ( ( more.x <= 16 ) And ( more.y <= 16 ) ) Then
+      if ((more.x <= 16) and (more.y <= 16)) then
+--
+--           .funcs.current_func[.funcs.active_state] = 0
+        with0.funcs.current_func[with0.funcs.active_state] = 0
+--           .funcs.active_state = .thrust_state
+        with0.funcs.active_state = with0.thrust_state
+--
+--           .frame_hold = 0
+        with0.frame_hold = 0
+--
+--           Exit Function
+        return 0
+--
+--         End If
+      end
+--
+--       ElseIf ( ( more.x <= 16 ) And ( more.y <= 8 ) ) Or ( ( more.x <= 8 ) And ( more.y <= 16 ) ) Then
+    elseif ((more.x <= 16) and (more.y <= 8)) or ((more.x <= 8) and (more.y <= 16)) then
+--
+--
+--         .funcs.current_func[.funcs.active_state] = 0
+      with0.funcs.current_func[with0.funcs.active_state] = 0
+--         .funcs.active_state = .thrust_state
+      with0.funcs.active_state = with0.thrust_state
+--
+--         .frame_hold = 0
+      with0.frame_hold = 0
+--
+--         Exit Function
+      return 0
+--
+--       End If
+    end
+--
+--     End If
+  end
+--
+--   End With
+--
+--   Return 0
+  return 0
+--
+--
 -- End Function
 end
 

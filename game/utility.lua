@@ -3,6 +3,16 @@ function chance_Percent(x)
   return (math.random() * 100) < x
 end
 
+-- Const As Double pi = Atn(1) * 4
+pi = math.atan(1) * 4
+-- Const As Double rad = ( pi / 180 )
+rad = (pi / 180)
+
+-- #Define deg_2_rad(x) ( x * rad )
+function deg_2_rad(x)
+  return (x * rad)
+end
+
 -- Type mat_int
 function create_mat_int()
 --
