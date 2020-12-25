@@ -461,9 +461,13 @@ function __do_menu_save(this)
 --
 --
 --     this->save( 0 ).link = LLSystem_ReadSaveFile( "ll_save1.sav" )
+    this.save[0].link = LLSystem_ReadSaveFile("ll_save1.sav")
 --     this->save( 1 ).link = LLSystem_ReadSaveFile( "ll_save2.sav" )
+    this.save[1].link = LLSystem_ReadSaveFile("ll_save2.sav")
 --     this->save( 2 ).link = LLSystem_ReadSaveFile( "ll_save3.sav" )
+    this.save[2].link = LLSystem_ReadSaveFile("ll_save3.sav")
 --     this->save( 3 ).link = LLSystem_ReadSaveFile( "ll_save4.sav" )
+    this.save[3].link = LLSystem_ReadSaveFile("ll_save4.sav")
 --
 --     this->read_lock = -1
     this.read_lock = -1
