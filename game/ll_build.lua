@@ -637,6 +637,25 @@ function load_mapV(fileName)
 
 end
 
+-- Sub load_status_images( t As load_savImage Ptr )
+function load_status_images(t)
+--
+--   With *t
+  local with0 = t
+--
+--       .img( 0 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\lynnstatus1.spr" ) )
+  with0.img[0] = getImageHeader("data/pictures/char/lynnstatus1.spr")
+--       .img( 1 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\lynnstatus2.spr" ) )
+  with0.img[1] = getImageHeader("data/pictures/char/lynnstatus2.spr")
+--       .img( 2 ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\lynnstatus3.spr" ) )
+  with0.img[2] = getImageHeader("data/pictures/char/lynnstatus3.spr")
+--
+--
+--   End With
+--
+-- End Sub
+end
+
 -- Sub load_menu()
 function load_menu()
 --

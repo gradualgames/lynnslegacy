@@ -90,6 +90,7 @@ function create_ll_system()
   ll_system.menu = create_ll_mainmenu()
   --
   --   savImages As load_savImage
+  ll_system.savImages = create_load_savImage()
   --
   --   dir_hint As Byte Ptr
   ll_system.dir_hint = {[0] = "up", "right", "down", "left"}
@@ -225,6 +226,18 @@ function create_ll_system()
   --
   -- End Type
   return ll_system
+end
+
+-- Type load_savImage
+function create_load_savImage()
+--
+  local load_savImage = {}
+--   img( 2 ) As LLSystem_ImageHeader Ptr
+  load_savImage.img = {}
+
+--
+  return load_savImage
+-- End Type
 end
 
 -- Type load_hudImage

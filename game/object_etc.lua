@@ -930,28 +930,39 @@ function __handle_menu(this)
 --
 --
 --               If .save( menu_sels ).link <> 0 Then
+      if with0.save[menu_sels].link ~= nil then
 --
 --                 Dim As Integer weap
+        local weap = 0
 --
 --
 --                 weap = .save( menu_sels ).link->weapon Mod 3
+        weap = with0.save[menu_sels].link.weapon % 3
 --                 If weap < 0 Then weap = 0
+        if weap < 0 then weap = 0 end
 --
 --                 Put( 32, ( menu_sels * 50 ) ), @llg( savImages ).img( weap )->image[0], Trans
+        draw(ll_global.savImages.img[weap].image, 32, menu_sels * 50)
 --
 --
 --                 Scope
 --
 --                   Dim As Integer put_h
+        local put_h = 0
 --
 --                     For put_h = 0 To 5'.save( menu_sels ).link->item - 1
+        for put_h = 0, 5 do
 --
 --                       if .save( menu_sels ).link->hasItem( put_h ) then
+          if with0.save[menu_sels].link.hasItem[put_h] ~= 0 then
 --                         Put( 57 + ( put_h * 16 ), ( menu_sels * 50 ) + 26 ), @llg( hud ).img(1)->image[ ( put_h + 1 ) * llg( hud ).img(1)->arraysize ], Trans
+            draw(ll_global.hud.img[1].image, ll_global.hud.img[1].quads[put_h + 1], 57 + (put_h * 16), (menu_sels * 50) + 26)
 --
 --                       end if
+          end
 --
 --                     Next
+        end
 --
 --                 End Scope
 --
@@ -959,53 +970,76 @@ function __handle_menu(this)
 --                 Scope
 --
 --                   Dim As Integer p, x_opt, y_opt
+        local p, x_opt, y_opt = 0, 0, 0
 --
 --                     For p = 0 To 29
+        for p = 0, 29 do
 --
 --                       x_opt = ((p Mod 15 ) * 8) + 8
+          x_opt = ((p % 15) * 8) + 8
 --                       y_opt = (( p \ 15) * 8) + 8
+          y_opt = (math.floor(p / 15) * 8) + 8
 --
 --                       If ( .save( menu_sels ).link->hp > p ) Then
+          if (with0.save[menu_sels].link.hp > p) then
 --                         Put( 49 + x_opt, y_opt + m_opt ), @llg( hud ).img(0)->image[0], Trans
+            draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[0], 49 + x_opt, y_opt + m_opt)
 --
 --                       ElseIf (.save( menu_sels ).link->maxhp ) > p Then
+          elseif (with0.save[menu_sels].link.maxhp) > p then
 --                         Put( 49 + x_opt, y_opt + m_opt ), @llg( hud ).img(0)->image[34], Trans
+            draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[1], 49 + x_opt, y_opt + m_opt)
 --
 --                       Else
+          else
 --                         Put( 49 + x_opt, y_opt + m_opt ), @llg( hud ).img(0)->image[68], Trans
+            draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[2], 49 + x_opt, y_opt + m_opt)
 --
 --
 --                       End If
+          end
 --
 --                     Next
+        end
 --
 --                 End Scope
 --
 --
 --                 Put ( 275, ( 16 ) + m_opt), @llg( hud ).img(2)->image[0], Trans
+        draw(ll_global.hud.img[2].image, 275, (16) + m_opt)
 --
 --                 Scope
 --
 --                   Dim mny As String
+        local mny = ""
 --
 --                     mny = String(  3 - Len( Str( .save( menu_sels ).link->gold ) ), "0" )
 --                     mny += Str( .save( menu_sels ).link->gold )
+        mny = ""..with0.save[menu_sels].link.gold
+        while #mny < 3 do
+          mny = "0"..mny
+        end
 --
 --                   Dim As Integer nums
+        local nums = 0
 --
 --                     For nums = 0 To 2
+        for nums = 0, 2 do
 --
 --                       Put ( 289 + ( nums * 8 ), ( 16 ) + m_opt ), @llg( hud ).img(3)->image[( mny[nums] - 48 ) * llg( hud ).img(3)->arraysize], Trans
+          draw(ll_global.hud.img[3].image, ll_global.hud.img[3].quads[(string.byte(mny, nums + 1) - 48)], 289 + (nums * 8), (16) + m_opt)
 --
 --                     Next
+        end
 --
 --                 End Scope
 --
 --               End If
+      end
 --
 --
 --             Next
-  end
+    end
 --
 --         End Scope
 --

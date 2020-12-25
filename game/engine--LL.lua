@@ -167,6 +167,7 @@ function engine_init()
 --   echo_print( "loading menu and HUD gfx" )
   log.debug("loading menu and HUD gfx")
 --   load_status_images( Varptr( llg( savImages ) ) )
+  load_status_images(ll_global.savImages)
 --   load_hud( Varptr( llg( hud ) ) )
   load_hud(ll_global.hud)
 --
