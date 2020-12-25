@@ -70,7 +70,6 @@ end
 
 -- Function __push ( this As _char_type Ptr ) As Integer
 function __push(this)
-  log.debug("__push called on: "..this.id)
 --
 --     Dim As Integer x_opt, y_opt
   local x_opt, y_opt = 0, 0

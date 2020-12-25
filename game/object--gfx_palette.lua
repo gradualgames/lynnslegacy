@@ -769,3 +769,33 @@ function __fade_up_to_color(this)
   return 0
 -- End Function
 end
+
+-- Function __black_text_on ( this As _char_type Ptr ) As Integer
+function __black_text_on(this)
+--
+--
+--   Dim As Integer i, r, g, b, c
+--
+--   b = ( ( ( ( fb_Global.display.pal[247] Shr 16 ) And &hFF ) Shl 2 ) )
+--   g = ( ( ( ( fb_Global.display.pal[247] Shr 8  ) And &hFF ) Shl 2 ) )
+--   r = ( ( ( ( fb_Global.display.pal[247]        ) And &hFF ) Shl 2 ) )
+--
+--   Palette 247, Rgb( r, g, b )
+  --NOTE: We have to hack this to work our own way like for textbox confirmation.
+  --We have to use the yellow font because some things on the screen are white
+  --and show up if recolored.
+  ll_global.font = ll_global.fontYellow
+  palette[92][0] = .5
+  palette[92][1] = .5
+  palette[92][2] = .5
+  --NOTE: This is our own flag that tells the textbox system to revert back to
+  --white font when done.
+  ll_global.reset_to_white_font_after_textbox = 2
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
