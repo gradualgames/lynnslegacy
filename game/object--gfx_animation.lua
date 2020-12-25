@@ -155,3 +155,46 @@ function __idle_animate(this)
   return 0
 -- End Function
 end
+
+-- Function __explode_lynn( this As _char_type Ptr ) As Integer
+function __explode_lynn(this)
+--
+--   Static As Integer explo
+  if explo == nil then explo = 0 end
+--
+--   If explo = 0 Then
+  if explo == 0 then
+--     play_sample( llg( snd )[sound_explosion] )
+    ll_global.snd[sound_explosion]:play()
+--     explo += 1
+    explo = explo + 1
+--
+--   End If
+  end
+--
+--
+--
+--   this->coords.x = llg( hero ).coords.x - 24
+  this.coords.x = ll_global.hero.coords.x - 24
+--   this->coords.y = llg( hero ).coords.y - 24
+  this.coords.y = ll_global.hero.coords.y - 24
+--
+--   If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+--
+--     this->frame = 0
+    this.frame = 0
+--     this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+--     explo = 0
+    explo = 0
+--     Return 1
+    return 1
+--
+--   End If
+  end
+--
+--
+  return 0
+-- End Function
+end

@@ -625,3 +625,30 @@ function __dyssius_full_explode(this)
 --
 -- End Function
 end
+
+-- Function __push_lynn_back( this As char_type Ptr ) As Integer
+function __push_lynn_back(this)
+--
+--
+--   Dim As vector flyback
+--
+--   flyback = V2_CalcFlyback( _
+--                             V2_MidPoint( LLObject_VectorPair( Varptr( llg( hero ) ) ) ), _
+--                             V2_MidPoint( LLObject_VectorPair( this ) ) _
+--                           )
+  local flyback = V2_CalcFlyback(
+                            V2_MidPoint(LLObject_VectorPair(ll_global.hero)),
+                            V2_MidPoint(LLObject_VectorPair(this))
+                          )
+--
+--   llg( hero ).fly = V2_Scale( flyback, 3 )
+  local tempVector = V2_Scale(flyback, 3)
+  ll_global.hero.fly.x = tempVector.x
+  ll_global.hero.fly.y = tempVector.y
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
