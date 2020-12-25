@@ -36,7 +36,7 @@ function ctor_hero(l)
   l.num = -1
 --
 --     .hp = 6
-  l.hp = 3
+  l.hp = 6
 --     .maxhp = 6
   l.maxhp = 6
 --
