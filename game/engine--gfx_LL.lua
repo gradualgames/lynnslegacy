@@ -2333,7 +2333,7 @@ function menu_Blit()
   elseif ll_global.menu.selectedItem == 3 then
 --
 --           If llg( hero_only ).hasItem( 0 ) Then
-    if ll_global.hero_only.hasItem[0] then
+    if ll_global.hero_only.hasItem[0] ~= 0 then
 --             graphicalString( llg( menu ).menuNames( menu_flare_select ), 134, 154, 114 )
       graphicalString(ll_global.menu.menuNames[menu_flare_select], 134, 154, 114)
 --

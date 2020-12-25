@@ -42,7 +42,7 @@ function create_main_char_type()
 --   has_item As Integer
   main_char_type.has_item = 0
 --   hasItem( 5 ) as integer
-  main_char_type.hasItem = {[0] = 0, 0, 0, 0, 0}
+  main_char_type.hasItem = {[0] = 0, 0, 0, 0, 0, 0}
 --
 --
 --   has_weapon As Integer
@@ -88,8 +88,11 @@ function create_main_char_type()
   main_char_type.adrenaline = 0.0
 --
 --   healing as integer
+  main_char_type.healing = 0
 --   healingFrame as integer
+  main_char_type.healingFrame = 0
 --   healingImage as LLSystem_ImageHeader ptr
+  main_char_type.healingImage = create_LLSystem_ImageHeader()
 --
 --   roomVisited as byte ptr
   --NOTE: I do not understand where this is initially allocated nor how many
