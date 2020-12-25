@@ -150,8 +150,6 @@ function LLObject_MAINAttack(_enemy, hr)
 --
 --                 If check_bounds( origin, target ) = 0 Then
               if check_bounds(origin, target) == 0 then
-                log.debug("Collision found on:")
-                log.debug(" _enemy.id:".._enemy.id)
 --
 --                   '' ONLY jumps out if the face is not invincible!
 --                   With _enemy[enemy_collide]
@@ -167,13 +165,10 @@ function LLObject_MAINAttack(_enemy, hr)
                   _enemy.dmg.specific = check_fields
 --
 --                       LLObject_DamageCalc( Varptr( _enemy[enemy_collide] ) )
-                  log.debug("b4 _enemy.dmg.id:".._enemy.dmg.id)
                   LLObject_DamageCalc(_enemy)
-                  log.debug("after _enemy.dmg.id:".._enemy.dmg.id)
 --
 --                       If _enemy[enemy_collide].dmg.id <> 0 Then
                   if _enemy.dmg.id ~= 0 then
-                    log.debug("Damage id is valid, so break out of loop.")
 --                       '' ignore the rest of the objects.
 --                         Exit For
                     break
@@ -300,13 +295,11 @@ function LLObject_DeriveHurt(h)
 --
 --     Case DF_MAIN_CHAR
   elseif h.dmg.id == DF_MAIN_CHAR then
-    log.debug("h.dmg.id == DF_MAIN_CHAR")
 --
 -- '        With _enemy[enemy_collide]
 --
 --       If llg( hero_only ).powder <> 0 Then
     if ll_global.hero_only.powder ~= 0 then
-      log.debug("ll_global.hero_only.powder ~= 0")
 --         '' sprinkling powder
 --
 --         If h->invincible <> 0 Then
@@ -526,7 +519,6 @@ function LLObject_DeriveHurt(h)
 --
 --       Else
     else
-      log.debug("Attacking normally.")
 --         '' attacking normally
 --
 --         If h->invincible <> 0 Then
@@ -706,14 +698,10 @@ end
 
 -- Sub LLObject_ProcessHurt( h As char_type Ptr )
 function LLObject_ProcessHurt(h)
-  log.debug("LLObject_ProcessHurt called.")
 --
 --
 --
 --   h->hp -= h->hurt
-  log.debug("h.id: "..h.id)
-  log.debug("h.hp: "..(h.hp and h.hp or "nil"))
-  log.debug("h.hurt: "..(h.hurt and h.hurt or "nil"))
   h.hp = h.hp - h.hurt
 --   '' take away the damage from the hp .
 --
@@ -1070,7 +1058,6 @@ end
 
 -- Sub LLObject_DamageCalc( h As _char_type Ptr )
 function LLObject_DamageCalc(h)
-  log.debug("LLObject_DamageCalc called.")
 --
 --   With *h
 --
@@ -1081,7 +1068,6 @@ function LLObject_DamageCalc(h)
 --
 --     If .hurt <> 0 Then
   if h.hurt ~= 0 then
-    log.debug("Enemy got hurt.")
 --       '' got hurt.
 --       If h->dmg.id = DF_ROOM_ENEMY Then
     if h.dmg.id == DF_ROOM_ENEMY then
@@ -1146,7 +1132,6 @@ function LLObject_DamageCalc(h)
 --
 --     Else
   else
-    log.debug("Enemy not hurt. This leads to resetting damage id...")
 --       '' took 0 damage.
 --
 --       '' reset damaged status.
@@ -1523,7 +1508,6 @@ end
 
 -- Sub LLObject_ClearDamage( h As char_type Ptr )
 function LLObject_ClearDamage(h)
-  log.debug("LLObject_ClearDamage called.")
 --
 --   h->hurt         = 0
   h.hurt = 0

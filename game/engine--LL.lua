@@ -128,7 +128,7 @@ function engine_init()
 --
 --
 --   echo_print( "setting up event table" )
-  log.debug("setting up event table")
+  --log.debug("setting up event table")
 --   llg( now ) = CAllocate( Len( uByte ) * LL_EVENTS_MAX )
   --NOTE: Probably don't need to allocate this. It is just a
   --big table of values used throughout the game with hard-coded
@@ -147,7 +147,7 @@ function engine_init()
 --
 --
 --   echo_print( "determining entry point" )
-  log.debug("determining entry point")
+  --log.debug("determining entry point")
 --   load_entrypoint()
   load_entrypoint()
 --
@@ -156,7 +156,7 @@ function engine_init()
 --
 --
 --   echo_print( "constructing main object" )
-  log.debug("constructing main object")
+  --log.debug("constructing main object")
 --   ctor_hero( Varptr( llg( hero ) ) )
   ctor_hero(ll_global.hero)
 --
@@ -168,7 +168,7 @@ function engine_init()
 --
 --
 --   echo_print( "loading menu and HUD gfx" )
-  log.debug("loading menu and HUD gfx")
+  --log.debug("loading menu and HUD gfx")
 --   load_status_images( Varptr( llg( savImages ) ) )
   load_status_images(ll_global.savImages)
 --   load_hud( Varptr( llg( hud ) ) )
@@ -851,7 +851,7 @@ function hero_main()
 --
 --   End With
   if bpressed("space") then
-    log.debug("Pressed space key.")
+    --log.debug("Pressed space key.")
     conf_key_in_sub()
   end
 --
@@ -1209,7 +1209,7 @@ function hero_main()
 --
 --     If .dead Then
   if with0.dead ~= 0 then
-    log.debug("lynn is dead")
+    --log.debug("lynn is dead")
 --       '' lynn is dead
 --
 --       llg( hero_only ).attacking = 0
@@ -1734,7 +1734,6 @@ function LLObject_TouchSequence(o)
 --
 --               op = ( llg( now )[.spawn_info->active_spawn[i].code_index] <> 0 )
             op = ll_global.now[with0.spawn_info.active_spawn[i].code_index] ~= 0 and -1 or 0
-            log.debug("op: "..op)
 --               If .spawn_info->active_spawn[i].code_state = 0 Then
             if with0.spawn_info.active_spawn[i].code_state == 0 then
 --                 op = Not op
@@ -1789,7 +1788,6 @@ end
 -- Sub LLObject_ActionSequence( o As char_type Ptr )
 function LLObject_ActionSequence(o)
 --
-  log.debug("LLObject_ActionSequence called on: "..o.id)
 --
 --   Dim As Integer facing, touching
   local facing, touching = 0, 0
@@ -1806,7 +1804,6 @@ function LLObject_ActionSequence(o)
 --
 --     If facing = 0 And touching = 0 Then
   if facing == 0 and touching == 0 then
-    log.debug("facing: "..facing.." touching: "..touching)
 --
 --       If .seq_release = 0 Then
     if with0.seq_release == 0 then
@@ -2374,7 +2371,6 @@ function change_room(o, _call, t)
 --
 --         Case 0
     if switch_type == 0 then
-      log.debug("switch_type 0")
 --
 --           With llg( map )->room[now_room().teleport[o->switch_room].to_room]
       --log.debug("o.switch_room: "..o.switch_room)
@@ -2382,7 +2378,6 @@ function change_room(o, _call, t)
       --log.debug("#ll_global.map.room: "..#ll_global.map.room)
       local with0 = ll_global.map.room[now_room().teleport[o.switch_room].to_room]
 --
-      log.debug("with0.song_changes: "..with0.song_changes)
 --             If .song_changes Then
       if with0.song_changes ~= 0 then
 --
@@ -2794,7 +2789,6 @@ function change_room(o, _call, t)
 --
 --     Case 5
   elseif switch_state == 5 then
-    log.debug("switch_state is 5, finalize the change room state sequence.")
 --       '' final anything :)
 --
 --       llg( seq ) = o->seq
@@ -6311,7 +6305,6 @@ function LLMiniMap_UpdateCam(minimap_Local)
 --
 --   With minimap_Local.camera
   local with0 = minimap_Local.camera
-  log.debug("camera: "..(with0 and "exists" or "nil"))
 --
 --     If .x > ( LLMiniMap_SizeX() - 320 ) Then .x = ( LLMiniMap_SizeX() - 320 )
   if with0.x > (LLMiniMap_SizeX() - 320) then with0.x = (LLMiniMap_SizeX() - 320) end
@@ -6868,7 +6861,7 @@ end
 
 -- Private Sub sequence_LoadGame( savedInfo As ll_saving_data Ptr )
 function sequence_LoadGame(savedInfo)
-  log.debug("sequence_LoadGame called.")
+  --log.debug("sequence_LoadGame called.")
 --
 --   '' only called from play_sequence
 --
@@ -7432,7 +7425,6 @@ function play_sequence(_seqParent)
 -- '          clear llg( t_rect ), 0, len( boxcontrol_type )
 --
 --           llg( t_rect ) = make_box( .text, .free_to_move, .text_color, .box_invis, .auto_box, .mod_x, .mod_y, .text_speed )
-        log.debug(with0.text)
         ll_global.t_rect = make_box(with0.text, with0.free_to_move, with0.text_color, with0.dest_y_box_invis, with0.auto_box, with0.mod_x, with0.mod_y, with0.water_align_union_text_speed)
 --
 --         End If
