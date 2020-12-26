@@ -764,6 +764,7 @@ function hero_main()
 --         antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
 --
 --         play_sample( sound_healthgrab )
+        ll_global.snd[sound_healthgrab]:play()
 --       end if
       end
 --       llg( hero_only ).healTimer = 0
@@ -817,31 +818,51 @@ function hero_main()
   end
 --
 --
+  --NOTE: I do not know what this healing code does. Prior to porting it,
+  --the red regeneration suit was already working via logic elsewhere in
+  --the codebase. Everything else seems to be working with Lynn, too, is
+  --it possible this is a feature that was removed and never comes in to
+  --play?
 --   static as double healingTimer
+  if healingTimer == nil then healingTimer = 0.0 end
 --   if llg( hero_only ).healing <> NULL then
+  if ll_global.hero_only.healing ~= NULL then
 --
 --     if healingTimer = 0 then
+    if healingTimer == 0 then
 --       healingTimer = timer + .1
+      healingTimer = timer + .1
 --
 --     end if
+    end
 --
 --     if timer > healingTimer then
+    if timer > healingTimer then
 --
 --       llg( hero_only ).healingFrame += 1
+      ll_global.hero_only.healingFrame = ll_global.hero_only.healingFrame + 1
 --       healingTimer = 0
+      healingTimer = 0
 --
 --     end if
+    end
 --
 --     if llg( hero_only ).healingFrame = 5 then
+    if ll_global.hero_only.healingFrame == 5 then
 --
 --       llg( hero_only ).healingFrame = 0
+      ll_global.hero_only.healingFrame = 0
 --       llg( hero_only ).healing = 0
+      ll_global.hero_only.healing = 0
 --
 --       healingTimer = 0
+      healingTimer = 0
 --
 --     end if
+    end
 --
 --   end if
+  end
 --
 --
 --
@@ -856,11 +877,14 @@ function hero_main()
   end
 --
 --   If llg( hero ).vol_fade_trig <> 0 Then
+  if ll_global.hero.vol_fade_trig ~= 0 then
 --     '' projectile triggered
 --
 --     __do_vol_fade ( VarPtr( llg( hero ) ) )
+    __do_vol_fade(ll_global.hero)
 --
 --   End If
+  end
 --
 --
 --
@@ -1236,10 +1260,13 @@ function hero_main()
 --   End With
 --
 --   If llg( hero.hp ) > llg( hero.maxhp ) Then
+  if ll_global.hero.hp > ll_global.hero.maxhp then
 --     llg( hero.hp ) = llg( hero.maxhp )
+    ll_global.hero.hp = ll_global.hero.maxhp
 --     antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
 --
 --   end if
+  end
 --
 --   #IfDef ll_audio
 --     check_env_sounds()
