@@ -216,6 +216,23 @@ function __inc_sel_seq(this)
 -- End Function
 end
 
+-- Function __set_anim( this As _char_type Ptr ) As Integer
+function __set_anim(this)
+--
+--   this->frame = 0
+  this.frame = 0
+--   this->frame_hold = NULL
+  this.frame_hold = NULL
+--   this->current_anim = this->chap
+  this.current_anim = this.chap
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __dir_up ( this As _char_type Ptr ) As Integer
 function __dir_up(this)
 --
