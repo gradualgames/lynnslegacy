@@ -4415,40 +4415,61 @@ function act_enemies(_enemies, _enemy)
           end
   --
   --           If .unique_id = u_gbutton Then
+          if with0.unique_id == u_gbutton then
   --
   --             Dim As LLObject_CollisionType collisionCheck
+            local collisionCheck = create_LLObject_CollisionType()
+
   --             Dim As Integer buttonSet, rockCheck
+            local buttonSet, rockCheck = 0, 0
   --
   --             collisionCheck = LLObject_Collision( llg( hero ), _enemy[do_stuff] )
+            collisionCheck = LLObject_Collision(ll_global.hero, _enemy[do_stuff])
   --             If collisionCheck.isColliding = -1 Then
+            if collisionCheck.isColliding == -1 then
   --               buttonSet = -1
+              buttonSet = -1
   --
   --             End If
+            end
   --
   --             If buttonSet = 0 Then
+            if buttonSet == 0 then
   --
   --               For rockCheck = 0 To now_room().enemies - 1
+              for rockCheck = 0, now_room().enemies - 1 do
   --
   --                 If now_room().enemy[rockCheck].unique_id = u_pushrock Then
+                if now_room().enemy[rockCheck].unique_id == u_pushrock then
   --                   collisionCheck = LLObject_Collision( now_room().enemy[rockCheck], _enemy[do_stuff] )
+                  collisionCheck = LLObject_Collision(now_room().enemy[rockCheck], _enemy[do_stuff])
   --                   If collisionCheck.isColliding = -1 Then
+                  if collisionCheck.isColliding == -1 then
   --                     buttonSet = -1
+                    buttonSet = -1
   --                     Exit For
+                    break
   --
   --                   End If
+                  end
   --
   --                 End If
+                end
   --
   --               Next
+              end
   --
   --             End If
+            end
   --
   --             .funcs.active_state = IIf( buttonSet, 1, 0 )
+            with0.funcs.active_state = iif(buttonSet ~= 0, 1, 0)
   --
   --
   --
   --
   --           End If
+          end
   --
   --           If ( .unique_id = u_gold ) Or ( .unique_id = u_silver ) Or ( .unique_id = u_health ) Then
           if (with0.unique_id == u_gold) or (with0.unique_id == u_silver) or (with0.unique_id == u_health) then
@@ -6509,6 +6530,133 @@ function handle_MiniMap()
   end
 --
 -- End Sub
+end
+
+-- Sub LLObject_VectorPosition( obj As char_type, vecPair As vector_pair, faceIndex As Integer )
+function LLObject_VectorPosition(obj, vecPair, faceIndex)
+--
+--
+--   vecPair.u = obj.coords
+  vecPair.u.x = obj.coords.x
+  vecPair.u.y = obj.coords.y
+--
+--   With obj.anim[obj.current_anim]->frame[LLObject_CalculateFrame( obj )]
+  local with0 = obj.anim[obj.current_anim].frame[LLObject_CalculateFrame(obj)]
+--
+--     If .faces = 0 Then
+  if with0.faces == 0 then
+--
+--       vecPair.v = obj.perimeter
+    vecPair.v.x = obj.perimeter.x
+    vecPair.v.y = obj.perimeter.y
+--
+--     Else
+  else
+--
+--       vecPair.u.x += .face[faceIndex].x - obj.animControl[obj.current_anim].x_off
+    vecPair.u.x = vecPair.u.x + with0.face[faceIndex].x - obj.animControl[obj.current_anim].x_off
+--       vecPair.u.y += .face[faceIndex].y - obj.animControl[obj.current_anim].y_off
+    vecPair.u.y = vecPair.u.y + with0.face[faceIndex].y - obj.animControl[obj.current_anim].y_off
+--
+--       vecPair.v.x = .face[faceIndex].w
+    vecPair.v.x = with0.face[faceIndex].w
+--       vecPair.v.y = .face[faceIndex].h
+    vecPair.v.y = with0.face[faceIndex].h
+--
+--     End If
+  end
+--
+--   End With
+--
+--
+-- End Sub
+end
+
+-- Function LLObject_Collision( o As char_type, o2 As char_type ) As LLObject_CollisionType
+function LLObject_Collision(o, o2)
+--
+--   Dim As LLObject_CollisionType res
+  local res = create_LLObject_CollisionType()
+--   Dim As Integer faces, faces2
+  local faces, faces2 = 0, 0
+--   Dim As Integer i, i2
+  local i, i2 = 0, 0
+--
+--   Dim As vector_pair ov, ov2
+  local ov, ov2 = get_next_vector_pair(), get_next_vector_pair()
+--
+--   With o
+  local with0 = o
+--
+--     .frame_check = LLObject_CalculateFrame( o )
+  with0.frame_check = LLObject_CalculateFrame(o)
+--
+--     With .anim[.current_anim]->frame[.frame_check]
+  local with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
+--
+--       faces = IIf( .faces = 0, 0, .faces - 1 )
+  faces = iif(with1.faces == 0, 0, with1.faces - 1)
+--
+--     End With
+--
+--   End With
+--
+--   With o2
+  local with2 = o2
+--
+--     .frame_check = LLObject_CalculateFrame( o2 )
+  with2.frame_check = LLObject_CalculateFrame(o2)
+--
+--     With .anim[.current_anim]->frame[.frame_check]
+  local with3 = with2.anim[with2.current_anim].frame[with2.frame_check]
+--
+--       faces2 = IIf( .faces = 0, 0, .faces - 1 )
+  faces2 = iif(with3.faces == 0, 0, with3.faces - 1)
+--
+--     End With
+--
+--   End With
+--
+--   For i = 0 To faces
+  for i = 0, faces do
+--
+--     LLObject_VectorPosition( o, ov, i )
+    LLObject_VectorPosition(o, ov, i)
+--
+--     For i2 = 0 To faces2
+    for i2 = 0, faces2 do
+--
+--       LLObject_VectorPosition( o2, ov2, i2 )
+      LLObject_VectorPosition(o2, ov2, i2)
+--
+--       If check_bounds( ov, ov2 ) = 0 Then
+      if check_bounds(ov, ov2) == 0 then
+--         '' touching
+--
+--         res.isColliding = -1
+        res.isColliding = -1
+--         res.faces.x = i
+        res.faces.x = i
+--         res.faces.y = i2
+        res.faces.y = i2
+--
+--         Return res
+        return res
+--
+--       End If
+      end
+--
+--     Next i2
+    end
+--
+--   Next i
+  end
+--
+--   Return res
+  return res
+--
+--
+-- End Function
 end
 
 -- Sub LLObject_ClearProjectiles( char As char_type )

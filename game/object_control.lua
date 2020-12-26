@@ -1,6 +1,19 @@
 require("game/engine_enums")
 require("game/utility")
 
+-- Type LLObject_CollisionType
+function create_LLObject_CollisionType()
+--
+  local LLObject_CollisionType = {}
+--   isColliding As Integer
+  LLObject_CollisionType.isColliding = 0
+--   faces As vector_Integer
+  LLObject_CollisionType.faces = get_next_vector()
+--
+  return LLObject_CollisionType
+-- End Type
+end
+
 -- Function out_proximity( this As char_type Ptr ) As Integer
 function out_proximity(this)
 --
