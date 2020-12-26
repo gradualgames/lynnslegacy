@@ -203,6 +203,19 @@ function __make_dead(this)
 -- End Function
 end
 
+-- Function __inc_sel_seq ( this As _char_type Ptr ) As Integer
+function __inc_sel_seq(this)
+--
+--   this->sel_seq += 1
+  this.sel_seq = this.sel_seq + 1
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __dir_up ( this As _char_type Ptr ) As Integer
 function __dir_up(this)
 --

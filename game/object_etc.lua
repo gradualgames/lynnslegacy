@@ -1128,6 +1128,26 @@ function __after_moenia_townspeople(this)
 -- End Function
 end
 
+-- Function __after_slime( this As char_type Ptr ) As Integer
+function __after_slime(this)
+--
+--   If llg( now )[1150] <> 0 Then
+  if ll_global.now[1150] ~= 0 then
+--
+--     this->sel_seq = 3
+    this.sel_seq = 3
+--     Return 1
+    return 1
+--
+--
+--   End If
+  end
+--
+  return 0
+--
+-- End Function
+end
+
 -- Function __set_camera( this As char_type Ptr ) As Integer
 function __set_camera(this)
 --
