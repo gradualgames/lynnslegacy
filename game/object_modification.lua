@@ -306,6 +306,19 @@ function __chapter_1_off(this)
 -- End Function
 end
 
+-- Function __cool_down ( this As _char_type Ptr ) As Integer
+function __cool_down(this)
+--
+--
+--   this->mad = 0
+  this.mad = 0
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __chapter_1_on ( this As _char_type Ptr ) As Integer
 function __chapter_1_on(this)
 --

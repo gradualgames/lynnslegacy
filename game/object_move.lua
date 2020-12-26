@@ -813,6 +813,118 @@ function __home(this)
 -- End Function
 end
 
+-- Function __charger_charge( this As _char_type Ptr ) As Integer
+function __charger_charge(this)
+--
+--
+--   If this->walk_hold = 0 Then
+  if this.walk_hold == 0 then
+--
+--     Select Case this->internalState
+--
+--       Case 0
+    if this.internalState == 0 then
+--       '' charge
+--         this->current_anim = 1
+      this.current_anim = 1
+--         If move_object( this ) = 0 Then
+      if move_object(this) == 0 then
+--           this->internalState += 1
+        this.internalState = this.internalState + 1
+--
+--         End If
+      end
+--         this->walk_speed = .005
+      this.walk_speed = .005
+--
+--       Case 1
+    elseif this.internalState == 1 then
+--       '' ow...
+--         If this->sway = 0 Then
+      if this.sway == 0 then
+--           play_sample( llg( snd )[sound_explosion], 40 )
+        ll_global.snd[sound_explosion]:setVolume(.4)
+        ll_global.snd[sound_explosion]:play()
+--           this->sway = -1
+        this.sway = -1
+--
+--         End If
+      end
+--         this->internalState += __q_second_pause( this )
+      this.internalState = this.internalState + __q_second_pause(this)
+--
+--       Case 2
+    elseif this.internalState == 2 then
+--       '' hit wall
+--         this->sway = 0
+      this.sway = 0
+--         this->direction += 2
+      this.direction = this.direction + 2
+--         this->direction And = 3
+      this.direction = bit.band(this.direction, 3)
+--
+--         this->internalState += 1
+      this.internalState = this.internalState + 1
+--
+--         this->current_anim = 0
+      this.current_anim = 0
+--         this->walk_speed = .013
+      this.walk_speed = .013
+--
+--
+--       Case 3
+    elseif this.internalState == 3 then
+--       '' retreating
+--
+--         If move_object( this ) = 0 Then
+      if move_object(this) == 0 then
+--           this->internalState += 1
+        this.internalState = this.internalState + 1
+--
+--         End If
+      end
+--
+--       Case 4
+    elseif this.internalState == 4 then
+--       '' reset
+--
+--         this->direction += 2
+      this.direction = this.direction + 2
+--         this->direction And = 3
+      this.direction = bit.band(this.direction, 3)
+--
+--         this->internalState = 0
+      this.internalState = 0
+--         play_sample( llg( snd )[sound_switch], 40 )
+      ll_global.snd[sound_switch]:setVolume(.4)
+      ll_global.snd[sound_switch]:play()
+--         Function = 1
+      return 1
+--
+--
+--     End Select
+    end
+--
+--     this->walk_hold = Timer + this->walk_speed
+    this.walk_hold = timer + this.walk_speed
+--
+--   End If
+  end
+--
+--   If Timer >= this->walk_hold Then
+  if timer >= this.walk_hold then
+--     this->walk_hold = 0
+    this.walk_hold = 0
+--
+--
+--   End If
+  end
+--
+--
+  return 0
+-- End Function
+end
+
 -- Function __momentum_move ( this As _char_type Ptr ) As Integer
 function __momentum_move(this)
   --log.debug("__momentum_move called.")
