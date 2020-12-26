@@ -103,6 +103,11 @@ function love.keypressed(key, scancode, isrepeat)
   if love.keyboard.isDown("m") then
     ll_global.hero.money = 999
   end
+
+  --p is for making you have no money at all
+  if love.keyboard.isDown("p") then
+    ll_global.hero.money = 0
+  end
 end
 
 function love.quit()
