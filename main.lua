@@ -92,6 +92,11 @@ function love.keypressed(key, scancode, isrepeat)
       ll_global.hero_only.selected_item = 1
     end
   end
+
+  --m is for creating money out of thin air
+  if love.keyboard.isDown("m") then
+    ll_global.hero.money = 999
+  end
 end
 
 function love.quit()
