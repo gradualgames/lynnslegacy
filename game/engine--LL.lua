@@ -3765,6 +3765,14 @@ function act_enemies(_enemies, _enemy)
   --   With _enemy[do_stuff]
     local with0 = _enemy[do_stuff]
 
+    --NOTE: This is a hack to enable the pointer math in
+    --__anger_fireball_circle to work. It addresses this - 1,
+    --which in FB would go to the _char_type previous in memory,
+    --so to simulate this we tag every object in this loop with the
+    --previous one. This will be nil when do_stuff is 0, but the logic
+    --in that callback method does not operate, I don't think, in that
+    --case.
+    with0.prev = _enemy[do_stuff - 1]
     -- table.insert(dbgrects, {
     --   c = .01,
     --   x = with0.coords.x - ll_global.this_room.cx,
@@ -3936,19 +3944,26 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If ( .unique_id = u_anger ) Or ( .unique_id = u_sterach ) Then
+          if (with0.unique_id == u_anger) or (with0.unique_id == u_sterach) then
   --
   --             If .hit <> 0 Then
+            if with0.hit ~= 0 then
   --               '' This is how all hit state shifts should be handled.
   --               '' This runs parallel to any running state.
   --               If __anger_flyback( Varptr( _enemy[do_stuff] ) ) <> 0 Then
+              if __anger_flyback(_enemy[do_stuff]) ~= 0 then
   --
   --                 .hit = 0
+                with0.hit = 0
   --
   --               End If
+              end
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --           If ( .unique_id = u_beamcrystal ) Or _
   --              ( .unique_id = u_boss5_right ) Or _
@@ -4254,9 +4269,12 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .anger_proj_trig <> 0 Then
+          if with0.anger_proj_trig ~= 0 then
   --             __do_anger_proj ( Varptr( _enemy[do_stuff] ) )
+            __do_anger_proj(_enemy[do_stuff])
   --
   --           End If
+          end
   --
   --           If .unique_id = u_grult Then
           if with0.unique_id == u_grult then

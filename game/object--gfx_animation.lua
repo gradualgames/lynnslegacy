@@ -156,6 +156,34 @@ function __idle_animate(this)
 -- End Function
 end
 
+-- Function __true_active_animate ( this As _char_type Ptr ) As Integer
+function __true_active_animate(this)
+--
+--
+--   this->animating = 1
+  this.animating = 1
+--
+--   If LLObject_IncrementFrame( this ) <> 0 Then
+  if LLObject_IncrementFrame(this) ~= 0 then
+--
+--     this->animating = 0
+    this.animating = 0
+--
+--     this->frame = 0
+    this.frame = 0
+--     this->frame_hold = Timer + this->animControl[this->current_anim].rate
+    this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--   End If
+  end
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __explode_lynn( this As _char_type Ptr ) As Integer
 function __explode_lynn(this)
 --
