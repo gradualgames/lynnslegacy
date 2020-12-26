@@ -1093,6 +1093,20 @@ function __make_enemy(this)
 -- End Function
 end
 
+-- Function __give_100_gold ( this As _char_type Ptr ) As Integer
+function __give_100_gold(this)
+--
+--
+--   llg( hero ).money += 100
+  ll_global.hero.money = ll_global.hero.money + 100
+--   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __after_moenia_townspeople( this As char_type Ptr ) As Integer
 function __after_moenia_townspeople(this)
 --
