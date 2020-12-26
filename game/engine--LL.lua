@@ -7906,73 +7906,129 @@ function LLObject_TorchModify(o)
 --
 --
 --   Dim As Integer chk
+  local chk = 0
 --   Dim As vector res
+  local res = get_next_vector()
 --
 --   With *( o )
+  local with0 = o
 --
 --     For chk = 0 To now_room().enemies -1
+  for chk = 0, now_room().enemies - 1 do
 --
 --       If now_room().enemy[chk].dead = 0 Then
+    if now_room().enemy[chk].dead == 0 then
 --
 --         Select Case As Const now_room().enemy[chk].unique_id
 --
 --           Case u_eguard, u_bguard, u_tguard, u_cguard, u_bshape, u_gshape
+      if now_room().enemy[chk].unique_id == u_eguard or
+         now_room().enemy[chk].unique_id == u_bguard or
+         now_room().enemy[chk].unique_id == u_tguard or
+         now_room().enemy[chk].unique_id == u_cguard or
+         now_room().enemy[chk].unique_id == u_bshape or
+         now_room().enemy[chk].unique_id == u_gshape then
 --
 --             res = V2_Absolute( _
+        local m = get_next_vector_pair()
+        local n = get_next_vector_pair()
+        m.u.x = with0.coords.x
+        m.u.y = with0.coords.y
+        m.v.x = with0.perimeter.x
+        m.v.y = with0.perimeter.y
+        n.u.x = now_room().enemy[chk].coords.x
+        n.u.y = now_room().enemy[chk].coords.y
+        n.v.x = now_room().enemy[chk].perimeter.x
+        n.v.y = now_room().enemy[chk].perimeter.y
+        res = V2_Absolute(
 --                                V2_Subtract(                                                                                                     _
+          V2_Subtract(
 --                                             V2_MidPoint( Type <vector_pair> ( .coords, .perimeter ) ),                                          _
+            V2_MidPoint(m),
 --                                             V2_MidPoint( Type <vector_pair> ( now_room().enemy[chk].coords, now_room().enemy[chk].perimeter ) ) _
+              V2_MidPoint(n)
 --                                           )                                                                                                     _
+            )
 --                              )
+          )
 --
 --         End Select
+      end
 --
 --         Select Case As Const now_room().enemy[chk].unique_id
 --
 --           Case u_eguard, u_bguard, u_tguard, u_cguard
+      if now_room().enemy[chk].unique_id == u_eguard or
+         now_room().enemy[chk].unique_id == u_bguard or
+         now_room().enemy[chk].unique_id == u_tguard or
+         now_room().enemy[chk].unique_id == u_cguard then
 --
 --             If res.x < .vision_field Then
+        if res.x < with0.vision_field then
 --               If res.y < .vision_field Then
+          if res.y < with0.vision_field then
 --
 --                 .current_anim = 3 '' LOW TORCH
+            with0.current_anim = 3
 --                 Exit Sub
+            return
 --
 --               End If
+          end
 --
 --             End If
+        end
 --
 --
 --           Case u_bshape
+      elseif now_room().enemy[chk].unique_id == u_bshape then
 --
 --             If res.x < .vision_field Then
+        if res.x < with0.vision_field then
 --               If res.y < .vision_field Then
+          if res.y < with0.vision_field then
 --
 --                 .current_anim = 1 '' RED TORCH
+            with0.current_anim = 1
 --                 Exit Sub
+            return
 --
 --               End If
+          end
 --
 --             End If
+        end
 --
 --           Case u_gshape
+      elseif now_room().enemy[chk].unique_id == u_gshape then
 --
 --             If res.x < .vision_field Then
+        if res.x < with0.vision_field then
 --               If res.y < .vision_field Then
+          if res.y < with0.vision_field then
 --
 --                 .current_anim = 2 '' GREEN TORCH
+            with0.current_anim = 2
 --                 Exit Sub
+            return
 --
 --               End If
+          end
 --
 --             End If
+        end
 --
 --         End Select
+      end
 --
 --       End If
+    end
 --
 --     Next
+  end
 --
 --   .current_anim = 0 '' nothing special.
+  with0.current_anim = 0
 --
 --   End With
 --
