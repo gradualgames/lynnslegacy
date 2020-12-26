@@ -93,6 +93,12 @@ function love.keypressed(key, scancode, isrepeat)
     end
   end
 
+  --k is for getting keys
+  if love.keyboard.isDown("k") then
+    ll_global.hero.key = 1
+    ll_global.hero_only.b_key = 1
+  end
+
   --m is for creating money out of thin air
   if love.keyboard.isDown("m") then
     ll_global.hero.money = 999
