@@ -538,6 +538,9 @@ function __fade_down_to_color(this)
 --   If this->fade_count = 64 Then
   if this.fade_count == 64 then
 --
+    --NOTE: Hack to restore font to being white after possible
+    --color changes during a fully faded-to-white cutscene.
+    ll_global.font = ll_global.fontWhite
 --     shift_pal()
     shift_pal()
 --
@@ -788,9 +791,6 @@ function __black_text_on(this)
   palette[92][0] = .5
   palette[92][1] = .5
   palette[92][2] = .5
-  --NOTE: This is our own flag that tells the textbox system to revert back to
-  --white font when done.
-  ll_global.reset_to_white_font_after_textbox = 2
 --
 --   Return 1
   return 1

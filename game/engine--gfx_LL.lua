@@ -734,15 +734,6 @@ function blit_box(t_box)
 --             .internal.hold_box = Timer + .03
       with0.internal.hold_box = timer + .03
 --             __set_font_fg( cast( any ptr, llg( t_rect ).internal.lastFG ) )
-      --NOTE: Horrible hack to reset font back to white after being gray during
-      --a cut scene where Lynn finds her mace. See __black_text_onq
-      if ll_global.reset_to_white_font_after_textbox ~= nil then
-        ll_global.reset_to_white_font_after_textbox = ll_global.reset_to_white_font_after_textbox - 1
-        if ll_global.reset_to_white_font_after_textbox == 0 then
-          ll_global.reset_to_white_font_after_textbox = nil
-          ll_global.font = ll_global.fontWhite
-        end
-      end
 --
 --         End Select
     end
