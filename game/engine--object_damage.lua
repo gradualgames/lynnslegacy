@@ -921,28 +921,31 @@ function LLObject_ProcessHurt(h)
 --     If h->unique_id = u_lynn Then
     if h.unique_id == u_lynn then
 -- '      If h->dmg.id = DF_ROOM_ENEMY Then
-      --NOTE: My port crashes if I don't port the above commented out line!
-      --It happens in a room in the first dungeon with a bat door that generates
-      --temp bat enemies and the h.dmg.index refers to a temp enemy and not
-      --a main room enemy. Very interesting it was commented out in the original
-      --code!
-      if h.dmg.id == DF_ROOM_ENEMY then
+      --NOTE: There was a bug here that was crashing the port
+      --but not the original game. If h.dmg.id was temp enemy then
+      --the dmg.index could be wrong, particularly for the bat generating
+      --room in the first dungeon. One way to fix it was to uncomment the
+      --above ported line, but that introduced a problem with the third boss
+      --where one of the projectiles would not make lynn yell. The following
+      --fix uses the correct enemy array depending on the dmg id, hopefully
+      --resolving both problems.
+      local enemy = now_room().enemy
+      if h.dmg.id == DF_TEMP_ENEMY then enemy = now_room().temp_enemy end
 --         If now_room().enemy[h->dmg.index].unique_id <> u_beetle Then
-        if now_room().enemy[h.dmg.index].unique_id ~= u_beetle then
+      if enemy[h.dmg.index].unique_id ~= u_beetle then
 --           Dim As Integer lynn_yell
-          local lynn_yell = 0
+        local lynn_yell = 0
 --           lynn_yell = CInt( sound_lynn_hurt_1 ) + Int( Rnd * 3 )
-          lynn_yell = sound_lynn_hurt_1 + math.floor(math.random() * 3)
+        lynn_yell = sound_lynn_hurt_1 + math.floor(math.random() * 3)
 --
 --           play_sample( llg( snd )[lynn_yell], 50 )
-          ll_global.snd[lynn_yell]:play()
+        ll_global.snd[lynn_yell]:play()
 
 --
 --         End If
-        end
+      end
 --
 -- '      End If
-      end
 --
 --     Else
     else
