@@ -6962,25 +6962,38 @@ function sequence_LoadGame(savedInfo)
 --   Select Case llg( hero_only ).isWearing
 --
 --     Case 0
+  if ll_global.hero_only.isWearing == 0 then
 --       set_regular()
+    set_regular()
 --
 --     Case 1
+  elseif ll_global.hero_only.isWearing == 1 then
 --       set_cougar()
+    set_cougar()
 --
 --     Case 2
+  elseif ll_global.hero_only.isWearing == 2 then
 --       set_lynnity()
+    set_lynnity()
 --
 --     Case 3
+  elseif ll_global.hero_only.isWearing == 3 then
 --       set_ninja()
+    set_ninja()
 --
 --     Case 4
+  elseif ll_global.hero_only.isWearing == 4 then
 --       set_bikini()
+    set_bikini()
 --
 --     Case 5
+  elseif ll_global.hero_only.isWearing == 5 then
 --       set_rknight()
+    set_rknight()
 --
 --
 --   End Select
+  end
 --
 --
 --   MemCpy( llg( now ), Varptr( savedInfo->happen( 0 ) ), LL_EVENTS_MAX )
