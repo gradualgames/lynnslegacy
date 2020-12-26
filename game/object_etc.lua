@@ -1168,6 +1168,25 @@ function __healthguy_branch(this)
 -- End Function
 end
 
+-- Function __outfit_branch( this As char_type Ptr ) As Integer
+function __outfit_branch(this)
+--
+--
+--   if llg( hero ).money < this->chap then
+  if ll_global.hero.money < this.chap then
+--     this->sel_seq = 1
+    this.sel_seq = 1
+--
+--   end if
+  end
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __give_gold_amount( this As char_type Ptr ) As Integer
 function __give_gold_amount(this)
 --
@@ -1175,6 +1194,85 @@ function __give_gold_amount(this)
 --   llg( hero ).money += this->chap
   ll_global.hero.money = ll_global.hero.money + this.chap
 --   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
+-- Function __dec_sel_seq( this As char_type Ptr ) As Integer
+function __dec_sel_seq(this)
+--
+--
+--   this->sel_seq -= 1
+  this.sel_seq = this.sel_seq - 1
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
+-- Function __poondodge_branch( this As char_type Ptr ) As Integer
+function __poondodge_branch(this)
+--
+--
+--   if llg( now )[1220] = 0 then
+  if ll_global.now[1220] == 0 then
+--     if llg( now )[1221] then
+    if ll_global.now[1221] ~= 0 then
+--       this->sel_seq = 1
+      this.sel_seq = 1
+--
+--     end if
+    end
+--   end if
+  end
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
+-- Function __give_outfit( this As char_type Ptr ) As Integer
+function __give_outfit(this)
+--
+--
+--   llg( hero_only ).hasCostume( this->chap ) = TRUE
+  ll_global.hero_only.hasCostume[this.chap] = TRUE
+--   antiHackASSIGN2( LL_Global.hero_only.outfitDummy, LL_Global.hero_only.hasCostume )
+--
+--   select case as const this->chap
+--     case 1
+  if this.chap == 1 then
+--       llg( hero ).money -= 10
+    ll_global.hero.money = ll_global.hero.money - 10
+--     case 2
+  elseif this.chap == 2 then
+--       llg( hero ).money -= 35
+    ll_global.hero.money = ll_global.hero.money - 35
+--     case 3
+  elseif this.chap == 3 then
+--     case 4
+  elseif this.chap == 4 then
+--       llg( hero ).money -= 70
+    ll_global.hero.money = ll_global.hero.money - 70
+--     case 5
+  elseif this.chap == 5 then
+--       llg( hero ).money -= 50
+    ll_global.hero.money = ll_global.hero.money - 50
+--
+--
+--   end select
+  end
+--
+--   antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
+--
 --
 --   Function = 1
   return 1
