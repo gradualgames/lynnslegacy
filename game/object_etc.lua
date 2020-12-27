@@ -1383,6 +1383,68 @@ function __give_outfit(this)
 -- End Function
 end
 
+-- Function __outfit_swap( this As char_type Ptr ) As Integer
+function __outfit_swap(this)
+--
+--   static as integer swapState
+  if swapState == nil then swapState = 0 end
+--
+--   if swapState = 0 then
+  if swapState == 0 then
+--
+--     set_regular()
+    set_regular()
+--
+--   else
+  else
+--
+--     select case as const llg( hero_only ).isWearing
+--
+--       case 1
+    if ll_global.hero_only.isWearing == 1 then
+--         '' Cat
+--         set_cougar()
+      set_cougar()
+--       case 2
+    elseif ll_global.hero_only.isWearing == 2 then
+--         '' Lynnity
+--         set_lynnity()
+      set_lynnity()
+--
+--       case 3
+    elseif ll_global.hero_only.isWearing == 3 then
+--         '' Ninja
+--         set_ninja()
+      set_ninja()
+--
+--       case 4
+    elseif ll_global.hero_only.isWearing == 4 then
+--         '' Bikini
+--         set_bikini()
+      set_bikini()
+--
+--       case 5
+    elseif ll_global.hero_only.isWearing == 5 then
+--         '' Red Knight
+--         set_rknight()
+      set_rknight()
+--
+--     end select
+    end
+--
+--   end if
+  end
+--
+--   swapState xor= 1
+  swapState = bit.bxor(swapState, 1)
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __fade_music_out( this As char_type Ptr ) As Integer
 function __fade_music_out(this)
 --
