@@ -671,6 +671,126 @@ function __flash_down(this)
 -- End Function
 end
 
+-- Function __flash_down_gray( this As _char_type Ptr ) As Integer
+function __flash_down_gray(this)
+--
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   Static As Integer col_Get
+  if col_Get == nil then col_Get = 0 end
+--   Static As palette_Data col_Store( 255 ), col_Inc( 255 )
+  if col_Store == nil then col_Store = {} end
+  if col_Inc == nil then col_Inc = {} end
+--
+--
+--   If col_Get = 0 Then
+  if col_Get == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       Dim As Integer r, g, b, c
+      local r, g, b, c = 0, 0, 0, 0
+--
+--       b = ( fb_Global.display.pal[cols] Shr 16 ) And &hFF
+      b = masterPalette[cols][2] * 63
+--       g = ( fb_Global.display.pal[cols] Shr 8  ) And &hFF
+      g = masterPalette[cols][1] * 63
+--       r = ( fb_Global.display.pal[cols]        ) And &hFF
+      r = masterPalette[cols][0] * 63
+--
+--       c = r + g + b
+      c = r + g + b
+--       c = c \ 3
+      c = math.floor(c / 3)
+--
+--
+--
+--       With col_Inc( cols )
+      local with0 = col_Inc[cols]
+--
+--         .b = ( 255 - ( ( c ) Shl 2 ) ) / 16
+      with0[2] = (255 - bit.lshift(c, 2)) / 16
+--         .g = ( 255 - ( ( c ) Shl 2 ) ) / 16
+      with0[1] = (255 - bit.lshift(c, 2)) / 16
+--         .r = ( 255 - ( ( c ) Shl 2 ) ) / 16
+      with0[0] = (255 - bit.lshift(c, 2)) / 16
+--
+--       End With
+--
+--       With col_Store( cols )
+      local with1 = col_Store[cols]
+--
+--         .r = 255
+      with1[0] = 255
+--         .g = 255
+      with1[1] = 255
+--         .b = 255
+      with1[2] = 255
+--
+--       End With
+--
+--     Next
+    end
+--
+--     col_Get = -1
+    col_Get = -1
+--
+--   End If
+  end
+--
+--
+--   For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--     With col_Store( cols )
+    local with0 = col_Store[cols]
+--
+--       Palette cols, CInt( .r ), CInt( .g ), CInt( .b )
+    palette[cols][0] = with0[0] / 255
+    palette[cols][1] = with0[1] / 255
+    palette[cols][2] = with0[2] / 255
+--
+--       .r -= col_Inc( cols ).r
+    with0[0] = with0[0] - col_Inc[cols][0]
+--       .g -= col_Inc( cols ).g
+    with0[1] = with0[1] - col_Inc[cols][1]
+--       .b -= col_Inc( cols ).b
+    with0[2] = with0[2] - col_Inc[cols][2]
+--
+--     End With
+--
+--   Next
+  end
+--
+--   If this->fade_count = 16 Then
+  if this.fade_count == 16 then
+--
+-- '    shift_pal()
+--
+--     this->fade_count= 0
+    this.fade_count = 0
+--     col_Get = 0
+    col_Get = 0
+--
+--     Return __make_black_and_white( this )
+    return __make_black_and_white(this)
+--
+--   End If
+  end
+--
+--   this->fade_count += 1
+  this.fade_count = this.fade_count + 1
+--
+--   Return 0
+  return 0
+--
+--
+-- End Function
+end
+
 -- Function __big_color_down ( this As _char_type Ptr ) As Integer
 function __big_color_down(this)
 --
