@@ -1528,6 +1528,36 @@ function __fade_music_out(this)
 -- End Function
 end
 
+-- Function __give_costume( this As char_type Ptr ) As Integer
+function __give_costume(this)
+--
+--
+--   llg( hero_only ).hasCostume( this->chap ) = TRUE
+  ll_global.hero_only.hasCostume[this.chap] = TRUE
+--   antiHackASSIGN2( LL_Global.hero_only.outfitDummy, LL_Global.hero_only.hasCostume )
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
+-- Function __heal_lynn( this As char_type Ptr ) As Integer
+function __heal_lynn(this)
+--
+--
+--   llg( hero ).hp = llg( hero ).maxhp
+  ll_global.hero.hp = ll_global.hero.maxhp
+--   antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __buy_health( this As char_type Ptr ) As Integer
 function __buy_health(this)
 --
