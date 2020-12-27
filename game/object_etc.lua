@@ -1175,6 +1175,75 @@ function __set_camera(this)
 -- End Function
 end
 
+-- Function __templewood_bridge( this As char_type Ptr ) As Integer
+function __templewood_bridge(this)
+--
+--
+--   '' if event not set, then
+--   if llg( now )[1206] = 0 then
+  if ll_global.now[1206] == 0 then
+--
+--     this->anim[this->current_anim]->frame[0].face[0].impassable = 1
+    this.anim[this.current_anim].frame[0].face[0].impassable = 1
+--
+--     if multikey( llg( conf_key ).code ) then
+    if love.keyboard.isDown("space") then
+--
+--       if LLObject_isTouching( llg( hero ), this[0] ) = 0 then
+      if LLObject_isTouching(ll_global.hero, this) == 0 then
+--       '' if touching then
+--
+--         if llg( hero_only ).hasItem( 2 ) then
+        if ll_global.hero_only.hasItem[2] ~= 0 then
+--         '' if has bridge box then
+--
+--           llg( seq ) = this->seq
+          ll_global.seq = this.seq
+          ll_global.seqi = this.seqi
+--         else
+        else
+--
+--           if llg( now )[1208] = 0 then
+          if ll_global.now[1208] == 0 then
+--             llg( seq ) = this->seq + 1
+            ll_global.seq = this.seq
+            ll_global.seqi = this.seqi + 1
+--             llg( now )[1208] = -1
+            ll_global.now[1208] = -1
+--
+--           end if
+          end
+--
+--         end if
+        end
+--
+--
+--       end if
+      end
+--
+--
+--     end if
+    end
+--
+--   else
+  else
+--
+--     this->invisible = 0
+    this.invisible = 0
+--     this->anim[this->current_anim]->frame[0].face[0].impassable = 0
+    this.anim[this.current_anim].frame[0].face[0].impassable = 0
+--     return 1
+    return 1
+--
+--   end if
+  end
+--
+--   Return 0
+  return 0
+--
+-- End Function
+end
+
 -- Function __arx_bridge( this As char_type Ptr ) As Integer
 function __arx_bridge(this)
 --
