@@ -213,7 +213,7 @@ function blit_room()
   -- End If
   --
   -- If llg( box_entity ) <> 0 Then
-  if ll_global.box_entity ~= 0 then
+  if ll_global.box_entity ~= nil then
   --   __handle_menu( llg( box_entity ) )
     __handle_menu(ll_global.box_entity)
   --
@@ -855,7 +855,7 @@ function blit_enemy(_enemy)
   --     '' no menu
   --
   --     llg( box_entity ) = 0
-    ll_global.box_entity = 0
+    ll_global.box_entity = nil
   --
   --     If .projectile Then
     if with0.projectile ~= nil then

@@ -218,6 +218,7 @@ function create_ll_system()
   ll_system.current_cam = nil
   --
   --   box_entity As _char_type Ptr
+  ll_system.box_entity = nil
   --
   --   miniMap As LL_MiniMapType
   ll_system.miniMap = create_LL_MiniMapType()
