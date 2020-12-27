@@ -12,6 +12,33 @@ function __up_face(this)
 -- End Function
 end
 
+-- Function __set_white_fade( this As _char_type Ptr ) As Integer
+function __set_white_fade(this)
+--
+--   llg( hero_only ).fadeStyle Or= LLFADE_WHITE
+  ll_global.hero_only.fadeStyle = bit.bor(ll_global.hero_only.fadeStyle, LLFADE_WHITE)
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+--
+--
+-- Function __set_gray_fade( this As _char_type Ptr ) As Integer
+function __set_gray_fade(this)
+--
+--   llg( hero_only ).fadeStyle Or= LLFADE_GRAY
+  ll_global.hero_only.fadeStyle = bit.bor(ll_global.hero_only.fadeStyle, LLFADE_GRAY)
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __make_vulnerable ( this As _char_type Ptr ) As Integer
 function __make_vulnerable(this)
 --
