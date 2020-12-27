@@ -89,6 +89,12 @@ u_pushrock = 27
 u_menu = 28
 --   u_savepoint
 u_savepoint = 29
+--NOTE: This was not in the original FB codebase. The original
+--codebase checks each unique id enum against the file name;
+--in our case we use the file name to look up the unique id
+--in the global table (to make the code shorter). So we have
+--to create this synonym here for the healing save point.
+u_hsavepoint = 29
 --
 --   u_crate
 u_crate = 30
