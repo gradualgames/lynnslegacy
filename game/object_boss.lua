@@ -1687,40 +1687,58 @@ end
 --
 --
 -- Function __check_for_dead_faces( this As char_type Ptr ) As Integer
+function __check_for_dead_faces(this)
 --
 --   Dim As Integer deadFace, iterate
+  local deadFace, iterate = 0, 0
 --
 --   For iterate = 0 To now_room().enemies - 1
+  for iterate = 0, now_room().enemies - 1 do
 --
 --     With now_room().enemy[iterate]
+    local with0 = now_room().enemy[iterate]
 --
 --       Select Case .unique_id
 --
 --         Case u_boss5_left, u_boss5_right, u_boss5_down
+    if with0.unique_id == u_boss5_left or
+       with0.unique_id == u_boss5_right or
+       with0.unique_id == u_boss5_down then
 --           If .dead Then
+      if with0.dead ~= 0 then
 --             deadFace += 1
+        deadFace = deadFace + 1
 --
 --           End If
+      end
 --
 --         Case Else
+    else
 --
 --       End Select
+    end
 --
 --     End With
 --
 --   Next
+  end
 --
 --   If deadFace = 3 Then
+  if deadFace == 3 then
 --     '' boss defeated
 --
 --     LLObject_ShiftState( this, 3 )
+    LLObject_ShiftState(this, 3)
 --
 --   End If
+  end
 --
 --   Return 0
+  return 0
 --
 --
 -- End Function
+end
 --
 --
 -- Function __divine_fireball( this As char_type Ptr ) As Integer

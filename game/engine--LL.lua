@@ -3993,14 +3993,21 @@ function act_enemies(_enemies, _enemy)
           end
   --
   --           If ( .unique_id = u_beamcrystal ) Or _
+          if (with0.unique_id == u_beamcrystal) or
   --              ( .unique_id = u_boss5_right ) Or _
+             (with0.unique_id == u_boss5_right) or
   --              ( .unique_id = u_boss5_down ) Or _
+             (with0.unique_id == u_boss5_down) or
   --              ( .unique_id = u_boss5_left ) Or _
+             (with0.unique_id == u_boss5_left) or
   --              ( .unique_id = u_boss5_crystal ) Then
+             (with0.unique_id == u_boss5_crystal) then
   --
   --             LLObject_ProjectileDamage( now_room().enemies, now_room().enemy, Varptr( _enemy[do_stuff] ) )
+            LLObject_ProjectileDamage(now_room().enemies, now_room().enemy, _enemy[do_stuff])
   --
   --           End If
+          end
   --
   --
   --           If ( .on_ice <> 0 ) Then
