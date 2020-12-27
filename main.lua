@@ -99,14 +99,18 @@ function love.keypressed(key, scancode, isrepeat)
     ll_global.hero_only.b_key = 1
   end
 
-  --m is for creating money out of thin air
-  if love.keyboard.isDown("m") then
+  --r is for making you rich
+  if love.keyboard.isDown("r") then
     ll_global.hero.money = 999
   end
 
   --p is for making you have no money at all
   if love.keyboard.isDown("p") then
     ll_global.hero.money = 0
+  end
+
+  if love.keyboard.isDown("d") then
+    debug.debug()
   end
 end
 
