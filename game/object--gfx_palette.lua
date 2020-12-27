@@ -773,6 +773,55 @@ function __fade_up_to_color(this)
 -- End Function
 end
 
+-- Function __make_black_and_white ( this As _char_type Ptr ) As Integer
+function __make_black_and_white(this)
+--
+--
+--   '' iterate through colors
+--   '' take average ( ( r + g + b ) / 3 )
+--   '' set color ( rgb( avg, avg, avg ) )
+--
+--   Dim As Integer i, r, g, b, c
+  local i, r, g, b, c = 0, 0, 0, 0, 0
+--
+--
+--   For i = 0 To 255
+  for i = 0, 255 do
+--
+--     Palette Get i, r, g, b
+    r = palette[i][0] * 255
+    g = palette[i][1] * 255
+    b = palette[i][2] * 255
+--
+--     r Shr= 2
+    r = bit.rshift(r, 2)
+--     g Shr= 2
+    g = bit.rshift(g, 2)
+--     b Shr= 2
+    b = bit.rshift(b, 2)
+--
+--     c = r + g + b
+    c = r + g + b
+--     c = c \ 3
+    c = math.floor(c / 3)
+--
+--     Palette i, Rgb( c, c, c )
+    palette[i][0] = c / 63
+    palette[i][1] = c / 63
+    palette[i][2] = c / 63
+--
+--   Next
+  end
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+
 -- Function __black_text_on ( this As _char_type Ptr ) As Integer
 function __black_text_on(this)
 --
@@ -795,6 +844,131 @@ function __black_text_on(this)
 --   Return 1
   return 1
 --
+--
+--
+-- End Function
+end
+
+-- Function __fade_down_to_gray( this As _char_type Ptr ) As Integer
+function __fade_down_to_gray(this)
+--
+--
+--   Dim As Integer cols
+  local cols = 0
+--
+--   Static As Integer col_Get
+  if col_Get == nil then col_Get = 0 end
+--   Static As palette_Data col_Store( 255 ), col_Inc( 255 )
+  if col_Store == nil then col_Store = {} end
+  if col_Inc == nil then col_Inc = {} end
+--
+--
+--   If col_Get = 0 Then
+  if col_Get == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       Dim As Integer r, g, b, c
+      local r, g, b, c = 0, 0, 0, 0
+--
+--       b = ( fb_Global.display.pal[cols] Shr 16 ) And &hFF
+      b = masterPalette[cols][2] * 63
+--       g = ( fb_Global.display.pal[cols] Shr 8  ) And &hFF
+      g = masterPalette[cols][1] * 63
+--       r = ( fb_Global.display.pal[cols]        ) And &hFF
+      r = masterPalette[cols][0] * 63
+--
+--       c = r + g + b
+      c = r + g + b
+--       c = c \ 3
+      c = math.floor(c / 3)
+--
+--
+--       With col_Inc( cols )
+--
+--         .b = ( 255 - ( ( c ) Shl 2 ) ) / 64
+      col_Inc[cols][2] = (255 - bit.lshift(c, 2)) / 64
+--         .g = ( 255 - ( ( c ) Shl 2 ) ) / 64
+      col_Inc[cols][1] = (255 - bit.lshift(c, 2)) / 64
+--         .r = ( 255 - ( ( c ) Shl 2 ) ) / 64
+      col_Inc[cols][0] = (255 - bit.lshift(c, 2)) / 64
+--
+--       End With
+--
+--       With col_Store( cols )
+--
+--         .r = 255
+      col_Store[cols][0] = 255
+--         .g = 255
+      col_Store[cols][1] = 255
+--         .b = 255
+      col_Store[cols][2] = 255
+--
+--       End With
+--
+--     Next
+    end
+--
+--     col_Get = -1
+    col_Get = -1
+--
+--   End If
+  end
+--
+--   If this->fade_timer = 0 Then
+  if this.fade_timer == 0 then
+--
+--     For cols = 0 To 255
+    for cols = 0, 255 do
+--
+--       With col_Store( cols )
+--
+--         Palette cols, CInt( .r ), CInt( .g ), CInt( .b )
+      palette[cols][0] = col_Store[cols][0] / 255
+      palette[cols][1] = col_Store[cols][1] / 255
+      palette[cols][2] = col_Store[cols][2] / 255
+--
+--         .r -= col_Inc( cols ).r
+      col_Store[cols][0] = col_Store[cols][0] - col_Inc[cols][0]
+--         .g -= col_Inc( cols ).g
+      col_Store[cols][1] = col_Store[cols][1] - col_Inc[cols][1]
+--         .b -= col_Inc( cols ).b
+      col_Store[cols][2] = col_Store[cols][2] - col_Inc[cols][2]
+--
+--       End With
+--
+--     Next
+    end
+--
+--     this->fade_count += 1
+    this.fade_count = this.fade_count + 1
+--     this->fade_timer = Timer + this->fade_time
+    this.fade_timer = timer + this.fade_time
+--
+--   End If
+  end
+--
+--   If Timer >= this->fade_timer Then this->fade_timer = 0
+  if timer >= this.fade_timer then this.fade_timer = 0 end
+--
+--   If this->fade_count = 64 Then
+  if this.fade_count == 64 then
+--
+--     this->fade_count= 0
+    this.fade_count = 0
+--     col_Get = 0
+    col_Get = 0
+--
+--     Return __make_black_and_white( this )
+    return __make_black_and_white(this)
+--
+--   End If
+  end
+--
+--
+--   Return 0
+  return 0
 --
 --
 -- End Function
