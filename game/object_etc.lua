@@ -1395,6 +1395,26 @@ function __check_lynn_contact(this)
 -- end function
 end
 
+-- Function __bandit_check( this As char_type Ptr ) As Integer
+function __bandit_check(this)
+--
+--
+--   If llg( hero_only ).hasItem( 3 ) Then
+  if ll_global.hero_only.hasItem[3] ~= 0 then
+--
+--     this->sel_seq = 1
+    this.sel_seq = 1
+--
+--   End If
+  end
+--
+--   Function = 0
+  return 0
+--
+--
+-- End Function
+end
+
 -- Function __healthguy_branch( this As char_type Ptr ) As Integer
 function __healthguy_branch(this)
 --
