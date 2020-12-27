@@ -157,3 +157,79 @@ function __set_vol_fade(this)
 --
 -- End Function
 end
+
+-- Function __do_vol_fade ( this As _char_type Ptr ) As Integer
+function __do_vol_fade(this)
+--
+--   Dim As Integer cur_vol
+--   Dim As Double vol_prec, r
+--
+--   Static As Double vol_fade_time = .3
+--
+--   const as integer slices = 64
+--
+--   If this->vol_fade_lock = 0 Then
+--
+--     #IfDef ll_audio
+--
+--       If this->sample_fade_lock = 0 Then
+--         BASS_ChannelGetAttributes( this->playing_handle, 0, @cur_vol, 0 )
+--         this->sample_vol_store = cur_vol
+--         this->sample_fade_lock = -1
+--
+--       End If
+--
+--
+--
+--       vol_prec = slices - this->vol_fade
+--       vol_prec *= ( this->sample_vol_store / slices )
+-- '      vol_prec /= 64
+-- '      r = this->sample_vol_store - vol_prec
+--
+--       BASS_ChannelSetAttributes( this->playing_handle, 0, vol_prec, 0 )
+--
+--     #EndIf
+--
+--
+--     this->vol_fade += 4
+--     this->vol_fade_lock = Timer + vol_fade_time
+--
+--   End If
+--
+--   If Timer > this->vol_fade_lock Then this->vol_fade_lock = 0
+--
+--
+--   If this->vol_fade = slices Then
+--     ''done fading, kill it.
+--
+--     #IfDef ll_audio
+--
+--       BASS_ChannelStop( this->playing_handle )
+--       BASS_ChannelSetAttributes( this->playing_handle, 0, this->sample_vol_store, 0 )
+--
+--
+--     #EndIf
+--
+--     this->sample_fade_lock = 0
+--     this->vol_fade_trig = 0
+--     this->vol_fade = 0
+--     this->sample_vol_store = 0
+--
+--   End If
+--
+--
+--
+--
+--
+--
+--   Return 1
+  return 1
+--
+--
+--
+-- End Function
+end
+--
+--
+--
+--
