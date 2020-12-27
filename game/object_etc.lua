@@ -1312,6 +1312,89 @@ function __arx_bridge(this)
 -- End Function
 end
 
+-- function __check_lynn_contact( this As char_type Ptr ) as integer
+function __check_lynn_contact(this)
+  log.debug("__check_lynn_contact called on: "..this.id)
+--
+--   if check_bounds( LLO_VP( this ), LLO_VP( varptr( llg( hero ) ) ) ) = 0 then
+  if check_bounds(LLO_VP(this), LLO_VP(ll_global.hero)) == 0 then
+--     '' lynn's on this
+--
+--     with llg( hero )
+    local with0 = ll_global.hero
+--
+--       If .dmg.id = 0 Then
+    if with0.dmg.id == 0 then
+--         .hp -= 1
+      with0.hp = with0.hp - 1
+--         antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+--         .hurt = 1
+      with0.hurt = 1
+--         .dmg.id = 1
+      with0.dmg.id = 1
+--
+--         .fly.x = 0
+      with0.fly.x = 0
+--         .fly.y = 0
+      with0.fly.y = 0
+--
+--         If .hp < 1 Then
+      if with0.hp < 1 then
+--
+--
+--           If .dead = 0 Then
+        if with0.dead == 0 then
+--             '' first time initialization.
+--
+--             LLObject_ShiftState( Varptr( llg( hero ) ), .death_state )
+          LLObject_ShiftState(ll_global.hero, with0.death_state)
+--
+--             .dead = 1
+          with0.dead = 1
+--             .fade_time = .07
+          with0.fade_time = .07
+--
+--           End If
+        end
+--
+--
+--           '' reset damaged status.
+--           LLObject_ClearDamage( Varptr( llg( hero ) ) )
+        LLObject_ClearDamage(ll_global.hero)
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     end with
+--
+--
+--
+--     LLObject_ShiftState( this, 1 )
+    LLObject_ShiftState(this, 1)
+--
+--
+--   else
+  else
+--     this->impassable = 1
+    this.impassable = 1
+--     LLObject_ShiftState( this, 0 )
+    LLObject_ShiftState(this, 0)
+--
+--
+--
+--   end if
+  end
+--
+--   function = 0
+  return 0
+--
+--
+-- end function
+end
+
 -- Function __healthguy_branch( this As char_type Ptr ) As Integer
 function __healthguy_branch(this)
 --
