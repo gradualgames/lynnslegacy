@@ -1,3 +1,5 @@
+require("game/macros")
+require("game/matrices")
 require("game/utility")
 
 -- ''''''''''''''''''''''''''
@@ -1286,254 +1288,368 @@ end
 --
 --
 -- Function __sword_angle( this As _char_type Ptr ) As Integer
+function __sword_angle(this)
 --
 --
 --   Dim As Double a = get_angle( V2_MidPoint( LLO_VP( this ) ), V2_MidPoint( LLO_VP( @llg( hero ) ) ) )
+  local a = get_angle(V2_MidPoint(LLO_VP(this)), V2_MidPoint(LLO_VP(ll_global.hero)))
 --
 --
 --   '' hehehe...
 --   a += ( 22.5 ) / 4
+  a = a + ((22.5) / 4)
 --
 --   If a < 0 Then
+  if a < 0 then
 --     a += 360
+    a = a + 360
 --
 --   ElseIf a >= 360 Then
+  elseif a >= 360 then
 --     a -= 360
+    a = a - 360
 --
 --   End If
+  end
 --
 --
 --   a = a / ( 360 / 16 ) '' 16 Frames in sword anim!!!
+  a = a / (360 / 16)
 --   a = Int( a )
+  a = math.floor(a)
 --
 --   this->frame = a
+  this.frame = a
 --   Return 1
+  return 1
 --
 --
 -- End Function
+end
 --
 --
 --
 -- Function __sword_fly( this As _char_type Ptr ) As Integer
+function __sword_fly(this)
 --
 --   With *this
+  local with0 = this
 --     If .fly_count = 0 Then
+  if with0.fly_count == 0 then
 --
 --       this->fly = V2_CalcFlyback( V2_MidPoint( LLO_VP( this ) ), V2_MidPoint( LLO_VP( @llg( hero ) ) ) )
+    local temp_vector = V2_CalcFlyback(V2_MidPoint(LLO_VP(this)), V2_MidPoint(LLO_VP(ll_global.hero)))
+    this.fly.x = temp_vector.x
+    this.fly.y = temp_vector.y
 --
 --     End If
+  end
 --
 --     If .fly_timer = 0 Then
+  if with0.fly_timer == 0 then
 --
 --       .fly_hold = .direction
+    with0.fly_hold = with0.direction
 --
 --       Select Case .fly.y
 --
 --         Case Is > 0
+    if with0.fly.y > 0 then
 --
 --           .direction = 0
+      with0.direction = 0
 --             If move_object( this, , Abs( .fly.y ) * 2 ) = 0 Then
+      if move_object(this, nil, math.abs(with0.fly.y) * 2) == 0 then
 --               .fly_count = .fly_length - 1
+        with0.fly_count = with0.fly_length - 1
 --
 --             End If
+      end
 --
 --
 --         Case Is < 0
+    elseif with0.fly.y < 0 then
 --
 --           .direction = 2
+      with0.direction = 2
 --             If move_object( this, , Abs( .fly.y ) * 2 ) = 0 Then
+      if move_object(this, nil, math.abs(with0.fly.y) * 2) == 0 then
 --               .fly_count = .fly_length - 1
+        with0.fly_count = with0.fly_length - 1
 --
 --             End If
+      end
 --
 --         Case 0
+    elseif with0.fly.y == 0 then
 --           '' nothin
 --
 --       End Select
+    end
 --
 --
 --       Select Case .fly.x
 --
 --         Case Is > 0
+    if with0.fly.x > 0 then
 --
 --           .direction = 3
+      with0.direction = 3
 --
 --             If move_object( this, , Abs( .fly.x ) * 2 ) = 0 Then
+      if move_object(this, nil, math.abs(with0.fly.x) * 2) == 0 then
 --               .fly_count = .fly_length - 1
+        with0.fly_count = with0.fly_length - 1
 --
 --             End If
+      end
 --
 --         Case Is < 0
+    elseif with0.fly.x < 0 then
 --
 --           .direction = 1
+      with0.direction = 1
 --
 --             If move_object( this, , Abs( .fly.x ) * 2 ) = 0 Then
+      if move_object(this, nil, math.abs(with0.fly.x) * 2) == 0 then
 --               .fly_count = .fly_length - 1
+        with0.fly_count = with0.fly_length - 1
 --
 --             End If
+      end
 --
 --
 --         Case 0
+    elseif with0.fly.x == 0 then
 --
 --       End Select
+    end
 --
 --
 --       .fly_timer = Timer + .fly_speed
+    with0.fly_timer = timer + with0.fly_speed
 --       .fly_count += 1
+    with0.fly_count = with0.fly_count + 1
 --       .direction = .fly_hold
+    with0.direction = with0.fly_hold
 --
 --     End If
+  end
 --
 --     If Timer >= .fly_timer Then .fly_timer = 0
+  if timer >= with0.fly_timer then with0.fly_timer = 0 end
 --
 --     If .fly_count >= .fly_length Then
+  if with0.fly_count >= with0.fly_length then
 --
 --       .fly_count = 0
+    with0.fly_count = 0
 --       .fly_timer = 0
+    with0.fly_timer = 0
 --
 --       Return 1
+    return 1
 --
 --     End If
+  end
 --
 --   End With
 --
 --
 --
+  return 0
 --
 -- End Function
+end
 --
 --
 --
 -- Function __sword_jump( this As _char_type Ptr ) As Integer
+function __sword_jump(this)
 --
 --
 --   LLObject_ShiftState( now_room().enemy, 1 )
+  LLObject_ShiftState(now_room().enemy[0], 1)
 --
 --   Return 1
+  return 1
 --
 --
 -- End Function
+end
 --
 --
 --
 -- Function __sterach_call( this As _char_type Ptr ) As Integer
+function __sterach_call(this)
 --
 --
 --   now_room().enemy[1].current_anim = 3
+  now_room().enemy[1].current_anim = 3
 --   now_room().enemy[1].frame = 0
+  now_room().enemy[1].frame = 0
 --
 --   Return 1
+  return 1
 --
 --
 -- End Function
+end
 --
 --
 --
 -- Function __sword_glow( this As _char_type Ptr ) As Integer
+function __sword_glow(this)
 --
 --
 --   now_room().enemy->current_anim Xor= 1
+  now_room().enemy[0].current_anim = bit.bxor(now_room().enemy[0].current_anim, 1)
 --
 --   Return 1
+  return 1
 --
 --
 -- End Function
+end
 --
 --
 --
 -- Function __sword_return( this As _char_type Ptr ) As Integer
+function __sword_return(this)
 --
 --
 --   Dim As vector flyback
+  local flyback = get_next_vector()
 --
 --   With *this
+  local with0 = this
 --
 --
 --     this->fly = V2_CalcFlyback( V2_MidPoint( LLO_VP( this ) ), V2_MidPoint( LLO_VP( @now_room().enemy[1] ) ) )
+  local temp_vector = V2_CalcFlyback(V2_MidPoint(LLO_VP(this)), V2_MidPoint(LLO_VP(now_room().enemy[1])))
+  this.fly.x = temp_vector.x
+  this.fly.y = temp_vector.y
 --
 --     If .fly_timer = 0 Then
+  if with0.fly_timer == 0 then
 --
 --       .fly_hold = .direction
+    with0.fly_hold = with0.direction
 --
 --       Select Case .fly.y
 --
 --         Case Is > 0
+    if with0.fly.y > 0 then
 --
 --           .direction = 0
+      with0.direction = 0
 --             move_object( this, , Abs( .fly.y ) )
+      move_object(this, nil, math.abs(with0.fly.y))
 --
 --         Case Is < 0
+    elseif with0.fly.y < 0 then
 --
 --           .direction = 2
+      with0.direction = 2
 --             move_object( this, , Abs( .fly.y ) )
+      move_object(this, nil, math.abs(with0.fly.y))
 --
 --         Case 0
+    elseif with0.fly.y == 0 then
 --           '' nothin
 --
 --       End Select
+    end
 --
 --
 --       Select Case .fly.x
 --
 --         Case Is > 0
+    if with0.fly.x > 0 then
 --
 --           .direction = 3
+      with0.direction = 3
 --
 --             move_object( this, , Abs( .fly.x ) )
+      move_object(this, nil, math.abs(with0.fly.x))
 --
 --         Case Is < 0
+    elseif with0.fly.x < 0 then
 --
 --           .direction = 1
+      with0.direction = 1
 --
 --             move_object( this, , Abs( .fly.x ) )
+      move_object(this, nil, math.abs(with0.fly.x))
 --
 --
 --         Case 0
+    elseif with0.fly.x == 0 then
 --
 --       End Select
+    end
 --
 --
 --       .fly_timer = Timer + .fly_speed
+    with0.fly_timer = timer + with0.fly_speed
 --       .direction = .fly_hold
+    with0.direction = with0.fly_hold
 --
 --     End If
+  end
 --
 --     If Timer >= .fly_timer Then .fly_timer = 0
+  if timer >= with0.fly_timer then with0.fly_timer = 0 end
 --
 --     If now_room().enemy[1].funcs.active_state <> 1 Then
+  if now_room().enemy[1].funcs.active_state ~= 1 then
 --
 --       If check_bounds( LLO_VP( this ), LLO_VP( @now_room().enemy[1] ) ) = 0 Then
+    if check_bounds(LLO_VP(this), LLO_VP(now_room().enemy[1])) == 0 then
 --         LLObject_ShiftState( @now_room().enemy[1], 1 )
+      LLObject_ShiftState(now_room().enemy[1], 1)
 --
 --       End If
+    end
 --
 --     Else
+  else
 --
 --         Dim As vector res
+    local res = get_next_vector()
 --         res = v2_Absolute( v2_Subtract( v2_MidPoint( LLO_VP( @now_room().enemy[1] ) ), v2_MidPoint( LLO_VP( this ) ) ) )
+    res = V2_Absolute(V2_Subtract(V2_MidPoint(LLO_VP(now_room().enemy[1])), V2_MidPoint(LLO_VP(this))))
 --
 --       If res.x < 1 And _
+    if res.x < 1 and
 --          res.y < 1     _
+       res.y < 1
 --                                                                                               _
 --       Then
+    then
 --
 --         '' sword is really close to him, just reset.
 --         LLObject_ShiftState( this, 0 )
+      LLObject_ShiftState(this, 0)
 --
 --
 --       End If
+    end
 --
 --
 --     End If
+  end
 --
 --
 --
 --   End With
 --
 --   Return 0
+  return 0
 --
 --
 -- End Function
+end
 --
 --
 --

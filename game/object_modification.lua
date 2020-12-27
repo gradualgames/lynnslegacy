@@ -72,6 +72,7 @@ function __make_dead(this)
   log.debug("__make_dead called.")
 --
 --   With *this
+  local with0 = this
 --
 --     If ( .unique_id <> u_charger ) And ( .unique_id <> u_ferus ) Then
   if (this.unique_id ~= u_charger) and (this.unique_id ~= u_ferus) then
@@ -146,52 +147,75 @@ function __make_dead(this)
 --     End If
   end
 --
--- TODO: Leaving the rest of this entity specific stuff
--- unported until it becomes relevant.
 --     Select Case .unique_id
 --
 --
 --       Case u_sterach
+  if with0.unique_id == u_sterach then
 --         '' hack; kill swordie :'(
 --         now_room().enemy[0].hp = 0
+    now_room().enemy[0].hp = 0
 --         If llg( now )[1203] Then
+    if ll_global.now[1203] ~= 0 then
 --
 --           LLObject_ShiftState( this, 5 )
+      LLObject_ShiftState(this, 5)
 --
 --
 --         End If
+    end
 --
 --       Case u_divine
+  elseif with0.unique_id == u_divine then
 --
 --         '' kill ball.
 --         now_room().enemy[21].hp = 0
+    now_room().enemy[21].hp = 0
 --         LLObject_ShiftState( Varptr( now_room().enemy[22] ), 1 )
+    LLObject_ShiftState(now_room().enemy[22], 1)
 --         now_room().enemy[22].invisible = 0
+    now_room().enemy[22].invisible = 0
 --
 --       Case u_divine_bug
+  elseif with0.unique_id == u_divine_bug then
 --         Dim As Integer i
+    local i = 0
 --
 --         For i = 0 To 5
+    for i = 0, 5 do
 --           now_room().enemy[i].hp = 0
+      now_room().enemy[i].hp = 0
 --
 --         Next
+    end
 --
 --         For i = 7 To 19
+    for i = 7, 19 do
 --           now_room().enemy[i].hp = 0
+      now_room().enemy[i].hp = 0
 --
 --         Next
+    end
 --
 --       Case u_boss5_right, u_boss5_left, u_boss5_down, u_boss5_crystal
+  elseif with0.unique_id == u_boss5_right or
+         with0.unique_id == u_boss5_left or
+         with0.unique_id == u_boss5_down or
+         with0.unique_id == u_boss5_crystal then
 --
 --         If llg( now )[598] Then
+    if ll_global.now[598] ~= 0 then
 --           '' boss 5 hack
 --
 --           LLObject_ShiftState( this, 4 )
+      LLObject_ShiftState(this, 4)
 --
 --
 --         End If
+    end
 --
 --     End Select
+  end
 --
 --   End With
 --

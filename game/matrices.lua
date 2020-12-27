@@ -1,3 +1,5 @@
+require("game/utility")
+
 function create_vector()
   local vector = {}
   vector.x = 0
@@ -237,3 +239,56 @@ function V2_CalcFlyback(m, n)
 -- End Function
 end
 -- ''
+-- Function Get_Angle( u As vector, v As vector ) As Double
+function get_angle(u, v)
+--
+--
+--   Dim As Double o, a
+  local o, a = 0.0, 0.0
+--
+--     o = Abs( v.y - u.y )
+  o = math.abs(v.y - u.y)
+--     a = Abs( v.x - u.x )
+  a = math.abs(v.x - u.x)
+--
+--     If v.y = u.y And ( v.x > u.x ) Then Return 90
+  if v.y == u.y and (v.x > u.x) then return 90 end
+--     If v.y = u.y And ( v.x < u.x ) Then Return 270
+  if v.y == u.y and (v.x < u.x) then return 270 end
+--
+--     If v.x = u.x And ( v.y > u.y ) Then Return 180
+  if v.x == u.x and (v.y > u.y) then return 180 end
+--     If v.x = u.x And ( v.y < u.y ) Then Return 0
+  if v.x == u.x and (v.y < u.y) then return 0 end
+--
+--     If ( v.y < u.y ) And ( v.x > u.x ) Then
+  if (v.y < u.y) and (v.x > u.x) then
+--       Return 180 - ( ( Atn( o / a ) / rad ) + 90 )
+    return 180 - ((math.atan(o / a) / rad) + 90)
+--
+--     ElseIf ( v.y > u.y ) And ( v.x > u.x ) Then
+  elseif (v.y > u.y) and (v.x > u.x) then
+--       Return ( ( Atn( o / a ) / rad ) + 90 )
+    return ((math.atan(o / a) / rad) + 90)
+--
+--     End If
+  end
+--
+--     If ( v.y < u.y ) And ( v.x < u.x ) Then
+  if (v.y < u.y) and (v.x < u.x) then
+--       Return 180 + ( ( Atn( o / a ) / rad ) + 90 )
+    return 180 + ((math.atan(o / a) / rad) + 90)
+--
+--     ElseIf ( v.y > u.y ) And ( v.x < u.x ) Then
+  elseif (v.y > u.y) and (v.x < u.x) then
+--       Return 360 - ( ( Atn( o / a ) / rad ) + 90 )
+    return 360 - ((math.atan(o / a) / rad) + 90)
+--
+--     End If
+  end
+--
+--
+-- End Function
+end
+--
+--
