@@ -568,6 +568,94 @@ function __tile_up(this)
 -- End Function
 end
 
+-- Function __cell_bounce ( this As _char_type Ptr ) As Integer
+function __cell_bounce(this)
+--
+--
+--   If this->walk_hold = 0 Then
+  if this.walk_hold == 0 then
+--
+--     Dim As uInteger callback
+    local callback = 0
+--
+--     callback = move_object( this )
+    callback = move_object(this)
+--
+--     If ( callback Shr 16 ) = 0 Then
+    if bit.rshift(callback, 16) == 0 then
+--
+--       If this->direction and 1 Then
+      if bit.band(this.direction, 1) ~= 0 then
+--
+--         this->direction -= 1
+        this.direction = this.direction - 1
+--
+--       Else
+      else
+--
+--         this->direction += 1
+        this.direction = this.direction + 1
+--
+--       End If
+      end
+--
+--       this->direction = ( this->direction and 3 ) + 4
+      this.direction = bit.band(this.direction, 3) + 4
+--
+--     ElseIf ( callback And &HFF ) = 0 Then
+    elseif bit.band(callback, 0xff) == 0 then
+--
+--       If this->direction and 1 Then
+      if bit.band(this.direction, 1) then
+--
+--         this->direction += 1
+        this.direction = this.direction + 1
+--
+--       Else
+      else
+--
+--         this->direction -= 1
+        this.direction = this.direction - 1
+--
+--       End If
+      end
+--
+--       this->direction = ( this->direction and 3 ) + 4
+      this.direction = bit.band(this.direction, 3) + 4
+--
+--     End If
+    end
+--
+--     If LLObject_IncrementFrame( this ) <> 0 Then
+    if LLObject_IncrementFrame(this) ~= 0 then
+--
+--       this->frame = 0
+      this.frame = 0
+--       this->frame_hold = Timer + this->animControl[this->current_anim].rate
+      this.frame_hold = timer + this.animControl[this.current_anim].rate
+--
+--       '' reset rate?
+--     End If
+    end
+--
+--     this->walk_hold = Timer + this->walk_speed
+    this.walk_hold = timer + this.walk_speed
+--
+--   Else
+  else
+--
+--     If Timer >= this->walk_hold Then this->walk_hold = 0
+    if timer >= this.walk_hold then this_walk_hold = 0 end
+--
+--   End If
+  end
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 function __walk(this)
   --log.debug("__walk called.")
 
