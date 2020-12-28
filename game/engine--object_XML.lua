@@ -149,7 +149,7 @@ function LLSystem_ObjectFromXML(objectLoad)
           holdFrame = objectLoad.frame
           --
           --  for iterateSounds = 0 to iif( objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].uni_sound, 3, 0 )
-          for iterateSounds = 0, iif(objectLoad.anim[objectLoad.current_anim].frame[objectLoad.frame].uni_sound, 3, 0) do
+          for iterateSounds = 0, iif(objectLoad.anim[objectLoad.current_anim].frame[objectLoad.frame].uni_sound ~= 0, 3, 0) do
           --
           --    objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame].vol = Val( thr->dat.s )
             objectLoad.anim[objectLoad.current_anim].frame[objectLoad.frame].vol = tonumber(text)
