@@ -194,6 +194,9 @@ function initScreen()
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
   canvas = love.graphics.newCanvas(320, 200)
   savedCanvas = love.graphics.newCanvas(320, 200)
+  --used by screenQuake
+  tripPosition = 0
+  tripOffset = create_vector()
 end
 
 function initScale()
@@ -300,7 +303,7 @@ function doneDrawing()
     math.floor((screenWidth - canvasWidth * scale) / 2),
     math.floor((screenHeight - canvasHeight * scale) / 2))
   love.graphics.scale(scale, scale)
-  love.graphics.draw(canvas)
+  love.graphics.draw(canvas, tripOffset.x, tripOffset.y)
   love.graphics.pop()
   love.graphics.setShader()
   love.graphics.setCanvas(savedCanvas)

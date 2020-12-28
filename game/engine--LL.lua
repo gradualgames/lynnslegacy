@@ -3207,7 +3207,7 @@ function handleKeybSelected()
 --         If llg( hero_only ).has_weapon >= 2 Then
       if ll_global.hero_only.has_weapon >= 2 then
 --           llg( hero_only ).weapon = 2
-        ll_global.hero_onl.weapon = 2
+        ll_global.hero_only.weapon = 2
 --
 --         End If
       end

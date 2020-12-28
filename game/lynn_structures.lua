@@ -76,6 +76,7 @@ function create_main_char_type()
   main_char_type.dropoutSequence = FALSE
 --
 --   quakeViolence As Integer
+  main_char_type.quakeViolence = 0
 --
 --   songFade As songFading_type Ptr
   main_char_type.songFade = nil

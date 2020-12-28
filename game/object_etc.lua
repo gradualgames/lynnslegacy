@@ -1744,6 +1744,20 @@ function __turn_on_tiles(this)
 -- End Function
 end
 
+-- Function __quake( this As char_type Ptr ) As Integer
+function __quake(this)
+--
+--
+--   llg( hero_only ).quakeViolence = IIf( this->chap = -1, 0, this->chap )
+  ll_global.hero_only.quakeViolence = iif(this.chap == -1, 0, this.chap)
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __logosta_console( this As char_type Ptr ) As Integer
 function __logosta_console(this)
 --

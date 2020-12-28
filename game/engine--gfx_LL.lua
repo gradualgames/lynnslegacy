@@ -120,6 +120,7 @@ function blit_scene()
   --
 	-- handle_fps()
   -- screenQuake()
+  screenQuake()
 end
 
 function blit_room()
@@ -2881,6 +2882,62 @@ function shift_pal()
   end
 --
 --   Palette Using res
+--
+--
+-- End Sub
+end
+
+-- Sub screenQuake()
+function screenQuake()
+--
+--   Const As Double frequency = .1
+  local frequency = .1
+--
+--
+--   If llg( hero_only ).quakeViolence = 0 Then
+  if ll_global.hero_only.quakeViolence == 0 then
+--     Exit Sub
+    return
+--
+--   End If
+  end
+--
+--   If Timer > tripPosition Then
+  if timer > tripPosition then
+--
+--     Dim As Double calcTrip
+    local calcTrip = 0.0
+--     tripOffset.x = llg( hero_only ).quakeViolence
+    tripOffset.x = ll_global.hero_only.quakeViolence
+--     tripOffset.y = llg( hero_only ).quakeViolence
+    tripOffset.y = ll_global.hero_only.quakeViolence
+--
+--     calcTrip = ( Rnd * 3 )
+    calcTrip = (math.random() * 3)
+--     calcTrip -= 1
+    calcTrip = calcTrip - 1
+--
+--     tripOffset.x *= calcTrip
+    tripOffset.x = tripOffset.x * calcTrip
+--
+--     calcTrip = ( Rnd * 3 )
+    calcTrip = (math.random() * 3)
+--     calcTrip -= 1
+    calcTrip = calcTrip - 1
+--
+--     tripOffset.y *= calcTrip
+    tripOffset.y = tripOffset.y * calcTrip
+--
+--     tripPosition = frequency + ( Rnd / 3 )
+    tripPosition = frequency + (math.random() / 3)
+--
+--   End If
+  end
+--
+--   Get( 0, 0 )-( 319, 199 ), llg( menu_ScreenSave )
+--   Cls
+--   Put( tripOffset.x, tripOffset.y ), llg( menu_ScreenSave ), Trans
+--
 --
 --
 -- End Sub
