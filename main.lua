@@ -56,6 +56,13 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key, scancode, isrepeat)
+  if not key:find("shift") then
+    if love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift") then
+      table.insert(keybuffer, key:upper())
+    else
+      table.insert(keybuffer, key)
+    end
+  end
   if key == "q" then
      love.event.quit()
   end
@@ -80,38 +87,38 @@ function love.keypressed(key, scancode, isrepeat)
     scaleOptions[scaleOption]()
   end
 
-  --h is for refilling hp for testing
-  if love.keyboard.isDown("h") then
-    ll_global.hero.hp = ll_global.hero.maxhp
-  end
-
-  --i is for cycling items for testing
-  if love.keyboard.isDown("i") then
-    ll_global.hero_only.selected_item = ll_global.hero_only.selected_item + 1
-    if ll_global.hero_only.selected_item > 2 then
-      ll_global.hero_only.selected_item = 1
-    end
-  end
-
-  --k is for getting keys
-  if love.keyboard.isDown("k") then
-    ll_global.hero.key = 1
-    ll_global.hero_only.b_key = 1
-  end
-
-  --r is for making you rich
-  if love.keyboard.isDown("r") then
-    ll_global.hero.money = 999
-  end
-
-  --p is for making you have no money at all
-  if love.keyboard.isDown("p") then
-    ll_global.hero.money = 0
-  end
-
-  if love.keyboard.isDown("d") then
-    debug.debug()
-  end
+  -- --h is for refilling hp for testing
+  -- if love.keyboard.isDown("h") then
+  --   ll_global.hero.hp = ll_global.hero.maxhp
+  -- end
+  --
+  -- --i is for cycling items for testing
+  -- if love.keyboard.isDown("i") then
+  --   ll_global.hero_only.selected_item = ll_global.hero_only.selected_item + 1
+  --   if ll_global.hero_only.selected_item > 2 then
+  --     ll_global.hero_only.selected_item = 1
+  --   end
+  -- end
+  --
+  -- --k is for getting keys
+  -- if love.keyboard.isDown("k") then
+  --   ll_global.hero.key = 1
+  --   ll_global.hero_only.b_key = 1
+  -- end
+  --
+  -- --r is for making you rich
+  -- if love.keyboard.isDown("r") then
+  --   ll_global.hero.money = 999
+  -- end
+  --
+  -- --p is for making you have no money at all
+  -- if love.keyboard.isDown("p") then
+  --   ll_global.hero.money = 0
+  -- end
+  --
+  -- if love.keyboard.isDown("d") then
+  --   debug.debug()
+  -- end
 end
 
 function love.quit()
@@ -267,6 +274,7 @@ function initInput()
     "return"
   }
   bhist = {}
+  keybuffer = {}
 end
 
 --Should be called before drawing anything to the main canvas.

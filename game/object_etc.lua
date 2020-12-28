@@ -1744,6 +1744,135 @@ function __turn_on_tiles(this)
 -- End Function
 end
 
+-- Function __logosta_console( this As char_type Ptr ) As Integer
+function __logosta_console(this)
+--
+--   Const As String consolePrompt = "PASS> ", passWord = "FerUs686"
+  local consolePrompt, passWord = "PASS> ", "FerUs686"
+--   Const As Integer maxEntry = 10
+  local maxEntry = 10
+--   Const As Double cursorRate = .6
+  local cursorRate = .6
+--
+--   Dim As Integer cursorOn, outty
+  local cursorOn, outty = 0, 0
+--   Dim As Double cursorToggle
+  local cursorToggle = 0.0
+--
+--   Dim As String inputString
+  local inputString = ""
+--   Get( 0, 0 )-( 319, 199 ), llg( menu_ScreenSave )
+--   fb_ScreenRefresh()
+--   shift_pal()
+  shift_pal()
+--
+--   Dim As String gfxDump
+  local gfxDump = ""
+--
+  drawing = true
+  keybuffer = {}
+--   Do
+  repeat
+--
+--     fb_GetKey()
+--
+--     If StrPtr( fb_Global.keyBuffer ) <> NULL Then
+    if #keybuffer > 0 then
+--
+--       Select Case fb_Global.keyBuffer[0]
+--
+--         Case 8
+      if keybuffer[1] == "backspace" then
+--           '' backspace
+--           inputString = Left( inputString, Len( inputString ) - 1 )
+        inputString = inputString:sub(1, #inputString - 1)
+--
+--         Case 13
+      elseif keybuffer[1] == "return" then
+--           '' enter
+--
+--           sequence_FullReset( *llg( seq ) )
+        sequence_FullReset(ll_global.seq[ll_global.seqi])
+--
+--           If inputString = passWord Then
+        if inputString == passWord then
+--             '' correct
+--             llg( seq ) = this->seq + 2
+          ll_global.seq = this.seq
+          ll_global.seqi = this.seqi + 2
+--
+--           Else
+        else
+--             '' incorrect
+--             llg( seq ) = this->seq + 1
+          ll_global.seq = this.seq
+          ll_global.seqi = this.seqi + 1
+--
+--
+--           End If
+        end
+--           llg( hero_only ).dropoutSequence = TRUE
+        ll_global.hero_only.dropoutSequene = TRUE
+--           outty = TRUE
+        outty = TRUE
+--
+--         Case Else
+      else
+--
+--           If Len( inputString ) <> maxEntry Then
+        if #inputString ~= maxEntry then
+--             inputString += Chr( fb_Global.keyBuffer[0] )
+          inputString = inputString..keybuffer[1]
+--
+--           End If
+        end
+--
+--       End Select
+      end
+--
+      keybuffer = {}
+--     End If
+    end
+--
+--     If fb_WindowKill() Then End
+--
+--     If Timer > cursorToggle Then
+    if timer > cursorToggle then
+--       cursorOn = Not cursorOn
+      cursorOn = bit.bnot(cursorOn)
+--       cursorToggle = Timer + cursorRate
+      cursorToggle = timer + cursorRate
+--
+--     End If
+    end
+--
+--
+--     gfxDump = consolePrompt + inputString
+    gfxDump = consolePrompt..inputString
+--     If cursorOn Then
+    if cursorOn ~= 0 then
+--       gfxDump += "_"
+      gfxDump = gfxDump.."_"
+--
+--     End If
+    end
+--
+--     gfxprint( gfxDump, 0, 48 )
+    graphicalString(gfxDump, 0, 48)
+--     fb_ScreenRefresh()
+    coroutine.yield()
+--
+--   Loop Until outty
+  until outty ~= 0
+--   Put( 0, 0 ), llg( menu_ScreenSave )
+--
+--   Function = 0
+  return 0
+--
+--
+-- End Function
+end
+
 -- Function __set_song( this As char_type Ptr ) As Integer
 function __set_song(this)
 --
