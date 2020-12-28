@@ -1742,128 +1742,207 @@ end
 --
 --
 -- Function __divine_fireball( this As char_type Ptr ) As Integer
+function __divine_fireball(this)
 --
 --   '' 152 24
 --   LLObject_ShiftState( Varptr( now_room().enemy[21] ), 1 )
+  LLObject_ShiftState(now_room().enemy[21], 1)
 --
 --   now_room().enemy[21].walk_buffer = now_room().enemy[21].walk_length
+  now_room().enemy[21].walk_buffer = now_room().enemy[21].walk_length
 --   now_room().enemy[21].direction = IIf( ( llg( hero ).coords.x Shr 4 ) > ( now_room().x Shr 1 ), 6, 7 ) ''hehehhe
+  now_room().enemy[21].direction = iif(bit.rshift(ll_global.hero.coords.x, 4) > bit.rshift(now_room().x, 1), 6, 7)
 --
 --   Dim As Integer i
+  local i = 0
 --
 --   For i = 0 To now_room().enemy[20].anim[0]->frame[0].faces - 1
+  for i = 0, now_room().enemy[20].anim[0].frame[0].faces - 1 do
 --     now_room().enemy[20].anim[0]->frame[0].face[i].invincible = -1
+    now_room().enemy[20].anim[0].frame[0].face[i].invincible = -1
 --
 --   Next
+  end
 --
 --   Function = 1
+  return 1
 --
 --
 -- End Function
+end
 --
 -- Function __divine_ball_return( this As char_type Ptr ) As Integer
+function __divine_ball_return(this)
 --
 --   '' 152 24
 --
 --   this->coords.x = 152
+  this.coords.x = 152
 --   this->coords.y = 24
+  this.coords.y = 24
 --
 --
 --
 --   Function = 1
+  return 1
 --
 --
 -- End Function
+end
 --
 -- #define v2_Cmp(__U__,__V__) ( ( __U__.x = __V__.x ) and ( __U__.y = __V__.y ) )
+function v2_Cmp(__U__, __V__)
+  return ((__U__.x == __V__.x) and (__U__.y == __V__.y))
+end
 -- Function __moth_random_loc( this As char_type Ptr ) As Integer
+function __moth_random_loc(this)
 --
 --   '' 13/41, 17/62, 60/51, 44/26, and 65/16
 --
 --   static as vector locs( 4 ) => _
+  if locs0 == nil then
+    locs0 = {
 --   { _
 --     ( 13 shl 4, 41 shl 4 ), _
+      [0] = {x = 13 * 16, y = 41 * 16},
 --     ( 17 shl 4, 62 shl 4 ), _
+      {x = 17 * 16, y = 62 * 16},
 --     ( 60 shl 4, 51 shl 4 ), _
+      {x = 60 * 16, y = 51 * 4},
 --     ( 44 shl 4, 26 shl 4 ), _
+      {x = 44 * 16, y = 26 * 16},
 --     ( 65 shl 4, 16 shl 4 ) _
+      {x = 65 * 16, y = 16 * 16}
 --   }
+    }
+  end
 --
 --   dim as integer randLoc
+  local randLoc = 0
 --   do
+  repeat
+    ::continue::
 --
 --     randLoc = int( rnd * 5 )
+    randLoc = math.floor(math.random() * 5)
 --
 --
 --     if v2_Cmp( this->coords, locs( randLoc ) ) then continue do
+    if v2_Cmp(this.coords, locs0[randLoc]) then goto continue end
 --     this->coords = locs( randLoc )
+    this.coords.x = locs0[randLoc].x
+    this.coords.y = locs0[randLoc].y
 --
 --   loop while 1 = 0
+  until false
 --
 --   Function = 1
+  return 1
 --
 --
 -- End Function
+end
 --
 --
 -- Function __seed_random_loc( this As char_type Ptr ) As Integer
+function __seed_random_loc(this)
 --
 --   '' 2/47, 2/61, 68/46, 33/19, and 66/2
 --
 --
 --   static as vector locs( 4 ) => _
+  if locs1 == nil then
 --   { _
+    locs1 = {
 --     ( 2  shl 4, 47 shl 4 ), _
+      [0] = {x = 2 * 16, y = 47 * 16},
 --     ( 2  shl 4, 61 shl 4 ), _
+      {x = 2 * 16, y = 61 * 4},
 --     ( 68 shl 4, 46 shl 4 ), _
+      {x = 68 * 16, y = 46 * 16},
 --     ( 33 shl 4, 19 shl 4 ), _
+      {x = 33 * 16, y = 19 * 16},
 --     ( 66 shl 4, 2  shl 4 ) _
+      {x = 66 * 16, y = 2 * 16}
 --   }
+    }
+  end
 --   dim as integer randLoc
+  local randLoc = 0
 --   do
+  repeat
+    ::continue::
 --
 --     randLoc = int( rnd * 5 )
+    randLoc = math.floor(math.random() * 5)
 --
 --     if v2_Cmp( this->coords, locs( randLoc ) ) then continue do
+    if v2_Cmp(this.coords, locs1[randLoc]) then goto continue end
 --     this->coords = locs( randLoc )
+    this.coords.x = locs1[randLoc].x
+    this.coords.y = locs1[randLoc].y
 --
 --   loop while 1 = 0
+  until false
 --
 --   Function = 1
+  return 1
 --
 --
 -- End Function
+end
 --
 --
 -- Function __moth_random_proj( this As char_type Ptr ) As Integer
+function __moth_random_proj(this)
 --
 --   dim as integer chooseProjectile
+  local chooseProjectile = 0
 --   chooseProjectile = int( rnd * 3 )
+  chooseProjectile = math.floor(math.random() * 3)
 --
 --
 --   select case as const chooseProjectile
 --
 --     case 0
+  if chooseProjectile == 0 then
 --       this->proj_style = PROJECTILE_SUN
+    this.proj_style = PROJECTILE_SUN
 --       this->projectile->strength = 3
+    this.projectile.strength = 3
 --       this->projectile->projectiles = 128
+    this.projectile.projectiles = 128
 --       this->proj_anim = 3
+    this.proj_anim = 3
 --
 --     case 1
+  elseif chooseProjectile == 1 then
 --       this->proj_style = PROJECTILE_TRACK
+    this.proj_style = PROJECTILE_TRACK
 --       this->projectile->strength = 7
+    this.projectile.strength = 7
 --       this->projectile->projectiles = 1
+    this.projectile.projectiles = 1
 --       this->proj_anim = 4
+    this.proj_anim = 4
 --
 --     case 2
+  elseif chooseProjectile == 2 then
 --       this->proj_style = PROJECTILE_SPIRAL
+    this.proj_style = PROJECTILE_SPIRAL
 --       this->projectile->strength = 5
+    this.projectile.strength = 5
 --       this->projectile->projectiles = 16
+    this.projectile.projectiles = 16
 --       this->proj_anim = 5
+    this.proj_anim = 5
 --
 --   end select
+  end
 --
 --   Function = 1
+  return 1
 --
 --
 -- End Function
+end
