@@ -267,6 +267,19 @@ function __inc_sel_seq(this)
 -- End Function
 end
 
+-- Function __set_explosions( this As _char_type Ptr ) As Integer
+function __set_explosions(this)
+--
+--   this->explosions = this->chap
+  this.explosions = this.chap
+--
+--   Return 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __set_anim( this As _char_type Ptr ) As Integer
 function __set_anim(this)
 --
