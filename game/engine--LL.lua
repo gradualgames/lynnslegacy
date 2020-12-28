@@ -3869,92 +3869,159 @@ function act_enemies(_enemies, _enemy)
   --
   --
   --           If .unique_id = u_core Then
+          if with0.unique_id == u_core then
   --             '' Hack Fest!!!!!!!!!!!!
   --
   --             If llg( now )[725] Then
+            if ll_global.now[725] ~= 0 then
   --
   --               Dim As Integer enemyIterate, stateConfirm
+              local enemyIterate, stateConfirm = 0, 0
   --               stateConfirm = -1
+              stateConfirm = -1
   --               Select Case .shifty_state
   --               '' if wave dead then advance
   --                 Case 0
+              if with0.shifty_state == 0 then
   --                   .shifty_state += 1
+                with0.shifty_state = with0.shifty_state + 1
   --                   For enemyIterate = 5 To 10
+                for enemyIterate = 5, 10 do
   --                     now_room().enemy[enemyIterate].trigger = TRUE
+                  now_room().enemy[enemyIterate].trigger = TRUE
   --
   --                   Next
+                end
   --                   play_sample( sound_turret, 80 )
+                ll_global.snd[sound_turret]:setVolume(.8)
+                ll_global.snd[sound_turret]:play()
   --                   .unstoppable_by_object = 0
+                with0.unstoppable_by_object = 0
   --
   --                 Case 1
+              elseif with0.shifty_state == 1 then
   --                   '' 5- 10
   --                   For enemyIterate = 5 To 10
+                for enemyIterate = 5, 10 do
   --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+                  stateConfirm = bit.band(stateConfirm, now_room().enemy[enemyIterate].dead)
   --                   Next
+                end
   --                   If stateConfirm Then
+                if stateConfirm ~= 0 then
   --                     .shifty_state += 1
+                  with0.shifty_state = with0.shifty_state + 1
   --                     For enemyIterate = 11 To 18
+                  for enemyIterate = 11, 18 do
   --                       now_room().enemy[enemyIterate].trigger = TRUE
+                    now_room().enemy[enemyIterate].trigger = TRUE
   --
   --                     Next
+                  end
   --                     play_sample( sound_turret, 80 )
+                  ll_global.snd[sound_turret]:setVolume(.8)
+                  ll_global.snd[sound_turret]:play()
   --
   --                   End If
+                end
   --
   --                 Case 2
+              elseif with0.shifty_state == 2 then
   --                   '' 11 - 18
   --                   For enemyIterate = 11 To 18
+                for enemyIterate = 11, 18 do
   --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+                  stateConfirm = bit.band(stateConfirm, now_room().enemy[enemyIterate].dead)
   --                   Next
+                end
   --                   If stateConfirm Then
+                if stateConfirm ~= 0 then
   --                     .shifty_state += 1
+                  with0.shifty_state = with0.shifty_state + 1
   --                     For enemyIterate = 19 To 28
+                  for enemyIterate = 19, 28 do
   --                       now_room().enemy[enemyIterate].trigger = TRUE
+                    now_room().enemy[enemyIterate].trigger = TRUE
   --
   --                     Next
+                  end
   --                     play_sample( sound_turret, 80 )
+                  ll_global.snd[sound_turret]:setVolume(.8)
+                  ll_global.snd[sound_turret]:play()
+
   --
   --                   End If
+                end
   --
   --                 Case 3
+              elseif with0.shifty_state == 3 then
   --                   '' 19 - 28
   --                   For enemyIterate = 19 To 28
+                for enemyIterate = 19, 28 do
   --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+                  stateConfirm = bit.band(stateConfirm, now_room().enemy[enemyIterate].dead)
   --                   Next
+                end
   --                   If stateConfirm Then
+                if stateConfirm ~= 0 then
   --                     .shifty_state += 1
+                  with0.shifty_state = with0.shifty_state + 1
   --                     For enemyIterate = 29 To 48
+                  for enemyIterate = 29, 48 do
   --                       now_room().enemy[enemyIterate].trigger = TRUE
+                    now_room().enemy[enemyIterate].trigger = TRUE
   --
   --                     Next
+                  end
   --                     play_sample( sound_turret, 80 )
+                  ll_global.snd[sound_turret]:setVolume(.8)
+                  ll_global.snd[sound_turret]:play()
+
   --
   --                   End If
+                end
   --
   --                 Case 4
+              elseif with0.shifty_state == 4 then
   --                   '' 29 - 48
   --                   For enemyIterate = 29 To 48
+                for enemyIterate = 29, 48 do
   --                     stateConfirm And= ( now_room().enemy[enemyIterate].dead )
+                  stateConfirm = bit.band(stateConfirm, now_room().enemy[enemyIterate].dead)
   --                   Next
+                end
   --                   If stateConfirm Then
+                if stateConfirm ~= 0 then
   --                     .shifty_state += 1
+                  with0.shifty_state = with0.shifty_state + 1
   --                     For enemyIterate = 0 To 7
+                  for enemyIterate = 0, 7 do
   --                       .anim[.current_anim]->frame[0].face[enemyIterate].invincible = 0
+                    with0.anim[with0.current_anim].frame[0].face[enemyIterate].invincible = 0
   --
   --                     Next
+                  end
   --                     .invincible = 0
+                  with0.invincible = 0
   --                     LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .jump_state )
+                  LLObject_ShiftState(_enemy[do_stuff], with0.jump_state)
   --
   --                   End If
+                end
   --
   --                 Case 5
+              elseif with0.shifty_state == 3 then
+
   --                   '' core vulnerable
   --
   --               End Select
+              end
   --
   --             End If
+            end
   --
   --           End If
+          end
   --
   --
   --
