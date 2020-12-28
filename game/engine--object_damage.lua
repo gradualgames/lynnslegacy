@@ -113,7 +113,12 @@ function LLObject_MAINAttack(_enemy, hr)
 
 --
 --                     If .dmg.id <> 0 Then
-                if _enemy.dmg.id ~= 0 then
+                --NOTE: Fixing a bug where if the enemy becomes dead in the
+                --previous line, the damage id is reset to 0 and it really
+                --should also be leaving this loop, otherwise the enemy's
+                --state is invalid and might cause a crash when looking at
+                --the remaining faces of the hero's weapon.
+                if _enemy.dmg.id ~= 0 or _enemy.dead ~= 0 then
 --                     '' ignore the rest of the faces.
 --                       Exit For
                   break
