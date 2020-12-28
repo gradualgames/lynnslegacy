@@ -186,7 +186,7 @@ function __fade_to_black(this)
 --       Dim As Double tmp_val
       local tmp_val = 0.0
 --       tmp_val = ( this->fade_out - this->song_fade_count ) '' 0-63
-      tmp_val = (this.fade_out - this.song_fade_count)
+      tmp_val = math.max((this.fade_out - this.song_fade_count), 0)
 --       tmp_val Shl= 3 '' 0 - 512
 --       tmp_val /= 5.12 '' close enough...
 --       LLMusic_SetVolume( CInt( tmp_val ) )
