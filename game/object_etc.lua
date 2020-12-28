@@ -1661,6 +1661,20 @@ function __heal_lynn(this)
 -- End Function
 end
 
+-- Function __turn_off_tiles( this As char_type Ptr ) As Integer
+function __turn_off_tiles(this)
+--
+--
+--   llg( tilesDisabled ) = TRUE
+  ll_global.tilesDisabled = TRUE
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __buy_health( this As char_type Ptr ) As Integer
 function __buy_health(this)
 --
@@ -1711,6 +1725,20 @@ function __translate_result(this)
 --
 --   Function = 0
   return 0
+--
+--
+-- End Function
+end
+
+-- Function __turn_on_tiles( this As char_type Ptr ) As Integer
+function __turn_on_tiles(this)
+--
+--
+--   llg( tilesDisabled ) = FALSE
+  ll_global.tilesDisabled = FALSE
+--
+--   Function = 1
+  return 1
 --
 --
 -- End Function
