@@ -1093,3 +1093,50 @@ function __fade_down_to_gray(this)
 --
 -- End Function
 end
+
+-- Function __red_tint( this As _char_type Ptr ) As Integer
+function __red_tint(this)
+--
+--
+--   Dim As Integer cols, r, g, b
+  local cols, r, g, b = 0, 0, 0, 0
+--
+--
+--   For cols = 0 To 255
+  for cols = 0, 255 do
+--
+--     r = ( ( fb_Global.display.pal[cols] Shr 16 ) And &hFF )' Shl 2
+    r = masterPalette[cols][0] * 63
+--     g = ( ( fb_Global.display.pal[cols] Shr 8  ) And &hFF )' Shl 2
+    g = masterPalette[cols][1] * 63
+--     b = ( ( fb_Global.display.pal[cols]        ) And &hFF )' Shl 2
+    b = masterPalette[cols][2] * 63
+--
+--     g -= 64
+    g = g - 64
+-- '    b -= 64
+--     r -= 64
+    b = b - 64
+--
+--     g = IIf( g < 0, 0, g )
+    g = iif(g < 0, 0, g)
+-- '    b = IIf( b < 0, 0, b )
+--     r = IIf( r < 0, 0, r )
+    b = iif(b < 0, 0, b)
+--
+-- '    r += 20
+-- '    r = IIf( r > 255, 255, r )
+--
+--     Palette cols, Rgb( r, g, b )
+    palette[cols][0] = r / 63
+    palette[cols][1] = g / 63
+    palette[cols][2] = b / 63
+--
+--   Next
+  end
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
