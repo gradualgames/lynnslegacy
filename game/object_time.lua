@@ -45,6 +45,30 @@ function __check_key(this)
 -- End Function
 end
 
+-- Function __check_trigger ( this As _char_type Ptr ) As Integer
+function __check_trigger(this)
+--
+--
+--
+--
+--
+--   If this->trigger <> 0 Then
+  if this.trigger ~= 0 then
+--
+--     this->invincible = 0
+    this.invincible = 0
+--     LLObject_ShiftState( this, this->jump_state )
+    LLObject_ShiftState(this, this.jump_state)
+--
+--   End If
+  end
+--
+--   Return 1
+  return 1
+--
+-- End Function
+end
+
 -- Function __half_second_pause ( this As _char_type Ptr ) As Integer
 function __half_second_pause(this)
   log.debug("__half_second_pause called on: "..this.id)
