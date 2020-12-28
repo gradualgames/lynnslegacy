@@ -88,9 +88,9 @@ function love.keypressed(key, scancode, isrepeat)
   end
 
   -- --h is for refilling hp for testing
-  -- if love.keyboard.isDown("h") then
-  --   ll_global.hero.hp = ll_global.hero.maxhp
-  -- end
+  if love.keyboard.isDown("h") then
+    ll_global.hero.hp = ll_global.hero.maxhp
+  end
   --
   -- --i is for cycling items for testing
   -- if love.keyboard.isDown("i") then

@@ -274,6 +274,15 @@ function __timed_jump_2(this)
 -- End Function
 end
 
+-- Function __back_3( this As _char_type Ptr ) As Integer
+function __back_3(this)
+--
+--   Return -3
+  return -3
+--
+-- End Function
+end
+
 -- Function __counted_jump ( this As _char_type Ptr ) As Integer
 function __counted_jump(this)
 --
