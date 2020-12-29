@@ -1808,7 +1808,7 @@ function __moth_random_loc(this)
 --     ( 17 shl 4, 62 shl 4 ), _
       {x = 17 * 16, y = 62 * 16},
 --     ( 60 shl 4, 51 shl 4 ), _
-      {x = 60 * 16, y = 51 * 4},
+      {x = 60 * 16, y = 51 * 16},
 --     ( 44 shl 4, 26 shl 4 ), _
       {x = 44 * 16, y = 26 * 16},
 --     ( 65 shl 4, 16 shl 4 ) _
@@ -1834,7 +1834,7 @@ function __moth_random_loc(this)
     this.coords.y = locs0[randLoc].y
 --
 --   loop while 1 = 0
-  until false
+  until true
 --
 --   Function = 1
   return 1
@@ -1857,7 +1857,7 @@ function __seed_random_loc(this)
 --     ( 2  shl 4, 47 shl 4 ), _
       [0] = {x = 2 * 16, y = 47 * 16},
 --     ( 2  shl 4, 61 shl 4 ), _
-      {x = 2 * 16, y = 61 * 4},
+      {x = 2 * 16, y = 61 * 16},
 --     ( 68 shl 4, 46 shl 4 ), _
       {x = 68 * 16, y = 46 * 16},
 --     ( 33 shl 4, 19 shl 4 ), _
@@ -1883,7 +1883,7 @@ function __seed_random_loc(this)
     this.coords.y = locs1[randLoc].y
 --
 --   loop while 1 = 0
-  until false
+  until true
 --
 --   Function = 1
   return 1

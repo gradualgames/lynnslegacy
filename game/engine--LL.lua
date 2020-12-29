@@ -7065,7 +7065,7 @@ function LLObject_IncrementProjectiles(char)
 --
 --
 --         If ( .projectile->travelled And 3 ) = 0 Then
-    if math.band(with0.projectile.travelled, 3) == 0 then
+    if bit.band(with0.projectile.travelled, 3) == 0 then
 --
 --           If ( Abs( .projectile->coords[0].x - llg( hero ).coords.x ) < 48 ) Then
       if (math.abs(with0.projectile.coords[0].x - ll_global.hero.coords.x) < 48) then
