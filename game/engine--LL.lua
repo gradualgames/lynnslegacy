@@ -7092,9 +7092,9 @@ function LLObject_IncrementProjectiles(char)
         local with1 = with0.projectile.coords[0]
 --
 --               thisProjectile.u.x = .x
-        thisProjectile.u.x = with0.x
+        thisProjectile.u.x = with1.x
 --               thisProjectile.u.y = .y
-        thisProjectile.u.y = with0.y
+        thisProjectile.u.y = with1.y
 --
 --             End With
 --
