@@ -339,6 +339,17 @@ function __counted_jump_2(this)
 -- End Function
 end
 
+-- Function __jump_2_back ( this As _char_type Ptr ) As Integer
+function __jump_2_back(this)
+--
+-- '  this->funcs.current_func[this->funcs.active_state] -= 1
+--
+--   Return -1
+  return -1
+--
+-- End Function
+end
+
 -- Function __return_idle ( this As _char_type Ptr ) As Integer
 function __return_idle(this)
   -- log.debug("__return_idle called on "..this.id)
