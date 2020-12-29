@@ -209,19 +209,27 @@ function engine_init()
 --   llg( scrn_ptr ) = ScreenPtr
 --
 --   llg( hero_only ).specialSequence = callocate( len( sequence_type ) )
+  ll_global.hero_only.specialSequence = {[0] = create_sequence_type()}
 --
 --   llg( hero_only ).specialSequence[0].commands = 1
+  ll_global.hero_only.specialSequence[0].commands = 1
 --
 --   llg( hero_only ).specialSequence[0].command = callocate( len( command_type ) )
+  ll_global.hero_only.specialSequence[0].Command = {[0] = create_command_type()}
 --
 --   llg( hero_only ).specialSequence[0].command[0].ents = 1
+  ll_global.hero_only.specialSequence[0].Command[0].ents = 1
 --
 --   llg( hero_only ).specialSequence[0].command[0].ent = callocate( len( command_data ) )
+  ll_global.hero_only.specialSequence[0].Command[0].ent = {[0] = create_command_data()}
 --
 --   llg( hero_only ).specialSequence[0].command[0].ent[0].active_ent = SF_BOX
+  ll_global.hero_only.specialSequence[0].Command[0].ent[0].active_ent = SF_BOX
 --   llg( hero_only ).specialSequence[0].command[0].ent[0].text = "Lynn: I can't use this here."
+  ll_global.hero_only.specialSequence[0].Command[0].ent[0].text = "Lynn: I can't use this here."
 --
 --   llg( hero_only ).healingImage = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\heal.spr"  ) )
+  ll_global.hero_only.healingImage = getImageHeader("data/pictures/char/heal.spr")
 --
 --
 --
@@ -811,6 +819,7 @@ function hero_main()
 --       llg( hero_only ).crazy_points = 0
       ll_global.hero_only.crazy_points = 0
 --
+      ll_global.snd[sound_heart]:stop()
 --     end if
     end
 --

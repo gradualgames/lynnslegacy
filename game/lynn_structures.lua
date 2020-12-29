@@ -23,6 +23,7 @@ function create_main_char_type()
 -- Type main_char_type
 --
 --   action As Integer
+  main_char_type.action = 0
 --   action_lock As Integer
   main_char_type.action_lock = 0
 --
@@ -82,8 +83,10 @@ function create_main_char_type()
   main_char_type.songFade = nil
 --
 --   healTimer as double
+  main_char_type.healTimer = 0.0
 --
 --   specialSequence as sequence_type ptr
+  main_char_type.specialSequence = {}
 --
 --   adrenaline as double
   main_char_type.adrenaline = 0.0

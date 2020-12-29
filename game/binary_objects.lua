@@ -42,43 +42,66 @@ function act_key_in_sub(ip, op)
   elseif ll_global.hero_only.selected_item == 3 or ll_global.hero_only.selected_item == 4 then
 --       '' bridge, idol
 --       llg( seq ) = llg( hero_only ).specialSequence
+    ll_global.seq = ll_global.hero_only.specialSequence
+    ll_global.seqi = 0
 --       llg( hero_only ).attacking = 0
+    ll_global.hero_only.attacking = 0
 --
 --     Case 5
   elseif ll_global.hero_only.selected_item == 5 then
 --       '' adrenaline boost
 --       if llg( hero_only ).adrenaline = 0 then
+    if ll_global.hero_only.adrenaline == 0 then
 --         if llg( hero ).hp > 3 then
+      if ll_global.hero.hp > 3 then
 --           llg( hero_only ).adrenaline = timer + 6
+        ll_global.hero_only.adrenaline = timer + 6
 --           llg( hero ).hp -= 3
+        ll_global.hero.hp = ll_global.hero.hp - 3
 --           antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
+        ll_global.snd[sound_heart]:play()
 --
 --         end if
+      end
 --
 --       end if
+    end
 --
 --       llg( hero_only ).attacking = 0
+    ll_global.hero_only.attacking = 0
 --
 --
 --     Case 6
   elseif ll_global.hero_only.selected_item == 6 then
 --       '' healage
 --       if llg( hero_only ).healing = 0 then
+    if ll_global.hero_only.healing == 0 then
 --         if llg( hero ).hp < llg( hero ).maxhp then
+      if ll_global.hero.hp < ll_global.hero.maxhp then
 --           if llg( hero ).money > 1 then
+        if ll_global.hero.money > 1 then
 --             llg( hero ).hp += 1
+          ll_global.hero.hp = ll_global.hero.hp + 1
 --             llg( hero ).money -= 2
+          ll_global.hero.money = ll_global.hero.money - 2
 --             antiHackASSIGN( LL_Global.hero_only.moneyDummy, LL_Global.hero.money )
 --             antiHackASSIGN( LL_Global.hero_only.healthDummy, LL_Global.hero.hp )
 --
 --             llg( hero_only ).healing = -1
+          ll_global.hero_only.healing = -1
 --             play_sample( llg( snd )[sound_heal], 80 )
+          ll_global.snd[sound_heal]:setVolume(.8)
+          ll_global.snd[sound_heal]:play()
 --
 --           end if
+        end
 --         end if
+      end
 --       end if
+    end
 --
 --       llg( hero_only ).attacking = 0
+    ll_global.hero_only.attacking = 0
 --
 --     Case Else
   else
