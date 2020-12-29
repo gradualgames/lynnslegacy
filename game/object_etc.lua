@@ -1758,6 +1758,19 @@ function __quake(this)
 -- End Function
 end
 
+-- Function __set_finish( this As char_type Ptr ) As Integer
+function __set_finish(this)
+--
+-- 	llg( xxyxx ) = -1
+  ll_global.xxyxx = -1
+--
+--   Function = 1
+  return 1
+--
+--
+-- End Function
+end
+
 -- Function __logosta_console( this As char_type Ptr ) As Integer
 function __logosta_console(this)
 --

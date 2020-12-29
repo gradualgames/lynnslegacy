@@ -8288,3 +8288,168 @@ function is_facing(o, o2)
 --
 -- End Function
 end
+
+-- sub LL_RollCredits()
+function LL_RollCredits()
+--
+-- 	if stillPlaying() then exit sub
+--
+--   dim as double timeDelay
+--   dim as string currentText
+--
+--   cls
+--   fb_ScreenRefresh()
+--
+--   timeDelay = timer + 3
+--   currentText = "Written by Josiah Tobin,"
+-- 	graphicalString( currentText, text_Center( currentText ), 88, 15 )
+--
+--   currentText = "brought to life by cha0s"
+-- 	graphicalString( currentText, text_Center( currentText ), 104, 15 )
+--
+--   fb_ScreenRefresh()
+--   llg( hero_only ).songFade = CAllocate( Len( songFading_type ) )
+--   llg( hero_only ).songFade->pulseLength = ( 5 / 64 )
+--   do
+--     sleep 10
+--     if llg( hero_only ).songFade then
+--       LLMusic_Fade()
+--
+--     end if
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until llg( hero_only ).songFade = 0
+--
+--   do
+--     sleep 1
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until __fade_to_black( @llg( hero ) )
+--
+--   cls
+--   fb_ScreenRefresh()
+--
+--   __color_on( @llg( hero ) )
+--   LLMusic_Start( "data\music\holy.it" )
+--
+--   CreditScroll()
+--
+--   __color_off( @llg( hero ) )
+--   dim as LLSystem_ImageHeader ptr imageWhore
+--
+--   imageWhore = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\title.spr" ) )
+--   '' 256, 64
+--   put ( 160 - 128, 100 - 32 ), imageWhore->image
+--   fb_ScreenRefresh()
+--
+--   do
+--     sleep 10
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until __fade_up_to_color( @llg( hero ) )
+--
+--
+--   llg( hero_only ).songFade = CAllocate( Len( songFading_type ) )
+--   llg( hero_only ).songFade->pulseLength = ( 5 / 64 )
+--   timeDelay = timer + 4
+--   do
+--     sleep 10
+--     if llg( hero_only ).songFade then
+--       LLMusic_Fade()
+--
+--     end if
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until llg( hero_only ).songFade = 0
+--
+-- 	llg( hero ).fade_time = .06
+--   do
+--     sleep 1
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until __fade_to_black( @llg( hero ) )
+--   __color_off( @llg( hero ) )
+--
+--   imageWhore = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\moth_wings.spr" ) )
+--   '' 96, 64
+--
+--   __color_off( @llg( hero ) )
+--   put ( 160 - 48, 100 - 32 ), imageWhore->image
+--   fb_ScreenRefresh()
+--   put ( 160 - 48, 100 - 32 ), imageWhore->image
+--
+--   do
+--     sleep 10
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until __fade_up_to_color( @llg( hero ) )
+--
+--   timeDelay = timer + 2
+--   do
+--     sleep 10
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until timer > timeDelay
+--
+--   dim as integer curFrame
+--   do
+--     sleep 100, 1
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+--
+--     fb_ScreenRefresh()
+--     put ( 160 - 48, 100 - 32 ), @imageWhore->image[curFrame * imageWhore->arraysize]
+--
+--     if curFrame = 3 then
+--       play_sample( llg( snd )[sound_rayflap2], 80 )
+--
+--     end if
+--
+--     curFrame += 1
+-- 	loop until curFrame = imageWhore->frames
+-- 	curFrame -= 1
+--
+--   put ( 160 - 48, 100 - 32 ), @imageWhore->image[curFrame * imageWhore->arraysize]
+--
+--   timeDelay = timer + 2
+--   do
+--     sleep 10
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until timer > timeDelay
+--
+--
+--   dim as string theEnd = "The End."
+--   dim as integer theEndLoc, iter
+--   iter = 1
+--   do
+--     sleep 300, 1
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+--
+--     put ( 160 - 48, 100 - 32 ), @imageWhore->image[curFrame * imageWhore->arraysize]
+--
+--     graphicalString( mid( theEnd, 1, iter ), text_Center( theEnd ) + 4, 168, 15 )
+--     iter += 1
+--
+--     fb_ScreenRefresh()
+-- 	loop until iter = 9
+--
+--   timeDelay = timer + 3
+--   do
+--     sleep 10
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until timer > timeDelay
+--
+--   sleep
+--
+--   do
+--     sleep 1
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+-- 	loop until __fade_to_black( @llg( hero ) )
+--
+--
+-- end sub
+end

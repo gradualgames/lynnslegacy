@@ -189,6 +189,7 @@ function create_ll_system()
   --   mouse_vanish As Integer
   --   mouse_timer As Double
   -- 	xxyxx as integer
+  ll_system.xxyxx = 0
   --   mouse_last_x As Integer
   --   mouse_last_y As Integer
   --

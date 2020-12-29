@@ -179,8 +179,12 @@ function main()
     -- love.graphics.rectangle("fill", x, y, w, h)
     --prof.pop("frame")
     --prof.enabled(false)
+    if not stillPlaying() then break end
+
     coroutine.yield()
   until false
+  LL_RollCredits()
+  love.event.quit()
 end
 
 --Initializes the window, sets up some defaults and
