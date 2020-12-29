@@ -56,7 +56,7 @@
 
     <index> sound_mothdie </index>
     <vol> 70 </vol>
-    
+
   </snd>
 
   <proj_style> PROJECTILE_SUN </proj_style>
@@ -70,66 +70,66 @@
   <hp> 1 </hp>
   <flash_length> 80 </flash_length>
   <flash_time> .02 </flash_time>
-  <dead_sound> none </dead_sound>
+  <dead_sound> sound_null </dead_sound>
 
-  
+
   <fp>
 
-    <func> second_pause </func>     
-    <func> second_pause </func>     
-    <func> second_pause </func>     
-    <func> moth_random_loc </func>     
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> second_pause </func>
+    <func> moth_random_loc </func>
 
-    <func> active_anim_1 </func>     
-    <func> make_visible </func>     
-    <func> active_animate </func>     
-    <func> active_anim_0 </func>     
+    <func> active_anim_1 </func>
+    <func> make_visible </func>
+    <func> active_animate </func>
+    <func> active_anim_0 </func>
 
-    <func> make_face </func>     
-    <func> second_pause </func>     
-    <func> moth_random_proj </func>     
-    <func> trigger_projectile </func>     
+    <func> make_face </func>
+    <func> second_pause </func>
+    <func> moth_random_proj </func>
+    <func> trigger_projectile </func>
 
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
-    <func> q_second_pause </func>     
-    <func> make_face </func>     
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
+    <func> q_second_pause </func>
+    <func> make_face </func>
 
-    <func> active_anim_2 </func>     
-    <func> active_animate </func>     
-    <func> make_invisible </func>     
+    <func> active_anim_2 </func>
+    <func> active_animate </func>
+    <func> make_invisible </func>
 
-    <func> return_idle </func>     
+    <func> return_idle </func>
 
   </fp>
 
@@ -137,18 +137,18 @@
 
     <proc_id> death_state </proc_id>
 
-    <func> infinity </func>     
+    <func> infinity </func>
 
 
 
-    <func> active_anim_2 </func>     
-    <func> active_animate </func>     
-    <func> make_invisible </func>     
-    <func> play_sound </func>     
-    <func> make_dead </func>     
-    <func> cripple </func>     
-    <func> infinity </func>     
-    <func> return_trig </func>     
+    <func> active_anim_2 </func>
+    <func> active_animate </func>
+    <func> make_invisible </func>
+    <func> play_sound </func>
+    <func> make_dead </func>
+    <func> cripple </func>
+    <func> infinity </func>
+    <func> return_trig </func>
 
   </fp>
 
@@ -163,5 +163,3 @@
 
 
 </battlemoth>
-
-

@@ -24,7 +24,7 @@
   <walk_speed> .027 </walk_speed>
   <impassable> 1 </impassable>
   <uni_directional> 1 </uni_directional>
-  <dead_sound> none </dead_sound>
+  <dead_sound> sound_null </dead_sound>
 
   <fp>
 
@@ -54,4 +54,3 @@
 
 
 </bombrock>
-

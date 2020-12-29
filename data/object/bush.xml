@@ -26,7 +26,7 @@
   </sprite>
 
   <dead_sound> sound_bush </dead_sound>
-  <hit_sound> none </hit_sound>
+  <hit_sound> sound_null </hit_sound>
   <impassable> 1 </impassable>
   <walk_speed> .027 </walk_speed>
   <touch_sequence> 1 </touch_sequence>
@@ -42,8 +42,8 @@
   <maxhp> 1 </maxhp>
   <strength> 0 </strength>
   <uni_directional> 1 </uni_directional>
-  
-  <happen_trig> 65540 </happen_trig> 
+
+  <happen_trig> 65540 </happen_trig>
 
   <fp>
 
@@ -112,4 +112,3 @@
 
 
 </bush>
-
