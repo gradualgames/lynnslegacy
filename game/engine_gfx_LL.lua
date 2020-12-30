@@ -1207,7 +1207,9 @@ function blit_enemy_loot()
 --
 --             Put ( .drop->coords.x - llg( this )_room.cx, .drop->coords.y - llg( this )_room.cy ), .drop->anim[.dropped - 1]->image, Trans
         local anim = enemy.drop.anim[enemy.dropped - 1]
-        draw(anim.image, anim.quads[0], enemy.drop.coords.x - ll_global.this_room.cx, enemy.drop.coords.y - ll_global.this_room.cy)
+        draw(anim.image, anim.quads[0],
+          math.floor(enemy.drop.coords.x) - math.floor(ll_global.this_room.cx),
+          math.floor(enemy.drop.coords.y) - math.floor(ll_global.this_room.cy))
 --
 --             target.u.x = .drop->coords.x
         target.u.x = enemy.drop.coords.x
