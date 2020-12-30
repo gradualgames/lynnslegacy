@@ -6486,7 +6486,7 @@ function handle_MiniMap()
 --
 --       Do
       repeat
-        updateBHist()
+        input:update()
         timer = love.timer.getTime()
 --
 --         fb_GetKey()
