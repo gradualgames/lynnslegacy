@@ -116,7 +116,7 @@ function __do_menu(this)
 --       '' if enter was pressed
 --
 --       If Not MultiKey ( sc_enter ) Then
-    if not love.keyboard.isDown("space") then
+    if not input:down("action") then
 --         '' let go of enter
 --
 --         If .menu_sel = 0 Then
@@ -169,7 +169,7 @@ function __do_menu(this)
 --
 --
 --     If MultiKey ( sc_right ) Then
-  if love.keyboard.isDown("right") then
+  if input:down("right") then
 --
 --
 --       If .walk_hold = 0 Then
@@ -191,7 +191,7 @@ function __do_menu(this)
     end
 --
 --     ElseIf MultiKey ( sc_left ) Then
-  elseif love.keyboard.isDown("left") then
+  elseif input:down("left") then
 --
 --
 --       If .walk_hold = 0 Then
@@ -228,7 +228,7 @@ function __do_menu(this)
   if timer >= with0.walk_hold then with0.walk_hold = 0 end
 --
 --     If MultiKey( sc_escape ) Then
-    if love.keyboard.isDown("escape") then
+    if input:down("pause") then
 --       End
       love.event.quit()
 --
@@ -236,7 +236,7 @@ function __do_menu(this)
     end
 --
 --     If MultiKey( sc_enter ) Then
-  if love.keyboard.isDown("space") then
+  if input:down("action") then
 --
 --       If .menu_sel = 2 Then
     if with0.menu_sel == 2 then
@@ -271,7 +271,7 @@ function __do_menu_continue(this)
   if (this.menu_lock ~= 0) then
 --
 --     If Not MultiKey ( sc_escape ) Then
-    if not love.keyboard.isDown("escape") then
+    if not input:down("pause") then
 --
 --       this->menu_lock = 0
       this.menu_lock = 0
@@ -316,7 +316,7 @@ function __do_menu_continue(this)
 --
 --
 --   If MultiKey ( sc_down ) Then
-  if love.keyboard.isDown("down") then
+  if input:down("down") then
 --
 --
 --     If this->walk_hold = 0 Then
@@ -338,7 +338,7 @@ function __do_menu_continue(this)
     end
 --
 --   ElseIf MultiKey ( sc_up ) Then
-  elseif love.keyboard.isDown("up") then
+  elseif input:down("up") then
 --
 --
 --     If this->walk_hold = 0 Then
@@ -377,7 +377,7 @@ function __do_menu_continue(this)
 --
 --
 --   If MultiKey( sc_enter ) Then
-  if bpressed("space") then
+  if input:pressed("action") then
 --
 --     If this->save( this->menu_sel ).link <> NULL Then
     if this.save[this.menu_sel].link ~= nil then
@@ -392,7 +392,7 @@ function __do_menu_continue(this)
   end
 --
 --   If MultiKey( sc_escape ) Then
-  if love.keyboard.isDown("escape") then
+  if input:down("pause") then
 --     this->menu_lock = 1
     this.menu_lock = 1
 --
@@ -424,7 +424,7 @@ function __do_menu_save(this)
   if (this.menu_lock ~= 0) then
 --
 --     If Not MultiKey ( sc_escape ) Then
-    if love.keyboard.isDown("escape") ~= true then
+    if input:down("pause") ~= true then
 --
 --
 --       this->menu_lock = 0
@@ -479,7 +479,7 @@ function __do_menu_save(this)
 --
 --
 --   If MultiKey ( sc_down ) Then
-  if love.keyboard.isDown("down") then
+  if input:down("down") then
 --
 --
 --     If this->walk_hold = 0 Then
@@ -501,7 +501,7 @@ function __do_menu_save(this)
     end
 --
 --   ElseIf MultiKey ( sc_up ) Then
-  elseif love.keyboard.isDown("up") then
+  elseif input:down("up") then
 --
 --
 --     If this->walk_hold = 0 Then
@@ -540,7 +540,7 @@ function __do_menu_save(this)
 --
 --
 --   If MultiKey( sc_enter ) Then
-  if bpressed("space") then
+  if input:pressed("action") then
 --
 --     Dim flr As String
     local flr = ""
@@ -557,7 +557,7 @@ function __do_menu_save(this)
   end
 --
 --   If MultiKey( sc_escape ) Then
-  if love.keyboard.isDown("escape") then
+  if input:down("pause") then
 --     this->menu_lock = 1
     this.menu_lock = 1
 --
@@ -1187,7 +1187,7 @@ function __templewood_bridge(this)
     this.anim[this.current_anim].frame[0].face[0].impassable = 1
 --
 --     if multikey( llg( conf_key ).code ) then
-    if love.keyboard.isDown("space") then
+    if input:down("action") then
 --
 --       if LLObject_isTouching( llg( hero ), this[0] ) = 0 then
       if LLObject_isTouching(ll_global.hero, this) == 0 then
@@ -1255,7 +1255,7 @@ function __arx_bridge(this)
     this.anim[this.current_anim].frame[0].face[0].impassable = 1
 --
 --     if multikey( llg( conf_key ).code ) then
-    if love.keyboard.isDown("space") then
+    if input:down("action") then
 --
 --       if LLObject_isTouching( llg( hero ), this[0] ) = 0 then
       if LLObject_isTouching(ll_global.hero, this) == 0 then

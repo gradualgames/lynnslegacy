@@ -2884,22 +2884,22 @@ function keyboardSelected()
 --
 --
 --   key_up    = IIf( dkey_up    = 0, MultiKey( sc_up    ), 0 )
-  key_up = iif(dkey_up == 0, love.keyboard.isDown("up") and -1 or 0, 0)
+  key_up = iif(dkey_up == 0, input:down("up") and -1 or 0, 0)
 --   key_right = IIf( dkey_right = 0, MultiKey( sc_right ), 0 )
-  key_right = iif(dkey_right == 0, love.keyboard.isDown("right") and -1 or 0, 0)
+  key_right = iif(dkey_right == 0, input:down("right") and -1 or 0, 0)
 --   key_down  = IIf( dkey_down  = 0, MultiKey( sc_down  ), 0 )
-  key_down = iif(dkey_down == 0, love.keyboard.isDown("down") and -1 or 0, 0)
+  key_down = iif(dkey_down == 0, input:down("down") and -1 or 0, 0)
 --   key_left  = IIf( dkey_left  = 0, MultiKey( sc_left  ), 0 )
-  key_left = iif(dkey_left == 0, love.keyboard.isDown("left") and -1 or 0, 0)
+  key_left = iif(dkey_left == 0, input:down("left") and -1 or 0, 0)
 --
 --   If key_up    = 0 And MultiKey( sc_up    ) Then hkey_up = -1
-  if key_up == 0 and love.keyboard.isDown("up") then hkey_up = -1 end
+  if key_up == 0 and input:down("up") then hkey_up = -1 end
 --   If key_right = 0 And MultiKey( sc_right ) Then hkey_right = -1
-  if key_right == 0 and love.keyboard.isDown("right") then hkey_right = -1 end
+  if key_right == 0 and input:down("right") then hkey_right = -1 end
 --   If key_down  = 0 And MultiKey( sc_down  ) Then hkey_down = -1
-  if key_down == 0 and love.keyboard.isDown("down") then hkey_down = -1 end
+  if key_down == 0 and input:down("down") then hkey_down = -1 end
 --   If key_left  = 0 And MultiKey( sc_left  ) Then hkey_left = -1
-  if key_left == 0 and love.keyboard.isDown("left") then hkey_left = -1 end
+  if key_left == 0 and input:down("left") then hkey_left = -1 end
 --
 --
 --   Select Case As Const llg( menu ).selectedItem
@@ -3187,7 +3187,7 @@ function handleKeybSelected()
 --
 --
 --   If MultiKey( llg( conf_key ).code ) Or MultiKey( sc_enter ) Then
-  if love.keyboard.isDown("space") then
+  if input:down("action") then
 --
 --     Select Case As Const llg( menu ).selectedItem
 --
@@ -3529,16 +3529,11 @@ end
 function handle_pause_menu()
 --
 --   Static As Integer esc_Hold, end_Hold
-  if esc_Hold == nil then esc_Hold = 0 end
-  if end_Hold == nil then end_Hold = 0 end
 --
 --   If end_Hold <> 0 Then
-  if end_Hold ~= 0 then
 --     If MultiKey( sc_escape ) = 0  Then end_Hold = 0
-    if love.keyboard.isDown("escape") == false then end_Hold = 0 end
 --
 --   End If
-  end
 --
 --   If llg( hero_only ).attacking = 0 Then
   if ll_global.hero_only.attacking == 0 then
@@ -3552,12 +3547,11 @@ function handle_pause_menu()
           if ll_global.hero.dead == 0 then
 --
 --             If MultiKey( sc_escape ) And ( end_Hold = 0 ) Then
-            if love.keyboard.isDown("escape") and (end_Hold == 0) then
+            if input:pressed("pause") then
               --NOTE: drawing is our global flag for turning on drawing for the
               --current loop, not relevant to the original codebase.
               drawing = true
 --               esc_Hold = -1
-              esc_Hold = -1
 --
 --
 --               SetMouse , , 1
@@ -3570,6 +3564,7 @@ function handle_pause_menu()
 --               Do
               repeat
                 timer = love.timer.getTime()
+                input:update()
 --
 --
 --                 Dim As Integer mx, my
@@ -3587,12 +3582,9 @@ function handle_pause_menu()
 --                 End If
 --
 --                 If MultiKey( sc_escape ) = 0 Then
-                if love.keyboard.isDown("escape") == false then
 --                   esc_Hold = 0
-                  esc_Hold = 0
 --
 --                 End If
-                end
 --
 --                 Put( 0, 0 ), llg( menu_ScreenSave )
                 love.graphics.draw(savedCanvas)
@@ -3612,17 +3604,14 @@ function handle_pause_menu()
 --                 Sleep 1
 --
 --                 If MultiKey( sc_escape ) Then
-                if love.keyboard.isDown("escape") == true then
+                if input:pressed("pause") == true then
 --
 --                   If esc_Hold = 0 Then
-                  if esc_Hold == 0 then
 --                     end_Hold = -1
-                    end_Hold = -1
 --                     Exit Do
-                    break
+                  break
 --
 --                   End If
-                  end
 --
 --                 End If
                 end

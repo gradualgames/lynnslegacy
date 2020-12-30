@@ -1,5 +1,6 @@
 --PROF_CAPTURE = true
 --prof = require("jprof")
+baton = require("lib/baton/baton")
 require("game/engine_images")
 require("game/engine_LL")
 require("game/engine_gfx_LL")
@@ -105,6 +106,7 @@ function main()
       reset_vector_pool()
       reset_vector_pair_pool()
       updateBHist()
+      input:update()
       timerUpdate()
       --timer = timer + .005
       --log.level = "debug"
@@ -252,6 +254,24 @@ function initInput()
   }
   bhist = {}
   keybuffer = {}
+
+  input = baton.new {
+    controls = {
+      left = {'key:left', 'key:a', 'axis:leftx-', 'button:dpleft'},
+      right = {'key:right', 'key:d', 'axis:leftx+', 'button:dpright'},
+      up = {'key:up', 'key:w', 'axis:lefty-', 'button:dpup'},
+      down = {'key:down', 'key:s', 'axis:lefty+', 'button:dpdown'},
+      attack = {'key:x', 'button:a'},
+      item = {'key:z', 'button:x'},
+      action = {'key:space', 'button:b'},
+      map = {'key:m', 'button:x'},
+      pause = {'key:escape', 'button:start'}
+    },
+    pairs = {
+      move = {'left', 'right', 'up', 'down'}
+    },
+    joystick = love.joystick.getJoysticks()[1],
+  }
 end
 
 --Should be called before drawing anything to the main canvas.
