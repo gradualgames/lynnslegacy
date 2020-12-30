@@ -163,6 +163,8 @@ end
 function initScreen()
   love.window.setTitle("Lynn's Legacy")
   love.window.setMode(640, 400, {resizable = true, minwidth = 320, minheight = 200})
+  love.window.setFullscreen(true, "desktop")
+  fullscreen = true
   love.window.setVSync(1)
   love.mouse.setVisible(false)
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
