@@ -295,7 +295,7 @@ function set_regular()
 
   ll_global.hero.anim[0] = getImageHeader( "data/pictures/char/lynn24.spr"         )
   ll_global.hero.animControl[0].rate = .08
-  ll_global.hero.anim[3] = getImageHeader( "data/pictures/char/lynnattack_NEW.spr" )
+  ll_global.hero.anim[3] = getImageHeader( "data/pictures/char/lynnattack_new.spr" )
   ll_global.hero.animControl[3].rate = .07
   ll_global.hero.anim[4] = getImageHeader( "data/pictures/char/lynnattack_2.spr"   )
   ll_global.hero.animControl[4].rate = .1
