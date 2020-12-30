@@ -585,7 +585,7 @@ function blit_box(t_box)
 --                 __set_font_fg( cast( any ptr, fg ) )
           ll_global.font = fg
 --                 if multikey( sc_right ) then
-          if bpressed("right") then
+          if input:pressed("right") then
 --
 --                   .selected = 1
             with0.selected = 1
@@ -623,7 +623,7 @@ function blit_box(t_box)
 --                 __set_font_fg( cast( any ptr, fg ) )
           ll_global.font = fg
 --                 if multikey( sc_left ) then
-          if bpressed("left") then
+          if input:pressed("left") then
 --
 --                   .selected = 0
             with0.selected = 0
@@ -635,7 +635,7 @@ function blit_box(t_box)
         end
 --
 --               If multikey( sc_enter ) Then
-        if bpressed("space") then
+        if input:pressed("action") then
 --
 --                 .internal.state = TEXTBOX_SHUTDOWN
           with0.internal.state = TEXTBOX_SHUTDOWN

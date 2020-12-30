@@ -557,7 +557,7 @@ function __do_menu_save(this)
   end
 --
 --   If MultiKey( sc_escape ) Then
-  if input:down("pause") then
+  if input:down("pause") or input:down("attack") then
 --     this->menu_lock = 1
     this.menu_lock = 1
 --

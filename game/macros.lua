@@ -133,7 +133,7 @@ function rl_key()
 --             MultiKey( ll_global.r_key.code ) _
 --          )                                   _
 --   )
-  return love.keyboard.isDown("left") or love.keyboard.isDown("right")
+  return input:down("left") or input:down("right")
 --
 -- '' #EndDefine rl_key
 end
@@ -151,7 +151,7 @@ function ud_key()
 --   )
 --
 -- '' EndIf ud_key
-  return love.keyboard.isDown("up") or love.keyboard.isDown("down")
+  return input:down("up") or input:down("down")
 end
 
 LLO_VPE = LLObject_VectorPairEx

@@ -105,7 +105,6 @@ function main()
     for u = 1, loops do
       reset_vector_pool()
       reset_vector_pair_pool()
-      updateBHist()
       input:update()
       timerUpdate()
       --timer = timer + .005
@@ -239,20 +238,6 @@ function initDraw()
 end
 
 function initInput()
-  buttons = {
-    "m",
-    "[",
-    "]",
-    "x",
-    "z",
-    "up",
-    "right",
-    "down",
-    "left",
-    "space",
-    "return"
-  }
-  bhist = {}
   keybuffer = {}
 
   input = baton.new {
@@ -264,8 +249,10 @@ function initInput()
       attack = {'key:x', 'button:a'},
       item = {'key:z', 'button:x'},
       action = {'key:space', 'button:b'},
-      map = {'key:m', 'button:x'},
-      pause = {'key:escape', 'button:start'}
+      map = {'key:m', 'button:y'},
+      pause = {'key:escape', 'button:start'},
+      cycleleft = {'key:[', 'button:leftshoulder'},
+      cycleright = {'key:]', 'button:rightshoulder'}
     },
     pairs = {
       move = {'left', 'right', 'up', 'down'}
@@ -353,32 +340,5 @@ function loadPalette(fileName)
     return masterPalette, palette
   else
     return nil
-  end
-end
-
-function bdown(key)
-  return bhist[key] and bhist[key][2] == true
-end
-
-function bup(key)
-  return bhist[key] and bhist[key][2] == false
-end
-
-function bpressed(key)
-  return bhist[key] and bhist[key][1] == false and bhist[key][2] == true
-end
-
-function breleased(key)
-  return bhist[key] and bhist[key][1] == true and bhist[key][2] == false
-end
-
-function updateBHist()
-  for k, key in pairs(buttons) do
-    if bhist[key] == nil then
-      bhist[key] = {false, love.keyboard.isDown(key)}
-    else
-      table.remove(bhist[key], 1)
-      table.insert(bhist[key], love.keyboard.isDown(key))
-    end
   end
 end

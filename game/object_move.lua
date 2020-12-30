@@ -127,7 +127,7 @@ function __push(this)
   if check_bounds(main_char, rock) == 0 then
 --
 --       If MultiKey( llg( dir_hint )[llg( hero ).direction] ) <> 0 Then
-    if bpressed(ll_global.dir_hint[ll_global.hero.direction]) then
+    if input:pressed(ll_global.dir_hint[ll_global.hero.direction]) then
 --
 --         llg( hero ).is_pushing = llg( hero.direction ) + 1
       ll_global.hero.is_pushing = ll_global.hero.direction + 1

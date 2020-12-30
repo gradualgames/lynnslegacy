@@ -880,7 +880,7 @@ function hero_main()
 --     bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
 --
 --   End With
-  if bpressed("space") then
+  if input:pressed("action") then
     --log.debug("Pressed space key.")
     conf_key_in_sub()
   end
@@ -972,10 +972,10 @@ function hero_main()
             --NOTE: We are wiring up hard-coded keys directly to their callbacks, here,
             --completely ignoring the key configuration system or porting it. We will
             --add our own key configuration system much later on in development.
-            if bpressed("z") then
+            if input:pressed("item") then
               act_key_in_sub()
             end
-            if bup("z") then
+            if not input:down("item") then
               act_key_out_sub()
             end
 --
@@ -983,10 +983,10 @@ function hero_main()
 --                 bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
 --
 --               End With
-            if bpressed("x") then
+            if input:pressed("attack") then
               atk_key_in_sub()
             end
-            if bup("x") then
+            if not input:down("attack") then
               atk_key_out_sub()
             end
 --
@@ -1415,7 +1415,7 @@ function dir_keys()
 --       '' walk_hold timer is initialized
 --
 --       If MultiKey ( llg( l_key.code ) ) Then
-    if love.keyboard.isDown("left") then
+    if input:down("left") then
 --         '' hit left
 --
 --         .direction = 3
@@ -1446,7 +1446,7 @@ function dir_keys()
     end
 --
 --       If MultiKey ( llg( r_key.code ) ) Then
-    if love.keyboard.isDown("right") then
+    if input:down("right") then
 --         '' hit right
 --
 --         .direction = 1
@@ -1477,7 +1477,7 @@ function dir_keys()
     end
 --
 --       If MultiKey ( llg( d_key.code ) ) Then
-    if love.keyboard.isDown("down") then
+    if input:down("down") then
 --         '' hit down
 --
 --         .direction = 2
@@ -1508,7 +1508,7 @@ function dir_keys()
     end
 --
 --       If MultiKey ( llg( u_key.code ) )   Then
-    if love.keyboard.isDown("up") then
+    if input:down("up") then
 --         '' hit up
 --
 --         .direction = 0
@@ -1553,13 +1553,13 @@ function hero_continue_movement(mn)
   if mn.dead ~= 0 then return end
 --
 --   If MultiKey ( llg( u_key ).code ) Or MultiKey ( llg( r_key ).code ) Or MultiKey ( llg( d_key ).code ) Or MultiKey ( llg( l_key ).code ) Then
-  if love.keyboard.isDown("up") or love.keyboard.isDown("right") or love.keyboard.isDown("down") or love.keyboard.isDown("left") then
+  if input:down("up") or input:down("right") or input:down("down") or input:down("left") then
 --     '' hit a directional arrow
 --     If mn->switch_room = -1 Then
     if mn.switch_room == -1 then
 --
 --       If MultiKey ( llg( l_key ).code ) Then
-      if love.keyboard.isDown("left") then
+      if input:down("left") then
 --         '' hit left
 --
 --         mn->direction = 3
@@ -1578,7 +1578,7 @@ function hero_continue_movement(mn)
 --
 --
 --       If MultiKey ( llg( r_key ).code ) Then
-      if love.keyboard.isDown("right") then
+      if input:down("right") then
 --         '' hit right
 --
 --         mn->direction = 1
@@ -1597,7 +1597,7 @@ function hero_continue_movement(mn)
 --
 --
 --       If MultiKey ( llg( d_key ).code ) Then
-      if love.keyboard.isDown("down") then
+      if input:down("down") then
 --         '' hit down
 --
 --         mn->direction = 2
@@ -1616,7 +1616,7 @@ function hero_continue_movement(mn)
 --
 --
 --       If MultiKey ( llg( u_key ).code )   Then
-      if love.keyboard.isDown("up") then
+      if input:down("up") then
 --         '' hit up
 --
 --         mn->direction = 0
@@ -6473,7 +6473,7 @@ function handle_MiniMap()
   if ll_global.map.isDungeon ~= 0 then
 --
 --     If MultiKey( sc_m ) Then
-    if bpressed("m") then
+    if input:pressed("map") then
 --
       drawing = true
 --
@@ -6495,25 +6495,25 @@ function handle_MiniMap()
         if timer > moveDelay then
 --
 --           If MultiKey( sc_up ) Then
-          if love.keyboard.isDown("up") then
+          if input:down("up") then
 --             llg( miniMap ).camera.y -= 1
             ll_global.miniMap.camera.y = ll_global.miniMap.camera.y - 1
 --           End If
           end
 --           If MultiKey( sc_right ) Then
-          if love.keyboard.isDown("right") then
+          if input:down("right") then
 --             llg( miniMap ).camera.x += 1
             ll_global.miniMap.camera.x = ll_global.miniMap.camera.x + 1
 --           End If
           end
 --           If MultiKey( sc_down ) Then
-          if love.keyboard.isDown("down") then
+          if input:down("down") then
 --             llg( miniMap ).camera.y += 1
             ll_global.miniMap.camera.y = ll_global.miniMap.camera.y + 1
 --           End If
           end
 --           If MultiKey( sc_left ) Then
-          if love.keyboard.isDown("left") then
+          if input:down("left") then
 --             llg( miniMap ).camera.x -= 1
             ll_global.miniMap.camera.x = ll_global.miniMap.camera.x - 1
 --           End If
@@ -6526,7 +6526,7 @@ function handle_MiniMap()
         end
 --
 --         If MultiKey( sc_leftbracket ) Then
-        if love.keyboard.isDown("[") then
+        if input:down("cycleleft") then
 --           if roomd = 0 then
           if roomd == 0 then
 --             if llg( miniMapFloor ) > LLMiniMap_BottomFloor() then
@@ -6550,7 +6550,7 @@ function handle_MiniMap()
         end
 --
 --         If MultiKey( sc_rightbracket ) Then
-        if love.keyboard.isDown("]") then
+        if input:down("cycleright") then
 --           if roomu = 0 then
           if roomu == 0 then
 --             if llg( miniMapFloor ) < LLMiniMap_TopFloor() then
@@ -6588,7 +6588,7 @@ function handle_MiniMap()
         coroutine.yield()
 --
 --       Loop Until MultiKey( 1 )
-      until bpressed("m")
+      until input:pressed("map")
 --
 --       llg( miniMapFloor ) = llg( miniMap ).room[llg( this_room ).i].floor
       ll_global.miniMapFloor = ll_global.miniMap.room[ll_global.this_room.i].floor
