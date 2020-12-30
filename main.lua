@@ -34,9 +34,9 @@ function love.load()
   engine_init()
   --log.level = "fatal"
 
-  log.level = "debug"
+  --log.level = "debug"
   ll_main_entry()
-  log.level = "fatal"
+  --log.level = "fatal"
 
   --Variables not related to the original codebase
   dbgrects = {}
@@ -86,39 +86,6 @@ function love.keypressed(key, scancode, isrepeat)
     end
     scaleOptions[scaleOption]()
   end
-
-  -- --h is for refilling hp for testing
-  if love.keyboard.isDown("h") then
-    ll_global.hero.hp = ll_global.hero.maxhp
-  end
-  --
-  -- --i is for cycling items for testing
-  -- if love.keyboard.isDown("i") then
-  --   ll_global.hero_only.selected_item = ll_global.hero_only.selected_item + 1
-  --   if ll_global.hero_only.selected_item > 2 then
-  --     ll_global.hero_only.selected_item = 1
-  --   end
-  -- end
-  --
-  -- --k is for getting keys
-  -- if love.keyboard.isDown("k") then
-  --   ll_global.hero.key = 1
-  --   ll_global.hero_only.b_key = 1
-  -- end
-  --
-  -- --r is for making you rich
-  -- if love.keyboard.isDown("r") then
-  --   ll_global.hero.money = 999
-  -- end
-  --
-  -- --p is for making you have no money at all
-  -- if love.keyboard.isDown("p") then
-  --   ll_global.hero.money = 0
-  -- end
-  --
-  -- if love.keyboard.isDown("d") then
-  --   debug.debug()
-  -- end
 end
 
 function love.quit()
@@ -140,12 +107,12 @@ function main()
       updateBHist()
       timerUpdate()
       --timer = timer + .005
-      log.level = "debug"
+      --log.level = "debug"
       --prof.push("enemy_main")
       enemy_main()
       --prof.pop("enemy_main")
-      log.level = "fatal"
-      log.level = "debug"
+      --log.level = "fatal"
+      --log.level = "debug"
       --ll_global.hero.hp = 3
       -- ll_global.hero.key = 1
       -- ll_global.hero_only.b_key = 1
@@ -153,19 +120,19 @@ function main()
       --prof.push("hero_main")
       hero_main()
       --prof.pop("hero_main")
-      log.level = "fatal"
-      log.level = "debug"
+      --log.level = "fatal"
+      --log.level = "debug"
       --prof.push("play_sequence")
       play_sequence(ll_global)
       --prof.pop("play_sequence")
-      log.level = "fatal"
+      --log.level = "fatal"
 
-      log.level = "debug"
+      --log.level = "debug"
       --prof.push("blit_scene")
       drawing = u == loops
       blit_scene()
       --prof.pop("blit_scene")
-      log.level = "fatal"
+      --log.level = "fatal"
     end
 
     for key, dbgrect in pairs(dbgrects) do
@@ -183,9 +150,9 @@ function main()
 
     coroutine.yield()
   until false
-  log.level = "debug"
+  --log.level = "debug"
   LL_RollCredits()
-  log.level = "fatal"
+  --log.level = "fatal"
   love.event.quit()
 end
 
