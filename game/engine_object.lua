@@ -1,4 +1,4 @@
-require("game/engine--object_XML")
+require("game/engine_object_XML")
 require("game/engine_enums")
 
 --NOTE: One of the most significant departures from the original

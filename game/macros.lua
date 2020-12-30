@@ -1,4 +1,4 @@
-require("game/engine--etc")
+require("game/engine_etc")
 require("game/utils")
 
 --#Define now_room() llg( map )->room[llg( this_room ).i]

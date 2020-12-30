@@ -1,4 +1,4 @@
-require("game/object--gfx_frame")
+require("game/object_gfx_frame")
 
 function __active_animate(this)
   --log.debug("__active_animate called.")

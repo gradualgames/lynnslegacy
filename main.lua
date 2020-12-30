@@ -1,8 +1,8 @@
 --PROF_CAPTURE = true
 --prof = require("jprof")
-require("game/engine--images")
-require("game/engine--LL")
-require("game/engine--gfx_LL")
+require("game/engine_images")
+require("game/engine_LL")
+require("game/engine_gfx_LL")
 require("game/ll_build")
 require("game/matrices")
 require("game/global_structures")
