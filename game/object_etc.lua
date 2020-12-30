@@ -271,7 +271,7 @@ function __do_menu_continue(this)
   if (this.menu_lock ~= 0) then
 --
 --     If Not MultiKey ( sc_escape ) Then
-    if not input:down("pause") then
+    if (not input:down("pause")) and (not input:down("attack")) then
 --
 --       this->menu_lock = 0
       this.menu_lock = 0
@@ -392,7 +392,7 @@ function __do_menu_continue(this)
   end
 --
 --   If MultiKey( sc_escape ) Then
-  if input:down("pause") then
+  if input:down("pause") or input:down("attack") then
 --     this->menu_lock = 1
     this.menu_lock = 1
 --
