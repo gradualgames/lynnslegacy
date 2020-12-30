@@ -32,6 +32,18 @@ function replace_char(pos, str, r)
     return str:sub(1, pos-1)..r..str:sub(pos+1)
 end
 
+function space(num)
+  local result = ""
+  for i = 1, num do
+    result = result.." "
+  end
+  return result
+end
+
+function sleep(ms)
+  love.timer.sleep(ms/1000)
+end
+
 function printentdata()
   if ll_global.seq ~= nil and ll_global.seqi ~= nil and ll_global.seq[ll_global.seqi] ~= nil then
     log.debug("Full readout of all ents in the seq.")

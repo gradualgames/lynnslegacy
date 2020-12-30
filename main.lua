@@ -183,7 +183,9 @@ function main()
 
     coroutine.yield()
   until false
+  log.level = "debug"
   LL_RollCredits()
+  log.level = "fatal"
   love.event.quit()
 end
 
@@ -198,6 +200,7 @@ function initScreen()
   love.graphics.setDefaultFilter("nearest", "nearest", 1)
   canvas = love.graphics.newCanvas(320, 200)
   savedCanvas = love.graphics.newCanvas(320, 200)
+  clearmode = true
   --used by screenQuake
   tripPosition = 0
   tripOffset = create_vector()
@@ -287,7 +290,7 @@ end
 --Should be called before drawing anything to the main canvas.
 function startDrawing()
   love.graphics.setCanvas(canvas)
-  love.graphics.clear()
+  if clearmode then love.graphics.clear() end
 end
 
 --Should be called after drawing everything to the main canvas.

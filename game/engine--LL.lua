@@ -8298,50 +8298,358 @@ function is_facing(o, o2)
 -- End Function
 end
 
+-- private function text_Center( myString as string )
+function text_Center(myString)
+--
+-- 	const as integer screenX = 320
+  local screenX = 320
+--
+-- 	dim as integer stringLen = len( myString )
+  local stringLen = #myString
+--
+-- 	return ( screenX shr 1 ) - ( stringLen shl 2 )
+  return bit.rshift(screenX, 1) - bit.lshift(stringLen, 2)
+--
+--
+-- end function
+end
+--
+-- private function alignText( mystring as string ) as string
+function alignText(mystring)
+--
+--   dim as integer lenString = len( mystring )
+  local lenString = #mystring
+--
+--
+--   return space( ( 40 - lenString ) shr 1 ) & myString
+  return space(bit.rshift((40 - lenString), 1))..mystring
+--
+--
+-- end function
+end
+--
+-- private sub CreditScroll()
+function CreditScroll()
+--
+--   dim as string creditsString
+  local creditsString = ""
+--
+--   creditsString = ""
+  creditsString = ""
+--                   ''                                        ''
+--
+--   creditsString += alignText( "Directed by Josiah Tobin and cha0s" )        + chr( 10 )
+  creditsString = creditsString..alignText("Directed by Josiah Tobin and cha0s").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "All art by Josiah Tobin (some parallax" )    + chr( 10 )
+  creditsString = creditsString..alignText("ALL art by Josiah Tobin (some parallax").."\n"
+--   creditsString += alignText( "backgrounds edited from stock art)" )        + chr( 10 )
+  creditsString = creditsString..alignText("backgrounds edited from stock art)").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "All programming by cha0s" )                  + chr( 10 )
+  creditsString = creditsString..alignText("All programming by cha0s").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Music and sound effects composed by" )       + chr( 10 )
+  creditsString = creditsString..alignText("Music and sound effects composed by").."\n"
+--   creditsString += alignText( "Josiah Tobin (some stock effects used" )     + chr( 10 )
+  creditsString = creditsString..alignText("Josiah Tobin (some stock effects used").."\n"
+--   creditsString += alignText( "in the creation of certain sounds)" )        + chr( 10 )
+  creditsString = creditsString..alignText("in the creation of certain sounds)").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Additional sounds by cha0s" )                + chr( 10 )
+  creditsString = creditsString..alignText("Additional sounds by cha0s").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Dialog and manuscript by Josiah Tobin" )     + chr( 10 )
+  creditsString = creditsString..alignText("Dialog and manuscript by Josiah Tobin").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Additional dialog by cha0s" )                + chr( 10 )
+  creditsString = creditsString..alignText("Additional dialog by cha0s").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Maps by Josiah Tobin" )                      + chr( 10 )
+  creditsString = creditsString..alignText("Maps by Josiah Tobin").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Cutscenes scripted by cha0s" )               + chr( 10 )
+  creditsString = creditsString..alignText("Cutscenes scripted by cha0s").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "All dungeons designed by Josiah Tobin" )     + chr( 10 )
+  creditsString = creditsString..alignText("All dungeons designed by Josiah Tobin").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Lynn 'Kona' Dempsey as:" )                   + chr( 10 )
+  creditsString = creditsString..alignText("Lynn 'Kona' Dempsey as:").."\n"
+--   creditsString += alignText( "the voice of Lynn" )                         + chr( 10 )
+  creditsString = creditsString..alignText("the voice of Lynn").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Josiah Tobin special thanks:" )              + chr( 10 )
+  creditsString = creditsString..alignText("Josiah Tobin special thanks:").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Amelia 'Tassimmet' Bennett," )               + chr( 10 )
+  creditsString = creditsString..alignText("Amelia 'Tassimmet' Bennett,").."\n"
+--   creditsString += alignText( "Chris Greer, James Kinney," )                + chr( 10 )
+  creditsString = creditsString..alignText("Chris Greer, James Kinney,").."\n"
+--   creditsString += alignText( "Lynn Dempsey, Brian Tobin," )                + chr( 10 )
+  creditsString = creditsString..alignText("Lynn Dempsey, Brian Tobin,").."\n"
+--   creditsString += alignText( "Stephen Gazzard, 'The Reset Button'," )      + chr( 10 )
+  creditsString = creditsString..alignText("Stephen Gazzard, 'The Reset Button',").."\n"
+--   creditsString += alignText( "Anyone else who helped me out " )            + chr( 10 )
+  creditsString = creditsString..alignText("Anyone else who helped me out ").."\n"
+--   creditsString += alignText( "or inspired me." )                           + chr( 10 )
+  creditsString = creditsString..alignText("or inspired me.").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "cha0s special thanks:" )                     + chr( 10 )
+  creditsString = creditsString..alignText("cha0s special thanks:").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "v1ctor, and everyone who contributes" )      + chr( 10 )
+  creditsString = creditsString..alignText("v1ctor, and everyone who contributes").."\n"
+--   creditsString += alignText( "to the FreeBASIC Compiler..." )              + chr( 10 )
+  creditsString = creditsString..alignText("to the FreeBASIC Compiler...").."\n"
+--   creditsString += alignText( "(http://www.freebasic.net/forum)" )          + chr( 10 )
+  creditsString = creditsString..alignText("(http://www.freebasic.net/forum)").."\n"
+--   creditsString += alignText( "Without it, this game would" )               + chr( 10 )
+  creditsString = creditsString..alignText("Without it, this game would").."\n"
+--   creditsString += alignText( "not have been possible." )                   + chr( 10 )
+  creditsString = creditsString..alignText("not have been possible.").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Shouts out to:" )                            + chr( 10 )
+  creditsString = creditsString..alignText("Shouts out to:").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "Autumn, Boy, Dana, 'Diny, Doc. D," )          + chr( 10 )
+  creditsString = creditsString..alignText("Autumn, Boy, Dana, 'Diny, Doc. D,").."\n"
+--   creditsString += alignText( "Fat Al, Gal, Guido, Harvey, HinD," )         + chr( 10 )
+  creditsString = creditsString..alignText("Fat Al, Gal, Guido, Harvey, HinD,").."\n"
+--   creditsString += alignText( "Jay, Jaz, Jewish, Katie, Lizzie," )          + chr( 10 )
+  creditsString = creditsString..alignText("Jay, Jaz, Jewish, Katie, Lizzie,").."\n"
+--   creditsString += alignText( "Katty, Kiana, Kith, marzec, Matt," )        + chr( 10 )
+  creditsString = creditsString..alignText("Katty, Kiana, Kith, marzec, Matt,").."\n"
+--   creditsString += alignText( "'niff, rel, Ron, Sara, Shelby," )            + chr( 10 )
+  creditsString = creditsString..alignText("'niff, rel, Ron, Sara, Shelby,").."\n"
+--   creditsString += alignText( "Stephanie (both!), The O.B.'s" )             + chr( 10 )
+  creditsString = creditsString..alignText("Stephanie (both!), The O.B.'s").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+--   creditsString += alignText( "Anyone else I missed... Love ya." )          + chr( 10 )
+  creditsString = creditsString..alignText("Anyone else I missed... Love ya.").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "The Testers:" )                              + chr( 10 )
+  creditsString = creditsString..alignText("The Testers:").."\n"
+--   creditsString += alignText( "Deleter, Kiwi Dan, Lachie Dazdarian," )      + chr( 10 )
+  creditsString = creditsString..alignText("Deleter, Kiwi Dan, Lachie Dazdarian,").."\n"
+--   creditsString += alignText( "Pritchard, Ryan Szrama, syn9," )             + chr( 10 )
+  creditsString = creditsString..alignText("Pritchard, Ryan Szrama, syn9,").."\n"
+--   creditsString += alignText( "voodooattack, Virus Scanner" )               + chr( 10 )
+  creditsString = creditsString..alignText("voodooattack, Virus Scanner").."\n"
+  creditsString = creditsString.."\n"
+  creditsString = creditsString.."\n"
+  creditsString = creditsString.."\n"
+  creditsString = creditsString.."\n"
+  creditsString = creditsString.."\n"
+  creditsString = creditsString..alignText("Ported to Love2D by Derek Andrews").."\n"
+  creditsString = creditsString..alignText("so that this gem may continue to").."\n"
+  creditsString = creditsString..alignText("be enjoyed for years to come.").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += alignText( "And, thank you for playing!" )               + chr( 10 )
+  creditsString = creditsString..alignText("And, thank you for playing!").."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--   creditsString += ""                                                       + chr( 10 )
+  creditsString = creditsString.."\n"
+--
+--
+--
+--
+--   dim as integer creditY
+  local creditY = 0
+--   creditY = 200
+  creditY = 200
+--
+--   do
+  repeat
+    love.graphics.clear()
+--     creditY -= 1
+    creditY = creditY - 1
+--   	graphicalString( creditsString, 0, creditY, 15 )
+    graphicalString(creditsString, 0, creditY, 15)
+--
+--     fb_ScreenRefresh()
+    coroutine.yield()
+--     sleep 80
+    sleep(80)
+-- '    if multikey( sc_space ) = 0 then
+-- '      sleep 60
+-- '
+-- '    end if
+--     fb_GetKey()
+--     if fb_WindowKill() then end
+--
+-- 	loop until creditY < ( 200 - ( 90 * 16 ) )
+  until creditY < (200 - (120 * 16))
+--
+-- 	cls
+--
+-- end sub
+end
+
 -- sub LL_RollCredits()
 function LL_RollCredits()
 --
 -- 	if stillPlaying() then exit sub
 --
 --   dim as double timeDelay
+  local timeDelay = 0.0
 --   dim as string currentText
+  local currentText = ""
 --
 --   cls
+  clearmode = false
+  love.graphics.clear()
 --   fb_ScreenRefresh()
 --
 --   timeDelay = timer + 3
+  timeDelay = timer + 3
 --   currentText = "Written by Josiah Tobin,"
+  currentText = "Written by Josiah Tobin,"
 -- 	graphicalString( currentText, text_Center( currentText ), 88, 15 )
+  graphicalString(currentText, text_Center(currentText), 88, 15)
 --
 --   currentText = "brought to life by cha0s"
+  currentText = "brought to life by cha0s"
 -- 	graphicalString( currentText, text_Center( currentText ), 104, 15 )
+  graphicalString(currentText, text_Center(currentText), 104, 15)
 --
 --   fb_ScreenRefresh()
+  coroutine.yield()
 --   llg( hero_only ).songFade = CAllocate( Len( songFading_type ) )
+  ll_global.hero_only.songFade = create_songFading_type()
 --   llg( hero_only ).songFade->pulseLength = ( 5 / 64 )
+  ll_global.hero_only.songFade.pulseLength = (5 / 64)
+
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
+
 --     if llg( hero_only ).songFade then
+    if ll_global.hero_only.songFade ~= nil then
+      log.debug("calling fade")
 --       LLMusic_Fade()
+      LLMusic_Fade()
 --
 --     end if
+    end
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until llg( hero_only ).songFade = 0
+  until ll_global.hero_only.songFade == nil
 --
+  repeat
 --   do
 --     sleep 1
+    sleep(1)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until __fade_to_black( @llg( hero ) )
+  until __fade_to_black(ll_global.hero) ~= 0
 --
 --   cls
+  love.graphics.clear()
 --   fb_ScreenRefresh()
+  coroutine.yield()
 --
 --   __color_on( @llg( hero ) )
+  __color_on(ll_global.hero)
 --   LLMusic_Start( "data\music\holy.it" )
+  LLMusic_Start("data/music/holy.it")
 --
 --   CreditScroll()
+  CreditScroll()
 --
 --   __color_off( @llg( hero ) )
 --   dim as LLSystem_ImageHeader ptr imageWhore
