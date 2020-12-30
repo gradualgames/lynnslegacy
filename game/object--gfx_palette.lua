@@ -953,13 +953,9 @@ function __black_text_on(this)
 --   r = ( ( ( ( fb_Global.display.pal[247]        ) And &hFF ) Shl 2 ) )
 --
 --   Palette 247, Rgb( r, g, b )
-  --NOTE: We have to hack this to work our own way like for textbox confirmation.
-  --We have to use the yellow font because some things on the screen are white
-  --and show up if recolored.
-  ll_global.font = ll_global.fontYellow
-  palette[92][0] = .5
-  palette[92][1] = .5
-  palette[92][2] = .5
+  palette[255][0] = .5
+  palette[255][1] = .5
+  palette[255][2] = .5
 --
 --   Return 1
   return 1

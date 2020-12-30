@@ -193,7 +193,7 @@ function engine_init()
 --   llg( font ) = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\llfont.spr" ) )
 --   llg( fontFG ) = 15
 --   llg( fontBG ) = 241
-  ll_global.fontWhite = LLSystem_ImageLoad("data/pictures/llfont.spr")
+  ll_global.fontWhite = LLSystem_ImageLoad("data/pictures/llfont.spr", 15, 255)
   ll_global.fontYellow = LLSystem_ImageLoad("data/pictures/llfont.spr", 15, 92)
   ll_global.font = ll_global.fontWhite
 --
