@@ -2725,7 +2725,7 @@ function minimap_Blit()
           doorY = with1.location.y + roomY
 --
 --               If .codes = 0 Then
-          if with1.cords == 0 then
+          if with1.codes == 0 then
 --
 --                 Select Case .id
 --
@@ -2733,14 +2733,14 @@ function minimap_Blit()
             if with1.id == DOOR_OPEN then
 --                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
               love.graphics.setColor(36 / 255, 0, 0, 1.0)
-              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 1, 1)
+              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
               love.graphics.setColor(1, 1, 1, 1)
 --
 --                   Case DOOR_STAIR
             elseif with1.id == DOOR_STAIR then
 --                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 170, bf
               love.graphics.setColor(170 / 255, 0, 0, 1.0)
-              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 1, 1)
+              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
               love.graphics.setColor(1, 1, 1, 1)
 --
 --                 End Select
