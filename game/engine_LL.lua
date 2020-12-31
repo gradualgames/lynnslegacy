@@ -627,12 +627,6 @@ function check_teleports(_char, _tele, num_tele)
 --     target.v.y = _tele[tele_check].h
     target.v.y = _tele[tele_check].h
 
-    -- table.insert(dbgrects, {
-    --   c = .05,
-    --   x = target.u.x - ll_global.this_room.cx,
-    --   y = target.u.y - ll_global.this_room.cy,
-    --   w = target.v.x,
-    --   h = target.v.y})
 --
 --     If check_bounds( origin, target ) = 0 Then
     if check_bounds(origin, target) == 0 then
@@ -3798,12 +3792,6 @@ function act_enemies(_enemies, _enemy)
     --in that callback method does not operate, I don't think, in that
     --case.
     with0.prev = _enemy[do_stuff - 1]
-    -- table.insert(dbgrects, {
-    --   c = .01,
-    --   x = with0.coords.x - ll_global.this_room.cx,
-    --   y = with0.coords.y - ll_global.this_room.cy,
-    --   w = 16,
-    --   h = 16})
   --
   --     If LLObject_IsWithin( Varptr( _enemy[do_stuff] ) ) Then
     if LLObject_IsWithin(with0) ~= 0 then
@@ -5647,19 +5635,6 @@ function check_against(o, othr, check, d)
       -- log.debug("othr[check].id: "..othr[check].id)
       -- log.debug("othr[check].coords.x: "..othr[check].coords.x)
       if check_bounds(m, n) == 0 then
-
-        -- table.insert(dbgrects, {
-        --   c = .01,
-        --   x = m.u.x - ll_global.this_room.cx,
-        --   y = m.u.y - ll_global.this_room.cy,
-        --   w = m.v.x,
-        --   h = m.v.y})
-        -- table.insert(dbgrects, {
-        --   c = .01,
-        --   x = n.u.x - ll_global.this_room.cx,
-        --   y = n.u.y - ll_global.this_room.cy,
-        --   w = n.v.x,
-        --   h = n.v.y})
 --
 --         If o->unique_id = u_charger Then
         if o.unique_id == u_charger then
@@ -5934,13 +5909,6 @@ function check_psf(o, d)
 --       chkr = quad_seek( slider, d )
       chkr = quad_seek(slider, d)
 
-      -- table.insert(dbgrects, {
-      --   c = .5,
-      --   x = chkr.x * 16 - ll_global.this_room.cx,
-      --   y = chkr.y * 16 - ll_global.this_room.cy,
-      --   w = 16,
-      --   h = 16
-      -- })
 --       mi_quad Or = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
       mi_quad = bit.bor(mi_quad, testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad))
 --
@@ -5965,14 +5933,6 @@ function check_psf(o, d)
 --
 --     chkr = quad_seek( slider, d )
     chkr = quad_seek(slider, d)
-
-    -- table.insert(dbgrects, {
-    --   c = .5,
-    --   x = chkr.x * 16 - ll_global.this_room.cx,
-    --   y = chkr.y * 16 - ll_global.this_room.cy,
-    --   w = 16,
-    --   h = 16
-    -- })
 --     op_quad = Bit( now_room().layout[layercheck][chkr.y * now_room().x + chkr.x], 15 - chkr.quad )
     op_quad = testbit(now_room().layout[layercheck][chkr.y * now_room().x + chkr.x + 1], 15 - chkr.quad)
 --

@@ -38,9 +38,6 @@ function love.load()
   --log.level = "debug"
   ll_main_entry()
   --log.level = "fatal"
-
-  --Variables not related to the original codebase
-  dbgrects = {}
 end
 
 function love.draw()
@@ -98,7 +95,6 @@ function main()
   repeat
     --prof.enabled(true)
     --prof.push("frame")
-    dbgrects = {}
     for u = 1, loops do
       reset_vector_pool()
       reset_vector_pair_pool()
@@ -133,15 +129,6 @@ function main()
       --log.level = "fatal"
     end
 
-    for key, dbgrect in pairs(dbgrects) do
-      local x, y, w, h = dbgrect.x, dbgrect.y, dbgrect.w, dbgrect.h
-      love.graphics.setColor(dbgrect.c, 0.0, 0.0, 1.0)
-      love.graphics.rectangle("fill", x, y, w, h)
-    end
-
-    -- local x, y, w, h = ll_global.hero.coords.x - ll_global.this_room.cx, ll_global.hero.coords.y - ll_global.this_room.cy, 16, 16
-    -- love.graphics.setColor(.03, 0.0, 0.0, 1.0)
-    -- love.graphics.rectangle("fill", x, y, w, h)
     --prof.pop("frame")
     --prof.enabled(false)
     if not stillPlaying() then break end
