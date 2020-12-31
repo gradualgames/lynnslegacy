@@ -228,12 +228,9 @@ function __do_menu(this)
   if timer >= with0.walk_hold then with0.walk_hold = 0 end
 --
 --     If MultiKey( sc_escape ) Then
-    if input:down("pause") then
 --       End
-      love.event.quit()
 --
 --     End If
-    end
 --
 --     If MultiKey( sc_enter ) Then
   if input:down("action") then

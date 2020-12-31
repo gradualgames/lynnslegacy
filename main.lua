@@ -64,9 +64,6 @@ function love.keypressed(key, scancode, isrepeat)
       table.insert(keybuffer, key)
     end
   end
-  if key == "q" then
-     love.event.quit()
-  end
 
   if love.keyboard.isDown("f12") then
     scaleOption = scaleOption + 1
