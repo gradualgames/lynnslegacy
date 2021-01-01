@@ -8362,7 +8362,7 @@ function CreditScroll()
 --     if fb_WindowKill() then end
 --
 -- 	loop until creditY < ( 200 - ( 90 * 16 ) )
-  until creditY < (200 - (120 * 16))
+  until creditY < (200 - (104 * 16))
 --
 -- 	cls
 --
@@ -8447,42 +8447,70 @@ function LL_RollCredits()
   CreditScroll()
 --
 --   __color_off( @llg( hero ) )
+  __color_off(ll_global.hero)
 --   dim as LLSystem_ImageHeader ptr imageWhore
 --
 --   imageWhore = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\title.spr" ) )
+  local imageWhore = getImageHeader("data/pictures/char/title.spr")
 --   '' 256, 64
 --   put ( 160 - 128, 100 - 32 ), imageWhore->image
+  draw(imageWhore.image, 160 - 128, 100 - 32)
 --   fb_ScreenRefresh()
+  coroutine.yield()
 --
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until __fade_up_to_color( @llg( hero ) )
+  until __fade_up_to_color(ll_global.hero) ~= 0
 --
 --
 --   llg( hero_only ).songFade = CAllocate( Len( songFading_type ) )
+  ll_global.hero_only.songFade = create_songFading_type()
 --   llg( hero_only ).songFade->pulseLength = ( 5 / 64 )
+  ll_global.hero_only.songFade.pulseLength = (5 / 64)
 --   timeDelay = timer + 4
+  timeDelay = timer + 4
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
 --     if llg( hero_only ).songFade then
+    if ll_global.hero_only.songFade ~= nil then
 --       LLMusic_Fade()
+      LLMusic_Fade()
 --
 --     end if
+    end
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until llg( hero_only ).songFade = 0
+  until ll_global.hero_only.songFade == nil
 --
 -- 	llg( hero ).fade_time = .06
+  ll_global.hero.fade_time = .06
 --   do
+  repeat
 --     sleep 1
+    sleep(1)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until __fade_to_black( @llg( hero ) )
+  until __fade_to_black(ll_global.hero) ~= 0
 --   __color_off( @llg( hero ) )
+  __color_off(ll_global.hero)
 --
 --   imageWhore = LLSystem_ImageDeref( LLSystem_ImageDerefName( "data\pictures\char\moth_wings.spr" ) )
+  imageWhore = getImageHeader("data/pictures/char/moth_wings.spr")
 --   '' 96, 64
 --
 --   __color_off( @llg( hero ) )
@@ -8491,76 +8519,136 @@ function LL_RollCredits()
 --   put ( 160 - 48, 100 - 32 ), imageWhore->image
 --
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
+    love.graphics.clear()
+    draw(imageWhore.image, imageWhore.quads[0], 160 - 48, 100 - 32)
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until __fade_up_to_color( @llg( hero ) )
+  until __fade_up_to_color(ll_global.hero) ~= 0
 --
 --   timeDelay = timer + 2
+  timeDelay = timer + 2
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
+    love.graphics.clear()
+    draw(imageWhore.image, imageWhore.quads[0], 160 - 48, 100 - 32)
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until timer > timeDelay
+  until timer > timeDelay
 --
 --   dim as integer curFrame
+  local curFrame = 0
 --   do
+  repeat
 --     sleep 100, 1
+    sleep(100)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
 --
 --     fb_ScreenRefresh()
 --     put ( 160 - 48, 100 - 32 ), @imageWhore->image[curFrame * imageWhore->arraysize]
+    love.graphics.clear()
+    draw(imageWhore.image, imageWhore.quads[curFrame], 160 - 48, 100 - 32)
 --
 --     if curFrame = 3 then
+    if curFrame == 3 then
 --       play_sample( llg( snd )[sound_rayflap2], 80 )
+      ll_global.snd[sound_rayflap2]:setVolume(.8)
+      ll_global.snd[sound_rayflap2]:play()
 --
 --     end if
+    end
 --
 --     curFrame += 1
+    curFrame = curFrame + 1
+    coroutine.yield()
 -- 	loop until curFrame = imageWhore->frames
+  until curFrame == imageWhore.frames
 -- 	curFrame -= 1
+  curFrame = curFrame - 1
 --
 --   put ( 160 - 48, 100 - 32 ), @imageWhore->image[curFrame * imageWhore->arraysize]
 --
 --   timeDelay = timer + 2
+  timeDelay = timer + 2
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
+    love.graphics.clear()
+    draw(imageWhore.image, imageWhore.quads[curFrame], 160 - 48, 100 - 32)
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until timer > timeDelay
+  until timer > timeDelay
 --
 --
 --   dim as string theEnd = "The End."
+  local theEnd = "The End."
 --   dim as integer theEndLoc, iter
+  local theEndLoc, iter = 0, 0
 --   iter = 1
+  iter = 1
 --   do
+  repeat
 --     sleep 300, 1
+    sleep(300)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
 --
 --     put ( 160 - 48, 100 - 32 ), @imageWhore->image[curFrame * imageWhore->arraysize]
+    love.graphics.clear()
+    draw(imageWhore.image, imageWhore.quads[curFrame], 160 - 48, 100 - 32)
 --
 --     graphicalString( mid( theEnd, 1, iter ), text_Center( theEnd ) + 4, 168, 15 )
+    graphicalString(theEnd:sub(1, iter), text_Center(theEnd) + 4, 168, 15)
 --     iter += 1
+    iter = iter + 1
 --
 --     fb_ScreenRefresh()
+    coroutine.yield()
 -- 	loop until iter = 9
+  until iter == 9
 --
 --   timeDelay = timer + 3
+  timeDelay = timer + 3
 --   do
+  repeat
 --     sleep 10
+    sleep(10)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until timer > timeDelay
+  until timer > timeDelay
 --
 --   sleep
 --
 --   do
+  repeat
 --     sleep 1
+    sleep(1)
+    timer = love.timer.getTime()
 --     fb_GetKey()
 --     if fb_WindowKill() then end
+    coroutine.yield()
 -- 	loop until __fade_to_black( @llg( hero ) )
+  until __fade_to_black(ll_global.hero) ~= 0
 --
 --
 -- end sub
