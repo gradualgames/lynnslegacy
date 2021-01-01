@@ -283,9 +283,9 @@ function blit_y_sorted()
   --are the same.
   table.sort(ll_global.sorted_objects,
     function(a, b)
-      local ay = math.floor(a.coords.y)
-      local by = math.floor(b.coords.y)
       if a.placed == b.placed then
+        local ay = math.floor(a.coords.y)
+        local by = math.floor(b.coords.y)
         if ay == by then
           return a.num < b.num
         else
