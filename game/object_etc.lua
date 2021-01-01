@@ -546,6 +546,9 @@ function __do_menu_save(this)
 --
 --     LLSystem_WriteSaveFile( "ll_save" + flr + ".sav", this->chap )
     LLSystem_WriteSaveFile("ll_save"..flr..".sav", this.chap)
+    --NOTE: Original game gave no feedback for saving, let's just
+    --play a small sfx here.
+    ll_global.snd[sound_switch]:play()
 --
 --     this->read_lock = 0
     this.read_lock = 0
