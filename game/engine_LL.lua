@@ -24,9 +24,7 @@ function ll_main_entry()
 --     set_up_room_enemies( .enemies, .enemy )
 --
 --   End With
-  --log.level = "debug"
   set_up_room_enemies(now_room().enemies, now_room().enemy)
-  --log.level = "fatal"
 --   llg( seq ) = llg( hero ).seq
   ll_global.seq = ll_global.hero.seq
   ll_global.seqi = ll_global.hero.seqi
@@ -128,7 +126,6 @@ function engine_init()
 --
 --
 --   echo_print( "setting up event table" )
-  --log.debug("setting up event table")
 --   llg( now ) = CAllocate( Len( uByte ) * LL_EVENTS_MAX )
   --NOTE: Probably don't need to allocate this. It is just a
   --big table of values used throughout the game with hard-coded
@@ -147,7 +144,6 @@ function engine_init()
 --
 --
 --   echo_print( "determining entry point" )
-  --log.debug("determining entry point")
 --   load_entrypoint()
   load_entrypoint()
 --
@@ -156,7 +152,6 @@ function engine_init()
 --
 --
 --   echo_print( "constructing main object" )
-  --log.debug("constructing main object")
 --   ctor_hero( Varptr( llg( hero ) ) )
   ctor_hero(ll_global.hero)
 --
@@ -168,7 +163,6 @@ function engine_init()
 --
 --
 --   echo_print( "loading menu and HUD gfx" )
-  --log.debug("loading menu and HUD gfx")
 --   load_status_images( Varptr( llg( savImages ) ) )
   load_status_images(ll_global.savImages)
 --   load_hud( Varptr( llg( hud ) ) )
@@ -875,7 +869,6 @@ function hero_main()
 --
 --   End With
   if input:pressed("action") then
-    --log.debug("Pressed space key.")
     conf_key_in_sub()
   end
 --
@@ -903,7 +896,6 @@ function hero_main()
   check_ice(ll_global.hero)
 --
 --     If .on_ice = 0 Then
-  --log.debug("walk speed: "..ll_global.hero.walk_speed)
   if with0.on_ice == 0 then
 -- --       .coords.x = Int( .coords.x )
      ll_global.hero.coords.x = math.floor(ll_global.hero.coords.x)
@@ -936,27 +928,22 @@ function hero_main()
 --
 --     If llg( hero_only ).action_lock = 0 Then
   if ll_global.hero_only.action_lock == 0 then
-    --log.debug("action lock was 0")
 --       '' lynn can do actions
 --
 --       If llg( hero_only ).attacking = 0 Then
     if ll_global.hero_only.attacking == 0 then
-      --log.debug("attacking was 0")
 --         '' lynn is not attacking
 --
 --         If (.fly_count = 0) Then
       if with0.fly_count == 0 then
-        --log.debug("fly_count was 0")
 --           '' lynn is not flying back
 --
 --           If .dead = 0 Then
         if with0.dead == 0 then
-          --log.debug("dead was 0")
 --             '' lynn is not dead
 --
 --             If .switch_room = -1 Then
           if with0.switch_room == -1 then
-            --log.debug("switch_room is -1")
 --               '' lynn isnt doing a room switch fade thing
 --
 --               With llg( act_key )
@@ -1004,10 +991,7 @@ function hero_main()
     if with0.on_ice == 0 then
 --         '' traction
 --         If .unique_id <> u_steelstrider Then
-      --log.debug("unique_id"..ll_global.hero.unique_id)
-      --log.debug("u_steelstrider: "..u_steelstrider)
       if with0.unique_id ~= u_steelstrider then
-        --log.debug("go grip")
 --           __go_grip( Varptr( llg( hero ) ) )
         __go_grip(ll_global.hero)
 --
@@ -1057,8 +1041,6 @@ function hero_main()
 --
 --       If ( .on_ice <> 0 ) Then
     if with0.on_ice ~= 0 then
-    --log.debug("ll_global.hero.on_ice: "..ll_global.hero.on_ice)
-    --log.debug("Hero is on ice, calling __calc_slide.")
 --
 --         __calc_slide( VarPtr( llg( hero ) ) )
       __calc_slide(ll_global.hero)
@@ -1066,7 +1048,6 @@ function hero_main()
 --
 --       Else
     else
-    --log.debug("Hero is on not on ice, calling __stop_grip.")
 --         __stop_grip( VarPtr( llg( hero ) ) )
       __stop_grip(ll_global.hero)
 --
@@ -1236,7 +1217,6 @@ function hero_main()
 --
 --     If .dead Then
   if with0.dead ~= 0 then
-    --log.debug("lynn is dead")
 --       '' lynn is dead
 --
 --       llg( hero_only ).attacking = 0
@@ -1387,7 +1367,6 @@ end
 
 -- Private Sub dir_keys()
 function dir_keys()
-  --log.debug("dir_keys entered.")
 --
 --   Static As Double SLIDE_CONSTANT = .02
   local SLIDE_CONSTANT = .02
@@ -1743,19 +1722,15 @@ function LLObject_TouchSequence(o)
 --
 --     If stuff Then
   if stuff ~= 0 then
-    --log.debug("stuff nonzero")
 --
 --       If touching = 0 Then
     if touching == 0 then
-      --log.debug("touching is 0")
 --
 --         If .spawn_cond <> 0 Then
       if with0.spawn_cond ~= 0 then
-        --log.debug("with0.spawn_cond nonzero")
 --
 --           If .spawn_info->active_n <> 0 Then
         if with0.spawn_info.active_n ~= 0 then
-          --log.debug("with0.spawn_info.active_n nonzero")
 --
 --             res = -1
           res = -1
@@ -2363,7 +2338,6 @@ function change_room(o, _call, t)
 --
 --   If _call <> 0 Then
   if _call ~= 0 then
-    --log.debug("_call was not zero. Exiting change_room.")
 --     switch_type = t
     switch_type = t
 --     switch_state = 0
@@ -2383,7 +2357,6 @@ function change_room(o, _call, t)
 --
 --     Case 0
   if switch_state == 0 then
-    --log.debug("switch_state is 0")
 --       '' lynn invincible
 --
 --       Dim As Integer all_momentum
@@ -2403,9 +2376,6 @@ function change_room(o, _call, t)
     if switch_type == 0 then
 --
 --           With llg( map )->room[now_room().teleport[o->switch_room].to_room]
-      --log.debug("o.switch_room: "..o.switch_room)
-      --log.debug("now_room().teleport[o.switch_room].to_room: "..now_room().teleport[o.switch_room].to_room)
-      --log.debug("#ll_global.map.room: "..#ll_global.map.room)
       local with0 = ll_global.map.room[now_room().teleport[o.switch_room].to_room]
 --
 --             If .song_changes Then
@@ -2637,14 +2607,12 @@ function change_room(o, _call, t)
 --
 --     Case 2
   elseif switch_state == 2 then
-    --log.debug("switch_state is 2")
 --       '' switch thing! (either or)
 --
 --       Select Case switch_type
 --
 --         Case 0
     if switch_type == 0 then
-      --log.debug("switch_type is 0, positioning hero.")
 --
 --           llg( seq ) = 0
       ll_global.seq = nil
@@ -2705,7 +2673,6 @@ function change_room(o, _call, t)
 --
 --         Case 1
     elseif switch_type == 1 then
-      --log.debug("switch_type is 1. Entering map and setting up room enemies.")
 --           enter_map( o, llg( map ), "data\map\" & o->to_map, o->to_entry ) '' "
       enter_map(o, ll_global, "data/map/"..o.to_map, o.to_entry)
 --           set_up_room_enemies now_room().enemies, now_room().enemy
@@ -2765,7 +2732,6 @@ function change_room(o, _call, t)
 --
 --     Case 3
   elseif switch_state == 3 then
-    --log.debug("switch_state is 3")
 --
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Start fade up" )
@@ -2806,7 +2772,6 @@ function change_room(o, _call, t)
 --
 --     Case 4
   elseif switch_state == 4 then
-    --log.debug("switch_state is 4")
 --       '' make lynn vulnerable
 --       #IfDef LL_LOGROOMCHANGE
 --         LLSystem_Log( "Make vulnerable" )
@@ -3736,15 +3701,12 @@ end
 
 -- Private Sub hero_attack( hr As _char_type Ptr )
 function hero_attack(hr)
-  --log.debug("hero_attack called.")
 --
 --
 --   With *hr
 --
 --     '' increment this function loop
 --     .funcs.current_func[.attack_state] += .funcs.func[.attack_state][.funcs.current_func[.attack_state]] ( hr )
-  --log.debug("hr.attack_state is: "..hr.attack_state)
-  --log.debug("hr.funcs.current_func[hr.attack_state]: "..hr.funcs.current_func[hr.attack_state])
   hr.funcs.current_func[hr.attack_state] = hr.funcs.current_func[hr.attack_state] + hr.funcs.func[hr.attack_state][hr.funcs.current_func[hr.attack_state]](hr)
 --
 --
@@ -4099,7 +4061,6 @@ function act_enemies(_enemies, _enemy)
   --
   --           If  .hurt <> 0 Then
           if with0.hurt ~= 0 then
-            --log.debug("This enemy is showing damage effects")
   --             '' this enemy is showing damage effects
   --
   --             If ( .unique_id = u_dyssius ) Or ( .unique_id = u_steelstrider ) Then
@@ -4110,7 +4071,6 @@ function act_enemies(_enemies, _enemy)
   --
   --               If  .funcs.current_func[.funcs.active_state] = .funcs.func_count[.funcs.active_state] Then
               if with0.funcs.current_func[with0.funcs.active_state] == with0.funcs.func_count[with0.funcs.active_state] then
-                --log.debug("The enemy called back (damage is done)")
   --                 '' the enemy called back (damage is done)
   --
   --                 LLObject_ShiftState( Varptr( _enemy[do_stuff] ), .reset_state )
@@ -4303,12 +4263,10 @@ function act_enemies(_enemies, _enemy)
   --
   --               If .action_sequence <> 0 Then
               if with0.action_sequence ~= 0 then
-                  --log.debug("action_sequence nonzero on: "..with0.id)
   --                 '' ths entity loads a sequence when you action it
   --
   --                 If llg( hero_only ).action <> 0 Then
                 if ll_global.hero_only.action ~= 0 then
-                    --log.debug("Hero trying to action something.")
   --
   --                   LLObject_ActionSequence( Varptr( _enemy[do_stuff] ) )
                   LLObject_ActionSequence(_enemy[do_stuff])
@@ -4552,7 +4510,6 @@ function act_enemies(_enemies, _enemy)
   --
   --           If  .dmg.id <> 0 Then
           if with0.dmg.id ~= 0 then
-            --log.debug("Enemy was hit by lynn.")
   --             '' enemy was hit by lynn
   --
   --             __flashy( Varptr( _enemy[do_stuff] ) )
@@ -4629,13 +4586,8 @@ function act_enemies(_enemies, _enemy)
         end
   --
   --         .funcs.current_func[.funcs.active_state] += .funcs.func[.funcs.active_state][.funcs.current_func[.funcs.active_state]] ( VarPtr( _enemy[do_stuff] ) )
-        --log.debug("enemy.id: "..enemy.id)
-        --log.debug("enemy.funcs.active_state: "..enemy.funcs.active_state)
-        --log.debug("enemy.funcs.current_func[enemy.funcs.active_state]: "..enemy.funcs.current_func[enemy.funcs.active_state])
         local result = with0.funcs.func[with0.funcs.active_state][with0.funcs.current_func[with0.funcs.active_state]](with0)
-        --log.debug("result: "..(result and result or "nil"))
         with0.funcs.current_func[with0.funcs.active_state] = with0.funcs.current_func[with0.funcs.active_state] + result
---NOTE: The above line should be ported to Lua first as it is what actually performs the function execution.
   --
   --       End If
       end
@@ -4702,12 +4654,9 @@ function move_object(o, only_looking, moment, recurring)
   only_looking = only_looking or 0
   moment = moment or 1
   recurring = recurring or 0
-  --log.debug("move_object called.")
-  --log.debug("moment: "..moment)
     -- Dim As Integer mx, my '' holds open axes
   local mx, my = 0, 0
 
-  --log.debug("o.direction: "..o.direction)
     --
     -- Select Case o->direction
     --
@@ -4715,33 +4664,22 @@ function move_object(o, only_looking, moment, recurring)
   if o.direction == 0 then
     --
     --
-    --log.debug("o.coords.y: "..o.coords.y)
-    --log.debug("o.unstoppable_by_screen: "..o.unstoppable_by_screen)
     --     If o->coords.y > 0 Or ( o->unstoppable_by_screen ) Then
     if o.coords.y > 0 or (o.unstoppable_by_screen ~= 0) then
     --       '' object "y" is bigger than 0, or is not stopped by physical bounds.
     --
     --       If check_walk( o, 0, only_looking Or recurring ) Or ( o->unstoppable_by_tile <> 0 )Then
       if check_walk(o, 0, (only_looking ~= 0) or (recurring ~= 0)) or (o.unstoppable_by_tile ~= 0) then
-        --log.debug("check_walk(o, 0, only_looking or recurring): "..(check_walk(o, 0, only_looking or recurring) and "true" or "false"))
-        --log.debug("o.unstoppable_by_tile: "..o.unstoppable_by_tile)
     --         '' object has open 'walkable path, or isn't stopped by unwalkable areas
     --
     --         If check_against_entities ( 0, o ) <> 1 Or ( o->unstoppable_by_object ) Then
         local cae = check_against_entities(0, o)
-        --log.debug("cae: "..cae)
-        --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
         if cae ~= 1 or (o.unstoppable_by_object ~= 0) then
-          --log.debug("check_against_entities(0, o): "..(check_against_entities(0, o) and "true" or "false"))
-          --log.debug("o.unstoppable_by_object: "..o.unstoppable_by_object)
-          --log.debug("only_looking: "..only_looking)
     --
     --           '' object isn't colliding with another (impassable) object, or is not stopped by impassable objects
     --
     --           If only_looking = 0 Then
           if only_looking == 0 then
-            --log.debug("only_looking: "..only_looking)
-            --log.debug("moment: "..moment)
     --             '' execute
     --             ''
     --             o->coords.y -= 1 * moment
@@ -5182,8 +5120,6 @@ end
 
   -- Function check_walk ( o As char_type Ptr, d As Integer, psfing = 0 ) Static
 function check_walk(o, d, psfing)
-  --log.debug("check_walk called.")
-  --log.debug("psfing: "..psfing)
   psfing = psfing or 0
   --
   --   If ( o->coords.x < 0 ) Or ( o->coords.y < 0 ) Or ( ( o->coords.x + o->perimeter.x ) > ( now_room().x Shl 4 ) ) Or ( ( o->coords.y + o->perimeter.y ) > ( now_room().y Shl 4 ) ) Then
@@ -5214,24 +5150,18 @@ function check_walk(o, d, psfing)
   --
   --   x_tile_2 = Int( o->coords.x ) Shr 3
   local x_tile_2 = bit.rshift(math.floor(o.coords.x), 3)
-  --log.debug("x_tile_2: "..x_tile_2)
   --   y_tile_2 = Int( o->coords.y ) Shr 3
   local y_tile_2 = bit.rshift(math.floor(o.coords.y), 3)
-  --log.debug("y_tile_2: "..y_tile_2)
   --
   --   x_offset_2 = Int( o->coords.x ) And 7
   local x_offset_2 = bit.band(math.floor(o.coords.x), 7)
-  --log.debug("x_offset_2: "..x_offset_2)
   --   y_offset_2 = Int( o->coords.y ) And 7
   local y_offset_2 = bit.band(math.floor(o.coords.y), 7)
-  --log.debug("y_offset_2: "..y_offset_2)
   --
   --   quads_x = Int( o->perimeter.x ) Shr 3
   local quads_x = bit.rshift(math.floor(o.perimeter.x), 3)
-  --log.debug("quads_x: "..quads_x)
   --   quads_y = Int( o->perimeter.y ) Shr 3
   local quads_y = bit.rshift(math.floor(o.perimeter.y), 3)
-  --log.debug("quads_y: "..quads_y)
   --
   --   If x_offset_2 <> 0 Then
   if x_offset_2 ~= 0 then
@@ -5262,7 +5192,6 @@ function check_walk(o, d, psfing)
   --   '' prime
   --   if psfing then
   if psfing ~= 0 then
-    --log.debug("psf_free is true.")
   --     psf_free = TRUE
     psf_free = true
   --
@@ -5270,7 +5199,6 @@ function check_walk(o, d, psfing)
   else
   --     tile_free = TRUE
     tile_free = true
-    --log.debug("tile_free is true.")
   --
   --   end if
   end
@@ -5342,27 +5270,19 @@ function check_walk(o, d, psfing)
   --
   --         t_index = ( ( y_opt Shl 3 ) Shr 4 ) * now_room().x + ( ( x_opt Shl 3 ) Shr 4 )
       t_index = bit.rshift(bit.lshift(y_opt, 3), 4) * now_room().x + bit.rshift(bit.lshift(x_opt, 3), 4) + 1
-      --log.debug("t_index: "..t_index)
   --
   --         If Bit( now_room().layout[layer][t_index], 15 - quad_calc( x_opt, y_opt ) ) <> 0 Then
       local tile = now_room().layout[layer][t_index]
-      --log.debug("tile: "..tile)
-      --log.debug("bitstring: "..bitstring(tile))
       local quad = quad_calc(x_opt, y_opt)
-      --log.debug("quad: "..quad)
       local bit_index = 15 - quad
-      --log.debug("bit_index: "..bit_index)
       if testbit(tile, bit_index) ~= 0 then
-        --log.debug("bit was set.")
   --           if psfing then
         if psfing ~= 0 then
-          --log.debug("psf_free set to false.")
   --             psf_free = FALSE
           psf_free = false
   --
   --           else
         else
-          --log.debug("tile_free set to false.")
   --             tile_free = FALSE
           tile_free = false
   --
@@ -5371,7 +5291,6 @@ function check_walk(o, d, psfing)
   --
   --         End If
       else
-        --log.debug("bit was not set.")
       end
   --
   --       Next
@@ -5458,7 +5377,6 @@ function check_against_entities(d, o)
 --
 --       If o->num <> .enemy[cycle].num Then
     if o.num ~= with0.enemy[cycle].num then
-      --log.debug("Proceeding to call check_against")
 --         '' if this "o" isn't this enemy, then check it against this enemy
 --         relay = check_against( o, .enemy, cycle, d )
       relay = check_against({[0] = o}, with0.enemy, cycle, d)
@@ -5520,7 +5438,6 @@ end
 
 -- Function check_against( o As char_type Ptr, othr As char_type Ptr, check As Integer, d As Integer ) Static
 function check_against(o, othr, check, d)
-  --log.debug("othr: "..(othr and "exists" or "nil"))
 --
 --
 --   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
@@ -5765,7 +5682,6 @@ end
 
 -- Sub check_psf( o As char_type Ptr, d As Integer )
 function check_psf(o, d)
-  --log.debug("check_psf entered.")
 --
 --
 --   Dim As Integer layercheck, pnts, tmp_dir, po_x, po_y, pol, tmp_d
@@ -5787,7 +5703,6 @@ function check_psf(o, d)
   if bit.band(d, 1) == 0 then
 --     If rl_key() Then Exit sub
     if rl_key() then
-      --log.debug("rl_key() true so return")
       return
     end
 --     pnts = ( o->perimeter.x Shr 3 ) '' div tx_2
@@ -5799,7 +5714,6 @@ function check_psf(o, d)
   else
 --     If ud_key() Then Exit Sub
     if ud_key() then
-      --log.debug("ud_key() true so return")
       return
     end
 --     pnts = ( o->perimeter.y Shr 3 ) '' div ty_2
@@ -5944,7 +5858,6 @@ function check_psf(o, d)
 --
 --     If ( po_quad <> 0 ) And ( op_quad <> 0 ) Then
     if (po_quad ~= 0) and (op_quad ~= 0) then
-      --log.debug("Returning")
 --       Exit sub
       return
 --
@@ -5956,11 +5869,9 @@ function check_psf(o, d)
     if (po_quad ~= 0) and (op_quad == 0) then
 --     '' clockwise
 --       o->direction += 1
-      --log.debug("cw before o.direction: "..o.direction)
       o.direction = o.direction + 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
-      --log.debug("cw after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -5978,11 +5889,9 @@ function check_psf(o, d)
     if po_quad == 0 and op_quad ~= 0 then
 --       '' counter clockwise
 --       o->direction -= 1
-      --log.debug("ccw before o.direction: "..o.direction)
       o.direction = o.direction - 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
-      --log.debug("ccw after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -6000,11 +5909,9 @@ function check_psf(o, d)
     if (po_quad == 0) and (op_quad == 0) and (mi_quad ~= 0) then
 --     '' clockwise
 --       o->direction += 1
-      --log.debug("cw3 before o.direction: "..o.direction)
       o.direction = o.direction + 1
 --       in_dir_small( o->direction )
       o.direction = in_dir_small(o.direction)
-      --log.debug("cw3 after o.direction: "..o.direction)
 --
 --       o->is_psfing = ( move_object( o, , o->momentum.i( tmp_dir ), 1 ) <> 0 )
       o.is_psfing = move_object(o, nil, o.momentum.i[tmp_dir], 1) ~= 0
@@ -6019,7 +5926,6 @@ function check_psf(o, d)
 --
 --   Next
   end
-  --log.debug("got to end of check_psf...")
 --
 -- End Sub
 end
@@ -7086,7 +6992,6 @@ end
 
 -- Private Sub sequence_LoadGame( savedInfo As ll_saving_data Ptr )
 function sequence_LoadGame(savedInfo)
-  --log.debug("sequence_LoadGame called.")
 --
 --   '' only called from play_sequence
 --
@@ -7243,8 +7148,6 @@ end
 --
 -- Sub sequence_AssignEntityData( ByRef charData As char_type, ByRef commandData As command_data )
 function sequence_AssignEntityData(charData, commandData)
-  --log.debug("sequence_AssignEntityData called.")
-  --log.debug("with0.abs_y: "..commandData.abs_y)
 --
 --   With commandData
   local with0 = commandData
@@ -7464,7 +7367,6 @@ end
 --
 -- Private Sub sequence_CommandIncrement( resetSequence As sequence_type )
 function sequence_CommandIncrement(resetSequence)
-  --log.debug("sequence_CommandIncrement called.")
 --
 --   #Define activeEntity resetSequence.ent[.active_ent]
 --NOTE: Lua has no macros so we have to just search replace
@@ -7515,7 +7417,6 @@ end
 --
 -- Function sequence_isCommandProgressing( thisSequence As sequence_type, currentEntity As Integer )
 function sequence_isCommandProgressing(thisSequence, currentEntity)
-  --log.debug("sequence_isCommandProgressing called.")
 --
 --   #Define activeEntity thisSequence.ent[.active_ent]
 --NOTE: Lua has no macros so we have to just search replace
@@ -7539,14 +7440,12 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 --
 --         If .active_ent <> SF_BOX Then
     if with1.active_ent ~= SF_BOX then
-      --log.debug("active_ent not SF_BOX")
 --           '' Entity called back
 --           command_isProgressing And= ( activeEntity->return_trig <> 0 )
       command_isProgressing = command_isProgressing and (thisSequence.ent[with1.active_ent].return_trig ~= 0)
 --
 --         Else
     else
-      --log.debug("active_ent is SF_BOX")
 --           '' Box called back
 --           command_isProgressing And= ( llg( t_rect ).activated = FALSE )
       command_isProgressing = command_isProgressing and (ll_global.t_rect.activated == 0)
@@ -7600,7 +7499,6 @@ function sequence_isCommandProgressing(thisSequence, currentEntity)
 --   End With
 --
 --   Function = command_isProgressing
-  --log.debug("command_isProgressing: "..(command_isProgressing and "true" or "false"))
   return command_isProgressing
 --
 -- End Function
@@ -7611,7 +7509,6 @@ end
 --the parent table of the sequence, so that we can reset it from
 --within this function.
 function play_sequence(_seqParent)
-  --log.debug("play_sequence called.")
   if _seqParent.seq == nil then return end
   local _seq = _seqParent.seq[_seqParent.seqi]
 --
@@ -7637,9 +7534,6 @@ function play_sequence(_seqParent)
   local do_ents = 0
 --
 --   For do_ents = 0 To _seq->Command[_seq->current_command].ents - 1
-  --log.debug("_seq.Command: "..(_seq.Command and "exists" or "nil"))
-  --log.debug("_seq.current_command: ".._seq.current_command)
-  --log.debug("_seq.Command[_seq.current_command]: "..(_seq.Command[_seq.current_command] and "exists" or "nil"))
   for do_ents = 0, _seq.Command[_seq.current_command].ents - 1 do
 --     '' cycle through current command's entities
 --
@@ -7680,7 +7574,6 @@ function play_sequence(_seqParent)
 --
 --         If .water_align <> 0 Then
       if with0.water_align_union_text_speed ~= 0 then
-        --log.debug("Looping background...")
 --           '' flag to loop the backround is set
 --           If llg( hero ).coords.y = 2000 Then
         if ll_global.hero.coords.y == 2000 then
