@@ -19,7 +19,7 @@ require("game/engine_enums")
 --an object with the contents of null.xml, but we can simulate that logic
 --(see comments in set_up_room_enemies). There's nowhere in the original
 --code that I can find where a "deep copy" is made of an object whose
---state has been mutating during gameplay---it is really onhly ever copying
+--state has been mutating during gameplay---it is really only ever copying
 --the original data in xml files. I am fairly confident that we are logically
 --doing the same things in the same order.
 
