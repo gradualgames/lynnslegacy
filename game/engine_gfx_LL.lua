@@ -278,12 +278,22 @@ function blit_y_sorted()
   --Add the hero to the sorted objects list
   table.insert(ll_global.sorted_objects, ll_global.hero)
 
-  --Now sort the objects by placed and then by y coord.
+  --Now sort the objects by placed, then by y, then by
+  --num to keep the sorting stable when y coordinates
+  --are the same.
   table.sort(ll_global.sorted_objects,
     function(a, b)
-      local aval = a.coords.y + a.placed * 100000
-      local bval = b.coords.y + b.placed * 100000
-      return aval < bval
+      local ay = math.floor(a.coords.y)
+      local by = math.floor(b.coords.y)
+      if a.placed == b.placed then
+        if ay == by then
+          return a.num < b.num
+        else
+          return ay < by
+        end
+      else
+        return a.placed < b.placed
+      end
     end)
 
   --Now blit 'em
