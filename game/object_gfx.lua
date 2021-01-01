@@ -73,12 +73,6 @@ end
 
 -- Function __flashy ( this As _char_type Ptr ) As Integer
 function __flashy(this)
-  -- log.debug("__flashy called.")
-  -- log.debug("this.flash_timer: "..this.flash_timer)
-  -- log.debug("this.flash_time: "..this.flash_time)
-  -- log.debug("this.flash_count: "..this.flash_count)
-  -- log.debug("this.flash_length: "..this.flash_length)
-  -- log.debug("this.invisible: "..this.invisible)
 --
 --   If this->flash_timer = 0 Then
   if this.flash_timer == 0 then
@@ -141,9 +135,7 @@ end
 
 -- Function __weapon_anim ( this As _char_type Ptr ) As Integer
 function __weapon_anim(this)
-  -- log.debug("__weapon_anim called.")
 --   this->current_anim = llg( hero_only ).weapon + 3
-  --NOTE: Animations are in a 1-indexed array so bump up offset by 1
   this.current_anim = ll_global.hero_only.weapon + 3
 --   this->frame = 0
   this.frame = 0
@@ -157,7 +149,6 @@ end
 
 -- Function __active_anim_0 ( this As _char_type Ptr ) As Integer
 function __active_anim_0(this)
-  log.debug("__active_anim_0 called.")
 --
 --
 --   this->current_anim = 0
@@ -173,7 +164,6 @@ function __active_anim_0(this)
 end
 
 function __active_anim_1(this)
-  log.debug("__active_anim_1 called.")
 --   this->current_anim = 1
   this.current_anim = 1
 --   this->frame = 0
@@ -444,7 +434,6 @@ function __explode(this)
           this.explosion[do_expl].sound = -1
 --
 --           play_sample( llg( snd )[sound_explosion], 70 )
-          log.debug("Playing explosion sfx.")
           this.explosion[do_expl].sound_source:setVolume(.7)
           this.explosion[do_expl].sound_source:play()
 --

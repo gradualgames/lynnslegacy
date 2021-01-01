@@ -501,9 +501,7 @@ function blit_box(t_box)
       current_row(t_box)
 --
 --             If .internal.confBox = TRUE Then
-      log.debug("confBox: "..with0.internal.confBox)
       if with0.internal.confBox == TRUE then
-        log.debug("confBox is true")
 --
 --               dim as integer fg
         local fg = nil
@@ -750,7 +748,6 @@ function blit_box(t_box)
 --
 --           .internal.opcount += destroySpace
       with0.internal.opcount = with0.internal.opcount + destroySpace
-      log.debug("with0.internal.opcount: "..with0.internal.opcount)
 --
 --         End If
     end
@@ -2700,7 +2697,6 @@ end
 
 -- Sub shift_pal()
 function shift_pal()
-  -- log.debug("shift_pal called.")
 --
 --
 --   Dim As Integer cols, jmper, res( 255 )

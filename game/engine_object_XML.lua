@@ -33,7 +33,6 @@ function LLSystem_ObjectFromXML(objectLoad)
   local function install_func(funcName)
     local func = _G[funcName]
     if func then
-      log.debug("Installing func: "..funcName)
       func_drop(_G[funcName])
       -- func_drop(function(this)
       --   log.debug("Called: "..funcName.." on: "..this.id)
@@ -100,7 +99,6 @@ function LLSystem_ObjectFromXML(objectLoad)
           objectLoad.anim[objectLoad.current_anim].frame[objectLoad.frame].uni_sound = tonumber(text)
           -- Case "index"
         elseif path[4] == "index" then
-          log.debug( " Processing sprite/sound: "..text)
           -- With objectLoad.anim[objectLoad.current_anim]->frame[objectLoad.frame]
           local with0 = objectLoad.anim[objectLoad.current_anim].frame[objectLoad.frame]
           --
@@ -333,13 +331,10 @@ function LLSystem_ObjectFromXML(objectLoad)
       end
     elseif path[2] == "snd" then
       if path[3] == "index" then
-        log.debug("Processing index tag.")
         -- #Define LLObject_SoundLoad(__Sound__) _
         --   Case ###__Sound__: objectLoad.sound[objectLoad.sounds - 1] = __Sound__
         objectLoad.sound[objectLoad.sounds - 1] = _G[text]
-        log.debug("Looked up value: "..objectLoad.sound[objectLoad.sounds - 1].." for sound name: "..text)
       elseif path[3] == "vol" then
-        log.debug("Processing vol tag.")
         -- objectLoad.vol[objectLoad.sounds - 1] =  Val( thr->dat.s )
         objectLoad.vol[objectLoad.sounds - 1] = tonumber(text) / 100
       end
@@ -399,7 +394,6 @@ function LLSystem_ObjectFromXML(objectLoad)
   local startElement = function(name, nsURI, nsPrefix)
     table.insert(path, name)
     if name == "sprite" then
-      log.debug("Processing sprite tag.")
       objectLoad.current_anim = objectLoad.anims
       objectLoad.anims = objectLoad.anims + 1
     elseif name == "fp" then
@@ -420,7 +414,6 @@ function LLSystem_ObjectFromXML(objectLoad)
       objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
       objectLoad.funcs.states = objectLoad.funcs.states + 1
     elseif name == "snd" then
-      log.debug("Processing snd tag.")
       objectLoad.sounds = objectLoad.sounds + 1
     end
   end

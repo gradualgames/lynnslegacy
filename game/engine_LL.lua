@@ -2016,54 +2016,40 @@ function LLSystem_ReadSaveFile(saveName)
 --
 --         VFile_Get openVFile, , .hp
     with0.hp = blob:read()
-    log.debug("loaded hp: "..with0.hp)
 --         VFile_Get openVFile, , .maxhp
     with0.maxhp = blob:read()
-    log.debug("loaded maxhp: "..with0.maxhp)
 --
 --         VFile_Get openVFile, , .gold
     with0.gold = blob:read()
     --with0.gold = 100
-    log.debug("loaded gold: "..with0.gold)
 --         VFile_Get openVFile, , .weapon
     with0.weapon = blob:read()
-    log.debug("loaded weapon: "..with0.weapon)
 --         VFile_Get openVFile, , VF_Array( .hasItem )
     with0.hasItem = blob:read()
-    log.debug("loaded hasItem table.")
 -- '        VFile_Get openVFile, , .item
 --         VFile_Get openVFile, , .bar
     with0.bar = blob:read()
-    log.debug("loaded bar: "..with0.bar)
 --
 --         VFile_Get openVFile, , VF_Array( .hasCostume )
     with0.hasCostume = blob:read()
-    log.debug("loaded hasCostume table.")
 --         VFile_Get openVFile, , .isWearing
     with0.isWearing = blob:read()
-    log.debug("loaded isWearing: "..with0.isWearing)
 --
 --         VFile_Get openVFile, , .key
     with0.key = blob:read()
-    log.debug("loaded key: "..with0.key)
 --         VFile_Get openVFile, , .b_key
     with0.b_key = blob:read()
-    log.debug("loaded b_key: "..with0.b_key)
 --
 --         VFile_Get openVFile, , .map
     with0.map = blob:read()
-    log.debug("loaded map filename: "..with0.map)
 --         VFile_Get openVFile, , .entry
     with0.entry = blob:read()
-    log.debug("loaded entry: "..with0.entry)
 --
 --         VFile_Get openVFile, , VF_Array( .happen )
     with0.happen = blob:read()
-    log.debug("loaded happen table.")
 --
 --         VFile_Get openVFile, , .rooms
     with0.rooms = blob:read()
-    log.debug("loaded rooms: "..with0.rooms)
 --
 --         if .rooms <> 0 then
     if with0.rooms ~= 0 then
@@ -2077,7 +2063,6 @@ function LLSystem_ReadSaveFile(saveName)
       for iterRoomy = 0, with0.rooms - 1 do
 --             VFile_Get openVFile, , .hasVisited[iterRoomy]
         with0.hasVisited[iterRoomy] = blob:read()
-        log.debug("loaded hasVisited: "..with0.hasVisited[iterRoomy].." for room: "..iterRoomy)
 --
 --           next
       end
@@ -2135,50 +2120,37 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --     '' Write the savegame information.
 --
 --     VFile_Put openVFile, , llg( hero ).hp
-  log.debug("Saving hp: "..ll_global.hero.hp)
   blob:write(ll_global.hero.hp)
 --     VFile_Put openVFile, , llg( hero ).maxhp
-  log.debug("Saving maxhp: "..ll_global.hero.maxhp)
   blob:write(ll_global.hero.maxhp)
 --
 --     VFile_Put openVFile, , llg( hero ).money
-  log.debug("Saving money: "..ll_global.hero.money)
   blob:write(ll_global.hero.money)
 --     VFile_Put openVFile, , llg( hero_only ).has_weapon
-  log.debug("Saving has_weapon: "..ll_global.hero_only.has_weapon)
   blob:write(ll_global.hero_only.has_weapon)
 --
 --     VFile_Put openVFile, , VF_Array( llg( hero_only ).hasItem )
-  log.debug("Saving hasItem table.")
   blob:write(ll_global.hero_only.hasItem)
 --     VFile_Put openVFile, , llg( hero_only ).has_bar
-  log.debug("Saving has_bar: "..ll_global.hero_only.has_bar)
   blob:write(ll_global.hero_only.has_bar)
 --
 --     VFile_Put openVFile, , VF_Array( llg( hero_only ).hasCostume )
-  log.debug("Saving hasCostume table.")
   blob:write(ll_global.hero_only.hasCostume)
 --     VFile_Put openVFile, , llg( hero_only ).isWearing
-  log.debug("Saving isWearing: "..ll_global.hero_only.isWearing)
   blob:write(ll_global.hero_only.isWearing)
 --
 --
 --     VFile_Put openVFile, , llg( hero ).key
-  log.debug("Saving key: "..ll_global.hero.key)
   blob:write(ll_global.hero.key)
 --     VFile_Put openVFile, , llg( hero_only ).b_key
-  log.debug("Saving b_key: "..ll_global.hero_only.b_key)
   blob:write(ll_global.hero_only.b_key)
 --
 --     VFile_Put openVFile, , kfp( llg( map )->filename )
-  log.debug("Saving filename: "..string.gsub(ll_global.map.filename, "data/map/", ""))
   blob:write(string.gsub(ll_global.map.filename, "data/map/", ""))
 --     VFile_Put openVFile, , entry
-  log.debug("Saving entry: "..entry)
   blob:write(entry)
 --
 --     VFile_Put openVFile, , Type <VFile_vector> ( llg( now ), LL_EVENTS_MAX, -1 )
-  log.debug("Saving now table.")
   blob:write(ll_global.now)
 --
 --     dim as integer roomsHere, iterRooms
@@ -2189,7 +2161,6 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --     if llg( map )->isDungeon then
   if ll_global.map.isDungeon ~= 0 then
 --       VFile_Put openVFile, , roomsHere
-    log.debug("Saving roomsHere: "..roomsHere)
     blob:write(roomsHere)
 --
 --       for iterRooms = 0 to roomsHere - 1
@@ -2200,7 +2171,6 @@ function LLSystem_WriteSaveFile(saveName, entry)
       --no rooms. I vaguely recall perhaps the original game crashing when that
       --save point is used; we should confirm if this is the case and revisit this.
       if ll_global.miniMap.room[iterRooms] ~= nil then
-        log.debug("Saving hasVisited: "..ll_global.miniMap.room[iterRooms].hasVisited.." for room: "..iterRooms)
         blob:write(ll_global.miniMap.room[iterRooms].hasVisited)
       else
         blob:write(0)
@@ -2214,7 +2184,6 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --       roomsHere = 0
     roomsHere = 0
 --       VFile_Put openVFile, , roomsHere
-    log.debug("Saving roomsHere: "..roomsHere)
     blob:write(roomsHere)
 --
 --     end if
@@ -2225,8 +2194,6 @@ function LLSystem_WriteSaveFile(saveName, entry)
 --
 --
 --     VFile_Save( openVFile, saveMemory() )
-  log.debug("Save directory: "..love.filesystem.getSaveDirectory())
-  log.debug("Writing save file: "..saveName)
   love.filesystem.write(saveName, blob:tostring())
 --     zLib_Compress( saveMemory(), saveName, 9 )
 --
@@ -2329,7 +2296,6 @@ end
 function change_room(o, _call, t)
   _call = _call and _call or 0
   t = t and t or 0
-  -- log.debug("change_room called.")
 --
 --   Static As Integer switch_type, switch_state
   if switch_type == nil and switch_state == nil then
@@ -5549,8 +5515,6 @@ function check_against(o, othr, check, d)
 --
 --
 --       If check_bounds( m, n ) = 0 Then
-      -- log.debug("othr[check].id: "..othr[check].id)
-      -- log.debug("othr[check].coords.x: "..othr[check].coords.x)
       if check_bounds(m, n) == 0 then
 --
 --         If o->unique_id = u_charger Then
@@ -7566,10 +7530,6 @@ function play_sequence(_seqParent)
     else
 --         '' not a box
 --         sequence_AssignEntityData( *activeEntity, _seq->Command[_seq->current_command].ent[do_ents] )
-      -- log.debug("_seq.ent: "..(_seq.ent and "exists" or "nil"))
-      -- log.debug("_seq.ent[0]: "..(_seq.ent[0] and "exists" or "nil"))
-      -- log.debug("with0.active_ent: "..with0.active_ent)
-      -- log.debug("activeEntity: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
       sequence_AssignEntityData(_seq.ent[with0.active_ent], _seq.Command[_seq.current_command].ent[do_ents])
 --
 --         If .water_align <> 0 Then
@@ -7627,12 +7587,6 @@ function play_sequence(_seqParent)
 --         .ent_func += activeEntity->funcs.func[.ent_state][.ent_func] ( activeEntity )
 --         ''                                    ***************************************
 --         '' **************************************************************************
-      -- log.debug("with0.ent_func: "..with0.ent_func)
-      -- log.debug("with0.active_ent: "..with0.active_ent)
-      -- log.debug("with0.ent_state: "..with0.ent_state)
-      -- log.debug("_seq.ent[with0.active_ent]: "..(_seq.ent[with0.active_ent] and "exists" or "nil"))
-      -- log.debug("_seq.ent[with0.active_ent].id: ".._seq.ent[with0.active_ent].id)
-      -- log.debug("_seq.ent[with0.active_ent].funcs: "..(_seq.ent[with0.active_ent].funcs and "exists" or "nil"))
       with0.ent_func = with0.ent_func + _seq.ent[with0.active_ent].funcs.func[with0.ent_state][with0.ent_func](_seq.ent[with0.active_ent])
 --
 --
@@ -8457,7 +8411,6 @@ function LL_RollCredits()
 
 --     if llg( hero_only ).songFade then
     if ll_global.hero_only.songFade ~= nil then
-      log.debug("calling fade")
 --       LLMusic_Fade()
       LLMusic_Fade()
 --

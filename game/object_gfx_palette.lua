@@ -123,7 +123,6 @@ end
 
 -- Function __fade_to_black ( this As _char_type Ptr ) As Integer
 function __fade_to_black(this)
-  --log.debug("__fade_to_black called.")
 --
 --   Dim As Integer cols, r, g, b, blackened, p
   local cols, r, g, b, blackened, p = 0, 0.0, 0.0, 0.0, false, {}
@@ -178,7 +177,6 @@ function __fade_to_black(this)
 --
 --     If llg( song )_fade <> 0 Then
     if ll_global.song_fade ~= 0 then
-      log.debug("ll_global.song_fade was nonzero.")
 --
 --       this->song_fade_count += 1
       this.song_fade_count = this.song_fade_count + 1
@@ -190,7 +188,6 @@ function __fade_to_black(this)
 --       tmp_val Shl= 3 '' 0 - 512
 --       tmp_val /= 5.12 '' close enough...
 --       LLMusic_SetVolume( CInt( tmp_val ) )
-      --log.debug("tmp_val: "..tmp_val)
       LLMusic_SetVolume(tmp_val / 63)
 -- '        bass_setconfig( BASS_CONFIG_GVOL_MUSIC, tmp_val )
 --
@@ -237,7 +234,6 @@ end
 
 -- Function __fade_to_red ( this As _char_type Ptr ) As Integer
 function __fade_to_red(this)
-  --log.debug("__fade_to_red called.")
 --
 --
 --   Dim As Integer cols, r, g, b, allwhite, p
@@ -813,7 +809,6 @@ end
 
 -- Function __fade_up_to_color ( this As _char_type Ptr ) As Integer
 function __fade_up_to_color(this)
-  --log.debug("__fade_up_to_color called.")
 --
 --   const as integer slices = 64
   local slices = 64

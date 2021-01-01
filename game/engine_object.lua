@@ -281,10 +281,6 @@ function LLObject_UniqueCheck(c)
   name = "u_"..name
   if _G[name] then
     c.unique_id = _G[name]
-    --log.level = "debug"
-    --log.debug("Object name: "..name)
-    --log.debug("Object unique id: "..c.unique_id)
-    --log.level = "fatal"
   end
 
 --

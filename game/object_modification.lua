@@ -96,7 +96,6 @@ end
 
 -- Function __make_dead ( this As _char_type Ptr ) As Integer
 function __make_dead(this)
-  log.debug("__make_dead called.")
 --
 --   With *this
   local with0 = this

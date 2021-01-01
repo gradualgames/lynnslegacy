@@ -9,7 +9,6 @@ require("game/utils")
 -- in as 1, and the current enemy in act_enemies is passed in as _enemy. Therefore,
 -- we are simplifying this to just pass the enemy in to begin with and eliminate the loop.
 function LLObject_MAINAttack(_enemy, hr)
-  --log.debug("LLObject_MAINAttack called.")
 --
 --   '' ASSUMES: hr->anim[hr->current_anim] contains an attacking anim'.
 --   ''
@@ -140,17 +139,11 @@ function LLObject_MAINAttack(_enemy, hr)
 --
 --               For check_fields = 0 To _enemy[enemy_collide].anim[_enemy[enemy_collide].current_anim]->frame[_enemy[enemy_collide].frame_check].faces - 1
             local ubound = _enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1
-            --log.debug("ubound: "..ubound)
             for check_fields = 0, _enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1 do
 --                 '' cycle thru this entity's boxes
 --
 --                 '' enemy's vector pair
 --                 target = LLO_VPE( Varptr( _enemy[enemy_collide] ), OV_FACE, check_fields )
-              --log.debug("_enemy.current_anim: ".._enemy.current_anim)
-              --log.debug("_enemy.frame_check: ".._enemy.frame_check)
-              --log.debug("_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces:".._enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces)
-              --log.debug("_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1:"..(_enemy.anim[_enemy.current_anim].frame[_enemy.frame_check].faces - 1))
-              --log.debug("check_fields: "..check_fields)
               target = LLO_VPE(_enemy, OV_FACE, check_fields)
 --
 --                 If check_bounds( origin, target ) = 0 Then

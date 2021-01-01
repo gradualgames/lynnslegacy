@@ -603,13 +603,11 @@ end
 
 -- Function __drop ( this As _char_type Ptr ) As Integer
 function __drop(this)
-  log.debug("__drop called.")
 --
 --
 --
 --   If this->d_health > Int( Rnd * 100 ) Then
   if this.d_health > math.floor(math.random() * 100) then
-    log.debug("Dropping health.")
 --     this->dropped = 1
     this.dropped = 1
 --
@@ -1068,7 +1066,6 @@ function __make_enemy(this)
 --
 --     now_room().temp_enemy( now_room().temp_enemies ).id = this->spawns_id
     now_room().temp_enemy[now_room().temp_enemies] = create_Object()
-    log.debug("this.spawns_id: "..this.spawns_id)
     now_room().temp_enemy[now_room().temp_enemies].id = this.spawns_id
 --
 --     LLSystem_CopyNewObject( now_room().temp_enemy( now_room().temp_enemies ) )
@@ -1314,7 +1311,6 @@ end
 
 -- function __check_lynn_contact( this As char_type Ptr ) as integer
 function __check_lynn_contact(this)
-  log.debug("__check_lynn_contact called on: "..this.id)
 --
 --   if check_bounds( LLO_VP( this ), LLO_VP( varptr( llg( hero ) ) ) ) = 0 then
   if check_bounds(LLO_VP(this), LLO_VP(ll_global.hero)) == 0 then
