@@ -128,7 +128,6 @@ end
 
 -- Sub atk_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
 function atk_key_in_sub(ip, op)
-  --log.debug("atk_key_in_sub called.")
 --
 --   If llg( hero_only ).isWearing = 1 Then Exit Sub
   if ll_global.hero_only.isWearing == 1 then return end
@@ -162,7 +161,6 @@ function atk_key_in_sub(ip, op)
 --
 --       llg( hero ).attack_state = 6
       ll_global.hero.attack_state = 6
-      --log.debug("Set ll_global.hero.attack_state to: "..ll_global.hero.attack_state)
 --
 --
 --     End If

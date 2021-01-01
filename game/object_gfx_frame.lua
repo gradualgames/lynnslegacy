@@ -19,7 +19,6 @@ function LLObject_IgnoreDirectional(this)
 end
 
 function LLObject_IncrementFrame(this)
-  --log.debug("LLObject_IncrementFrame called.")
   -- '' Increments an object's frame, doesn't fail.
   -- '' Returns a finished state (1) when ".frame"
   -- '' meets the edge of its range, directional
@@ -34,17 +33,11 @@ function LLObject_IncrementFrame(this)
   --     frameTransfer = LLObject_CalculateFrame( this[0] )
     frameTransfer = LLObject_CalculateFrame(this)
   --     .animControl[.current_anim].frame[frameTransfer].sound_lock = 0
-    --log.debug("this.current_anim: "..this.current_anim)
-    --log.debug("frameTransfer: "..frameTransfer)
-    --log.debug("this.animControl[this.current_anim].frame: "..type(this.animControl[this.current_anim].frame))
-    --log.debug("#this.animControl[this.current_anim].frame: "..#this.animControl[this.current_anim].frame)
-    --log.debug("this.animControl[this.current_anim].frame[frameTransfer]: "..type(this.animControl[this.current_anim].frame[frameTransfer]))
     this.animControl[this.current_anim].frame[frameTransfer].sound_lock = 0
   --     .frame += 1
     this.frame = this.frame + 1
   --     If .frame = IIf( LLObject_IgnoreDirectional( this ), .anim[.current_anim]->frames, .animControl[.current_anim].dir_frames ) Then
     if this.frame == ((LLObject_IgnoreDirectional(this) == -1) and (this.anim[this.current_anim].frames) or (this.animControl[this.current_anim].dir_frames)) then
-      --log.debug("frame reached end of range, animation complete.")
   --       Return 1
       return 1
   --     End If
@@ -54,7 +47,6 @@ function LLObject_IncrementFrame(this)
     --TODO: Re-introduce the mad/dead/rate/rateMad --logic when needed. For now we'll just set it to rate
     --local tet = (this.mad == 0 or this.dead) and this.animControl.rate or this.animControl.rateMad
     local tet = this.animControl[this.current_anim].rate
-    --log.debug("tet: "..tet)
   --     End With
   --     .frame_hold = Timer + tet
     this.frame_hold = timer + tet

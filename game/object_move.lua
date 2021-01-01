@@ -251,7 +251,6 @@ function __calc_slide(this)
 end
 
 function __copter_path(this)
-  --log.debug("__copter_path called.")
   local exit_cond, c = 0, 0
 --
 --   this->walk_buffer = this->walk_length
@@ -528,8 +527,6 @@ end
 
 -- Function __tile_up ( this As _char_type Ptr ) As Integer
 function __tile_up(this)
-  --log.debug("__tile_up called on: "..this.id)
-  --log.debug("this.coords.y: "..this.coords.y)
 --
 --
 --
@@ -657,13 +654,6 @@ function __cell_bounce(this)
 end
 
 function __walk(this)
-  --log.debug("__walk called.")
-
-  --log.debug("this.walk_hold: "..this.walk_hold)
-  --log.debug("this.walk_speed: "..this.walk_speed)
-  --log.debug("this.momentum.i[this.direction]: "..this.momentum.i[this.direction])
-
-  --log.debug("this.walk_speed: "..this.walk_speed)
 --   If this->walk_hold = 0 Then
   if this.walk_hold == 0 then
 --
@@ -1015,7 +1005,6 @@ end
 
 -- Function __momentum_move ( this As _char_type Ptr ) As Integer
 function __momentum_move(this)
-  --log.debug("__momentum_move called.")
 --
 --   With *this
 --

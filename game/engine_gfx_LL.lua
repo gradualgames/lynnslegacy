@@ -351,9 +351,6 @@ function blit_box(t_box)
 --   #endmacro
   end
 --       If .internal.hold_box <> 0 Then
-  --log.debug("with0.internal.hold_box: "..with0.internal.hold_box)
-  --log.debug("with0.layout.invis: "..with0.layout.invis)
-  --log.debug("with0.box: "..(with0.box and "exists" or "nil"))
   if with0.internal.hold_box ~= 0 then
 --
 --         If .layout.invis = 0 Then
@@ -605,7 +602,6 @@ function blit_box(t_box)
 --
 --               If .internal.flashbox = TRUE then
         if with0.internal.flashbox == true then
-          --log.debug("flashbox is true")
 --
 --                 If( .layout.invis = FALSE ) Then
           if (with0.layout.invis == 0) then
@@ -1062,7 +1058,6 @@ function blit_enemy_loot()
 --
 --         If drop_check Then
     if drop_check == true then
-      --log.debug("drop_check is true.")
 --
 --           If .dropped <> 0 Then
       if enemy.dropped ~= 0 then
@@ -1181,7 +1176,6 @@ function blit_object(this)
 --
 --         If this->animControl[this->current_anim].frame[handShake].sound_lock = 0 Then
       if this.animControl[this.current_anim].frame[handShake].sound_lock == 0 then
-        --log.debug("play frame sound for: "..this.id)
 --
 --           Dim As Integer iifCalc
 --           iifCalc = Int( Rnd * 30 ) + 70
@@ -1213,14 +1207,12 @@ end
 
 -- Sub top_rows( b As boxcontrol_type Ptr )
 function top_rows(b)
-  --log.debug("top_rows called.")
 --
 --
 --   Dim As Integer line_loop, b_opt
   local line_loop, b_opt = 0, 0
 --
 --     For line_loop = 1 To b->internal.current_line And 3
-  --log.debug("bit.band(b.internal.current_line, 3): "..bit.band(b.internal.current_line, 3))
   for line_loop = 1, bit.band(b.internal.current_line, 3) do
 --
 --       b_opt = b->internal.current_line - line_loop
@@ -1237,7 +1229,6 @@ function top_rows(b)
                     b.layout.y_loc + 8 + ((b_opt % 4) * 16),
                     b.internal.txtcolor)
 
-    --log.debug(b.ptrs.row[b_opt])
 --     Next
   end
 --
@@ -1276,7 +1267,6 @@ function current_row(b)
                   b.layout.x_loc + 9,
                   b.layout.y_loc + 8 + ((b.internal.current_line % 4) * 16),
                   b.internal.txtcolor)
-  --log.debug("bufferString: "..bufferString)
 --
 -- End Sub
 end
@@ -1307,18 +1297,13 @@ function blit_object_ex(this)
   --
   --     f_opt = .frame
   f_opt = with0.frame
-  --log.debug("f_opt: "..f_opt)
   --
   --     With *( .anim[.current_anim] )
   --
   --       x_opt -= this->animControl[this->current_anim].x_off
   x_opt = x_opt - this.animControl[this.current_anim].x_off
-  --log.debug("x_opt: "..x_opt)
   --       y_opt -= this->animControl[this->current_anim].y_off
   y_opt = y_opt - this.animControl[this.current_anim].y_off
-  --log.debug("y_off: "..enemy.animControl[enemy.current_anim].y_off)
-  --log.debug("y_opt: "..y_opt)
-  --log.debug("enemy.animControl[enemy.current_anim].dir_frames: "..enemy.animControl[enemy.current_anim].dir_frames)
   --
   --       f_opt *= .arraysize
   --
@@ -1454,12 +1439,10 @@ function blit_hud(e)
 --
 --         mny = String( 3 - Len( Str( .money ) ), "0" )
 --         mny += Str( .money )
-  --log.debug("with0.money: "..with0.money)
   for i = 1, 3 - #(""..with0.money) do
     mny = mny.."0"
   end
   mny = mny..(""..with0.money)
-  --log.debug("mny: "..mny)
 --
 --       Dim As Integer nums
   local nums = 0

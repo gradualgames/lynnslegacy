@@ -21,13 +21,9 @@ function LLSystem_ImageLoad(fileName, oc, rc)
   local blob = loadBlob(fileName:lower())
   if blob then
     imageHeader.x = readInt(blob)
-    --log.debug("imageHeader.x: "..imageHeader.x)
     imageHeader.y = readInt(blob)
-    --log.debug("imageHeader.y: "..imageHeader.y)
     imageHeader.arraysize = readInt(blob)
-    --log.debug("imageHeader.arraysize: "..imageHeader.arraysize)
     imageHeader.frames = readInt(blob)
-    --log.debug("imageHeader.frames: "..imageHeader.frames)
 
     --Here we deviate from the FB implementation due to necessity. Where it is
     --loading raw binary data for the entire set of frames, we load it byte by
@@ -103,10 +99,8 @@ function LLSystem_ImageLoad(fileName, oc, rc)
   --
   -- If Dir ( kfe( .filename ) + ".col" ) <> "" Then
   local colFileName = string.sub(fileName, 1, #fileName - 4)..".col" --string.sub(file, -#ext)
-  --log.debug("Collision file name: "..colFileName)
   if colFileName == "data/pictures/char/copter_fly.col" or
      colFileName == "data/pictures/char/copter_rise.col" then
-    --log.level = "debug"
   end
   --
   --   #IfDef LL_IMAGELOADPROGRESS
@@ -119,7 +113,6 @@ function LLSystem_ImageLoad(fileName, oc, rc)
   if love.filesystem.getInfo(colFileName) then
     local blob = loadBlob(colFileName)
     if blob then
-      --log.debug("Collision file exists: "..colFileName)
     --
     --     For get_frames = 0 To .frames - 1
       for get_frames = 0, imageHeader.frames - 1 do
@@ -129,7 +122,6 @@ function LLSystem_ImageLoad(fileName, oc, rc)
     --
     --         Get #o, , .faces
         imageHeader.frame[get_frames].faces = readInt(blob)
-        --log.debug(" # of faces: "..imageHeader.frame[get_frames].faces)
     --
     --         .face = CAllocate( Len( LLSystem_FaceType ) * ( .faces ) )
         imageHeader.frame[get_frames].face = {}
@@ -142,25 +134,18 @@ function LLSystem_ImageLoad(fileName, oc, rc)
     --
     --             Get #o, , .x
           imageHeader.frame[get_frames].face[get_faces].x = readInt(blob)
-          --log.debug("  face.x: "..imageHeader.frame[get_frames].face[get_faces].x)
     --             Get #o, , .y
           imageHeader.frame[get_frames].face[get_faces].y = readInt(blob)
-          --log.debug("  face.y: "..imageHeader.frame[get_frames].face[get_faces].y)
     --             Get #o, , .w
           imageHeader.frame[get_frames].face[get_faces].w = readInt(blob)
-          --log.debug("  face.w: "..imageHeader.frame[get_frames].face[get_faces].w)
     --             Get #o, , .h
           imageHeader.frame[get_frames].face[get_faces].h = readInt(blob)
-          --log.debug("  face.h: "..imageHeader.frame[get_frames].face[get_faces].h)
     --             Get #o, , .strength
           imageHeader.frame[get_frames].face[get_faces].strength = readInt(blob)
-          --log.debug("  face.strength: "..imageHeader.frame[get_frames].face[get_faces].strength)
     --             Get #o, , .invincible
           imageHeader.frame[get_frames].face[get_faces].invincible = readInt(blob)
-          --log.debug("  face.invincible: "..imageHeader.frame[get_frames].face[get_faces].invincible)
     --             Get #o, , .impassable
           imageHeader.frame[get_frames].face[get_faces].impassable = readInt(blob)
-          --log.debug("  face.impassable: "..imageHeader.frame[get_frames].face[get_faces].impassable)
     --
     --           End With
     --
@@ -179,8 +164,6 @@ function LLSystem_ImageLoad(fileName, oc, rc)
     --
     -- End If
   end
-
-  --log.level = "fatal"
 
   return imageHeader
 end
