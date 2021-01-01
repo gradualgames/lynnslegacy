@@ -241,6 +241,12 @@ function blit_room()
   end
 end
 
+--NOTE: y-sorting was re-written from a 1:1 port from the original
+--codebase. It was originally done 1:1 out of concern for not knowing
+--what all the code was doing when first ported, but once clearly
+--understood it was helpful to rewrite this code because it was creating
+--a lot of new tables every frame which contributed to occasional stuttering
+--from garbage collection.
 function blit_y_sorted()
   --Clear global sorted objects list
   for k, v in pairs(ll_global.sorted_objects) do
