@@ -1,8 +1,0 @@
-General notes on the engine at a high level.
-
-***********************************************************************
-
--All graphical and xml assets are loaded from Sub init_splash() in
-engine-LL.bas.
-
-***********************************************************************
