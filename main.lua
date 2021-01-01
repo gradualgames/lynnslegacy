@@ -23,6 +23,7 @@ function love.load()
   initInput()
   init_vector_pool()
   init_vector_pair_pool()
+  init_quad_pool()
   init_main()
 
   ll_global = create_ll_system()
@@ -98,6 +99,7 @@ function main()
     for u = 1, loops do
       reset_vector_pool()
       reset_vector_pair_pool()
+      reset_quad_pool()
       input:update()
       timerUpdate()
       --timer = timer + .005

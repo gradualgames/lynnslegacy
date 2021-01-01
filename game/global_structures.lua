@@ -62,6 +62,7 @@ function create_ll_system()
   -- Type ll_system
   --
   --
+  ll_system.sorted_objects = {}
   --
   --   as integer fontBG, fontFG
   ll_system.fontBG = 0

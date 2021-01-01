@@ -2,6 +2,24 @@ require("game/constants")
 require("game/engine_enums")
 require("game/macros")
 
+function init_quad_pool()
+  quad_pool = {}
+  for i = 1, 1024 do
+    quad_pool[i] = love.graphics.newQuad(0, 0, 0, 0, 0, 0)
+  end
+  quad_pool_index = 1
+end
+
+function get_next_quad()
+  local result = quad_pool[quad_pool_index]
+  quad_pool_index = quad_pool_index + 1
+  return result
+end
+
+function reset_quad_pool()
+  quad_pool_index = 1
+end
+
 --Updates a room using the tile indices from the room to arrange
 --the spritebatch for drawing, based on an image header.
 function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
@@ -22,7 +40,8 @@ function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
         if mapX >= 0 and mapX < room.x and
            mapY >= 0 and mapY < room.y then
           local tileIndex = bit.band(room.layout[layer][room.x * mapY + mapX + 1], 0xff)
-          local quad = love.graphics.newQuad(
+          local quad = get_next_quad()
+          quad:setViewport(
             imageHeader.x * tileIndex, 0,
             imageHeader.x, imageHeader.y,
             imageHeader.x * imageHeader.frames, imageHeader.y)
@@ -223,127 +242,48 @@ function blit_room()
 end
 
 function blit_y_sorted()
-  -- Redim As char_type Ptr y_sort( 0 )
-  local y_sort = {[0] = {}}
-  --
-  -- Redim As char_type Ptr srt_Char( 0 )
-  local srt_Char = {[0] = {}}
-  -- Redim As Integer srt_CharNum( 0 )
-  local srt_CharNum = {0}
-  -- Dim As Integer srt_Num, ac
-  local srt_Num, ac = 0, 0
-  --
-  -- srt_Num = 0
-  srt_Num = 0
-  --
-  -- srt_Num += 1 '' enemy bank
-  srt_Num = srt_Num + 1
-  -- srt_Num += 1 '' temp enemy bank
-  srt_Num = srt_Num + 1
-  --
-  --
-  --
-  -- Redim srt_CharNum( srt_Num - 1 )
-  local srt_CharNum = {0, 0}
-  -- Redim srt_Char( srt_Num - 1 )
-  local srt_Char = {[0] = {}, {}}
-  --
-  -- srt_CharNum( 0 ) = now_room().enemies
-  srt_CharNum[0] = now_room().enemies
-  -- srt_Char( 0 ) = now_room().enemy
-  srt_Char[0] = now_room().enemy
-  --
-  -- srt_CharNum( 1 ) = now_room().temp_enemies
-  srt_CharNum[1] = now_room().temp_enemies
-  -- srt_Char( 1 ) = @now_room().temp_enemy( 0 )
-  srt_Char[1] = now_room().temp_enemy
-  --
-  --
-  -- '' Add concurrents to y-sorting list
-  --
-  -- Dim As Integer i, it
-  local i, it = 0, 0
-  -- For i = 0 To now_room().enemies - 1
-  for i = 0, now_room().enemies - 1 do
-  --
-  --   If LLObject_IsWithin( Varptr( now_room().enemy[i] ) ) = 0 Then
-    if LLObject_IsWithin(now_room().enemy[i]) == 0 then
-  --     Continue For
-      goto continue
-  --
-  --   End If
-    end
-  --
-  --   With now_room().enemy[i]
-    local with0 = now_room().enemy[i]
-  --
-  --     If .animControl[.current_anim].frame[.frame].concurrents <> 0 Then
-    -- log.debug("with0.id: "..with0.id)
-    -- log.debug("with0.frame: " ..with0.frame)
-    -- log.debug("with0.current_anim: " ..with0.current_anim)
-    -- log.debug("with0.animControl: " ..(with0.animControl and "exists" or "nil"))
-    -- log.debug("#with0.animControl: " ..#with0.animControl)
-    -- log.debug("#with0.anim: " ..#with0.anim)
-    -- log.debug("with0.animControl[with0.current_anim]: "..(with0.animControl[with0.current_anim] and "exists" or "null"))
-    -- log.debug("with0.animControl[with0.current_anim].frame: "..(with0.animControl[with0.current_anim].frame and "exists" or "null"))
-    -- log.debug("#with0.animControl[with0.current_anim].frame: "..#with0.animControl[with0.current_anim].frame)
-    -- log.debug("with0.animControl[with0.current_anim].frame[with0.frame]: "..(with0.animControl[with0.current_anim].frame[with0.frame] and "exists" or "null"))
-    if with0.animControl[with0.current_anim].frame[with0.frame].concurrents ~= 0 then
-  --
-  --       For it = 0 To .animControl[.current_anim].frame[.frame].concurrents - 1
-      for it = 0, with0.animControl[with0.current_anim].frame[with0.frame].concurrents - 1 do
-  --         '' add one.
-  --
-  --         srt_Num += 1
-        srt_Num = srt_Num + 1
-  --
-        --NOTE: This is resizing these arrays, not needed with Lua tables...
-  --         Redim Preserve srt_CharNum( srt_Num - 1 )
-  --         Redim Preserve srt_Char( srt_Num - 1 )
-  --
-  --         srt_CharNum( srt_Num - 1 ) = 1
-        srt_CharNum[srt_Num - 1] = 1
-  --
-  --         With .animControl[.current_anim].frame[.frame].concurrent[it]
-        local with1 = with0.animControl[with0.current_anim].frame[with0.frame].concurrent[it]
-  --           srt_Char( srt_Num - 1 ) = .char
-        log.debug("with1: "..(with1 and "exists" or "nil"))
-        srt_Char[srt_Num - 1] = {[0] = with1.char}
-  --
-  --         End With
-  --
-  --       Next
-      end
-  --
-  --     End If
-    end
-  --
-  --   End With
-  --
-  -- Next
-  ::continue::
+  --Clear global sorted objects list
+  for k, v in pairs(ll_global.sorted_objects) do
+    ll_global.sorted_objects[k] = nil
   end
-  --
-  -- ac = sort_index( y_sort(), Varptr( srt_Char( 0 ) ), Varptr( srt_CharNum( 0 ) ), srt_Num )
-  ac = sort_index(y_sort, srt_Char, srt_CharNum, srt_Num)
-  --
-  -- Dim As Integer _blit_em
-  --
-  -- For _blit_em = 0 To ac - 1
-  --log.debug("ac: "..ac)
-  for _blit_em = 0, ac - 1 do
-  --
-  --   If LLObject_IsWithin( y_sort( _blit_em ) ) Then
-    if LLObject_IsWithin(y_sort[0][_blit_em + 1]) ~= 0 then
-  --
-  --     blit_enemy( *y_sort( _blit_em ) )
-      local enemy = y_sort[0][_blit_em + 1]
-      blit_enemy(enemy)
-  --
-  --   End If
+
+  --Add all enemies and their concurrents to the sorted objects list
+  for i = 0, now_room().enemies - 1 do
+    if LLObject_IsWithin(now_room().enemy[i]) ~= 0 then
+      local with0 = now_room().enemy[i]
+      table.insert(ll_global.sorted_objects, with0)
+      if with0.animControl[with0.current_anim].frame[with0.frame].concurrents ~= 0 then
+        for it = 0, with0.animControl[with0.current_anim].frame[with0.frame].concurrents - 1 do
+          local with1 = with0.animControl[with0.current_anim].frame[with0.frame].concurrent[it]
+          table.insert(ll_global.sorted_objects, with1.char)
+        end
+      end
     end
-  --
-  -- Next
+  end
+
+  --Add all temp enemies to the sorted objects list
+  for i = 0, now_room().temp_enemies - 1 do
+    if LLObject_IsWithin(now_room().temp_enemy[i]) ~= 0 then
+      local with0 = now_room().temp_enemy[i]
+      table.insert(ll_global.sorted_objects, with0)
+    end
+  end
+
+  --Add the hero to the sorted objects list
+  table.insert(ll_global.sorted_objects, ll_global.hero)
+
+  --Now sort the objects by placed and then by y coord.
+  table.sort(ll_global.sorted_objects,
+    function(a, b)
+      local aval = a.coords.y + a.placed * 100000
+      local bval = b.coords.y + b.placed * 100000
+      return aval < bval
+    end)
+
+  --Now blit 'em
+  for _blit_em = 1, #ll_global.sorted_objects do
+    local enemy = ll_global.sorted_objects[_blit_em]
+    blit_enemy(enemy)
   end
 end
 
@@ -1063,100 +1003,6 @@ function blit_enemy_proj(_enemy)
 --   End With
 --
 -- End Sub
-end
-
--- Function sort_index( ary() As char_type Ptr, bank As char_type Ptr Ptr, bank_size As Integer Ptr, banks As Integer ) As Integer Static
-function sort_index(ary, bank, bank_size, banks)
-  -- log.debug("#ary: "..#ary[0])
-  -- log.debug("#bank: "..#bank)
-  -- log.debug("#bank[0]: "..#bank[0])
-  -- log.debug("#bank_size: "..#bank_size)
-  -- log.debug("bank_size[0]: "..bank_size[0])
-  -- log.debug("bank_size[1]: "..bank_size[1])
-  -- log.debug("banks: "..banks)
---
---
---   Dim As Integer i, it, j
-  local i, it, j = 0, 0, 0
---   Dim As char_type Ptr transfer
-  local transfer = {}
---
---   j = 0
-  j = 0
---   For i = 0 To banks - 1
-  for i = 0, banks - 1 do
---     j += bank_size[i]
-    j = j + bank_size[i]
---
---   Next
-  end
---
---   j = iif( j = 0, 1, j )
-  j = (j == 0) and 1 or j
---NOTE: Not porting redim because Lua tables
---   Redim ary( j - 1 )
---
---   j = 0
-  j = 0
---   For i = 0 To banks - 1
-  -- log.debug("banks - 1: "..(banks - 1))
-  for i = 0, banks - 1 do
---
---     For it = 0 To bank_size[i] - 1
-    -- log.debug("bank_size[i] - 1: "..(bank_size[i] - 1))
-    for it = 0, bank_size[i] - 1 do
---
---       transfer = Varptr( bank[i][it] )
-      transfer = bank[i][it]
---       If LLObject_IsWithin( transfer ) <> 0 Then
-      if LLObject_IsWithin(transfer) ~= 0 then
---
---         ary( j ) = transfer
-        ary[0][j + 1] = transfer
---         j += 1
-        j = j + 1
---
---       End If
-      end
---
---     Next
-    end
---
---   Next
-  end
---
-  --NOTE: Not porting Redim Preserve because Lua tables
---   Redim Preserve ary( j )
---
---   ary( j ) = Varptr( llg( hero ) )
-  -- log.debug("Adding hero to array...")
-  ary[0][j + 1] = ll_global.hero
-
---
---   mergesort_y( ary() )
-  -- log.debug("        #ary[0]: "..#ary[0])
-  --NOTE: The original code had two sorts one after another
-  --for sorting by y, then by placed. When I attempt to do
-  --this it appears to mess up some of the order and I never
-  --figured out why. Instead, I was able to distill sorting by
-  --both properties into one sorting function where the .placed
-  --property is scaled much larger than any y coordinate will ever
-  --be, making it a higher priority to sort by (it is what is used to
-  --make flat items always appear behind the player sprite, such as
-  --save points).
-  table.sort(ary[0],
-    function(a, b)
-      local aval = a.coords.y + a.placed * 100000
-      local bval = b.coords.y + b.placed * 100000
-      return aval < bval
-    end)
---   mergesort_placed( ary() )
-  --table.sort(ary[0], function(a, b) return a.placed < b.placed end)
---
---   Return j + 1
-  return j + 1
---
--- End Function
 end
 
 -- Sub blit_enemy_loot()
