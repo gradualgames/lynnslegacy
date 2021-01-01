@@ -12,6 +12,11 @@ SLAXML = require 'lib/SLAXML/slaxml'
 
 -- Loads objectLoad xml and sprite image files. Assumes objectLoad.id has at least
 -- been initialized with the relative path of an object xml file.
+--NOTE: This code turned out differently from the original codebase due to the
+--available XML libraries for Lua, but it accomplishes the same. My favorite
+--thing about what happened here is several of the hundreds line long select
+--cases turned into one-liners because of the ability to look up functions in
+--the global table _G. :)
 function LLSystem_ObjectFromXML(objectLoad)
   --   #Define func_drop objectLoad.funcs.func[objectLoad.funcs.active_state][objectLoad.funcs.current_func[objectLoad.funcs.active_state]]
   local function func_drop(func)
@@ -22,14 +27,7 @@ function LLSystem_ObjectFromXML(objectLoad)
 --                       If objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] Then
 --                         objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
   local function inc_func()
-    --log.debug("inc_func called.")
     objectLoad.funcs.current_func[objectLoad.funcs.active_state] = objectLoad.funcs.current_func[objectLoad.funcs.active_state] + 1
-    -- log.debug("objectLoad.funcs.current_func[objectLoad.funcs.active_state]: "..objectLoad.funcs.current_func[objectLoad.funcs.active_state])
-    -- log.debug("objectLoad.funcs.func_count[objectLoad.funcs.active_state]: "..objectLoad.funcs.func_count[objectLoad.funcs.active_state])
-    -- if objectLoad.funcs.current_func[objectLoad.funcs.active_state] == objectLoad.funcs.func_count[objectLoad.funcs.active_state] then
-    --   log.debug("Resetting current_func to 1 for active state: "..objectLoad.funcs.active_state)
-    --   objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 1
-    -- end
   end
 
   local function install_func(funcName)
@@ -56,11 +54,6 @@ function LLSystem_ObjectFromXML(objectLoad)
   local path = {}
 
   local text = function(text, cdata)
-    -- log.debug("Processing text: "..text)
-    -- log.debug("At path:")
-    -- for key, value in pairs(path) do
-    --   log.debug(value)
-    -- end
     text = string.gsub(text, "\\", "/")
     if path[2] == "sprite" then
       if path[3] == "anim_id" then
@@ -81,7 +74,6 @@ function LLSystem_ObjectFromXML(objectLoad)
         -- End Select
         end
       elseif path[3] == "filename" then
-        --log.debug(" Processing sprite/filename: "..text)
         objectLoad.anim[objectLoad.current_anim] = getImageHeader(text)
         objectLoad.animControl[objectLoad.current_anim] = create_LLObject_ImageHeader()
         --NOTE: In the original code, the animControl.frame array is filled
@@ -90,16 +82,12 @@ function LLSystem_ObjectFromXML(objectLoad)
           objectLoad.animControl[objectLoad.current_anim].frame[i] = create_LLObject_FrameControl()
         end
       elseif path[3] == "dir_frames" then
-        --log.debug( " Processing sprite/dir_frames: "..text)
         objectLoad.animControl[objectLoad.current_anim].dir_frames = tonumber(text)
       elseif path[3] == "rate" then
-        --log.debug( " Processing sprite/rate: "..text)
         objectLoad.animControl[objectLoad.current_anim].rate = tonumber(text)
       elseif path[3] == "x_off" then
-        --log.debug( " Processing sprite/x_off: "..text)
         objectLoad.animControl[objectLoad.current_anim].x_off = tonumber(text)
       elseif path[3] == "y_off" then
-        --log.debug( " Processing sprite/y_off: "..text)
         objectLoad.animControl[objectLoad.current_anim].y_off = tonumber(text)
       elseif path[3] == "sound" then
           -- Case "frame"
@@ -265,7 +253,6 @@ function LLSystem_ObjectFromXML(objectLoad)
       end
     elseif path[2] == "fp" then
       if path[3] == "proc_id" then
-        --log.debug(" proc_id text: "..text)
 --
 --           #Define LLObject_ProcIDLoad(__Proc_ID__) _
 --             Case ###__Proc_ID__: objectLoad.##__Proc_ID__ = objectLoad.funcs.active_state
@@ -291,7 +278,6 @@ function LLSystem_ObjectFromXML(objectLoad)
         --use the proc_id text directly from the xml to set it to the value of the
         --current active state, which is what is being done above.
         objectLoad[text] = objectLoad.funcs.active_state
-        --log.debug(" active_state is: "..objectLoad[text])
       elseif path[3] == "func" then
         objectLoad.funcs.func_count[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] + 1
         local funcName = "__"..text
@@ -299,7 +285,6 @@ function LLSystem_ObjectFromXML(objectLoad)
       elseif path[3] == "block_macro" then
         if text == "dead_block" then
           objectLoad.funcs.func_count[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] + 6
-          --log.debug("Installing functions for block_macro 'dead_block'")
           -- func_drop = CPtr( Any Ptr, @__make_dead        ): inc_func
           install_func("__make_dead")
           -- func_drop = CPtr( Any Ptr, @__active_anim_dead ): inc_func
@@ -314,7 +299,6 @@ function LLSystem_ObjectFromXML(objectLoad)
           install_func("__infinity")
         elseif text == "dead_drop_block" then
           objectLoad.funcs.func_count[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] + 7
-          --log.debug("Installing functions for block_macro 'dead_drop_block'")
           -- func_drop = CPtr( Any Ptr, @__make_dead        ): inc_func
           install_func("__make_dead")
           -- func_drop = CPtr( Any Ptr, @__active_anim_dead ): inc_func
@@ -331,7 +315,6 @@ function LLSystem_ObjectFromXML(objectLoad)
           install_func("__infinity")
         elseif text == "fire_block" then
           objectLoad.funcs.func_count[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] + 3
-          --log.debug("Installing functions for block_macro 'fire_block'")
           -- func_drop = CPtr( Any Ptr, @__do_flyback       ): inc_func
           install_func("__do_flyback")
           -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
@@ -340,7 +323,6 @@ function LLSystem_ObjectFromXML(objectLoad)
           install_func("__return_idle")
         elseif text == "ice_block" then
           objectLoad.funcs.func_count[objectLoad.funcs.active_state] = objectLoad.funcs.func_count[objectLoad.funcs.active_state] + 3
-          --log.debug("Installing functions for block_macro 'ice_block'")
           -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
           install_func("__second_pause")
           -- func_drop = CPtr( Any Ptr, @__second_pause     ): inc_func
@@ -401,18 +383,14 @@ function LLSystem_ObjectFromXML(objectLoad)
       objectLoad.projectile.strength = tonumber(text)
     elseif #path == 2 then
       local attribute = path[2]
-      --log.debug("Found attribute: "..attribute)
       local convertedValue = tonumber(text)
       if convertedValue == nil then
-        --log.debug("Attribute string value: "..text)
         objectLoad[attribute] = text
         local enum = _G[text]
         if enum then
-          --log.debug("Attribute was an enum, replacing with value: "..enum)
           objectLoad[attribute] = enum
         end
       else
-        --log.debug("Attribute number value: "..text)
         objectLoad[attribute] = convertedValue
       end
     end
@@ -425,10 +403,6 @@ function LLSystem_ObjectFromXML(objectLoad)
       objectLoad.current_anim = objectLoad.anims
       objectLoad.anims = objectLoad.anims + 1
     elseif name == "fp" then
-      --log.debug("Processing fp tag.")
-      --NOTE: This chunk comes from a select statement higher up
-      --in the FB code that performs allocation and counting. It
-      --makes more sense here due to how we are processing the xml.
       --         .funcs.states += 1
       --
       --         .funcs.func_count   = Reallocate( .funcs.func_count,   .funcs.states * Len( Integer ) )
@@ -454,22 +428,20 @@ function LLSystem_ObjectFromXML(objectLoad)
   local closeElement = function(name, nsURI)
     table.remove(path)
     if name == "fp" then
-      --log.debug("fp tag closed, resetting current_func for that state.")
       objectLoad.funcs.current_func[objectLoad.funcs.active_state] = 0
     end
   end
 
   local xmlData = getObjectXml(objectLoad.id)
-  -- Specify as many/few of these as you like
-  local parser = SLAXML:parser{
-    startElement = startElement, -- When "<foo" or <x:foo is seen
-    attribute    = function(name,value,nsURI,nsPrefix) end, -- attribute found on current element
-    closeElement = closeElement, -- When "</foo>" or </x:foo> or "/>" is seen
-    text         = text, -- text and CDATA nodes (cdata is true for cdata nodes)
-    comment      = function(content)                   end, -- comments
-    pi           = function(target,content)            end, -- processing instructions e.g. "<?yes mon?>"
+  local parser = SLAXML:parser {
+    startElement = startElement,
+    attribute = function(name, value, nsURI, nsPrefix) end,
+    closeElement = closeElement,
+    text = text,
+    comment = function(content) end,
+    pi = function(target, content) end,
   }
-  parser:parse(xmlData, {stripWhitespace=true})
+  parser:parse(xmlData, {stripWhitespace = true})
 
   --Some attributes have different names from xml when they become part of
   --an objectLoad.
