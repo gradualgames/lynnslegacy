@@ -1,3 +1,5 @@
+require("game/utils")
+
 function LLObject_IgnoreDirectional(this)
 --   With *( this )
 --     If ( .animating <> 0 ) Then
@@ -43,10 +45,9 @@ function LLObject_IncrementFrame(this)
   --     End If
     end
   --     With .animControl[.current_anim]
+    local with0 = this.animControl[this.current_anim]
   --       tet = IIf( ( this->mad = 0 ) Or ( this->dead ), .rate, .rateMad )
-    --TODO: Re-introduce the mad/dead/rate/rateMad --logic when needed. For now we'll just set it to rate
-    --local tet = (this.mad == 0 or this.dead) and this.animControl.rate or this.animControl.rateMad
-    local tet = this.animControl[this.current_anim].rate
+    local tet = iif((this.mad == 0 or this.dead ~= 0), with0.rate, with0.rateMad)
   --     End With
   --     .frame_hold = Timer + tet
     this.frame_hold = timer + tet
