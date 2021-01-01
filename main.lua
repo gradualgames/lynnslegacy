@@ -204,7 +204,7 @@ end
 --texture.
 function initPaletteShader()
   masterPalette, palette = loadPalette("data/palette/ll.pal")
-  paletteCanvas = love.graphics.newCanvas(256,1)
+  paletteCanvas = love.graphics.newCanvas(256, 1)
   shader = love.graphics.newShader("shader/palette_shader.fs")
   shader:send("paletteTexture", paletteCanvas)
 end
