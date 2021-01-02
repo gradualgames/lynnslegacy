@@ -2518,7 +2518,7 @@ function minimap_Blit()
 --
 --             Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), color_Current( index_Current ), bf
           love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
-          love.graphics.rectangle("fill", roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          rectfill(roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
           love.graphics.setColor(1, 1, 1, 1)
 
 --             If shiftTimer = 0 Then
@@ -2542,14 +2542,14 @@ function minimap_Blit()
         else
 --             Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), 36, bf
           love.graphics.setColor(36 / 255, 0, 0, 1.0)
-          love.graphics.rectangle("fill", roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          rectfill(roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
           love.graphics.setColor(1, 1, 1, 1)
 --
 --           End If
         end
 --           Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), 15, b
         love.graphics.setColor(15 / 255, 0, 0, 1.0)
-        love.graphics.rectangle("line", roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+        rect(roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
         love.graphics.setColor(1, 1, 1, 1)
 
 --
@@ -2575,14 +2575,14 @@ function minimap_Blit()
             if with1.id == DOOR_OPEN then
 --                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
               love.graphics.setColor(36 / 255, 0, 0, 1.0)
-              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+              rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
 --
 --                   Case DOOR_STAIR
             elseif with1.id == DOOR_STAIR then
 --                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 170, bf
               love.graphics.setColor(170 / 255, 0, 0, 1.0)
-              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+              rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
 --
 --                 End Select
@@ -2616,7 +2616,7 @@ function minimap_Blit()
             if eventsAchieved ~= 0 then
 --                   Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
               love.graphics.setColor(36 / 255, 0, 0, 1.0)
-              love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+              rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
 
 --
@@ -2629,7 +2629,7 @@ function minimap_Blit()
               if with1.id == DOOR_LOCKED then
 --                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 15, bf
                 love.graphics.setColor(15 / 255, 0, 0, 1.0)
-                love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+                rectfill(doorX - 1, doorY - 1, 3, 3)
                 love.graphics.setColor(1, 1, 1, 1)
 
 --
@@ -2637,14 +2637,14 @@ function minimap_Blit()
               elseif with1.id == DOOR_BARRED then
 --                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 245, bf
                 love.graphics.setColor(245 / 255, 0, 0, 1.0)
-                love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+                rectfill(doorX - 1, doorY - 1, 3, 3)
                 love.graphics.setColor(1, 1, 1, 1)
 --
 --                     Case DOOR_FKEYLOCKED
               elseif with1.id == DOOR_FKEYLOCKED then
 --                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 27, bf
                 love.graphics.setColor(27 / 255, 0, 0, 1.0)
-                love.graphics.rectangle("fill", doorX - 1, doorY - 1, 2, 2)
+                rectfill(doorX - 1, doorY - 1, 3, 3)
                 love.graphics.setColor(1, 1, 1, 1)
 --
 --                   End Select

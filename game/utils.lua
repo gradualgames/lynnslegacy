@@ -43,3 +43,25 @@ end
 function sleep(ms)
   love.timer.sleep(ms/1000)
 end
+
+function rect(x, y, w, h)
+  local sx, sy
+  sx = x
+  for sy = y, y + h - 1 do
+    love.graphics.points(sx + .5, sy + .5)
+    love.graphics.points(sx + .5 + w - 1, sy + .5)
+  end
+  sy = y
+  for sx = x, x + w - 1 do
+    love.graphics.points(sx + .5, sy + .5)
+    love.graphics.points(sx + .5, sy + .5 + h - 1)
+  end
+end
+
+function rectfill(x, y, w, h)
+  for sy = y, y + h - 1 do
+    for sx = x, x + w - 1 do
+      love.graphics.points(sx + .5, sy + .5)
+    end
+  end
+end
