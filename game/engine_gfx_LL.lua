@@ -854,9 +854,13 @@ function blit_enemy(_enemy)
   --
   --
   --     If .grult_proj_trig <> 0 Then
-    if with0.gult_proj_trig ~= 0 then
+    if with0.grult_proj_trig ~= 0 then
   --
   --       Put( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
+      draw(with0.anim[with0.proj_anim].image,
+           with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames],
+           math.floor(with0.projectile.coords[0].x) - math.floor(ll_global.this_room.cx),
+           math.floor(with0.projectile.coords[0].y) - math.floor(ll_global.this_room.cy))
   --
   --     End If
     end
@@ -949,8 +953,10 @@ function blit_enemy_proj(_enemy)
           if (with0.projectile.travelled ~= 1) then
 --                 '' projectile->travelled has incremented at least twice (once, kind of <.<)
 --                 Put ( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
-            --draw(with0.projectile.coords[0].x - ll_global.this_room.cx, with0.projectile.coords[0].y - ll_global.this_room.cy, with0.anim[with0.proj_anim].image[with0.projectile.travelled % with0.anim[with0.proj_anim].frames) * (with0.anim[with0.proj_anim].arraysize)])
-            draw(with0.anim[with0.proj_anim].image, with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames], with0.projectile.coords[0].x - ll_global.this_room.cx, with0.projectile.coords[0].y - ll_global.this_room.cy)
+            draw(with0.anim[with0.proj_anim].image,
+                 with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames],
+                 math.floor(with0.projectile.coords[0].x) - math.floor(ll_global.this_room.cx),
+                 math.floor(with0.projectile.coords[0].y) - math.floor(ll_global.this_room.cy))
 --
 --               End If
           end
@@ -965,7 +971,10 @@ function blit_enemy_proj(_enemy)
             for show_proj = 0, 1 do
 --
 --                   Put ( .projectile->coords[show_proj].x - llg( this )_room.cx, .projectile->coords[show_proj].y - llg( this )_room.cy  ), @.anim[.proj_anim]->image[( .projectile->direction And 1 ) * .anim[.proj_anim]->arraysize], Trans
-              draw(with0.anim[with0.proj_anim].image, with0.anim[with0.proj_anim].quads[bit.band(with0.projectile.direction, 1)], with0.projectile.coords[show_proj].x - ll_global.this_room.cx, with0.projectile.coords[show_proj].y - ll_global.this_room.cy)
+              draw(with0.anim[with0.proj_anim].image,
+                   with0.anim[with0.proj_anim].quads[bit.band(with0.projectile.direction, 1)],
+                   math.floor(with0.projectile.coords[show_proj].x) - math.floor(ll_global.this_room.cx),
+                   math.floor(with0.projectile.coords[show_proj].y) - math.floor(ll_global.this_room.cy))
 --
 --                 Next
             end
@@ -995,7 +1004,10 @@ function blit_enemy_proj(_enemy)
         if with0.projectile.invisible == 0 then
 --               '' this projectile is visible
 --               Put ( .projectile->coords[show_proj].x - llg( this )_room.cx, .projectile->coords[show_proj].y - llg( this )_room.cy  ), @.anim[.proj_anim]->image[(.projectile->travelled Mod .anim[.proj_anim]->frames ) * ( .anim[.proj_anim]->arraysize )], Trans
-          draw(with0.anim[with0.proj_anim].image, with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames], with0.projectile.coords[show_proj].x - ll_global.this_room.cx, with0.projectile.coords[show_proj].y - ll_global.this_room.cy)
+          draw(with0.anim[with0.proj_anim].image,
+               with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames],
+               math.floor(with0.projectile.coords[show_proj].x) - math.floor(ll_global.this_room.cx),
+               math.floor(with0.projectile.coords[show_proj].y) - math.floor(ll_global.this_room.cy))
 --
 --             End If
         end
