@@ -869,6 +869,10 @@ function blit_enemy(_enemy)
     if with0.anger_proj_trig ~= 0 then
   --
   --       Put( .projectile->coords[0].x - llg( this )_room.cx, .projectile->coords[0].y - llg( this )_room.cy ), @.anim[.proj_anim]->image[( .projectile->travelled Mod .anim[.proj_anim]->frames ) * (.anim[.proj_anim]->arraysize)], Trans
+      draw(with0.anim[with0.proj_anim].image,
+           with0.anim[with0.proj_anim].quads[with0.projectile.travelled % with0.anim[with0.proj_anim].frames],
+           math.floor(with0.projectile.coords[0].x) - math.floor(ll_global.this_room.cx),
+           math.floor(with0.projectile.coords[0].y) - math.floor(ll_global.this_room.cy))
   --
   --     End If
     end
