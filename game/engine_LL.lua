@@ -6364,6 +6364,14 @@ function handle_MiniMap()
 --               llg( miniMapFloor ) -= 1
               ll_global.miniMapFloor = ll_global.miniMapFloor - 1
 --
+              --NOTE: This was not in the original code. Reset the minimap
+              --camera when changing floors. In some dungeons if you changed
+              --floors away from the floor you were on, then back to the floor
+              --you first viewed, the floor would no longer be visible.
+--              llg( miniMap ).camera.x = ( llg( miniMap ).room[llg( this_room ).i].location.x + ( now_room().x Shr 1 ) ) - 160
+              ll_global.miniMap.camera.x = ll_global.miniMap.room[ll_global.this_room.i].location.x + bit.rshift(now_room().x, 1) - 160
+--              llg( miniMap ).camera.y = ( llg( miniMap ).room[llg( this_room ).i].location.y + ( now_room().y Shr 1 ) ) - 80
+              ll_global.miniMap.camera.y = ll_global.miniMap.room[ll_global.this_room.i].location.y + bit.rshift(now_room().y, 1) - 80
 --             end if
             end
 --             roomd = -1
@@ -6388,6 +6396,14 @@ function handle_MiniMap()
 --               llg( miniMapFloor ) += 1
               ll_global.miniMapFloor = ll_global.miniMapFloor + 1
 --
+              --NOTE: This was not in the original code. Reset the minimap
+              --camera when changing floors. In some dungeons if you changed
+              --floors away from the floor you were on, then back to the floor
+              --you first viewed, the floor would no longer be visible.
+--              llg( miniMap ).camera.x = ( llg( miniMap ).room[llg( this_room ).i].location.x + ( now_room().x Shr 1 ) ) - 160
+              ll_global.miniMap.camera.x = ll_global.miniMap.room[ll_global.this_room.i].location.x + bit.rshift(now_room().x, 1) - 160
+--              llg( miniMap ).camera.y = ( llg( miniMap ).room[llg( this_room ).i].location.y + ( now_room().y Shr 1 ) ) - 80
+              ll_global.miniMap.camera.y = ll_global.miniMap.room[ll_global.this_room.i].location.y + bit.rshift(now_room().y, 1) - 80
 --             end if
             end
 --             roomu = -1
