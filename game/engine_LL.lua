@@ -6218,7 +6218,7 @@ end
 function LLMiniMap_TopFloor()
 --
 --   dim as uinteger tf = ( 2 ^ 31 )
-  local tf = math.pow(2, 31)
+  local tf = -math.huge
 --   dim as integer topFloor = tf, iRoom
   local topFloor, iRoom = tf, 0
 --
@@ -6246,7 +6246,7 @@ end
 function LLMiniMap_BottomFloor()
 --
 --   dim as integer bottomFloor = ( 2 ^ 31 ) - 1, iRoom
-  local bottomFloor, iRoom = math.pow(2, 31) - 1, 0
+  local bottomFloor, iRoom = math.huge, 0
 --
 --   for iRoom = 0 to llg( map )->rooms - 1
   for iRoom = 0, ll_global.map.rooms - 1 do
