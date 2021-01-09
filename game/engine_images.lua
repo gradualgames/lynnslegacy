@@ -8,11 +8,13 @@ require("game/image_structures")
 --short integers, the first being 8 times the width and the second being the height.
 --Following this is one byte per pixel of the frame, being an index into a 256
 --color palette.
---It returns a table with all the frames of the spritesheet. Each frame
---is just an array of pixels where each pixel has x, y, r, g, b, a components in
---a simple Lua table. This data can be processed by a platform specific function
---later for transforming into a usable sprite object for display on the screen,
---but this function should never have to be modified for any future ports.
+--It returns a table which is modeled after the LLSystem_ImageHeader type in the
+--original FreeBASIC source code. But the image property is not binary pixel
+--data but is instead a Love2D Image object. An additional property called quads
+--is created to represent the frames of the image. In the original source code
+--the image property was just a simple array of sprites. We do it this way because
+--it is more efficient for Love2D to store fewer sprite sheets in the form of images
+--and draw multiple sprites defined as quads as sub sections of those sprite sheets.
 function LLSystem_ImageLoad(fileName, oc, rc)
   --Create a table that can contain everything in the .spr
   --file and associated .col file if it exists.
@@ -98,10 +100,6 @@ function LLSystem_ImageLoad(fileName, oc, rc)
   end
   --
   -- If Dir ( kfe( .filename ) + ".col" ) <> "" Then
-  local colFileName = string.sub(fileName, 1, #fileName - 4)..".col" --string.sub(file, -#ext)
-  if colFileName == "data/pictures/char/copter_fly.col" or
-     colFileName == "data/pictures/char/copter_rise.col" then
-  end
   --
   --   #IfDef LL_IMAGELOADPROGRESS
   --     LLSystem_Log( "Loading collision data.", "imageload.txt" )
@@ -110,6 +108,7 @@ function LLSystem_ImageLoad(fileName, oc, rc)
   --
   --   o = FreeFile
   --   If Open( kfe( .filename ) + ".col", For Binary Access Read, As o ) = 0 Then
+  local colFileName = string.sub(fileName, 1, #fileName - 4)..".col" --string.sub(file, -#ext)
   if love.filesystem.getInfo(colFileName) then
     local blob = loadBlob(colFileName)
     if blob then
