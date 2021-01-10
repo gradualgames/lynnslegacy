@@ -84,6 +84,8 @@ function LLSystem_ObjectFromXML(objectLoad)
         objectLoad.animControl[objectLoad.current_anim].dir_frames = tonumber(text)
       elseif path[3] == "rate" then
         objectLoad.animControl[objectLoad.current_anim].rate = tonumber(text)
+      elseif path[3] == "madrate" then
+        objectLoad.animControl[objectLoad.current_anim].rateMad = tonumber(text)
       elseif path[3] == "x_off" then
         objectLoad.animControl[objectLoad.current_anim].x_off = tonumber(text)
       elseif path[3] == "y_off" then
