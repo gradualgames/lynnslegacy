@@ -9,14 +9,15 @@ end
 
 function init_vector_pool()
   vector_pool = {}
-  for i = 1, 65536 do
-    vector_pool[i] = create_vector()
-  end
   vector_pool_index = 1
 end
 
 function get_next_vector()
   local vector = vector_pool[vector_pool_index]
+  if vector == nil then
+    vector = create_vector()
+    vector_pool[vector_pool_index] = vector
+  end
   vector.x = 0
   vector.y = 0
   vector_pool_index = vector_pool_index + 1
@@ -34,14 +35,15 @@ end
 
 function init_vector_pair_pool()
   vector_pair_pool = {}
-  for i = 1, 65536 do
-    vector_pair_pool[i] = create_vector_pair()
-  end
   vector_pair_pool_index = 1
 end
 
 function get_next_vector_pair()
   local vector_pair = vector_pair_pool[vector_pair_pool_index]
+  if vector_pair == nil then
+    vector_pair = create_vector_pair()
+    vector_pair_pool[vector_pair_pool_index] = vector_pair
+  end
   vector_pair.u = get_next_vector()
   vector_pair.v = get_next_vector()
   vector_pair_pool_index = vector_pair_pool_index + 1
