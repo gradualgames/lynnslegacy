@@ -3625,6 +3625,7 @@ function enter_map(_char, _m, desc, _entry)
     end
 --
 --     clean_Deallocate( llg( hero_only ).roomVisited )
+    ll_global.hero_only.roomVisited = nil
 --
 --   end if
   end
@@ -7099,6 +7100,10 @@ function sequence_LoadGame(savedInfo)
 --   if savedInfo->rooms <> 0 then
   if savedInfo.rooms ~= 0 then
 --     llg( hero_only ).roomVisited = callocate( savedInfo->rooms )
+    ll_global.hero_only.roomVisited = {}
+    for i = 0, savedInfo.rooms - 1 do
+      ll_global.hero_only.roomVisited[i] = 0
+    end
 --
 --     for iRooms = 0 to savedInfo->rooms - 1
     for iRooms = 0, savedInfo.rooms - 1 do
