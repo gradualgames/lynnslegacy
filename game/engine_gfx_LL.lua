@@ -2444,6 +2444,12 @@ function menu_Blit()
 -- End Sub
 end
 
+--NOTE: This function has been refactored a bit to improve the appearance of
+--the minimap. Sometimes the doors would conflict with room borders, or the
+--flashing current room would conflict with doors. It has been refactored
+--so all normal rooms are drawn first, then doors, then the flashing main
+--room. The size of the room rectangles were increased slightly so that their
+--borders overlap so that the shared borders are 1 pixel wide.
 -- Sub minimap_Blit()
 function minimap_Blit()
 --
@@ -2510,6 +2516,11 @@ function minimap_Blit()
 --   graphicalString( llg( dungeonName ), 160 - ( Len( llg( dungeonName ) ) Shl 2 ), 2 )
   graphicalString(ll_global.dungeonName, 160 - bit.lshift(#ll_global.dungeonName, 2), 2)
 --
+  --NOTE: View Screen here is the only place this is done in the entire codebase.
+  --To simulate drawing the minimap elements between the 20th and 179th row of
+  --pixels, we have drawpixel, rect and rectfill. drawpixel uses love.graphics.points
+  --and only draws if y is >= 20 and <= 179. The two rect functions call through to
+  --drawpixel.
 --   View Screen( 0, 20 )-( 319, 179 )
   for i = 0, ll_global.map.rooms - 1 do
     local with0 = ll_global.miniMap.room[i]
