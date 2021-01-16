@@ -2511,183 +2511,98 @@ function minimap_Blit()
   graphicalString(ll_global.dungeonName, 160 - bit.lshift(#ll_global.dungeonName, 2), 2)
 --
 --   View Screen( 0, 20 )-( 319, 179 )
---   For i = 0 To llg( map )->rooms - 1
   for i = 0, ll_global.map.rooms - 1 do
---
---
---     With llg( minimap ).room[i]
     local with0 = ll_global.miniMap.room[i]
---
---       If .hasVisited Then
     if with0.hasVisited ~= 0 then
---
---         If .floor = floor_Current Then
       if with0.floor == floor_Current then
---
---           roomX = gx + .location.x - llg( miniMap ).camera.x
         roomX = gx + with0.location.x - ll_global.miniMap.camera.x
---           roomY = gy + .location.y + minimap_Offset - llg( miniMap ).camera.y
         roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
---
---           If i = llg( this_room ).i Then
         if i == ll_global.this_room.i then
---
---             Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), color_Current( index_Current ), bf
-          love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
-          rectfill(roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
-          love.graphics.setColor(1, 1, 1, 1)
-
---             If shiftTimer = 0 Then
-          if shiftTimer == 0 then
---
---               index_Current += 1
-            index_Current = index_Current + 1
---               If index_Current = 10 Then index_Current = 0
-            if index_Current == 10 then index_Current = 0 end
---
---               shiftTimer = Timer + shiftDelay
-            shiftTimer = timer + shiftDelay
---
---             End If
-          end
---
---             If Timer > shiftTimer Then shiftTimer = 0
-          if timer > shiftTimer then shiftTimer = 0 end
---
---           Else
         else
---             Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), 36, bf
           love.graphics.setColor(36 / 255, 0, 0, 1.0)
-          rectfill(roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          rectfill(roomX, roomY, ll_global.map.room[i].x + 1, ll_global.map.room[i].y + 1)
           love.graphics.setColor(1, 1, 1, 1)
---
---           End If
         end
---           Line( roomX, roomY )-( roomX + llg( map )->room[i].x - 1, roomY + llg( map )->room[i].y - 1 ), 15, b
         love.graphics.setColor(15 / 255, 0, 0, 1.0)
-        rect(roomX, roomY, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+        rect(roomX, roomY, ll_global.map.room[i].x + 1, ll_global.map.room[i].y + 1)
         love.graphics.setColor(1, 1, 1, 1)
+      end
+    end
+  end
 
---
---
---
---           For j = 0 To .doors - 1
+  for i = 0, ll_global.map.rooms - 1 do
+    local with0 = ll_global.miniMap.room[i]
+    if with0.hasVisited ~= 0 then
+      if with0.floor == floor_Current then
+        roomX = gx + with0.location.x - ll_global.miniMap.camera.x
+        roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
         for j = 0, with0.doors - 1 do
---
---             With .door[j]
           local with1 = with0.door[j]
---
---               doorX = .location.x + roomX
           doorX = with1.location.x + roomX
---               doorY = .location.y + roomY
           doorY = with1.location.y + roomY
---
---               If .codes = 0 Then
           if with1.codes == 0 then
---
---                 Select Case .id
---
---                   Case DOOR_OPEN
             if with1.id == DOOR_OPEN then
---                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
               love.graphics.setColor(36 / 255, 0, 0, 1.0)
               rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
---
---                   Case DOOR_STAIR
             elseif with1.id == DOOR_STAIR then
---                     Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 170, bf
               love.graphics.setColor(170 / 255, 0, 0, 1.0)
               rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
---
---                 End Select
             end
---
---               Else
           else
---
---                 eventsAchieved = -1
             eventsAchieved = -1
---                 For k = 0 To .codes - 1
             for k = 0, with1.codes - 1 do
---
---                   If .code[k] <> -1 Then
               if with1.code[k] ~= -1 then
---                     eventsAchieved And= ( llg( now )[.code[k]] <> 0 )
                 eventsAchieved = bit.band(eventsAchieved, (ll_global.now[with1.code[k]] ~= 0) and -1 or 0)
---
---                   Else
               else
---                     eventsAchieved = 0
                 eventsAchieved = 0
---
---                   End If
               end
---
---                 Next
             end
---
---                 If eventsAchieved <> 0 Then
             if eventsAchieved ~= 0 then
---                   Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 36, bf
               love.graphics.setColor(36 / 255, 0, 0, 1.0)
               rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
-
---
---                 Else
             else
---
---                   Select Case .id
---
---                     Case DOOR_LOCKED
               if with1.id == DOOR_LOCKED then
---                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 15, bf
                 love.graphics.setColor(15 / 255, 0, 0, 1.0)
                 rectfill(doorX - 1, doorY - 1, 3, 3)
                 love.graphics.setColor(1, 1, 1, 1)
-
---
---                     Case DOOR_BARRED
               elseif with1.id == DOOR_BARRED then
---                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 245, bf
                 love.graphics.setColor(245 / 255, 0, 0, 1.0)
                 rectfill(doorX - 1, doorY - 1, 3, 3)
                 love.graphics.setColor(1, 1, 1, 1)
---
---                     Case DOOR_FKEYLOCKED
               elseif with1.id == DOOR_FKEYLOCKED then
---                       Line( doorX - 1, doorY - 1 )-( doorX + 1, doorY + 1 ), 27, bf
                 love.graphics.setColor(27 / 255, 0, 0, 1.0)
                 rectfill(doorX - 1, doorY - 1, 3, 3)
                 love.graphics.setColor(1, 1, 1, 1)
---
---                   End Select
               end
---
---                 End If
             end
---
---               End If
           end
---
---             End With
---
---           Next
         end
---
---
---
---         End If
       end
---
---       End If
     end
---
---     End With
---
---   Next
+  end
+
+  for i = 0, ll_global.map.rooms - 1 do
+    local with0 = ll_global.miniMap.room[i]
+    if with0.hasVisited ~= 0 then
+      if with0.floor == floor_Current then
+        roomX = gx + with0.location.x - ll_global.miniMap.camera.x
+        roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
+        if i == ll_global.this_room.i then
+          love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
+          rectfill(roomX + 1, roomY + 1, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          love.graphics.setColor(1, 1, 1, 1)
+          if shiftTimer == 0 then
+            index_Current = index_Current + 1
+            if index_Current == 10 then index_Current = 0 end
+            shiftTimer = timer + shiftDelay
+          end
+          if timer > shiftTimer then shiftTimer = 0 end
+        end
+      end
+    end
   end
 --   View Screen( 0, 0 )-( 319, 199 )
 --
