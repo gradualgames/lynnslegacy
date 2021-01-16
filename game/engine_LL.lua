@@ -6351,7 +6351,8 @@ function handle_MiniMap()
           end
 --
 --           moveDelay = timer + .023
-          moveDelay = timer + .023
+          --NOTE: Increased the speed because I felt it was too slow
+          moveDelay = timer + .01
 --
 --         end if
         end
