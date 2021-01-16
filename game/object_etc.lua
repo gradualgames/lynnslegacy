@@ -1843,7 +1843,10 @@ function __logosta_console(this)
       else
 --
 --           If Len( inputString ) <> maxEntry Then
-        if #inputString ~= maxEntry then
+        --NOTE: The way we implemented reading the keyboard in Love2D
+        --resulted in maxEntry being skipped if something like "space"
+        --came through, so modify this if statement to prevent this.
+        if #inputString < maxEntry and #keybuffer[1] == 1 then
 --             inputString += Chr( fb_Global.keyBuffer[0] )
           inputString = inputString..keybuffer[1]
 --
