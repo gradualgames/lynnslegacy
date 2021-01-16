@@ -2603,7 +2603,7 @@ function minimap_Blit()
         roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
         if i == ll_global.this_room.i then
           love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
-          rectfill(roomX + 1, roomY + 1, ll_global.map.room[i].x - 1, ll_global.map.room[i].y - 1)
+          rectfill(roomX + 1, roomY + 1, ll_global.map.room[i].x - 2, ll_global.map.room[i].y - 2)
           love.graphics.setColor(1, 1, 1, 1)
           if shiftTimer == 0 then
             index_Current = index_Current + 1
