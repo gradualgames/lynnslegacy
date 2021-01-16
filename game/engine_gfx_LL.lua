@@ -2531,11 +2531,11 @@ function minimap_Blit()
         if i == ll_global.this_room.i then
         else
           love.graphics.setColor(36 / 255, 0, 0, 1.0)
-          rectfill(roomX, roomY, ll_global.map.room[i].x + 1, ll_global.map.room[i].y + 1)
+          rectfill(roomX, roomY, ll_global.map.room[i].x, ll_global.map.room[i].y)
           love.graphics.setColor(1, 1, 1, 1)
         end
         love.graphics.setColor(15 / 255, 0, 0, 1.0)
-        rect(roomX, roomY, ll_global.map.room[i].x + 1, ll_global.map.room[i].y + 1)
+        rect(roomX, roomY, ll_global.map.room[i].x, ll_global.map.room[i].y)
         love.graphics.setColor(1, 1, 1, 1)
       end
     end
