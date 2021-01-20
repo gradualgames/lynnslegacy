@@ -40,7 +40,7 @@ function LLSystem_ObjectFromXML(objectLoad)
       -- end)
       inc_func()
     else
-      log.debug("Installing no-op func for: "..funcName)
+      log.debug("Installing no-op func for: "..funcName.." for: "..objectLoad.id)
       func_drop(
         function(this)
           log.debug("TODO: Implement: "..funcName.." for: "..this.id)

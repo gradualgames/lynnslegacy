@@ -304,7 +304,9 @@ function load_mapV(fileName)
     --
     -- '' add checks for all dungeons here
 
+    log.debug("Offset of entries count: "..offset(mapBlob))
     map.entries = readInt(mapBlob)
+    log.debug("Number of map entries: "..map.entries)
     map.rooms = readInt(mapBlob)
 
     --NOTE: Load the tileset and set up sprite batches for
@@ -377,12 +379,19 @@ function load_mapV(fileName)
         enemy.seq_here = readInt(mapBlob)
         enemy.spawn_h = readShort(mapBlob)
         enemy.is_h_set = readShort(mapBlob)
+        local offset = offset(mapBlob)
         enemy.chap = readInt(mapBlob)
         enemy.spawn_d = readInt(mapBlob)
         enemy.is_d_set = readInt(mapBlob)
         enemy.reserved_5 = readInt(mapBlob)
         enemy.seq = enemy.seq_here > 0 and {} or nil
         enemy.seqi = 0
+        if enemy.id == "data/object/hsavepoint.xml" then
+          log.debug("hsavepoint chap offset was: "..offset)
+          log.debug("hsavepoint chap is: "..enemy.chap)
+          log.debug("hsavepoint x: "..enemy.x_origin)
+          log.debug("hsavepoint y: "..enemy.y_origin)
+        end
         load_seqV(mapBlob, enemy.seq_here, enemy.seq, "enemy", enemyIndex)
 
         enemy.spawn_cond = readInt(mapBlob)
@@ -455,6 +464,7 @@ function load_mapV(fileName)
 
     map.entry = create_map_entry_type()
 
+    log.debug("offset of first map entry: "..offset(mapBlob))
     for loopEntries = 0, map.entries - 1 do
 
       local entry = {}
@@ -470,6 +480,8 @@ function load_mapV(fileName)
       load_seqV(mapBlob, entry.seq_here, entry.seq, "entry", loopEntries)
       map.entry[loopEntries] = entry
     end
+
+    log.debug("Offset after the last map entry: "..offset(mapBlob))
 
     -- For loop_rooms = 0 To lmap->rooms- 1
     for loop_rooms = 0, map.rooms - 1 do
@@ -512,6 +524,11 @@ function load_mapV(fileName)
     --     seq_id( .seq_here, _
     --             .seq, _
     --             lmap->room[.room].enemy )
+      log.debug("***")
+      log.debug("with0.seq_here: "..with0.seq_here)
+      log.debug("with0.seq: "..(with0.seq and "exists" or "nil"))
+      log.debug("with0.room: "..(with0.room and "exists" or "nil"))
+      log.debug("with0.room: "..with0.room)
       seq_id(with0.seq_here, with0.seq, map.room[with0.room].enemy)
     --
     --   End With

@@ -11,7 +11,7 @@ require("game/utility")
 
 log = require("lib/log/log")
 log.usecolor = false
-log.level = "fatal"
+log.level = "debug"
 
 function love.load()
   initScreen()

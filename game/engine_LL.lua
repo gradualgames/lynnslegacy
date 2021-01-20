@@ -2752,6 +2752,16 @@ function change_room(o, _call, t)
   elseif switch_state == 5 then
 --       '' final anything :)
 --
+    local _char = ll_global.hero
+    log.debug("Use this info to create an entry for this room:")
+    log.debug("_char.coords.x: ".._char.coords.x)
+    log.debug("_char.coords.y: ".._char.coords.y)
+    log.debug("_char.direction: ".._char.direction)
+    log.debug("ll_global.this_room.i: "..ll_global.this_room.i)
+    log.debug("ll_global.hero.seqi: "..ll_global.hero.seqi)
+
+
+
 --       llg( seq ) = o->seq
     ll_global.seq = o.seq
     ll_global.seqi = o.seqi
@@ -3647,19 +3657,24 @@ function enter_map(_char, _m, desc, _entry)
   end
 --
 --   _char->coords.x         = _m->entry[_entry].x
+  log.debug("entry.x: ".._m.map.entry[_entry].x)
   _char.coords.x = _m.map.entry[_entry].x
 --   _char->coords.y         = _m->entry[_entry].y
+  log.debug("entry.y: ".._m.map.entry[_entry].y)
   _char.coords.y = _m.map.entry[_entry].y
 --
 --   _char->direction = _m->entry[_entry].direction
+  log.debug("entry.direction: ".._m.map.entry[_entry].direction)
   _char.direction = _m.map.entry[_entry].direction
 --
 --   llg( this_room.i )  = _m->entry[_entry].room
+  log.debug("entry.room: ".._m.map.entry[_entry].room)
   ll_global.this_room.i = _m.map.entry[_entry].room
 --
 --   '' active sequence
 --   llg( hero ).seq = _m->entry[_entry].seq
   ll_global.hero.seq = _m.map.entry[_entry].seq
+  log.debug("entry.seqi: ".._m.map.entry[_entry].seqi)
   ll_global.hero.seqi = _m.map.entry[_entry].seqi
 --
 --   llg( dark ) = now_room().dark
