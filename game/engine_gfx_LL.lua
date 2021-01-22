@@ -2448,8 +2448,7 @@ end
 --the minimap. Sometimes the doors would conflict with room borders, or the
 --flashing current room would conflict with doors. It has been refactored
 --so all normal rooms are drawn first, then doors, then the flashing main
---room. The size of the room rectangles were increased slightly so that their
---borders overlap so that the shared borders are 1 pixel wide.
+--room.
 -- Sub minimap_Blit()
 function minimap_Blit()
 --
