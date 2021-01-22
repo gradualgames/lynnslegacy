@@ -2524,6 +2524,7 @@ function minimap_Blit()
 --   View Screen( 0, 20 )-( 319, 179 )
   for i = 0, ll_global.map.rooms - 1 do
     local with0 = ll_global.miniMap.room[i]
+    local width = (ll_global.dungeonName == "Divius" and ll_global.miniMapFloor == -5 and i == 18) and 84 or ll_global.map.room[i].x
     if with0.hasVisited ~= 0 then
       if with0.floor == floor_Current then
         roomX = gx + with0.location.x - ll_global.miniMap.camera.x
@@ -2531,11 +2532,11 @@ function minimap_Blit()
         if i == ll_global.this_room.i then
         else
           love.graphics.setColor(36 / 255, 0, 0, 1.0)
-          rectfill(roomX, roomY, ll_global.map.room[i].x, ll_global.map.room[i].y)
+          rectfill(roomX, roomY, width, ll_global.map.room[i].y)
           love.graphics.setColor(1, 1, 1, 1)
         end
         love.graphics.setColor(15 / 255, 0, 0, 1.0)
-        rect(roomX, roomY, ll_global.map.room[i].x, ll_global.map.room[i].y)
+        rect(roomX, roomY, width, ll_global.map.room[i].y)
         love.graphics.setColor(1, 1, 1, 1)
       end
     end
@@ -2597,13 +2598,14 @@ function minimap_Blit()
 
   for i = 0, ll_global.map.rooms - 1 do
     local with0 = ll_global.miniMap.room[i]
+    local width = (ll_global.dungeonName == "Divius" and ll_global.miniMapFloor == -5 and i == 18) and 84 or ll_global.map.room[i].x
     if with0.hasVisited ~= 0 then
       if with0.floor == floor_Current then
         roomX = gx + with0.location.x - ll_global.miniMap.camera.x
         roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
         if i == ll_global.this_room.i then
           love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
-          rectfill(roomX + 1, roomY + 1, ll_global.map.room[i].x - 2, ll_global.map.room[i].y - 2)
+          rectfill(roomX + 1, roomY + 1, width - 2, ll_global.map.room[i].y - 2)
           love.graphics.setColor(1, 1, 1, 1)
           if shiftTimer == 0 then
             index_Current = index_Current + 1
