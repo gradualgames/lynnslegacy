@@ -2556,10 +2556,6 @@ function minimap_Blit()
               love.graphics.setColor(36 / 255, 0, 0, 1.0)
               rectfill(doorX - 1, doorY - 1, 3, 3)
               love.graphics.setColor(1, 1, 1, 1)
-            elseif with1.id == DOOR_STAIR then
-              love.graphics.setColor(170 / 255, 0, 0, 1.0)
-              rectfill(doorX - 1, doorY - 1, 3, 3)
-              love.graphics.setColor(1, 1, 1, 1)
             end
           else
             eventsAchieved = -1
@@ -2612,6 +2608,28 @@ function minimap_Blit()
             shiftTimer = timer + shiftDelay
           end
           if timer > shiftTimer then shiftTimer = 0 end
+        end
+      end
+    end
+  end
+
+  for i = 0, ll_global.map.rooms - 1 do
+    local with0 = ll_global.miniMap.room[i]
+    if with0.hasVisited ~= 0 then
+      if with0.floor == floor_Current then
+        roomX = gx + with0.location.x - ll_global.miniMap.camera.x
+        roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
+        for j = 0, with0.doors - 1 do
+          local with1 = with0.door[j]
+          doorX = with1.location.x + roomX
+          doorY = with1.location.y + roomY
+          if with1.codes == 0 then
+            if with1.id == DOOR_STAIR then
+              love.graphics.setColor(170 / 255, 0, 0, 1.0)
+              rectfill(doorX - 1, doorY - 1, 3, 3)
+              love.graphics.setColor(1, 1, 1, 1)
+            end
+          end
         end
       end
     end
