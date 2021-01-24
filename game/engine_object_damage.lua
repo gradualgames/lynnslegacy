@@ -947,6 +947,7 @@ function LLObject_ProcessHurt(h)
         lynn_yell = sound_lynn_hurt_1 + math.floor(math.random() * 3)
 --
 --           play_sample( llg( snd )[lynn_yell], 50 )
+        ll_global.snd[lynn_yell]:setVolume(.5)
         ll_global.snd[lynn_yell]:play()
 
 --

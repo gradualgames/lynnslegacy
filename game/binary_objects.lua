@@ -178,6 +178,7 @@ function atk_key_in_sub(ip, op)
 --
 --
 --     play_sample( llg( snd )[lynn_yell], 30 )
+    ll_global.snd[lynn_yell]:setVolume(.3)
     ll_global.snd[lynn_yell]:play()
 --
 --
