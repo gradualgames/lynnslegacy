@@ -5406,27 +5406,33 @@ function check_against_entities(d, o)
 -- End Function
 end
 
+--   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
+local function LLObject_Impassable(__THISCHAR__, __FACE__)
+  --NOTE: There had been a tenary operator here
+  --and the problem with how I ported iif is that it evaluates both
+  --arguments always, which causes a crash here if faces == 0. So we might
+  --have to look out for more bugs wherever iif is used for this reason. We
+  --may have to go back to Lua's ternary idiom directly.
+  if __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 then
+    return __THISCHAR__.impassable
+  else
+    return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
+  end
+end
+
 -- Function check_against( o As char_type Ptr, othr As char_type Ptr, check As Integer, d As Integer ) Static
 function check_against(o, othr, check, d)
---
---
---   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
-  function LLObject_Impassable(__THISCHAR__, __FACE__)
-    --NOTE: There had been a tenary operator here
-    --and the problem with how I ported iif is that it evaluates both
-    --arguments always, which causes a crash here if faces == 0. So we might
-    --have to look out for more bugs wherever iif is used for this reason. We
-    --may have to go back to Lua's ternary idiom directly.
-    if __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 then
-      return __THISCHAR__.impassable
-    else
-      return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
-    end
-  end
---
---
 --   '' moving object to static object collision detection
 --
+  --NOTE: This code is a performance improvement. check_against turned out to be
+  --a bottleneck in that every on-screen entity checked against every active
+  --entity in the room. The checks that are done are quite expensive and there's
+  --no point in bothering if the distance between two entities is too great.
+  local omid = V2_MidPoint(LLO_VP(o[0]))
+  local othrmid = V2_MidPoint(LLO_VP(othr[check]))
+  if math.abs(omid.x - othrmid.x) > 256 or
+     math.abs(omid.y - othrmid.y) > 256 then return 0 end
+
   --NOTE: Function = 0 sets return value to 0, but we just return 0
   --at the end instead---Should work the same, but just keeping this
   --note here in case...
