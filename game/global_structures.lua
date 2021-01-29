@@ -140,6 +140,9 @@ function create_ll_system()
   ll_system.map = create_map_type()
   --   hero As _char_type
   ll_system.hero = create_Object()
+  --NOTE: Introduced for situations where we need to pass in the hero
+  --with indirection to simulate the original code.
+  ll_system.hero_table = {[0] = ll_system.hero}
   --   hero_only As main_char_type
   ll_system.hero_only = create_main_char_type()
   --

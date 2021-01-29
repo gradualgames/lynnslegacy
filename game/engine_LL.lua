@@ -5349,7 +5349,7 @@ function check_against_entities(d, o)
     if o.num ~= with0.enemy[cycle].num then
 --         '' if this "o" isn't this enemy, then check it against this enemy
 --         relay = check_against( o, .enemy, cycle, d )
-      relay = check_against({[0] = o}, with0.enemy, cycle, d)
+      relay = check_against(o, with0.enemy, cycle, d)
 --         If relay Then Return relay
       if relay ~= 0 then return relay end
 --
@@ -5369,7 +5369,7 @@ function check_against_entities(d, o)
     if o.num ~= with0.temp_enemy[cycle].num then
 --         '' if this "o" isn't this temp enemy, then check it against this temp enemy
 --         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
-      relay = check_against({[0] = o}, with0.temp_enemy, cycle, d)
+      relay = check_against(o, with0.temp_enemy, cycle, d)
 --         If relay Then Return relay
       if relay ~= 0 then return relay end
 --
@@ -5390,7 +5390,7 @@ function check_against_entities(d, o)
 --     If llg( hero_only ).attacking = 0 Then
     if ll_global.hero_only.attacking == 0 then
 --       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
-      relay = check_against({[0] = o}, {[0] = ll_global.hero}, 0, d)
+      relay = check_against(o, ll_global.hero_table, 0, d)
 --       If relay Then Return relay
       if relay ~= 0 then return relay end
 --
@@ -5428,7 +5428,7 @@ function check_against(o, othr, check, d)
   --a bottleneck in that every on-screen entity checked against every active
   --entity in the room. The checks that are done are quite expensive and there's
   --no point in bothering if the distance between two entities is too great.
-  local omid = V2_MidPoint(LLO_VP(o[0]))
+  local omid = V2_MidPoint(LLO_VP(o))
   local othrmid = V2_MidPoint(LLO_VP(othr[check]))
   if math.abs(omid.x - othrmid.x) > 256 or
      math.abs(omid.y - othrmid.y) > 256 then return 0 end
@@ -5483,7 +5483,7 @@ function check_against(o, othr, check, d)
   end
 --
 --   o->frame_check          = LLObject_CalculateFrame( o[0] )
-  o[0].frame_check = LLObject_CalculateFrame(o[0])
+  o.frame_check = LLObject_CalculateFrame(o)
 --   othr[check].frame_check = LLObject_CalculateFrame( othr[check] )
   othr[check].frame_check = LLObject_CalculateFrame(othr[check])
 --
@@ -5497,7 +5497,7 @@ function check_against(o, othr, check, d)
 --   End With
 
 --   With *( o )     :
-  with0 = o[0]
+  with0 = o
 --     With .anim[.current_anim]->frame[.frame_check]:
   with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
 --       faces2 = IIf( .faces = 0, 0, .faces -1 ):
@@ -5512,13 +5512,13 @@ function check_against(o, othr, check, d)
     for check_fields2 = 0, faces2 do
 --
 --       m.u = V2_Add( o->coords, opty )
-      m.u = V2_Add(o[0].coords, opty)
+      m.u = V2_Add(o.coords, opty)
 --       n.u = othr[check].coords
       n.u.x = othr[check].coords.x
       n.u.y = othr[check].coords.y
 --
 --       calc_positions( o, m, check_fields2 )
-      calc_positions(o[0], m, check_fields2)
+      calc_positions(o, m, check_fields2)
 
 --       calc_positions( Varptr( othr[check] ), n, check_fields )
       calc_positions(othr[check], n, check_fields)
@@ -5535,7 +5535,7 @@ function check_against(o, othr, check, d)
 --             '' kill both!
 --
 --             o->hp = 0
-            o[0].hp = 0
+            o.hp = 0
 --             othr[check].hp = 0
             othr[check].hp = 0
 --
@@ -5551,11 +5551,11 @@ function check_against(o, othr, check, d)
         local impassable = 0
         if                                            (
                     --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
-                                                        ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
+                                                        ( LLObject_Impassable( o, check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
                     --                                                                              Or                                                                       _
                                                                                                     or
                     --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
-                                                               ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
+                                                               ( ( o.dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
                     --                                ),                                                                                                                     _
                                                       ) then
           if                                                 (
@@ -5572,21 +5572,21 @@ function check_against(o, othr, check, d)
             impassable = 1
           end
         else
-          if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
+          if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o.unique_id == u_godstat ) then
             impassable = 0
           else
             impassable = 1
           end
         end
 
-        if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
+        if (( o.unique_id == u_dyssius ) or (o.unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
           res = 1
         else
           if impassable ~= 0 then
             if othr[check].unstoppable_by_object ~= 0 then
               res = 0
             else
-              if o[0].unstoppable_by_object ~= 0 then
+              if o.unstoppable_by_object ~= 0 then
                 res = 0
               else
                 res = 1
