@@ -137,6 +137,7 @@ function __make_dead(this)
   if (this.unique_id == u_pekkle_bomb) or (this.unique_id == u_kambot) then
 --
 --       play_sample( llg( snd )[sound_explosion], 80 )
+    ll_global.snd[sound_explosion]:setVolume(.8)
     ll_global.snd[sound_explosion]:play()
 --
 --       .coords.x -= 24
