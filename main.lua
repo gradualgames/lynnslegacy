@@ -252,6 +252,7 @@ function doneDrawing()
   love.graphics.pop()
   love.graphics.setShader()
   love.graphics.setCanvas(savedCanvas)
+  love.graphics.clear()
   love.graphics.draw(canvas)
   love.graphics.setCanvas()
 end
