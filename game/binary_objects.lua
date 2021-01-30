@@ -1,3 +1,4 @@
+require("game/constants")
 require("game/engine_enums")
 
 -- Sub act_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
@@ -192,6 +193,49 @@ end
 --
 -- Sub atk_key_out_sub( ip As Integer Ptr, op As Integer Ptr )
 function atk_key_out_sub(ip, op)
+-- End Sub
+end
+
+-- Sub item_l_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
+function item_l_key_in_sub(ip, op)
+  local selected = ll_global.hero_only.selected_item
+  for i = 1, 6 do
+    selected = selected - 1
+    if selected == 0 then
+      selected = 6
+    end
+    if ll_global.hero_only.hasItem[selected - 1] == TRUE then
+      ll_global.hero_only.selected_item = selected
+      break
+    end
+  end
+end
+--
+--
+-- Sub item_l_key_out_sub( ip As Integer Ptr, op As Integer Ptr )
+function item_l_key_out_sub(ip, op)
+-- End Sub
+end
+--
+--
+-- Sub item_r_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
+function item_r_key_in_sub(ip, op)
+  local selected = ll_global.hero_only.selected_item
+  for i = 1, 6 do
+    selected = selected + 1
+    if selected == 7 then
+      selected = 1
+    end
+    if ll_global.hero_only.hasItem[selected - 1] == TRUE then
+      ll_global.hero_only.selected_item = selected
+      break
+    end
+  end
+end
+--
+--
+-- Sub item_r_key_out_sub( ip As Integer Ptr, op As Integer Ptr )
+function item_r_key_out_sub(ip, op)
 -- End Sub
 end
 

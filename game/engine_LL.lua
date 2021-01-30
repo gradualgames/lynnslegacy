@@ -1124,13 +1124,19 @@ function hero_main()
   end
 --
 --     With llg( item_l_key )
+  if input:pressed("cycleleft") then
 --       bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+    item_l_key_in_sub()
 --
 --     End With
+  end
 --     With llg( item_r_key )
+  if input:pressed("cycleright") then
 --       bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
+    item_r_key_in_sub()
 --
 --     End With
+  end
 --
 --
 --     If llg( hero_only ).attacking <> 0 Then
