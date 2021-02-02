@@ -34,14 +34,11 @@
   <fly_length> 13 </fly_length>
   <fly_speed> .004 </fly_speed>
 
-  <n_gold> 6 </n_gold>
-  <d_gold> 50 </d_gold>
-
   <walk_speed> .07 </walk_speed>
   <walk_length> 25 </walk_length>
   <real_y> 16 </real_y>
   <real_x> 16 </real_x>
-  <d_health> 50 </d_health>
+  <d_health> 80 </d_health>
 
   <fp>
 
@@ -83,3 +80,4 @@
 
 
 </pekkle_grey>
+
