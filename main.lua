@@ -104,7 +104,7 @@ function main()
       play_sequence(ll_global)
       --prof.pop("play_sequence")
       --prof.push("blit_scene")
-      drawing = u == loops
+      draw = u == loops and love.graphics.draw or noop
       blit_scene()
       --prof.pop("blit_scene")
     end
@@ -192,13 +192,7 @@ end
 
 function initDraw()
   --Allows us to temporarily make all drawing no-op if needed
-  drawing = true
-  draw = function(...)
-    if drawing then
-      local params = {...}
-      love.graphics.draw(unpack(params))
-    end
-  end
+  draw = love.graphics.draw
 end
 
 function initInput()

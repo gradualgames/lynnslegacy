@@ -23,7 +23,7 @@ end
 --Updates a room using the tile indices from the room to arrange
 --the spritebatch for drawing, based on an image header.
 function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
-  if drawing then
+  if draw == love.graphics.draw then
     spriteBatch:clear()
     local topLeftMapX = math.floor(ll_global.this_room.cx / imageHeader.x)
     local topLeftMapY = math.floor(ll_global.this_room.cy / imageHeader.y)

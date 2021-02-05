@@ -1792,7 +1792,7 @@ function __logosta_console(this)
 --   Dim As String gfxDump
   local gfxDump = ""
 --
-  drawing = true
+  draw = love.graphics.draw
   keybuffer = {}
 --   Do
   repeat

@@ -1,3 +1,5 @@
+function noop() end
+
 --NOTE: IIf is a ternary operator that FreeBASIC
 --provides. Lua's ternary idiom is a and b or c. Most of
 --the port we just used this idiom directly. But in cases

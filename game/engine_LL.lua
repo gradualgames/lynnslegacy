@@ -3482,9 +3482,9 @@ function handle_pause_menu()
 --
 --             If MultiKey( sc_escape ) And ( end_Hold = 0 ) Then
             if input:pressed("pause") then
-              --NOTE: drawing is our global flag for turning on drawing for the
+              --NOTE: setting draw is for turning on drawing for the
               --current loop, not relevant to the original codebase.
-              drawing = true
+              draw = love.graphics.draw
 --               esc_Hold = -1
 --
 --
@@ -6321,7 +6321,7 @@ function handle_MiniMap()
 --     If MultiKey( sc_m ) Then
     if input:pressed("map") then
 --
-      drawing = true
+      draw = love.graphics.draw
 --
 --       llg( miniMap ).camera.x = ( llg( miniMap ).room[llg( this_room ).i].location.x + ( now_room().x Shr 1 ) ) - 160
       ll_global.miniMap.camera.x = ll_global.miniMap.room[ll_global.this_room.i].location.x + bit.rshift(now_room().x, 1) - 160
