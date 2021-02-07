@@ -241,6 +241,20 @@ function blit_room()
   end
 end
 
+function sort_y(a, b)
+  if a.placed == b.placed then
+    local ay = math.floor(a.coords.y)
+    local by = math.floor(b.coords.y)
+    if ay == by then
+      return a.num < b.num
+    else
+      return ay < by
+    end
+  else
+    return a.placed < b.placed
+  end
+end
+
 --NOTE: y-sorting was re-written from a 1:1 port from the original
 --codebase. It was originally done 1:1 out of concern for not knowing
 --what all the code was doing when first ported, but once clearly
@@ -281,20 +295,7 @@ function blit_y_sorted()
   --Now sort the objects by placed, then by y, then by
   --num to keep the sorting stable when y coordinates
   --are the same.
-  table.sort(ll_global.sorted_objects,
-    function(a, b)
-      if a.placed == b.placed then
-        local ay = math.floor(a.coords.y)
-        local by = math.floor(b.coords.y)
-        if ay == by then
-          return a.num < b.num
-        else
-          return ay < by
-        end
-      else
-        return a.placed < b.placed
-      end
-    end)
+  table.sort(ll_global.sorted_objects, sort_y)
 
   --Now blit 'em
   for _blit_em = 1, #ll_global.sorted_objects do
