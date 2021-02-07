@@ -337,6 +337,12 @@ local function text_sound(with0)
 --   #endmacro
 end
 
+--             #define seekChar(__x__) .ptrs.row[.internal.current_line][.internal.opcount + __x__]
+local function seekChar(with0, __x__)
+  local index = with0.internal.opcount + __x__
+  return with0.ptrs.row[with0.internal.current_line]:sub(index, index)
+end
+
 -- Sub blit_box( t_box As boxcontrol_type Ptr )
 function blit_box(t_box)
 --
@@ -707,13 +713,8 @@ function blit_box(t_box)
 --           dim as integer destroySpace
       local destroySpace = 0
 --
-      local function seekChar(__x__)
-        local index = with0.internal.opcount + __x__
-        return with0.ptrs.row[with0.internal.current_line]:sub(index, index)
-      end
 --           do
       repeat
---             #define seekChar(__x__) .ptrs.row[.internal.current_line][.internal.opcount + __x__]
 --
 --             if destroySpace + .internal.opcount = Len( .ptrs.row[.internal.current_line] ) then
         if destroySpace + with0.internal.opcount == #with0.ptrs.row[with0.internal.current_line] then
@@ -725,10 +726,10 @@ function blit_box(t_box)
         end
 --
 --             if( seekChar( destroySpace ) <> 0 ) then
-        if (seekChar(destroySpace) ~= 0) then
+        if (seekChar(with0, destroySpace) ~= 0) then
 --
 --               if( seekChar( destroySpace ) <> 32 ) then
-          if (seekChar(destroySpace) ~= ' ') then
+          if (seekChar(with0, destroySpace) ~= ' ') then
 --                 '' regular char, increment
 --                 exit do
             break
