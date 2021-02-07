@@ -9,6 +9,10 @@ require("game/utils")
 -- in as 1, and the current enemy in act_enemies is passed in as _enemy. Therefore,
 -- we are simplifying this to just pass the enemy in to begin with and eliminate the loop.
 function LLObject_MAINAttack(_enemy, hr)
+  local emid = V2_MidPoint(LLO_VP(_enemy))
+  local hmid = V2_MidPoint(LLO_VP(hr))
+  if math.abs(emid.x - hmid.x) > 32 or
+     math.abs(emid.y - hmid.y) > 32 then return end
 --
 --   '' ASSUMES: hr->anim[hr->current_anim] contains an attacking anim'.
 --   ''
