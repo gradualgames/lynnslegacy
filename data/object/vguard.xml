@@ -33,7 +33,7 @@
   <strength> 1 </strength>
 
   <fp>
-
+    <func> random_pause </func>
     <func> randomize_path </func>
     <func> walk </func>
     <func> randomize_path </func>
@@ -64,7 +64,6 @@
     <func> walk </func>
     <func> randomize_path </func>
     <func> walk </func>
-    <func> second_pause </func>
     <func> return_idle </func>
 
   </fp>
@@ -97,4 +96,3 @@
 
 
 </vguard>
-

@@ -240,6 +240,19 @@ function __second_pause(this)
   return 0
 end
 
+function __random_pause(this)
+  if this.pause == 0 then
+    this.pause = timer + 1 + math.random()
+  end
+
+  if timer >= this.pause then
+    this.pause = 0
+    return 1
+  end
+
+  return 0
+end
+
 -- Function __timed_jump_2 ( this As _char_type Ptr ) As Integer
 function __timed_jump_2(this)
 --
