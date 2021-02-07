@@ -5760,7 +5760,7 @@ function check_psf(o, d)
   for layercheck = 0, 2 do
 --
 --     Dim As tile_quad slider, chkr
-    local slider, chkr = create_tile_quad(), create_tile_quad()
+    local slider, chkr = get_next_tile_quad(), get_next_tile_quad()
 --     Dim As Integer crawl, x_opt, y_opt, po_quad, mi_quad, op_quad
     local crawl, x_opt, y_opt, po_quad, mi_quad, op_quad = 0, 0, 0, 0, 0, 0
 --
@@ -6022,7 +6022,7 @@ function quad_seek(t_in, d)
   end
 --
 --   Return Type <tile_quad> ( to_tile_x, to_tile_y, to_quad )
-  local result = create_tile_quad()
+  local result = get_next_tile_quad()
   result.x = to_tile_x
   result.y = to_tile_y
   result.quad = to_quad

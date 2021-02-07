@@ -90,3 +90,25 @@ function create_tile_quad()
   return tile_quad
 -- End Type
 end
+
+function init_tile_quad_pool()
+  tile_quad_pool = {}
+  tile_quad_pool_index = 1
+end
+
+function get_next_tile_quad()
+  local tile_quad = tile_quad_pool[tile_quad_pool_index]
+  if tile_quad == nil then
+    tile_quad = create_tile_quad()
+    tile_quad_pool[tile_quad_pool_index] = tile_quad
+  end
+  tile_quad.x = 0
+  tile_quad.y = 0
+  tile_quad.quad = 0
+  tile_quad_pool_index = tile_quad_pool_index + 1
+  return tile_quad
+end
+
+function reset_tile_quad_pool()
+  tile_quad_pool_index = 1
+end
