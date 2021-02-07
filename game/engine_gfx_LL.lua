@@ -304,6 +304,39 @@ function blit_y_sorted()
   end
 end
 
+--   #macro text_sound()
+local function text_sound(with0)
+--
+  local currentChar = with0.ptrs.row[with0.internal.current_line]:byte(with0.internal.opcount)
+--     If .internal.sound = 0 Then
+  if with0.internal.sound == 0 then
+--
+--       If currentChar() <> 0 Then
+    if currentChar ~= 0 then
+
+--
+--         If currentChar() <> 32 Then
+      if currentChar ~= 32 then
+--
+--           play_sample( llg( snd )[sound_texttemp], 25 )
+        ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:setVolume(.25)
+        ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:play()
+--
+--           .internal.sound = -1
+        with0.internal.sound = -1
+--
+--         End If
+      end
+--
+--       End If
+    end
+--
+--     End If
+  end
+--
+--   #endmacro
+end
+
 -- Sub blit_box( t_box As boxcontrol_type Ptr )
 function blit_box(t_box)
 --
@@ -315,42 +348,7 @@ function blit_box(t_box)
 --     With *t_box
   local with0 = t_box
 --
---   #define currentChar() .ptrs.row[.internal.current_line][.internal.opcount]
-  local function currentChar()
-    return with0.ptrs.row[with0.internal.current_line]:byte(with0.internal.opcount)
-  end
 --
---   #macro text_sound()
-  local function text_sound()
---
---     If .internal.sound = 0 Then
-    if with0.internal.sound == 0 then
---
---       If currentChar() <> 0 Then
-      if currentChar() ~= 0 then
-
---
---         If currentChar() <> 32 Then
-        if currentChar() ~= 32 then
---
---           play_sample( llg( snd )[sound_texttemp], 25 )
-          ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:setVolume(.25)
-          ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:play()
---
---           .internal.sound = -1
-          with0.internal.sound = -1
---
---         End If
-        end
---
---       End If
-      end
---
---     End If
-    end
---
---   #endmacro
-  end
 --       If .internal.hold_box <> 0 Then
   if with0.internal.hold_box ~= 0 then
 --
@@ -446,7 +444,7 @@ function blit_box(t_box)
       current_row(t_box)
 --
 --             text_sound()
-      text_sound()
+      text_sound(with0)
 --
 --             If .internal.opcount = Len( .ptrs.row[.internal.current_line] ) Then
       if with0.internal.opcount == #with0.ptrs.row[with0.internal.current_line] then
