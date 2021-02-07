@@ -889,6 +889,9 @@ function blit_enemy(_enemy)
   --         '' cycle through active explosions
   --
   --         With .explosion( do_expl )
+        if with0.explosion[do_expl] == nil then
+          with0.explosion[do_expl] = create_mat_expl()
+        end
         local with1 = with0.explosion[do_expl]
   --
   --           px = .x

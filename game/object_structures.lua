@@ -703,7 +703,6 @@ function init_object(object)
   object.expl_y_size = 0
   --   explosion( 63 )       As mat_expl
   object.explosion = {}
-  for i = 0, 63 do object.explosion[i] = create_mat_expl() end
   --
   --
   --
