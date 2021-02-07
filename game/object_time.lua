@@ -242,7 +242,7 @@ end
 
 function __random_pause(this)
   if this.pause == 0 then
-    this.pause = timer + 1 + math.random()
+    this.pause = timer + .1 + math.random()
   end
 
   if timer >= this.pause then
