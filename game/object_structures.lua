@@ -603,8 +603,10 @@ function init_object(object)
   --   '' Eliminate/change these.
   --   '' ==========================
   --
-  --     save                 ( 3 )   As save_dat
-  object.save = {[0] = create_save_dat(), create_save_dat(), create_save_dat(), create_save_dat()}
+  --NOTE: Removed the save property. There were four entries in this
+  --table and each one had around 4096 elements in them at least! And so for
+  --levels with hundreds of objects this was unbelievably wasteful! It now
+  --exists only in the global system object.
   --
   --     coords As Vector
   object.coords = create_vector()

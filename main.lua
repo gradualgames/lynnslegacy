@@ -30,6 +30,7 @@ function love.load()
   init_splash()
   engine_init()
   ll_main_entry()
+  --prof.connect()
 end
 
 function love.draw()
@@ -108,7 +109,6 @@ function main()
       blit_scene()
       --prof.pop("blit_scene")
     end
-
     --prof.pop("frame")
     --prof.enabled(false)
     if not stillPlaying() then break end

@@ -7348,7 +7348,7 @@ function sequence_ExitCondition(activeChar)
   if ll_global.hero_only.isLoading ~= 0 then
 --     '' Loading a saved game
 --     sequence_LoadGame( activeChar->save( activeChar->menu_sel ).link )
-    sequence_LoadGame(activeChar.save[activeChar.menu_sel].link)
+    sequence_LoadGame(ll_global.save[activeChar.menu_sel].link)
 --
 --     sequence_FullReset( *llg( seq ) )
     sequence_FullReset(ll_global.seq[ll_global.seqi])

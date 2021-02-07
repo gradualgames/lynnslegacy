@@ -61,6 +61,8 @@ function create_ll_system()
   local ll_system = {}
   -- Type ll_system
   --
+  --     save                 ( 3 )   As save_dat
+  ll_system.save = {[0] = create_save_dat(), create_save_dat(), create_save_dat(), create_save_dat()}
   --
   ll_system.sorted_objects = {}
   --
