@@ -1,17 +1,17 @@
 --PROF_CAPTURE = true
 --prof = require("jprof")
-baton = require("lib.baton.baton")
-require("game.engine_images")
-require("game.engine_LL")
-require("game.engine_gfx_LL")
-require("game.ll_build")
-require("game.matrices")
-require("game.global_structures")
-require("game.utility")
+baton = require("lib/baton/baton")
+require("game/engine_images")
+require("game/engine_LL")
+require("game/engine_gfx_LL")
+require("game/ll_build")
+require("game/matrices")
+require("game/global_structures")
+require("game/utility")
 
-log = require("lib.log.log")
+log = require("lib/log/log")
 log.usecolor = false
-log.level = "fatal"
+log.level = "debug"
 
 function love.load()
   initScreen()
@@ -23,7 +23,6 @@ function love.load()
   initInput()
   init_vector_pool()
   init_vector_pair_pool()
-  init_tile_quad_pool()
   init_quad_pool()
   init_main()
 
@@ -31,7 +30,6 @@ function love.load()
   init_splash()
   engine_init()
   ll_main_entry()
-  --prof.connect()
 end
 
 function love.draw()
@@ -92,7 +90,6 @@ function main()
     for u = 1, loops do
       reset_vector_pool()
       reset_vector_pair_pool()
-      reset_tile_quad_pool()
       reset_quad_pool()
       input:update()
       timerUpdate()
@@ -107,10 +104,11 @@ function main()
       play_sequence(ll_global)
       --prof.pop("play_sequence")
       --prof.push("blit_scene")
-      draw = u == loops and love.graphics.draw or noop
+      drawing = u == loops
       blit_scene()
       --prof.pop("blit_scene")
     end
+
     --prof.pop("frame")
     --prof.enabled(false)
     if not stillPlaying() then break end
@@ -194,7 +192,13 @@ end
 
 function initDraw()
   --Allows us to temporarily make all drawing no-op if needed
-  draw = love.graphics.draw
+  drawing = true
+  draw = function(...)
+    if drawing then
+      local params = {...}
+      love.graphics.draw(unpack(params))
+    end
+  end
 end
 
 function initInput()
@@ -248,7 +252,6 @@ function doneDrawing()
   love.graphics.pop()
   love.graphics.setShader()
   love.graphics.setCanvas(savedCanvas)
-  love.graphics.clear()
   love.graphics.draw(canvas)
   love.graphics.setCanvas()
 end
