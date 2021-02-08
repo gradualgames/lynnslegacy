@@ -5342,13 +5342,16 @@ function check_against_entities(d, o)
     return 0
   end
 
-  ll_global.shash:each(o.coords.x, o.coords.y, o.perimeter.x, o.perimeter.y, function(enemy)
-    if o.num ~= enemy.num then
-      if relay == 0 then
-        relay = check_against(o, {[0] = enemy}, 0, d)
+  ll_global.shash:each(
+    o.coords.x - 1, o.coords.y - 1,
+    o.perimeter.x + 2, o.perimeter.y + 2,
+    function(enemy)
+      if o.num ~= enemy.num then
+        if relay == 0 then
+          relay = check_against(o, {[0] = enemy}, 0, d)
+        end
       end
-    end
-  end)
+    end)
 
   if o.unique_id ~= u_lynn then
     if ll_global.hero_only.attacking == 0 then
