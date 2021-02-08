@@ -5382,13 +5382,6 @@ end
 function check_against(o, othr, check, d)
 --   '' moving object to static object collision detection
 --
---NOTE: This code is a performance improvement. check_against turned out to be
---a bottleneck in that every on-screen entity checked against every active
---entity in the room. The checks that are done are quite expensive and there's
---no point in bothering if either entity is not onscreen.
-  if LLObject_IsWithin(o) == 0 then return 0 end
-  if LLObject_IsWithin(othr[check]) == 0 then return 0 end
-
   --NOTE: Function = 0 sets return value to 0, but we just return 0
   --at the end instead---Should work the same, but just keeping this
   --note here in case...
