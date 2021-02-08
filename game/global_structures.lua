@@ -1,3 +1,4 @@
+shash = require("lib.shash.shash")
 require("game.constants")
 require("game.engine_enums")
 require("game.box_structures")
@@ -61,6 +62,8 @@ function create_ll_system()
   local ll_system = {}
   -- Type ll_system
   --
+  --NOTE: Spatial hash not part of original implementation.
+  ll_system.shash = shash.new(64)
   --     save                 ( 3 )   As save_dat
   ll_system.save = {[0] = create_save_dat(), create_save_dat(), create_save_dat(), create_save_dat()}
   --

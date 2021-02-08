@@ -458,6 +458,7 @@ function set_up_room_enemies(enemies, enemy)
     -- Dim As Integer setup
     --
     --
+  ll_global.shash:clear()
     -- For setup = 0 To enemies - 1
   for setup = 0, enemies - 1 do
     --   '' cycle thru these enemies
@@ -589,6 +590,7 @@ function set_up_room_enemies(enemies, enemy)
     --
     --   #EndIf
     --
+    ll_global.shash:add(with0, with0.coords.x, with0.coords.y, with0.perimeter.x, with0.perimeter.y)
     -- Next
   end
 end
@@ -4573,6 +4575,7 @@ function act_enemies(_enemies, _enemy)
   --
   --   End With
   --
+    ll_global.shash:update(with0, with0.coords.x, with0.coords.y, with0.perimeter.x, with0.perimeter.y)
   -- Next
     ::continue::
   end
@@ -5326,90 +5329,36 @@ function check_walk(o, d, psfing)
 
 end
 
+--NOTE: This function was rewritten to use a spatial hash
+--library to iterate over all entities to check against. This hash is updated
+--and added to by both the main enemies and temp enemies array.
 -- Function check_against_entities( d As Integer = 0, o As char_type Ptr ) As Integer' Static
 function check_against_entities(d, o)
-  d = d or 0
---
---
---   Dim As Integer cycle, relay
+  local d = d or 0
   local cycle, relay = 0, 0
---
---
---   With now_room()
   local with0 = now_room()
---
---     If .enemies = 0 Then
+
   if with0.enemies == 0 then
---       '' there are no objects to collide with in this room
---       Return 0
     return 0
---
---     End If
   end
---
---     For cycle = 0 To .enemies - 1
-  for cycle = 0, with0.enemies - 1 do
---       '' cycle thru enemies
---
---       If o->num <> .enemy[cycle].num Then
-    if o.num ~= with0.enemy[cycle].num then
---         '' if this "o" isn't this enemy, then check it against this enemy
---         relay = check_against( o, .enemy, cycle, d )
-      relay = check_against(o, with0.enemy, cycle, d)
---         If relay Then Return relay
-      if relay ~= 0 then return relay end
---
---       End If
+
+  ll_global.shash:each(o.coords.x, o.coords.y, o.perimeter.x, o.perimeter.y, function(enemy)
+    if o.num ~= enemy.num then
+      if relay == 0 then
+        relay = check_against(o, {[0] = enemy}, 0, d)
+      end
     end
---
---     Next
-  end
---
---
---
---     For cycle = 0 To .temp_enemies - 1
-  for cycle = 0, with0.temp_enemies - 1 do
---       '' cycle through temp enemies
---
---       If o->num <> .temp_enemy( cycle ).num Then
-    if o.num ~= with0.temp_enemy[cycle].num then
---         '' if this "o" isn't this temp enemy, then check it against this temp enemy
---         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
-      relay = check_against(o, with0.temp_enemy, cycle, d)
---         If relay Then Return relay
-      if relay ~= 0 then return relay end
---
---       End If
-    end
---
---     Next
-  end
---
---   End With
---
---
---
---   If o->unique_id <> u_lynn Then
+  end)
+
   if o.unique_id ~= u_lynn then
---     '' if this "o" isn't lynn, check the "o" against her
---
---     If llg( hero_only ).attacking = 0 Then
     if ll_global.hero_only.attacking == 0 then
---       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
-      relay = check_against(o, ll_global.hero_table, 0, d)
---       If relay Then Return relay
-      if relay ~= 0 then return relay end
---
---     End If
+      if relay == 0 then
+        relay = check_against(o, ll_global.hero_table, 0, d)
+      end
     end
---
---   End If
   end
---
---
---
-  return 0
--- End Function
+
+  return relay
 end
 
 --   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _

@@ -1076,6 +1076,8 @@ function __make_enemy(this)
 --     now_room().temp_enemy( now_room().temp_enemies ).coords.x = this->spawn_x + this->coords.x
     now_room().temp_enemy[now_room().temp_enemies].coords.x = this.spawn_x + this.coords.x
 --
+    local enemy = now_room().temp_enemy[now_room().temp_enemies]
+    ll_global.shash:add(enemy, enemy.coords.x, enemy.coords.y, enemy.perimeter.x, enemy.perimeter.y)
 --     now_room().temp_enemies += 1
     now_room().temp_enemies = now_room().temp_enemies + 1
 --
