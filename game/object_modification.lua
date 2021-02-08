@@ -1,4 +1,4 @@
-require("game/engine_enums")
+require("game.engine_enums")
 
 -- Function __up_face ( this As _char_type Ptr ) As Integer
 function __up_face(this)

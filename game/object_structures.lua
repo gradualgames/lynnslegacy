@@ -1,4 +1,4 @@
-require("game/matrices")
+require("game.matrices")
 
 -- '' In this system, instead of having full
 -- '' structures and one elemnt of the structure unset if not active,

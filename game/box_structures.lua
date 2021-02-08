@@ -1,4 +1,4 @@
-require("game/image_structures")
+require("game.image_structures")
 
 -- Type boxlayout_type
 function create_boxlayout_type()

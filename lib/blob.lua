@@ -1,5 +1,5 @@
-BlobReader = require('lib/moonblob/BlobReader')
-BlobWriter = require('lib/moonblob/BlobWriter')
+BlobReader = require('lib.moonblob.BlobReader')
+BlobWriter = require('lib.moonblob.BlobWriter')
 
 --Loads an entire file into a string and returns an object
 --which acts as a binary blob for reading binary data.

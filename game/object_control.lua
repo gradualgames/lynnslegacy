@@ -1,5 +1,5 @@
-require("game/engine_enums")
-require("game/utility")
+require("game.engine_enums")
+require("game.utility")
 
 -- Type LLObject_CollisionType
 function create_LLObject_CollisionType()

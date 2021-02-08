@@ -1,5 +1,5 @@
-require("game/constants")
-require("game/macros")
+require("game.constants")
+require("game.macros")
 
 -- Function __do_proj( this As _char_type Ptr ) As Integer
 function __do_proj(this)

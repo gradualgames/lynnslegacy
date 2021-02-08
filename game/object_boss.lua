@@ -1,6 +1,6 @@
-require("game/macros")
-require("game/matrices")
-require("game/utility")
+require("game.macros")
+require("game.matrices")
+require("game.utility")
 
 -- ''''''''''''''''''''''''''
 -- ''  Grult

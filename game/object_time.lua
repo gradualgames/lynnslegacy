@@ -1,4 +1,4 @@
-require("game/utils")
+require("game.utils")
 
 -- Function __poll_action ( this As _char_type Ptr ) As Integer
 function __poll_action(this)

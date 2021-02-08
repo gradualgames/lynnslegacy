@@ -1,4 +1,4 @@
-require("game/utility")
+require("game.utility")
 
 function create_vector()
   local vector = {}

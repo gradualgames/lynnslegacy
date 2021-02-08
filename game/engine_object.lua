@@ -1,5 +1,5 @@
-require("game/engine_object_XML")
-require("game/engine_enums")
+require("game.engine_object_XML")
+require("game.engine_enums")
 
 --NOTE: One of the most significant departures from the original
 --codebase is how object data is loaded and cached. In the original

@@ -1,5 +1,5 @@
-require("lib/blob")
-require("game/image_structures")
+require("lib.blob")
+require("game.image_structures")
 
 --Loads a .spr spritesheet file. These are stored in FreeBASIC/QBasic
 --GET/PUT format. It starts with a 16 byte header stating the width and height

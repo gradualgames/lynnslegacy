@@ -1,5 +1,5 @@
-require("game/engine_enums")
-require("game/utility")
+require("game.engine_enums")
+require("game.utility")
 
 -- Function __randomize_path ( this As _char_type Ptr ) As Integer
 function __randomize_path(this)

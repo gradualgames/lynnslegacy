@@ -1,4 +1,4 @@
-require("game/engine_enums")
+require("game.engine_enums")
 
 -- Sub init_snd()
 function init_snd()

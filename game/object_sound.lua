@@ -1,5 +1,5 @@
-require("game/palette")
-require("game/utility")
+require("game.palette")
+require("game.utility")
 
 -- Function __fade_off ( this As _char_type Ptr ) As Integer
 function __fade_off(this)

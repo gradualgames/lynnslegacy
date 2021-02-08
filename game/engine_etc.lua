@@ -1,5 +1,5 @@
-require("game/engine_enums")
-require("game/matrices")
+require("game.engine_enums")
+require("game.matrices")
 
 -- Function LLObject_VectorPair( o As char_type Ptr ) As vector_pair
 function LLObject_VectorPair(o)

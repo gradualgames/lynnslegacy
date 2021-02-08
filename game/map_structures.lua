@@ -1,5 +1,5 @@
-require("game/image_structures")
-require("game/sequence_structures")
+require("game.image_structures")
+require("game.sequence_structures")
 
 -- Type _LL_MiniMapRoomDoorType
 function create_LL_MiniMapRoomDoorType()

@@ -1,15 +1,15 @@
 --PROF_CAPTURE = true
 --prof = require("jprof")
-baton = require("lib/baton/baton")
-require("game/engine_images")
-require("game/engine_LL")
-require("game/engine_gfx_LL")
-require("game/ll_build")
-require("game/matrices")
-require("game/global_structures")
-require("game/utility")
+baton = require("lib.baton.baton")
+require("game.engine_images")
+require("game.engine_LL")
+require("game.engine_gfx_LL")
+require("game.ll_build")
+require("game.matrices")
+require("game.global_structures")
+require("game.utility")
 
-log = require("lib/log/log")
+log = require("lib.log.log")
 log.usecolor = false
 log.level = "fatal"
 

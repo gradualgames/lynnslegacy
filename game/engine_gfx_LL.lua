@@ -1,6 +1,6 @@
-require("game/constants")
-require("game/engine_enums")
-require("game/macros")
+require("game.constants")
+require("game.engine_enums")
+require("game.macros")
 
 function init_quad_pool()
   quad_pool = {}

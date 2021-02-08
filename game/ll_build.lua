@@ -1,6 +1,6 @@
-require("game/constants")
-require("game/map_structures")
-require("game/object_structures")
+require("game.constants")
+require("game.map_structures")
+require("game.object_structures")
 
 -- Function ctor_hero( l As char_type Ptr = 0 ) As char_type Ptr
 function ctor_hero(l)

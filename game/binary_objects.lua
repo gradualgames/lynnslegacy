@@ -1,5 +1,5 @@
-require("game/constants")
-require("game/engine_enums")
+require("game.constants")
+require("game.engine_enums")
 
 -- Sub act_key_in_sub( ip As Integer Ptr, op As Integer Ptr )
 function act_key_in_sub(ip, op)
