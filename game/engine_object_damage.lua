@@ -1,8 +1,8 @@
-require("game.engine_enums")
-require("game.macros")
-require("game.matrices")
-require("game.object_modification")
-require("game.utils")
+require("game/engine_enums")
+require("game/macros")
+require("game/matrices")
+require("game/object_modification")
+require("game/utils")
 
 -- Sub LLObject_MAINAttack( _enemies As Integer, _enemy As _char_type Ptr, hr As _char_type Ptr )
 -- NOTE: The only place this function is called, the count _enemies is passed
@@ -947,7 +947,6 @@ function LLObject_ProcessHurt(h)
         lynn_yell = sound_lynn_hurt_1 + math.floor(math.random() * 3)
 --
 --           play_sample( llg( snd )[lynn_yell], 50 )
-        ll_global.snd[lynn_yell]:setVolume(.5)
         ll_global.snd[lynn_yell]:play()
 
 --

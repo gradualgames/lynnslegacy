@@ -1,6 +1,6 @@
-require("game.constants")
-require("game.engine_enums")
-require("game.macros")
+require("game/constants")
+require("game/engine_enums")
+require("game/macros")
 
 function init_quad_pool()
   quad_pool = {}
@@ -23,7 +23,7 @@ end
 --Updates a room using the tile indices from the room to arrange
 --the spritebatch for drawing, based on an image header.
 function layoutLayer(camera, room, layer, imageHeader, spriteBatch)
-  if draw == love.graphics.draw then
+  if drawing then
     spriteBatch:clear()
     local topLeftMapX = math.floor(ll_global.this_room.cx / imageHeader.x)
     local topLeftMapY = math.floor(ll_global.this_room.cy / imageHeader.y)
@@ -241,20 +241,6 @@ function blit_room()
   end
 end
 
-function sort_y(a, b)
-  if a.placed == b.placed then
-    local ay = math.floor(a.coords.y)
-    local by = math.floor(b.coords.y)
-    if ay == by then
-      return a.num < b.num
-    else
-      return ay < by
-    end
-  else
-    return a.placed < b.placed
-  end
-end
-
 --NOTE: y-sorting was re-written from a 1:1 port from the original
 --codebase. It was originally done 1:1 out of concern for not knowing
 --what all the code was doing when first ported, but once clearly
@@ -295,52 +281,26 @@ function blit_y_sorted()
   --Now sort the objects by placed, then by y, then by
   --num to keep the sorting stable when y coordinates
   --are the same.
-  table.sort(ll_global.sorted_objects, sort_y)
+  table.sort(ll_global.sorted_objects,
+    function(a, b)
+      if a.placed == b.placed then
+        local ay = math.floor(a.coords.y)
+        local by = math.floor(b.coords.y)
+        if ay == by then
+          return a.num < b.num
+        else
+          return ay < by
+        end
+      else
+        return a.placed < b.placed
+      end
+    end)
 
   --Now blit 'em
   for _blit_em = 1, #ll_global.sorted_objects do
     local enemy = ll_global.sorted_objects[_blit_em]
     blit_enemy(enemy)
   end
-end
-
---   #macro text_sound()
-local function text_sound(with0)
---
-  local currentChar = with0.ptrs.row[with0.internal.current_line]:byte(with0.internal.opcount)
---     If .internal.sound = 0 Then
-  if with0.internal.sound == 0 then
---
---       If currentChar() <> 0 Then
-    if currentChar ~= 0 then
-
---
---         If currentChar() <> 32 Then
-      if currentChar ~= 32 then
---
---           play_sample( llg( snd )[sound_texttemp], 25 )
-        ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:setVolume(.25)
-        ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:play()
---
---           .internal.sound = -1
-        with0.internal.sound = -1
---
---         End If
-      end
---
---       End If
-    end
---
---     End If
-  end
---
---   #endmacro
-end
-
---             #define seekChar(__x__) .ptrs.row[.internal.current_line][.internal.opcount + __x__]
-local function seekChar(with0, __x__)
-  local index = with0.internal.opcount + __x__
-  return with0.ptrs.row[with0.internal.current_line]:sub(index, index)
 end
 
 -- Sub blit_box( t_box As boxcontrol_type Ptr )
@@ -354,7 +314,42 @@ function blit_box(t_box)
 --     With *t_box
   local with0 = t_box
 --
+--   #define currentChar() .ptrs.row[.internal.current_line][.internal.opcount]
+  local function currentChar()
+    return with0.ptrs.row[with0.internal.current_line]:byte(with0.internal.opcount)
+  end
 --
+--   #macro text_sound()
+  local function text_sound()
+--
+--     If .internal.sound = 0 Then
+    if with0.internal.sound == 0 then
+--
+--       If currentChar() <> 0 Then
+      if currentChar() ~= 0 then
+
+--
+--         If currentChar() <> 32 Then
+        if currentChar() ~= 32 then
+--
+--           play_sample( llg( snd )[sound_texttemp], 25 )
+          ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:setVolume(.25)
+          ll_global.snd[sound_texttemp][with0.internal.opcount % 4]:play()
+--
+--           .internal.sound = -1
+          with0.internal.sound = -1
+--
+--         End If
+        end
+--
+--       End If
+      end
+--
+--     End If
+    end
+--
+--   #endmacro
+  end
 --       If .internal.hold_box <> 0 Then
   if with0.internal.hold_box ~= 0 then
 --
@@ -450,7 +445,7 @@ function blit_box(t_box)
       current_row(t_box)
 --
 --             text_sound()
-      text_sound(with0)
+      text_sound()
 --
 --             If .internal.opcount = Len( .ptrs.row[.internal.current_line] ) Then
       if with0.internal.opcount == #with0.ptrs.row[with0.internal.current_line] then
@@ -713,8 +708,13 @@ function blit_box(t_box)
 --           dim as integer destroySpace
       local destroySpace = 0
 --
+      local function seekChar(__x__)
+        local index = with0.internal.opcount + __x__
+        return with0.ptrs.row[with0.internal.current_line]:sub(index, index)
+      end
 --           do
       repeat
+--             #define seekChar(__x__) .ptrs.row[.internal.current_line][.internal.opcount + __x__]
 --
 --             if destroySpace + .internal.opcount = Len( .ptrs.row[.internal.current_line] ) then
         if destroySpace + with0.internal.opcount == #with0.ptrs.row[with0.internal.current_line] then
@@ -726,10 +726,10 @@ function blit_box(t_box)
         end
 --
 --             if( seekChar( destroySpace ) <> 0 ) then
-        if (seekChar(with0, destroySpace) ~= 0) then
+        if (seekChar(destroySpace) ~= 0) then
 --
 --               if( seekChar( destroySpace ) <> 32 ) then
-          if (seekChar(with0, destroySpace) ~= ' ') then
+          if (seekChar(destroySpace) ~= ' ') then
 --                 '' regular char, increment
 --                 exit do
             break
@@ -889,9 +889,6 @@ function blit_enemy(_enemy)
   --         '' cycle through active explosions
   --
   --         With .explosion( do_expl )
-        if with0.explosion[do_expl] == nil then
-          with0.explosion[do_expl] = create_mat_expl()
-        end
         local with1 = with0.explosion[do_expl]
   --
   --           px = .x
@@ -2545,6 +2542,7 @@ function minimap_Blit()
   end
 
   for i = 0, ll_global.map.rooms - 1 do
+    --if i ~= ll_global.this_room.i then goto continue end
     local with0 = ll_global.miniMap.room[i]
     if with0.hasVisited ~= 0 then
       if with0.floor == floor_Current then
@@ -2592,51 +2590,52 @@ function minimap_Blit()
         end
       end
     end
+    ::continue::
   end
 
-  for i = 0, ll_global.map.rooms - 1 do
-    local with0 = ll_global.miniMap.room[i]
-    local width = (ll_global.dungeonName == "Divius" and ll_global.miniMapFloor == -5 and i == 18) and 84 or ll_global.map.room[i].x
-    if with0.hasVisited ~= 0 then
-      if with0.floor == floor_Current then
-        roomX = gx + with0.location.x - ll_global.miniMap.camera.x
-        roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
-        if i == ll_global.this_room.i then
-          love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
-          rectfill(roomX + 1, roomY + 1, width - 2, ll_global.map.room[i].y - 2)
-          love.graphics.setColor(1, 1, 1, 1)
-          if shiftTimer == 0 then
-            index_Current = index_Current + 1
-            if index_Current == 10 then index_Current = 0 end
-            shiftTimer = timer + shiftDelay
-          end
-          if timer > shiftTimer then shiftTimer = 0 end
-        end
-      end
-    end
-  end
+  -- for i = 0, ll_global.map.rooms - 1 do
+  --   local with0 = ll_global.miniMap.room[i]
+  --   local width = (ll_global.dungeonName == "Divius" and ll_global.miniMapFloor == -5 and i == 18) and 84 or ll_global.map.room[i].x
+  --   if with0.hasVisited ~= 0 then
+  --     if with0.floor == floor_Current then
+  --       roomX = gx + with0.location.x - ll_global.miniMap.camera.x
+  --       roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
+  --       if i == ll_global.this_room.i then
+  --         love.graphics.setColor(color_Current[index_Current] / 255, 0, 0, 1.0)
+  --         rectfill(roomX + 1, roomY + 1, width - 2, ll_global.map.room[i].y - 2)
+  --         love.graphics.setColor(1, 1, 1, 1)
+  --         if shiftTimer == 0 then
+  --           index_Current = index_Current + 1
+  --           if index_Current == 10 then index_Current = 0 end
+  --           shiftTimer = timer + shiftDelay
+  --         end
+  --         if timer > shiftTimer then shiftTimer = 0 end
+  --       end
+  --     end
+  --   end
+  -- end
 
-  for i = 0, ll_global.map.rooms - 1 do
-    local with0 = ll_global.miniMap.room[i]
-    if with0.hasVisited ~= 0 then
-      if with0.floor == floor_Current then
-        roomX = gx + with0.location.x - ll_global.miniMap.camera.x
-        roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
-        for j = 0, with0.doors - 1 do
-          local with1 = with0.door[j]
-          doorX = with1.location.x + roomX
-          doorY = with1.location.y + roomY
-          if with1.codes == 0 then
-            if with1.id == DOOR_STAIR then
-              love.graphics.setColor(170 / 255, 0, 0, 1.0)
-              rectfill(doorX - 1, doorY - 1, 3, 3)
-              love.graphics.setColor(1, 1, 1, 1)
-            end
-          end
-        end
-      end
-    end
-  end
+  -- for i = 0, ll_global.map.rooms - 1 do
+  --   local with0 = ll_global.miniMap.room[i]
+  --   if with0.hasVisited ~= 0 then
+  --     if with0.floor == floor_Current then
+  --       roomX = gx + with0.location.x - ll_global.miniMap.camera.x
+  --       roomY = gy + with0.location.y + minimap_Offset - ll_global.miniMap.camera.y
+  --       for j = 0, with0.doors - 1 do
+  --         local with1 = with0.door[j]
+  --         doorX = with1.location.x + roomX
+  --         doorY = with1.location.y + roomY
+  --         if with1.codes == 0 then
+  --           if with1.id == DOOR_STAIR then
+  --             love.graphics.setColor(170 / 255, 0, 0, 1.0)
+  --             rectfill(doorX - 1, doorY - 1, 3, 3)
+  --             love.graphics.setColor(1, 1, 1, 1)
+  --           end
+  --         end
+  --       end
+  --     end
+  --   end
+  -- end
 --   View Screen( 0, 0 )-( 319, 199 )
 --
 --   graphicalString( "Floor dn: [", 8, 182 )

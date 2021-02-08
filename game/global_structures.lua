@@ -1,12 +1,11 @@
-shash = require("lib.shash.shash")
-require("game.constants")
-require("game.engine_enums")
-require("game.box_structures")
-require("game.image_structures")
-require("game.object_structures")
-require("game.lynn_structures")
-require("game.map_structures")
-require("game.sequence_structures")
+require("game/constants")
+require("game/engine_enums")
+require("game/box_structures")
+require("game/image_structures")
+require("game/object_structures")
+require("game/lynn_structures")
+require("game/map_structures")
+require("game/sequence_structures")
 
 function create_room_prop()
   local room_prop = {}
@@ -62,10 +61,6 @@ function create_ll_system()
   local ll_system = {}
   -- Type ll_system
   --
-  --NOTE: Spatial hash not part of original implementation.
-  ll_system.shash = shash.new(64)
-  --     save                 ( 3 )   As save_dat
-  ll_system.save = {[0] = create_save_dat(), create_save_dat(), create_save_dat(), create_save_dat()}
   --
   ll_system.sorted_objects = {}
   --
@@ -145,9 +140,6 @@ function create_ll_system()
   ll_system.map = create_map_type()
   --   hero As _char_type
   ll_system.hero = create_Object()
-  --NOTE: Introduced for situations where we need to pass in the hero
-  --with indirection to simulate the original code.
-  ll_system.hero_table = {[0] = ll_system.hero}
   --   hero_only As main_char_type
   ll_system.hero_only = create_main_char_type()
   --

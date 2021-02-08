@@ -1,4 +1,4 @@
-require("game.utils")
+require("game/utils")
 
 function LLObject_IgnoreDirectional(this)
 --   With *( this )

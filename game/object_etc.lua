@@ -1,5 +1,5 @@
-require("game.constants")
-require("game.macros")
+require("game/constants")
+require("game/macros")
 
 -- Function __do_proj( this As _char_type Ptr ) As Integer
 function __do_proj(this)
@@ -295,13 +295,13 @@ function __do_menu_continue(this)
 --
 --
 --     this->save( 0 ).link = LLSystem_ReadSaveFile( "ll_save1.sav" )
-    ll_global.save[0].link = LLSystem_ReadSaveFile("ll_save1.sav")
+    this.save[0].link = LLSystem_ReadSaveFile("ll_save1.sav")
 --     this->save( 1 ).link = LLSystem_ReadSaveFile( "ll_save2.sav" )
-    ll_global.save[1].link = LLSystem_ReadSaveFile("ll_save2.sav")
+    this.save[1].link = LLSystem_ReadSaveFile("ll_save2.sav")
 --     this->save( 2 ).link = LLSystem_ReadSaveFile( "ll_save3.sav" )
-    ll_global.save[2].link = LLSystem_ReadSaveFile("ll_save3.sav")
+    this.save[2].link = LLSystem_ReadSaveFile("ll_save3.sav")
 --     this->save( 3 ).link = LLSystem_ReadSaveFile( "ll_save4.sav" )
-    ll_global.save[3].link = LLSystem_ReadSaveFile("ll_save4.sav")
+    this.save[3].link = LLSystem_ReadSaveFile("ll_save4.sav")
 --
 --     this->read_lock = -1
     this.read_lock = -1
@@ -377,7 +377,7 @@ function __do_menu_continue(this)
   if input:pressed("action") then
 --
 --     If this->save( this->menu_sel ).link <> NULL Then
-    if ll_global.save[this.menu_sel].link ~= nil then
+    if this.save[this.menu_sel].link ~= nil then
 --
 --       llg( hero_only ).isLoading = TRUE
       ll_global.hero_only.isLoading = TRUE
@@ -458,13 +458,13 @@ function __do_menu_save(this)
 --
 --
 --     this->save( 0 ).link = LLSystem_ReadSaveFile( "ll_save1.sav" )
-    ll_global.save[0].link = LLSystem_ReadSaveFile("ll_save1.sav")
+    this.save[0].link = LLSystem_ReadSaveFile("ll_save1.sav")
 --     this->save( 1 ).link = LLSystem_ReadSaveFile( "ll_save2.sav" )
-    ll_global.save[1].link = LLSystem_ReadSaveFile("ll_save2.sav")
+    this.save[1].link = LLSystem_ReadSaveFile("ll_save2.sav")
 --     this->save( 2 ).link = LLSystem_ReadSaveFile( "ll_save3.sav" )
-    ll_global.save[2].link = LLSystem_ReadSaveFile("ll_save3.sav")
+    this.save[2].link = LLSystem_ReadSaveFile("ll_save3.sav")
 --     this->save( 3 ).link = LLSystem_ReadSaveFile( "ll_save4.sav" )
-    ll_global.save[3].link = LLSystem_ReadSaveFile("ll_save4.sav")
+    this.save[3].link = LLSystem_ReadSaveFile("ll_save4.sav")
 --
 --     this->read_lock = -1
     this.read_lock = -1
@@ -932,14 +932,14 @@ function __handle_menu(this)
 --
 --
 --               If .save( menu_sels ).link <> 0 Then
-      if ll_global.save[menu_sels].link ~= nil then
+      if with0.save[menu_sels].link ~= nil then
 --
 --                 Dim As Integer weap
         local weap = 0
 --
 --
 --                 weap = .save( menu_sels ).link->weapon Mod 3
-        weap = ll_global.save[menu_sels].link.weapon % 3
+        weap = with0.save[menu_sels].link.weapon % 3
 --                 If weap < 0 Then weap = 0
         if weap < 0 then weap = 0 end
 --
@@ -956,7 +956,7 @@ function __handle_menu(this)
         for put_h = 0, 5 do
 --
 --                       if .save( menu_sels ).link->hasItem( put_h ) then
-          if ll_global.save[menu_sels].link.hasItem[put_h] ~= 0 then
+          if with0.save[menu_sels].link.hasItem[put_h] ~= 0 then
 --                         Put( 57 + ( put_h * 16 ), ( menu_sels * 50 ) + 26 ), @llg( hud ).img(1)->image[ ( put_h + 1 ) * llg( hud ).img(1)->arraysize ], Trans
             draw(ll_global.hud.img[1].image, ll_global.hud.img[1].quads[put_h + 1], 57 + (put_h * 16), (menu_sels * 50) + 26)
 --
@@ -983,12 +983,12 @@ function __handle_menu(this)
           y_opt = (math.floor(p / 15) * 8) + 8
 --
 --                       If ( .save( menu_sels ).link->hp > p ) Then
-          if (ll_global.save[menu_sels].link.hp > p) then
+          if (with0.save[menu_sels].link.hp > p) then
 --                         Put( 49 + x_opt, y_opt + m_opt ), @llg( hud ).img(0)->image[0], Trans
             draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[0], 49 + x_opt, y_opt + m_opt)
 --
 --                       ElseIf (.save( menu_sels ).link->maxhp ) > p Then
-          elseif (ll_global.save[menu_sels].link.maxhp) > p then
+          elseif (with0.save[menu_sels].link.maxhp) > p then
 --                         Put( 49 + x_opt, y_opt + m_opt ), @llg( hud ).img(0)->image[34], Trans
             draw(ll_global.hud.img[0].image, ll_global.hud.img[0].quads[1], 49 + x_opt, y_opt + m_opt)
 --
@@ -1017,7 +1017,7 @@ function __handle_menu(this)
 --
 --                     mny = String(  3 - Len( Str( .save( menu_sels ).link->gold ) ), "0" )
 --                     mny += Str( .save( menu_sels ).link->gold )
-        mny = ""..ll_global.save[menu_sels].link.gold
+        mny = ""..with0.save[menu_sels].link.gold
         while #mny < 3 do
           mny = "0"..mny
         end
@@ -1076,8 +1076,6 @@ function __make_enemy(this)
 --     now_room().temp_enemy( now_room().temp_enemies ).coords.x = this->spawn_x + this->coords.x
     now_room().temp_enemy[now_room().temp_enemies].coords.x = this.spawn_x + this.coords.x
 --
-    local enemy = now_room().temp_enemy[now_room().temp_enemies]
-    ll_global.shash:add(enemy, enemy.coords.x, enemy.coords.y, enemy.perimeter.x, enemy.perimeter.y)
 --     now_room().temp_enemies += 1
     now_room().temp_enemies = now_room().temp_enemies + 1
 --
@@ -1794,7 +1792,7 @@ function __logosta_console(this)
 --   Dim As String gfxDump
   local gfxDump = ""
 --
-  draw = love.graphics.draw
+  drawing = true
   keybuffer = {}
 --   Do
   repeat

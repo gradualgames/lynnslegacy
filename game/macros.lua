@@ -1,5 +1,5 @@
-require("game.engine_etc")
-require("game.utils")
+require("game/engine_etc")
+require("game/utils")
 
 --#Define now_room() llg( map )->room[llg( this_room ).i]
 function now_room()
@@ -47,14 +47,6 @@ end
 -- #Define LLObject_isTouching(__CHR_X__,__CHR_Y__)                                                     _
 function LLObject_isTouching(__CHR_X__, __CHR_Y__)
 --                                                                                                      _
-  local vector1, vector2 = get_next_vector(), get_next_vector()
-  vector1.x = 1
-  vector1.y = 1
-  vector2.x = 2
-  vector2.y = 2
-  local vector_pair = get_next_vector_pair()
-  vector_pair.u = V2_Subtract(__CHR_Y__.coords, vector1)
-  vector_pair.v = V2_Add(__CHR_Y__.perimeter, vector2)
 --     (                                                                                                _
   return (
 --       check_bounds(                                                                                  _
@@ -63,8 +55,9 @@ function LLObject_isTouching(__CHR_X__, __CHR_Y__)
       LLObject_VectorPair(__CHR_X__),
 --                     Type <vector_pair> (                                                             _
 --                                          V2_Subtract( __CHR_Y__.coords,    Type <vector> ( 1, 1 ) ), _
-      vector_pair
+          {u = V2_Subtract(__CHR_Y__.coords, {x = 1, y = 1}),
 --                                          V2_Add     ( __CHR_Y__.perimeter, Type <vector> ( 2, 2 ) )  _
+           v = V2_Add(__CHR_Y__.perimeter, {x = 2, y = 2})}
 --                                        )                                                             _
 --                   )                                                                                  _
       )

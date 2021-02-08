@@ -1,6 +1,6 @@
-require("game.constants")
-require("game.map_structures")
-require("game.object_structures")
+require("game/constants")
+require("game/map_structures")
+require("game/object_structures")
 
 -- Function ctor_hero( l As char_type Ptr = 0 ) As char_type Ptr
 function ctor_hero(l)
@@ -1138,6 +1138,7 @@ function LLMiniMap_LoadMiniMap(fileName, rooms)
       with1.floor = readInt(ff)
 --
 --           Get #ff, , .doors
+      with1.doorsoffset = offset(ff)
       with1.doors = readInt(ff)
 --
 --           .door = CAllocate( .doors * Len( LL_MiniMapRoomDoorType ) )
@@ -1149,6 +1150,7 @@ function LLMiniMap_LoadMiniMap(fileName, rooms)
         with1.door[j] = create_LL_MiniMapRoomDoorType()
         local with2 = with1.door[j]
 --
+        with2.offset = offset(ff)
 --               Get #ff, , .location.x
         with2.location.x = readInt(ff)
 --               Get #ff, , .location.y

@@ -1,14 +1,14 @@
-require("lib.blob")
-require("game.audio")
-require("game.binary_objects")
-require("game.constants")
-require("game.engine_object")
-require("game.engine_object_damage")
-require("game.macros")
-require("game.object_boss")
-require("game.object_control")
-require("game.utils")
-require("game.utility")
+require("lib/blob")
+require("game/audio")
+require("game/binary_objects")
+require("game/constants")
+require("game/engine_object")
+require("game/engine_object_damage")
+require("game/macros")
+require("game/object_boss")
+require("game/object_control")
+require("game/utils")
+require("game/utility")
 
 -- Sub ll_main_entry()
 function ll_main_entry()
@@ -458,7 +458,6 @@ function set_up_room_enemies(enemies, enemy)
     -- Dim As Integer setup
     --
     --
-  ll_global.shash:clear()
     -- For setup = 0 To enemies - 1
   for setup = 0, enemies - 1 do
     --   '' cycle thru these enemies
@@ -590,7 +589,6 @@ function set_up_room_enemies(enemies, enemy)
     --
     --   #EndIf
     --
-    ll_global.shash:add(with0, with0.coords.x, with0.coords.y, with0.perimeter.x, with0.perimeter.y)
     -- Next
   end
 end
@@ -1126,19 +1124,13 @@ function hero_main()
   end
 --
 --     With llg( item_l_key )
-  if input:pressed("cycleleft") then
 --       bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
-    item_l_key_in_sub()
 --
 --     End With
-  end
 --     With llg( item_r_key )
-  if input:pressed("cycleright") then
 --       bin_obj( Type( MultiKey( .code ), .in_ptr, .out_ptr, .in_sub, .out_sub ) )
-    item_r_key_in_sub()
 --
 --     End With
-  end
 --
 --
 --     If llg( hero_only ).attacking <> 0 Then
@@ -3484,9 +3476,9 @@ function handle_pause_menu()
 --
 --             If MultiKey( sc_escape ) And ( end_Hold = 0 ) Then
             if input:pressed("pause") then
-              --NOTE: setting draw is for turning on drawing for the
+              --NOTE: drawing is our global flag for turning on drawing for the
               --current loop, not relevant to the original codebase.
-              draw = love.graphics.draw
+              drawing = true
 --               esc_Hold = -1
 --
 --
@@ -4575,7 +4567,6 @@ function act_enemies(_enemies, _enemy)
   --
   --   End With
   --
-    ll_global.shash:update(with0, with0.coords.x, with0.coords.y, with0.perimeter.x, with0.perimeter.y)
   -- Next
     ::continue::
   end
@@ -5329,58 +5320,111 @@ function check_walk(o, d, psfing)
 
 end
 
---NOTE: This function was rewritten to use a spatial hash
---library to iterate over all entities to check against. This hash is updated
---and added to by both the main enemies and temp enemies array.
 -- Function check_against_entities( d As Integer = 0, o As char_type Ptr ) As Integer' Static
 function check_against_entities(d, o)
   d = d or 0
-
+--
+--
+--   Dim As Integer cycle, relay
   local cycle, relay = 0, 0
+--
+--
+--   With now_room()
   local with0 = now_room()
-
+--
+--     If .enemies = 0 Then
   if with0.enemies == 0 then
+--       '' there are no objects to collide with in this room
+--       Return 0
     return 0
+--
+--     End If
   end
-
-  ll_global.shash:each(
-    o.coords.x - 1, o.coords.y - 1,
-    o.perimeter.x + 2, o.perimeter.y + 2,
-    function(enemy)
-      if o.num ~= enemy.num then
-        if relay == 0 then
-          relay = check_against(o, {[0] = enemy}, 0, d)
-        end
-      end
-    end)
-
-  if o.unique_id ~= u_lynn then
-    if ll_global.hero_only.attacking == 0 then
-      if relay == 0 then
-        relay = check_against(o, ll_global.hero_table, 0, d)
-      end
+--
+--     For cycle = 0 To .enemies - 1
+  for cycle = 0, with0.enemies - 1 do
+--       '' cycle thru enemies
+--
+--       If o->num <> .enemy[cycle].num Then
+    if o.num ~= with0.enemy[cycle].num then
+--         '' if this "o" isn't this enemy, then check it against this enemy
+--         relay = check_against( o, .enemy, cycle, d )
+      relay = check_against({[0] = o}, with0.enemy, cycle, d)
+--         If relay Then Return relay
+      if relay ~= 0 then return relay end
+--
+--       End If
     end
+--
+--     Next
   end
-
-  return relay
-end
-
---   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
-local function LLObject_Impassable(__THISCHAR__, __FACE__)
-  --NOTE: There had been a tenary operator here
-  --and the problem with how I ported iif is that it evaluates both
-  --arguments always, which causes a crash here if faces == 0. So we might
-  --have to look out for more bugs wherever iif is used for this reason. We
-  --may have to go back to Lua's ternary idiom directly.
-  if __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 then
-    return __THISCHAR__.impassable
-  else
-    return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
+--
+--
+--
+--     For cycle = 0 To .temp_enemies - 1
+  for cycle = 0, with0.temp_enemies - 1 do
+--       '' cycle through temp enemies
+--
+--       If o->num <> .temp_enemy( cycle ).num Then
+    if o.num ~= with0.temp_enemy[cycle].num then
+--         '' if this "o" isn't this temp enemy, then check it against this temp enemy
+--         relay = check_against( o, Varptr( .temp_enemy( 0 ) ), cycle, d )
+      relay = check_against({[0] = o}, with0.temp_enemy, cycle, d)
+--         If relay Then Return relay
+      if relay ~= 0 then return relay end
+--
+--       End If
+    end
+--
+--     Next
   end
+--
+--   End With
+--
+--
+--
+--   If o->unique_id <> u_lynn Then
+  if o.unique_id ~= u_lynn then
+--     '' if this "o" isn't lynn, check the "o" against her
+--
+--     If llg( hero_only ).attacking = 0 Then
+    if ll_global.hero_only.attacking == 0 then
+--       relay = check_against( o, Varptr( llg( hero ) ), 0, d )
+      relay = check_against({[0] = o}, {[0] = ll_global.hero}, 0, d)
+--       If relay Then Return relay
+      if relay ~= 0 then return relay end
+--
+--     End If
+    end
+--
+--   End If
+  end
+--
+--
+--
+  return 0
+-- End Function
 end
 
 -- Function check_against( o As char_type Ptr, othr As char_type Ptr, check As Integer, d As Integer ) Static
 function check_against(o, othr, check, d)
+--
+--
+--   #Define LLObject_Impassable(__THISCHAR__,__FACE__)          _
+  function LLObject_Impassable(__THISCHAR__, __FACE__)
+    --NOTE: There had been a tenary operator here
+    --and the problem with how I ported iif is that it evaluates both
+    --arguments always, which causes a crash here if faces == 0. So we might
+    --have to look out for more bugs wherever iif is used for this reason. We
+    --may have to go back to Lua's ternary idiom directly.
+    if __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].faces == 0 then
+      return __THISCHAR__.impassable
+    else
+      return __THISCHAR__.anim[__THISCHAR__.current_anim].frame[LLObject_CalculateFrame(__THISCHAR__)].face[__FACE__].impassable
+    end
+  end
+--
+--
 --   '' moving object to static object collision detection
 --
   --NOTE: Function = 0 sets return value to 0, but we just return 0
@@ -5433,7 +5477,7 @@ function check_against(o, othr, check, d)
   end
 --
 --   o->frame_check          = LLObject_CalculateFrame( o[0] )
-  o.frame_check = LLObject_CalculateFrame(o)
+  o[0].frame_check = LLObject_CalculateFrame(o[0])
 --   othr[check].frame_check = LLObject_CalculateFrame( othr[check] )
   othr[check].frame_check = LLObject_CalculateFrame(othr[check])
 --
@@ -5447,7 +5491,7 @@ function check_against(o, othr, check, d)
 --   End With
 
 --   With *( o )     :
-  with0 = o
+  with0 = o[0]
 --     With .anim[.current_anim]->frame[.frame_check]:
   with1 = with0.anim[with0.current_anim].frame[with0.frame_check]
 --       faces2 = IIf( .faces = 0, 0, .faces -1 ):
@@ -5462,13 +5506,13 @@ function check_against(o, othr, check, d)
     for check_fields2 = 0, faces2 do
 --
 --       m.u = V2_Add( o->coords, opty )
-      m.u = V2_Add(o.coords, opty)
+      m.u = V2_Add(o[0].coords, opty)
 --       n.u = othr[check].coords
       n.u.x = othr[check].coords.x
       n.u.y = othr[check].coords.y
 --
 --       calc_positions( o, m, check_fields2 )
-      calc_positions(o, m, check_fields2)
+      calc_positions(o[0], m, check_fields2)
 
 --       calc_positions( Varptr( othr[check] ), n, check_fields )
       calc_positions(othr[check], n, check_fields)
@@ -5485,7 +5529,7 @@ function check_against(o, othr, check, d)
 --             '' kill both!
 --
 --             o->hp = 0
-            o.hp = 0
+            o[0].hp = 0
 --             othr[check].hp = 0
             othr[check].hp = 0
 --
@@ -5501,11 +5545,11 @@ function check_against(o, othr, check, d)
         local impassable = 0
         if                                            (
                     --                                  ( LLObject_Impassable( o[0], check_fields2 ) = 0 ) And ( LLObject_Impassable( othr[check], check_fields ) = 0 )      _
-                                                        ( LLObject_Impassable( o, check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
+                                                        ( LLObject_Impassable( o[0], check_fields2) == 0 ) and ( LLObject_Impassable( othr[check], check_fields) == 0 )
                     --                                                                              Or                                                                       _
                                                                                                     or
                     --                                         ( ( o[0].dead ) Or ( othr[check].dead ) Or ( othr[check].unique_id = u_gold ) )                               _
-                                                               ( ( o.dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
+                                                               ( ( o[0].dead ~= 0 ) or ( othr[check].dead ~= 0 ) or (othr[check].unique_id == u_gold ) )
                     --                                ),                                                                                                                     _
                                                       ) then
           if                                                 (
@@ -5522,21 +5566,21 @@ function check_against(o, othr, check, d)
             impassable = 1
           end
         else
-          if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o.unique_id == u_godstat ) then
+          if (othr[check].unique_id == u_sparkle ) or (othr[check].unique_id == u_gbutton ) or (o[0].unique_id == u_godstat ) then
             impassable = 0
           else
             impassable = 1
           end
         end
 
-        if (( o.unique_id == u_dyssius ) or (o.unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
+        if (( o[0].unique_id == u_dyssius ) or (o[0].unique_id == u_steelstrider ) ) and (othr[check].unique_id == u_lynn ) then
           res = 1
         else
           if impassable ~= 0 then
             if othr[check].unstoppable_by_object ~= 0 then
               res = 0
             else
-              if o.unstoppable_by_object ~= 0 then
+              if o[0].unstoppable_by_object ~= 0 then
                 res = 0
               else
                 res = 1
@@ -5704,7 +5748,7 @@ function check_psf(o, d)
   for layercheck = 0, 2 do
 --
 --     Dim As tile_quad slider, chkr
-    local slider, chkr = get_next_tile_quad(), get_next_tile_quad()
+    local slider, chkr = create_tile_quad(), create_tile_quad()
 --     Dim As Integer crawl, x_opt, y_opt, po_quad, mi_quad, op_quad
     local crawl, x_opt, y_opt, po_quad, mi_quad, op_quad = 0, 0, 0, 0, 0, 0
 --
@@ -5966,7 +6010,7 @@ function quad_seek(t_in, d)
   end
 --
 --   Return Type <tile_quad> ( to_tile_x, to_tile_y, to_quad )
-  local result = get_next_tile_quad()
+  local result = create_tile_quad()
   result.x = to_tile_x
   result.y = to_tile_y
   result.quad = to_quad
@@ -6265,7 +6309,7 @@ function handle_MiniMap()
 --     If MultiKey( sc_m ) Then
     if input:pressed("map") then
 --
-      draw = love.graphics.draw
+      drawing = true
 --
 --       llg( miniMap ).camera.x = ( llg( miniMap ).room[llg( this_room ).i].location.x + ( now_room().x Shr 1 ) ) - 160
       ll_global.miniMap.camera.x = ll_global.miniMap.room[ll_global.this_room.i].location.x + bit.rshift(now_room().x, 1) - 160
@@ -6274,6 +6318,16 @@ function handle_MiniMap()
 --       llg( miniMapFloor ) = llg( miniMap ).room[llg( this_room ).i].floor
       ll_global.miniMapFloor = ll_global.miniMap.room[ll_global.this_room.i].floor
 --
+      log.debug("***")
+      local with0 = ll_global.miniMap.room[ll_global.this_room.i]
+      log.debug("doors offset: "..with0.doorsoffset)
+      for j = 0, with0.doors - 1 do
+        local with1 = with0.door[j]
+        log.debug("*")
+        log.debug("door offset: "..with1.offset)
+        log.debug("door x: "..with1.location.x)
+        log.debug("door y: "..with1.location.y)
+      end
 --       Do
       repeat
         input:update()
@@ -7292,7 +7346,7 @@ function sequence_ExitCondition(activeChar)
   if ll_global.hero_only.isLoading ~= 0 then
 --     '' Loading a saved game
 --     sequence_LoadGame( activeChar->save( activeChar->menu_sel ).link )
-    sequence_LoadGame(ll_global.save[activeChar.menu_sel].link)
+    sequence_LoadGame(activeChar.save[activeChar.menu_sel].link)
 --
 --     sequence_FullReset( *llg( seq ) )
     sequence_FullReset(ll_global.seq[ll_global.seqi])

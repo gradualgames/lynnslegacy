@@ -1,4 +1,4 @@
-require("game.constants")
+require("game/constants")
 
 -- Type songFading_type
 function create_songFading_type()

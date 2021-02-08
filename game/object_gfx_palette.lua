@@ -1,4 +1,4 @@
-require("game.palette")
+require("game/palette")
 
 -- Function __big_color_up ( this As _char_type Ptr ) As Integer
 function __big_color_up(this)

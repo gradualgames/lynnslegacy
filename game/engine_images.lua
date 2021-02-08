@@ -1,5 +1,5 @@
-require("lib.blob")
-require("game.image_structures")
+require("lib/blob")
+require("game/image_structures")
 
 --Loads a .spr spritesheet file. These are stored in FreeBASIC/QBasic
 --GET/PUT format. It starts with a 16 byte header stating the width and height
@@ -31,27 +31,28 @@ function LLSystem_ImageLoad(fileName, oc, rc)
     --loading raw binary data for the entire set of frames, we load it byte by
     --byte and convert to a monochrome red format, where the red component
     --represents the original pixel value / 255, to be used with our palette
-    --shader as a lookup into a 256x1 palette texture. Used in conjunction
-    --with our 256x1 palette texture loaded from the Lynn's Legacy palette file,
-    --and our palette_shader.fs, we can display images as though we were using
-    --SCREEN 13 like the old days. :)
-    local imageX, imageY = 0, 0
-    local imageData = love.image.newImageData(imageHeader.x * imageHeader.frames, imageHeader.y)
+    --shader as a lookup into a 256x1 palette texture. I intentionally use a
+    --very verbose name for what we're doing here to draw stark contrast with
+    --names that were integrated from the original codebase so there is less
+    --possibility for confusion.
+    local monochromeRedFrameImages = {}
     for frameIndex = 0, imageHeader.frames - 1 do
       --Create this frame.
-      local frameWidth = readShort(blob) / 8
-      local frameHeight = readShort(blob)
+      local monochromeRedFrameImage = {}
+      monochromeRedFrameImage.frameWidth = readShort(blob) / 8
+      monochromeRedFrameImage.frameHeight = readShort(blob)
+      monochromeRedFrameImage.pixels = {}
       local byteCount = 4
       --Copy the image data pixel by pixel, converting to our monochrome red format.
-      for y = 0, frameHeight - 1 do
-        for x = 0, frameWidth - 1 do
+      for y = 0, monochromeRedFrameImage.frameHeight - 1 do
+        for x = 0, monochromeRedFrameImage.frameWidth - 1 do
           local bt = readByte(blob)
           if bt == oc then
             bt = rc
           end
           local alpha = 1
           if bt == 0 then alpha = 0 end
-          imageData:setPixel(imageX + x, imageY + y, bt / 255, 0, 0, alpha)
+          table.insert(monochromeRedFrameImage.pixels, {x, y, bt / 255, 0, 0, alpha})
           byteCount = byteCount + 1
         end
       end
@@ -61,6 +62,22 @@ function LLSystem_ImageLoad(fileName, oc, rc)
       local arraySizeDiff = (imageHeader.arraysize * 2) - byteCount
       if arraySizeDiff > 0 then
         readStringL(blob, arraySizeDiff)
+      end
+      monochromeRedFrameImages[frameIndex] = monochromeRedFrameImage
+    end
+
+    --Here is where we generate the .image property of the image header. It is
+    --converted from the raw pixel data that was converted above into our monochrome
+    --red image format, into an actual displayable Love2D image. Used in conjunction
+    --with our 256x1 palette texture loaded from the Lynn's Legacy palette file,
+    --and our palette_shader.fs, we can display images as though we were using
+    --SCREEN 13 like the old days. :)
+    local imageX, imageY = 0, 0
+    local imageData = love.image.newImageData(imageHeader.x * imageHeader.frames, imageHeader.y)
+    for frameIndex = 0, imageHeader.frames - 1 do
+      local monochromeRedFrameImage = monochromeRedFrameImages[frameIndex]
+      for k, pixel in pairs(monochromeRedFrameImage.pixels) do
+        imageData:setPixel(imageX+pixel[1],imageY+pixel[2],pixel[3],pixel[4],pixel[5],pixel[6])
       end
       imageX = imageX + imageHeader.x
     end

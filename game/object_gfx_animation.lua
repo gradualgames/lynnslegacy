@@ -1,4 +1,4 @@
-require("game.object_gfx_frame")
+require("game/object_gfx_frame")
 
 function __active_animate(this)
   -- this->animating = 1

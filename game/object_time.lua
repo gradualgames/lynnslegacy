@@ -1,4 +1,4 @@
-require("game.utils")
+require("game/utils")
 
 -- Function __poll_action ( this As _char_type Ptr ) As Integer
 function __poll_action(this)
@@ -230,19 +230,6 @@ end
 function __second_pause(this)
   if this.pause == 0 then
     this.pause = timer + 1
-  end
-
-  if timer >= this.pause then
-    this.pause = 0
-    return 1
-  end
-
-  return 0
-end
-
-function __random_pause(this)
-  if this.pause == 0 then
-    this.pause = timer + .1 + math.random()
   end
 
   if timer >= this.pause then

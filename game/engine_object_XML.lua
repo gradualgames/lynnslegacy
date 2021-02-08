@@ -1,14 +1,14 @@
-require("game.engine_enums")
-require("game.object_boss")
-require("game.object_etc")
-require("game.object_time")
-require("game.object_gfx")
-require("game.object_gfx_animation")
-require("game.object_gfx_palette")
-require("game.object_move")
-require("game.object_sound")
-require("game.object_states")
-SLAXML = require('lib.SLAXML.slaxml')
+require("game/engine_enums")
+require("game/object_boss")
+require("game/object_etc")
+require("game/object_time")
+require("game/object_gfx")
+require("game/object_gfx_animation")
+require("game/object_gfx_palette")
+require("game/object_move")
+require("game/object_sound")
+require("game/object_states")
+SLAXML = require 'lib/SLAXML/slaxml'
 
 -- Loads objectLoad xml and sprite image files. Assumes objectLoad.id has at least
 -- been initialized with the relative path of an object xml file.

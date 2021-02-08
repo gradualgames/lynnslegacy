@@ -1,5 +1,5 @@
-require("game.engine_enums")
-require("game.utility")
+require("game/engine_enums")
+require("game/utility")
 
 -- Type LLObject_CollisionType
 function create_LLObject_CollisionType()
@@ -28,10 +28,8 @@ function out_proximity(this)
 --     End If
   end
 --
-  --NOTE: mat_int was removed. It is identical to vectors so we use our
-  --vector pool instead.
 --     Dim As mat_int hero_middle, this_middle, more
-  local hero_middle, this_middle, more = get_next_vector(), get_next_vector(), get_next_vector()
+  local hero_middle, this_middle, more = create_mat_int(), create_mat_int(), create_mat_int()
 --
 --     hero_middle.x = llg( hero ).coords.x + ( llg( hero ).perimeter.x Shr 1 )
   hero_middle.x = ll_global.hero.coords.x + bit.rshift(ll_global.hero.perimeter.x, 1)
@@ -209,10 +207,8 @@ function in_proximity(this)
 --   Dim As Integer shifty_gen
   local shifty_gen = 0
 --
-  --NOTE: mat_int was removed. It is identical to vectors so we use our
-  --vector pool instead.
 --   Dim As mat_int hero_middle, this_middle, more
-  local hero_middle, this_middle, more = get_next_vector(), get_next_vector(), get_next_vector()
+  local hero_middle, this_middle, more = create_mat_int(), create_mat_int(), create_mat_int()
 --
 --   With *this
   local with0 = this

@@ -1,4 +1,4 @@
-require("game.engine_enums")
+require("game/engine_enums")
 
 -- Function __up_face ( this As _char_type Ptr ) As Integer
 function __up_face(this)
@@ -137,7 +137,6 @@ function __make_dead(this)
   if (this.unique_id == u_pekkle_bomb) or (this.unique_id == u_kambot) then
 --
 --       play_sample( llg( snd )[sound_explosion], 80 )
-    ll_global.snd[sound_explosion]:setVolume(.8)
     ll_global.snd[sound_explosion]:play()
 --
 --       .coords.x -= 24

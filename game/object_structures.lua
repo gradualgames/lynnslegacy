@@ -1,4 +1,4 @@
-require("game.matrices")
+require("game/matrices")
 
 -- '' In this system, instead of having full
 -- '' structures and one elemnt of the structure unset if not active,
@@ -603,10 +603,8 @@ function init_object(object)
   --   '' Eliminate/change these.
   --   '' ==========================
   --
-  --NOTE: Removed the save property. There were four entries in this
-  --table and each one had around 4096 elements in them at least! And so for
-  --levels with hundreds of objects this was unbelievably wasteful! It now
-  --exists only in the global system object.
+  --     save                 ( 3 )   As save_dat
+  object.save = {[0] = create_save_dat(), create_save_dat(), create_save_dat(), create_save_dat()}
   --
   --     coords As Vector
   object.coords = create_vector()
@@ -703,6 +701,7 @@ function init_object(object)
   object.expl_y_size = 0
   --   explosion( 63 )       As mat_expl
   object.explosion = {}
+  for i = 0, 63 do object.explosion[i] = create_mat_expl() end
   --
   --
   --

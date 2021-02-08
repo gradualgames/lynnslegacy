@@ -377,9 +377,6 @@ function __explode(this)
   for do_expl = 0, this.cur_expl - 1 do
 --
 --
-    if this.explosion[do_expl] == nil then
-      this.explosion[do_expl] = create_mat_expl()
-    end
 --     If ( this->explosion( do_expl ).x = 0 ) And ( this->explosion( do_expl ).y = 0 ) Then
     if (this.explosion[do_expl].x == 0) and (this.explosion[do_expl].y == 0) then
 --
@@ -489,9 +486,6 @@ function __explode(this)
 --   For do_expl = 0 To this->explosions - 1
   for do_expl = 0, this.explosions - 1 do
 --
-    if this.explosion[do_expl] == nil then
-      this.explosion[do_expl] = create_mat_expl()
-    end
 --     ver = ver And ( this->explosion( do_expl ).alive = 0 )
     ver = bit.band(ver, ((this.explosion[do_expl].alive == 0) and -1 or 0))
 --
