@@ -5334,7 +5334,8 @@ end
 --and added to by both the main enemies and temp enemies array.
 -- Function check_against_entities( d As Integer = 0, o As char_type Ptr ) As Integer' Static
 function check_against_entities(d, o)
-  local d = d or 0
+  d = d or 0
+
   local cycle, relay = 0, 0
   local with0 = now_room()
 
