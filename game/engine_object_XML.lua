@@ -246,7 +246,11 @@ function LLSystem_ObjectFromXML(objectLoad)
           --objects until deep copies are performed from a cache. In this codebase,
           --we cache xml and re-load the xml any time a "deep copy" is made, so we
           --load the concurrent xml right here instead.
-          LLSystem_CopyNewObject(with0.concurrent[with0.concurrents - 1].char)
+          local char = with0.concurrent[with0.concurrents - 1].char
+          LLSystem_CopyNewObject(char)
+          ll_global.shash:add(char,
+            char.coords.x, char.coords.y,
+            char.perimeter.x, char.perimeter.y)  
         --
         -- End Select
         end
