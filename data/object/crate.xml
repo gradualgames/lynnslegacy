@@ -30,7 +30,6 @@
   <fp>
 
     <proc_id> hit_state </proc_id>
-    <func> do_flyback </func>
     <func> do_nothing </func>
 
   </fp>
@@ -48,4 +47,3 @@
 
 
 </crate>
-
