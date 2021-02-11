@@ -4194,23 +4194,32 @@ function act_enemies(_enemies, _enemy)
           end
   --
   --           If .unique_id = u_ferus Then
+          if with0.unique_id == u_ferus then
   --
   --             if .radius = 0 then
+            if with0.radius == 0 then
   --               .radius = Timer + 3 + ( Rnd * 3 )
+              with0.radius = timer + 3 + (math.random() * 3)
   --
   --             end if
+            end
   --
   --             If Timer > .radius Then
+            if timer > with0.radius then
   --
   --               .radius = 0
+              with0.radius = 0
   --               __trigger_projectile( Varptr( _enemy[do_stuff] ) )
+              __trigger_projectile(_enemy[do_stuff])
   --
   --
   --             End If
+            end
   --
   --
   --
   --           End If
+          end
   --
   --
   --           If .pushable <> 0 Then
