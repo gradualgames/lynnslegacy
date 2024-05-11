@@ -156,7 +156,7 @@ end
 
 function initTimer()
   timer = love.timer.getTime()
-  if love.window.getVSync() == 1 then
+  if love.window.getVSync() ~= 0 then
     loops = 16
     timerUpdate =
       function()
