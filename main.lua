@@ -89,7 +89,12 @@ function main()
   repeat
     --prof.enabled(true)
     --prof.push("frame")
-    for u = 1, loops do
+    local currentTime = love.timer.getTime()
+    local loops = 0
+    function loop() return timer < currentTime and loops < 20 end
+    local yesLoop = true
+    while yesLoop do
+      yesLoop = loop()
       reset_vector_pool()
       reset_vector_pair_pool()
       reset_tile_quad_pool()
@@ -107,9 +112,10 @@ function main()
       play_sequence(ll_global)
       --prof.pop("play_sequence")
       --prof.push("blit_scene")
-      draw = u == loops and love.graphics.draw or noop
+      draw = yesLoop and noop or love.graphics.draw
       blit_scene()
       --prof.pop("blit_scene")
+      loops = loops + 1
     end
     --prof.pop("frame")
     --prof.enabled(false)
@@ -156,21 +162,8 @@ end
 
 function initTimer()
   timer = love.timer.getTime()
-  if love.window.getVSync() ~= 0 then
-    loops = 16
-    timerUpdate =
-      function()
-        width, height, flags = love.window.getMode()
-        if refreshrate ~= flags.refreshrate then
-          refreshrate = flags.refreshrate
-          timerInc = 1 / (loops * flags.refreshrate)
-        end
-        timer = timer + timerInc
-      end
-  else
-    loops = 4
-    timerUpdate = function() timer = love.timer.getTime() end
-  end
+  timerInc = .001
+  timerUpdate = function() timer = timer + timerInc end
 end
 
 --Initializes our global palette, paletteCanvas and
