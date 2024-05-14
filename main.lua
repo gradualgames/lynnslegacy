@@ -18,7 +18,6 @@ function love.load()
   initScale()
   initPaletteShader()
   initDraw()
-  initTimer()
   initCache()
   initInput()
   init_vector_pool()
@@ -86,21 +85,23 @@ function init_main()
 end
 
 function main()
+  timer = love.timer.getTime()  
+  local timerInc = .001
+  local maxLoops = 20
   repeat
     --prof.enabled(true)
     --prof.push("frame")
     local currentTime = love.timer.getTime()
+    local loop = true    
     local loops = 0
-    function loop() return timer < currentTime and loops < 20 end
-    local yesLoop = true
-    while yesLoop do
-      yesLoop = loop()
+    while loop do
+      loop = timer < currentTime and loops < maxLoops
       reset_vector_pool()
       reset_vector_pair_pool()
       reset_tile_quad_pool()
       reset_quad_pool()
       input:update()
-      timerUpdate()
+      timer = timer + timerInc
       --timer = timer + .005
       --prof.push("enemy_main")
       enemy_main()
@@ -112,7 +113,7 @@ function main()
       play_sequence(ll_global)
       --prof.pop("play_sequence")
       --prof.push("blit_scene")
-      draw = yesLoop and noop or love.graphics.draw
+      draw = loop and noop or love.graphics.draw
       blit_scene()
       --prof.pop("blit_scene")
       loops = loops + 1
@@ -158,12 +159,6 @@ function initScale()
   end
   scaleOption = 1
   scaleOptions[scaleOption]()
-end
-
-function initTimer()
-  timer = love.timer.getTime()
-  timerInc = .001
-  timerUpdate = function() timer = timer + timerInc end
 end
 
 --Initializes our global palette, paletteCanvas and
